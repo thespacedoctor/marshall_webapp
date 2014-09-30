@@ -1,0 +1,10 @@
+@import "screen";
+@import "dryxScss";
+@import "marshallScss";
+
+@mixin marshall_main_css {
+    @include dryxScss;
+    @include marshallScss;
+}
+
+@include marshall_main_css;
