@@ -22,6 +22,8 @@ _ignore_*
 /*.egg-info
 /*.egg
 
+marshall_webapp/static/caches/*
+
 README.rst
 
 ## Apache logs
