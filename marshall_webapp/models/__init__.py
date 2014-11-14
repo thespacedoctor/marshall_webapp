@@ -1,6 +1,5 @@
 import transients
-import transientComments
+import transient_comments
 import actions
 import transientLightcurves
-
 import transients_ob

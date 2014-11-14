@@ -19,7 +19,6 @@ models_transients_ob_get.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this models_transients_ob_get.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -37,15 +36,11 @@ class models_transients_ob_get():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
+        - ``search`` -- is this a search query?
 
     **Todo**
-        - @review: when complete, clean models_transients_ob_get class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -67,15 +62,7 @@ class models_transients_ob_get():
             "grism": 13,
             "badSeeing": False
         }
-        # xt-self-arg-tmpx
-
-        log.debug("instansiating a new 'models_transients_ob_get' object")
-
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
+        self.log.debug("instansiating a new 'models_transients_ob_get' object")
 
         # Initial Actions
         self._set_default_parameters()
@@ -87,7 +74,6 @@ class models_transients_ob_get():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
         """execute the get method on the models_transients_ob_get object
@@ -96,8 +82,6 @@ class models_transients_ob_get():
             - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
 
@@ -118,8 +102,6 @@ class models_transients_ob_get():
             - None
 
         **Todo**
-            - @review: when complete, clean _set_default_parameters method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_set_default_parameters`` method')
 
@@ -135,21 +117,20 @@ class models_transients_ob_get():
         """ get transient info
 
         **Key Arguments:**
-            # -
+            -
 
         **Return:**
             - None
 
         **Todo**
-            - @review: when complete, clean _get_transient_info method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_transient_info`` method')
 
         elementId = self.elementId
 
+        # query database for the info needed
         sqlQuery = u"""
-            select * from transientBucketSummaries where transientBucketId = %(elementId)s 
+            select raDeg, decDeg, masterName from transientBucketSummaries where transientBucketId = %(elementId)s 
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
@@ -174,6 +155,3 @@ class models_transients_ob_get():
     # use the tab-trigger below for new method
     # xt-class-method
 
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

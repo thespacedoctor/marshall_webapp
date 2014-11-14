@@ -1,8 +1,7 @@
 import views_transients
 import views_stats
 import views_calendars
-import views_transientComments
+import views_transient_comments
 import views_actions_refresh_sidebar_list_counts
 import views_transientLightcurves
 import views_transients_ob
-

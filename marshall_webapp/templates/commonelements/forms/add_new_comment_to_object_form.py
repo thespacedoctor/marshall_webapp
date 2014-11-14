@@ -105,7 +105,8 @@ def add_new_comment_to_object_form(
 
     prefix = request.registry.settings["apache prefix"]
 
-    href = request.route_path('transientComments')
+    href = request.route_path(
+        'transients_element_comments', elementId=transientBucketId, _query={'method': 'post'})
     newCommentForm = khufu.form(
         # list of control groups
         content="""%(commentCG)s""" % locals(),

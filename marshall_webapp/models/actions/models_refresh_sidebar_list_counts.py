@@ -19,7 +19,6 @@ models_refresh_sidebar_list_counts.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this models_refresh_sidebar_list_counts.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -38,13 +37,8 @@ class models_refresh_sidebar_list_counts():
         - ``elementId`` -- the specific element id requests (or False)
 
     **Todo**
-        - @review: when complete, clean models_refresh_sidebar_list_counts class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -60,12 +54,6 @@ class models_refresh_sidebar_list_counts():
         log.debug(
             "instansiating a new 'models_refresh_sidebar_list_counts' object")
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
         # Initial Actions
 
         return None
@@ -74,7 +62,6 @@ class models_refresh_sidebar_list_counts():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def put(self):
         """execute the put method on the models_refresh_sidebar_list_counts object
@@ -83,37 +70,40 @@ class models_refresh_sidebar_list_counts():
             - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
-            - @review: when complete, clean put method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``put`` method')
 
+        # all marshall workflow list titles
         marshallWorkflowLists = ["inbox", "archive", "following", "pending observation",
                                  "followup complete", "review for followup", "pending classification"]
+
+        # count objects in each list and update the `meta_workflow_lists_counts`
+        # table
         for thisList in marshallWorkflowLists:
             sqlListName = thisList.replace(" ", "_")
             sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects where marshallWorkflowLocation="%(thisList)s") where listname = "%(thisList)s" """ % locals(
             )
             self.request.db.execute(sqlQuery)
 
+        # content for response
         responseContent = "updated `marshallWorkflowLocations` in `meta_workflow_lists_counts` table"
 
+        # all alert workflow list titles
         alertWorkflowLists = [
             "external alert released", "pessto classification released", "archived without alert", "queued for atel"]
 
+        # count objects in each list and update the `meta_workflow_lists_counts`
+        # table
         for thisList in alertWorkflowLists:
             sqlListName = thisList.replace(" ", "_")
             sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects where alertWorkflowLocation="%(thisList)s") where listname = "%(thisList)s" """ % locals(
             )
             self.request.db.execute(sqlQuery)
 
+        # content for response
         responseContent += "<BR>updated `alertWorkflowLocation` in `meta_workflow_lists_counts` table"
 
         self.log.info('completed the ``put`` method')
         return responseContent
 
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

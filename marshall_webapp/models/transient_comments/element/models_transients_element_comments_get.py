@@ -1,16 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_transientComments.py
-==============================
+models_transients_element_comments_get.py
+=======================================
 :Summary:
-    The HTML template module for the `templates_transientComments.py` resource
+    The HTML template module for the `models_transients_element_comments_get.py` resource
 
 :Author:
     David Young
 
 :Date Created:
-    October 9, 2014
+    ddate
 
 :dryx syntax:
     - ``_someObject`` = a 'private' object that should only be changed for debugging
@@ -19,27 +19,26 @@ templates_transientComments.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this `templates_transientComments.py` module
+    @review: when complete review and cleanup this models_transients_element_comments_get.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from ...models.transientComments import models_transientComments_get
-from ...models.transientComments.element import models_transientComments_element_get
 
 
-class templates_transientComments():
+class models_transients_element_comments_get():
 
     """
-    The worker class for the templates_transientComments module
+    The worker class for the models_transients_element_comments_get module
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
+        - ``elementId`` -- the specific element id requests (or False)
 
     **Todo**
-        - @review: when complete, clean templates_transientComments class
+        - @review: when complete, clean models_transients_element_comments_get class
         - @review: when complete add logging
         - @review: when complete, decide whether to abstract class to another module
     """
@@ -58,7 +57,8 @@ class templates_transientComments():
         self.elementId = elementId
         # xt-self-arg-tmpx
 
-        log.debug("instansiating a new 'templates_transientComments' object")
+        log.debug(
+            "instansiating a new 'models_transients_element_comments_get' object")
 
         # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
         # Variable Data Atrributes
@@ -77,10 +77,10 @@ class templates_transientComments():
     # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
-        """get the templates_transientComments object
+        """execute the get method on the models_transients_element_comments_get object
 
         **Return:**
-            - ``responseContent`` -- the response
+            - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
             - @review: when complete, clean get method
@@ -88,17 +88,19 @@ class templates_transientComments():
         """
         self.log.info('starting the ``get`` method')
 
-        templates_transientComments = None
+        elementId = self.elementId
 
-        transientComments = models_transientComments_get(
-            log=self.log,
-            request=self.request,
-            elementId=self.elementId
-        )
-        responseContent = transientComments.get()
+        responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
+        if elementId:
+            responseContent = "%(responseContent)sThe element selected was </code>%(elementId)s</code>" % locals(
+            )
+        else:
+            responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
+            )
 
         self.log.info('completed the ``get`` method')
         return responseContent
+
     # xt-class-method
 
     # 5. @flagged: what actions of the base class(es) need ammending? ammend them here

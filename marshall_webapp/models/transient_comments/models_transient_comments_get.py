@@ -1,16 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transientComments_element_get.py
-=======================================
+models_transient_comments_get.py
+===============================
 :Summary:
-    The HTML template module for the `models_transientComments_element_get.py` resource
+    The HTML template module for the `models_transient_comments_get.py` resource
 
 :Author:
     David Young
 
 :Date Created:
-    ddate
+    October 9, 2014
 
 :dryx syntax:
     - ``_someObject`` = a 'private' object that should only be changed for debugging
@@ -19,7 +19,6 @@ models_transientComments_element_get.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this models_transientComments_element_get.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -27,10 +26,10 @@ import os
 import khufu
 
 
-class models_transientComments_element_get():
+class models_transient_comments_get():
 
     """
-    The worker class for the models_transientComments_element_get module
+    The worker class for the models_transient_comments_get module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -38,13 +37,8 @@ class models_transientComments_element_get():
         - ``elementId`` -- the specific element id requests (or False)
 
     **Todo**
-        - @review: when complete, clean models_transientComments_element_get class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -57,14 +51,7 @@ class models_transientComments_element_get():
         self.elementId = elementId
         # xt-self-arg-tmpx
 
-        log.debug(
-            "instansiating a new 'models_transientComments_element_get' object")
-
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
+        log.debug("instansiating a new 'models_transient_comments_get' object")
 
         # Initial Actions
 
@@ -74,20 +61,16 @@ class models_transientComments_element_get():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
-        """execute the get method on the models_transientComments_element_get object
+        """execute the get method on the models_transient_comments_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
-
         elementId = self.elementId
 
         responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
@@ -102,8 +85,3 @@ class models_transientComments_element_get():
         return responseContent
 
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx
-

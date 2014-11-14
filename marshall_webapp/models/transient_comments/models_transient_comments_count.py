@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transientComments_count.py
+models_transient_comments_count.py
 =================================
 :Summary:
-    The HTML template module for the `models_transientComments_count.py` resource
+    The HTML template module for the `models_transient_comments_count.py` resource
 
 :Author:
     David Young
@@ -19,7 +19,6 @@ models_transientComments_count.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this models_transientComments_count.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -27,10 +26,10 @@ import os
 import khufu
 
 
-class models_transientComments_count():
+class models_transient_comments_count():
 
     """
-    The worker class for the models_transientComments_count module
+    The worker class for the models_transient_comments_count module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -38,13 +37,8 @@ class models_transientComments_count():
         - ``elementId`` -- the specific element id requests (or False)
 
     **Todo**
-        - @review: when complete, clean models_transientComments_count class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -57,13 +51,8 @@ class models_transientComments_count():
         self.elementId = elementId
         # xt-self-arg-tmpx
 
-        log.debug("instansiating a new 'models_transientComments_count' object")
-
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
+        log.debug(
+            "instansiating a new 'models_transient_comments_count' object")
 
         # Initial Actions
 
@@ -73,20 +62,18 @@ class models_transientComments_count():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def count(self):
-        """execute the count method on the models_transientComments_count object
+        """execute the count method on the models_transient_comments_count object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
-            - @review: when complete, clean count method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``count`` method')
 
+        # the transientBucketId
         elementId = self.elementId
 
         responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
@@ -101,8 +88,3 @@ class models_transientComments_count():
         return responseContent
 
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx
-

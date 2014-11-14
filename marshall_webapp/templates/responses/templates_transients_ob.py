@@ -19,7 +19,6 @@ templates_transients_ob.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this `templates_transients_ob.py` module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -39,13 +38,8 @@ class templates_transients_ob():
         - ``elementId`` -- the specific element requested (or False)
 
     **Todo**
-        - @review: when complete, clean templates_transients_ob class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -60,12 +54,6 @@ class templates_transients_ob():
 
         log.debug("instansiating a new 'templates_transients_ob' object")
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
         # Initial Actions
 
         return None
@@ -74,7 +62,6 @@ class templates_transients_ob():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
         """get the templates_transients_ob object
@@ -83,13 +70,10 @@ class templates_transients_ob():
             - ``responseContent`` -- the response
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
 
-        templates_transients_ob = None
-
+        # get info needed from database
         transients_ob = models_transients_ob_get(
             log=self.log,
             request=self.request,
@@ -97,6 +81,7 @@ class templates_transients_ob():
         )
         transient_ob_data = transients_ob.get()
 
+        # download filename and data for OB
         filename, obText = self._generate_ob_text(
             transient_ob_data=transient_ob_data
         )
@@ -116,8 +101,6 @@ class templates_transients_ob():
             - None
 
         **Todo**
-            - @review: when complete, clean _generate_ob_text method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_generate_ob_text`` method')
 
@@ -402,7 +385,3 @@ class templates_transients_ob():
 
     # use the tab-trigger below for new method
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

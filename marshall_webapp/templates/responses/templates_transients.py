@@ -76,7 +76,7 @@ class templates_transients():
             elementId=self.elementId,
             search=self.search
         )
-        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transientComments, self.totalTicketCount = transientModal.get(
+        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transient_comments, self.totalTicketCount = transientModal.get(
         )
 
         return None
@@ -147,7 +147,7 @@ class templates_transients():
                 log=self.log,
                 request=self.request,
                 discoveryDataDictionary=discoveryDataDictionary,
-                objectComments=self.transientComments,
+                objectComments=self.transient_comments,
                 objectAkas=self.transientAkas,
                 lightcurveData=self.transientLightcurveData,
                 atelData=self.transientAtelMatches,

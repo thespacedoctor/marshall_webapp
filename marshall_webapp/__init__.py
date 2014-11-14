@@ -31,9 +31,9 @@ def main(global_config, **settings):
     # config.include('pyramid_chameleon')
 
     # The Routes -- add_route(name, pattern)
-    config.add_route('transientComments', '/transientComments')
+    config.add_route('transient_comments', '/transient/comments')
     config.add_route(
-        'transientComments_element', '/transientComments/{elementId}')
+        'transients_element_comments', '/transients/{elementId}/comments')
     config.add_route('transients', '/transients')
     config.add_route(
         'transients_search', '/transients/search')
@@ -99,4 +99,3 @@ def main(global_config, **settings):
 import views
 import templates
 import models
-

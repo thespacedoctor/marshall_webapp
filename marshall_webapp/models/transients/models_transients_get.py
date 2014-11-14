@@ -102,7 +102,7 @@ class models_transients_get():
         self.transientAkas = self._get_associated_transient_aka()
         self.transientLightcurveData = self._get_associated_lightcurve_data()
         self.transientAtelMatches = self._get_associated_atel_data()
-        self.transientComments = self._get_associated_comments()
+        self.transient_comments = self._get_associated_comments()
 
         self.log.info('completed the ``get`` method')
 
@@ -113,7 +113,7 @@ class models_transients_get():
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transientComments, self.totalTicketCount
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transient_comments, self.totalTicketCount
 
     def _get_transient_data_from_database(
             self):
