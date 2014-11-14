@@ -86,15 +86,18 @@ def host_info_block(
         )
         contextStamp = "/static/caches/transients/%s/sdss_stamp.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
+        stampName = "%(masterName)s_sdss_context_image" % locals()
     elif discoveryDataDictionary["ogle_color_context_stamp"] == 1:
         contextStamp = "/static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
         )
         ogleStamp = "OGLE context stamp"
+        stampName = "%(masterName)s_ogle_context_image" % locals()
     elif discoveryDataDictionary["sdss_coverage"] == 0:
         contextStamp = 'holder.js/500x500/auto/industrial/text:not in sdss footprint'
+        stampName = False
     else:
         contextStamp = 'holder.js/500x500/auto/industrial/text:sdss stamp not ready yet'
-
+        stampName = False
     sdssUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
     )
 
@@ -143,6 +146,13 @@ def host_info_block(
         content='sdss dr10 location',
         href=sdssUrl,
     )
+
+    if stampName:
+        href = request.route_path(
+            'download', _query={'url': contextStamp, "webapp": "marshall_webapp", "filename": stampName})
+    else:
+        href = False
+
     imageModal = khufu.imagingModal(
         log=log,
         imagePath=contextStamp,
@@ -151,7 +161,7 @@ def host_info_block(
         modalFooterContent=sdssLink,
         stampWidth=180,
         modalImageWidth=400,
-        downloadFilename="%(masterName)s_sdss_context_image.jpeg" % locals())
+        downloadLink=href)
     imageModal = imageModal.get()
 
     redshift = ""

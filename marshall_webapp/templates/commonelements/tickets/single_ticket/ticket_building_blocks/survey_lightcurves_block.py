@@ -133,12 +133,19 @@ def survey_lightcurves_block(
         survey = tinyDict["survey"].upper()
         masterName = discoveryDataDictionary["masterName"]
         filename = tinyDict["filename"]
-        filename = """%(masterName)s_%(filename)s""" % locals()
+        filename = """%(masterName)s_%(survey)s_lightcurve""" % locals()
 
         imageSource = khufu.a(
             content='lightcurve source',
             href=tinyDict["url"],
         )
+        print tinyDict["lc"]
+
+        href = request.route_path(
+            'download', _query={'url': tinyDict["lc"], "webapp": "marshall_webapp", "filename": filename})
+
+        log.debug("""image download link: `%(href)s`""" % locals())
+
         imageModal = khufu.imagingModal(
             log=log,
             imagePath=tinyDict["lc"],
@@ -148,7 +155,7 @@ def survey_lightcurves_block(
             modalFooterContent=imageSource,
             stampWidth=180,
             modalImageWidth=400,
-            downloadFilename=filename)
+            downloadLink=href)
         imageModal = imageModal.get()
 
         surveyLightcurves = "%(surveyLightcurves)s%(link)s%(imageModal)s" % locals(

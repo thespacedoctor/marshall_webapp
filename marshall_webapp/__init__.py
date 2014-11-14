@@ -47,7 +47,7 @@ def main(global_config, **settings):
 
     config.add_route(
         'transientLightcurves', '/transients/{elementId}/lightcurve')
-    config.add_route('downloads', '/downloads')
+    config.add_route('download', '/download')
     # --- end of routes --- #
     # xpyr-add-route
 

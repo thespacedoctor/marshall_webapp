@@ -317,7 +317,7 @@ def photometry_footer_bar(
         )
         filename = "%(name)s_lsq_lightcurve" % locals()
         href = request.route_path(
-            'downloads', _query={'url': thisImage, "webapp": "marshall_webapp", "filename": filename})
+            'download', _query={'url': thisImage, "webapp": "marshall_webapp", "filename": filename})
 
         link = khufu.a(
             content="lsq image",

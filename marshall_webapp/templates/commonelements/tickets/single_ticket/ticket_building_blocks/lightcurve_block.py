@@ -109,6 +109,8 @@ def lightcurve_block(
         )
 
     if len(lightCurveImage):
+        href = request.route_path(
+            'download', _query={'url': lightCurveImage, "webapp": "marshall_webapp", "filename": "%(masterName)s_master_lightcurve" % locals()})
         lightCurveImage = khufu.imagingModal(
             log=log,
             imagePath=lightCurveImage,
@@ -117,7 +119,7 @@ def lightcurve_block(
             modalFooterContent="",
             stampWidth=180,
             modalImageWidth=400,
-            downloadFilename="%(masterName)s_master_lightcurve.png" % locals())
+            downloadLink=href)
         lightCurveImage = lightCurveImage.get()
 
     else:

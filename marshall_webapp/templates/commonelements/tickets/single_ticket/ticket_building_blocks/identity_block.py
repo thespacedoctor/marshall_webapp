@@ -209,6 +209,11 @@ def identity_block(
     if "stampName" not in locals():
         src = 'holder.js/400x400/auto/industrial/text:no stamp'
         stampName = "no_stamp"
+
+    objectName = discoveryDataDictionary["masterName"]
+    href = request.route_path(
+        'download', _query={'url': src, "webapp": "marshall_webapp", "filename": "%(objectName)s_image_stamp" % locals()})
+
     objectStamp = khufu.imagingModal(
         log=log,
         imagePath=src,
@@ -216,8 +221,8 @@ def identity_block(
         modalHeaderContent="Image Stamp for %(masterNameLink)s from %(survey)s" % locals(
         ),
         modalFooterContent=imageSource,
-        downloadFilename="%(name)s_%(stampName)s" % locals(
-        ))
+        downloadLink=href
+    )
     objectStamp = objectStamp.get()
 
     # AKA NAMES
