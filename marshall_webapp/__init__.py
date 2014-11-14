@@ -48,6 +48,7 @@ def main(global_config, **settings):
     config.add_route(
         'transientLightcurves', '/transients/{elementId}/lightcurve')
     config.add_route('download', '/download')
+    config.add_route('transients_ob_element', '/transients/{elementId}/ob')
     # --- end of routes --- #
     # xpyr-add-route
 
@@ -90,9 +91,12 @@ def main(global_config, **settings):
     config.add_renderer('csv', dryxPyramid.renderers.renderer_csv)
     config.add_renderer(
         'plain_table', dryxPyramid.renderers.renderer_plain_table)
+    config.add_renderer(
+        'plain_text', dryxPyramid.renderers.renderer_plain_text)
 
     return config.make_wsgi_app()
 
 import views
 import templates
 import models
+

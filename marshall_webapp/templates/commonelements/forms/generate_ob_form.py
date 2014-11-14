@@ -16,18 +16,16 @@ generate_ob_form.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+from datetime import datetime, date, time
 from docopt import docopt
 from dryxPython import commonutils as dcu
+import khufu
+import dryxPython.astrotools as dat
 from ..tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -51,113 +49,145 @@ def generate_ob_form(
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
         - ``lightcurveData`` -- lightcurve data
+        - ``objectAkas`` -- akas for this object
 
     **Return:**
-        - ``generateOBForm``
+        - ``modalForm``, ``thisButton`` -- the modal form and the button used to trigger the modal
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.astrotools as dat
-
-    from datetime import datetime, date, time
-    now = datetime.now()
-    now = now.strftime("%Y-%m-%d")
-
     # Header Text
+    masterName = discoveryDataDictionary["masterName"]
     if discoveryDataDictionary["classifiedFlag"] == 0:
-        headerText = "Generate Classification OB for %(masterName)s" % discoveryDataDictionary
-
-    # generate lightcurve info
-    lightcurve_block = lcb(
-        log=log,
-        request=request,
-        discoveryDataDictionary=discoveryDataDictionary,
-        lightcurveData=lightcurveData,
-        objectAkas=objectAkas,
-        displayTitle=False,
-        offset=0
-    )
-
-    if "/static/caches/transients" not in lightcurve_block:
-        formSpan = 6
-        lcSpan = 6
+        headerText = "Generate Classification OB for %(masterName)s" % locals()
     else:
-        formSpan = 5
-        lcSpan = 7
-    lightcurve_block = khufu.grid_column(
-        span=lcSpan,  # 1-12
-        offset=0,  # 1-12
-        content=lightcurve_block,
-        pull=False,  # ["right", "left", "center"]
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
+        headerText = "Generate Followup OB for %(masterName)s" % locals()
+
+    # Get Lightcurve Image URL
+    lightCurveImage = ""
+    if discoveryDataDictionary["master_pessto_lightcurve"]:
+        lightCurveImage = '/static/caches/transients/%s/master_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],)
+    # Override for LSQ lightcurves
+    lsqname = False
+    lightcurveSwitchAttempt = True
+    for row in lightcurveData:
+        if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq-disc" in row["survey"].lower():
+            lightcurveSwitchAttempt = False
+    if lightcurveSwitchAttempt == True:
+        if "lsq" in masterName.lower():
+            lsqname = masterName
+        else:
+            for aka in objectAkas:
+                if aka["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq" in aka["name"].lower():
+                    lsqname = aka["name"]
+                    break
+    if lsqname:
+        transientBucketId = discoveryDataDictionary["transientBucketId"]
+        lightCurveImage = '/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        )
+    if not len(lightCurveImage):
+        lightCurveImage = khufu.image(
+            # [ industrial | gray | social ]
+            src="""holder.js/190x190/auto/industrial/text:master lightcurve not ready""",
+            display="polaroid",  # [ rounded | circle | polaroid | False ]
+        )
+
+    # Convert Lightcurve into image
+    lightCurveImage = khufu.image(
+        src=lightCurveImage,  # [ industrial | gray | social ]
+        pull=False,  # [ "left" | "right" | "center" | False ]
+        width=400
     )
 
-    seeingCG = khufu.checkbox(
-        optionText='seeing > 1.5 arcsec',
-        inline=True,
-        htmlId="badSeeing",
-        optionNumber=1,
-        inlineHelpText=False,
-        blockHelpText=False,
-        disabled=False
-    )
-    # seeingCG = khufu.controlRow(
-    #     inputList=[seeingInput, ]
-    # )
-    # seeingLabel = khufu.horizontalFormControlLabel(
-    #     labelText='seeing > 1.5 arcsec',
-    #     forId="badSeeing"
-    # )
-    # seeingCG = khufu.horizontalFormControlGroup(
-    #     content="%(seeingInput)s" % locals(),
-    #     validationLevel=False
-    # )
+    # get latest magnitudes
+    littleTitle = """<span class="colortext grey littlelabel  ">latest magnitudes:</span>"""
+    numOfPointsToDisplay = 3
+    count = 0
+    rows = []
+    magnitudes = ""
+    for dataPoint in lightcurveData:
+        if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
+            row = dataPoint
+            rows.append(row)
+            count += 1
+            if count >= numOfPointsToDisplay:
+                break
+    for row in rows:
+        ffilter = ""
+        if row["filter"]:
+            ffilter = row["filter"]
+            ffilter = """%(ffilter)s-band""" % locals()
+        survey = khufu.coloredText(
+            text="""%s %s""" % (row["survey"], ffilter, ),
+            color="orange",
+            size=3,
+            pull="left"
+        )
+        relDate = dcu.pretty_date(
+            date=row["observationDate"]
+        )
+        dateObs = khufu.coloredText(
+            text="""%s""" % (
+                str(row["observationDate"])[0:10],),
+            color="violet",
+            pull="left",
+            size=2
+        )
+        relDate = khufu.coloredText(
+            text="""  %s""" % (relDate[1:]),
+            color="magenta",
+            pull="left",
+            size=2
+        )
+        survey = khufu.grid_row(
+            responsive=True,
+            columns=survey
+        )
+        dateObs = khufu.grid_row(
+            responsive=True,
+            columns="%(dateObs)s %(relDate)s" % locals()
+        )
+        info = khufu.grid_column(
+            span=6,  # 1-12
+            offset=0,  # 1-12
+            content="%(survey)s %(dateObs)s" % locals(),
+            pull="left",  # ["right", "left", "center"]
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+        if row["magnitude"]:
+            mag = khufu.coloredText(
+                text="""%4.2f""" % (row["magnitude"],),
+                color="green",
+                size=6,
+                pull="left"
+            )
+        else:
+            mag = khufu.coloredText(
+                text="""%s""" % (row["magnitude"],),
+                color="green",
+                size=6,
+                pull="left"
+            )
+        mag = khufu.grid_column(
+            span=3,  # 1-12
+            offset=0,  # 1-12
+            content=mag,
+            pull="left",  # ["right", "left", "center"]
+        )
+        mag = khufu.grid_column(
+            span=5,  # 1-12
+            offset=0,  # 1-12
+            content="%(mag)s %(info)s" % locals(),
+            pull="left",  # ["right", "left", "center"]
+        )
+        magnitudes = "%(magnitudes)s<BR><p>%(mag)s</p>" % locals()
 
-    defaultValue = discoveryDataDictionary["currentMagnitude"]
-    if defaultValue:
-        defaultValue = """%(defaultValue)5.2f""" % locals()
-    else:
-        defaultValue = "?"
-
-    magnitudeInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
-        ttype='text',
-        placeholder='',
-        span=3,
-        htmlId="currentMag",
-        pull=False,
-        prepend=False,
-        append=False,
-        inlineHelpText=False,
-        blockHelpText=False,
-        focusedInputText=False,
-        rightText="current mag estimate",
-        required=False,
-        disabled=False,
-        defaultValue=defaultValue
-    )
-    magnitudeInput = """%(magnitudeInput)s""" % locals()
-    magnitudeInput = khufu.controlRow(
-        inputList=[magnitudeInput, ]
-    )
-
-    magnitudeCG = khufu.horizontalFormControlGroup(
-        content="%(magnitudeInput)s" % locals(),
-        validationLevel=False
-    )
-
-    magnitudeCG = "%(magnitudeCG)s magnitude" % locals()
+    magnitudes = "%(littleTitle)s<span>%(magnitudes)s</span>" % locals()
 
     # x-tmpx-form-control-group
     downloadButton = khufu.button(
@@ -175,133 +205,82 @@ def generate_ob_form(
         dataToggle=False,
         close=False
     )
-    cancelbutton = khufu.button(
-        buttonText='cancel',
+
+    ######
+    postToScript = request.route_path(
+        'transients_ob_element', elementId=discoveryDataDictionary["transientBucketId"], _query={"method": "get"})
+
+    thisModal = khufu.modals.modalForm(
+        log=log,
+        title=headerText,
+        postToScriptUrl=postToScript,
+        reloadToUrl=False
+    )
+    thisModal.submitButtonText = """<i class="icon-download-alt"></i>"""
+
+    thisModal.add_form_object(
+        formObject=magnitudes,
+        label=lightCurveImage
+    )
+    seeing = khufu.checkbox(
+        optionText='seeing > 1.5 arcsec',
+        inline=True,
+        htmlId="badSeeing",
+        optionNumber=1,
+        inlineHelpText=False,
+        blockHelpText=False,
+        disabled=False
+    )
+
+    defaultValue = discoveryDataDictionary["currentMagnitude"]
+    if defaultValue:
+        defaultValue = """%(defaultValue)5.2f""" % locals()
+    else:
+        defaultValue = "?"
+
+    magnitudeInput = khufu.formInput(
+        # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
+        ttype='text',
+        placeholder='',
+        span=2,
+        htmlId="currentMag",
+        required=True,
+        defaultValue=defaultValue,
+        divWrap=False
+    )
+    thisModal.add_form_object(
+        formObject=magnitudeInput + "&nbsp" + seeing,
+        label="current mag estimate"
+    )
+
+    modalForm, modalTrigger = thisModal.get()
+
+    popover = khufu.popover(
+        tooltip=True,
+        placement="right",
+        trigger="hover",
+        title="generate an OB for this object",
+        content=False,
+    )
+
+    thisButton = khufu.button(
         # [ default | primary | info | success | warning | danger | inverse | link ]
-        buttonStyle='danger',
-        buttonSize='default',  # [ large | default | small | mini ]
-        htmlId=False,
-        href=False,
-        pull=False,  # right, left, center
+        buttonText="OB",
+        buttonStyle='success',
+        buttonSize='small',  # [ large | default | small | mini ]
+        href=modalTrigger,
+        pull="right",  # right, left, center
         submit=False,
         block=False,
         disable=False,
-        dataToggle=False,
-        close=True
-    )
-    buttonGroup = khufu.buttonGroup(
-        buttonList=[cancelbutton, downloadButton],
-        format='default',  # [ default | toolbar | vertical ]
-        pull="left"
+        dataToggle="modal",  # [ modal ]
+        popover=popover
     )
 
-    prefix = request.registry.settings["apache prefix"]
-    ra = dat.ra_to_sex(
-        ra=discoveryDataDictionary["raDeg"],
-        delimiter=':'
-    )
-    ra = khufu.formInput(
-        ttype='text',
-        htmlId="ra",
-        hidden=True,
-        defaultValue=ra
-    )
-
-    dec = dat.dec_to_sex(
-        dec=discoveryDataDictionary["decDeg"],
-        delimiter=':'
-    )
-    dec = khufu.formInput(
-        ttype='text',
-        htmlId="dec",
-        hidden=True,
-        defaultValue=dec
-    )
-    objectName = khufu.formInput(
-        ttype='text',
-        htmlId="objectName",
-        hidden=True,
-        defaultValue=discoveryDataDictionary["masterName"]
-    )
-    objectClass = khufu.formInput(
-        ttype='text',
-        htmlId="objectClass",
-        hidden=True,
-        defaultValue="SN"
-    )
-    grism = khufu.formInput(
-        ttype='text',
-        htmlId="grism",
-        hidden=True,
-        defaultValue=13
-    )
-    instrument = khufu.formInput(
-        ttype='text',
-        htmlId="instrument",
-        hidden=True,
-        defaultValue="efosc"
-    )
-    spectrumOrImage = khufu.formInput(
-        ttype='text',
-        htmlId="spectrumOrImage",
-        hidden=True,
-        defaultValue="spectrum"
-    )
-
-    # currentMag = 15.2 & ra = 12:
-    #     34:
-    #         54.3 & dec = -32:
-    #             23:
-    # 12.23 & objectName = ps1 - ghf & seeing = 1.5 & objectClass = SN & grism
-    # = 13 & instrument = efosc & spectrumOrImage = spectrum
-
-    generateOBForm = khufu.form(
-        content="%(seeingCG)s %(magnitudeCG)s %(ra)s  %(dec)s  %(objectName)s  %(objectClass)s  %(grism)s  %(instrument)s  %(spectrumOrImage)s %(buttonGroup)s" % locals(
-        ),
-        # [ "inline" | "horizontal" | "search" | "navbar-form" | "navbar-search" ]
-        formType='inline',
-        navBarPull=False,  # [ false | right | left ]
-        postToScript="%(prefix)s/marshall/ob_generator.py" % locals(),
-        span=11,
-        offset=1,
-    )
-
-    generateOBForm = khufu.grid_column(
-        span=formSpan,  # 1-12
-        offset=0,  # 1-12
-        content=generateOBForm,
-        pull=False,  # ["right", "left", "center"]
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    generateOBForm = khufu.modals.modal(
-        modalHeaderContent="%(headerText)s" % locals(),
-        modalBodyContent=lightcurve_block + generateOBForm,
-        modalFooterContent="",
-        htmlId="generateOBForm%(transientBucketId)s" % discoveryDataDictionary,
-        htmlClass="generateOBForm"
-    )
-
-    return generateOBForm
+    return modalForm, thisButton
 
 # use the tab-trigger below for new function
 # x-def-with-logger
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
-
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

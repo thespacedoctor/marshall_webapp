@@ -584,28 +584,7 @@ def _generate_ob_button(
     ## VARIABLES ##
     if discoveryDataDictionary["classifiedFlag"] == 0:
 
-        popover = khufu.popover(
-            tooltip=True,
-            placement="right",
-            trigger="hover",
-            title="generate an OB for this object",
-            content=False,
-        )
-
-        button = khufu.button(
-            buttonText='OB',
-            # [ default | primary | info | success | warning | danger | inverse | link ]
-            buttonStyle='success',
-            buttonSize='small',  # [ large | default | small | mini ]
-            href="#generateOBForm%(transientBucketId)s" % discoveryDataDictionary,
-            pull="right",
-            submit=False,
-            block=False,
-            disable=False,
-            dataToggle="modal",
-            popover=popover
-        )
-        thisForm = forms.generate_ob_form.generate_ob_form(
+        thisForm, button = forms.generate_ob_form.generate_ob_form(
             log=log,
             request=request,
             discoveryDataDictionary=discoveryDataDictionary,
