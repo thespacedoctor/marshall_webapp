@@ -43,8 +43,7 @@ def main():
     ## THIRD PARTY ##
     ## LOCAL APPLICATION ##
     import dryxPython.commonutils as dcu
-    import dryxPython.htmlframework as dhf
-    import dryxPython.logs as dl
+    import khufu
 
     ################ > SETUP ##################
     # ENABLE DEBUGGING
@@ -56,7 +55,7 @@ def main():
     params = {}
     for key in fs.keys():
         params[key] = fs[key].value
-    defaultFields = dhf.urls.default_fields.default_fields()
+    defaultFields = khufu.urls.default_fields.default_fields()
     for k, v in defaultFields.iteritems():
         if k not in params.keys():
             params[k] = v
@@ -108,18 +107,18 @@ def main():
         settings = yaml.load(stream)
         stream.close()
 
-    log = dl.setup_dryx_logging(
-        yaml_file=yamlContent[settingsFile]
-    )
+    # log = dl.setup_dryx_logging(
+    #     yaml_file=yamlContent[settingsFile]
+    # )
 
     pathToWriteFile = settings["path to git_repos directory"] + \
         "/_updates_required_/%(repoName)s.gitupdates" % locals()
     try:
-        log.debug("attempting to open the file %s" % (pathToWriteFile,))
+        #log.debug("attempting to open the file %s" % (pathToWriteFile,))
         writeFile = open(pathToWriteFile, 'w')
     except IOError, e:
         message = 'could not open the file %s' % (pathToWriteFile,)
-        log.critical(message)
+        # log.critical(message)
         raise IOError(message)
     writeFile.close()
 

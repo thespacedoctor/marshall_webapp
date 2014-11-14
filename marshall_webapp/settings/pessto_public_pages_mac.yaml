@@ -1,0 +1,60 @@
+version: 1
+database settings:
+    db: pessto_public_pages
+    host: localhost
+    user: root
+    password: root
+
+website name: "pessto.org"
+
+path to new md files import directory: /Users/Dave/git_repos/markdownWiki/markdownWiki/imports/tests/input/new_imports
+path to images import directory: /Users/Dave/git_repos/markdownWiki/markdownWiki/imports/tests/input/new_images_import
+assets prefix: ""
+assets location: "/Users/Dave/git_repos/pessto_webapp/htdocs/apollo/assets"
+assets root: /Users/Dave/git_repos/pessto_webapp/htdocs/assets
+
+
+## todoist setting
+todoist:
+    username: nothingbutdave@gmail.com
+    password: 31bAR07
+    baseprojectid: 126366073
+    location: work
+
+## task colors
+task colors:
+    action: green
+    flagged: orange
+    soon: red
+    completed: blue
+    review: violet
+    not a project: grey
+    AoR: grey
+    Area of Responsibility: grey
+    list page: yellow
+
+
+## dropbox settings
+path to dropbox notes: "/Users/Dave/Dropbox/notes"
+
+logging settings:
+    formatters:
+        file_style:
+            format: '* %(asctime)s - %(name)s - %(levelname)s (%(filename)s > %(funcName)s > %(lineno)d) - %(message)s  '
+            datefmt: '%Y/%m/%d %H:%M:%S'
+        console_style:
+            format: '* %(asctime)s - %(levelname)s: %(filename)s:%(funcName)s:%(lineno)d > %(message)s'
+            datefmt: '%H:%M:%S'
+        html_style:
+            format: '<div id="row" class="%(levelname)s"><span class="date">%(asctime)s</span>   <span class="label">file:</span><span class="filename">%(filename)s</span>   <span class="label">method:</span><span class="funcName">%(funcName)s</span>   <span class="label">line#:</span><span class="lineno">%(lineno)d</span> <span class="pathname">%(pathname)s</span>  <div class="right"><span class="message">%(message)s</span><span class="levelname">%(levelname)s</span></div></div>'
+            datefmt: '%Y-%m-%d <span class= "time">%H:%M <span class= "seconds">%Ss</span></span>'
+    handlers:
+        console:
+            class: logging.StreamHandler
+            level: DEBUG
+            formatter: console_style
+            stream: ext://sys.stdout
+    root:
+        level: ERROR
+        # handlers: [debug_file,file,html_log_file]
+        handlers: [console]

@@ -1,0 +1,224 @@
+#!/usr/local/bin/python
+# encoding: utf-8
+"""
+classification_block.py
+=================
+:Summary:
+    The classification block for the object ticket
+
+:Author:
+    David Young
+
+:Date Created:
+    November 20, 2013
+
+:Notes:
+    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+
+:Tasks:
+    @review: when complete pull all general functions and classes into dryxPython
+"""
+################# GLOBAL IMPORTS ####################
+import sys
+import os
+from docopt import docopt
+from dryxPython import commonutils as dcu
+from .....commonelements import commonutils as cu
+
+###################################################################
+# CLASSES                                                         #
+###################################################################
+
+###################################################################
+# PUBLIC FUNCTIONS                                                #
+###################################################################
+# LAST MODIFIED : November 20, 2013
+# CREATED : November 20, 2013
+# AUTHOR : DRYX
+
+
+def classification_block(
+        log,
+        request,
+        discoveryDataDictionary):
+    """get ticket classification block
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``request`` -- the pyramid request
+        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+
+    **Return:**
+        - ``classification_block`` -- the ticket identity block for the pesssto object
+
+    **Todo**
+    # @review: when complete, clean classification_block function & add logging
+    """
+    ################ > IMPORTS ################
+    ## STANDARD LIB ##
+    import re
+    import datetime
+    ## THIRD PARTY ##
+    ## LOCAL APPLICATION ##
+    import khufu
+    import dryxPython.mysql as dms
+    import dryxPython.commonutils as dcu
+
+    log.info('starting the ``classification_block`` function')
+    ## VARIABLES ##
+
+    if not discoveryDataDictionary["recentClassification"]:
+        return None
+
+    title = cu.block_title(
+        log,
+        title="spectral classification"
+    )
+
+    # classification
+    label = cu.little_label(
+        text="classification:",
+    )
+    text = khufu.coloredText(
+        text=discoveryDataDictionary["recentClassification"],
+        color="magenta",
+        size=6
+    )
+    spectralType = khufu.grid_row(
+        responsive=True,
+        columns="""%s   %s""" % (label, text,),
+    )
+
+    # classifcation survey
+    label = cu.little_label(
+        text="classifcation survey:",
+    )
+    text = khufu.coloredText(
+        text=discoveryDataDictionary["classificationSurvey"],
+        color="green",
+        size=5
+    )
+    classificationSurvey = khufu.grid_row(
+        responsive=True,
+        columns="""%s   %s""" % (label, text,),
+    )
+
+    # classification date
+    label = cu.little_label(
+        text="classification date:",
+    )
+    text = khufu.coloredText(
+        text=str(discoveryDataDictionary["classificationDate"])[0:10],
+        color="orange",
+        size=4
+    )
+
+    daysPast = discoveryDataDictionary["classificationDate"]
+    if daysPast:
+        daysPast = dcu.pretty_date(daysPast)[1:]
+        if "just" not in daysPast:
+            daysPast = daysPast[1:]
+        if daysPast[-1] == "d":
+            daysPast = "(%s days ago)" % (daysPast[0:-1],)
+        elif "just" not in daysPast:
+            daysPast = "(+%s)" % (daysPast,)
+        else:
+            daysPast = "(%s)" % (daysPast,)
+        daysPast = khufu.coloredText(
+            text="<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp%(daysPast)s" % locals(
+            ),
+            color="violet"
+        )
+    else:
+        daysPast = ""
+    classificationDate = khufu.grid_row(
+        responsive=True,
+        columns="""%s   %s %s""" % (label, text, daysPast),
+    )
+
+    # classifcation survey
+    label = cu.little_label(
+        text="classification phase:",
+    )
+    classificationWRTMax = discoveryDataDictionary["classificationWRTMax"]
+    classificationPhase = discoveryDataDictionary["classificationPhase"]
+
+    if classificationWRTMax is None:
+        classificationWRTMax = "not set"
+
+    if classificationPhase:
+        if classificationWRTMax == "pre-max":
+            classificationWRTMax = "-%(classificationPhase)sd" % locals()
+        elif classificationWRTMax == "post-max":
+            classificationWRTMax = "+%(classificationPhase)sd" % locals()
+    classificationWRTMax = "&nbsp&nbsp%(classificationWRTMax)s" % locals()
+
+    if "unknown" in classificationWRTMax:
+        size = 4
+    else:
+        size = 5
+    text = khufu.coloredText(
+        text="""%(classificationWRTMax)s""" % locals(),
+        color="blue",
+        size=size
+    )
+    classificationPhase = khufu.grid_row(
+        responsive=True,
+        columns="""%s %s""" % (label, text,),
+    )
+
+    # redshift
+    label = cu.little_label(
+        text="redshift:",
+    )
+
+    redshift = ""
+    if discoveryDataDictionary["best_redshift"]:
+        text = khufu.coloredText(
+            text="%6.4f" % (discoveryDataDictionary["best_redshift"]),
+            color="yellow",
+            size=6
+        )
+    else:
+        text = khufu.coloredText(
+            text="unknown",
+            color="yellow",
+            size=4
+        )
+    redshift = khufu.grid_row(
+        responsive=True,
+        columns="""%s   %s""" % (label, text,),
+    )
+
+    # distance
+    label = cu.little_label(
+        text="distance:",
+    )
+
+    distanceMpc = ""
+    if discoveryDataDictionary["distanceMpc"]:
+        text = khufu.coloredText(
+            text="%10.2f Mpc" % (discoveryDataDictionary["distanceMpc"]),
+            color="blue",
+            size=6
+        )
+        distanceMpc = khufu.grid_row(
+            responsive=True,
+            columns="""%s   %s""" % (label, text,),
+        )
+
+    return "%(title)s %(spectralType)s %(classificationSurvey)s %(classificationDate)s %(classificationPhase)s %(redshift)s %(distanceMpc)s" % locals()
+
+
+###################################################################
+# PRIVATE (HELPER) FUNCTIONS                                      #
+###################################################################
+############################################
+# CODE TO BE DEPECIATED                    #
+############################################
+if __name__ == '__main__':
+    main()
+
+###################################################################
+# TEMPLATE FUNCTIONS                                              #
+###################################################################

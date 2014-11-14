@@ -1,0 +1,229 @@
+#!/usr/local/bin/python
+# encoding: utf-8
+"""
+view_switcher_buttons.py
+===========
+:Summary:
+    View switcher buttons for ticket table toolbar
+
+:Author:
+    David Young
+
+:Date Created:
+    March 4, 2014
+
+:Notes:
+    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+
+:Tasks:
+    @review: when complete pull all general functions and classes into dryxPython
+"""
+################# GLOBAL IMPORTS ####################
+import sys
+import re
+import os
+from docopt import docopt
+from dryxPython import commonutils as dcu
+import khufu
+
+
+###################################################################
+# PUBLIC FUNCTIONS                                                #
+###################################################################
+# LAST MODIFIED : March 4, 2014
+# CREATED : March 4, 2014
+# AUTHOR : DRYX
+def view_switcher_buttons(
+    log,
+    params,
+    request
+):
+    """view_switcher_buttons
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``params`` -- the request params (defaults added if not populated)
+        - ``request`` -- the pyramid request
+
+    **Return:**
+        - None
+
+    **Todo**
+    """
+    theseLinks = ""
+
+    # The various view options
+    format = ["html_tickets", "html_table", "csv", "json", "plain_table"]
+    linkText = ["tickets", "table", "csv", "json", "plain text"]
+
+    for f, l in zip(format, linkText):
+        # skip the current view
+        if params["format"] == f:
+            continue
+        thisLink = _link_for_popover(
+            log=log,
+            request=request,
+            format=f,
+            params=params,
+            linkText=l,
+        )
+        theseLinks = "%(theseLinks)s %(thisLink)s" % locals()
+
+    popover = khufu.popover(
+        tooltip=False,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="view switcher",
+        content=theseLinks,
+        delay=200
+    )
+    viewSwitcherButton = khufu.button(
+        buttonText="""<i class="icon-eye3"></i>""" % locals(),
+        # [ default | primary | info | success | warning | danger | inverse | link ]
+        buttonStyle='default',
+        buttonSize='default',  # [ large | default | small | mini ]
+        htmlId=False,
+        href=False,
+        pull=False,  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        dataToggle=False,  # [ modal ]
+        popover=popover
+    )
+
+    theseLinks = ""
+
+    # The various download options
+    format = ["csv", "json", "plain_table"]
+    linkText = ["csv", "json", "plain text"]
+
+    for f, l in zip(format, linkText):
+        # skip the current view
+        if params["format"] == f:
+            continue
+        thisLink = _link_for_popover(
+            log=log,
+            request=request,
+            format=f,
+            params=params,
+            linkText=l,
+            download=True
+        )
+        theseLinks = "%(theseLinks)s %(thisLink)s" % locals()
+    popover = khufu.popover(
+        tooltip=False,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="download options",
+        content=theseLinks,
+        delay=200
+    )
+    downloadsButton = khufu.button(
+        buttonText="""<i class="icon-save"></i>""" % locals(),
+        # [ default | primary | info | success | warning | danger | inverse | link ]
+        buttonStyle='default',
+        buttonSize='default',  # [ large | default | small | mini ]
+        htmlId=False,
+        href=False,
+        pull=False,  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        dataToggle=False,  # [ modal ]
+        popover=popover
+    )
+
+    return viewSwitcherButton + downloadsButton
+
+# use the tab-trigger below for new function
+# x-def-with-logger
+
+###################################################################
+# PRIVATE (HELPER) FUNCTIONS                                      #
+###################################################################
+# LAST MODIFIED : November 7, 2014
+# CREATED : November 7, 2014
+# AUTHOR : DRYX
+
+
+def _link_for_popover(
+        log,
+        request,
+        format,
+        params,
+        linkText=False,
+        download=False):
+    """ link for popover
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``request`` -- pyramid request object
+        - ``format`` -- format of view to return
+        - ``linkText`` - text for link if different than format
+
+    **Return:**
+        - ``thisLink`` -- the link for the popover
+
+    **Todo**
+    """
+    log.info('starting the ``_link_for_popover`` function')
+
+    params["format"] = format
+    params["method"] = "get"
+
+    if download:
+        if "html" not in format:
+            if "mwl" in params:
+                params["filename"] = params["mwl"]
+            elif "awl" in params:
+                params["filename"] = params["awl"]
+            elif "cf" in params:
+                params["filename"] = "classifications"
+            elif "q" in params:
+                params["filename"] = "search_" + params["q"]
+
+            oldnames = ["pending obs", "following", "allObsQueue"]
+            newnames = ["classification targets", "followup targets",
+                        "classification and followup targets"]
+
+            for o, n in zip(oldnames, newnames):
+                if o in params["filename"]:
+                    params["filename"] = n
+                    break
+
+            params["filename"] = "pessto_marshall_" + params["filename"]
+
+    # if plain text download (json, csv ...) remove limits
+    if "html" not in params["format"]:
+        params = dict(params)
+        log.debug("""params1: `%(params)s`""" % locals())
+        del params["limit"]
+        del params["pageStart"]
+        log.debug("""params2: `%(params)s`""" % locals())
+
+    if "q" in params:
+        href = request.route_path('transients_search', _query=params)
+    else:
+        href = request.route_path('transients', _query=params)
+
+    if linkText:
+        format = linkText
+    thisLink = khufu.a(
+        content=format,
+        href=href
+    )
+    thisLink = khufu.p(
+        content=thisLink,
+        textAlign="center",  # [ left | center | right ]
+    )
+
+    log.info('completed the ``_link_for_popover`` function')
+    return thisLink
+
+# use the tab-trigger below for new function
+# xt-def-with-logger
+
+
+if __name__ == '__main__':
+    main()
