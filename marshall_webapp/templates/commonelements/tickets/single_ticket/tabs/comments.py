@@ -16,17 +16,16 @@ comments.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import datetime
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
+import dryxPython.mysql as dms
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -57,23 +56,13 @@ def comments_tab(
         - ``thisUrl`` -- current url
 
     **Return:**
-        - ``comments_tab``
+        - ``comments_tab`` -- for each transient ticket in the transient listings pages
 
     **Todo**
-        - @review: when complete, clean comments_tab function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
     from .. import ticket_building_blocks
     from .. import tabs
-
     from ... import single_ticket
     from .....commonelements import forms
 
@@ -147,24 +136,13 @@ def comments_tab(
         block = khufu.grid_column(
             span=thisSpan,  # 1-12
             offset=0,  # 1-12
-            content=block,
-            pull=False,  # ["right", "left", "center"]
-            htmlId=False,
-            htmlClass=False,
-            onPhone=True,
-            onTablet=True,
-            onDesktop=True
+            content=block
         )
         thisRow = """%(thisRow)s %(block)s""" % locals()
 
     overviewWell = khufu.grid_row(
         responsive=True,
-        columns=thisRow,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
+        columns=thisRow
     )
 
     overviewWell = khufu.well(
@@ -200,20 +178,11 @@ def comments_tab(
     log.info('completed the ``comments_tab`` function')
     return "%(comments_tab)s" % locals()
 
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

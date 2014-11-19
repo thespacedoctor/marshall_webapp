@@ -1,16 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_ob_element_get.py
-===================================
+models_transients_lightcurves_get.py
+==================================
 :Summary:
-    The data model module for the `transients_ob_element_get` resource
+    The data model module for the `transients_lightcurves_get` resource
 
 :Author:
     David Young
 
 :Date Created:
-    November 14, 2014
+    November 5, 2014
 
 :dryx syntax:
     - ``_someObject`` = a 'private' object that should only be changed for debugging
@@ -26,16 +26,16 @@ import os
 import khufu
 
 
-class models_transients_ob_element_get():
+class models_transients_lightcurves_get():
 
     """
-    The worker class for the models_transients_ob_element_get module
+    The worker class for the models_transients_lightcurves_get module
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-        - ``search`` -- is this a search request (boolean)`
+        - ``search`` -- is this a search request (boolean)
 
     **Todo**
     """
@@ -54,11 +54,13 @@ class models_transients_ob_element_get():
         self.search = search
         self.qs = dict(request.params)  # the query string
         # the query string defaults
-        self.defaultQs = {}
+        self.defaultQs = {
+            "format": "json",
+        }
         # xt-self-arg-tmpx
 
         log.debug(
-            "instansiating a new 'models_transients_ob_element_get' object")
+            "instansiating a new 'models_transients_lightcurves_get' object")
 
         # Initial Actions
         self._set_default_parameters()
@@ -71,7 +73,7 @@ class models_transients_ob_element_get():
 
     # Method Attributes
     def get(self):
-        """execute the get method on the models_transients_ob_element_get object
+        """execute the get method on the models_transients_lightcurves_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
@@ -82,24 +84,16 @@ class models_transients_ob_element_get():
 
         transientBucketId = self.elementId
 
-        # grab the summary data for the transient
-        sqlQuery = u"""
-            select * from transientBucketSummaries where transientBucketId = %(transientBucketId)s 
+        # GRAB THE LIGHTCURVE DATA FOR THE OBJECT
+        sqlQuery = """
+            select observationDate, observationMJD, magnitude, filter, survey from transientBucket where transientBucketId = %(transientBucketId)s and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 order by observationDate asc;
         """ % locals()
-        objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
-        objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
-
-        responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
-        if transientBucketId:
-            responseContent = "%(responseContent)sThe element selected was </code>%(transientBucketId)s</code>" % locals(
-            )
-        else:
-            responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
-            )
+        lightCurveTmp = self.request.db.execute(sqlQuery).fetchall()
+        lightCurve = []
+        lightCurve[:] = [dict(zip(row.keys(), row)) for row in lightCurveTmp]
 
         self.log.info('completed the ``get`` method')
-        return objectData
+        return lightCurve
 
     def _set_default_parameters(
             self):
@@ -115,7 +109,11 @@ class models_transients_ob_element_get():
         """
         self.log.info('starting the ``_set_default_parameters`` method')
 
+        if "format" not in self.qs:
+            self.qs["format"] = self.defaultQs["format"]
+
         self.log.info('completed the ``_set_default_parameters`` method')
         return None
 
+    # use the tab-trigger below for new method
     # xt-class-method

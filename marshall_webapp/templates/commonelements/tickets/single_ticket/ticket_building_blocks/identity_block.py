@@ -16,7 +16,6 @@ identity_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 
@@ -27,10 +26,6 @@ import os
 import khufu
 from .....commonelements import commonutils as cu
 
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -57,12 +52,9 @@ def identity_block(
         - ``identity_block`` -- the ticket identity block for the pesssto object
 
     **Todo**
-    # @review: when complete, clean identity_block function & add logging
     """
-    ################ > IMPORTS ################
-
     log.info('starting the ``identity_block`` function')
-    ## VARIABLES ##
+
     skymapperPopover = khufu.popover(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
@@ -362,12 +354,6 @@ def identity_block(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

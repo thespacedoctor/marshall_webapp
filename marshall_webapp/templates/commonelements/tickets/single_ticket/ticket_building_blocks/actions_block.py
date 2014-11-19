@@ -16,7 +16,6 @@ actions_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -27,10 +26,6 @@ from dryxPython import commonutils as dcu
 import khufu
 from .....commonelements import commonutils as cu
 
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -56,7 +51,6 @@ def actions_block(
         - ``action_block`` -- the ticket identity block for the pesssto object
 
     **Todo**
-    # @review: when complete, clean action_block function & add logging
     """
     from .....commonelements import forms
     title = cu.block_title(
@@ -136,8 +130,6 @@ def actions_block(
 
     return "%(title)s %(moveToDropdown)s %(alertDropdown)s %(classifyButton)s %(changePiButton)s %(generateOBButton)s" % locals()
 
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
@@ -154,22 +146,15 @@ def _get_classify_button(
 ):
     """ get classify button for the ticket topbar
 
-    **Key Arguments:
-        **
+    **Key Arguments:**
         - ``log`` -- logger
+        - ``request`` -- the pyramid request object
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
 
-    **Return:
-        **
-        - None
+    **Return:**
+        - ``button`` -- the classification button with hidden modal form
 
     **Todo**
-        - @review:
-            when complete, clean _get_classify_button function
-        - @review:
-            when complete add logging
-        - @review:
-            when complete, decide whether to abstract function to another module
     """
     from .....commonelements import forms
     now = datetime.now()
@@ -226,24 +211,15 @@ def _get_move_to_dropdown(
 ):
     """ get move to dropdown for the ticket
 
-    **Key Arguments:
-        **
+    **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
-        # copy usage method(s) here and select the following snippet from the command palette:
-        # x-setup-docstring-keys-from-selected-usage-options
+        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
 
-    **Return:
-        **
-        - None
+    **Return:**
+        - ``thisDropdown`` -- the move to other list dropdown
 
     **Todo**
-        - @review:
-            when complete, clean _get_move_to_dropdown function
-        - @review:
-            when complete add logging
-        - @review:
-            when complete, decide whether to abstract function to another module
     """
     import datetime
 
@@ -380,23 +356,15 @@ def _get_alert_dropdown(
 ):
     """ get alert dropdown for the ticket
 
-    **Key Arguments:
-        **n
+    **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` --
+        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
 
-    **Return:
-        **
-        - ``thisDropdown``
+    **Return:**
+        - ``thisDropdown`` -- the move to other alert list dropdown
 
     **Todo**
-        - @review:
-            when complete, clean _get_alert_dropdown function
-        - @review:
-            when complete add logging
-        - @review:
-            when complete, decide whether to abstract function to another module
     """
     import datetime
 
@@ -477,23 +445,15 @@ def _get_change_pi_button(
 ):
     """ get change pi for the ticket action block
 
-    **Key Arguments:
-        **
+    **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
 
-    **Return:
-        **
-        - None
+    **Return:**
+        - ``button`` -- the change PI button and hidden modal form
 
     **Todo**
-        - @review:
-            when complete, clean _get_change_pi_button function
-        - @review:
-            when complete add logging
-        - @review:
-            when complete, decide whether to abstract function to another module
     """
     from .....commonelements import forms
 
@@ -560,19 +520,15 @@ def _generate_ob_button(
 
     **Key Arguments:**
         - ``log`` -- logger
+        - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
         - ``lightcurveData`` -- lightcurve data for the object
+        - ``objectAkas`` -- the akas of the object
 
     **Return:**
-        - ``button`` - the generate OB button
+        - ``button`` - the generate OB button with hidden modal form
 
     **Todo**
-        - @review:
-            when complete, clean _get_classify_button function
-        - @review:
-            when complete add logging
-        - @review:
-            when complete, decide whether to abstract function to another module
     """
     from .....commonelements import forms
     now = datetime.now()
@@ -598,13 +554,6 @@ def _generate_ob_button(
     log.info('completed the ``_get_classify_button`` function')
     return button
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

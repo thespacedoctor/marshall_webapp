@@ -16,7 +16,6 @@ topnavbar.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -160,13 +159,6 @@ def topnavbar(log,
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

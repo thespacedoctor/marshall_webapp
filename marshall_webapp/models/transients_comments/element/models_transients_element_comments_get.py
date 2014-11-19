@@ -1,16 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_put.py
-========================
+models_transients_element_comments_get.py
+=======================================
 :Summary:
-    The HTML template module for the `models_transients_put.py` resource
+    The HTML template module for the `models_transients_element_comments_get.py` resource
 
 :Author:
     David Young
 
 :Date Created:
-    October 10, 2014
+    ddate
 
 :dryx syntax:
     - ``_someObject`` = a 'private' object that should only be changed for debugging
@@ -26,10 +26,10 @@ import os
 import khufu
 
 
-class models_transients_put():
+class models_transients_element_comments_get():
 
     """
-    The worker class for the models_transients_put module
+    The worker class for the models_transients_element_comments_get module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -51,7 +51,8 @@ class models_transients_put():
         self.elementId = elementId
         # xt-self-arg-tmpx
 
-        log.debug("instansiating a new 'models_transients_put' object")
+        log.debug(
+            "instansiating a new 'models_transients_element_comments_get' object")
 
         # Initial Actions
 
@@ -62,15 +63,15 @@ class models_transients_put():
         return None
 
     # Method Attributes
-    def put(self):
-        """execute the put method on the models_transients_put object
+    def get(self):
+        """execute the get method on the models_transients_element_comments_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
         """
-        self.log.info('starting the ``put`` method')
+        self.log.info('starting the ``get`` method')
 
         elementId = self.elementId
 
@@ -82,7 +83,7 @@ class models_transients_put():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``put`` method')
+        self.log.info('completed the ``get`` method')
         return responseContent
 
     # xt-class-method

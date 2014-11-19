@@ -16,18 +16,18 @@ ticket_footer_bar.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
 from docopt import docopt
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
+import khufu
+import dryxPython.mysql as dms
+import dryxPython.astrotools as dat
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -53,21 +53,9 @@ def ticket_footer_bar(
     **Return:**
         - ``ticket_footer_bar`` -- the ticket footer bar for the pesssto object
 
-    **Todo**
-    # @review: when complete, clean ticket_footer_bar function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-    import dryxPython.astrotools as dat
-    import dryxPython.commonutils as dcu
-
     log.info('starting the ``ticket_footer_bar`` function')
+
     ## VARIABLES ##
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
@@ -173,8 +161,6 @@ def ticket_footer_bar(
 # LAST MODIFIED : December 2, 2013
 # CREATED : December 2, 2013
 # AUTHOR : DRYX
-# copy usage method(s) into function below and select the following snippet from the command palette:
-# x-setup-worker-function-parameters-from-usage-method
 def _get_atel_list(
         log,
         transientBucketId,
@@ -182,6 +168,7 @@ def _get_atel_list(
     """ get atels for object
 
     **Key Arguments:**
+        - ``log`` -- logger
         - ``transientBucketId`` -- the transientBucketId
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
 
@@ -189,17 +176,7 @@ def _get_atel_list(
         - ``atelLinks`` -- the names of the atels linked to original pages
 
     **Todo**
-        - @review: when complete, clean _get_atels function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import dryxPython.mysql as dms
-    import khufu
-
     log.info('starting the ``_get_atels`` function')
     # TEST THE ARGUMENTS
 
@@ -262,12 +239,5 @@ def _get_atel_list(
     return atelDropdown
 
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

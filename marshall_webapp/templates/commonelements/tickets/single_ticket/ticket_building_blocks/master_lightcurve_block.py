@@ -16,19 +16,17 @@ master_lightcurve_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import datetime as datetime
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
-import datetime as datetime
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
+import dryxPython.mysql as dms
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -52,23 +50,15 @@ def master_lightcurve_block(
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+        - ``objectAkas`` -- the transient object akas
+        - ``displayTitle`` -- display the title for this block?
 
     **Return:**
         - ``master_lightcurve_block`` -- the ticket identity block for the pesssto object
 
-    **Todo**
-    # @review: when complete, clean master_lightcurve_block function & add logging
+    **Tasks:**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-
     log.info('starting the ``master_lightcurve_block`` function')
-    ## VARIABLES ##
 
     if displayTitle:
         title = cu.block_title(
@@ -133,12 +123,6 @@ def master_lightcurve_block(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

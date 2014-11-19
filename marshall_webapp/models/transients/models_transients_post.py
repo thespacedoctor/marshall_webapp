@@ -19,7 +19,6 @@ models_transients_post.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this models_transients_post.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -41,13 +40,8 @@ class models_transients_post():
         - ``elementId`` -- the specific element id requests (or False)
 
     **Todo**
-        - @review: when complete, clean models_transients_post class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -64,12 +58,6 @@ class models_transients_post():
 
         log.debug("instansiating a new 'models_transients_post' object")
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
         # Initial Actions
 
         return None
@@ -78,25 +66,26 @@ class models_transients_post():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def post(self):
         """execute the post method on the models_transients_post object
 
         **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+            - ``response`` -- the reponse to send to the browser
+            - ``redirectUrl`` -- the URL to redirect to once the transient has been added
 
         **Todo**
-            - @review: when complete, clean post method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``post`` method')
 
         elementId = self.elementId
 
+        # check the query string parameters for the correct variable required to
+        # add a transient
         if set(("objectRa", "objectDec", "objectName")) <= set(self.request.params):
             self._add_new_transient()
 
+        # add alert if nothing was added to the database
         if len(self.response) == 0:
             self.response = "Response from <code>" + \
                 __name__ + "</code><BR><BR>No Action Was Performed<BR><BR>"
@@ -121,8 +110,6 @@ class models_transients_post():
             - None
 
         **Todo**
-            - @review: when complete, clean _add_new_transient method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_add_new_transient`` method')
 
@@ -140,17 +127,14 @@ class models_transients_post():
             tmp = float(objectRa)
         except:
             tmp = None
-
         if not tmp:
             objectRa = dat.ra_sexegesimal_to_decimal.ra_sexegesimal_to_decimal(
                 ra=objectRa
             )
-
         try:
             tmp = float(objectDec)
         except:
             tmp = None
-
         if not tmp:
             objectDec = dat.declination_sexegesimal_to_decimal.declination_sexegesimal_to_decimal(
                 dec=objectDec
@@ -160,7 +144,6 @@ class models_transients_post():
         if "-" in objectDate:
             objectDate = datetime.strptime(
                 objectDate + "T00:00:00.0", '%Y-%m-%dT%H:%M:%S.%f')
-
             mjd = dat.getMJDFromSqlDate(
                 sqlDate=objectDate
             )
@@ -170,6 +153,7 @@ class models_transients_post():
                 mjd
             )
 
+        # add some default null values
         if "objectRedshift" not in locals() or len(str(objectRedshift)) == 0:
             objectRedshift = "null"
         if "objectUrl" not in locals():
@@ -181,6 +165,7 @@ class models_transients_post():
         else:
             objectImageStamp = """ '%(objectImageStamp)s' """ % locals()
 
+        # now add the new transient to the `fs_user_added` table
         sqlQuery = u"""
             INSERT IGNORE INTO fs_user_added
                 (candidateID,
@@ -215,11 +200,13 @@ class models_transients_post():
             ticketAuthor)
         self.request.db.execute(sqlQuery)
 
+        # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
         import pessto_marshall_engine.database.imports.import_user_added_transients as iua
         iua.import_user_added_transients(
             log=self.log, dbConn=dbConn)
 
+        # search to make sure the object was added to the transientBucket
         from pessto_marshall_engine.database import crossmatchers
         transientBucketIdList, raList, decList, objectNameList = crossmatchers.conesearch_marshall_transientBucket_objects(
             dbConn=dbConn,
@@ -230,7 +217,7 @@ class models_transients_post():
             nearest=True
         )
 
-        # UPDATE THE FLAGS
+        # if there's a match, update_transientbucketsummaries_flags
         if transientBucketIdList:
             for i in range(2):
                 self.log.debug('updating flags %(i)s' % locals())
@@ -247,9 +234,5 @@ class models_transients_post():
         self.log.info('completed the ``_add_new_transient`` method')
         return None
 
-    # use the tab-trigger below for new method
     # xt-class-method
 
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

@@ -16,17 +16,12 @@ overview.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 from docopt import docopt
 from dryxPython import commonutils as dcu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -57,12 +52,9 @@ def overview_tab(
         - ``headerAndFooter`` -- do you want to display the header and footer?
 
     **Return:**
-        - ``overview_tab``
+        - ``overview_tab`` -- the transient overview info tab for the single ticket displayed on the transient listing pages
 
     **Todo**
-        - @review: when complete, clean overview_tab function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     ################ > IMPORTS ################
     ## STANDARD LIB ##
@@ -150,20 +142,10 @@ def overview_tab(
     log.info('completed the ``overview_tab`` function')
     return overview_tab
 
-# use the tab-trigger below for new function
-# x-def-with-logger
-
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

@@ -16,19 +16,18 @@ ticket_header_bar.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import datetime
 from docopt import docopt
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
+import dryxPython.mysql as dms
+import dryxPython.astrotools as dat
 import khufu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -53,25 +52,14 @@ def ticket_header_bar(
         - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
         - ``objectComments`` -- the comments for the object
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
+        - ``lightcurveData`` -- the transient lightcurve data
 
     **Return:**
         - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
 
-    **Todo**
-    # @review: when complete, clean ticket_header_bar function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-    import dryxPython.astrotools as dat
-    import dryxPython.commonutils as dcu
-
     log.info('starting the ``ticket_header_bar`` function')
+
     ## VARIABLES ##
     now = datetime.datetime.now()
     currentMagEstimate = discoveryDataDictionary["currentMagnitudeEstimate"]
@@ -201,9 +189,6 @@ def ticket_header_bar(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-
-
-# use the tab-trigger below for new function
 # LAST MODIFIED : December 2, 2013
 # CREATED : December 2, 2013
 # AUTHOR : DRYX
@@ -216,24 +201,13 @@ def _get_atel_warning(
     **Key Arguments:**
         - ``log`` -- logger
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        # copy usage method(s) here and select the following snippet from the command palette:
-        # x-setup-docstring-keys-from-selected-usage-options
+        - ``transientBucketId`` -the unquie id for the transient in the marshall database
 
     **Return:**
         - ``warning`` or None -- the atel warning
 
     **Todo**
-        - @review: when complete, clean _get_atel_warning function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import dryxPython.mysql as dms
-    import khufu
-
     log.info('starting the ``_get_atel_warning`` function')
     ## VARIABLES ##
     rows = []
@@ -289,24 +263,14 @@ def _get_magnitude_warning(
     **Key Arguments:**
         - ``log`` -- logger
         - ``currentMag`` -- the current magnitude estimate of the object
+        - ``transientBucketId`` -the unquie id for the transient in the marshall database
 
     **Return:**
         - ``warning`` or None -- the atel warning
 
     **Todo**
-        - @review: when complete, clean _get_magnitude_warning function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import dryxPython.mysql as dms
-    import khufu
-
     log.info('starting the ``_get_magnitude_warning`` function')
-    ## VARIABLES ##
 
     if currentMag == 9999:
         text = "not enough data to determine a current magnitude"
@@ -328,14 +292,10 @@ def _get_magnitude_warning(
     log.info('completed the ``_get_magnitude_warning`` function')
     return None
 
-# use the tab-trigger below for new function
+
 # LAST MODIFIED : August 27, 2014
 # CREATED : August 27, 2014
 # AUTHOR : DRYX
-# copy usage method(s) into function below and select the following snippet from the command palette:
-# x-setup-worker-function-parameters-from-usage-method
-
-
 def _get_no_lsq_recalibrated_data_alert(
         log,
         lightcurveData,
@@ -344,16 +304,13 @@ def _get_no_lsq_recalibrated_data_alert(
 
     **Key Arguments:**
         - ``log`` -- logger
-        # copy usage method(s) here and select the following snippet from the command palette:
-        # x-setup-docstring-keys-from-selected-usage-options
+        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+        - ``lightcurveData`` -- the transient lightcurve data
 
     **Return:**
-        - None
+        - ``alert`` -- alert for when LSQ object has no recalibrated data yet
 
     **Todo**
-        - @review: when complete, clean _get_no_lsq_recalibrated_data_alert function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.info('starting the ``_get_no_lsq_recalibrated_data_alert`` function')
 
@@ -375,14 +332,6 @@ def _get_no_lsq_recalibrated_data_alert(
     log.info('completed the ``_get_no_lsq_recalibrated_data_alert`` function')
     return alert
 
-# use the tab-trigger below for new function
-# xt-def-with-logger
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

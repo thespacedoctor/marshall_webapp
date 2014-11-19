@@ -19,7 +19,6 @@ models_transients_count.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -39,13 +38,8 @@ class models_transients_count():
         - ``cFlag`` -- classification flag
 
     **Todo**
-        - @review: when complete, clean models_transients_count class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -63,12 +57,6 @@ class models_transients_count():
         self.cFlag = cFlag
         # xt-self-arg-tmpx
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
         # Initial Actions
 
         return None
@@ -77,7 +65,6 @@ class models_transients_count():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
         """get the models_transients_count object
@@ -86,8 +73,6 @@ class models_transients_count():
             - ``models_transients_count``
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
 
@@ -95,6 +80,8 @@ class models_transients_count():
         awfFlag = self.awfFlag
         cFlag = self.cFlag
 
+        # build the query to count the transients within a given marshall
+        # sidebar list
         sqlQuery = """select count from meta_workflow_lists_counts where 1=1 """
 
         # AMEND WHERE CLAUSE TO INCLUDE WORKFLOW LOCATION FLAGS #
@@ -124,7 +111,3 @@ class models_transients_count():
         self.log.info('completed the ``get`` method')
         return count
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

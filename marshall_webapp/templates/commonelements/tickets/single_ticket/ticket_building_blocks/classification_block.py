@@ -16,18 +16,17 @@ classification_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import datetime
 from docopt import docopt
+import khufu
+import dryxPython.mysql as dms
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -52,20 +51,8 @@ def classification_block(
         - ``classification_block`` -- the ticket identity block for the pesssto object
 
     **Todo**
-    # @review: when complete, clean classification_block function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-    import dryxPython.commonutils as dcu
-
     log.info('starting the ``classification_block`` function')
-    ## VARIABLES ##
 
     if not discoveryDataDictionary["recentClassification"]:
         return None
@@ -213,12 +200,6 @@ def classification_block(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

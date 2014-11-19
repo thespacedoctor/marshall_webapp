@@ -16,7 +16,6 @@ single_ticket.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -57,22 +56,15 @@ def single_ticket(
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
 
     **Return:**
-        - ``ticket`` --
+        - ``ticket`` -- a single transient's info in one HTML ticket
 
     **Todo**
-        - @review: when complete, clean inbox_ticket function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.info('starting the ``inbox_ticket`` function')
 
-    placeHolder = khufu.image(
-        # [ industrial | gray | social ]
-        src='holder.js/300x400/gray/text:data block',
-    )
-
     tabDictionary = {}
 
+    # grab the various tabs that make up a single ticket
     overviewTab = tabs.overview.overview_tab(
         log=log,
         request=request,
@@ -106,8 +98,9 @@ def single_ticket(
 
     tabDictionary["photometry"] = photometryTab
 
-    ## VARIABLES ##
     transientBucketId = discoveryDataDictionary["transientBucketId"]
+
+    # build the single ticket
     ticket = _single_ticket_template(
         log=log,
         transientBucketId=transientBucketId,
@@ -118,13 +111,12 @@ def single_ticket(
     log.info('completed the ``inbox_ticket`` function')
     return ticket
 
-
-# use the tab-trigger below for new function
-# x-def-with-logger
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 # The tab template for the tickets
+
+
 def _single_ticket_template(
         log,
         transientBucketId,
@@ -139,18 +131,10 @@ def _single_ticket_template(
         - ``tabDictionary`` -- a dictionary of { "title": tabcontent, }
 
     **Return:**
-        - ``single_ticket``
+        - ``single_ticket`` -- build the single ticket
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-
     single_ticket = khufu.tabbableNavigation(
         contentDictionary=tabDictionary,  # { name : content, }
         fadeIn=False,
@@ -175,7 +159,6 @@ def _ticket_tab_template(
     """ticket tab - build a tab on a ticket from a few sub-block of object data
 
     **Key Arguments:**
-        # copy usage method(s) here and select the following snippet from the command palette:
         - ``log`` -- the logger
         - ``request`` -- the pyramid request
         - ``tabHeader`` -- header bar for the tab
@@ -184,18 +167,10 @@ def _ticket_tab_template(
         - ``actionsBlock`` -- to consume skinny column at right side
 
     **Return:**
-        - ``ticket_tab``
+        - ``ticket_tab`` -- template for each ticket tab
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-
     theseBlocks = ""
 
     # Remove empty blocks
@@ -272,13 +247,6 @@ def _ticket_tab_template(
 
     return ticket_tab
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

@@ -16,17 +16,16 @@ ticket_table_pagination.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import math
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -58,17 +57,7 @@ def ticket_table_pagination(
         - ``pagination`` -- the pagination to be displayed
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import math
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-
     # STRIP THE URL OF PREVIOUS PAGINATION SETTINGS
     thisUrl = re.sub(r"(&|\?)limit=\d*", "", thisUrl)
     thisUrl = re.sub(r"(&|\?)pageStart=\d*", "", thisUrl)
@@ -117,17 +106,11 @@ def ticket_table_pagination(
         content="&raquo;",
         href=nextButtonUrl,
         tableIndex=-1,
-        triggerStyle=False  # [ False | "dropdown" | "tab" ]
     )
     nextButton = khufu.li(
         content=nextButton,  # if a subMenu for dropdown this should be <ul>
         span=False,  # [ False | 1-12 ]
-        disabled=disabled,
-        submenuTitle=False,
-        divider=False,
-        navStyle=False,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
+        disabled=disabled
     )
     pageStart = (thisButtonIndex - 2) * limit
     prevButtonUrl = """%(thisUrl)s%(beginUrlWith)slimit=%(limit)s&pageStart=%(pageStart)s""" % locals(
@@ -139,18 +122,12 @@ def ticket_table_pagination(
     prevButton = khufu.a(
         content="&laquo;",
         href=prevButtonUrl,
-        tableIndex=-1,
-        triggerStyle=False  # [ False | "dropdown" | "tab" ]
+        tableIndex=-1
     )
     prevButton = khufu.li(
         content=prevButton,  # if a subMenu for dropdown this should be <ul>
         span=False,  # [ False | 1-12 ]
-        disabled=disabled,
-        submenuTitle=False,
-        divider=False,
-        navStyle=False,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
+        disabled=disabled
     )
 
     for i in range(displayRangeStart, displayRangeEnd):
@@ -164,18 +141,12 @@ def ticket_table_pagination(
         link = khufu.a(
             content=buttonNumber,
             href=buttonUrl,
-            tableIndex=-1,
-            triggerStyle=False  # [ False | "dropdown" | "tab" ]
+            tableIndex=-1
         )
         linkListItem = khufu.li(
             content=link,  # if a subMenu for dropdown this should be <ul>
             span=False,  # [ False | 1-12 ]
-            disabled=disabled,
-            submenuTitle=False,
-            divider=False,
-            navStyle=False,  # [ active | header ]
-            navDropDown=False,
-            pager=False  # [ False | "previous" | "next" ]
+            disabled=disabled
         )
         allButtons = """%(allButtons)s%(linkListItem)s""" % locals()
 
@@ -189,20 +160,10 @@ def ticket_table_pagination(
 
     return pagination
 
-# use the tab-trigger below for new function
-# x-def-with-logger
-
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

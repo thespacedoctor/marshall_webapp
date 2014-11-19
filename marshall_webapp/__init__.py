@@ -31,7 +31,7 @@ def main(global_config, **settings):
     # config.include('pyramid_chameleon')
 
     # The Routes -- add_route(name, pattern)
-    config.add_route('transient_comments', '/transient/comments')
+    config.add_route('transients_comments', '/transient/comments')
     config.add_route(
         'transients_element_comments', '/transients/{elementId}/comments')
     config.add_route('transients', '/transients')
@@ -46,7 +46,7 @@ def main(global_config, **settings):
                      '/actions/refresh_sidebar_list_counts/{elementId}')
 
     config.add_route(
-        'transientLightcurves', '/transients/{elementId}/lightcurve')
+        'transients_lightcurves', '/transients/{elementId}/lightcurve')
     config.add_route('download', '/download')
     config.add_route('transients_ob_element', '/transients/{elementId}/ob')
     # --- end of routes --- #

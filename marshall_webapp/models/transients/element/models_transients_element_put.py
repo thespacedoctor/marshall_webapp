@@ -18,7 +18,6 @@ models_transients_element_put.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this `models_transients_element_put.py` module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -38,13 +37,8 @@ class models_transients_element_put():
         - ``request`` -- the pyramid request
 
     **Todo**
-        - @review: when complete, clean models_transients_element_put class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -59,12 +53,6 @@ class models_transients_element_put():
 
         log.debug("instansiating a new 'models_transients_element_put' object")
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
         # Initial Actions
 
         return None
@@ -73,7 +61,6 @@ class models_transients_element_put():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def put(self):
         """get the models_transients_element_put object
@@ -82,23 +69,23 @@ class models_transients_element_put():
             - ``models_transients_element_put``
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
 
+        # move the objects to another list if requested
         if "mwl" in self.request.params or "awl" in self.request.params:
             self._move_transient_to_another_list()
 
+        # change the pi is requested
         if set(("piName", "piEmail")) <= set(self.request.params):
             self._change_pi_for_object()
 
-        if set(("clsObsdate", "clsSnClassification")) <= set(self.request.params):
-            self._add_transient_classification()
-
-        self.log.info('completed the ``get`` method')
+        # throw warning if nothing has changed
         if len(self.response) == 0:
             self.response = "nothing has changed"
+
+        self.log.info('completed the ``get`` method')
+
         return self.response
 
     def _move_transient_to_another_list(
@@ -112,12 +99,11 @@ class models_transients_element_put():
             - None
 
         **Todo**
-            - @review: when complete, clean _create_sqlquery method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_create_sqlquery`` method')
         transientBucketId = self.transientBucketId
 
+        # change the marshall workflow location list if requested
         if "mwl" in self.request.params:
             mwl = self.request.params["mwl"]
             sqlQuery = """
@@ -128,6 +114,7 @@ class models_transients_element_put():
                 " transientBucketId %(transientBucketId)s moved to the `%(mwl)s` marshallWorkflowLocation<BR>" % locals(
                 )
 
+        # change the alert workflow location list if requested
         if "awl" in self.request.params:
             mwl = self.request.params["awl"]
             sqlQuery = """
@@ -141,7 +128,6 @@ class models_transients_element_put():
         self.log.info('completed the ``_create_sqlquery`` method')
         return None
 
-    # use the tab-trigger below for new method
     def _change_pi_for_object(
             self):
         """ change pi for object
@@ -153,8 +139,6 @@ class models_transients_element_put():
             - None
 
         **Todo**
-            - @review: when complete, clean _change_pi_for_object method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_change_pi_for_object`` method')
 
@@ -162,6 +146,7 @@ class models_transients_element_put():
         piEmail = self.request.params["piEmail"]
         transientBucketId = self.transientBucketId
 
+        # change the pi in the database
         sqlQuery = """
             update pesstoObjects set pi_name = "%(piName)s", pi_email = "%(piEmail)s" where transientBucketId = %(transientBucketId)s   
         """ % locals()
@@ -174,96 +159,4 @@ class models_transients_element_put():
         self.log.info('completed the ``_change_pi_for_object`` method')
         return None
 
-    # use the tab-trigger below for new method
-    def _add_transient_classification(
-            self):
-        """ add transient classification
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean _add_transient_classification method
-            - @review: when complete add logging
-        """
-        self.log.info('starting the ``_add_transient_classification`` method')
-
-        now = dcu.get_now_sql_datetime()
-        transientBucketId = self.transientBucketId
-
-        sqlQuery = """
-            select raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz from transientBucket where transientBucketId = %(transientBucketId)s and cx is not null limit 1
-        """ % locals()
-        rowsTmp = self.request.db.execute(sqlQuery).fetchall()
-        rows = []
-        rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
-
-        for row in rows:
-            for arg, val in row.iteritems():
-                varname = arg
-                if isinstance(val, str) or isinstance(val, unicode):
-                    exec(varname + """ = '%s' """ % (val,))
-                else:
-                    exec(varname + """ = %s """ % (val,))
-
-            obsMjd = dat.getMJDFromSqlDate(
-                # "%Y-%m-%dT%H:%M:%S.%f"
-                sqlDate="%(clsObsdate)sT00:00:00.0" % locals()
-            )
-
-            clsSnClassification = self.request.params["clsSnClassification"]
-            clsType = self.request.params["clsType"]
-            if "clsPeculiar" in self.request.params:
-                clsSnClassification = "%(clsSnClassification)s-p" % locals()
-            if clsType == "supernova":
-                clsType = clsSnClassification
-
-            if "clsRedshift" not in self.request.params:
-                clsRedshift = "null"
-            else:
-                clsRedshift = self.request.params["clsRedshift"]
-
-            if "clsClassificationWRTMax" not in self.request.params:
-                clsClassificationWRTMax = "unknown"
-            else:
-                clsClassificationWRTMax = self.request.params[
-                    "clsClassificationWRTMax"]
-
-            if "clsClassificationPhase" not in self.request.params:
-                clsClassificationPhase = "null"
-            else:
-                clsClassificationPhase = self.request.params[
-                    "clsClassificationPhase"]
-
-            sqlQuery = """
-                INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(clsTransientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s);
-            """ % locals()
-            self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
-            self.request.db.execute(sqlQuery)
-
-        # UPDATE THE OBJECT'S LOCATION IN THE VARIOUS MARSHALL WORKFLOWS
-        if self.request.params["clsSendTo"].lower() == "yes":
-            awl = "queued for atel"
-        else:
-            awl = "archived without alert"
-        sqlQuery = """
-            update pesstoObjects set classifiedFlag = 1, marshallWorkflowLocation = "review for followup", alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
-        """ % locals()
-        self.request.db.execute(sqlQuery)
-
-        # UPDATE THE FLAGS
-        # update_transientbucketsummaries_flags.update_transientbucketsummaries_flags(
-        # log, dbConn, updateAll=False, transientBucketId=clsTransientBucketId)
-
-        self.log.info('completed the ``_add_transient_classification`` method')
-        return None
-
-    # use the tab-trigger below for new method
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

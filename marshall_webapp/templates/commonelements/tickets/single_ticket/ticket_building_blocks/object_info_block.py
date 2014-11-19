@@ -16,18 +16,18 @@ object_info_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import datetime
 from docopt import docopt
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
+import khufu
+import dryxPython.mysql as dms
+import dryxPython.astrotools as dat
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -51,22 +51,8 @@ def object_info_block(
     **Return:**
         - ``object_info_block`` -- the ticket identity block for the pesssto object
 
-    **Todo**
-    # @review: when complete, clean object_info_block function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-    import dryxPython.astrotools as dat
-    import dryxPython.commonutils as dcu
-
     log.info('starting the ``object_info_block`` function')
-    ## VARIABLES ##
 
     title = cu.block_title(
         log,
@@ -130,10 +116,6 @@ def object_info_block(
     )
 
     size = 5
-    # if len(discoveryDataDictionary["transientTypePrediction"]) > 7:
-    #     size = 4
-    # if len(discoveryDataDictionary["transientTypePrediction"]) > 11:
-    #     size = 3
 
     text = khufu.coloredText(
         text=discoveryDataDictionary["transientTypePrediction"],
@@ -262,12 +244,6 @@ def object_info_block(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

@@ -16,17 +16,13 @@ webpage.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -64,22 +60,19 @@ def defaultpagetemplate(
         - ``webpage`` -- the webpage to be displayed
 
     **Todo**
-        # @review: when complete, clean webpage function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
+    log.info('starting the ``webpage`` function')
+
+    # imports
     from .. import *
 
-    log.info('starting the ``webpage`` function')
-    ## VARIABLES ##
-
+    # set default variables
     if not bodyId:
         bodyId = "inbox"
     if not relativePathFromDocRoot:
         relativePathFromDocRoot = ""
+
+    # select the sidebar flavour
     if not sideBar or sideBar == "marshall":
         sideBar = sidebar.marshall_sidebar(
             log=log,
@@ -93,6 +86,7 @@ def defaultpagetemplate(
             thisPageName=thisPageName
         )
 
+    # set default top navbar
     if not topNavBar:
         topNavBar = topnavbar.topnavbar(
             log=log,
@@ -150,24 +144,14 @@ def defaultpagetemplate(
         content="%(head)s %(body)s" % locals()
     )
 
-    # log.info('completed the ``webpage`` function')
+    log.info('completed the ``webpage`` function')
     return webpage
 
-
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

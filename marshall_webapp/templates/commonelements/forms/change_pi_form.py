@@ -16,17 +16,14 @@ change_pi_form.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -34,8 +31,6 @@ from dryxPython import commonutils as dcu
 # LAST MODIFIED : February 21, 2014
 # CREATED : February 21, 2014
 # AUTHOR : DRYX
-
-
 def change_pi_form(
     log,
     request,
@@ -49,32 +44,17 @@ def change_pi_form(
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
 
     **Return:**
-        - None
+        - ``changePiForm`` -- the change PI modal form
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-
     nameInput = khufu.formInput(
         # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
         ttype='text',
         placeholder='first and last name',
         span=12,
         htmlId="piName",
-        pull=False,
-        prepend=False,
-        append=False,
-        inlineHelpText=False,
-        blockHelpText=False,
-        focusedInputText=False,
-        required=True,
-        disabled=False
+        required=True
     )
     nameInput = khufu.controlRow(
         inputList=[nameInput, ]
@@ -93,14 +73,7 @@ def change_pi_form(
         placeholder='PI email address',
         span=12,
         htmlId="piEmail",
-        prepend=False,
-        append=False,
-        pull=False,
-        inlineHelpText=False,
-        blockHelpText=False,
-        focusedInputText=False,
-        required=True,
-        disabled=False
+        required=True
     )
     emailInput = khufu.controlRow(
         inputList=[emailInput, ]
@@ -136,13 +109,7 @@ def change_pi_form(
         # [ default | primary | info | success | warning | danger | inverse | link ]
         buttonStyle='info',
         buttonSize='default',  # [ large | default | small | mini ]
-        htmlId="changePiFormSubmitButton",
-        href=False,
-        pull=False,  # right, left, center
-        submit=True,
-        block=False,
-        disable=False,
-        dataToggle=False
+        htmlId="changePiFormSubmitButton"
     )
     cancelbutton = khufu.button(
         buttonText='cancel',
@@ -178,21 +145,10 @@ def change_pi_form(
 
     return changePiForm
 
-
-# use the tab-trigger below for new function
-# x-def-with-logger
-
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

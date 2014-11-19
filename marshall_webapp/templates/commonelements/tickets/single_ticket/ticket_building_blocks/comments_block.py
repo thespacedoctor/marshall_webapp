@@ -16,17 +16,15 @@ comments_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import datetime
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -34,8 +32,6 @@ from dryxPython import commonutils as dcu
 # LAST MODIFIED : January 7, 2014
 # CREATED : January 7, 2014
 # AUTHOR : DRYX
-# copy usage method(s) into function below and select the following snippet from the command palette:
-# x-setup-worker-function-parameters-from-usage-method
 
 
 def comments_block(
@@ -47,28 +43,16 @@ def comments_block(
     """comments_block
 
     **Key Arguments:**
-        # copy usage method(s) here and select the following snippet from the command palette:
         - ``log`` -- the logger
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
         - ``objectComments`` -- the comments for the object
 
     **Return:**
-        - None
+        - ``commentBlock`` -- the comments block for the transient ticket in the transient listings pages
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.commonutils as dcu
-
     commentBlock = ""
 
     for row in objectComments:
@@ -121,20 +105,11 @@ def comments_block(
 
     return commentBlock
 
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

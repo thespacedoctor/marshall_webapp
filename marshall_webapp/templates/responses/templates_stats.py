@@ -19,7 +19,6 @@ templates_stats.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete review and cleanup this templates_stats.py module
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -38,13 +37,8 @@ class templates_stats():
         - ``request`` -- request
 
     **Todo**
-        - @review: when complete, clean templates_stats class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -56,12 +50,6 @@ class templates_stats():
         self.request = request
         # xt-self-arg-tmpx
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
         # Initial Actions
 
         return None
@@ -70,37 +58,32 @@ class templates_stats():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
         """get the templates_stats object
 
         **Return:**
-            - ``templates_stats``
+            - ``webpage`` -- the webpage HTML
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
 
-        placeHolder = khufu.image(
-            # [ industrial | gray | social ]
-            src='holder.js/500x500/industrial/text:hello world',
-        )
-
         from ..commonelements.stats.esophaseIII import plot_wells, ssdr1_stats_table
 
+        # get the image wells for the plots
         sofiImagingPlots = plot_wells(
             log=self.log,
             request=request
         )
 
+        # get the ssdr1 stats table
         ssdr1Table = ssdr1_stats_table(
             log=self.log,
             request=self.request,
         )
 
+        # craft the content of the page
         mainContent = khufu.grid_column(
             span=12,  # 1-12
             offset=0,  # 1-12
@@ -127,8 +110,5 @@ class templates_stats():
 
         self.log.info('completed the ``get`` method')
         return webpage
-    # xt-class-method
 
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx
+    # xt-class-method

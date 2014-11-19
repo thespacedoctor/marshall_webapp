@@ -16,22 +16,18 @@ photometry.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 import datetime
+import re
 from docopt import docopt
 from dryxPython import commonutils as dcu
 import khufu
+import dryxPython.astrotools as dat
 import dryxPython.mysql as dms
 from .. import ticket_building_blocks
-
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -59,12 +55,9 @@ def photometry_tab(
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
 
     **Return:**
-        - ``photometry_tab``
+        - ``photometry_tab`` -- the lightcurve/photometry tab for a single ticket on the transient listings page
 
     **Todo**
-        - @review: when complete, clean photometry_tab function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     from ... import single_ticket
 
@@ -128,31 +121,6 @@ def photometry_tab(
         onDesktop=True
     )
 
-    # theseBlocks = [master_lightcurve_block]
-
-    # thisRow = ""
-    # blockCount = len(theseBlocks)
-    # span = int(round(12. / (len(theseBlocks)) - 0.5))
-    # remainingSpans = 12 - span * len(theseBlocks)
-    # count = 1
-    # for block in theseBlocks:
-    #     thisSpan = span
-    #     if count <= remainingSpans:
-    #         thisSpan = span + 1
-    #     count += 1
-    #     block = khufu.grid_column(
-    # span=thisSpan,  # 1-12
-    # offset=0,  # 1-12
-    #         content=block,
-    # pull=False,  # ["right", "left", "center"]
-    #         htmlId=False,
-    #         htmlClass=False,
-    #         onPhone=True,
-    #         onTablet=True,
-    #         onDesktop=True
-    #     )
-    #     thisRow = """%(thisRow)s %(block)s""" % locals()
-
     photometry_block = """%(master_lightcurve_block)s%(latest_magnitudes_block)s%(survey_lightcurves_block)s""" % locals(
     )
 
@@ -197,72 +165,11 @@ def photometry_footer_bar(
         - ``photometry_footer_bar`` -- the ticket footer bar for the pesssto object
 
     **Todo**
-    # @review: when complete, clean photometry_footer_bar function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-    import dryxPython.astrotools as dat
-    import dryxPython.commonutils as dcu
-
     log.info('starting the ``photometry_footer_bar`` function')
     ## VARIABLES ##
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     name = discoveryDataDictionary["masterName"]
-
-    lightCurveImage = False
-    # if lsqname:
-    #     lightCurveImage = request.static_url('marshall_webapp:static/cache/transients/%s/master_lightcurve.pdf' % (
-    #         discoveryDataDictionary["transientBucketId"],))
-    # else:
-    #     lightCurveImage = False
-
-    # Override for LSQ lightcurves
-    if discoveryDataDictionary["lsq_lightcurve"]:
-        transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = request.static_url('marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        ))
-
-    from datetime import datetime, date, time
-    now = datetime.now()
-    now = now.strftime("%Y%m%dt%H%M%S")
-    fileName = """%(name)s_lightcurve_%(now)s.pdf""" % locals()
-
-    if lightCurveImage is not False:
-        popover = khufu.popover(
-            tooltip=True,
-            placement="top",  # [ top | bottom | left | right ]
-            trigger="click",  # [ False | click | hover | focus | manual ]
-            title="download lightcurve pdf",
-            content=False,
-            delay=100
-        )
-
-        downloadFileButton = khufu.button(
-            buttonText="""<i class="icon-file-pdf"></i>""",
-            # [ default | primary | info | success | warning | danger | inverse | link ]
-            buttonStyle='primary',
-            buttonSize='small',  # [ large | default | small | mini ]
-            htmlId=False,
-            href="/marshall/scripts/python/download_file.py?url=%(lightCurveImage)s&fileName=%(fileName)s" % locals(
-            ),
-            pull=False,  # right, left, center
-            submit=False,
-            block=False,
-            disable=False,
-            dataToggle=False,  # [ modal ]
-            popover=popover
-        )
-    else:
-        downloadFileButton = ""
-
-    ########
-
     format = ["json", "csv", "plain_table"]
     text = ["json", "csv", "plain text"]
 
@@ -272,7 +179,7 @@ def photometry_footer_bar(
         params["format"] = f
         params["filename"] = "%(name)s_lightcurve" % locals()
         href = request.route_path(
-            'transientLightcurves', elementId=transientBucketId, _query=params)
+            'transients_lightcurves', elementId=transientBucketId, _query=params)
         link = khufu.a(
             content=t,
             href=href
@@ -327,7 +234,6 @@ def photometry_footer_bar(
             content=link,
             textAlign="center",  # [ left | center | right ]
         )
-
         linkList = """%(linkList)s%(link)s""" % locals()
 
     popover = khufu.popover(
@@ -344,63 +250,29 @@ def photometry_footer_bar(
         # [ default | primary | info | success | warning | danger | inverse | link ]
         buttonStyle='primary',
         buttonSize='small',  # [ large | default | small | mini ]
-        htmlId=False,
-        href=False,
-        pull=False,  # right, left, center
-        submit=False,
-        block=False,
-        disable=False,
-        dataToggle=False,  # [ modal ]
         popover=popover
-    )
-
-    ########
-
-    buttonGroup = khufu.buttonGroup(
-        buttonList=[downloadFileButton],
-        format='default'  # [ default | toolbar | vertical ]
     )
 
     footerColumn = khufu.grid_column(
         span=2,  # 1-12
         offset=0,  # 1-12
-        content="%(buttonGroup)s" % locals(
-        ),
-        pull=False,  # ["right", "left", "center"]
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
+        content="%(downloadFileButton)s" % locals(
+        )
     )
 
     photometry_footer_bar = khufu.grid_row(
         responsive=True,
         columns=footerColumn,
         htmlId=False,
-        htmlClass="ticketFooter",
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
+        htmlClass="ticketFooter"
     )
 
     return photometry_footer_bar
-
-
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

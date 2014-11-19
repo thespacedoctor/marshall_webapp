@@ -19,9 +19,6 @@ update_git_repo.py
     - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete, extract all code out of the main function and add cl commands
-    @review: make internal function private
-    @review: pull all general functions and classes into dryxPythonModules
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -122,8 +119,6 @@ def main():
         raise IOError(message)
     writeFile.close()
 
-    # xdhf-setup-database-connection-for-webapp-from-settings-file
-
     # x-url-for-cgi-page
 
     ################ > VARIABLE SETTINGS ######
@@ -170,8 +165,3 @@ class emptyLogger:
 
 if __name__ == '__main__':
     main()
-
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

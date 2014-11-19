@@ -19,21 +19,12 @@ ssdr1_stats_table.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 from docopt import docopt
 import khufu
-# from ..__init__ import *
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
-# xt-class-module-worker-tmpx
-# xt-class-tmpx
-
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -41,6 +32,8 @@ import khufu
 # LAST MODIFIED : October 6, 2014
 # CREATED : October 6, 2014
 # AUTHOR : DRYX
+
+
 def ssdr1_stats_table(
         log,
         request):
@@ -51,12 +44,9 @@ def ssdr1_stats_table(
         - ``request`` -- the pyramid request
 
     **Return:**
-        - None
+        - ``table`` -- the ssdr1 FITS file stats table
 
     **Todo**
-        - @review: when complete, clean ssdr1_stats_table function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.info('starting the ``ssdr1_stats_table`` function')
 
@@ -161,17 +151,11 @@ def ssdr1_stats_table(
         caption='',
         thead=tableHead,
         tbody=tableBody,
-        striped=True,
-        bordered=False,
-        hover=True,
-        condensed=False
+        striped=True
     )
 
     log.info('completed the ``ssdr1_stats_table`` function')
     return table
-
-# use the tab-trigger below for new function
-# xt-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #

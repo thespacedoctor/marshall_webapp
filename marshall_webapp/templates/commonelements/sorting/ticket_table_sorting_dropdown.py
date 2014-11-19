@@ -16,18 +16,14 @@ ticket_table_sorting_dropdown.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
-
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -52,22 +48,10 @@ def ticket_table_sorting_dropdown(
         - ``sortDesc`` -- incoming sort direction
 
     **Return:**
-        - None
+        - ``sortDropdown`` -- the sort dropdown for the transient listing pages
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-
-    if "/marshall" in thisUrl[-11:]:
-        thisUrl = thisUrl.replace("/marshall/", "/marshall/index.py")
-
     thisUrl = re.sub(r"(\&|\?)sortBy=[a-zA-Z_]*", "", thisUrl)
     thisUrl = re.sub(r"(\&|\?)sortDesc=[a-zA-Z]*", "", thisUrl)
     thisUrl = re.sub(r"(\&|\?)limit=\d*", "", thisUrl)
@@ -175,13 +159,6 @@ def ticket_table_sorting_dropdown(
         )
         thisLink = khufu.li(
             content=thisLink,  # if a subMenu for dropdown this should be <ul>
-            span=False,  # [ False | 1-12 ]
-            disabled=False,
-            submenuTitle=False,
-            divider=False,
-            navStyle=False,  # [ active | header ]
-            navDropDown=False,
-            pager=False  # [ False | "previous" | "next" ]
         )
         linkList.append(thisLink)
 
@@ -259,20 +236,11 @@ def ticket_table_sorting_dropdown(
 
     return sortDropdown
 
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

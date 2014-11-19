@@ -19,9 +19,6 @@ models_transients_get.py
     - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete, extract all code out of the main function and add cl commands
-    @review: make internal function private
-    @review: pull all general functions and classes into dryxPythonModules
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -41,12 +38,9 @@ class models_transients_get():
         - ``log`` -- logger
         - ``request`` -- the pyramid/WebObs request object
         - ``elementId`` -- elementId (transientBucketId)
-        search=False
+        - ``search`` -- is this a search query?
 
     **Todo**
-        - @review: when complete, clean models_transients_get class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
 
     def __init__(
@@ -84,7 +78,6 @@ class models_transients_get():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
         """get the transientData object
@@ -93,16 +86,13 @@ class models_transients_get():
             - ``transientData``
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
-
         """
         self.log.info('starting the ``get`` method')
 
         self.transientAkas = self._get_associated_transient_aka()
         self.transientLightcurveData = self._get_associated_lightcurve_data()
         self.transientAtelMatches = self._get_associated_atel_data()
-        self.transient_comments = self._get_associated_comments()
+        self.transients_comments = self._get_associated_comments()
 
         self.log.info('completed the ``get`` method')
 
@@ -113,7 +103,7 @@ class models_transients_get():
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transient_comments, self.totalTicketCount
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount
 
     def _get_transient_data_from_database(
             self):
@@ -123,11 +113,9 @@ class models_transients_get():
             # -
 
         **Return:**
-            - ``transientData`` --
+            - ``objectData``, ``matchedTransientBucketIds``, ``totalTicketCount`` -- 
 
         **Todo**
-            - @review: when complete, clean get_sqlquery method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get_data_from_database`` method')
 
@@ -315,8 +303,6 @@ class models_transients_get():
             - None
 
         **Todo**
-            - @review: when complete, clean set_default_parameters method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``set_default_parameters`` method')
 
@@ -369,11 +355,9 @@ class models_transients_get():
             # -
 
         **Return:**
-            - None
+            - ``objectAkas`` -- the akas for the objects found
 
         **Todo**
-            - @review: when complete, clean _get_associated_transient_aka method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_associated_transient_aka`` method')
 
@@ -402,11 +386,9 @@ class models_transients_get():
             # -
 
         **Return:**
-            - None
+            - ``lightCurveData`` -- the found objects' lightcurve data
 
         **Todo**
-            - @review: when complete, clean _get_associated_lightcurve_data method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_associated_lightcurve_data`` method')
 
@@ -436,8 +418,6 @@ class models_transients_get():
             - ``transientAtelMatches`` -- the matched atels fot the transients
 
         **Todo**
-            - @review: when complete, clean _get_associated_atel_data method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_associated_atel_data`` method')
 
@@ -463,11 +443,9 @@ class models_transients_get():
             # -
 
         **Return:**
-            - None
+            - ``objectComments`` -- object comments
 
         **Todo**
-            - @review: when complete, clean _get_associated_comments method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_associated_comments`` method')
 
@@ -493,11 +471,9 @@ class models_transients_get():
             - ``queryWhere`` -- the where segment of the ticket list sqlQuery string
 
         **Return:**
-            - None
+            - ``totalTickets`` -- total number of object in list
 
         **Todo**
-            - @review: when complete, clean _get_total_ticket_count_for_list method
-            - @review: when complete add logging
         """
         self.log.info(
             'starting the ``_get_total_ticket_count_for_list`` method')
@@ -543,8 +519,6 @@ class models_transients_get():
             - None
 
         **Todo**
-            - @review: when complete, clean _clean_data_for_plain_text_outputs method
-            - @review: when complete add logging
         """
         self.log.info(
             'starting the ``_clean_data_for_plain_text_outputs`` method')
@@ -613,7 +587,3 @@ class models_transients_get():
 
         # use the tab-trigger below for new method
         # xt-class-method
-
-        # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-        # Override Method Attributes
-        # method-override-tmpx

@@ -16,19 +16,18 @@ latest_magnitudes_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
-from dryxPython import commonutils as dcu
-from .....commonelements import commonutils as cu
+import re
 import datetime as datetime
+from docopt import docopt
+import khufu
+from dryxPython import commonutils as dcu
+import dryxPython.mysql as dms
+from .....commonelements import commonutils as cu
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -36,8 +35,6 @@ import datetime as datetime
 # LAST MODIFIED : March 26, 2014
 # CREATED : March 26, 2014
 # AUTHOR : DRYX
-
-
 def latest_magnitudes_block(
         log,
         request,
@@ -51,23 +48,14 @@ def latest_magnitudes_block(
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+        - ``displayTitle`` -- display the title for this block?
 
     **Return:**
         - ``latest_magnitudes_block`` -- the ticket identity block for the pesssto object
 
-    **Todo**
-    # @review: when complete, clean latest_magnitudes_block function & add logging
+    **Tasks:**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-
     log.info('starting the ``latest_magnitudes_block`` function')
-    ## VARIABLES ##
 
     if displayTitle:
         title = cu.block_title(
@@ -169,11 +157,6 @@ def latest_magnitudes_block(
             offset=0,  # 1-12
             content="%(survey)s %(dateObs)s" % locals(),
             pull="left",  # ["right", "left", "center"]
-            htmlId=False,
-            htmlClass=False,
-            onPhone=True,
-            onTablet=True,
-            onDesktop=True
         )
 
         if row["magnitude"]:
@@ -195,24 +178,11 @@ def latest_magnitudes_block(
             span=3,  # 1-12
             offset=1,  # 1-12
             content=mag,
-            pull=False,  # ["right", "left", "center"]
-            htmlId=False,
-            htmlClass=False,
-            onPhone=True,
-            onTablet=True,
-            onDesktop=True
         )
-        # if len(magnitudes) < 1:
-        #     mag = """%(littleTitle)s %(mag)s""" % locals()
 
         thisMag = khufu.grid_row(
             responsive=True,
             columns="%(mag)s %(info)s" % locals(),
-            htmlId=False,
-            htmlClass=False,
-            onPhone=True,
-            onTablet=True,
-            onDesktop=True
         )
         magnitudes = "%(magnitudes)s %(thisMag)s" % locals()
 
@@ -224,12 +194,6 @@ def latest_magnitudes_block(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

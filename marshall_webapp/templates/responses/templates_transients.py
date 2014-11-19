@@ -19,7 +19,6 @@ templates_transients.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -39,16 +38,11 @@ class templates_transients():
         - ``log`` -- logger
         - ``request`` -- the pyramid/WebObs request object
         - ``elementId`` -- the specific element requested (or False)
-        - ``search`` -- is this a search?
+        - ``search`` -- is this a search? (boolean)
 
     **Todo**
-        - @review: when complete, clean templates_transients class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
     # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -64,19 +58,15 @@ class templates_transients():
         self.search = search
         # xt-self-arg-tmpx
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
+        # grab the required data from the database and add it as attributes to
+        # this object
         transientModal = models_transients_get(
             log=self.log,
             request=self.request,
             elementId=self.elementId,
             search=self.search
         )
-        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transient_comments, self.totalTicketCount = transientModal.get(
+        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount = transientModal.get(
         )
 
         return None
@@ -85,20 +75,18 @@ class templates_transients():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
     # Method Attributes
     def get(self):
         """get the templates_transients object
 
         **Return:**
-            - ``templates_transients``
+            - ``webpage`` -- the webapge HTML
 
         **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``get`` method')
 
+        # choose which format of the content to display
         if self.qs["format"] == "html_table":
             maincontent = self._get_object_table()
         else:
@@ -129,16 +117,15 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``ticketList`` -- a list of HTML tickets to display in the webapp
 
         **Todo**
-            - @review: when complete, clean _get_list_of_transient_tickets method
-            - @review: when complete add logging
         """
         from ..commonelements.tickets.single_ticket import single_ticket
 
         self.log.info('starting the ``_get_list_of_transient_tickets`` method')
 
+        # for each transient build a ticket to be presented in the browser
         ticketList = []
         for discoveryDataDictionary in self.transientData:
             transientBucketId = discoveryDataDictionary["transientBucketId"]
@@ -147,7 +134,7 @@ class templates_transients():
                 log=self.log,
                 request=self.request,
                 discoveryDataDictionary=discoveryDataDictionary,
-                objectComments=self.transient_comments,
+                objectComments=self.transients_comments,
                 objectAkas=self.transientAkas,
                 lightcurveData=self.transientLightcurveData,
                 atelData=self.transientAtelMatches,
@@ -157,7 +144,6 @@ class templates_transients():
         self.log.info('completed the ``_get_list_of_transient_tickets`` method')
         return ticketList
 
-    # use the tab-trigger below for new method
     def _get_sort_dropdown(
             self):
         """ get sort dropdown
@@ -166,11 +152,9 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``sort`` -- the sort dropdown for the transient listings toolbar
 
         **Todo**
-            - @review: when complete, clean _get_sort_dropdown method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_sort_dropdown`` method')
 
@@ -186,7 +170,6 @@ class templates_transients():
         self.log.info('completed the ``_get_sort_dropdown`` method')
         return sort
 
-    # use the tab-trigger below for new method
     def _get_notification(
             self):
         """ get notification for the page
@@ -195,11 +178,9 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``notification`` -- notifcation to append to the top of the transient listing page
 
         **Todo**
-            - @review: when complete, clean _get_notification method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_notification`` method')
 
@@ -217,7 +198,6 @@ class templates_transients():
         self.log.info('completed the ``_get_notification`` method')
         return notification
 
-    # use the tab-trigger below for new method
     def _get_pagination(
             self):
         """ get pagination for the page
@@ -226,11 +206,9 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``pagination`` -- pagination options for the toolbar of the transient listing pages
 
         **Todo**
-            - @review: when complete, clean _get_pagination method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_pagination`` method')
 
@@ -247,7 +225,6 @@ class templates_transients():
         self.log.info('completed the ``_get_pagination`` method')
         return pagination
 
-    # use the tab-trigger below for new method
     def _get_view_switcher_buttons(
             self):
         """ get view switcher buttons for the page
@@ -256,11 +233,9 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
 
         **Todo**
-            - @review: when complete, clean _get_view_switcher_buttons method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_view_switcher_buttons`` method')
 
@@ -275,7 +250,6 @@ class templates_transients():
         self.log.info('completed the ``_get_view_switcher_buttons`` method')
         return view_switcher_buttons
 
-    # use the tab-trigger below for new method
     def _get_object_limit_dropdown(
             self):
         """ get object limit dropdown for the page
@@ -284,11 +258,9 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``objectsPerPageDropdown`` -- options to display certain numbers of transients on a single webpage (for top toolbar of transient listing page)
 
         **Todo**
-            - @review: when complete, clean _get_object_limit_dropdown method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_object_limit_dropdown`` method')
 
@@ -304,7 +276,6 @@ class templates_transients():
         self.log.info('completed the ``_get_object_limit_dropdown`` method')
         return objectsPerPageDropdown
 
-    # use the tab-trigger below for new method
     def _get_object_table(
             self):
         """get a table of transients
@@ -313,11 +284,9 @@ class templates_transients():
             # -
 
         **Return:**
-            - None
+            - ``object_table`` -- the table view content for the transient listing pages
 
         **Todo**
-            - @review: when complete, clean _get_object_table method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_object_table`` method')
 
@@ -357,6 +326,7 @@ class templates_transients():
             "plainName"
         ]
 
+        # get the webpage components
         tickets = self._get_list_of_transient_tickets()
         sort = self._get_sort_dropdown()
         count = self.totalTicketCount
@@ -494,7 +464,6 @@ class templates_transients():
         self.log.info('completed the ``_get_object_table`` method')
         return object_table
 
-    # use the tab-trigger below for new method
     def _get_page_name(
             self):
         """ get page name
@@ -506,8 +475,6 @@ class templates_transients():
             - None
 
         **Todo**
-            - @review: when complete, clean _get_page_name method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_page_name`` method')
 
@@ -522,7 +489,6 @@ class templates_transients():
         self.log.info('completed the ``_get_page_name`` method')
         return thisPageName
 
-    # use the tab-trigger below for new method
     def _get_object_tickets(
             self):
         """ get object tickets
@@ -531,11 +497,10 @@ class templates_transients():
             - ``ticket_table`` -- the ticket to display as the main content of the page
 
         **Todo**
-            - @review: when complete, clean _get_object_tickets method
-            - @review: when complete add logging
         """
         self.log.info('starting the ``_get_object_tickets`` method')
 
+        # get the webpage components
         ticketList = self._get_list_of_transient_tickets()
         pagination = self._get_pagination()
         notification = self._get_notification()
@@ -586,7 +551,3 @@ class templates_transients():
 
     # use the tab-trigger below for new method
     # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
-    # method-override-tmpx

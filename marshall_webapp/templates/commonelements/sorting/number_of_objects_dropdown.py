@@ -16,7 +16,6 @@ number_of_objects_dropdown.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -28,18 +27,11 @@ import khufu
 
 
 ###################################################################
-# CLASSES                                                         #
-###################################################################
-
-###################################################################
 # PUBLIC FUNCTIONS                                                #
 ###################################################################
 # LAST MODIFIED : February 20, 2014
 # CREATED : February 20, 2014
 # AUTHOR : DRYX
-# copy usage method(s) into function below and select the following snippet from the command palette:
-# x-setup-worker-function-parameters-from-usage-method
-
 
 def number_of_objects_dropdown(
     log,
@@ -59,14 +51,7 @@ def number_of_objects_dropdown(
         - ``objectsPerPageDropdown``
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-
     # determine which icon to use:
     if tableView == "table":
         icon = """<i class="icon-reorder"></i>"""
@@ -119,20 +104,10 @@ def number_of_objects_dropdown(
 
     return objectsPerPageDropdown
 
-# use the tab-trigger below for new function
-# x-def-with-logger
-
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

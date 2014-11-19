@@ -1,5 +1,5 @@
 import transients
-import transient_comments
+import transients_comments
 import actions
-import transientLightcurves
+import transients_lightcurves
 import transients_ob

@@ -16,19 +16,18 @@ survey_lightcurves_block.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
+import datetime as datetime
 from docopt import docopt
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
-import datetime as datetime
+import khufu
+import dryxPython.mysql as dms
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -50,22 +49,15 @@ def survey_lightcurves_block(
         - ``log`` -- logger
         - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+        - ``displayTitle`` -- display the title for this block?
 
     **Return:**
         - ``survey_lightcurves_block`` -- the ticket identity block for the pesssto object
 
     **Todo**
-    # @review: when complete, clean survey_lightcurves_block function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    import re
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-    import dryxPython.mysql as dms
-
     log.info('starting the ``survey_lightcurves_block`` function')
+
     ## VARIABLES ##
     lightCurveImages = []
     tinyDict = {}
@@ -167,12 +159,6 @@ def survey_lightcurves_block(
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
+
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

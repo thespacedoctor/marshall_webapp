@@ -1,16 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_put.py
-========================
+models_transients_lightcurves_post.py
+===================================
 :Summary:
-    The HTML template module for the `models_transients_put.py` resource
+    The data model module for the `transients_lightcurves_post` resource
 
 :Author:
     David Young
 
 :Date Created:
-    October 10, 2014
+    November 5, 2014
 
 :dryx syntax:
     - ``_someObject`` = a 'private' object that should only be changed for debugging
@@ -26,10 +26,10 @@ import os
 import khufu
 
 
-class models_transients_put():
+class models_transients_lightcurves_post():
 
     """
-    The worker class for the models_transients_put module
+    The worker class for the models_transients_lightcurves_post module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -44,14 +44,17 @@ class models_transients_put():
         self,
         log,
         request,
-        elementId=False
+        elementId=False,
+        search=False
     ):
         self.log = log
         self.request = request
         self.elementId = elementId
+        self.search = search
         # xt-self-arg-tmpx
 
-        log.debug("instansiating a new 'models_transients_put' object")
+        log.debug(
+            "instansiating a new 'models_transients_lightcurves_post' object")
 
         # Initial Actions
 
@@ -62,15 +65,15 @@ class models_transients_put():
         return None
 
     # Method Attributes
-    def put(self):
-        """execute the put method on the models_transients_put object
+    def post(self):
+        """execute the post method on the models_transients_lightcurves_post object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
 
         **Todo**
         """
-        self.log.info('starting the ``put`` method')
+        self.log.info('starting the ``post`` method')
 
         elementId = self.elementId
 
@@ -82,7 +85,7 @@ class models_transients_put():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``put`` method')
+        self.log.info('completed the ``post`` method')
         return responseContent
 
     # xt-class-method

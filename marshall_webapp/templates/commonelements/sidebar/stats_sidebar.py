@@ -257,14 +257,6 @@ def _get_esoPhaseIII_links(
     log.info('completed the ``_get_development_links`` function')
     return developmentLinks
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################

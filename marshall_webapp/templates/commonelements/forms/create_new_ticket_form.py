@@ -16,18 +16,14 @@ create_new_ticket_form.py
     - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
 
 :Tasks:
-    @review: when complete pull all general functions and classes into dryxPython
 """
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
 from docopt import docopt
+import khufu
 from dryxPython import commonutils as dcu
 
-
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -51,21 +47,7 @@ def create_new_ticket_form(
         - ``createNewTicketForm``
 
     **Todo**
-        @review: when complete, clean worker function and add comments
-        @review: when complete add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
-    import khufu
-
-    # x-tmpx-form-control-group
-
-    prefix = request.registry.settings["apache prefix"]
-
-    ##################
-
     postToScriptUrl = request.route_path(
         'transients', _query={'method': 'post'})
     reloadToUrl = href = request.route_path(
@@ -239,30 +221,16 @@ def create_new_ticket_form(
     thisButton = khufu.grid_column(
         span=11,  # 1-12
         offset=1,  # 1-12
-        content=thisButton,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
+        content=thisButton
     )
 
     return modalForm, thisButton
 
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
 
-############################################
-# CODE TO BE DEPECIATED                    #
-############################################
 
 if __name__ == '__main__':
     main()
-
-###################################################################
-# TEMPLATE FUNCTIONS                                              #
-###################################################################
