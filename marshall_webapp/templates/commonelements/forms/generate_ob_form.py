@@ -208,7 +208,7 @@ def generate_ob_form(
 
     ######
     postToScript = request.route_path(
-        'transients_ob_element', elementId=discoveryDataDictionary["transientBucketId"], _query={"method": "get"})
+        'transients_element_obs', elementId=discoveryDataDictionary["transientBucketId"], _query={"method": "get"})
 
     thisModal = khufu.modals.modalForm(
         log=log,

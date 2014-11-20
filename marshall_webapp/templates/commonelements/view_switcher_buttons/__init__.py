@@ -35,7 +35,8 @@ import khufu
 def view_switcher_buttons(
     log,
     params,
-    request
+    request,
+    elementId=False
 ):
     """view_switcher_buttons
 
@@ -43,6 +44,7 @@ def view_switcher_buttons(
         - ``log`` -- logger
         - ``params`` -- the request params (defaults added if not populated)
         - ``request`` -- the pyramid request
+        - ``elementId`` -- the transientBucketId
 
     **Return:**
         - None
@@ -107,7 +109,8 @@ def view_switcher_buttons(
             format=f,
             params=params,
             linkText=l,
-            download=True
+            download=True,
+            elementId=elementId
         )
         theseLinks = "%(theseLinks)s %(thisLink)s" % locals()
     popover = khufu.popover(
@@ -135,9 +138,6 @@ def view_switcher_buttons(
 
     return viewSwitcherButton + downloadsButton
 
-# use the tab-trigger below for new function
-# x-def-with-logger
-
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
@@ -152,7 +152,8 @@ def _link_for_popover(
         format,
         params,
         linkText=False,
-        download=False):
+        download=False,
+        elementId=False):
     """ link for popover
 
     **Key Arguments:**
@@ -160,6 +161,7 @@ def _link_for_popover(
         - ``request`` -- pyramid request object
         - ``format`` -- format of view to return
         - ``linkText`` - text for link if different than format
+        - ``elementId`` -- the transientBucketId
 
     **Return:**
         - ``thisLink`` -- the link for the popover
@@ -181,6 +183,15 @@ def _link_for_popover(
                 params["filename"] = "classifications"
             elif "q" in params:
                 params["filename"] = "search_" + params["q"]
+            elif elementId:
+                sqlQuery = u"""
+                    select masterName from transientBucketSummaries where transientBucketId = %(elementId)s 
+                """ % locals()
+                objectDataTmp = request.db.execute(sqlQuery).fetchall()
+                objectData = []
+                objectData[:] = [dict(zip(row.keys(), row))
+                                 for row in objectDataTmp]
+                params["filename"] = "search_" + objectData[0]["masterName"]
 
             oldnames = ["pending obs", "following", "allObsQueue"]
             newnames = ["classification targets", "followup targets",

@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_ob_get.py
+models_transients_obs_get.py
 ===========================
 :Summary:
-    The data model module for the `transients_ob_get` resource
+    The data model module for the `transients_obs_get` resource
 
 :Author:
     David Young
@@ -27,10 +27,10 @@ import khufu
 from dryxPython import astrotools as dat
 
 
-class models_transients_ob_get():
+class models_transients_obs_get():
 
     """
-    The worker class for the models_transients_ob_get module
+    The worker class for the models_transients_obs_get module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -62,7 +62,7 @@ class models_transients_ob_get():
             "grism": 13,
             "badSeeing": False
         }
-        self.log.debug("instansiating a new 'models_transients_ob_get' object")
+        self.log.debug("instansiating a new 'models_transients_obs_get' object")
 
         # Initial Actions
         self._set_default_parameters()
@@ -76,7 +76,7 @@ class models_transients_ob_get():
 
     # Method Attributes
     def get(self):
-        """execute the get method on the models_transients_ob_get object
+        """execute the get method on the models_transients_obs_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
@@ -154,4 +154,3 @@ class models_transients_ob_get():
 
     # use the tab-trigger below for new method
     # xt-class-method
-

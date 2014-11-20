@@ -244,7 +244,8 @@ class templates_transients():
         view_switcher_buttons = view_switcher_buttons(
             log=self.log,
             params=self.qs,
-            request=self.request
+            request=self.request,
+            elementId=self.elementId
         )
 
         self.log.info('completed the ``_get_view_switcher_buttons`` method')

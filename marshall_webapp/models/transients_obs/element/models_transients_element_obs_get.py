@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_ob_element_get.py
+models_transients_element_obs_get.py
 ===================================
 :Summary:
-    The data model module for the `transients_ob_element_get` resource
+    The data model module for the `transients_element_obs_get` resource
 
 :Author:
     David Young
@@ -26,10 +26,10 @@ import os
 import khufu
 
 
-class models_transients_ob_element_get():
+class models_transients_element_obs_get():
 
     """
-    The worker class for the models_transients_ob_element_get module
+    The worker class for the models_transients_element_obs_get module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -58,7 +58,7 @@ class models_transients_ob_element_get():
         # xt-self-arg-tmpx
 
         log.debug(
-            "instansiating a new 'models_transients_ob_element_get' object")
+            "instansiating a new 'models_transients_element_obs_get' object")
 
         # Initial Actions
         self._set_default_parameters()
@@ -71,7 +71,7 @@ class models_transients_ob_element_get():
 
     # Method Attributes
     def get(self):
-        """execute the get method on the models_transients_ob_element_get object
+        """execute the get method on the models_transients_element_obs_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser

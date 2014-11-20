@@ -20,7 +20,7 @@ nttarchiver:
 downloads:
     transient cache directory: "/Users/Dave/git_repos/pessto_webapp/transients_cache/"
 
-stats cache directory: "/Users/Dave/git_repos/pessto_webapp/stats_cache/"
+stats cache directory: "/Users/Dave/git_repos/webapps/pessto_webapp/stats_cache/"
 
 credentials:
     lsq:

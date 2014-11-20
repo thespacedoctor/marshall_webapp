@@ -179,7 +179,7 @@ def photometry_footer_bar(
         params["format"] = f
         params["filename"] = "%(name)s_lightcurve" % locals()
         href = request.route_path(
-            'transients_lightcurves', elementId=transientBucketId, _query=params)
+            'transients_element_lightcurves', elementId=transientBucketId, _query=params)
         link = khufu.a(
             content=t,
             href=href

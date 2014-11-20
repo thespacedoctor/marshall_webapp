@@ -15,7 +15,8 @@ class transients_lightcurves_view(object):
     def __init__(self, request):
         self.request = request
         self.log = logging.getLogger(__name__)
-        self.log.debug("instantiating a new 'transients_lightcurves'' view")
+        self.log.debug(
+            "instantiating a new 'transients_lightcurves'' view")
 
     @view_config(request_method='DELETE')
     @view_config(request_param="method=delete")
@@ -31,6 +32,36 @@ class transients_lightcurves_view(object):
     @view_config(request_param="method=post")
     def post(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients_lightcurves' resource")
+
+    @view_config(request_method='GET', renderer="json")
+    @view_config(request_param="method=get", renderer="json")
+    def get(self):
+        return exc.exception_response(405, body_template="The GET method is not allowed on the 'transients_lightcurves' resource")
+
+
+@view_defaults(route_name='transients_element_lightcurves')
+class transients_elements_lightcurve_view(object):
+
+    def __init__(self, request):
+        self.request = request
+        self.log = logging.getLogger(__name__)
+        self.log.debug(
+            "instantiating a new 'transients_element_lightcurves'' view")
+
+    @view_config(request_method='DELETE')
+    @view_config(request_param="method=delete")
+    def delete(self):
+        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients_element_lightcurves' resource")
+
+    @view_config(request_method='PUT')
+    @view_config(request_param="method=put")
+    def put(self):
+        return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients_element_lightcurves' resource")
+
+    @view_config(request_method='POST')
+    @view_config(request_param="method=post")
+    def post(self):
+        return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients_element_lightcurves' resource")
 
     @view_config(request_method='GET', renderer="json")
     @view_config(request_param="method=get", renderer="json")

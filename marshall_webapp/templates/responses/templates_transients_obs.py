@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_transients_ob.py
+templates_transients_obs.py
 ==========================
 :Summary:
-    The HTML template module for the `templates_transients_ob.py` resource
+    The HTML template module for the `templates_transients_obs.py` resource
 
 :Author:
     David Young
@@ -24,13 +24,13 @@ templates_transients_ob.py
 import sys
 import os
 import khufu
-from ...models.transients_ob import models_transients_ob_get
+from ...models.transients_obs import models_transients_obs_get
 
 
-class templates_transients_ob():
+class templates_transients_obs():
 
     """
-    The worker class for the templates_transients_ob module
+    The worker class for the templates_transients_obs module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -52,7 +52,7 @@ class templates_transients_ob():
         self.elementId = elementId
         # xt-self-arg-tmpx
 
-        log.debug("instansiating a new 'templates_transients_ob' object")
+        log.debug("instansiating a new 'templates_transients_obs' object")
 
         # Initial Actions
 
@@ -64,7 +64,7 @@ class templates_transients_ob():
 
     # Method Attributes
     def get(self):
-        """get the templates_transients_ob object
+        """get the templates_transients_obs object
 
         **Return:**
             - ``responseContent`` -- the response
@@ -74,12 +74,12 @@ class templates_transients_ob():
         self.log.info('starting the ``get`` method')
 
         # get info needed from database
-        transients_ob = models_transients_ob_get(
+        transients_obs = models_transients_obs_get(
             log=self.log,
             request=self.request,
             elementId=self.elementId
         )
-        transient_ob_data = transients_ob.get()
+        transient_ob_data = transients_obs.get()
 
         # download filename and data for OB
         filename, obText = self._generate_ob_text(

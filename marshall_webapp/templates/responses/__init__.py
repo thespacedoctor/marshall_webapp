@@ -4,4 +4,4 @@ from templates_calendars import templates_calendars
 from templates_transients_comments import templates_transients_comments
 from templates_transients_lightcurves import templates_transients_lightcurves
 
-from templates_transients_ob import templates_transients_ob
+from templates_transients_obs import templates_transients_obs

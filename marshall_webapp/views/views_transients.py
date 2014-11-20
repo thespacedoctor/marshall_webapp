@@ -111,17 +111,7 @@ class transients_element_view(object):
     @view_config(request_method='DELETE')
     @view_config(request_param="method=delete")
     def delete(self):
-        transients = models_transients_element_delete(
-            log=self.log,
-            request=self.request,
-            elementId=self.request.matchdict["elementId"]
-        )
-        responseContent = transients.delete()
-        if "redirectURL" in self.request.params:
-            url = self.request.params["redirectURL"]
-            return HTTPFound(location=url)
-        else:
-            return Response(responseContent)
+        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients' element resource")
 
     @view_config(request_method='POST')
     @view_config(request_param="method=post")
@@ -197,3 +187,18 @@ class transientsSearchView(object):
             search=True
         )
         return transientData.get()
+
+    @view_config(request_method='DELETE')
+    @view_config(request_param="method=delete")
+    def delete(self):
+        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients' search resource")
+
+    @view_config(request_method='PUT')
+    @view_config(request_param="method=put")
+    def put(self):
+        return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients' search resource")
+
+    @view_config(request_method='POST')
+    @view_config(request_param="method=post")
+    def post(self):
+        return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients' search resource")

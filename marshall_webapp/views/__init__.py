@@ -4,4 +4,4 @@ import views_calendars
 import views_transients_comments
 import views_actions_refresh_sidebar_list_counts
 import views_transients_lightcurves
-import views_transients_ob
+import views_transients_obs

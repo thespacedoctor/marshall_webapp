@@ -74,7 +74,7 @@ class templates_stats():
         # get the image wells for the plots
         sofiImagingPlots = plot_wells(
             log=self.log,
-            request=request
+            request=self.request
         )
 
         # get the ssdr1 stats table

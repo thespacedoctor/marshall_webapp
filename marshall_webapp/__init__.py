@@ -31,9 +31,14 @@ def main(global_config, **settings):
     # config.include('pyramid_chameleon')
 
     # The Routes -- add_route(name, pattern)
-    config.add_route('transients_comments', '/transient/comments')
+    config.add_route('transients_comments', '/transients/comments')
     config.add_route(
         'transients_element_comments', '/transients/{elementId}/comments')
+    config.add_route(
+        'transients_lightcurves', '/transients/lightcurves')
+    config.add_route(
+        'transients_element_lightcurves', '/transients/{elementId}/lightcurves')
+    config.add_route('transients_element_obs', '/transients/{elementId}/obs')
     config.add_route('transients', '/transients')
     config.add_route(
         'transients_search', '/transients/search')
@@ -42,15 +47,12 @@ def main(global_config, **settings):
     config.add_route('calendars', '/calendars')
     config.add_route(
         'refresh_sidebar_list_counts', '/actions/refresh_sidebar_list_counts')
-    config.add_route('refresh_sidebar_list_counts_element',
-                     '/actions/refresh_sidebar_list_counts/{elementId}')
 
-    config.add_route(
-        'transients_lightcurves', '/transients/{elementId}/lightcurve')
-    config.add_route('download', '/download')
-    config.add_route('transients_ob_element', '/transients/{elementId}/ob')
     # --- end of routes --- #
     # xpyr-add-route
+
+    # Default Routes from dryxPyramid
+    config.add_route('download', '/download')
 
     # xpyr-add-route
     config.add_route('index', '/')
