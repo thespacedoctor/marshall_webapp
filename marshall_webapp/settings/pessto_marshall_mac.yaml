@@ -22,6 +22,14 @@ downloads:
 
 stats cache directory: "/Users/Dave/git_repos/webapps/pessto_webapp/stats_cache/"
 
+main css filename: "main_marshall.css"
+main js filename: "main-ck.js"
+path to webapp icon: "/static/images/pessto_icon.png" 
+
+## webapp secrets
+secrets:
+    authn policy: "a^h34**92"
+
 credentials:
     lsq:
         username: lsq

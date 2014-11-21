@@ -8,6 +8,12 @@ from ..models.transients import models_transients_post, models_transients_put, m
 from ..models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
 
 
+@view_config(route_name='index', request_method='GET')
+def index(request):
+    href = request.route_path('transients')
+    return HTTPFound(location=href)
+
+
 @view_defaults(route_name='transients')
 class transients_view(object):
 

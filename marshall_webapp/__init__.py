@@ -7,9 +7,13 @@ from pyramid.authorization import ACLAuthorizationPolicy
 import yaml
 import dryxPyramid
 from dryxPyramid.security import groupfinder
+import views
+import templates
+import models
 
 
 def db(request):
+    # database connection
     maker = request.registry.dbmaker
     session = maker()
 
@@ -27,21 +31,35 @@ def db(request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    # authorisation
-    authn_policy = AuthTktAuthenticationPolicy(
-        'sosecret', callback=groupfinder, hashalg='sha512')
-    authz_policy = ACLAuthorizationPolicy()
+
+    # the main configurator
     config = Configurator(
         settings=settings, root_factory='dryxPyramid.models.acl.RootFactory')
-    config.set_authentication_policy(authn_policy)
-    config.set_authorization_policy(authz_policy)
 
+    # add database connection
     engine = engine_from_config(settings, prefix='sqlalchemy.')
     config.registry.dbmaker = sessionmaker(bind=engine)
     config.add_request_method(db, reify=True)
-    # config.include('pyramid_chameleon')
 
-    # The Routes -- add_route(name, pattern)
+    # Add settings from YAML file
+    myWebapp = AssetResolver("marshall_webapp")
+    theseSettings = config.get_settings()
+    settingsPath = myWebapp.resolve(
+        theseSettings["settingsFile"]).abspath()
+    stream = file(settingsPath, 'r')
+    settings = yaml.load(stream)
+    config.add_settings(settings)
+    stream.close()
+
+    # add authorisation
+    secret = settings["secrets"]["authn policy"]
+    authn_policy = AuthTktAuthenticationPolicy(
+        secret, callback=groupfinder, hashalg='sha512')
+    authz_policy = ACLAuthorizationPolicy()
+    config.set_authentication_policy(authn_policy)
+    config.set_authorization_policy(authz_policy)
+
+    # add the specific routes -- add_route(name, pattern)
     config.add_route('transients_comments', '/transients/comments')
     config.add_route(
         'transients_element_comments', '/transients/{elementId}/comments')
@@ -62,7 +80,7 @@ def main(global_config, **settings):
     # --- end of routes --- #
     # xpyr-add-route
 
-    # Default Routes from dryxPyramid
+    # add some default Routes from dryxPyramid
     config.add_route('download', '/download')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
@@ -75,16 +93,8 @@ def main(global_config, **settings):
     # static views
     config.add_static_view('static', 'static', cache_max_age=3600)
 
-    # Add settings from YAML file
-    myWebapp = AssetResolver("marshall_webapp")
-    theseSettings = config.get_settings()
-    settingsPath = myWebapp.resolve(
-        theseSettings["settingsFile"]).abspath()
-    stream = file(settingsPath, 'r')
-    settings = yaml.load(stream)
-    config.add_settings(settings)
-    stream.close()
-
+    # add database connection as a setting (incase we want to use MySQLdb over
+    # sqlachemy)
     import MySQLdb as ms
     # SETUP A DATABASE CONNECTION BASED ON WHAT ARGUMENTS HAVE BEEN PASSED
     if "database settings" in settings:
@@ -102,6 +112,7 @@ def main(global_config, **settings):
         )
         config.add_settings({"dbConn": dbConn})
 
+    # add some deafult renderers
     config.add_renderer('json', dryxPyramid.renderers.renderer_json)
     config.add_renderer('csv', dryxPyramid.renderers.renderer_csv)
     config.add_renderer(
@@ -110,7 +121,3 @@ def main(global_config, **settings):
         'plain_text', dryxPyramid.renderers.renderer_plain_text)
 
     return config.make_wsgi_app()
-
-import views
-import templates
-import models

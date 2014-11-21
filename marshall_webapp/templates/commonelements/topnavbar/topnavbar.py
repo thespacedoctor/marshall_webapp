@@ -41,6 +41,21 @@ def topnavbar(log,
     """
     log.info('starting the ``topNavigationBar`` function')
 
+    username = request.authenticated_userid
+    if username:
+        href = request.route_path('logout')
+        logout = khufu.a(
+            content="logout",
+            href=href,
+        )
+        username = """%(username)s (%(logout)s)""" % locals()
+    else:
+        href = request.route_path('login')
+        username = khufu.a(
+            content="login",
+            href=href,
+        )
+
     icon = khufu.image(
         src='/static/images/home_button_body.png',
         href=False,
@@ -110,8 +125,6 @@ def topnavbar(log,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
 
-    prefix = request.registry.settings["apache prefix"]
-
     href = request.route_path('transients_search')
     searchbox = khufu.searchbox(
         size='large',
@@ -143,6 +156,7 @@ def topnavbar(log,
     topNavBar = khufu.responsive_navigation_bar(
         shade='dark',
         brand=icon,
+        loginDetails=username,
         outsideNavList=outsideNavList,
         insideNavList=insideNavList,
         htmlId=False,
