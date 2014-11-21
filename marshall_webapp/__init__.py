@@ -2,8 +2,11 @@ from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 from pyramid.path import AssetResolver
+from pyramid.authentication import AuthTktAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
 import yaml
 import dryxPyramid
+from dryxPyramid.security import groupfinder
 
 
 def db(request):
@@ -24,7 +27,15 @@ def db(request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    config = Configurator(settings=settings)
+    # authorisation
+    authn_policy = AuthTktAuthenticationPolicy(
+        'sosecret', callback=groupfinder, hashalg='sha512')
+    authz_policy = ACLAuthorizationPolicy()
+    config = Configurator(
+        settings=settings, root_factory='dryxPyramid.models.acl.RootFactory')
+    config.set_authentication_policy(authn_policy)
+    config.set_authorization_policy(authz_policy)
+
     engine = engine_from_config(settings, prefix='sqlalchemy.')
     config.registry.dbmaker = sessionmaker(bind=engine)
     config.add_request_method(db, reify=True)
@@ -53,6 +64,8 @@ def main(global_config, **settings):
 
     # Default Routes from dryxPyramid
     config.add_route('download', '/download')
+    config.add_route('login', '/login')
+    config.add_route('logout', '/logout')
 
     # xpyr-add-route
     config.add_route('index', '/')
