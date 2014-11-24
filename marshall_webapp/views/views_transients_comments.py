@@ -9,7 +9,7 @@ from ..models.transients_comments.element import models_transients_element_comme
 # RESOURCE CONTEXT
 
 
-@view_defaults(route_name='transients_comments')
+@view_defaults(route_name='transients_comments', permission="view_users")
 class transients_comments_view(object):
 
     def __init__(self, request):
@@ -17,23 +17,23 @@ class transients_comments_view(object):
         self.log = logging.getLogger(__name__)
         self.log.debug("instantiating a new 'transients_comments'' view")
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients_comments' resource")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients_comments' resource")
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients_comments' resource")
 
-    @view_config(request_method='GET')
-    @view_config(request_param="method=get")
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
     def get(self):
         transients_comments = templates_transients_comments(
             log=self.log,
@@ -45,7 +45,7 @@ class transients_comments_view(object):
 # RESOURCE ELEMENT
 
 
-@view_defaults(route_name='transients_element_comments')
+@view_defaults(route_name='transients_element_comments', permission="view_users")
 class transients_element_comments_view(object):
 
     def __init__(self, request):
@@ -53,8 +53,8 @@ class transients_element_comments_view(object):
         self.log = logging.getLogger(__name__)
         self.log.debug("instantiating a new 'transients_comments'' view")
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         transients_comments = models_transients_element_comments_delete(
             log=self.log,
@@ -64,8 +64,8 @@ class transients_element_comments_view(object):
         responseContent = transients_comments.delete()
         return Response(responseContent)
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         transients_comments = models_transients_element_comments_put(
             log=self.log,
@@ -75,8 +75,8 @@ class transients_element_comments_view(object):
         responseContent = transients_comments.put()
         return Response(responseContent)
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         transients_comments = models_transients_element_comments_post(
             log=self.log,
@@ -91,8 +91,8 @@ class transients_element_comments_view(object):
         else:
             return Response(thisResponse)
 
-    @view_config(request_method='GET')
-    @view_config(request_param="method=get")
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
     def get(self):
         transients_comments = templates_transients_comments(
             log=self.log,

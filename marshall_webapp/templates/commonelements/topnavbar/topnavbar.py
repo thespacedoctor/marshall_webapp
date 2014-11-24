@@ -42,6 +42,7 @@ def topnavbar(log,
     log.info('starting the ``topNavigationBar`` function')
 
     username = request.authenticated_userid
+    username = username.replace(".", " ")
     if username:
         href = request.route_path('logout')
         logout = khufu.a(

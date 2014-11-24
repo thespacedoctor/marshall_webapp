@@ -34,7 +34,7 @@ def main(global_config, **settings):
 
     # the main configurator
     config = Configurator(
-        settings=settings, root_factory='dryxPyramid.models.acl.RootFactory')
+        settings=settings, root_factory='dryxPyramid.models.models_login_post.RootFactory')
 
     # add database connection
     engine = engine_from_config(settings, prefix='sqlalchemy.')

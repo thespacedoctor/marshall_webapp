@@ -8,13 +8,13 @@ from ..models.transients import models_transients_post, models_transients_put, m
 from ..models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
 
 
-@view_config(route_name='index', request_method='GET')
+@view_config(route_name='index', request_method='GET', permission="view_users")
 def index(request):
     href = request.route_path('transients')
     return HTTPFound(location=href)
 
 
-@view_defaults(route_name='transients')
+@view_defaults(route_name='transients', permission="view_users")
 class transients_view(object):
 
     def __init__(self, request):
@@ -22,13 +22,13 @@ class transients_view(object):
         self.log = logging.getLogger(__name__)
         self.log.debug("instantiating a new 'transients' view")
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients' resource")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         transients = models_transients_put(
             log=self.log,
@@ -41,8 +41,8 @@ class transients_view(object):
         else:
             return Response(responseContent)
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         transients = models_transients_post(
             log=self.log,
@@ -54,8 +54,8 @@ class transients_view(object):
         else:
             return Response(responseContent)
 
-    @view_config(request_method='GET', request_param="format=json", renderer="json")
-    @view_config(request_param=["method=get", "format=json"], renderer="json")
+    @view_config(request_method='GET', request_param="format=json", renderer="json", permission="view_users")
+    @view_config(request_param=["method=get", "format=json"], renderer="json", permission="view_users")
     def get_json(self):
         transientData = models_transients_get(
             log=self.log,
@@ -63,8 +63,8 @@ class transients_view(object):
         )
         return transientData.get()
 
-    @view_config(request_method='GET', request_param="format=csv", renderer="csv")
-    @view_config(request_param=["method=get", "format=csv"], renderer="csv")
+    @view_config(request_method='GET', request_param="format=csv", renderer="csv", permission="view_users")
+    @view_config(request_param=["method=get", "format=csv"], renderer="csv", permission="view_users")
     def get_csv(self):
         transientData = models_transients_get(
             log=self.log,
@@ -72,8 +72,8 @@ class transients_view(object):
         )
         return transientData.get()
 
-    @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table")
-    @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table")
+    @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table", permission="view_users")
+    @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table", permission="view_users")
     def get_plain_table(self):
         transientData = models_transients_get(
             log=self.log,
@@ -81,8 +81,8 @@ class transients_view(object):
         )
         return transientData.get()
 
-    @view_config(request_method='GET', permission='view')
-    @view_config(request_param="method=get", permission='view')
+    @view_config(request_method='GET', permission="superuser")
+    @view_config(request_param="method=get", permission="view_users")
     def get_html(self):
         transientData = templates_transients(
             log=self.log,
@@ -92,7 +92,7 @@ class transients_view(object):
         return Response(htmlContent)
 
 
-@view_defaults(route_name='transients_element')
+@view_defaults(route_name='transients_element', permission="view_users")
 class transients_element_view(object):
 
     def __init__(self, request):
@@ -100,8 +100,8 @@ class transients_element_view(object):
         self.log = logging.getLogger(__name__)
         self.log.debug("instantiating a new 'single_transient'' view")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         transients = models_transients_element_put(
             log=self.log,
@@ -114,13 +114,13 @@ class transients_element_view(object):
         else:
             return Response(responseContent)
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients' element resource")
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         transients = models_transients_element_post(
             log=self.log,
@@ -133,8 +133,8 @@ class transients_element_view(object):
         else:
             return Response(responseContent)
 
-    @view_config(request_method='GET')
-    @view_config(request_param="method=get")
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
     def get(self):
         transients = templates_transients(
             log=self.log,
@@ -145,7 +145,7 @@ class transients_element_view(object):
         return Response(responseContent)
 
 
-@view_defaults(route_name='transients_search')
+@view_defaults(route_name='transients_search', permission="view_users")
 class transientsSearchView(object):
 
     def __init__(self, request):
@@ -153,8 +153,8 @@ class transientsSearchView(object):
         self.log = logging.getLogger(__name__)
         self.log.debug("instantiating a new 'views_transients_search'' view")
 
-    @view_config(request_method='GET')
-    @view_config(request_param="method=get")
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
     def get(self):
         transients = templates_transients(
             log=self.log,
@@ -164,8 +164,8 @@ class transientsSearchView(object):
         responseContent = transients.get()
         return Response(responseContent)
 
-    @view_config(request_method='GET', request_param="format=json", renderer="json")
-    @view_config(request_param=["method=get", "format=json"], renderer="json")
+    @view_config(request_method='GET', request_param="format=json", renderer="json", permission="view_users")
+    @view_config(request_param=["method=get", "format=json"], renderer="json", permission="view_users")
     def get_json(self):
         transientData = models_transients_get(
             log=self.log,
@@ -174,8 +174,8 @@ class transientsSearchView(object):
         )
         return transientData.get()
 
-    @view_config(request_method='GET', request_param="format=csv", renderer="csv")
-    @view_config(request_param=["method=get", "format=csv"], renderer="csv")
+    @view_config(request_method='GET', request_param="format=csv", renderer="csv", permission="view_users")
+    @view_config(request_param=["method=get", "format=csv"], renderer="csv", permission="view_users")
     def get_csv(self):
         transientData = models_transients_get(
             log=self.log,
@@ -184,8 +184,8 @@ class transientsSearchView(object):
         )
         return transientData.get()
 
-    @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table")
-    @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table")
+    @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table", permission="view_users")
+    @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table", permission="view_users")
     def get_plain_table(self):
         transientData = models_transients_get(
             log=self.log,
@@ -194,17 +194,17 @@ class transientsSearchView(object):
         )
         return transientData.get()
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients' search resource")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients' search resource")
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients' search resource")

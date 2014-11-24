@@ -9,7 +9,7 @@ from ..models.transients_lightcurves import models_transients_lightcurves_post, 
 # RESOURCE CONTEXT
 
 
-@view_defaults(route_name='transients_lightcurves')
+@view_defaults(route_name='transients_lightcurves', permission="view_users")
 class transients_lightcurves_view(object):
 
     def __init__(self, request):
@@ -18,28 +18,28 @@ class transients_lightcurves_view(object):
         self.log.debug(
             "instantiating a new 'transients_lightcurves'' view")
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients_lightcurves' resource")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients_lightcurves' resource")
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients_lightcurves' resource")
 
-    @view_config(request_method='GET', renderer="json")
-    @view_config(request_param="method=get", renderer="json")
+    @view_config(request_method='GET', renderer="json", permission="view_users")
+    @view_config(request_param="method=get", renderer="json", permission="view_users")
     def get(self):
         return exc.exception_response(405, body_template="The GET method is not allowed on the 'transients_lightcurves' resource")
 
 
-@view_defaults(route_name='transients_element_lightcurves')
+@view_defaults(route_name='transients_element_lightcurves', permission="view_users")
 class transients_elements_lightcurve_view(object):
 
     def __init__(self, request):
@@ -48,23 +48,23 @@ class transients_elements_lightcurve_view(object):
         self.log.debug(
             "instantiating a new 'transients_element_lightcurves'' view")
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients_element_lightcurves' resource")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients_element_lightcurves' resource")
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients_element_lightcurves' resource")
 
-    @view_config(request_method='GET', renderer="json")
-    @view_config(request_param="method=get", renderer="json")
+    @view_config(request_method='GET', renderer="json", permission="view_users")
+    @view_config(request_param="method=get", renderer="json", permission="view_users")
     def get(self):
         transients_lightcurves = templates_transients_lightcurves(
             log=self.log,
@@ -73,8 +73,8 @@ class transients_elements_lightcurve_view(object):
         )
         return transients_lightcurves.get()
 
-    @view_config(request_method='GET', request_param="format=json", renderer="json")
-    @view_config(request_param=["method=get", "format=json"], renderer="json")
+    @view_config(request_method='GET', request_param="format=json", renderer="json", permission="view_users")
+    @view_config(request_param=["method=get", "format=json"], renderer="json", permission="view_users")
     def get_json(self):
         transients_lightcurves = templates_transients_lightcurves(
             log=self.log,
@@ -83,8 +83,8 @@ class transients_elements_lightcurve_view(object):
         )
         return transients_lightcurves.get()
 
-    @view_config(request_method='GET', request_param="format=csv", renderer="csv")
-    @view_config(request_param=["method=get", "format=csv"], renderer="csv")
+    @view_config(request_method='GET', request_param="format=csv", renderer="csv", permission="view_users")
+    @view_config(request_param=["method=get", "format=csv"], renderer="csv", permission="view_users")
     def get_csv(self):
         transients_lightcurves = templates_transients_lightcurves(
             log=self.log,
@@ -94,8 +94,8 @@ class transients_elements_lightcurve_view(object):
         # return {u"nice": u"nice"}
         return transients_lightcurves.get()
 
-    @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table")
-    @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table")
+    @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table", permission="view_users")
+    @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table", permission="view_users")
     def get_plain_table(self):
         transients_lightcurves = templates_transients_lightcurves(
             log=self.log,

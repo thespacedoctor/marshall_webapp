@@ -8,7 +8,7 @@ from ..models.actions import models_refresh_sidebar_list_counts
 # RESOURCE CONTEXT
 
 
-@view_defaults(route_name='refresh_sidebar_list_counts')
+@view_defaults(route_name='refresh_sidebar_list_counts', permission="view_users")
 class refresh_sidebar_list_counts_view(object):
 
     def __init__(self, request):
@@ -17,8 +17,8 @@ class refresh_sidebar_list_counts_view(object):
         self.log.debug(
             "instantiating a new 'refresh_sidebar_list_counts'' view")
 
-    @view_config(request_method='PUT')
-    @view_config(request_param="method=put")
+    @view_config(request_method='PUT', permission="edit_users")
+    @view_config(request_param="method=put", permission="edit_users")
     def put(self):
         refresh_sidebar_list_counts = models_refresh_sidebar_list_counts(
             log=self.log,
@@ -31,17 +31,17 @@ class refresh_sidebar_list_counts_view(object):
         else:
             return Response(responseContent)
 
-    @view_config(request_method='GET')
-    @view_config(request_param="method=get")
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
     def put(self):
         return exc.exception_response(405, body_template="The GET method is not allowed on the 'refresh_sidebar_list_counts' action")
 
-    @view_config(request_method='POST')
-    @view_config(request_param="method=post")
+    @view_config(request_method='POST', permission="edit_users")
+    @view_config(request_param="method=post", permission="edit_users")
     def put(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'refresh_sidebar_list_counts' action")
 
-    @view_config(request_method='DELETE')
-    @view_config(request_param="method=delete")
+    @view_config(request_method='DELETE', permission="edit_users")
+    @view_config(request_param="method=delete", permission="edit_users")
     def put(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'refresh_sidebar_list_counts' action")
