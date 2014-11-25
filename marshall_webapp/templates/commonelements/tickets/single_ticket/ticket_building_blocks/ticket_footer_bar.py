@@ -117,12 +117,12 @@ def ticket_footer_bar(
         buttonSize='small',
         buttonColor='primary',  # [ default | sucess | error | warning | info ]
         menuTitle='<i class="icon-wrench2"></i>',
-        splitButton=True,
+        splitButton=False,
         linkList=dropDownLinks,
         separatedLinkList=False,
         popover=popover,
         pull=False,
-        htmlClass="objectLinkExploder",
+        htmlClass=False,
         direction='up',  # [ down | up ]
         onPhone=True,
         onTablet=True,
@@ -224,11 +224,11 @@ def _get_atel_list(
             # [ default | sucess | error | warning | info ]
             buttonColor='primary',
             menuTitle=text,
-            splitButton=True,
+            splitButton=False,
             linkList=atelLinks,
             separatedLinkList=False,
             pull=False,
-            htmlClass="objectLinkExploder",
+            htmlClass=False,
             direction='up',  # [ down | up ]
             onPhone=True,
             onTablet=True,

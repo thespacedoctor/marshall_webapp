@@ -126,6 +126,22 @@ def topnavbar(log,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
 
+    popover = khufu.popover(
+        tooltip=True,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="report a bug in the marshall",
+        content=False,
+        delay=200
+    )
+
+    bugTracker = khufu.a(
+        content="""<i class="icon-bug3"></i>""",
+        href="https://bitbucket.org/thespacedoctor/marshall_webapp/issues/new",
+        openInNewTab=True,
+        popover=popover
+    )
+
     href = request.route_path('transients_search')
     searchbox = khufu.searchbox(
         size='large',
@@ -139,7 +155,7 @@ def topnavbar(log,
     insideNavList = khufu.nav_list(
         itemList=[
             marshallHome, statsHome, pesstoHome, pesstoWiki, observingCalendar, pesstoGroups,
-            pesstoDocs, finderChartsRepo, externalData, help],
+            pesstoDocs, finderChartsRepo, externalData, help, bugTracker],
         pull='left',  # [ False | 'right' | 'left' ]
         onPhone=True,
         onTablet=True,
