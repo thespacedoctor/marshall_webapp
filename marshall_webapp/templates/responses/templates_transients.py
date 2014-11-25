@@ -335,6 +335,7 @@ class templates_transients():
         viewSwitcherButtons = self._get_view_switcher_buttons()
         objectsPerPageDropdown = self._get_object_limit_dropdown()
         notification = self._get_notification()
+        pageviewInfo = self._get_page_view_info()
 
         for obj in self.transientData:
 
@@ -436,7 +437,7 @@ class templates_transients():
         smallspace = "&nbsp" * 1
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[viewSwitcherButtons, smallspace,
+            contentList=[pageviewInfo, viewSwitcherButtons, smallspace,
                          objectsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -508,6 +509,7 @@ class templates_transients():
         ticketsPerPageDropdown = self._get_object_limit_dropdown()
         view_switcher_buttons = self._get_view_switcher_buttons()
         sort = self._get_sort_dropdown()
+        pageviewInfo = self._get_page_view_info()
 
         theseTickets = ""
         for ticket in ticketList:
@@ -518,7 +520,7 @@ class templates_transients():
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[view_switcher_buttons, smallspace, sort, smallspace,
+            contentList=[pageviewInfo, view_switcher_buttons, smallspace, sort, smallspace,
                          ticketsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -549,6 +551,58 @@ class templates_transients():
 
         self.log.info('completed the ``_get_object_tickets`` method')
         return ticket_table
+
+    # use the tab-trigger below for new method
+    def _get_page_view_info(
+            self):
+        """ get page view info
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean _get_page_view_info method
+            - @review: when complete add logging
+        """
+        self.log.info('starting the ``_get_page_view_info`` method')
+
+        # craft some text from the download filename
+        filename = self.qs["filename"]
+        thisListing = filename.replace("pessto_marshall", "").replace(
+            "_", " ").strip()
+
+        #
+        limit = int(self.qs["limit"])
+        pageStart = int(self.qs["pageStart"]) + 1
+        pageEnd = pageStart + limit - 1
+        totalCount = int(self.totalTicketCount)
+        if pageEnd > totalCount:
+            pageEnd = totalCount
+
+        if "search" not in thisListing:
+            if totalCount == 0:
+                thisListing = """<span id="pageinfo">no transients were found in the <strong>%(thisListing)s</strong> list<span>""" % locals(
+                )
+            else:
+                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> in the <strong>%(thisListing)s</strong> list<span>""" % locals(
+                )
+        elif "search" in thisListing:
+            thisListing = thisListing.replace("search", "").strip()
+            if totalCount == 0:
+                thisListing = """<span id="pageinfo">no transients were found in the search for "<strong><em>%(thisListing)s</em></strong>"<span>""" % locals(
+                )
+            else:
+                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> from the search for "<strong><em>%(thisListing)s</em></strong>"<span>""" % locals(
+                )
+
+        else:
+            thisListing = ""
+
+        self.log.info('completed the ``_get_page_view_info`` method')
+        return thisListing
 
     # use the tab-trigger below for new method
     # xt-class-method

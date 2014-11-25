@@ -81,7 +81,7 @@ class transients_view(object):
         )
         return transientData.get()
 
-    @view_config(request_method='GET', permission="superuser")
+    @view_config(request_method='GET', permission="view_users")
     @view_config(request_param="method=get", permission="view_users")
     def get_html(self):
         transientData = templates_transients(
