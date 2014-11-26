@@ -111,7 +111,7 @@ def ticket_header_bar(
             log.debug("""latestComment: `%(latestComment)s`""" % locals())
         commentDate = theseObjectComments[0]["dateCreated"]
         commentAuthor = theseObjectComments[0][
-            "commentAuthor"].lower().replace("_", " ")
+            "commentAuthor"].lower().replace("_", " ").replace(".", " ").title()
         commentAuthor = khufu.coloredText(
             text="""- %(commentAuthor)s""" % locals(),
             color="green",
