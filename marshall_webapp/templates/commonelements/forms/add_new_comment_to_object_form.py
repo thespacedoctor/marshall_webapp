@@ -44,19 +44,19 @@ def add_new_comment_to_object_form(
     """
     commentInput = khufu.textarea(
         rows=1,
-        span=9,
+        span=11,
         placeholder="add a new comment",
         htmlId="comment" % locals(),
         required=True
     )
-    authorInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
-        ttype='text',
-        placeholder='author',
-        span=2,
-        htmlId="author" % locals(),
-        required=True
-    )
+    # authorInput = khufu.formInput(
+    # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
+    #     ttype='text',
+    #     placeholder='author',
+    #     span=2,
+    #     htmlId="author" % locals(),
+    #     required=True
+    # )
     addButton = khufu.button(
         buttonText='add',
         # [ default | primary | info | success | warning | danger | inverse | link ]
@@ -75,7 +75,7 @@ def add_new_comment_to_object_form(
     )
 
     commentInput = khufu.controlRow(
-        inputList=[authorInput, commentInput, transientBucketInput, addButton]
+        inputList=[commentInput, transientBucketInput, addButton]
     )
     commentCG = khufu.horizontalFormControlGroup(
         content=commentInput,

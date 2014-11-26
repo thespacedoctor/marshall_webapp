@@ -59,7 +59,8 @@ def comments_block(
         if row["pesstoObjectsId"] != discoveryDataDictionary["transientBucketId"]:
             continue
         # AUTHOR
-        author = row["commentAuthor"]
+        author = row["commentAuthor"].replace(".", " ").title()
+
         author = khufu.coloredText(
             text="""%(author)s: """ % locals(),
             color="red",

@@ -78,7 +78,7 @@ class models_transients_element_comments_post():
 
         # variables
         now = dcu.get_now_sql_datetime()
-        author = self.request.params["author"]
+        author = self.request.authenticated_userid
         comment = self.request.params["comment"]
 
         # add the comment to the database
