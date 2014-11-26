@@ -153,6 +153,9 @@ class models_transients_post():
                 mjd
             )
 
+        ticketAuthor = self.request.authenticated_userid.replace(
+            ".", " ").title()
+
         # add some default null values
         if "objectRedshift" not in locals() or len(str(objectRedshift)) == 0:
             objectRedshift = "null"
@@ -235,4 +238,3 @@ class models_transients_post():
         return None
 
     # xt-class-method
-

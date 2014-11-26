@@ -179,19 +179,6 @@ def create_new_ticket_form(
         label="discovery date"
     )
 
-    textInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | email | url | search | tel | color ]
-        ttype='text',
-        placeholder='',
-        span=5,
-        htmlId="ticketAuthor",
-        required=True,
-    )
-    thisModal.add_form_object(
-        formObject=textInput,
-        label="created by"
-    )
-
     modalForm, modalTrigger = thisModal.get()
 
     popover = khufu.popover(
