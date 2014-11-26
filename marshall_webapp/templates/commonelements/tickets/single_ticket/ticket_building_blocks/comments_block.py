@@ -54,10 +54,12 @@ def comments_block(
     **Todo**
     """
     commentBlock = ""
+    count = 0
 
     for row in objectComments:
         if row["pesstoObjectsId"] != discoveryDataDictionary["transientBucketId"]:
             continue
+        count += 1
         # AUTHOR
         author = row["commentAuthor"].replace(".", " ").title()
 
@@ -104,7 +106,7 @@ def comments_block(
 
         commentBlock = """%(commentBlock)s %(commentRow)s""" % locals()
 
-    return commentBlock
+    return count, commentBlock
 
 
 ###################################################################

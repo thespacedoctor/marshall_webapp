@@ -68,7 +68,7 @@ def comments_tab(
 
     log.info('starting the ``comments_tab`` function')
 
-    comments_block = ticket_building_blocks.comments_block.comments_block(
+    commentCount, comments_block = ticket_building_blocks.comments_block.comments_block(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
@@ -176,7 +176,7 @@ def comments_tab(
         comments_tab = unicode(comments_tab, encoding="utf-8", errors="replace")
 
     log.info('completed the ``comments_tab`` function')
-    return "%(comments_tab)s" % locals()
+    return commentCount, "%(comments_tab)s" % locals()
 
 
 ###################################################################

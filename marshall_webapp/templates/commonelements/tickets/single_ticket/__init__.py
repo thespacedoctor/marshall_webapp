@@ -76,7 +76,7 @@ def single_ticket(
     )
     tabDictionary["overview"] = overviewTab
 
-    commentsTab = tabs.comments.comments_tab(
+    commentCount, commentsTab = tabs.comments.comments_tab(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
@@ -105,7 +105,8 @@ def single_ticket(
         log=log,
         transientBucketId=transientBucketId,
         tabDictionary=tabDictionary,
-        htmlId="ticket%(transientBucketId)s" % locals()
+        htmlId="ticket%(transientBucketId)s" % locals(),
+        commentCount=commentCount
     )
 
     log.info('completed the ``inbox_ticket`` function')
@@ -121,7 +122,8 @@ def _single_ticket_template(
         log,
         transientBucketId,
         tabDictionary={},  # { "title": tabcontent, }
-        htmlId=False
+        htmlId=False,
+        commentCount=False
 ):
     """single_ticket
 
@@ -135,13 +137,19 @@ def _single_ticket_template(
 
     **Todo**
     """
+    if commentCount is not False:
+        contentCount = {"comments": commentCount}
+    else:
+        contentCount = {}
+
     single_ticket = khufu.tabbableNavigation(
         contentDictionary=tabDictionary,  # { name : content, }
         fadeIn=False,
         direction='top',  # [ 'top' | 'bottom' | 'left' | 'right' ]
         htmlClass="singleTicket",
         uniqueNavigationId=transientBucketId,
-        htmlId=htmlId
+        htmlId=htmlId,
+        contentCount=contentCount
     )
 
     return single_ticket
