@@ -33,15 +33,15 @@ class refresh_sidebar_list_counts_view(object):
 
     @view_config(request_method='GET', permission="view_users")
     @view_config(request_param="method=get", permission="view_users")
-    def put(self):
+    def get(self):
         return exc.exception_response(405, body_template="The GET method is not allowed on the 'refresh_sidebar_list_counts' action")
 
     @view_config(request_method='POST', permission="edit_users")
     @view_config(request_param="method=post", permission="edit_users")
-    def put(self):
+    def post(self):
         return exc.exception_response(405, body_template="The POST method is not allowed on the 'refresh_sidebar_list_counts' action")
 
     @view_config(request_method='DELETE', permission="edit_users")
     @view_config(request_param="method=delete", permission="edit_users")
-    def put(self):
+    def delete(self):
         return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'refresh_sidebar_list_counts' action")
