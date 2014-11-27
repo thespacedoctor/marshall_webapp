@@ -262,13 +262,16 @@ def _get_move_to_dropdown(
         discoveryDataDictionary["prefix"] = prefix
 
         name = discoveryDataDictionary["masterName"]
+        href = request.route_path(
+            'transients_element', elementId=discoveryDataDictionary["transientBucketId"])
         name = khufu.a(
             content=name,
-            href="/marshall/index.py?searchString=%(name)s" % locals(),
+            href=href
         )
+        href = request.route_path('transients', _query={'mwl': mwl})
         newListLink = khufu.a(
             content=title,
-            href="/marshall/index.py?mwl=%(mwl)s" % locals(),
+            href=href
         )
 
         # GENERATE THE UNDO LINK
