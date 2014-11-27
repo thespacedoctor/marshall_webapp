@@ -145,9 +145,11 @@ class models_transients_element_post():
         if "clsClassificationPhase" not in locals():
             clsClassificationPhase = "null"
 
+        username = self.request.authenticated_userid
+
         # insert the new classification row into the transientBucket
         sqlQuery = """
-            INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s);
+            INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
         """ % locals()
         self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
         self.request.db.execute(sqlQuery)
