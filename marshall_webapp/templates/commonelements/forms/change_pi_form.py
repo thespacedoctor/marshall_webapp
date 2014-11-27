@@ -109,7 +109,8 @@ def change_pi_form(
         # [ default | primary | info | success | warning | danger | inverse | link ]
         buttonStyle='info',
         buttonSize='default',  # [ large | default | small | mini ]
-        htmlId="changePiFormSubmitButton"
+        htmlId="changePiFormSubmitButton",
+        submit=True
     )
     cancelbutton = khufu.button(
         buttonText='cancel',

@@ -23,6 +23,7 @@ models_transients_element_put.py
 import sys
 import os
 import khufu
+from datetime import datetime, date, time
 from dryxPython import commonutils as dcu
 from dryxPython import astrotools as dat
 
@@ -103,6 +104,19 @@ class models_transients_element_put():
         self.log.info('starting the ``_create_sqlquery`` method')
         transientBucketId = self.transientBucketId
 
+        sqlQuery = u"""
+            select marshallWorkflowLocation, alertWorkflowLocation from pesstoObjects where transientBucketId = %(transientBucketId)s
+        """ % locals()
+        objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectData = []
+        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+
+        oldMwl = objectData[0]["marshallWorkflowLocation"]
+        oldAwl = objectData[0]["alertWorkflowLocation"]
+        username = self.request.authenticated_userid.replace(".", " ").title()
+        now = datetime.now()
+        now = now.strftime("%Y-%m-%d %H:%M:%S")
+
         # change the marshall workflow location list if requested
         if "mwl" in self.request.params:
             mwl = self.request.params["mwl"]
@@ -114,9 +128,23 @@ class models_transients_element_put():
                 " transientBucketId %(transientBucketId)s moved to the `%(mwl)s` marshallWorkflowLocation<BR>" % locals(
                 )
 
+            logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
+            )
+            sqlQuery = u"""INSERT INTO transients_history_logs (
+                transientBucketId,
+                dateCreated,
+                log
+            )
+            VALUES (
+                %s,
+                "%s",
+                "%s"
+            )""" % (transientBucketId, now, logEntry)
+            self.request.db.execute(sqlQuery)
+
         # change the alert workflow location list if requested
         if "awl" in self.request.params:
-            mwl = self.request.params["awl"]
+            awl = self.request.params["awl"]
             sqlQuery = """
                 update pesstoObjects set alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
             """ % locals()
@@ -124,6 +152,20 @@ class models_transients_element_put():
             self.response = self.response + \
                 " transientBucketId %(transientBucketId)s moved to the `%(awl)s` alertWorkflowLocation<BR>" % locals(
                 )
+
+            logEntry = "moved from '%(oldAwl)s' to '%(awl)s' list by %(username)s" % locals(
+            )
+            sqlQuery = u"""INSERT INTO transients_history_logs (
+                transientBucketId,
+                dateCreated,
+                log
+            )
+            VALUES (
+                %s,
+                "%s",
+                "%s"
+            )""" % (transientBucketId, now, logEntry)
+            self.request.db.execute(sqlQuery)
 
         self.log.info('completed the ``_create_sqlquery`` method')
         return None
@@ -142,9 +184,21 @@ class models_transients_element_put():
         """
         self.log.info('starting the ``_change_pi_for_object`` method')
 
-        piName = self.request.params["piName"]
-        piEmail = self.request.params["piEmail"]
+        piName = self.request.params["piName"].strip()
+        piEmail = self.request.params["piEmail"].strip()
         transientBucketId = self.transientBucketId
+        username = self.request.authenticated_userid.replace(".", " ").title()
+        now = datetime.now()
+        now = now.strftime("%Y-%m-%d %H:%M:%S")
+
+        sqlQuery = """
+            select pi_name, pi_email from pesstoObjects where transientBucketId = %(transientBucketId)s   
+        """ % locals()
+        objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectData = []
+        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        oldPiName = objectData[0]["pi_name"]
+        oldPiEmail = objectData[0]["pi_email"]
 
         # change the pi in the database
         sqlQuery = """
@@ -155,6 +209,25 @@ class models_transients_element_put():
         self.response = self.response + \
             "changed the PI of transient #%(transientBucketId)s to '%(piName)s' (%(piEmail)s)" % locals(
             )
+
+        if oldPiName:
+            logEntry = "PI changed from %(oldPiName)s (%(oldPiEmail)s) to %(piName)s (%(piEmail)s) by %(username)s" % locals(
+            )
+        else:
+            logEntry = "%(piName)s (%(piEmail)s) assigned as PI of this object by by %(username)s" % locals(
+            )
+
+        sqlQuery = u"""INSERT INTO transients_history_logs (
+            transientBucketId,
+            dateCreated,
+            log
+        )
+        VALUES (
+            %s,
+            "%s",
+            "%s"
+        )""" % (transientBucketId, now, logEntry)
+        self.request.db.execute(sqlQuery)
 
         self.log.info('completed the ``_change_pi_for_object`` method')
         return None
