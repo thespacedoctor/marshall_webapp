@@ -5,3 +5,5 @@ from templates_transients_comments import templates_transients_comments
 from templates_transients_lightcurves import templates_transients_lightcurves
 
 from templates_transients_obs import templates_transients_obs
+
+from templates_transients_history import templates_transients_history
