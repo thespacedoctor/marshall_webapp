@@ -28,6 +28,10 @@ credentials:
         username: ps1sc
         password: skysurveys
 
+## webapp secrets
+secrets:
+    authn policy: "a^h34**92"
+
 nttarchiver:
     ## past number of days to check for new data (keep at a few days in case new data was added or there is a delay getting data into the eso archive)
     download window size: 7
