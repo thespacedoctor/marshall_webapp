@@ -166,6 +166,7 @@ def identity_block(
         "marshall_webapp:static/caches/transients/")
     download_prefix = "/static/caches/transients/"
     src = "holder.js/200x60/gray/text:no image stamps available"
+    dsrc = src
 
     if discoveryDataDictionary["ps1_target_stamp"]:
         stampName = "ps1_target_stamp.jpeg"
