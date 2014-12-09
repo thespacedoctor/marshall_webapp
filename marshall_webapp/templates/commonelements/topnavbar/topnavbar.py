@@ -85,7 +85,7 @@ def topnavbar(log,
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
     pesstoWiki = khufu.a(
         content="wiki",
-        href='https://sites.google.com/a/pessto.org/wiki/',
+        href='https://github.com/thespacedoctor/marshall_webapp_wiki/wiki',
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
@@ -130,14 +130,14 @@ def topnavbar(log,
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
-        title="report a bug in the marshall",
+        title="report a bug or suggest a new feature",
         content=False,
         delay=200
     )
 
     bugTracker = khufu.a(
         content="""<i class="icon-bug3"></i>""",
-        href="https://bitbucket.org/thespacedoctor/marshall_webapp/issues/new",
+        href="https://github.com/thespacedoctor/marshall_webapp_wiki/issues",
         openInNewTab=True,
         popover=popover
     )
