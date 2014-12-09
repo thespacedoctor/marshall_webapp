@@ -48,103 +48,76 @@ def change_pi_form(
 
     **Todo**
     """
+    postToScriptUrl = request.route_path(
+        'transients_element', elementId=discoveryDataDictionary["transientBucketId"], _query={'method': 'put'})
+    thisModal = khufu.modals.modalForm(
+        log=log,
+        title="Update PI details for %(masterName)s" % discoveryDataDictionary,
+        postToScriptUrl=postToScriptUrl,
+        reloadToUrl=request.url
+    )
     nameInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
+        # [ text | password | datetime | datetime-local | date | month | time | week | number | email | url | search | tel | color ]
         ttype='text',
         placeholder='first and last name',
-        span=12,
+        span=6,
         htmlId="piName",
         required=True
     )
-    nameInput = khufu.controlRow(
-        inputList=[nameInput, ]
+    thisModal.add_form_object(
+        formObject=nameInput,
+        label="Name"
     )
-    nameLabel = khufu.horizontalFormControlLabel(
-        labelText='Name',
-        forId="piName"
-    )
-    nameCG = khufu.horizontalFormControlGroup(
-        content=nameLabel + nameInput,
-        validationLevel=False
-    )
+
     emailInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
+        # [ text | password | datetime | datetime-local | date | month | time | week | number | email | url | search | tel | color ]
         ttype='email',
         placeholder='PI email address',
-        span=12,
+        span=6,
         htmlId="piEmail",
         required=True
     )
-    emailInput = khufu.controlRow(
-        inputList=[emailInput, ]
+    thisModal.add_form_object(
+        formObject=emailInput,
+        label="Email"
     )
-    emailLabel = khufu.horizontalFormControlLabel(
-        labelText='Email',
-        forId="piEmail"
-    )
-    emailCG = khufu.horizontalFormControlGroup(
-        content=emailLabel + emailInput,
-        validationLevel=False
+    # xkhufu-add-form-object-to-modalForm
+    # xkhufu-add-hidden-parameter-to-modalForm
+
+    modalForm, modalTrigger = thisModal.get()
+
+    if discoveryDataDictionary["pi_name"]:
+        buttonText = """<i class="icon-user7"></i>&nbspPI"""
+        details = "change the PI details"
+    else:
+        buttonText = """<i class="icon-user-add"></i>&nbspPI"""
+        details = "add a PI for this object"
+
+    popover = khufu.popover(
+        tooltip=True,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title=details,
+        content=False,
+        delay=200
     )
 
-    numberInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | email | url | search | tel | color ]
-        ttype='number',
-        htmlId="transientBucketId",
-        hidden=True,
-        defaultValue=discoveryDataDictionary["transientBucketId"]
-    )
-
-    nameInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | email | url | search | tel | color ]
-        ttype='text',
-        htmlId="masterName",
-        hidden=True,
-        defaultValue=discoveryDataDictionary["masterName"]
-    )
-
-    # BUTTON GROUP
-    updateButton = khufu.button(
-        buttonText='update',
+    icon = """<i class="icon-target2"></i>&nbsp"""
+    thisButton = khufu.button(
+        buttonText=buttonText,
         # [ default | primary | info | success | warning | danger | inverse | link ]
-        buttonStyle='info',
-        buttonSize='default',  # [ large | default | small | mini ]
-        htmlId="changePiFormSubmitButton",
-        submit=True
-    )
-    cancelbutton = khufu.button(
-        buttonText='cancel',
-        buttonStyle='danger',
-        buttonSize='default',  # [ large | default | small | mini ]
-        close=True
-    )
-    buttonGroup = khufu.buttonGroup(
-        buttonList=[cancelbutton, updateButton],
-        format='default'  # [ default | toolbar | vertical ]
+        buttonStyle='success',
+        buttonSize='small',  # [ large | default | small | mini ]
+        href=modalTrigger,
+        pull="right",  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        dataToggle="modal",  # [ modal ]
+        popover=popover
     )
 
-    prefix = request.registry.settings["apache prefix"]
-    href = request.route_path(
-        'transients_element', elementId=discoveryDataDictionary["transientBucketId"], _query={'method': 'put'})
-    changePiForm = khufu.form(
-        content='%(nameCG)s %(emailCG)s %(numberInput)s %(nameInput)s %(buttonGroup)s' % locals(
-        ),
-        formType='horizontal',
-        navBarPull=False,  # [ false | right | left ],
-        postToScript=href,
-        span=8,
-        offset=2,
-        redirectUrl=request.url
-    )
-
-    changePiForm = khufu.modals.modal(
-        modalHeaderContent="Update PI details for %(masterName)s" % discoveryDataDictionary,
-        modalBodyContent=changePiForm,
-        modalFooterContent="",
-        htmlId="changePiForm%(transientBucketId)s" % discoveryDataDictionary
-    )
-
-    return changePiForm
+    return modalForm, thisButton
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #

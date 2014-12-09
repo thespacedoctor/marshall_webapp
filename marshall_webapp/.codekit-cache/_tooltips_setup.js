@@ -353,7 +353,6 @@
 
     /* TOOLTIP NO CONFLICT
      * =================== */
-
     $.fn.tooltip.noConflict = function() {
         $.fn.tooltip = old
         return this

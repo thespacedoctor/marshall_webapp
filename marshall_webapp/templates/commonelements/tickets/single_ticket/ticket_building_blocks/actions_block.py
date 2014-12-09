@@ -466,37 +466,8 @@ def _get_change_pi_button(
     log.info('starting the ``_get_change_pi_button`` function')
     # TEST THE ARGUMENTS
 
-    if discoveryDataDictionary["pi_name"]:
-        buttonText = """<i class="icon-user7"></i>&nbspPI"""
-        details = "change the PI details"
-    else:
-        buttonText = """<i class="icon-user-add"></i>&nbspPI"""
-        details = "add a PI for this object"
-
-    popover = khufu.popover(
-        tooltip=True,
-        placement="bottom",  # [ top | bottom | left | right ]
-        trigger="hover",  # [ False | click | hover | focus | manual ]
-        title=details,
-        content=False,
-        delay=200
-    )
-
     ## VARIABLES ##
-    button = khufu.button(
-        buttonText=buttonText,
-        # [ default | primary | info | success | warning | danger | inverse | link ]
-        buttonStyle='success',
-        buttonSize='small',  # [ large | default | small | mini ]
-        href="#changePiForm%(transientBucketId)s" % discoveryDataDictionary,
-        pull="right",
-        submit=False,
-        block=False,
-        disable=False,
-        dataToggle="modal",
-        popover=popover
-    )
-    changePiForm = forms.change_pi_form.change_pi_form(
+    changePiForm, button = forms.change_pi_form.change_pi_form(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,

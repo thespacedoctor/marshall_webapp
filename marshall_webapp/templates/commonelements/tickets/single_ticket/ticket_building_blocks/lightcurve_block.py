@@ -74,9 +74,13 @@ def lightcurve_block(
         title = ""
 
     lightCurveImage = ""
+    dlightCurveImage = ""
 
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = '/static/caches/transients/%s/master_lightcurve.png' % (
+        lightCurveImage = request.static_url(
+            'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
+                discoveryDataDictionary["transientBucketId"],))
+        dlightCurveImage = '/static/caches/transients/%s/master_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
 
     # Override for LSQ lightcurves
@@ -97,12 +101,15 @@ def lightcurve_block(
 
     if lsqname:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = '/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        lightCurveImage = request.static_url(
+            'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+            ))
+        dlightCurveImage = '/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
         )
 
     if len(lightCurveImage):
         href = request.route_path(
-            'download', _query={'url': lightCurveImage, "webapp": "marshall_webapp", "filename": "%(masterName)s_master_lightcurve" % locals()})
+            'download', _query={'url': dlightCurveImage, "webapp": "marshall_webapp", "filename": "%(masterName)s_master_lightcurve" % locals()})
         lightCurveImage = khufu.imagingModal(
             log=log,
             imagePath=lightCurveImage,

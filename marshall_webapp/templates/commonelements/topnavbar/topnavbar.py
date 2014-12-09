@@ -57,8 +57,11 @@ def topnavbar(log,
             href=href,
         )
 
+    src = request.static_url(
+        'marshall_webapp:static/images/home_button_body.png')
+
     icon = khufu.image(
-        src='/static/images/home_button_body.png',
+        src=src,
         href=False,
         display=False,  # [ rounded | circle | polaroid ]
         pull="left",  # [ "left" | "right" | "center" ]

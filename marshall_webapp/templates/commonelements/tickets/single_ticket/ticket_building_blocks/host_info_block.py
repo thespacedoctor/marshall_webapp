@@ -72,19 +72,27 @@ def host_info_block(
         )
         exactLocationUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
         )
-        contextStamp = "/static/caches/transients/%s/sdss_stamp.jpeg" % (
+        downloadContextStamp = "/static/caches/transients/%s/sdss_stamp.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
+        contextStamp = request.static_url(
+            "marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
+                discoveryDataDictionary["transientBucketId"],))
         stampName = "%(masterName)s_sdss_context_image" % locals()
     elif discoveryDataDictionary["ogle_color_context_stamp"] == 1:
-        contextStamp = "/static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
+        downloadContextStamp = "/static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
         )
+        contextStamp = request.static_url(
+            "marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
+            ))
         ogleStamp = "OGLE context stamp"
         stampName = "%(masterName)s_ogle_context_image" % locals()
     elif discoveryDataDictionary["sdss_coverage"] == 0:
         contextStamp = 'holder.js/500x500/auto/industrial/text:not in sdss footprint'
+        downloadContextStamp = contextStamp
         stampName = False
     else:
         contextStamp = 'holder.js/500x500/auto/industrial/text:sdss stamp not ready yet'
+        downloadContextStamp = contextStamp
         stampName = False
     sdssUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
     )
@@ -137,7 +145,7 @@ def host_info_block(
 
     if stampName:
         href = request.route_path(
-            'download', _query={'url': contextStamp, "webapp": "marshall_webapp", "filename": stampName})
+            'download', _query={'url': downloadContextStamp, "webapp": "marshall_webapp", "filename": stampName})
     else:
         href = False
 

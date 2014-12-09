@@ -66,8 +66,9 @@ def generate_ob_form(
     # Get Lightcurve Image URL
     lightCurveImage = ""
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = '/static/caches/transients/%s/master_lightcurve.png' % (
-            discoveryDataDictionary["transientBucketId"],)
+        lightCurveImage = request.static_url(
+            'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
+                discoveryDataDictionary["transientBucketId"],))
     # Override for LSQ lightcurves
     lsqname = False
     lightcurveSwitchAttempt = True
@@ -84,8 +85,9 @@ def generate_ob_form(
                     break
     if lsqname:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = '/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        )
+        lightCurveImage = request.static_url(
+            'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+            ))
     if not len(lightCurveImage):
         lightCurveImage = khufu.image(
             # [ industrial | gray | social ]

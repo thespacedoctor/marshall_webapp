@@ -162,36 +162,51 @@ def identity_block(
     )
 
     # IMAGE STAMP
-    transient_cache = "/static/caches/transients/"
+    transient_cache = request.static_url(
+        "marshall_webapp:static/caches/transients/")
+    download_prefix = "/static/caches/transients/"
     src = "holder.js/200x60/gray/text:no image stamps available"
 
     if discoveryDataDictionary["ps1_target_stamp"]:
         stampName = "ps1_target_stamp.jpeg"
         src = "%s%s/ps1_target_stamp.jpeg" % (transient_cache,
                                               discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/ps1_target_stamp.jpeg" % (download_prefix,
+                                               discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["ogle_target_stamp"]:
         stampName = "ogle_target_stamp.jpeg"
         src = "%s%s/ogle_target_stamp.jpeg" % (transient_cache,
                                                discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/ogle_target_stamp.jpeg" % (download_prefix,
+                                                discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["css_stamp"]:
         stampName = "css_stamp.jpeg"
         src = "%s%s/css_stamp.jpeg" % (transient_cache,
                                        discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/css_stamp.jpeg" % (download_prefix,
+                                        discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["mls_stamp"]:
         stampName = "mls_stamp.jpeg"
         src = "%s%s/mls_stamp.jpeg" % (transient_cache,
                                        discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/mls_stamp.jpeg" % (download_prefix,
+                                        discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["sss_stamp"]:
         stampName = "sss_stamp.jpeg"
         src = "%s%s/sss_stamp.jpeg" % (transient_cache,
                                        discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/sss_stamp.jpeg" % (download_prefix,
+                                        discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["lsq_stamp"]:
         stampName = "lsq_stamp.jpeg"
         src = "%s%s/lsq_stamp.jpeg" % (transient_cache,
                                        discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/lsq_stamp.jpeg" % (download_prefix,
+                                        discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["targetImageUrl"]:
         stampName = "user_added_stamp.jpeg"
         src = discoveryDataDictionary["targetImageUrl"]
+        dsrc = discoveryDataDictionary["targetImageUrl"]
 
     imageSource = khufu.a(
         content='image source',
@@ -204,7 +219,9 @@ def identity_block(
 
     objectName = discoveryDataDictionary["masterName"]
     href = request.route_path(
-        'download', _query={'url': src, "webapp": "marshall_webapp", "filename": "%(objectName)s_image_stamp" % locals()})
+        'download', _query={'url': dsrc, "webapp": "marshall_webapp", "filename": "%(objectName)s_image_stamp" % locals()})
+    if stampName == "user_added_stamp.jpeg":
+        href = discoveryDataDictionary["targetImageUrl"]
 
     objectStamp = khufu.imagingModal(
         log=log,

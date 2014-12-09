@@ -22,9 +22,9 @@ downloads:
 
 stats cache directory: "/Users/Dave/git_repos/webapps/pessto_webapp/stats_cache/"
 
-main css filename: "main_marshall.css"
-main js filename: "main-ck.js"
-path to webapp icon: "/static/images/pessto_icon.png"
+main css filepath: "/marshall/static/styles/css/main_marshall.css"
+main js filepath: "/marshall/static/js/main-ck.js"
+path to webapp icon: "/marshall/static/images/pessto_icon.png"
 
 ## webapp secrets
 secrets:

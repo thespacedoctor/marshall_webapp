@@ -9,7 +9,7 @@ $(function() {
         dynamicNotification.html(notification);
         var thisTicket = $(this).closest("div.singleTicket");
         fade_and_hide(thisTicket);
-        $.post("/actions/refresh_sidebar_list_counts?method=put");
+        $.post("/marshall/actions/refresh_sidebar_list_counts?method=put");
     });
     $(document.body).on("click", "a.ticketMoveToLinkUndo", function(event) {
         var ticketId = $(this).attr("id");
@@ -19,7 +19,7 @@ $(function() {
         setTimeout(function() {
             dynamicNotification.show().html("");
         }, 200);
-        $.post("/actions/refresh_sidebar_list_counts?method=put")
+        $.post("/marshall/actions/refresh_sidebar_list_counts?method=put")
     });
 
 });

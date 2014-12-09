@@ -1,6 +1,6 @@
 var initialise_chart = function() {
 
-    console.log('setUpChart function triggered');
+    // console.log('setUpChart function triggered');
 
     // varibale attributes
     var margin = {
@@ -64,8 +64,8 @@ var initialise_chart = function() {
         data.forEach(function(d) {
             d.ra = +d.ra;
             d.dec = +d.dec;
-            console.log(d.ra);
-            console.log(d.dec);
+            // console.log(d.ra);
+            // console.log(d.dec);
         });
 
         // don't want dots overlapping axis, so add in buffer to data domain

@@ -1,5 +1,4 @@
 var post_to_url_in_background = function(event) {
-    console.log('posting in background');
 
     event.preventDefault();
     var href = $(this).attr("href");
@@ -15,4 +14,3 @@ var post_to_url_in_background = function(event) {
         dynamicNotification.html(notification);
     }
 }
-    

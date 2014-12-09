@@ -117,7 +117,8 @@ def _marshall_sidebar_header(
     ## VARIABLES ##
 
     pesstoIcon = khufu.image(
-        src='/static/images/pessto_icon.png',
+        src=request.static_url(
+            'marshall_webapp:static/images/pessto_icon.png'),
         href="/transients?view=tickets",
         display="rounded",  # [ rounded | circle | polaroid ]
         pull=False,  # [ "left" | "right" | "center" ]

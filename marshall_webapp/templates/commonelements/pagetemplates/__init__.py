@@ -99,7 +99,8 @@ def defaultpagetemplate(
 
     head = khufu.head(
         relativeUrlBase=relativePathFromDocRoot,
-        mainCssFileName='main_marshall.css',
+        mainCssFilePath=request.static_url(
+            'marshall_webapp:static/styles/css/main_marshall.css'),
         pageTitle=pageTitle,
         extras=''
     )
@@ -136,7 +137,8 @@ def defaultpagetemplate(
         relativeUrlBase=relativePathFromDocRoot,
         responsive=True,
         googleAnalyticsCode=False,
-        jsFileName="main-ck.js"
+        jsFilePath=request.static_url(
+            'marshall_webapp:static/js/main-ck.js')
     )
 
     webpage = khufu.htmlDocument(

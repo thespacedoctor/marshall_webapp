@@ -75,6 +75,23 @@
 
     $.fn.popover.Constructor = Popover
 
+    // added by dryx on November 7, 2014 -- make the popover persist when you enter it
+    var originalLeave = $.fn.popover.Constructor.prototype.leave;
+    $.fn.popover.Constructor.prototype.leave = function(e) {
+        var container, self;
+        self = $(e.currentTarget)[this.type](this._options).data(this.type);
+        originalLeave.call(this, e);
+        if (e.currentTarget) {
+            container = $(".popover");
+            return container.one("mouseenter", function() {
+                clearTimeout(self.timeout);
+                return container.one("mouseleave", function() {
+                    return originalLeave.call(self, e);
+                });
+            });
+        }
+    };
+
     $.fn.popover.defaults = $.extend({}, $.fn.tooltip.defaults, {
         placement: 'right',
         trigger: 'click',

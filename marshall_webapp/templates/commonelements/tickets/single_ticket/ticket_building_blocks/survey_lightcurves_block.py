@@ -88,7 +88,7 @@ def survey_lightcurves_block(
             tinyDict["url"] = ""
             tinyDict["survey"] = thisSurvey
             tinyDict[
-                "lc"] = '/static/caches/transients/%(transientBucketId)s/%(thisSurvey)s_lightcurve.%(thisExt)s' % locals()
+                "lc"] = 'static/caches/transients/%(transientBucketId)s/%(thisSurvey)s_lightcurve.%(thisExt)s' % locals()
             tinyDict[
                 "filename"] = "%(thisSurvey)s_lightcurve.%(thisExt)s" % locals()
 

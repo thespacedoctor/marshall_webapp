@@ -8,7 +8,7 @@
 // xjs-get-json-response-from-python-script
 
 var multi_link_exploder = function() {
-    console.log('multi link exploder triggered');
+    // console.log('multi link exploder triggered');
 
     var links = $(this).siblings("ul.dropdown-menu").children("li");
     links.each(function(index) {
