@@ -85,7 +85,7 @@ def topnavbar(log,
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
     pesstoWiki = khufu.a(
         content="wiki",
-        href='https://github.com/thespacedoctor/marshall_webapp_wiki/wiki',
+        href='https://sites.google.com/a/pessto.org/wiki/',
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
@@ -103,7 +103,7 @@ def topnavbar(log,
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
     help = khufu.a(
         content='help & reference',
-        href='http://www.pessto.org/wiki/index.py',
+        href='https://github.com/thespacedoctor/marshall_webapp_wiki/wiki',
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
