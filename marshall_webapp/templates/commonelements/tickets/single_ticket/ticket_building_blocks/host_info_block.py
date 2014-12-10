@@ -74,14 +74,14 @@ def host_info_block(
         )
         downloadContextStamp = "/static/caches/transients/%s/sdss_stamp.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
-        contextStamp = request.static_url(
+        contextStamp = request.static_path(
             "marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
                 discoveryDataDictionary["transientBucketId"],))
         stampName = "%(masterName)s_sdss_context_image" % locals()
     elif discoveryDataDictionary["ogle_color_context_stamp"] == 1:
         downloadContextStamp = "/static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
         )
-        contextStamp = request.static_url(
+        contextStamp = request.static_path(
             "marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
             ))
         ogleStamp = "OGLE context stamp"

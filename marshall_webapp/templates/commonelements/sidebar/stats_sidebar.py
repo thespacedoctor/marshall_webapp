@@ -118,7 +118,7 @@ def _stats_sidebar_header(
     ## VARIABLES ##
 
     pesstoIcon = khufu.image(
-        src=request.static_url(
+        src=request.static_path(
             'marshall_webapp:static/images/pessto_icon.png'),
         href=request.route_path('transients'),
         display=False,  # [ rounded | circle | polaroid ]

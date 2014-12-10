@@ -71,7 +71,7 @@ def master_lightcurve_block(
     name = discoveryDataDictionary["masterName"]
 
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = request.static_url(
+        lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
                 discoveryDataDictionary["transientBucketId"],))
         dlightCurveImage = 'static/caches/transients/%s/master_lightcurve.png' % (
@@ -98,7 +98,7 @@ def master_lightcurve_block(
 
     if lsqname:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = request.static_url(
+        lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
             ))
         dlightCurveImage = '/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(

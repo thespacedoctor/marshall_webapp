@@ -99,7 +99,7 @@ def defaultpagetemplate(
 
     head = khufu.head(
         relativeUrlBase=relativePathFromDocRoot,
-        mainCssFilePath=request.static_url(
+        mainCssFilePath=request.static_path(
             'marshall_webapp:static/styles/css/main_marshall.css'),
         pageTitle=pageTitle,
         extras=''

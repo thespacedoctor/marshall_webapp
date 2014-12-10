@@ -57,7 +57,7 @@ def topnavbar(log,
             href=href,
         )
 
-    src = request.static_url(
+    src = request.static_path(
         'marshall_webapp:static/images/home_button_body.png')
 
     icon = khufu.image(
