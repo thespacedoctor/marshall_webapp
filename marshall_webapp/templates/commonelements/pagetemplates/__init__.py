@@ -137,7 +137,7 @@ def defaultpagetemplate(
         relativeUrlBase=relativePathFromDocRoot,
         responsive=True,
         googleAnalyticsCode=False,
-        jsFilePath=request.static_url(
+        jsFilePath=request.static_path(
             'marshall_webapp:static/js/main-ck.js')
     )
 
