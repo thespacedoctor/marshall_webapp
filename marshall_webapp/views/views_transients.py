@@ -8,10 +8,33 @@ from ..models.transients import models_transients_post, models_transients_put, m
 from ..models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
 
 
-@view_config(route_name='index', request_method='GET', permission="view_users")
-def index(request):
-    href = request.route_path('transients')
-    return HTTPFound(location=href)
+# @view_config(route_name='index', request_method='GET', permission="view_users")
+# def index(request):
+#     href = request.route_path('transients')
+#     return HTTPFound(location=href)
+
+# @review: clean up this view callable when complete
+
+
+@view_defaults(route_name='index', permission="view_users")
+class index_view(object):
+
+    def __init__(self, request):
+        self.request = request
+        self.log = logging.getLogger(__name__)
+        self.log.debug("instantiating a new 'index_view'' view")
+
+    @view_config(request_method='POST', permission="view_users")
+    @view_config(request_param="method=post", permission="edit_users")
+    def post(self):
+        href = self.request.route_path('transients')
+        return HTTPFound(location=href)
+
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
+    def get(self):
+        href = self.request.route_path('transients')
+        return HTTPFound(location=href)
 
 
 @view_defaults(route_name='transients', permission="view_users")
