@@ -90,7 +90,7 @@ def add_new_comment_to_object_form(
         # [ "inline" | "horizontal" | "search" | "navbar-form" | "navbar-search" ]
         formType='inline',
         postToScript=href,
-        redirectUrl=request.url
+        redirectUrl=request.path_qs
     )
 
     return newCommentForm

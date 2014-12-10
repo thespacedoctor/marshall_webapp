@@ -54,7 +54,7 @@ def change_pi_form(
         log=log,
         title="Update PI details for %(masterName)s" % discoveryDataDictionary,
         postToScriptUrl=postToScriptUrl,
-        reloadToUrl=request.url
+        reloadToUrl=request.path_qs
     )
     nameInput = khufu.formInput(
         # [ text | password | datetime | datetime-local | date | month | time | week | number | email | url | search | tel | color ]

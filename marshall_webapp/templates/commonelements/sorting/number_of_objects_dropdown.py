@@ -35,7 +35,7 @@ import khufu
 
 def number_of_objects_dropdown(
     log,
-    thisUrl,
+    request,
     limit,
     tableView
 ):
@@ -43,7 +43,7 @@ def number_of_objects_dropdown(
 
     **Key Arguments:**
         - ``log`` -- the logger
-        - ``thisUrl`` -- the current url for the page
+        - ``request`` -- the request
         - ``limit`` -- current limit of objects per page
         - ``tableView`` -- the current tableView
 
@@ -52,27 +52,31 @@ def number_of_objects_dropdown(
 
     **Todo**
     """
+    routename = request.matched_route.name
+    if "elementId" in request.matchdict:
+        elementId = request.matchdict["elementId"]
+    else:
+        elementId = False
+
+    theseParams = dict(request.params)
+    alist = ["sortBy", "sortDesc", "limit", "pageStart"]
+    for i in alist:
+        if i in theseParams:
+            del theseParams[i]
+
     # determine which icon to use:
     if tableView == "table":
         icon = """<i class="icon-reorder"></i>"""
     else:
         icon = """<i class="icon-ticket2"></i>"""
 
-    urlCopy = thisUrl
-    if "limit" in urlCopy:
-        urlCopy = re.sub(r"&?limit=\d+", "", urlCopy)
-    if "pageStart" in urlCopy:
-        urlCopy = re.sub(r"&?pageStart=\d+", "", urlCopy)
-
-    if "?" not in urlCopy:
-        urlCopy = "%(urlCopy)s?" % locals()
-    if "&" != urlCopy[-1:] and "?" != urlCopy[-1:]:
-        urlCopy = "%(urlCopy)s&" % locals()
-
     numbers = ["10", "25", "50", "100"]
     listItems = []
     for number in numbers:
-        item = "%(urlCopy)slimit=%(number)s&pageStart=0" % locals()
+        theseParams["limit"] = number
+        theseParams["pageStart"] = 0
+        item = request.route_path(
+            routename, elementId=elementId, _query=theseParams)
         item = khufu.a(
             content="""%(icon)s x %(number)s""" % locals(),
             href=item,

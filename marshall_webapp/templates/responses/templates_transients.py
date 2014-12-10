@@ -162,7 +162,7 @@ class templates_transients():
 
         sort = ticket_table_sorting_dropdown(
             log=self.log,
-            thisUrl=self.request.url,
+            request=self.request,
             sortBy=self.qs["sortBy"],
             sortDesc=self.qs["sortDesc"]
         )
@@ -217,7 +217,7 @@ class templates_transients():
         pagination = ticket_table_pagination(
             log=self.log,
             totalTickets=self.totalTicketCount,
-            thisUrl=self.request.url,
+            request=self.request,
             limit=self.qs["limit"],
             previousPageStart=self.qs["pageStart"]
         )
@@ -269,7 +269,7 @@ class templates_transients():
 
         objectsPerPageDropdown = number_of_objects_dropdown(
             log=self.log,
-            thisUrl=self.request.url,
+            request=self.request,
             limit=self.qs["limit"],
             tableView=self.qs["format"]
         )
@@ -401,7 +401,7 @@ class templates_transients():
 
         # create the sortable tables of objects
         table = khufu.tables.sortable_table.sortable_table(
-            currentPageUrl=self.request.url,
+            currentPageUrl=self.request.path_qs,
             columnsToDisplay=tableColumns,
             tableRowsDictionary=self.transientData,
             log=self.log,

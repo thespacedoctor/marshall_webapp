@@ -35,7 +35,7 @@ from dryxPython import commonutils as dcu
 
 def ticket_table_sorting_dropdown(
     log,
-    thisUrl,
+    request,
     sortBy=False,
     sortDesc=False
 ):
@@ -43,7 +43,7 @@ def ticket_table_sorting_dropdown(
 
     **Key Arguments:**
         - ``log`` -- the logger
-        - ``thisUrl`` -- the current url
+        - ``request`` -- the request
         - ``sortBy`` -- the incoming sortBy
         - ``sortDesc`` -- incoming sort direction
 
@@ -52,15 +52,27 @@ def ticket_table_sorting_dropdown(
 
     **Todo**
     """
-    thisUrl = re.sub(r"(\&|\?)sortBy=[a-zA-Z_]*", "", thisUrl)
-    thisUrl = re.sub(r"(\&|\?)sortDesc=[a-zA-Z]*", "", thisUrl)
-    thisUrl = re.sub(r"(\&|\?)limit=\d*", "", thisUrl)
-    thisUrl = re.sub(r"(\&|\?)pageStart=\d*", "", thisUrl)
-    thisUrl = re.sub(r"index.py&", "index.py?", thisUrl)
-    if thisUrl[-3:] == ".py":
-        thisUrl = "%(thisUrl)s?" % locals()
-    elif thisUrl[-1:] not in ["?", "&"]:
-        thisUrl = "%(thisUrl)s&" % locals()
+    routename = request.matched_route.name
+    if "elementId" in request.matchdict:
+        elementId = request.matchdict["elementId"]
+    else:
+        elementId = False
+
+    theseParams = dict(request.params)
+    alist = ["sortBy", "sortDesc", "limit", "pageStart"]
+    for i in alist:
+        if i in theseParams:
+            del theseParams[i]
+
+    # thisUrl = re.sub(r"(\&|\?)sortBy=[a-zA-Z_]*", "", thisUrl)
+    # thisUrl = re.sub(r"(\&|\?)sortDesc=[a-zA-Z]*", "", thisUrl)
+    # thisUrl = re.sub(r"(\&|\?)=\d*", "", thisUrl)
+    # thisUrl = re.sub(r"(\&|\?)pageStart=\d*", "", thisUrl)
+    # thisUrl = re.sub(r"index.py&", "index.py?", thisUrl)
+    # if thisUrl[-3:] == ".py":
+    #     thisUrl = "%(thisUrl)s?" % locals()
+    # elif thisUrl[-1:] not in ["?", "&"]:
+    #     thisUrl = "%(thisUrl)s&" % locals()
 
     # GENERATE THE SORT OPTION LIST
     optionList = [
@@ -81,7 +93,7 @@ def ticket_table_sorting_dropdown(
     ]
 
     # remove options not available for inbox items
-    if "mwl" not in thisUrl or "mwl=inbox" in thisUrl:
+    if "mwl" not in theseParams or theseParams["mwl"] == "inbox":
         optionList.remove("classification date")
         optionList.remove("spectral type")
         optionList.remove("pi")
@@ -151,8 +163,12 @@ def ticket_table_sorting_dropdown(
             dbOption = "currentMagnitude"
         if option == "pi":
             dbOption = "pi_name"
-        thisLink = """%(thisUrl)ssortBy=%(dbOption)s&sortDesc=False""" % locals(
-        )
+
+        theseParams["sortBy"] = dbOption
+        theseParams["sortDesc"] = False
+
+        thisLink = request.route_path(
+            routename, elementId=elementId, _query=theseParams)
         thisLink = khufu.a(
             content=option,
             href=thisLink,
@@ -165,12 +181,16 @@ def ticket_table_sorting_dropdown(
     # set sort arrow direction
     if sortDesc != "True":
         arrow = """<i class="icon-arrow-down4"></i>"""
-        topButtonLink = """%(thisUrl)ssortBy=%(dbSortBy)s&sortDesc=True""" % locals(
-        )
+        theseParams["sortBy"] = dbSortBy
+        theseParams["sortDesc"] = True
+        topButtonLink = request.route_path(
+            routename, elementId=elementId, _query=theseParams)
     else:
         arrow = """<i class="icon-arrow-up4"></i>"""
-        topButtonLink = """%(thisUrl)ssortBy=%(dbSortBy)s&sortDesc=False""" % locals(
-        )
+        theseParams["sortBy"] = dbSortBy
+        theseParams["sortDesc"] = False
+        topButtonLink = request.route_path(
+            routename, elementId=elementId, _query=theseParams)
 
     # add text color
     arrow = khufu.coloredText(

@@ -38,7 +38,7 @@ from dryxPython import commonutils as dcu
 def ticket_table_pagination(
         log,
         totalTickets,
-        thisUrl,
+        request,
         limit,
         previousPageStart,
         numberOfButtonsToDisplay=5
@@ -48,7 +48,7 @@ def ticket_table_pagination(
     **Key Arguments:**
         - ``log`` -- the logger
         - ``totalTickets`` -- the total number of tickets to be listed in pagination
-        - ``thisUrl`` -- the current url
+        - ``request`` -- the request
         - ``limit`` -- the limit of tickets to display on the page
         - ``previousPageStart`` -- the index of the previous page's first ticket
         - ``numberOfButtonsToDisplay`` -- the total number of pagination buttons to display on any one page (must be odd number)
@@ -58,13 +58,25 @@ def ticket_table_pagination(
 
     **Todo**
     """
+    routename = request.matched_route.name
+    if "elementId" in request.matchdict:
+        elementId = request.matchdict["elementId"]
+    else:
+        elementId = False
+
+    theseParams = dict(request.params)
+    alist = ["limit", "pageStart"]
+    for i in alist:
+        if i in theseParams:
+            del theseParams[i]
+
     # STRIP THE URL OF PREVIOUS PAGINATION SETTINGS
-    thisUrl = re.sub(r"(&|\?)limit=\d*", "", thisUrl)
-    thisUrl = re.sub(r"(&|\?)pageStart=\d*", "", thisUrl)
+    # thisUrl = re.sub(r"(&|\?)limit=\d*", "", thisUrl)
+    # thisUrl = re.sub(r"(&|\?)pageStart=\d*", "", thisUrl)
     # APPEND THE RELEVANT SYMBOL AT END OF NEW URL
-    beginUrlWith = "&"
-    if "?" not in thisUrl:
-        beginUrlWith = "?"
+    # beginUrlWith = "&"
+    # if "?" not in thisUrl:
+    #     beginUrlWith = "?"
     # PLACE VARIABLES IN CORRECT FORMAT
     limit = float(limit)
     previousPageStart = float(previousPageStart)
@@ -96,9 +108,10 @@ def ticket_table_pagination(
     limit = int(limit)
     allButtons = ""
     pageStart = (thisButtonIndex) * limit
-    nextButtonUrl = """%(thisUrl)s%(beginUrlWith)slimit=%(limit)s&pageStart=%(pageStart)s""" % locals(
-    )
-    nextButtonUrl = nextButtonUrl.replace("index.py&", "index.py?")
+    theseParams["limit"] = limit
+    theseParams["pageStart"] = pageStart
+    nextButtonUrl = request.route_path(
+        routename, elementId=elementId, _query=theseParams)
     disabled = False
     if thisButtonIndex == totalButtons:
         disabled = True
@@ -113,9 +126,10 @@ def ticket_table_pagination(
         disabled=disabled
     )
     pageStart = (thisButtonIndex - 2) * limit
-    prevButtonUrl = """%(thisUrl)s%(beginUrlWith)slimit=%(limit)s&pageStart=%(pageStart)s""" % locals(
-    )
-    prevButtonUrl = prevButtonUrl.replace("index.py&", "index.py?")
+    theseParams["limit"] = limit
+    theseParams["pageStart"] = pageStart
+    prevButtonUrl = request.route_path(
+        routename, elementId=elementId, _query=theseParams)
     disabled = False
     if thisButtonIndex == 1:
         disabled = True
@@ -136,8 +150,10 @@ def ticket_table_pagination(
         if buttonNumber == thisButtonIndex:
             disabled = True
         pageStart = i * limit
-        buttonUrl = """%(thisUrl)s%(beginUrlWith)slimit=%(limit)s&pageStart=%(pageStart)s""" % locals(
-        )
+        theseParams["limit"] = limit
+        theseParams["pageStart"] = pageStart
+        buttonUrl = request.route_path(
+            routename, elementId=elementId, _query=theseParams)
         link = khufu.a(
             content=buttonNumber,
             href=buttonUrl,
