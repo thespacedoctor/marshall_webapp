@@ -204,6 +204,12 @@ def identity_block(
                                        discoveryDataDictionary["transientBucketId"])
         dsrc = "%s%s/lsq_stamp.jpeg" % (download_prefix,
                                         discoveryDataDictionary["transientBucketId"])
+    elif discoveryDataDictionary["master_stamp"]:
+        stampName = "master_stamp.jpeg"
+        src = "%s%s/master_stamp.jpeg" % (transient_cache,
+                                          discoveryDataDictionary["transientBucketId"])
+        dsrc = "%s%s/master_stamp.jpeg" % (download_prefix,
+                                           discoveryDataDictionary["transientBucketId"])
     elif discoveryDataDictionary["targetImageUrl"]:
         stampName = "user_added_stamp.jpeg"
         src = discoveryDataDictionary["targetImageUrl"]

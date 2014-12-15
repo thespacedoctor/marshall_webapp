@@ -138,7 +138,7 @@ def lightcurve_block(
         for dataPoint in lightcurveData:
             if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
                 break
-        if now - dataPoint["observationDate"] < datetime.timedelta(days=7):
+        if len(lightcurveData) and (now - dataPoint["observationDate"] < datetime.timedelta(days=7)):
             currentMagEstimate = dataPoint["magnitude"]
     if currentMagEstimateUpdated and currentMagEstimate != 9999:
 
