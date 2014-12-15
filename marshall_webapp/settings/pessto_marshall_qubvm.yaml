@@ -53,6 +53,8 @@ lsq urls:
     summary csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates.csv"
     recurrence csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates_obs.csv"
 
+master sne url: "http://observ.pereplet.ru/sn_e.html"
+
 exports:
     path to csv export directory: "/misc/pessto/webapp_assets/pessto_marshall/exports/csv/"
     path to pessto classifications csv export: "/misc/pessto/webapp_assets/pessto_marshall/exports/csv/pessto_classifications.csv"
@@ -60,9 +62,10 @@ exports:
     path to ascii export directory: "/misc/pessto/webapp_assets/pessto_marshall/exports/ascii/"
 
 downloads:
-    transient cache directory: "/misc/pessto/webapp_assets/pessto_marshall/caches/transients/"
+    transient cache directory: "/misc/pessto/git_repos/marshall_webapp/marshall_webapp/static/caches/transients/"
 
-stats cache directory: "/misc/pessto/webapp_assets/pessto_marshall/caches/stats/"
+stats cache directory: "/misc/pessto/git_repos/marshall_webapp/marshall_webapp/static/caches/stats/"
+
 
 path to git_repos directory: "/misc/pessto/git_repos"
 
