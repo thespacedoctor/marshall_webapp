@@ -81,14 +81,21 @@ def comments_block(
         )
 
         # DATE
-        relativeDate = dcu.pretty_date(
-            date=row["dateCreated"]
-        )
-        if relativeDate[-1:] == "d":
-            relativeDate = relativeDate[2:-1]
-            relativeDate = """%(relativeDate)s days ago""" % locals()
-        relativeDate = khufu.coloredText(
-            text="""(%(relativeDate)s) """ % locals(),
+        from datetime import datetime, date, time
+        now = datetime.now()
+        delta = now - row["dateCreated"]
+        delta = delta.days
+        if (delta < 13):
+            thisDate = dcu.pretty_date(
+                date=row["dateCreated"]
+            )
+            if thisDate[-1:] == "d":
+                thisDate = thisDate[2:-1]
+                thisDate = """%(thisDate)s days ago""" % locals()
+        else:
+            thisDate = str(row["dateCreated"])[:10]
+        thisDate = khufu.coloredText(
+            text="""(%(thisDate)s) """ % locals(),
             color="green",
             size=False,  # 1-10
             pull=False,  # "left" | "right"
@@ -96,7 +103,7 @@ def comments_block(
 
         commentRow = khufu.grid_row(
             responsive=True,
-            columns="""%(author)s %(comment)s %(relativeDate)s """ % locals(),
+            columns="""%(author)s %(comment)s %(thisDate)s """ % locals(),
             htmlId=False,
             htmlClass=False,
             onPhone=True,

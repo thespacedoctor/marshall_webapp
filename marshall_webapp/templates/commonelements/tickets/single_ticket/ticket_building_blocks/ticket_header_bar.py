@@ -67,7 +67,7 @@ def ticket_header_bar(
         for dataPoint in lightcurveData:
             if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
                 break
-        if now - dataPoint["observationDate"] < datetime.timedelta(days=7):
+        if len(lightcurveData) and (now - dataPoint["observationDate"] < datetime.timedelta(days=7)):
             currentMagEstimate = dataPoint["magnitude"]
     magWarning = None
     if currentMagEstimate > 21.0:
@@ -119,18 +119,22 @@ def ticket_header_bar(
             pull=False,  # "left" | "right"
         )
 
-        relativeDate = dcu.pretty_date(
-            date=commentDate
-        )
-
-        if relativeDate[-1:] == "d":
-            relativeDate = relativeDate[2:-1]
-            relativeDate = """%(relativeDate)s days ago""" % locals()
-
-        relativeDate = relativeDate.strip()
+        # from datetime import datetime, date, time
+        now = datetime.datetime.now()
+        delta = now - commentDate
+        delta = delta.days
+        if (delta < 13):
+            thisDate = dcu.pretty_date(
+                date=commentDate
+            )
+            if thisDate[-1:] == "d":
+                thisDate = thisDate[2:-1]
+                thisDate = """%(thisDate)s days ago""" % locals()
+        else:
+            thisDate = str(commentDate)[:10]
 
         prefix = khufu.coloredText(
-            text="<strong>latest comment (%(relativeDate)s):</strong>" % locals(
+            text="<strong>latest comment (%(thisDate)s):</strong>" % locals(
             ),
             color="blue",
             size=False,  # 1-10
