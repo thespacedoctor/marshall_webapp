@@ -11,27 +11,20 @@ _git*
 cover/
 html_test_coverage_report/
 _ignore_*
-
 # Compiled python modules.
 *.pyc
-
 # Setuptools distribution folder.
 /dist/
-
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
-
 marshall_webapp/static/caches/*
-
 README.rst
-
 ## Apache logs
 logs/*.log
 transients_cache/
 test_database.sql
 /logs/log.html
-
 /marshall_webapp/private/*
-
 path_to_settings.yaml
+config.codekit
