@@ -251,7 +251,7 @@ def identity_block(
     if len(rows) == 0:
         akaTitle = ""
     elif len(rows) == 1:
-        akaTitle = "aka: "
+        akaTitle = "<br>aka: "
         row = rows[0]
         aka = row["name"]
         size = 3
@@ -272,7 +272,7 @@ def identity_block(
         )
         akaList = aka
     else:
-        akaTitle = "akas: "
+        akaTitle = "<br>akas: "
         for row in rows:
             log.debug('aka: %s' % (row,))
             aka = row["name"]
