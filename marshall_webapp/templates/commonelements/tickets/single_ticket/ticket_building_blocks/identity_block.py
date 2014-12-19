@@ -23,7 +23,9 @@ import re
 import datetime
 import sys
 import os
+import string
 import khufu
+
 from .....commonelements import commonutils as cu
 
 
@@ -210,6 +212,13 @@ def identity_block(
                                           discoveryDataDictionary["transientBucketId"])
         dsrc = "%s%s/master_stamp.jpeg" % (download_prefix,
                                            discoveryDataDictionary["transientBucketId"])
+    elif discoveryDataDictionary["bsl_stamp"]:
+        remoteUrl = discoveryDataDictionary["tripletImageUrl"]
+        theseLines = string.split(remoteUrl, '.')
+        extension = theseLines[-1]
+        stampName = "bsl_stamp.%(extension)s" % locals()
+        src = "%s%s/bsl_stamp.%s" % (transient_cache,
+                                     discoveryDataDictionary["transientBucketId"], extension)
     elif discoveryDataDictionary["targetImageUrl"]:
         stampName = "user_added_stamp.jpeg"
         src = discoveryDataDictionary["targetImageUrl"]

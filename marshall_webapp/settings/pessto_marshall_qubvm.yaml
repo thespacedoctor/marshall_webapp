@@ -55,6 +55,11 @@ lsq urls:
 
 master sne url: "http://observ.pereplet.ru/sn_e.html"
 
+bright sn list urls:
+    date ordered list: "http://www.rochesterastronomy.org/snimages/sndate.html"
+    main page: "http://www.rochesterastronomy.org/supernova.html"
+
+
 exports:
     path to csv export directory: "/misc/pessto/webapp_assets/pessto_marshall/exports/csv/"
     path to pessto classifications csv export: "/misc/pessto/webapp_assets/pessto_marshall/exports/csv/pessto_classifications.csv"

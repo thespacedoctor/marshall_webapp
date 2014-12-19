@@ -81,22 +81,18 @@ def master_lightcurve_block(
         dlightCurveImage = ''
 
     # Override for LSQ lightcurves
-    lsqname = False
     lightcurveSwitchAttempt = True
+    transientBucketId = discoveryDataDictionary["transientBucketId"]
     for row in lightcurveData:
         if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq-disc" in row["survey"].lower():
             lightcurveSwitchAttempt = False
 
     if lightcurveSwitchAttempt == True:
-        if "lsq" in name:
-            lsqname = name
-        else:
-            for aka in objectAkas:
-                if aka["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq" in aka["name"].lower():
-                    lsqname = aka["name"]
-                    break
+        filePath = request.registry.settings["downloads"][
+            "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+        lsqExists = os.path.exists(filePath)
 
-    if lsqname:
+    if lsqExists:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
         lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(

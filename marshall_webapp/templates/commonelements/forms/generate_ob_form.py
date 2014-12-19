@@ -70,20 +70,17 @@ def generate_ob_form(
             'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
                 discoveryDataDictionary["transientBucketId"],))
     # Override for LSQ lightcurves
-    lsqname = False
     lightcurveSwitchAttempt = True
+    transientBucketId = discoveryDataDictionary["transientBucketId"]
     for row in lightcurveData:
         if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq-disc" in row["survey"].lower():
             lightcurveSwitchAttempt = False
     if lightcurveSwitchAttempt == True:
-        if "lsq" in masterName.lower():
-            lsqname = masterName
-        else:
-            for aka in objectAkas:
-                if aka["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq" in aka["name"].lower():
-                    lsqname = aka["name"]
-                    break
-    if lsqname:
+        filePath = request.registry.settings["downloads"][
+            "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+        lsqExists = os.path.exists(filePath)
+
+    if lsqExists:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
         lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(

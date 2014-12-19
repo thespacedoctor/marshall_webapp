@@ -58,6 +58,10 @@ lsq urls:
 master sne url: "http://observ.pereplet.ru/sn_e.html"
 tocp url: "http://www.cbat.eps.harvard.edu/unconf/tocp.html"
 
+bright sn list urls:
+    date ordered list: "http://www.rochesterastronomy.org/snimages/sndate.html"
+    main page: "http://www.rochesterastronomy.org/supernova.html"
+
 exports:
     path to pessto classifications csv export: "/Users/Dave/git_repos/pessto_marshall_engine/pessto_marshall_engine/database/export/tests/output/pessto_classifications_export_01.csv"
     path to pessto object sumarraies for wiserep sql export: "/tmp/wiserep.sql"
