@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# ['/home/marshall/.virtualenv/marshall_webapp/bin/mod_wsgi-express', 'setup-server', 'production_qubvm.wsgi', '--port=8090', '--user', 'marshall', '--group', 'marshall', '--server-root=/misc/pessto/git_repos/marshall_webapp/apache']
+
+HTTPD="/usr/sbin/httpd -f /misc/pessto/git_repos/marshall_webapp/apache/httpd.conf "
+
+WSGI_RUN_USER="${WSGI_RUN_USER:-marshall}"
+WSGI_RUN_GROUP="${WSGI_RUN_GROUP:-marshall}"
+
+export WSGI_RUN_USER
+export WSGI_RUN_GROUP
+
+LANG='en_US.UTF-8'
+LC_ALL='en_US.UTF-8'
+
+export LANG
+export LOCALE
+
+ACMD="$1"
+ARGV="$@"
+
+if test -f /misc/pessto/git_repos/marshall_webapp/apache/envvars; then
+    . /misc/pessto/git_repos/marshall_webapp/apache/envvars
+fi
+
+STATUSURL="http://localhost:8090/server-status"
+
+if [ "x$ARGV" = "x" ] ; then
+    ARGV="-h"
+fi
+
+case $ACMD in
+start|stop|restart|graceful|graceful-stop)
+    exec $HTTPD -k $ARGV
+    ;;
+configtest)
+    exec $HTTPD -t
+    ;;
+status)
+    exec /home/marshall/.virtualenv/marshall_webapp/bin/python -m webbrowser -t $STATUSURL
+    ;;
+*)
+    exec $HTTPD $ARGV
+esac
+
