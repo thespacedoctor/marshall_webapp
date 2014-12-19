@@ -146,5 +146,5 @@ logging settings:
         #    maxBytes: 100000000
         #    backupCount: 3
     root:
-        level: WARNING
+        level: DEBUG
         handlers: [file,console]
