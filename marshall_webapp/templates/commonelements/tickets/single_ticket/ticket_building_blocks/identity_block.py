@@ -212,7 +212,7 @@ def identity_block(
                                           discoveryDataDictionary["transientBucketId"])
         dsrc = "%s%s/master_stamp.jpeg" % (download_prefix,
                                            discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["bsl_stamp"]:
+    elif discoveryDataDictionary["bsl_stamp"] and discoveryDataDictionary["tripletImageUrl"]:
         remoteUrl = discoveryDataDictionary["tripletImageUrl"]
         theseLines = string.split(remoteUrl, '.')
         extension = theseLines[-1]
