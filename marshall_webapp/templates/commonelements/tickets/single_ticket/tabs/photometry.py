@@ -166,6 +166,7 @@ def photometry_footer_bar(
 
     **Todo**
     """
+    lsqExists = False
     log.info('starting the ``photometry_footer_bar`` function')
     ## VARIABLES ##
     transientBucketId = discoveryDataDictionary["transientBucketId"]
