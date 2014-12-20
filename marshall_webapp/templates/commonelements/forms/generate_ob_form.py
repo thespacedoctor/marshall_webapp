@@ -57,6 +57,7 @@ def generate_ob_form(
     **Todo**
     """
     # Header Text
+    lsqExists = False
     masterName = discoveryDataDictionary["masterName"]
     if discoveryDataDictionary["classifiedFlag"] == 0:
         headerText = "Generate Classification OB for %(masterName)s" % locals()
