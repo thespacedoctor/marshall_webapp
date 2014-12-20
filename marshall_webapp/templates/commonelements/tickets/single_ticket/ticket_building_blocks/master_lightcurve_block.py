@@ -60,6 +60,7 @@ def master_lightcurve_block(
     """
     log.info('starting the ``master_lightcurve_block`` function')
 
+    lsqExists = False
     if displayTitle:
         title = cu.block_title(
             log,
