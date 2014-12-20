@@ -64,6 +64,7 @@ def lightcurve_block(
     log.info('starting the ``lightcurve_block`` function')
 
     masterName = discoveryDataDictionary["masterName"]
+    lsqExists = False
 
     if displayTitle:
         title = cu.block_title(
