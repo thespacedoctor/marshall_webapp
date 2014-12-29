@@ -202,7 +202,6 @@ def photometry_footer_bar(
     if lightcurveSwitchAttempt == True:
         filePath = request.registry.settings["downloads"][
             "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
-        lsqExists = os.path.exists(filePath)
         if "lsq" in name.lower() and "lsq" in discoveryDataDictionary["survey"]:
             lsqname = name
         else:
@@ -210,6 +209,9 @@ def photometry_footer_bar(
                 if aka["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq" in aka["name"].lower():
                     lsqname = aka["name"]
                     break
+        if "lsqname" in locals():
+            lsqExists = os.path.exists(filePath)
+
     if lsqExists:
         username = request.registry.settings["credentials"]["lsq"]["username"]
         password = request.registry.settings["credentials"]["lsq"]["password"]
