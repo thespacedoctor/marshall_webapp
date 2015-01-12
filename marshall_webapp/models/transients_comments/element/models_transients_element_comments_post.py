@@ -24,6 +24,7 @@ models_transients_element_comments_post.py
 import sys
 import os
 import khufu
+import cgi
 import dryxPython.commonutils as dcu
 
 
@@ -80,6 +81,9 @@ class models_transients_element_comments_post():
         now = dcu.get_now_sql_datetime()
         author = self.request.authenticated_userid
         comment = self.request.params["comment"]
+
+        comment = comment.encode('unicode_escape').replace(
+            "'", "\\'").replace('"', '\\"')
 
         # add the comment to the database
         sqlQuery = """
