@@ -21,7 +21,7 @@ class views_statsView(object):
             request=self.request
         )
         htmlContent = stats.get()
-        return Response(str(htmlContent))
+        return Response(htmlContent)
 
     @view_config(request_method='POST', permission="edit_users")
     @view_config(request_param="method=post", permission="edit_users")
