@@ -28,3 +28,4 @@ test_database.sql
 /marshall_webapp/private/*
 path_to_settings.yaml
 config.codekit
+marshall_webapp/config.codekit

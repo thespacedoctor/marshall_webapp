@@ -126,8 +126,8 @@ def _generate_plot_well(
                 "_", " ")
             title = fulltitle.replace(
                 "ssdr1 %(instrument)s %(dataType)s " % locals(), "")
-            filepath = """/marshall/images/stats_cache/phaseIII/%(d)s""" % locals(
-            )
+            filepath = request.static_path(
+                'marshall_webapp:static/caches/stats/phaseIII/%(d)s' % locals())
             link = khufu.a(
                 content='view in new tab',
                 href=filepath,
@@ -252,7 +252,7 @@ def _generate_plot_well(
     return thisImageWell
 
 # use the tab-trigger below for new function
-# x-def-with-logger
+
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
