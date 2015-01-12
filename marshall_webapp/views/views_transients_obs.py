@@ -46,6 +46,4 @@ class transients_element_obs_view(object):
         response.content_disposition = "attachment; filename=%(filename)s" % locals(
         )
 
-        print filename
-
         return response

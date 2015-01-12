@@ -131,7 +131,6 @@ def survey_lightcurves_block(
             content='lightcurve source',
             href=tinyDict["url"],
         )
-        print tinyDict["lc"]
 
         href = request.route_path(
             'download', _query={'url': tinyDict["lc"], "webapp": "marshall_webapp", "filename": filename})
