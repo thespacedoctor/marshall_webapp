@@ -91,6 +91,7 @@ class models_transients_element_comments_post():
         """ % locals()
         self.log.debug("""add comment sqlquery: `%(sqlQuery)s`""" % locals())
         self.request.db.execute(sqlQuery)
+        self.request.db.commit()
 
         responseContent = "%(author)s added the comment:<blockquote>%(comment)s</blockquote>to transient #%(transientBucketId)s in the marshall<BR><BR>" % locals(
         )
