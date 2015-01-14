@@ -201,6 +201,8 @@ class models_transients_post():
             objectRedshift,
             ticketAuthor)
         self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+        self.request.db.commit()
 
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]

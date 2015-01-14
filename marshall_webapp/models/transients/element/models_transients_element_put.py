@@ -124,6 +124,7 @@ class models_transients_element_put():
                 update pesstoObjects set marshallWorkflowLocation = "%(mwl)s" where transientBucketId = %(transientBucketId)s
             """ % locals()
             self.request.db.execute(sqlQuery)
+            self.request.db.commit()
             self.response = self.response + \
                 " transientBucketId %(transientBucketId)s moved to the `%(mwl)s` marshallWorkflowLocation<BR>" % locals(
                 )
@@ -141,6 +142,7 @@ class models_transients_element_put():
                 "%s"
             )""" % (transientBucketId, now, logEntry)
             self.request.db.execute(sqlQuery)
+            self.request.db.commit()
 
         # change the alert workflow location list if requested
         if "awl" in self.request.params:
@@ -149,6 +151,7 @@ class models_transients_element_put():
                 update pesstoObjects set alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
             """ % locals()
             self.request.db.execute(sqlQuery)
+            self.request.db.commit()
             self.response = self.response + \
                 " transientBucketId %(transientBucketId)s moved to the `%(awl)s` alertWorkflowLocation<BR>" % locals(
                 )
@@ -166,6 +169,7 @@ class models_transients_element_put():
                 "%s"
             )""" % (transientBucketId, now, logEntry)
             self.request.db.execute(sqlQuery)
+            self.request.db.commit()
 
         self.log.info('completed the ``_create_sqlquery`` method')
         return None
@@ -205,6 +209,7 @@ class models_transients_element_put():
             update pesstoObjects set pi_name = "%(piName)s", pi_email = "%(piEmail)s" where transientBucketId = %(transientBucketId)s   
         """ % locals()
         self.request.db.execute(sqlQuery)
+        self.request.db.commit()
 
         self.response = self.response + \
             "changed the PI of transient #%(transientBucketId)s to '%(piName)s' (%(piEmail)s)" % locals(
@@ -228,6 +233,7 @@ class models_transients_element_put():
             "%s"
         )""" % (transientBucketId, now, logEntry)
         self.request.db.execute(sqlQuery)
+        self.request.db.commit()
 
         self.log.info('completed the ``_change_pi_for_object`` method')
         return None
