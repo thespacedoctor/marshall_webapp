@@ -205,8 +205,9 @@ class models_transients_get():
                      select s.transientBucketId from transientBucketSummaries s, pesstoObjects p %(queryWhere)s %(sep)s order by s.best_redshift %(sortDirection)s
                 """ % locals()
             elif self.qs["sortBy"] == "latestComment":
+                newWhere = queryWhere.replace("t.t", "t")
                 sqlQuery = """
-                    select c.pesstoObjectsId as transientBucketId, max(c.dateCreated) as latestCommentDate from pesstoObjectsComments c, pesstoObjects p %(queryWhere)s and c.pesstoObjectsId = p.transientBucketID group by c.pesstoObjectsId order by latestCommentDate %(sortDirection)s
+                    select c.pesstoObjectsId as transientBucketId, max(c.dateCreated) as latestCommentDate from pesstoObjectsComments c, pesstoObjects p %(newWhere)s and c.pesstoObjectsId = p.transientBucketID group by c.pesstoObjectsId order by latestCommentDate %(sortDirection)s
                 """ % locals()
 
             elif self.qs["sortBy"] == "pi_name":
