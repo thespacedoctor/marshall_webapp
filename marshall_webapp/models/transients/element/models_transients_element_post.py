@@ -142,7 +142,7 @@ class models_transients_element_post():
             clsRedshift = "null"
         if "clsClassificationWRTMax" not in locals():
             clsClassificationWRTMax = "unknown"
-        if "clsClassificationPhase" not in locals() or len(clsClassificationPhase) = 0:
+        if "clsClassificationPhase" not in locals() or len(clsClassificationPhase) == 0:
             clsClassificationPhase = "null"
 
         username = self.request.authenticated_userid
