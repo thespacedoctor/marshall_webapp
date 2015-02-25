@@ -35,6 +35,7 @@ class templates_stats():
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- request
+        - ``elementId`` -- elementId
 
     **Todo**
     """
@@ -43,11 +44,13 @@ class templates_stats():
     def __init__(
         self,
         log,
-        request
+        request,
+        elementId="SSDR1"
     ):
         self.log = log
         log.debug("instansiating a new 'templates_stats' object")
         self.request = request
+        self.elementId = elementId
         # xt-self-arg-tmpx
 
         # Initial Actions
@@ -69,22 +72,25 @@ class templates_stats():
         """
         self.log.info('starting the ``get`` method')
 
-        from ..commonelements.stats.esophaseIII import plot_wells, ssdr1_stats_table
+        from ..commonelements.stats.esophaseIII import plot_wells, ssdr_stats_table
 
         # get the image wells for the plots
         sofiImagingPlots = plot_wells(
             log=self.log,
-            request=self.request
+            request=self.request,
+            releaseVersion=self.elementId
         )
 
         # get the ssdr1 stats table
-        ssdr1Table = ssdr1_stats_table(
+        ssdr1Table = ssdr_stats_table(
             log=self.log,
             request=self.request,
+            releaseVersion=self.elementId
         )
 
         # d3 practice
         d3plot = self.generate_d3_plot()
+        d3plot = ""
 
         # craft the content of the page
         mainContent = khufu.grid_column(
