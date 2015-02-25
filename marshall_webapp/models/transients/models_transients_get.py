@@ -216,6 +216,12 @@ class models_transients_get():
                     select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by case when p.%(sortBy)s is null then 1 else 0 end,  p.%(sortBy)s %(sortDirection)s
                 """ % locals()
 
+            elif self.qs["sortBy"] == "observationPriority":
+                sortBy = self.qs["sortBy"]
+                sqlQuery = """
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by p.%(sortBy)s %(sortDirection)s
+                """ % locals()
+
             else:
                 # the ticket selection query
                 sortBy = self.qs["sortBy"]
