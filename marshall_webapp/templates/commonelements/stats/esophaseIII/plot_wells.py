@@ -38,7 +38,8 @@ import khufu
 # AUTHOR : DRYX
 def plot_wells(
         log,
-        request
+        request,
+        releaseVersion
 ):
     """The sofi/efosc imaging/spectra plot well for the stats page of the marshall
 
@@ -61,7 +62,8 @@ def plot_wells(
                 log=log,
                 request=request,
                 instrument=instrument,
-                dataType=dataType
+                dataType=dataType,
+                releaseVersion=releaseVersion
             )
             plotWells = """%(plotWells)s%(well)s""" % locals()
 
@@ -76,7 +78,8 @@ def _generate_plot_well(
         log,
         request,
         instrument,
-        dataType):
+        dataType,
+        releaseVersion):
     """ generate plot well
 
     **Key Arguments:**
@@ -84,6 +87,7 @@ def _generate_plot_well(
         - ``request`` -- the pyramid request
         - ``instrument``
         - ``dataType``
+        - ``releaseVersion`` - the release versions to seperate
 
     **Return:**
         - ``plotWell`` -- the well of plots
@@ -99,7 +103,7 @@ def _generate_plot_well(
     imageWell = khufu.imageWell(
         log=log,
         title=title,
-        description="Metrics from the SSDR1 %(title)s" % locals(
+        description="Metrics from the %(releaseVersion)s %(title)s" % locals(
         )
     )
 
@@ -125,7 +129,7 @@ def _generate_plot_well(
             fulltitle = d.replace(".png", "").replace(
                 "_", " ")
             title = fulltitle.replace(
-                "ssdr1 %(instrument)s %(dataType)s " % locals(), "")
+                "%(releaseVersion)s %(instrument)s %(dataType)s " % locals(), "").lower()
             filepath = request.static_path(
                 'marshall_webapp:static/caches/stats/phaseIII/%(d)s' % locals())
             link = khufu.a(
@@ -170,10 +174,10 @@ def _generate_plot_well(
                 yKey = matchObject.group(3)
 
             import urllib
-            sqlQuery = urllib.quote("""select currentFilename, %(xKey)s ,%(yKey)s from %(instrument)s_%(dataType)s where data_rel = "SSDR1" and currentFilename not like "%%weight%%" order by %(yKey)s;""" % locals(
+            sqlQuery = urllib.quote("""select currentFilename, %(xKey)s ,%(yKey)s from %(instrument)s_%(dataType)s where data_rel = "%(releaseVersion)s" and currentFilename not like "%%weight%%" order by %(yKey)s;""" % locals(
             ))
             csvType = urllib.quote("human")  # human or machine
-            csvTitle = urllib.quote("ESO Phase III %(instrument)s %(dataType)s for SSDR1" % locals(
+            csvTitle = urllib.quote("ESO Phase III %(instrument)s %(dataType)s for %(releaseVersion)s" % locals(
             ))
             csvFilename = urllib.quote("%(xKey)s_vs_%(yKey)s.csv" % locals())
             returnFormat = urllib.quote("webpageView")
