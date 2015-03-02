@@ -46,6 +46,9 @@ credentials:
     skymapper:
         username: pessto
         password: "!explosions"
+    google_drive:
+        username: d.r.young@qub.ac.uk
+        password: "i8VLH)+d7rm}22o9P;W%&yRa7pmu7P"
 
 panstarrs urls:
     summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
