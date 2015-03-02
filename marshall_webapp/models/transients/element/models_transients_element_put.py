@@ -81,6 +81,9 @@ class models_transients_element_put():
         if set(("piName", "piEmail")) <= set(self.request.params):
             self._change_pi_for_object()
 
+        if "observationPriority" in self.request.params:
+            self._set_observational_priority_for_object()
+
         # throw warning if nothing has changed
         if len(self.response) == 0:
             self.response = "nothing has changed"
@@ -238,4 +241,69 @@ class models_transients_element_put():
         self.log.info('completed the ``_change_pi_for_object`` method')
         return None
 
+    def _set_observational_priority_for_object(
+            self):
+        """ change the observational priority for an object
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean _set_observational_priority_for_object method
+            - @review: when complete add logging
+        """
+        self.log.info(
+            'starting the ``_set_observational_priority_for_object`` method')
+
+        observationPriority = self.request.params["observationPriority"].strip()
+        transientBucketId = self.transientBucketId
+        username = self.request.authenticated_userid.replace(".", " ").title()
+        now = datetime.now()
+        now = now.strftime("%Y-%m-%d %H:%M:%S")
+
+        # get old data
+        sqlQuery = """
+            select observationPriority from pesstoObjects where transientBucketId = %(transientBucketId)s   
+        """ % locals()
+        objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectData = []
+        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        oldobservationPriority = objectData[0]["observationPriority"]
+
+        # change the observationPriority in the database
+        sqlQuery = """
+            update pesstoObjects set observationPriority = "%(observationPriority)s" where transientBucketId = %(transientBucketId)s   
+        """ % locals()
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        # response
+        self.response = self.response + \
+            "changed the observational priority of transient #%(transientBucketId)s to '%(observationPriority)s'" % locals(
+            )
+
+        # log entry
+        logEntry = "observational priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
+        )
+        sqlQuery = u"""INSERT INTO transients_history_logs (
+            transientBucketId,
+            dateCreated,
+            log
+        )
+        VALUES (
+            %s,
+            "%s",
+            "%s"
+        )""" % (transientBucketId, now, logEntry)
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        self.log.info(
+            'completed the ``_set_observational_priority_for_object`` method')
+        return None
+
+    # use the tab-trigger below for new method
     # xt-class-method

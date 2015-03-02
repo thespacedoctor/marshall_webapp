@@ -96,16 +96,16 @@ def actions_block(
         discoveryDataDictionary=discoveryDataDictionary,
     )
 
-    if classifyButton:
-        classifyButton = khufu.grid_row(
-            responsive=True,
-            columns=classifyButton,
-            htmlId=False,
-            htmlClass=False,
-            onPhone=True,
-            onTablet=True,
-            onDesktop=True,
-        )
+    # if classifyButton:
+    #     classifyButton = khufu.grid_row(
+    #         responsive=True,
+    #         columns=classifyButton,
+    #         htmlId=False,
+    #         htmlClass=False,
+    #         onPhone=True,
+    #         onTablet=True,
+    #         onDesktop=True,
+    #     )
 
     if not classifyButton:
         classifyButton = ""
@@ -128,7 +128,30 @@ def actions_block(
             objectAkas=objectAkas,
         )
 
-    return "%(title)s %(moveToDropdown)s %(alertDropdown)s %(classifyButton)s %(changePiButton)s %(generateOBButton)s" % locals()
+    changePriorityDropdown = ""
+    if discoveryDataDictionary["marshallWorkflowLocation"] in ["pending observation", "allObsQueue", "following"]:
+        changePriorityDropdown = _get_priority_switcher_dropdown(
+            log=log,
+            request=request,
+            discoveryDataDictionary=discoveryDataDictionary,
+        )
+        # changePriorityDropdown = khufu.grid_row(
+        #     responsive=True,
+        #     columns=changePriorityDropdown,
+        #     htmlId=False,
+        #     htmlClass=False,
+        #     onPhone=True,
+        #     onTablet=True,
+        #     onDesktop=True,
+        # )
+
+    buttonGroup = khufu.buttonGroup(
+        buttonList=[changePriorityDropdown,
+                    changePriorityDropdown, changePriorityDropdown],
+        format='vertical'  # [ default | toolbar | vertical ]
+    )
+
+    return "%(title)s %(changePriorityDropdown)s %(moveToDropdown)s %(alertDropdown)s %(classifyButton)s %(changePiButton)s %(generateOBButton)s %(buttonGroup)s" % locals()
 
 
 ###################################################################
@@ -527,6 +550,137 @@ def _generate_ob_button(
 
     log.info('completed the ``_get_classify_button`` function')
     return button
+
+
+# LAST MODIFIED : February 25, 2015
+# CREATED : February 25, 2015
+# AUTHOR : DRYX
+def _get_priority_switcher_dropdown(
+        request,
+        discoveryDataDictionary,
+        log):
+    """ get priority switcher dropdown
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``request`` -- the pyramid request
+        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+
+    **Return:**
+        - None
+
+    **Todo**
+        - @review: when complete, clean _get_priority_switcher_dropdown function
+        - @review: when complete add logging
+        - @review: when complete, decide whether to abstract function to another module
+    """
+    log.info('starting the ``_get_priority_switcher_dropdown`` function')
+    import datetime
+
+    log.info('starting the ``_get_move_to_dropdown`` function')
+
+    dropdownTitle = """<span class="colortext red"><i class="icon-fire"></i></span>"""
+
+    # Add the appropriate titles to the dropdown
+    linkTitleList = []
+    linkPriorityList = []
+    priorityList = ["critical", "important", "useful"]
+    priorityNumberList = [1, 2, 3]
+    priority = discoveryDataDictionary["observationPriority"]
+    for l, n in zip(priorityList, priorityNumberList):
+        if priority != n:
+            linkTitleList.append(l)
+            linkPriorityList.append(n)
+
+    linkList = []
+    for title, num in zip(linkTitleList, linkPriorityList):
+
+        discoveryDataDictionary["observationPriority"] = num
+        prefix = request.registry.settings["apache prefix"]
+        discoveryDataDictionary["prefix"] = prefix
+        name = discoveryDataDictionary["masterName"]
+        href = request.route_path(
+            'transients_element', elementId=discoveryDataDictionary["transientBucketId"])
+        name = khufu.a(
+            content=name,
+            href=href
+        )
+
+        # GENERATE THE UNDO LINK
+        href = request.route_path('transients_element', elementId=discoveryDataDictionary[
+                                  "transientBucketId"], _query={'observationPriority': discoveryDataDictionary["observationPriority"], "method": "put"})
+        undoLink = khufu.a(
+            content='undo.',
+            href=href,
+            htmlClass="changePriorityLinkUndo",
+            htmlId="ticket%(transientBucketId)s" % discoveryDataDictionary,
+            postInBackground=True,
+        )
+
+        notification = "the observational priorty for %(name)s was changed to %(title)s. %(undoLink)s" % locals(
+        )
+        notification = khufu.alert(
+            alertText=notification,
+            alertHeading='',
+            extraPadding=False,
+            alertLevel='info'  # [ "warning" | "error" | "success" | "info" ]
+        )
+        import urllib
+        notification = urllib.quote(notification)
+        discoveryDataDictionary["notification"] = notification
+
+        href = request.route_path('transients_element', elementId=discoveryDataDictionary[
+                                  "transientBucketId"], _query={'observationPriority': num, "method": "put"})
+        link = khufu.a(
+            content=title,
+            href=href,
+            tableIndex=-1,
+            triggerStyle=False,  # [ False | "dropdown" | "tab" ]
+            htmlClass="changePriorityLink",
+            notification=notification,
+            postInBackground=True,
+        )
+        linkListItem = khufu.li(
+            content=link,  # if a subMenu for dropdown this should be <ul>
+            span=False,  # [ False | 1-12 ]
+            disabled=False,
+            submenuTitle=False,
+            divider=False,
+            navStyle=False,  # [ active | header ]
+            navDropDown=False,
+            pager=False  # [ False | "previous" | "next" ]
+        )
+        linkList.append(linkListItem)
+
+    popover = khufu.popover(
+        tooltip=True,
+        placement="right",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="set the observational priority of this object",
+        content=False,
+        delay=200
+    )
+
+    thisDropdown = khufu.dropdown(
+        buttonSize='small',
+        buttonColor='success',  # [ default | sucess | error | warning | info ]
+        menuTitle=dropdownTitle,
+        splitButton=False,
+        linkList=linkList,
+        separatedLinkList=False,
+        pull="right",
+        direction=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True,
+        popover=popover
+    )
+
+    log.info('completed the ``_get_priority_switcher_dropdown`` function')
+    return thisDropdown
+
+# use the tab-trigger below for new function
+# xt-def-with-logger
 
 
 if __name__ == '__main__':
