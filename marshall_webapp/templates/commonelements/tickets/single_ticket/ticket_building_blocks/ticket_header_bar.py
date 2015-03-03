@@ -141,6 +141,15 @@ def ticket_header_bar(
             pull=False,  # "left" | "right"
         )
 
+        # add text color
+        latestComment = khufu.coloredText(
+            text=latestComment,
+            color="cream",
+            size=False,  # 1-10
+            pull=False,  # "left" | "right",
+            addBackgroundColor=False
+        )
+
         latestComment = khufu.well(
             wellText="""%(prefix)s  %(latestComment)s %(commentAuthor)s""" % locals(
             ),

@@ -553,16 +553,20 @@ def _get_priority_switcher_dropdown(
     # Add the appropriate titles to the dropdown
     linkTitleList = []
     linkPriorityList = []
-    priorityList = ["critical", "important", "useful"]
+    linkHiddenList = []
+    priorityList = ["high", "medium", "low"]
     priorityNumberList = [1, 2, 3]
     priority = discoveryDataDictionary["observationPriority"]
     for l, n in zip(priorityList, priorityNumberList):
+        linkTitleList.append(l)
+        linkPriorityList.append(n)
         if priority != n:
-            linkTitleList.append(l)
-            linkPriorityList.append(n)
+            linkHiddenList.append(False)
+        else:
+            linkHiddenList.append(True)
 
     linkList = []
-    for title, num in zip(linkTitleList, linkPriorityList):
+    for title, num, hidden in zip(linkTitleList, linkPriorityList, linkHiddenList):
 
         discoveryDataDictionary["observationPriority"] = num
         prefix = request.registry.settings["apache prefix"]
@@ -617,7 +621,8 @@ def _get_priority_switcher_dropdown(
             divider=False,
             navStyle=False,  # [ active | header ]
             navDropDown=False,
-            pager=False  # [ False | "previous" | "next" ]
+            pager=False,  # [ False | "previous" | "next" ]
+            hidden=hidden
         )
         linkList.append(linkListItem)
 

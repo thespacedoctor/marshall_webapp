@@ -386,7 +386,7 @@ def identity_block(
             text="priority: ",
             lineBreak=False
         )
-        for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"], ["red", "orange", "green"]):
+        for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
             if discoveryDataDictionary["observationPriority"] == n:
                 thisObservationalPriority = w
                 thisColor = c
@@ -396,6 +396,7 @@ def identity_block(
             text=thisObservationalPriority,
             color=thisColor,
             size=3,
+            htmlClass="priorityLabel"
         )
         observationalPriority = khufu.grid_row(
             responsive=True,
