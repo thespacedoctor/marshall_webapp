@@ -194,9 +194,9 @@ def classify_object_form(
         buttonText=icon,
         # [ default | primary | info | success | warning | danger | inverse | link ]
         buttonStyle='success',
-        buttonSize='small',  # [ large | default | small | mini ]
+        buttonSize='default',  # [ large | default | small | mini ]
         href=modalTrigger,
-        pull="right",  # right, left, center
+        pull=False,  # right, left, center
         dataToggle="modal",  # [ modal ]
         popover=popover
     )
