@@ -65,29 +65,11 @@ def actions_block(
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
     )
-    moveToDropdown = khufu.grid_row(
-        responsive=True,
-        columns=moveToDropdown,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True,
-    )
 
     alertDropdown = _get_alert_dropdown(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
-    )
-    alertDropdown = khufu.grid_row(
-        responsive=True,
-        columns=alertDropdown,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True,
     )
 
     classifyButton = _get_classify_button(
@@ -95,17 +77,6 @@ def actions_block(
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
     )
-
-    # if classifyButton:
-    #     classifyButton = khufu.grid_row(
-    #         responsive=True,
-    #         columns=classifyButton,
-    #         htmlId=False,
-    #         htmlClass=False,
-    #         onPhone=True,
-    #         onTablet=True,
-    #         onDesktop=True,
-    #     )
 
     if not classifyButton:
         classifyButton = ""
@@ -135,23 +106,20 @@ def actions_block(
             request=request,
             discoveryDataDictionary=discoveryDataDictionary,
         )
-        # changePriorityDropdown = khufu.grid_row(
-        #     responsive=True,
-        #     columns=changePriorityDropdown,
-        #     htmlId=False,
-        #     htmlClass=False,
-        #     onPhone=True,
-        #     onTablet=True,
-        #     onDesktop=True,
-        # )
 
     buttonGroup = khufu.buttonGroup(
-        buttonList=[changePriorityDropdown,
-                    changePriorityDropdown, changePriorityDropdown],
+        buttonList=[
+            changePriorityDropdown,
+            moveToDropdown,
+            alertDropdown,
+            classifyButton,
+            changePiButton,
+            generateOBButton,
+        ],
         format='vertical'  # [ default | toolbar | vertical ]
     )
 
-    return "%(title)s %(changePriorityDropdown)s %(moveToDropdown)s %(alertDropdown)s %(classifyButton)s %(changePiButton)s %(generateOBButton)s %(buttonGroup)s" % locals()
+    return "%(title)s %(buttonGroup)s" % locals()
 
 
 ###################################################################
@@ -201,9 +169,9 @@ def _get_classify_button(
             buttonText='<i class="icon-target2"></i>',
             # [ default | primary | info | success | warning | danger | inverse | link ]
             buttonStyle='success',
-            buttonSize='small',  # [ large | default | small | mini ]
+            buttonSize='default',  # [ large | default | small | mini ]
             href="#classifyForm%(transientBucketId)s" % discoveryDataDictionary,
-            pull="right",
+            pull=False,
             submit=False,
             block=False,
             disable=False,
@@ -353,13 +321,13 @@ def _get_move_to_dropdown(
     )
 
     thisDropdown = khufu.dropdown(
-        buttonSize='small',
+        buttonSize='default',
         buttonColor='success',  # [ default | sucess | error | warning | info ]
         menuTitle=dropdownTitle,
         splitButton=False,
         linkList=linkList,
         separatedLinkList=False,
-        pull="right",
+        pull=False,
         direction=False,
         onPhone=True,
         onTablet=True,
@@ -442,14 +410,14 @@ def _get_alert_dropdown(
             linkList.append(linkListItem)
 
         thisDropdown = khufu.dropdown(
-            buttonSize='small',
+            buttonSize='default',
             # [ default | sucess | error | warning | info ]
             buttonColor='default',
             menuTitle=dropdownTitle,
             splitButton=False,
             linkList=linkList,
             separatedLinkList=False,
-            pull="right",
+            pull=False,
             direction=False,
             onPhone=True,
             onTablet=True,
@@ -580,6 +548,7 @@ def _get_priority_switcher_dropdown(
     log.info('starting the ``_get_move_to_dropdown`` function')
 
     dropdownTitle = """<span class="colortext red"><i class="icon-fire"></i></span>"""
+    dropdownTitle = """<i class="icon-fire"></i>"""
 
     # Add the appropriate titles to the dropdown
     linkTitleList = []
@@ -662,13 +631,13 @@ def _get_priority_switcher_dropdown(
     )
 
     thisDropdown = khufu.dropdown(
-        buttonSize='small',
+        buttonSize='default',
         buttonColor='success',  # [ default | sucess | error | warning | info ]
         menuTitle=dropdownTitle,
         splitButton=False,
         linkList=linkList,
         separatedLinkList=False,
-        pull="right",
+        pull=False,
         direction=False,
         onPhone=True,
         onTablet=True,
