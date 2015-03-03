@@ -386,10 +386,15 @@ def identity_block(
             text="priority: ",
             lineBreak=False
         )
-        for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+        if discoveryDataDictionary["marshallWorkflowLocation"] == "following":
+            pList = ["CRITICAL", "IMPORTANT", "USEFUL"]
+        else:
+            pList = ["HIGH", "MEDIUM", "LOW"]
+        for n, w, c in zip([1, 2, 3], pList, ["red", "yellow", "green"]):
             if discoveryDataDictionary["observationPriority"] == n:
                 thisObservationalPriority = w
                 thisColor = c
+
         thisObservationalPriority = "<strong>%(thisObservationalPriority)s</strong>" % locals(
         )
         thisObservationalPriority = khufu.coloredText(
