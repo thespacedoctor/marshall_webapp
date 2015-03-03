@@ -129,6 +129,10 @@ class templates_transients():
         ticketList = []
         for discoveryDataDictionary in self.transientData:
             transientBucketId = discoveryDataDictionary["transientBucketId"]
+            observationPriority = discoveryDataDictionary["observationPriority"]
+
+            self.log.debug(
+                """transientBucketId, observationPriority: `%(transientBucketId)s` %(observationPriority)s""" % locals())
 
             thisTicket = single_ticket(
                 log=self.log,

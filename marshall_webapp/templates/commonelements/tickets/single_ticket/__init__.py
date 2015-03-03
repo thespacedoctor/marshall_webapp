@@ -64,6 +64,10 @@ def single_ticket(
 
     tabDictionary = {}
 
+    observationPriority = False
+    if discoveryDataDictionary["marshallWorkflowLocation"] in ["following", "pending observation"]:
+        observationPriority = discoveryDataDictionary["observationPriority"]
+
     # grab the various tabs that make up a single ticket
     overviewTab = tabs.overview.overview_tab(
         log=log,
@@ -106,7 +110,8 @@ def single_ticket(
         transientBucketId=transientBucketId,
         tabDictionary=tabDictionary,
         htmlId="ticket%(transientBucketId)s" % locals(),
-        commentCount=commentCount
+        commentCount=commentCount,
+        obsPriority=observationPriority
     )
 
     log.info('completed the ``inbox_ticket`` function')
@@ -123,7 +128,8 @@ def _single_ticket_template(
         transientBucketId,
         tabDictionary={},  # { "title": tabcontent, }
         htmlId=False,
-        commentCount=False
+        commentCount=False,
+        obsPriority=False
 ):
     """single_ticket
 
@@ -142,11 +148,18 @@ def _single_ticket_template(
     else:
         contentCount = {}
 
+    if obsPriority:
+        for n, c in zip([1, 2, 3], ["red", "yellow", "green"]):
+            if obsPriority == n:
+                borderColor = c
+    else:
+        borderColor = False
+
     single_ticket = khufu.tabbableNavigation(
         contentDictionary=tabDictionary,  # { name : content, }
         fadeIn=False,
         direction='top',  # [ 'top' | 'bottom' | 'left' | 'right' ]
-        htmlClass="singleTicket",
+        htmlClass="singleTicket border-%(borderColor)s" % locals(),
         uniqueNavigationId=transientBucketId,
         htmlId=htmlId,
         contentCount=contentCount
