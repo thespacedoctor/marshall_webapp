@@ -344,8 +344,12 @@ class models_transients_get():
             self.qs["pageStart"] = self.defaultQs["pageStart"]
 
         if "sortBy" not in self.qs:
-            self.qs["sortBy"] = self.defaultQs["sortBy"]
-            self.qs["sortDesc"] = self.defaultQs["sortDesc"]
+            if "mwl" in self.qs and self.qs["mwl"] in ["following", "pending observation", "allObsQueue"]:
+                self.qs["sortBy"] = "observationPriority"
+                self.qs["sortDesc"] = False
+            else:
+                self.qs["sortBy"] = self.defaultQs["sortBy"]
+                self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
         self.log.debug("""these are the new query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
@@ -535,6 +539,7 @@ class models_transients_get():
         tableColumnNames = collections.OrderedDict(
             sorted(tmpDict.items()))
         tableColumnNames["masterName"] = "name"
+        tableColumnNames["observationPriority"] = "priority"
         tableColumnNames["raDeg"] = "ra"
         tableColumnNames["decDeg"] = "dec"
         tableColumnNames["recentClassification"] = "spectral class"
@@ -552,6 +557,7 @@ class models_transients_get():
         # a list of names for table and csv views
         tableColumns = [
             "masterName",
+            "observationPriority",
             "raDeg",
             "decDeg",
             "recentClassification",
@@ -565,6 +571,20 @@ class models_transients_get():
             "dateAdded",
             "pi_name"
         ]
+
+        # convert priorities to words
+        for obj in self.transientData:
+            if "marshallWorkflowLocation" in obj:
+                if obj["marshallWorkflowLocation"] == "following":
+                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+                        if obj["observationPriority"] == n:
+                            obj["observationPriority"] = w
+                            break
+                elif obj["marshallWorkflowLocation"] == "pending observation":
+                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+                        if obj["observationPriority"] == n:
+                            obj["observationPriority"] = w
+                            break
 
         newTransientData = []
         for oldRow in self.transientData:
