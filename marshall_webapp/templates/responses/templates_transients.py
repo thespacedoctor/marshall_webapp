@@ -297,6 +297,7 @@ class templates_transients():
 
         # assoicate the correct column name to mysql database column name
         tableColumnNames = {
+            "observationPriority": "priority",
             "masterName": "name",
             "raDeg": "ra",
             "decDeg": "dec",
@@ -315,6 +316,7 @@ class templates_transients():
 
         # a list of names for table and csv views
         tableColumns = [
+            "observationPriority",
             "masterName",
             "raDeg",
             "decDeg",
@@ -331,8 +333,11 @@ class templates_transients():
             "plainName"
         ]
 
+        if "mwl" not in self.qs or self.qs["mwl"] not in ["pending observation", "following", "allObsQueue"]:
+            tableColumns.remove("observationPriority")
+
         # get the webpage components
-        tickets = self._get_list_of_transient_tickets()
+        # tickets = self._get_list_of_transient_tickets()
         sort = self._get_sort_dropdown()
         count = self.totalTicketCount
         pagination = self._get_pagination()
@@ -342,6 +347,32 @@ class templates_transients():
         pageviewInfo = self._get_page_view_info()
 
         for obj in self.transientData:
+
+            # convert priorities to words
+            if "marshallWorkflowLocation" in obj:
+                if obj["marshallWorkflowLocation"] == "following":
+                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+                        if obj["observationPriority"] == n:
+                            obj["observationPriority"] = w
+                            # add text color
+                            obj["observationPriority"] = khufu.coloredText(
+                                text=obj["observationPriority"],
+                                color=c,
+                            )
+
+                            break
+                elif obj["marshallWorkflowLocation"] == "pending observation":
+                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+                        if obj["observationPriority"] == n:
+                            obj["observationPriority"] = w
+                            # add text color
+                            obj["observationPriority"] = khufu.coloredText(
+                                text=obj["observationPriority"],
+                                color=c,
+                            )
+                            break
+                obj["observationPriority"] = """<strong>""" + \
+                    obj["observationPriority"] + """</strong>"""
 
             # clean data in the obj dictionary
             # set name font sizes
@@ -413,6 +444,7 @@ class templates_transients():
         )
         nd = table.modifyDisplayNameDict
         nd["masterName"] = "name"
+        nd["observationPriority"] = "priority"
         nd["raDeg"] = "ra"
         nd["decDeg"] = "dec"
         nd["recentClassification"] = "classification"
@@ -426,7 +458,7 @@ class templates_transients():
         nd["dateAdded"] = "added to marshall"
         nd["pi_name"] = "pi"
 
-        table.searchKeyAndColumn = ("searchString", "plainName")
+        table.searchKeyAndColumn = ("search", "plainName")
 
         # hide columns depending on what list we are looking at
         if "mwl" not in self.qs or self.qs["mwl"] == "inbox":
