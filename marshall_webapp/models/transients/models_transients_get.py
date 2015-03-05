@@ -576,7 +576,7 @@ class models_transients_get():
         for obj in self.transientData:
             if "marshallWorkflowLocation" in obj:
                 if obj["marshallWorkflowLocation"] == "following":
-                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+                    for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"], ["red", "yellow", "green"]):
                         if obj["observationPriority"] == n:
                             obj["observationPriority"] = w
                             break
