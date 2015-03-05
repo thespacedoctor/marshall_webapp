@@ -266,12 +266,13 @@ class models_transients_element_put():
 
         # get old data
         sqlQuery = """
-            select observationPriority from pesstoObjects where transientBucketId = %(transientBucketId)s   
+            select observationPriority, marshallWorkflowLocation from pesstoObjects where transientBucketId = %(transientBucketId)s   
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
         objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
         oldobservationPriority = objectData[0]["observationPriority"]
+        mwl = objectData[0]["marshallWorkflowLocation"]
 
         # change the observationPriority in the database
         sqlQuery = """
@@ -285,9 +286,35 @@ class models_transients_element_put():
             "changed the observational priority of transient #%(transientBucketId)s to '%(observationPriority)s'" % locals(
             )
 
-        # log entry
-        logEntry = "observational priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
-        )
+        observationPriority = int(observationPriority)
+        oldobservationPriority = int(oldobservationPriority)
+
+        if mwl == "following":
+            for n, w in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"]):
+                if n == oldobservationPriority:
+                    oldobservationPriority = w
+
+            for n, w in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"]):
+                if n == observationPriority:
+                    observationPriority = w
+
+            # log entry
+            logEntry = "observation priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
+            )
+
+        elif mwl == "pending observation":
+            for n, w in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"]):
+                if n == oldobservationPriority:
+                    oldobservationPriority = w
+
+            for n, w in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"]):
+                if n == observationPriority:
+                    observationPriority = w
+
+            # log entry
+            logEntry = "classification priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
+            )
+
         sqlQuery = u"""INSERT INTO transients_history_logs (
             transientBucketId,
             dateCreated,
