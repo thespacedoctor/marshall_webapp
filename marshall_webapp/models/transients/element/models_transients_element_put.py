@@ -134,6 +134,9 @@ class models_transients_element_put():
 
             logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
             )
+            for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
+                logEntry = logEntry.replace(o, n)
+
             sqlQuery = u"""INSERT INTO transients_history_logs (
                 transientBucketId,
                 dateCreated,
@@ -146,6 +149,14 @@ class models_transients_element_put():
             )""" % (transientBucketId, now, logEntry)
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
+
+            # reset priority if required
+            if mwl == "following":
+                sqlQuery = """
+                    update pesstoObjects set observationPriority = 2 where transientBucketId = %(transientBucketId)s
+                """ % locals()
+                self.request.db.execute(sqlQuery)
+                self.request.db.commit()
 
         # change the alert workflow location list if requested
         if "awl" in self.request.params:
@@ -161,6 +172,8 @@ class models_transients_element_put():
 
             logEntry = "moved from '%(oldAwl)s' to '%(awl)s' list by %(username)s" % locals(
             )
+            for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
+                logEntry = logEntry.replace(o, n)
             sqlQuery = u"""INSERT INTO transients_history_logs (
                 transientBucketId,
                 dateCreated,
