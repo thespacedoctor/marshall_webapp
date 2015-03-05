@@ -390,7 +390,7 @@ def identity_block(
             pList = ["CRITICAL", "IMPORTANT", "USEFUL"]
         else:
             pList = ["HIGH", "MEDIUM", "LOW"]
-        for n, w, c in zip([1, 2, 3], pList, ["red", "yellow", "green"]):
+        for n, w, c in zip([1, 2, 3], pList, ["green", "yellow", "red"]):
             if discoveryDataDictionary["observationPriority"] == n:
                 thisObservationalPriority = w
                 thisColor = c

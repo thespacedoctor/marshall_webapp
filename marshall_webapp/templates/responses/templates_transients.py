@@ -351,7 +351,7 @@ class templates_transients():
             # convert priorities to words
             if "marshallWorkflowLocation" in obj:
                 if obj["marshallWorkflowLocation"] == "following":
-                    for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"], ["red", "yellow", "green"]):
+                    for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"], ["green", "yellow", "red"]):
                         if obj["observationPriority"] == n:
                             obj["observationPriority"] = w
                             # add text color
@@ -359,10 +359,11 @@ class templates_transients():
                                 text=obj["observationPriority"],
                                 color=c,
                             )
-
                             break
+                    obj["observationPriority"] = """<strong>""" + \
+                        obj["observationPriority"] + """</strong>"""
                 elif obj["marshallWorkflowLocation"] == "pending observation":
-                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["red", "yellow", "green"]):
+                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["green", "yellow", "red"]):
                         if obj["observationPriority"] == n:
                             obj["observationPriority"] = w
                             # add text color
@@ -371,8 +372,8 @@ class templates_transients():
                                 color=c,
                             )
                             break
-                obj["observationPriority"] = """<strong>""" + \
-                    obj["observationPriority"] + """</strong>"""
+                    obj["observationPriority"] = """<strong>""" + \
+                        obj["observationPriority"] + """</strong>"""
 
             # clean data in the obj dictionary
             # set name font sizes
