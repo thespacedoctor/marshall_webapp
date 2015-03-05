@@ -102,6 +102,17 @@ def single_ticket(
 
     tabDictionary["photometry"] = photometryTab
 
+    historyTab = tabs.history.history_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectComments=objectComments,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        lightcurveData=lightcurveData
+    )
+    # tabDictionary["object history"] = historyTab
+
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
     # build the single ticket
