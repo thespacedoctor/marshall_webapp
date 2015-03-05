@@ -126,7 +126,7 @@ logging settings:
             # mode: w
         debug_file:
             class: logging.handlers.GroupWriteRotatingFileHandler
-            level: DEBUG
+            level: WARNING
             formatter: file_style
             filename: /misc/pessto/git_repos/pessto_webapp/logs/marshall_debug.log
             mode: w+
@@ -147,5 +147,5 @@ logging settings:
         #    maxBytes: 100000000
         #    backupCount: 3
     root:
-        level: WARNING
+        level: DEBUG
         handlers: [file,console]
