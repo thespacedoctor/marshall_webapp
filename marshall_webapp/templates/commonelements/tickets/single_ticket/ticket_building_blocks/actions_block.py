@@ -72,7 +72,7 @@ def actions_block(
         discoveryDataDictionary=discoveryDataDictionary,
     )
 
-    classifyButton = _get_classify_button(
+    classifyButton, classifyForm = _get_classify_button(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
@@ -80,6 +80,7 @@ def actions_block(
 
     if not classifyButton:
         classifyButton = ""
+        classifyForm = ""
 
     changePiButton = ""
     if discoveryDataDictionary["classifiedFlag"] == 1:
@@ -119,7 +120,7 @@ def actions_block(
         format='vertical'  # [ default | toolbar | vertical ]
     )
 
-    return "%(title)s %(buttonGroup)s" % locals()
+    return "%(title)s %(buttonGroup)s %(classifyForm)s" % locals()
 
 
 ###################################################################
@@ -183,12 +184,11 @@ def _get_classify_button(
             request=request,
             discoveryDataDictionary=discoveryDataDictionary
         )
-        button = "%(button)s %(thisForm)s" % locals()
     else:
-        button = None
+        return None, None
 
     log.info('completed the ``_get_classify_button`` function')
-    return button
+    return button, thisForm
 
 # LAST MODIFIED : November 29, 2013
 # CREATED : November 29, 2013
