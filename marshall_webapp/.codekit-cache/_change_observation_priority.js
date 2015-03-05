@@ -23,28 +23,28 @@ $(function() {
 
         // Add new border and label color
         if (newPriority.indexOf("critical") >= 0) {
-            thisTicket.toggleClass("border-red");
-            thisTicket.find(".priorityLabel").toggleClass("red");
+            thisTicket.toggleClass("border-green");
+            thisTicket.find(".priorityLabel").toggleClass("green");
             thisTicket.find(".priorityLabel").html("<strong>CRITICAL</strong>");
         } else if (newPriority.indexOf("important") >= 0) {
             thisTicket.toggleClass("border-yellow");
             thisTicket.find(".priorityLabel").toggleClass("yellow");
             thisTicket.find(".priorityLabel").html("<strong>IMPORTANT</strong>");
         } else if (newPriority.indexOf("useful") >= 0) {
-            thisTicket.toggleClass("border-green");
-            thisTicket.find(".priorityLabel").toggleClass("green");
-            thisTicket.find(".priorityLabel").html("<strong>USEFUL</strong>");
-        } else if (newPriority.indexOf("high") >= 0) {
             thisTicket.toggleClass("border-red");
             thisTicket.find(".priorityLabel").toggleClass("red");
+            thisTicket.find(".priorityLabel").html("<strong>USEFUL</strong>");
+        } else if (newPriority.indexOf("high") >= 0) {
+            thisTicket.toggleClass("border-green");
+            thisTicket.find(".priorityLabel").toggleClass("green");
             thisTicket.find(".priorityLabel").html("<strong>HIGH</strong>");
         } else if (newPriority.indexOf("medium") >= 0) {
             thisTicket.toggleClass("border-yellow");
             thisTicket.find(".priorityLabel").toggleClass("yellow");
             thisTicket.find(".priorityLabel").html("<strong>MEDIUM</strong>");
         } else if (newPriority.indexOf("low") >= 0) {
-            thisTicket.toggleClass("border-green");
-            thisTicket.find(".priorityLabel").toggleClass("green");
+            thisTicket.toggleClass("border-red");
+            thisTicket.find(".priorityLabel").toggleClass("red");
             thisTicket.find(".priorityLabel").html("<strong>LOW</strong>");
         }
 
