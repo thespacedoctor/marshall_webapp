@@ -59,7 +59,7 @@ def ticket_table_sorting_dropdown(
         elementId = False
 
     theseParams = dict(request.params)
-    alist = ["sortBy", "sortDesc", "limit", "pageStart"]
+    alist = ["sortBy", "sortDesc"]
     for i in alist:
         if i in theseParams:
             del theseParams[i]

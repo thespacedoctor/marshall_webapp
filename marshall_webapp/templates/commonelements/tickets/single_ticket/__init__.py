@@ -149,7 +149,7 @@ def _single_ticket_template(
         contentCount = {}
 
     if obsPriority:
-        for n, c in zip([1, 2, 3], ["red", "yellow", "green"]):
+        for n, c in zip([1, 2, 3], ["green", "yellow", "red"]):
             if obsPriority == n:
                 borderColor = c
     else:

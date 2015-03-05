@@ -170,7 +170,7 @@ def _get_classify_button(
             buttonText='<i class="icon-target2"></i>',
             # [ default | primary | info | success | warning | danger | inverse | link ]
             buttonStyle='success',
-            buttonSize='default',  # [ large | default | small | mini ]
+            buttonSize='large',  # [ large | default | small | mini ]
             href="#classifyForm%(transientBucketId)s" % discoveryDataDictionary,
             pull=False,
             submit=False,
@@ -321,7 +321,7 @@ def _get_move_to_dropdown(
     )
 
     thisDropdown = khufu.dropdown(
-        buttonSize='default',
+        buttonSize='large',
         buttonColor='success',  # [ default | sucess | error | warning | info ]
         menuTitle=dropdownTitle,
         splitButton=False,
@@ -410,9 +410,9 @@ def _get_alert_dropdown(
             linkList.append(linkListItem)
 
         thisDropdown = khufu.dropdown(
-            buttonSize='default',
+            buttonSize='large',
             # [ default | sucess | error | warning | info ]
-            buttonColor='default',
+            buttonColor='success',
             menuTitle=dropdownTitle,
             splitButton=False,
             linkList=linkList,
@@ -571,7 +571,6 @@ def _get_priority_switcher_dropdown(
     linkList = []
     for title, num, hidden in zip(linkTitleList, linkPriorityList, linkHiddenList):
 
-        discoveryDataDictionary["observationPriority"] = num
         prefix = request.registry.settings["apache prefix"]
         discoveryDataDictionary["prefix"] = prefix
         name = discoveryDataDictionary["masterName"]
@@ -584,7 +583,7 @@ def _get_priority_switcher_dropdown(
 
         # GENERATE THE UNDO LINK
         href = request.route_path('transients_element', elementId=discoveryDataDictionary[
-                                  "transientBucketId"], _query={'observationPriority': discoveryDataDictionary["observationPriority"], "method": "put"})
+                                  "transientBucketId"], _query={'observationPriority': num, "method": "put"})
         undoLink = khufu.a(
             content='undo.',
             href=href,
@@ -639,7 +638,7 @@ def _get_priority_switcher_dropdown(
     )
 
     thisDropdown = khufu.dropdown(
-        buttonSize='default',
+        buttonSize='large',
         buttonColor='success',  # [ default | sucess | error | warning | info ]
         menuTitle=dropdownTitle,
         splitButton=False,
