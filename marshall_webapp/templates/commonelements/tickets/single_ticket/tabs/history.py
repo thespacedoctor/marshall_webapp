@@ -77,7 +77,7 @@ def history_tab(
     dateAddedToMarshall = discoveryDataDictionary["dateAdded"]
     objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
     if not objectAddedToMarshallBy or objectAddedToMarshallBy.lower() == "none":
-        thisLog = "object added directly to the 'inbox' via the marshall's automatic import scripts"
+        thisLog = "object added to the 'inbox' via the marshall's automatic import scripts"
         if discoveryDataDictionary["decDeg"] > 30.:
             thisLog = "object added directly to the 'archive' via the marshall's automatic import scripts (> +30 dec)"
     else:
