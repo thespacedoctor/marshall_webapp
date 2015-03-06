@@ -43,7 +43,8 @@ def single_ticket(
         objectComments,
         objectAkas,
         lightcurveData,
-        atelData):
+        atelData,
+        objectHistories):
     """A single ticket for a transient object tin the pessto marshall
 
     **Key Arguments:**
@@ -54,6 +55,7 @@ def single_ticket(
         - ``objectAkas`` -- the akas with surveyUrls
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
+        - ``objectHistories`` -- history log for object
 
     **Return:**
         - ``ticket`` -- a single transient's info in one HTML ticket
@@ -67,6 +69,9 @@ def single_ticket(
     observationPriority = False
     if discoveryDataDictionary["marshallWorkflowLocation"] in ["following", "pending observation"]:
         observationPriority = discoveryDataDictionary["observationPriority"]
+
+    import collections
+    tabDictionary = collections.OrderedDict(sorted(tabDictionary.items()))
 
     # grab the various tabs that make up a single ticket
     overviewTab = tabs.overview.overview_tab(
@@ -106,12 +111,11 @@ def single_ticket(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
-        objectComments=objectComments,
         objectAkas=objectAkas,
         atelData=atelData,
-        lightcurveData=lightcurveData
+        objectHistories=objectHistories
     )
-    # tabDictionary["object history"] = historyTab
+    tabDictionary["ticket history"] = historyTab
 
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
