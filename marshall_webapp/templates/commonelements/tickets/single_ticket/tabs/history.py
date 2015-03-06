@@ -77,9 +77,11 @@ def history_tab(
     dateAddedToMarshall = discoveryDataDictionary["dateAdded"]
     objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
     if not objectAddedToMarshallBy or objectAddedToMarshallBy.lower() == "none":
-        objectAddedToMarshallBy = "via the marshall's automatic import scripts"
+        thisLog = "object added directly to the 'inbox' via the marshall's automatic import scripts"
+        if discoveryDataDictionary["decDeg"] > 30.:
+            thisLog = "object added directly to the 'archive' via the marshall's automatic import scripts (> +30 dec)"
     else:
-        objectAddedToMarshallBy = "by %(objectAddedToMarshallBy)s" % locals(
+        thisLog = "object added to the 'inbox' by %(objectAddedToMarshallBy)s" % locals(
         )
     if discoveryDataDictionary["lsq_lightcurve"]:
         newEntry = {
@@ -92,7 +94,7 @@ def history_tab(
         newEntry = {
             "transientBucketId": transientBucketId,
             "dateCreated": dateAddedToMarshall,
-            "log": "object added to the 'inbox' %(objectAddedToMarshallBy)s" % locals(
+            "log": "%(thisLog)s" % locals(
             )
         }
     theseHistories.append(newEntry)
