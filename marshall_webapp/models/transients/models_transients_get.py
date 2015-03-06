@@ -93,6 +93,7 @@ class models_transients_get():
         self.transientLightcurveData = self._get_associated_lightcurve_data()
         self.transientAtelMatches = self._get_associated_atel_data()
         self.transients_comments = self._get_associated_comments()
+        self.transient_history = self._get_associated_transient_history()
 
         self.log.info('completed the ``get`` method')
 
@@ -103,7 +104,7 @@ class models_transients_get():
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history
 
     def _get_transient_data_from_database(
             self):
@@ -611,6 +612,39 @@ class models_transients_get():
         self.log.info(
             'completed the ``_clean_data_for_plain_text_outputs`` method')
         return None
+
+    # use the tab-trigger below for new method
+    def _get_associated_transient_history(
+            self):
+        """ get associated transient history
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean _get_associated_transient_history method
+            - @review: when complete add logging
+        """
+        self.log.info(
+            'starting the ``_get_associated_transient_history`` method')
+
+        matchedTransientBucketIds = self.matchedTransientBucketIds
+
+        sqlQuery = """
+            select * from transients_history_logs where transientBucketId in (%(matchedTransientBucketIds)s) order by dateCreated desc
+        """ % locals()
+
+        objectHistoryTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectHistory = []
+        objectHistory[:] = [dict(zip(row.keys(), row))
+                            for row in objectHistoryTmp]
+
+        self.log.info(
+            'completed the ``_get_associated_transient_history`` method')
+        return objectHistory
 
         # use the tab-trigger below for new method
         # xt-class-method

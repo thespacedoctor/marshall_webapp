@@ -20,6 +20,7 @@ history.py
 ################# GLOBAL IMPORTS ####################
 import sys
 import os
+import re
 import datetime
 from docopt import docopt
 import khufu
@@ -39,21 +40,18 @@ def history_tab(
         log,
         request,
         discoveryDataDictionary,
-        objectComments,
         objectAkas,
         atelData,
-        lightcurveData):
+        objectHistories):
     """history tab
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectComments`` -- the history for the object
         - ``objectAkas`` -- object akas
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+        - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``thisUrl`` -- current url
 
     **Return:**
         - ``history_tab`` -- for each transient ticket in the transient listings pages
@@ -61,6 +59,7 @@ def history_tab(
     **Todo**
     """
     ################ > IMPORTS ################
+    from time import strftime
     from .. import ticket_building_blocks
     from .. import tabs
     from ... import single_ticket
@@ -68,11 +67,48 @@ def history_tab(
 
     log.info('starting the ``history_tab`` function')
 
+    transientBucketId = discoveryDataDictionary["transientBucketId"]
+    content = ""
+
+    # determine date added to the marshall
+    dateAddedToMarshall = discoveryDataDictionary["dateAdded"]
+    objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
+    content += _generate_log_string_for_ticket(
+        log=log,
+        logDate=discoveryDataDictionary["dateAdded"],
+        logString="object added to the marshall 'inbox' by %(objectAddedToMarshallBy)s" % locals(
+        )
+    )
+
+    # determine date classified
+    classificationDate = discoveryDataDictionary["classificationDate"]
+    classificationSurvey = discoveryDataDictionary["classificationSurvey"]
+    classificationAddedBy = discoveryDataDictionary["classificationAddedBy"]
+    objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
+    if classificationDate:
+        content += _generate_log_string_for_ticket(
+            log=log,
+            logDate=classificationDate,
+            logString="object classified by %(classificationSurvey)s (classification added by %(classificationAddedBy)s)" % locals(
+            )
+        )
+
+    for hLog in objectHistories:
+        if hLog["transientBucketId"] == transientBucketId:
+            content += _generate_log_string_for_ticket(
+                log=log,
+                logDate=hLog["dateCreated"],
+                logString=hLog["log"])
+
+    regex = re.compile(r'by (\w*)\.(\w*)')
+    content = regex.sub(lambda match: "by " + match.group(1)[0].upper(
+    ) + match.group(1)[1:] + " " + match.group(2)[0].upper() + match.group(2)[1:], content)
+
     history_tab = single_ticket._ticket_tab_template(
         log,
         request=request,
         tabHeader=False,
-        blockList=["nice"],
+        blockList=[content + "<br>"],
         tabFooter=False,
         htmlId="historytab"
     )
@@ -83,6 +119,91 @@ def history_tab(
 
     log.info('completed the ``history_tab`` function')
     return history_tab
+
+
+# LAST MODIFIED : March 6, 2015
+# CREATED : March 6, 2015
+# AUTHOR : DRYX
+# copy usage method(s) into function below and select the following snippet from the command palette:
+# x-setup-worker-function-parameters-from-usage-method
+def _generate_log_string_for_ticket(
+        log,
+        logDate,
+        logString):
+    """ generate log string for ticket
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        # copy usage method(s) here and select the following snippet from the command palette:
+        # x-setup-docstring-keys-from-selected-usage-options
+
+    **Return:**
+        - None
+
+    **Todo**
+        - @review: when complete, clean _generate_log_string_for_ticket function
+        - @review: when complete add logging
+        - @review: when complete, decide whether to abstract function to another module
+    """
+    log.info('starting the ``_generate_log_string_for_ticket`` function')
+
+    relativeDate = dcu.pretty_date(
+        date=logDate
+    )
+    logDate = logDate.strftime('%Y-%m-%d %H:%M:%S')
+    # add text color
+    logDate = khufu.coloredText(
+        text=logDate,
+        color="green",
+        size=3,  # 1-10
+        pull=False,  # "left" | "right",
+        addBackgroundColor=False
+    )
+    # add text color
+    relativeDate = khufu.coloredText(
+        text="(" + relativeDate.strip() + ")",
+        color="violet",
+        size=3,  # 1-10
+        pull=False,  # "left" | "right",
+        addBackgroundColor=False
+    )
+
+    # add text color
+    logString = khufu.coloredText(
+        text=logString,
+        color="cream",
+        size=3,  # 1-10
+        pull=False,  # "left" | "right",
+        addBackgroundColor=False
+    )
+    logString = """<strong>%(logDate)s</strong>&nbsp&nbsp&nbsp%(relativeDate)s&nbsp&nbsp&nbsp%(logString)s""" % locals(
+    )
+    column = khufu.grid_column(
+        span=10,  # 1-12
+        offset=1,  # 1-12
+        content=logString,
+        pull=False,  # ["right", "left", "center"]
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+    grid_row = khufu.grid_row(
+        responsive=True,
+        columns=column,
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    log.info('completed the ``_generate_log_string_for_ticket`` function')
+    return grid_row
+
+# use the tab-trigger below for new function
+# xt-def-with-logger
 
 
 ###################################################################
