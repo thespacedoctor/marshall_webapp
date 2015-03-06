@@ -73,10 +73,15 @@ def history_tab(
     # determine date added to the marshall
     dateAddedToMarshall = discoveryDataDictionary["dateAdded"]
     objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
+    if not objectAddedToMarshallBy or objectAddedToMarshallBy.lower() == "none":
+        objectAddedToMarshallBy = "via the marshall's automatic import scripts"
+    else:
+        objectAddedToMarshallBy = "by %(objectAddedToMarshallBy)s" % locals(
+        )
     content += _generate_log_string_for_ticket(
         log=log,
         logDate=discoveryDataDictionary["dateAdded"],
-        logString="object added to the marshall 'inbox' by %(objectAddedToMarshallBy)s" % locals(
+        logString="object added to the 'inbox' %(objectAddedToMarshallBy)s" % locals(
         )
     )
 
