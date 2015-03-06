@@ -67,6 +67,9 @@ def history_tab(
 
     log.info('starting the ``history_tab`` function')
 
+    theseHistories = []
+    theseHistories[:] = [t for t in objectHistories]
+
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     content = ""
 
@@ -78,12 +81,21 @@ def history_tab(
     else:
         objectAddedToMarshallBy = "by %(objectAddedToMarshallBy)s" % locals(
         )
-    content += _generate_log_string_for_ticket(
-        log=log,
-        logDate=discoveryDataDictionary["dateAdded"],
-        logString="object added to the 'inbox' %(objectAddedToMarshallBy)s" % locals(
-        )
-    )
+    if discoveryDataDictionary["lsq_lightcurve"]:
+        newEntry = {
+            "transientBucketId": transientBucketId,
+            "dateCreated": dateAddedToMarshall,
+            "log": "LSQ's recalibrated data added to marshall" % locals(
+            )
+        }
+    else:
+        newEntry = {
+            "transientBucketId": transientBucketId,
+            "dateCreated": dateAddedToMarshall,
+            "log": "object added to the 'inbox' %(objectAddedToMarshallBy)s" % locals(
+            )
+        }
+    theseHistories.append(newEntry)
 
     # determine date classified
     classificationDate = discoveryDataDictionary["classificationDate"]
@@ -91,14 +103,19 @@ def history_tab(
     classificationAddedBy = discoveryDataDictionary["classificationAddedBy"]
     objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
     if classificationDate:
-        content += _generate_log_string_for_ticket(
-            log=log,
-            logDate=classificationDate,
-            logString="object classified by %(classificationSurvey)s (classification added by %(classificationAddedBy)s)" % locals(
+        newEntry = {
+            "transientBucketId": transientBucketId,
+            "dateCreated": classificationDate,
+            "log": "object classified by %(classificationSurvey)s (classification added by %(classificationAddedBy)s)" % locals(
             )
-        )
+        }
+        theseHistories.append(newEntry)
 
-    for hLog in objectHistories:
+    from operator import itemgetter
+    theseHistories = sorted(
+        theseHistories, key=itemgetter('dateCreated'), reverse=False)
+
+    for hLog in theseHistories:
         if hLog["transientBucketId"] == transientBucketId:
             content += _generate_log_string_for_ticket(
                 log=log,

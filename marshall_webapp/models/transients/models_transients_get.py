@@ -642,6 +642,11 @@ class models_transients_get():
         objectHistory[:] = [dict(zip(row.keys(), row))
                             for row in objectHistoryTmp]
 
+        from operator import itemgetter
+        objectHistory = list(objectHistory)
+        objectHistory = sorted(
+            objectHistory, key=itemgetter('dateCreated'), reverse=False)
+
         self.log.info(
             'completed the ``_get_associated_transient_history`` method')
         return objectHistory
