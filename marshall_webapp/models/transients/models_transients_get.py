@@ -163,6 +163,8 @@ class models_transients_get():
         if "mwl" in self.qs:
             if self.qs["mwl"] == "allObsQueue":
                 thisWhere = """(marshallWorkflowLocation = "following" or marshallWorkflowLocation = "pending observation") """
+            elif self.qs["mwl"] == "all":
+                thisWhere = """1=1"""
             else:
                 thisWhere = """marshallWorkflowLocation = "%(mwl)s" """ % self.qs
             sqlWhereList.append(thisWhere)

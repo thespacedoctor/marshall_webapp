@@ -775,10 +775,43 @@ def _get_reference_lists(
         pager=False  # [ False | "previous" | "next" ]
     )
 
+    count = models_transients_count(
+        log,
+        request=request,
+        mwfFlag='"all"',
+        awfFlag=None,
+        cFlag=None
+    ).get()
+
+    allLink = khufu.a(
+        content='all  (%s)' % (count,),
+        href=request.route_path('transients', _query={'mwl': 'all'}),
+        tableIndex=False,
+        triggerStyle=False
+    )
+
+    navStyle = khufu.is_navStyle_active(
+        log,
+        thisPageName,
+        "all"
+    )
+
+    allLink = khufu.li(
+        content=allLink,
+        # if a subMenu for dropdown this should be <ul>
+        span=False,  # [ False | 1-12 ]
+        disabled=False,
+        submenuTitle=False,
+        divider=False,
+        navStyle=navStyle,  # [ active | header ]
+        navDropDown=False,
+        pager=False  # [ False | "previous" | "next" ]
+    )
+
     linkList = khufu.ul(
         # e.g a list links
-        itemList=[title, classifiedLink,
-                  followupCompleteLink, allArchivedLink, ],
+        itemList=[title, allLink, classifiedLink,
+                  followupCompleteLink, allArchivedLink],
         unstyled=False,
         inline=False,
         dropDownMenu=False,  # [ false | true ]
