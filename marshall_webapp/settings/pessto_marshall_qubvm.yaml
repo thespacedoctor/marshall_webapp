@@ -108,7 +108,7 @@ logging settings:
     handlers:
         console:
             class: logging.StreamHandler
-            level: WARNING
+            level: DEBUG
             formatter: console_style
             stream: ext://sys.stdout
         file:
@@ -147,5 +147,5 @@ logging settings:
         #    maxBytes: 100000000
         #    backupCount: 3
     root:
-        level: DEBUG
+        level: WARNING
         handlers: [file,console]
