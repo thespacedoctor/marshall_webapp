@@ -27,6 +27,9 @@ credentials:
     ps1-fgss:
         username: ps1sc
         password: skysurveys
+    google_drive:
+        username: d.r.young@qub.ac.uk
+        password: "i8VLH)+d7rm}22o9P;W%&yRa7pmu7P"
 
 ## webapp secrets
 secrets:
