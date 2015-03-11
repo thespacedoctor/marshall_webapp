@@ -199,10 +199,12 @@ class templates_transients_obs():
             filename = """%(filename)s1p5""" % locals()
         else:
             filename = """%(filename)s1""" % locals()
-        od["b1_name"] = filename
-        od["b4_OBSERVATION.DESCRIPTION.NAME"] = filename
 
         nameForFilename = objectName.replace("-", "")
+
+        od["b1_name"] = "class_" + nameForFilename[0:23]
+        od["b4_OBSERVATION.DESCRIPTION.NAME"] = filename
+
         filename = nameForFilename[0:15] + "_%(filename)s" % locals()
         downloadFilename = "%(filename)s.obx" % locals()
 
