@@ -26,6 +26,7 @@ import khufu
 from datetime import datetime, date, time
 from dryxPython import commonutils as dcu
 from dryxPython import astrotools as dat
+from datetime import datetime, date, time
 
 
 class models_transients_element_put():
@@ -154,6 +155,16 @@ class models_transients_element_put():
             if mwl == "following":
                 sqlQuery = """
                     update pesstoObjects set observationPriority = 2 where transientBucketId = %(transientBucketId)s
+                """ % locals()
+                self.request.db.execute(sqlQuery)
+                self.request.db.commit()
+
+            # reset the last time reviewe if required
+            if mwl == "archive":
+                now = datetime.now()
+                now = now.strftime("%Y-%m-%d %H:%M:%S")
+                sqlQuery = """
+                    update pesstoObjects set lastTimeReviewed = "%(now)s" where transientBucketId = %(transientBucketId)s
                 """ % locals()
                 self.request.db.execute(sqlQuery)
                 self.request.db.commit()

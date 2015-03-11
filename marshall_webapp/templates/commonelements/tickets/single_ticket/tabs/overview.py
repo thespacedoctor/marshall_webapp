@@ -39,6 +39,7 @@ def overview_tab(
         objectAkas,
         atelData,
         lightcurveData,
+        objectHistories,
         headerAndFooter=True):
     """overview tab
 
@@ -49,6 +50,7 @@ def overview_tab(
         - ``objectComments`` -- the comments for the object
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
+        - ``objectHistories`` -- the object histories
         - ``headerAndFooter`` -- do you want to display the header and footer?
 
     **Return:**
@@ -121,7 +123,8 @@ def overview_tab(
             discoveryDataDictionary=discoveryDataDictionary,
             objectComments=objectComments,
             atelData=atelData,
-            lightcurveData=lightcurveData)
+            lightcurveData=lightcurveData,
+            objectHistories=objectHistories)
         overview_tab_footer = ticket_building_blocks.ticket_footer_bar.ticket_footer_bar(
             log=log,
             request=request,

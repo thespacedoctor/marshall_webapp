@@ -81,7 +81,8 @@ def single_ticket(
         objectComments=objectComments,
         objectAkas=objectAkas,
         atelData=atelData,
-        lightcurveData=lightcurveData
+        lightcurveData=lightcurveData,
+        objectHistories=objectHistories
     )
     tabDictionary["overview"] = overviewTab
 
