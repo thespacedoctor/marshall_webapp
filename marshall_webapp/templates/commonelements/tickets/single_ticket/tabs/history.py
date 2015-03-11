@@ -118,6 +118,7 @@ def history_tab(
         theseHistories, key=itemgetter('dateCreated'), reverse=False)
 
     for hLog in theseHistories:
+
         if hLog["transientBucketId"] == transientBucketId:
             content += _generate_log_string_for_ticket(
                 log=log,

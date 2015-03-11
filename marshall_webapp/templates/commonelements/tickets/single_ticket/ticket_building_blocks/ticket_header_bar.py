@@ -43,7 +43,8 @@ def ticket_header_bar(
         discoveryDataDictionary,
         objectComments,
         atelData,
-        lightcurveData):
+        lightcurveData,
+        objectHistories):
     """get ticket header bar
 
     **Key Arguments:**
@@ -53,6 +54,7 @@ def ticket_header_bar(
         - ``objectComments`` -- the comments for the object
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
         - ``lightcurveData`` -- the transient lightcurve data
+        - ``objectHistories`` -- the object histories
 
     **Return:**
         - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
@@ -95,6 +97,13 @@ def ticket_header_bar(
         pass
     else:
         atelWarning = ""
+
+    # RESURRECTED OBJECT WARNING
+    ressurectedWarning = _resurrected_object_warning(
+        log,
+        objectHistories,
+        transientBucketId=discoveryDataDictionary["transientBucketId"]
+    )
 
     theseObjectComments = []
     theseObjectComments[:] = [t for t in objectComments if t[
@@ -176,7 +185,7 @@ def ticket_header_bar(
     topbar = khufu.grid_column(
         span=12,  # 1-12
         offset=0,  # 1-12
-        content="""%(magWarning)s %(atelWarning)s %(lsqFPAlert)s %(comment)s """ % locals(
+        content="""%(ressurectedWarning)s %(magWarning)s %(atelWarning)s %(lsqFPAlert)s %(comment)s """ % locals(
         ),
         pull=False,  # ["right", "left", "center"]
         htmlId=False,
@@ -344,6 +353,49 @@ def _get_no_lsq_recalibrated_data_alert(
 
     log.info('completed the ``_get_no_lsq_recalibrated_data_alert`` function')
     return alert
+
+
+# LAST MODIFIED : August 27, 2014
+# CREATED : August 27, 2014
+# AUTHOR : DRYX
+def _resurrected_object_warning(
+        log,
+        objectHistories,
+        transientBucketId):
+    """ get no lsq recalibrated data alert
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``transientBucketId`` -- the transientBucketId
+        - ``objectHistories`` -- the transient lightcurve data
+
+    **Return:**
+        - ``alert`` -- alert for when LSQ object has no recalibrated data yet
+
+    **Todo**
+    """
+    log.info('starting the ``_resurrected_object_warning`` function')
+
+    notification = False
+    for row in objectHistories:
+        if row["transientBucketId"] == transientBucketId:
+            if "marshall's object resurrector" in row["log"]:
+                notification = True
+            else:
+                notification = False
+
+    if notification is True:
+        notification = khufu.alert(
+            alertText='Resurrected from archive - possibly on the rise again',
+            alertHeading='Note',
+            extraPadding=False,
+            alertLevel='success'  # [ "warning" | "error" | "success" | "info" ]
+        )
+    else:
+        notification = ""
+
+    log.info('completed the ``_resurrected_object_warning`` function')
+    return notification
 
 
 if __name__ == '__main__':
