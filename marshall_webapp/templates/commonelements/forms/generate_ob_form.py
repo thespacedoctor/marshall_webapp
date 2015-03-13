@@ -233,8 +233,10 @@ def generate_ob_form(
     )
 
     defaultValue = discoveryDataDictionary["currentMagnitude"]
-    if defaultValue:
+    if defaultValue and defaultValue < 20.5:
         defaultValue = """%(defaultValue)5.2f""" % locals()
+    elif defaultValue and defaultValue > 20.5:
+        defaultValue = "20.5"
     else:
         defaultValue = "?"
 

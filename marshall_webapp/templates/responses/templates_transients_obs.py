@@ -143,6 +143,9 @@ class templates_transients_obs():
             od["b5_INS.SLIT1.NAME"] = "slit#1.0"
         od["b6_INS.SLIT1.NAME"] = od["b5_INS.SLIT1.NAME"]
 
+        print "\n\n\n\n"
+        print transient_ob_data
+
         # DEFINE VALUES FROM CURRENT OBJECT MAGNITUDE
         if currentMag < 13.0:
             # very bright objects (V<13) => t = 40 s (V=12 => S/N~180)
@@ -190,9 +193,12 @@ class templates_transients_obs():
             od["b6_DET.WIN1.UIT1"] = 1500
             od["b5_DET.WIN1.UIT1"] = 40
             filename = """%(filename)sfainter_19p5""" % locals()
+        elif currentMag > 20.5:
+            obText = "object too faint"
+            return None, None
         else:
-            obText = "object too bright"
-            return
+            obText = "object too faint"
+            return None, None
 
         filename = """%(filename)s_cls_g%(grism)s_s""" % locals()
         if badSeeing is not False:
