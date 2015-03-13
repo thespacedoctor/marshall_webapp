@@ -4,6 +4,7 @@ $(function() {
         var x = $(this).val();
         if (x > 20.5) {
             alert("current magnitude must brighter than 20.5 mag");
+            $(this).val(20.5);
             return false;
         }
     });
