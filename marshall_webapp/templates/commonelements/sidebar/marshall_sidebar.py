@@ -337,11 +337,16 @@ def _get_observation_queues(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'pending observation'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     classificationTargetsLink = khufu.a(
         content='<i class="icon-target2"></i> classification targets (%s)' % (
             count,),
         href=request.route_path(
-            'transients', _query={'mwl': 'pending observation'}),
+            'transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -372,9 +377,14 @@ def _get_observation_queues(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'following'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     followupTargetsLink = khufu.a(
         content='<i class="icon-pin"></i> + followup targets (%s)' % (count,),
-        href=request.route_path('transients', _query={'mwl': 'following'}),
+        href=request.route_path('transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -405,9 +415,14 @@ def _get_observation_queues(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'allObsQueue'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     allTargetsLink = khufu.a(
         content='= all targets (%s)' % (count,),
-        href=request.route_path('transients', _query={'mwl': 'allObsQueue'}),
+        href=request.route_path('transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -514,10 +529,15 @@ def _get_classification_queues(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'pending classification'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     queuedForClassificationLink = khufu.a(
         content='queued for classification (%s)' % (count,),
         href=request.route_path(
-            'transients', _query={'mwl': 'pending classification'}),
+            'transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -547,6 +567,11 @@ def _get_classification_queues(
         awfFlag='"queued for atel"',
         cFlag=None
     ).get()
+
+    theseParams = dict(request.params)
+    theseParams["awl"] = 'queued for atel'
+    if "mwl" in theseParams:
+        del theseParams["mwl"]
 
     queuedForAtelLink = khufu.a(
         content='queued for atel (%s)' % (count,),
@@ -691,11 +716,16 @@ def _get_reference_lists(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'followup complete'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     followupCompleteLink = khufu.a(
         content='<i class="icon-checkmark-circle"></i> followup complete (%s)' % (
             count,),
         href=request.route_path(
-            'transients', _query={'mwl': 'followup complete'}),
+            'transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -726,9 +756,14 @@ def _get_reference_lists(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'archive'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     allArchivedLink = khufu.a(
         content='<i class="icon-archive5"></i>  all archived (%s)' % (count,),
-        href=request.route_path('transients', _query={'mwl': 'archive'}),
+        href=request.route_path('transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -759,9 +794,14 @@ def _get_reference_lists(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'all'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     allLink = khufu.a(
         content='all  (%s)' % (count,),
-        href=request.route_path('transients', _query={'mwl': 'all'}),
+        href=request.route_path('transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -875,9 +915,14 @@ def _get_target_selection_queue(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'inbox'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     inboxLink = khufu.a(
         content='<i class="icon-inbox"></i>  inbox (%s)' % (count,),
-        href=request.route_path('transients', _query={'mwl': 'inbox'}),
+        href=request.route_path('transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -907,10 +952,15 @@ def _get_target_selection_queue(
         cFlag=None
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'review for followup'
+    if "awl" in theseParams:
+        del theseParams["awl"]
+
     reviewForFollowupLink = khufu.a(
         content='<i class="icon-eye"></i>  review for followup (%s)' % (count,),
         href=request.route_path(
-            'transients', _query={'mwl': 'review for followup'}),
+            'transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
