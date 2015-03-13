@@ -26,6 +26,7 @@ import khufu
 from datetime import datetime, date, time
 from dryxPython import commonutils as dcu
 from dryxPython import astrotools as dat
+from datetime import datetime, date, time
 
 
 class models_transients_element_put():
@@ -81,6 +82,9 @@ class models_transients_element_put():
         if set(("piName", "piEmail")) <= set(self.request.params):
             self._change_pi_for_object()
 
+        if "observationPriority" in self.request.params:
+            self._set_observational_priority_for_object()
+
         # throw warning if nothing has changed
         if len(self.response) == 0:
             self.response = "nothing has changed"
@@ -131,6 +135,9 @@ class models_transients_element_put():
 
             logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
             )
+            for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
+                logEntry = logEntry.replace(o, n)
+
             sqlQuery = u"""INSERT INTO transients_history_logs (
                 transientBucketId,
                 dateCreated,
@@ -143,6 +150,24 @@ class models_transients_element_put():
             )""" % (transientBucketId, now, logEntry)
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
+
+            # reset priority if required
+            if mwl == "following":
+                sqlQuery = """
+                    update pesstoObjects set observationPriority = 2 where transientBucketId = %(transientBucketId)s
+                """ % locals()
+                self.request.db.execute(sqlQuery)
+                self.request.db.commit()
+
+            # reset the last time reviewe if required
+            if mwl == "archive":
+                now = datetime.now()
+                now = now.strftime("%Y-%m-%d %H:%M:%S")
+                sqlQuery = """
+                    update pesstoObjects set lastTimeReviewed = "%(now)s" where transientBucketId = %(transientBucketId)s
+                """ % locals()
+                self.request.db.execute(sqlQuery)
+                self.request.db.commit()
 
         # change the alert workflow location list if requested
         if "awl" in self.request.params:
@@ -158,6 +183,8 @@ class models_transients_element_put():
 
             logEntry = "moved from '%(oldAwl)s' to '%(awl)s' list by %(username)s" % locals(
             )
+            for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
+                logEntry = logEntry.replace(o, n)
             sqlQuery = u"""INSERT INTO transients_history_logs (
                 transientBucketId,
                 dateCreated,
@@ -238,4 +265,96 @@ class models_transients_element_put():
         self.log.info('completed the ``_change_pi_for_object`` method')
         return None
 
+    def _set_observational_priority_for_object(
+            self):
+        """ change the observational priority for an object
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean _set_observational_priority_for_object method
+            - @review: when complete add logging
+        """
+        self.log.info(
+            'starting the ``_set_observational_priority_for_object`` method')
+
+        observationPriority = self.request.params["observationPriority"].strip()
+        transientBucketId = self.transientBucketId
+        username = self.request.authenticated_userid.replace(".", " ").title()
+        now = datetime.now()
+        now = now.strftime("%Y-%m-%d %H:%M:%S")
+
+        # get old data
+        sqlQuery = """
+            select observationPriority, marshallWorkflowLocation from pesstoObjects where transientBucketId = %(transientBucketId)s   
+        """ % locals()
+        objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectData = []
+        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        oldobservationPriority = objectData[0]["observationPriority"]
+        mwl = objectData[0]["marshallWorkflowLocation"]
+
+        # change the observationPriority in the database
+        sqlQuery = """
+            update pesstoObjects set observationPriority = "%(observationPriority)s" where transientBucketId = %(transientBucketId)s   
+        """ % locals()
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        # response
+        self.response = self.response + \
+            "changed the observational priority of transient #%(transientBucketId)s to '%(observationPriority)s'" % locals(
+            )
+
+        observationPriority = int(observationPriority)
+        oldobservationPriority = int(oldobservationPriority)
+
+        if mwl == "following":
+            for n, w in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"]):
+                if n == oldobservationPriority:
+                    oldobservationPriority = w
+
+            for n, w in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"]):
+                if n == observationPriority:
+                    observationPriority = w
+
+            # log entry
+            logEntry = "observation priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
+            )
+
+        elif mwl == "pending observation":
+            for n, w in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"]):
+                if n == oldobservationPriority:
+                    oldobservationPriority = w
+
+            for n, w in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"]):
+                if n == observationPriority:
+                    observationPriority = w
+
+            # log entry
+            logEntry = "classification priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
+            )
+
+        sqlQuery = u"""INSERT INTO transients_history_logs (
+            transientBucketId,
+            dateCreated,
+            log
+        )
+        VALUES (
+            %s,
+            "%s",
+            "%s"
+        )""" % (transientBucketId, now, logEntry)
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        self.log.info(
+            'completed the ``_set_observational_priority_for_object`` method')
+        return None
+
+    # use the tab-trigger below for new method
     # xt-class-method

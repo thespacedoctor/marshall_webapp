@@ -65,6 +65,7 @@ def ticket_table_pagination(
         elementId = False
 
     theseParams = dict(request.params)
+
     alist = ["limit", "pageStart"]
     for i in alist:
         if i in theseParams:

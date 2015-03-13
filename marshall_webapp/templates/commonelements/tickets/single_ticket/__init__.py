@@ -43,7 +43,8 @@ def single_ticket(
         objectComments,
         objectAkas,
         lightcurveData,
-        atelData):
+        atelData,
+        objectHistories):
     """A single ticket for a transient object tin the pessto marshall
 
     **Key Arguments:**
@@ -54,6 +55,7 @@ def single_ticket(
         - ``objectAkas`` -- the akas with surveyUrls
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
+        - ``objectHistories`` -- history log for object
 
     **Return:**
         - ``ticket`` -- a single transient's info in one HTML ticket
@@ -64,6 +66,13 @@ def single_ticket(
 
     tabDictionary = {}
 
+    observationPriority = False
+    if discoveryDataDictionary["marshallWorkflowLocation"] in ["following", "pending observation"]:
+        observationPriority = discoveryDataDictionary["observationPriority"]
+
+    import collections
+    tabDictionary = collections.OrderedDict(sorted(tabDictionary.items()))
+
     # grab the various tabs that make up a single ticket
     overviewTab = tabs.overview.overview_tab(
         log=log,
@@ -72,7 +81,8 @@ def single_ticket(
         objectComments=objectComments,
         objectAkas=objectAkas,
         atelData=atelData,
-        lightcurveData=lightcurveData
+        lightcurveData=lightcurveData,
+        objectHistories=objectHistories
     )
     tabDictionary["overview"] = overviewTab
 
@@ -98,6 +108,16 @@ def single_ticket(
 
     tabDictionary["photometry"] = photometryTab
 
+    historyTab = tabs.history.history_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        objectHistories=objectHistories
+    )
+    tabDictionary["ticket history"] = historyTab
+
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
     # build the single ticket
@@ -106,7 +126,8 @@ def single_ticket(
         transientBucketId=transientBucketId,
         tabDictionary=tabDictionary,
         htmlId="ticket%(transientBucketId)s" % locals(),
-        commentCount=commentCount
+        commentCount=commentCount,
+        obsPriority=observationPriority
     )
 
     log.info('completed the ``inbox_ticket`` function')
@@ -123,7 +144,8 @@ def _single_ticket_template(
         transientBucketId,
         tabDictionary={},  # { "title": tabcontent, }
         htmlId=False,
-        commentCount=False
+        commentCount=False,
+        obsPriority=False
 ):
     """single_ticket
 
@@ -142,11 +164,18 @@ def _single_ticket_template(
     else:
         contentCount = {}
 
+    if obsPriority:
+        for n, c in zip([1, 2, 3], ["green", "yellow", "red"]):
+            if obsPriority == n:
+                borderColor = c
+    else:
+        borderColor = False
+
     single_ticket = khufu.tabbableNavigation(
         contentDictionary=tabDictionary,  # { name : content, }
         fadeIn=False,
         direction='top',  # [ 'top' | 'bottom' | 'left' | 'right' ]
-        htmlClass="singleTicket",
+        htmlClass="singleTicket border-%(borderColor)s" % locals(),
         uniqueNavigationId=transientBucketId,
         htmlId=htmlId,
         contentCount=contentCount
