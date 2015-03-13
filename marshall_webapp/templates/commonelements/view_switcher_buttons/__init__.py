@@ -173,6 +173,11 @@ def _link_for_popover(
     params["format"] = format
     params["method"] = "get"
 
+    if format == "html_table":
+        params["limit"] = 100
+    elif format == "html_tickets":
+        params["limit"] = 10
+
     if download:
         if "html" not in format:
             if "mwl" in params:
@@ -208,8 +213,6 @@ def _link_for_popover(
     if "html" not in params["format"]:
         params = dict(params)
         log.debug("""params1: `%(params)s`""" % locals())
-        del params["limit"]
-        del params["pageStart"]
         log.debug("""params2: `%(params)s`""" % locals())
 
     if "q" in params:
