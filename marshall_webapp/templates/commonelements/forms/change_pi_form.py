@@ -107,7 +107,7 @@ def change_pi_form(
         buttonText=buttonText,
         # [ default | primary | info | success | warning | danger | inverse | link ]
         buttonStyle='success',
-        buttonSize='small',  # [ large | default | small | mini ]
+        buttonSize='large',  # [ large | default | small | mini ]
         href=modalTrigger,
         pull="right",  # right, left, center
         submit=False,

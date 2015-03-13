@@ -267,9 +267,9 @@ def generate_ob_form(
         # [ default | primary | info | success | warning | danger | inverse | link ]
         buttonText="OB",
         buttonStyle='success',
-        buttonSize='small',  # [ large | default | small | mini ]
+        buttonSize='large',  # [ large | default | small | mini ]
         href=modalTrigger,
-        pull="right",  # right, left, center
+        pull=False,  # right, left, center
         submit=False,
         block=False,
         disable=False,

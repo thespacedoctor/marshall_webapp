@@ -59,7 +59,8 @@ def number_of_objects_dropdown(
         elementId = False
 
     theseParams = dict(request.params)
-    alist = ["sortBy", "sortDesc", "limit", "pageStart"]
+
+    alist = ["limit", "pageStart"]
     for i in alist:
         if i in theseParams:
             del theseParams[i]

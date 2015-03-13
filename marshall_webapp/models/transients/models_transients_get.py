@@ -93,6 +93,7 @@ class models_transients_get():
         self.transientLightcurveData = self._get_associated_lightcurve_data()
         self.transientAtelMatches = self._get_associated_atel_data()
         self.transients_comments = self._get_associated_comments()
+        self.transient_history = self._get_associated_transient_history()
 
         self.log.info('completed the ``get`` method')
 
@@ -103,7 +104,7 @@ class models_transients_get():
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history
 
     def _get_transient_data_from_database(
             self):
@@ -162,6 +163,8 @@ class models_transients_get():
         if "mwl" in self.qs:
             if self.qs["mwl"] == "allObsQueue":
                 thisWhere = """(marshallWorkflowLocation = "following" or marshallWorkflowLocation = "pending observation") """
+            elif self.qs["mwl"] == "all":
+                thisWhere = """1=1"""
             else:
                 thisWhere = """marshallWorkflowLocation = "%(mwl)s" """ % self.qs
             sqlWhereList.append(thisWhere)
@@ -214,6 +217,12 @@ class models_transients_get():
                 # the ticket selection query
                 sqlQuery = """
                     select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by case when p.%(sortBy)s is null then 1 else 0 end,  p.%(sortBy)s %(sortDirection)s
+                """ % locals()
+
+            elif self.qs["sortBy"] == "observationPriority":
+                sortBy = self.qs["sortBy"]
+                sqlQuery = """
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by p.%(sortBy)s %(sortDirection)s
                 """ % locals()
 
             else:
@@ -338,8 +347,12 @@ class models_transients_get():
             self.qs["pageStart"] = self.defaultQs["pageStart"]
 
         if "sortBy" not in self.qs:
-            self.qs["sortBy"] = self.defaultQs["sortBy"]
-            self.qs["sortDesc"] = self.defaultQs["sortDesc"]
+            if "mwl" in self.qs and self.qs["mwl"] in ["following", "pending observation", "allObsQueue"]:
+                self.qs["sortBy"] = "observationPriority"
+                self.qs["sortDesc"] = False
+            else:
+                self.qs["sortBy"] = self.defaultQs["sortBy"]
+                self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
         self.log.debug("""these are the new query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
@@ -529,6 +542,7 @@ class models_transients_get():
         tableColumnNames = collections.OrderedDict(
             sorted(tmpDict.items()))
         tableColumnNames["masterName"] = "name"
+        tableColumnNames["observationPriority"] = "priority"
         tableColumnNames["raDeg"] = "ra"
         tableColumnNames["decDeg"] = "dec"
         tableColumnNames["recentClassification"] = "spectral class"
@@ -546,6 +560,7 @@ class models_transients_get():
         # a list of names for table and csv views
         tableColumns = [
             "masterName",
+            "observationPriority",
             "raDeg",
             "decDeg",
             "recentClassification",
@@ -559,6 +574,20 @@ class models_transients_get():
             "dateAdded",
             "pi_name"
         ]
+
+        # convert priorities to words
+        for obj in self.transientData:
+            if "marshallWorkflowLocation" in obj:
+                if obj["marshallWorkflowLocation"] == "following":
+                    for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"], ["green", "yellow", "red"]):
+                        if obj["observationPriority"] == n:
+                            obj["observationPriority"] = w
+                            break
+                elif obj["marshallWorkflowLocation"] == "pending observation":
+                    for n, w, c in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"], ["green", "yellow", "red"]):
+                        if obj["observationPriority"] == n:
+                            obj["observationPriority"] = w
+                            break
 
         newTransientData = []
         for oldRow in self.transientData:
@@ -585,6 +614,44 @@ class models_transients_get():
         self.log.info(
             'completed the ``_clean_data_for_plain_text_outputs`` method')
         return None
+
+    # use the tab-trigger below for new method
+    def _get_associated_transient_history(
+            self):
+        """ get associated transient history
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean _get_associated_transient_history method
+            - @review: when complete add logging
+        """
+        self.log.info(
+            'starting the ``_get_associated_transient_history`` method')
+
+        matchedTransientBucketIds = self.matchedTransientBucketIds
+
+        sqlQuery = """
+            select * from transients_history_logs where transientBucketId in (%(matchedTransientBucketIds)s) order by dateCreated desc
+        """ % locals()
+
+        objectHistoryTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectHistory = []
+        objectHistory[:] = [dict(zip(row.keys(), row))
+                            for row in objectHistoryTmp]
+
+        from operator import itemgetter
+        objectHistory = list(objectHistory)
+        objectHistory = sorted(
+            objectHistory, key=itemgetter('dateCreated'), reverse=False)
+
+        self.log.info(
+            'completed the ``_get_associated_transient_history`` method')
+        return objectHistory
 
         # use the tab-trigger below for new method
         # xt-class-method

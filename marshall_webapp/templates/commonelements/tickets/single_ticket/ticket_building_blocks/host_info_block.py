@@ -94,7 +94,7 @@ def host_info_block(
         contextStamp = 'holder.js/500x500/auto/industrial/text:sdss stamp not ready yet'
         downloadContextStamp = contextStamp
         stampName = False
-    sdssUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
+    sdssUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GSP&width=512&height=512&query=G""" % locals(
     )
 
     sdssLinkRow = ""
