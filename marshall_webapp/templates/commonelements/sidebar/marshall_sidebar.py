@@ -116,10 +116,12 @@ def _marshall_sidebar_header(
     log.info('starting the ``_marshall_sidebar_header`` function')
     ## VARIABLES ##
 
+    href = request.route_path('transients')
+
     pesstoIcon = khufu.image(
         src=request.static_path(
             'marshall_webapp:static/images/pessto_icon.png'),
-        href="/transients?view=tickets",
+        href=href,
         display="rounded",  # [ rounded | circle | polaroid ]
         pull=False,  # [ "left" | "right" | "center" ]
         htmlClass=False,
@@ -176,32 +178,6 @@ def _marshall_sidebar_header(
         content=False,
         delay=200
     )
-
-    # createNewButton = khufu.button(
-    #     buttonText='create<br>new ticket',
-    # [ default | primary | info | success | warning | danger | inverse | link ]
-    #     buttonStyle='danger',
-    # [ icon = """<i class="icon-long-arrow-right"></i>"""ge | default | small | mini ]
-    #     buttonSize='default',
-    # href="#createTicketForm",
-    #     submit=False,
-    #     block=True,
-    #     disable=False,
-    #     dataToggle="modal",
-    #     htmlId="createNewTicketButton",
-    #     popover=popover
-    # )
-
-    # createNewButton = khufu.grid_column(
-    # span=11,  # 1-12
-    # offset=1,  # 1-12
-    #     content=createNewButton,
-    #     htmlId=False,
-    #     htmlClass=False,
-    #     onPhone=True,
-    #     onTablet=True,
-    #     onDesktop=True
-    # )
 
     createNewButton = khufu.grid_row(
         responsive=True,
