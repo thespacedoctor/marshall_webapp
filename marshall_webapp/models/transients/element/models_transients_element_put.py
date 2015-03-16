@@ -133,8 +133,12 @@ class models_transients_element_put():
                 " transientBucketId %(transientBucketId)s moved to the `%(mwl)s` marshallWorkflowLocation<BR>" % locals(
                 )
 
-            logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
-            )
+            if "snoozed" in self.request.params:
+                logEntry = "object snoozed by %(username)s" % locals(
+                )
+            else:
+                logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
+                )
             for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
                 logEntry = logEntry.replace(o, n)
 
