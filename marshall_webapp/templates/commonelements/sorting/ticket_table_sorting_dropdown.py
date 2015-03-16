@@ -136,7 +136,10 @@ def ticket_table_sorting_dropdown(
 
     optionList = sorted(optionList)
     if sortBy:
-        optionList.remove(sortBy)
+        try:
+            optionList.remove(sortBy)
+        except:
+            pass
 
     # add links to options
     linkList = []

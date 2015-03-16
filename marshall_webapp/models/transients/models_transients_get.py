@@ -58,7 +58,7 @@ class models_transients_get():
             "mwl": "inbox",
             "format": "html_tickets",
             "ticketLimit": 10,
-            "tableLimit": 50,
+            "tableLimit": 100,
             "pageStart": 0,
             "sortBy": "dateAdded",
             "sortDesc": False,
@@ -341,7 +341,7 @@ class models_transients_get():
             elif self.qs["format"] == "html_tickets":
                 self.qs["limit"] = self.defaultQs["ticketLimit"]
             else:
-                self.qs["limit"] = 10000
+                self.qs["limit"] = 20000
 
         if "pageStart" not in self.qs:
             self.qs["pageStart"] = self.defaultQs["pageStart"]
