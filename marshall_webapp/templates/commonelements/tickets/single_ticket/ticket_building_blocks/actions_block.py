@@ -108,6 +108,14 @@ def actions_block(
             discoveryDataDictionary=discoveryDataDictionary,
         )
 
+    snoozeButton = ""
+    if discoveryDataDictionary["marshallWorkflowLocation"].lower() == "inbox":
+        snoozeButton = _snooze_button(
+            log=log,
+            request=request,
+            discoveryDataDictionary=discoveryDataDictionary,
+        )
+
     buttonGroup = khufu.buttonGroup(
         buttonList=[
             changePriorityDropdown,
@@ -116,6 +124,7 @@ def actions_block(
             classifyButton,
             changePiButton,
             generateOBButton,
+            snoozeButton
         ],
         format='vertical'  # [ default | toolbar | vertical ]
     )
@@ -654,6 +663,109 @@ def _get_priority_switcher_dropdown(
 
     log.info('completed the ``_get_priority_switcher_dropdown`` function')
     return thisDropdown
+
+
+# LAST MODIFIED : March 16, 2015
+# CREATED : March 16, 2015
+# AUTHOR : DRYX
+def _snooze_button(
+        request,
+        discoveryDataDictionary,
+        log):
+    """ snooze button
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``request`` -- the pyramid request
+        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+
+    **Return:**
+        - None
+
+    **Todo**
+        - @review: when complete, clean _snooze_button function
+        - @review: when complete add logging
+        - @review: when complete, decide whether to abstract function to another module
+    """
+    log.info('starting the ``_snooze_button`` function')
+
+    now = datetime.now()
+    now = now.strftime("%Y-%m-%d")
+
+    log.info('starting the ``_get_change_pi_button`` function')
+    # TEST THE ARGUMENTS
+
+    mwl = discoveryDataDictionary["marshallWorkflowLocation"]
+
+    name = discoveryDataDictionary["masterName"]
+    href = request.route_path(
+        'transients_element', elementId=discoveryDataDictionary["transientBucketId"])
+    name = khufu.a(
+        content=name,
+        href=href
+    )
+    href = request.route_path('transients', _query={'mwl': mwl})
+    newListLink = khufu.a(
+        content="archive",
+        href=href
+    )
+
+    # GENERATE THE UNDO LINK
+    href = request.route_path('transients_element', elementId=discoveryDataDictionary[
+                              "transientBucketId"], _query={'mwl': discoveryDataDictionary["marshallWorkflowLocation"], "method": "put"})
+    undoLink = khufu.a(
+        content='undo.',
+        href=href,
+        htmlClass="ticketMoveToLinkUndo",
+        htmlId="ticket%(transientBucketId)s" % discoveryDataDictionary,
+        postInBackground=True,
+    )
+
+    notification = "%(name)s was snoozed. %(undoLink)s" % locals(
+    )
+    notification = khufu.alert(
+        alertText=notification,
+        alertHeading='',
+        extraPadding=False,
+        alertLevel='info'  # [ "warning" | "error" | "success" | "info" ]
+    )
+    import urllib
+    notification = urllib.quote(notification)
+    discoveryDataDictionary["notification"] = notification
+
+    href = request.route_path('transients_element', elementId=discoveryDataDictionary[
+        "transientBucketId"], _query={'mwl': "archive", "method": "put", "snoozed": True})
+
+    popover = khufu.popover(
+        tooltip=True,
+        placement="right",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="snooze - hide object until more photometry obtained",
+        content=False,
+        delay=200
+    )
+
+    ## VARIABLES ##
+    button = khufu.button(
+        buttonText='<i class="icon-alarm3"></i>',
+        # [ default | primary | info | success | warning | danger | inverse | link ]
+        buttonStyle='success',
+        buttonSize='large',  # [ large | default | small | mini ]
+        htmlId="snooze",
+        htmlClass="ticketMoveToLink",
+        href=href,
+        pull=False,  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        postInBackground=True,
+        dataToggle=False,  # [ modal ]
+        popover=popover,
+        notification=notification
+    )
+
+    log.info('completed the ``_snooze_button`` function')
+    return button
 
 # use the tab-trigger below for new function
 # xt-def-with-logger

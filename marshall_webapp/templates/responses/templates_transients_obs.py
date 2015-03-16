@@ -143,9 +143,6 @@ class templates_transients_obs():
             od["b5_INS.SLIT1.NAME"] = "slit#1.0"
         od["b6_INS.SLIT1.NAME"] = od["b5_INS.SLIT1.NAME"]
 
-        print "\n\n\n\n"
-        print transient_ob_data
-
         # DEFINE VALUES FROM CURRENT OBJECT MAGNITUDE
         if currentMag < 13.0:
             # very bright objects (V<13) => t = 40 s (V=12 => S/N~180)

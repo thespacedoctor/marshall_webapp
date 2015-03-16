@@ -545,7 +545,7 @@ class templates_transients():
         pagination = self._get_pagination()
         notification = self._get_notification()
         ticketsPerPageDropdown = self._get_object_limit_dropdown()
-        print self.qs["limit"]
+
         view_switcher_buttons = self._get_view_switcher_buttons()
 
         sort = self._get_sort_dropdown()
