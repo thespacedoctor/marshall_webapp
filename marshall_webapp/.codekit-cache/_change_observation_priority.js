@@ -19,6 +19,9 @@ $(function() {
         } else if (oldClass.indexOf("border-green") >= 0) {
             thisTicket.toggleClass("border-green");
             thisTicket.find(".priorityLabel").toggleClass("green");
+        } else if (oldClass.indexOf("border-blue") >= 0) {
+            thisTicket.toggleClass("border-blue");
+            thisTicket.find(".priorityLabel").toggleClass("blue");
         }
 
         // Add new border and label color
@@ -46,6 +49,10 @@ $(function() {
             thisTicket.toggleClass("border-red");
             thisTicket.find(".priorityLabel").toggleClass("red");
             thisTicket.find(".priorityLabel").html("<strong>LOW</strong>");
+        } else if (newPriority.indexOf("none") >= 0) {
+            thisTicket.toggleClass("border-blue");
+            thisTicket.find(".priorityLabel").toggleClass("blue");
+            thisTicket.find(".priorityLabel").html("NONE");
         }
 
     });

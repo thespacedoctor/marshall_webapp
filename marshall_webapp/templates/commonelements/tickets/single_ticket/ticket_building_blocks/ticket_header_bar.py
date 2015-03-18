@@ -141,6 +141,9 @@ def ticket_header_bar(
                 thisDate = """%(thisDate)s days ago""" % locals()
         else:
             thisDate = str(commentDate)[:10]
+        thisDate = thisDate.strip()
+        if thisDate[:2] == "1 ":
+            thisDate = thisDate.replace("days", "day")
 
         prefix = khufu.coloredText(
             text="<strong>latest comment (%(thisDate)s):</strong>" % locals(
