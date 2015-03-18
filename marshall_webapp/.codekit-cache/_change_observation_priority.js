@@ -20,6 +20,7 @@ $(function() {
             thisTicket.toggleClass("border-green");
             thisTicket.find(".priorityLabel").toggleClass("green");
         }
+        starbas
 
         // Add new border and label color
         if (newPriority.indexOf("critical") >= 0) {
