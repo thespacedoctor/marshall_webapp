@@ -352,7 +352,7 @@ class templates_transients():
             # convert priorities to words
             if "marshallWorkflowLocation" in obj:
                 if obj["marshallWorkflowLocation"] == "following":
-                    for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"], ["green", "yellow", "red"]):
+                    for n, w, c in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"], ["green", "yellow", "red", "blue"]):
                         if obj["observationPriority"] == n:
                             obj["observationPriority"] = w
                             # add text color
