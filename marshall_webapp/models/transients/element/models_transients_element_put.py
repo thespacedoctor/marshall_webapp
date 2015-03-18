@@ -318,11 +318,11 @@ class models_transients_element_put():
         oldobservationPriority = int(oldobservationPriority)
 
         if mwl == "following":
-            for n, w in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"]):
+            for n, w in zip([1, 2, 3, 4], ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"]):
                 if n == oldobservationPriority:
                     oldobservationPriority = w
 
-            for n, w in zip([1, 2, 3], ["CRITICAL", "IMPORTANT", "USEFUL"]):
+            for n, w in zip([1, 2, 3, 4], ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"]):
                 if n == observationPriority:
                     observationPriority = w
 

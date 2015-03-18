@@ -564,10 +564,11 @@ def _get_priority_switcher_dropdown(
     linkPriorityList = []
     linkHiddenList = []
     if discoveryDataDictionary["marshallWorkflowLocation"] == "following":
-        priorityList = ["critical", "important", "useful"]
+        priorityList = ["critical", "important", "useful", "none"]
+        priorityNumberList = [1, 2, 3, 4]
     else:
         priorityList = ["high", "medium", "low"]
-    priorityNumberList = [1, 2, 3]
+        priorityNumberList = [1, 2, 3]
     priority = discoveryDataDictionary["observationPriority"]
     for l, n in zip(priorityList, priorityNumberList):
         linkTitleList.append(l)

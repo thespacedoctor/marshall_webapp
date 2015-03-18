@@ -387,13 +387,17 @@ def identity_block(
             lineBreak=False
         )
         if discoveryDataDictionary["marshallWorkflowLocation"] == "following":
-            pList = ["CRITICAL", "IMPORTANT", "USEFUL"]
+            pList = ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"]
+            for n, w, c in zip([1, 2, 3, 4], pList, ["green", "yellow", "red", "blue"]):
+                if discoveryDataDictionary["observationPriority"] == n:
+                    thisObservationalPriority = w
+                    thisColor = c
         else:
             pList = ["HIGH", "MEDIUM", "LOW"]
-        for n, w, c in zip([1, 2, 3], pList, ["green", "yellow", "red"]):
-            if discoveryDataDictionary["observationPriority"] == n:
-                thisObservationalPriority = w
-                thisColor = c
+            for n, w, c in zip([1, 2, 3], pList, ["green", "yellow", "red"]):
+                if discoveryDataDictionary["observationPriority"] == n:
+                    thisObservationalPriority = w
+                    thisColor = c
 
         thisObservationalPriority = "<strong>%(thisObservationalPriority)s</strong>" % locals(
         )
