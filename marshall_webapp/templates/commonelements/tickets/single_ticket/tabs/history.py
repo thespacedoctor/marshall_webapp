@@ -100,7 +100,7 @@ def history_tab(
     theseHistories.append(newEntry)
 
     # determine date classified
-    classificationDate = discoveryDataDictionary["classificationDate"]
+    classificationDate = discoveryDataDictionary["classificationAddedDate"]
     classificationSurvey = discoveryDataDictionary["classificationSurvey"]
     classificationAddedBy = discoveryDataDictionary["classificationAddedBy"]
     objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
