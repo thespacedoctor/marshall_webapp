@@ -142,7 +142,7 @@ class models_transients_element_post():
             clsRedshift = "null"
         if "clsClassificationWRTMax" not in locals():
             clsClassificationWRTMax = "unknown"
-        if "clsClassificationPhase" not in locals():
+        if "clsClassificationPhase" not in locals() or len(clsClassificationPhase) == 0:
             clsClassificationPhase = "null"
 
         username = self.request.authenticated_userid
@@ -153,6 +153,7 @@ class models_transients_element_post():
         """ % locals()
         self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
         self.request.db.execute(sqlQuery)
+        self.request.db.commit()
 
         # UPDATE THE OBJECT'S LOCATION IN THE VARIOUS MARSHALL WORKFLOWS
         if self.request.params["clsSendTo"].lower() == "yes":
@@ -163,6 +164,7 @@ class models_transients_element_post():
             update pesstoObjects set classifiedFlag = 1, marshallWorkflowLocation = "review for followup", alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
         """ % locals()
         self.request.db.execute(sqlQuery)
+        self.request.db.commit()
 
         # update_transientbucketsummaries_flags
         update_transientbucketsummaries_flags(

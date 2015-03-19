@@ -84,6 +84,7 @@ class models_refresh_sidebar_list_counts():
             sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects where marshallWorkflowLocation="%(thisList)s") where listname = "%(thisList)s" """ % locals(
             )
             self.request.db.execute(sqlQuery)
+            self.request.db.commit()
 
         # content for response
         responseContent = "updated `marshallWorkflowLocations` in `meta_workflow_lists_counts` table"
@@ -99,6 +100,13 @@ class models_refresh_sidebar_list_counts():
             sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects where alertWorkflowLocation="%(thisList)s") where listname = "%(thisList)s" """ % locals(
             )
             self.request.db.execute(sqlQuery)
+            self.request.db.commit()
+
+        # finally count all objects
+        sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects) where listname = "all" """ % locals(
+        )
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
 
         # content for response
         responseContent += "<BR>updated `alertWorkflowLocation` in `meta_workflow_lists_counts` table"

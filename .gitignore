@@ -19,6 +19,7 @@ _ignore_*
 /*.egg-info
 /*.egg
 marshall_webapp/static/caches/*
+marshall_webapp/static/caches
 README.rst
 ## Apache logs
 logs/*.log
@@ -28,4 +29,4 @@ test_database.sql
 /marshall_webapp/private/*
 path_to_settings.yaml
 config.codekit
-marshall_webapp/config.codekit
+caches

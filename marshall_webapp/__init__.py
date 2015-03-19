@@ -114,6 +114,7 @@ def main(global_config, **settings):
             use_unicode=True,
             charset='utf8'
         )
+        dbConn.autocommit(True)
         config.add_settings({"dbConn": dbConn})
 
     # add some deafult renderers

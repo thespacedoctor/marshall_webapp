@@ -10,7 +10,7 @@ apache prefix: ""
 eso archive credentials:
     username: nbd
     password: 31bAR07
-
+ 
 nttarchiver:
     path to dropbox folder: "/Users/Dave/git_repos/pessto_marshall_engine/pessto_marshall_engine/tests/input/data/marshall_dropbox"
     path to archive root folder: "/tmp/marshall_archive"
@@ -46,6 +46,9 @@ credentials:
     skymapper:
         username: pessto
         password: "!explosions"
+    google_drive:
+        username: d.r.young@qub.ac.uk
+        password: "i8VLH)+d7rm}22o9P;W%&yRa7pmu7P"
 
 panstarrs urls:
     summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"

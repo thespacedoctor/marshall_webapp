@@ -27,6 +27,12 @@ credentials:
     ps1-fgss:
         username: ps1sc
         password: skysurveys
+    google_drive:
+        username: d.r.young@qub.ac.uk
+        password: "i8VLH)+d7rm}22o9P;W%&yRa7pmu7P"
+
+asasn settings:
+    discoveries google sheet id: "1A9NOjQTS4nSt_KSb0YUTlQ0utTARjcGT5UWbsADcY1M#gid=0"
 
 ## webapp secrets
 secrets:
@@ -126,7 +132,7 @@ logging settings:
             # mode: w
         debug_file:
             class: logging.handlers.GroupWriteRotatingFileHandler
-            level: DEBUG
+            level: WARNING
             formatter: file_style
             filename: /misc/pessto/git_repos/pessto_webapp/logs/marshall_debug.log
             mode: w+
@@ -147,5 +153,5 @@ logging settings:
         #    maxBytes: 100000000
         #    backupCount: 3
     root:
-        level: WARNING
+        level: DEBUG
         handlers: [file,console]
