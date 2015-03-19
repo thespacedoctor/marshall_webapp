@@ -370,6 +370,10 @@ def identity_block(
             onDesktop=True
         )
 
+        # convert bytes to unicode
+        if isinstance(pi, str):
+            pi = unicode(pi, encoding="utf-8", errors="replace")
+
     transientId = cu.little_label(
         text="pessto id: ",
         lineBreak=False
@@ -428,7 +432,12 @@ def identity_block(
         onDesktop=True
     )
 
-    return "%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(transientId)s " % locals()
+    content = u"%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(transientId)s " % locals(
+    )
+    if isinstance(content, str):
+        content = unicode(content, encoding="utf-8", errors="replace")
+
+    return content
 
 
 ###################################################################
