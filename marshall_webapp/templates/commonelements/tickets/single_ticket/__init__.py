@@ -118,6 +118,28 @@ def single_ticket(
     )
     tabDictionary["ticket history"] = historyTab
 
+    developmentTab = tabs.development.development_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        objectHistories=objectHistories
+    )
+    if developmentTab:
+        tabDictionary["development"] = developmentTab
+
+    dryxTab = tabs.dryx.dryx_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        objectHistories=objectHistories
+    )
+    if dryxTab:
+        tabDictionary["dryx"] = dryxTab
+
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
     # build the single ticket
@@ -274,7 +296,8 @@ def _ticket_tab_template(
 
     ticket_tab = khufu.grid_row(
         responsive=True,
-        columns=u"%(tabHeader)s %(theseBlocks)s %(tabFooter)s" % locals(),
+        columns=u"%(tabHeader)s %(theseBlocks)s %(tabFooter)s" % locals(
+        ),
         htmlId=False,
         htmlClass=htmlId,
         onPhone=True,
