@@ -22,9 +22,7 @@ $(function() {
 
 // Function above repeated for Pyramid version of the marshall classification form
 $(function() {
-
     $(".classificationForm").on("change", "select[name='clsClassificationWRTMax']", function() {
-
         var classPhase = $(this).val();
         var phaseInput = $(this).closest("form").find("input[name='clsClassificationPhase']");
         var prepend = phaseInput.closest("div.input-prepend").find("span.add-on");

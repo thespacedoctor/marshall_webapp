@@ -71,7 +71,6 @@ def dryx_tab(
     for item in request.effective_principals:
         if "group:" in item:
             group = item.replace("group:", "")
-            print group
     if group not in ["superadmin"]:
         return None
 

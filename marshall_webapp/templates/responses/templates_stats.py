@@ -256,7 +256,7 @@ class templates_stats():
     </div>
     """
 
-            htmlContent += khufu.plots.svgchart.svgchart(
+            htmlContent += khufu.plots.svg.svg(
                 htmlClass=htmlClass,
                 csvUrl=False,
                 disable=False,
