@@ -260,7 +260,7 @@ def identity_block(
     if len(rows) == 0:
         akaTitle = ""
     elif len(rows) == 1:
-        akaTitle = "<br>aka: "
+        akaTitle = "aka: "
         row = rows[0]
         aka = row["name"]
         size = 3
@@ -281,7 +281,7 @@ def identity_block(
         )
         akaList = aka
     else:
-        akaTitle = "<br>akas: "
+        akaTitle = "akas: "
         for row in rows:
             log.debug('aka: %s' % (row,))
             aka = row["name"]
@@ -319,6 +319,15 @@ def identity_block(
             lineBreak=False
         )
         akaList = "%(akaTitle)s %(akaList)s" % locals()
+        akaList = khufu.grid_row(
+            responsive=True,
+            columns=akaList,
+            htmlId=False,
+            htmlClass="akaList",
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
 
     pi = ""
     if discoveryDataDictionary["classifiedFlag"] == 1:
@@ -371,6 +380,44 @@ def identity_block(
         size=3,
     )
 
+    observationalPriority = ""
+    if discoveryDataDictionary["marshallWorkflowLocation"] in ["following", "pending observation"]:
+        observationalPriority = cu.little_label(
+            text="priority: ",
+            lineBreak=False
+        )
+        if discoveryDataDictionary["marshallWorkflowLocation"] == "following":
+            pList = ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"]
+            for n, w, c in zip([1, 2, 3, 4], pList, ["green", "yellow", "red", "blue"]):
+                if discoveryDataDictionary["observationPriority"] == n:
+                    thisObservationalPriority = w
+                    thisColor = c
+        else:
+            pList = ["HIGH", "MEDIUM", "LOW"]
+            for n, w, c in zip([1, 2, 3], pList, ["green", "yellow", "red"]):
+                if discoveryDataDictionary["observationPriority"] == n:
+                    thisObservationalPriority = w
+                    thisColor = c
+
+        thisObservationalPriority = "<strong>%(thisObservationalPriority)s</strong>" % locals(
+        )
+        thisObservationalPriority = khufu.coloredText(
+            text=thisObservationalPriority,
+            color=thisColor,
+            size=3,
+            htmlClass="priorityLabel"
+        )
+        observationalPriority = khufu.grid_row(
+            responsive=True,
+            columns="%(observationalPriority)s %(thisObservationalPriority)s" % locals(
+            ),
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+
     transientId = khufu.grid_row(
         responsive=True,
         columns="%(transientId)s %(thisTransientBucketId)s" % locals(),
@@ -381,7 +428,7 @@ def identity_block(
         onDesktop=True
     )
 
-    return "%(title)s %(masterName)s %(objectStamp)s %(pi)s %(akaList)s %(transientId)s" % locals()
+    return "%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(transientId)s " % locals()
 
 
 ###################################################################

@@ -2,6 +2,8 @@
 import os
 import sys
 import atexit
+import time
+
 import mod_wsgi.server
 
 working_directory = '/misc/pessto/git_repos/marshall_webapp'
@@ -17,10 +19,13 @@ newrelic_environment = ''
 reload_on_changes = False
 debug_mode = False
 enable_debugger = False
+debugger_startup = False
 enable_coverage = False
 coverage_directory = ''
 enable_profiler = False
-profiler_output_file = ''
+profiler_directory = ''
+enable_recorder = False
+recorder_directory = ''
 
 if python_paths:
     sys.path.extend(python_paths)
@@ -46,7 +51,9 @@ if enable_coverage:
 
 def output_profiler_data():
     profiler_info.disable()
-    profiler_info.dump_stats(profiler_output_file)
+    output_file = '%s-%d.pstats' % (int(time.time()*1000000), os.getpid())
+    output_file = os.path.join(profiler_directory, output_file)
+    profiler_info.dump_stats(output_file)
 
 if enable_profiler:
     from cProfile import Profile
@@ -63,7 +70,9 @@ if with_newrelic_agent:
 handler = mod_wsgi.server.ApplicationHandler(entry_point,
         application_type=application_type, callable_object=callable_object,
         mount_point=mount_point, with_newrelic_agent=with_newrelic_agent,
-        debug_mode=debug_mode, enable_debugger=enable_debugger)
+        debug_mode=debug_mode, enable_debugger=enable_debugger,
+        debugger_startup=debugger_startup, enable_recorder=enable_recorder,
+        recorder_directory=recorder_directory)
 
 reload_required = handler.reload_required
 handle_request = handler.handle_request

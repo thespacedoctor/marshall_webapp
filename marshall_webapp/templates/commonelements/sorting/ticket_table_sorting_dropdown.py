@@ -59,7 +59,7 @@ def ticket_table_sorting_dropdown(
         elementId = False
 
     theseParams = dict(request.params)
-    alist = ["sortBy", "sortDesc", "limit", "pageStart"]
+    alist = ["sortBy", "sortDesc"]
     for i in alist:
         if i in theseParams:
             del theseParams[i]
@@ -89,7 +89,8 @@ def ticket_table_sorting_dropdown(
         "redshift",
         "latest comment date",
         "current magnitude",
-        "pi"
+        "pi",
+        "priority"
     ]
 
     # remove options not available for inbox items
@@ -97,6 +98,9 @@ def ticket_table_sorting_dropdown(
         optionList.remove("classification date")
         optionList.remove("spectral type")
         optionList.remove("pi")
+
+    if "mwl" not in theseParams or theseParams["mwl"] not in ["pending observation", "allObsQueue", "following"]:
+        optionList.remove("priority")
 
     dbSortBy = sortBy
     if sortBy == "raDeg":
@@ -127,10 +131,15 @@ def ticket_table_sorting_dropdown(
         sortBy = "current magnitude"
     if sortBy == "pi_name":
         sortBy = "pi"
+    if sortBy == "observationPriority":
+        sortBy = "priority"
 
     optionList = sorted(optionList)
     if sortBy:
-        optionList.remove(sortBy)
+        try:
+            optionList.remove(sortBy)
+        except:
+            pass
 
     # add links to options
     linkList = []
@@ -163,6 +172,8 @@ def ticket_table_sorting_dropdown(
             dbOption = "currentMagnitude"
         if option == "pi":
             dbOption = "pi_name"
+        if option == "priority":
+            dbOption = "observationPriority"
 
         theseParams["sortBy"] = dbOption
         theseParams["sortDesc"] = False

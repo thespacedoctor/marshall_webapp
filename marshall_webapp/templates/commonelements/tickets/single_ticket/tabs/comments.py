@@ -83,6 +83,7 @@ def comments_tab(
 
     # EXTRA OVERVIEW INFO
     ## VARIABLES ##
+
     identity_block = ticket_building_blocks.identity_block.identity_block(
         log=log,
         request=request,

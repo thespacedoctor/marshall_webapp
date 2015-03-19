@@ -190,19 +190,24 @@ class templates_transients_obs():
             od["b6_DET.WIN1.UIT1"] = 1500
             od["b5_DET.WIN1.UIT1"] = 40
             filename = """%(filename)sfainter_19p5""" % locals()
+        elif currentMag > 20.5:
+            obText = "object too faint"
+            return None, None
         else:
-            obText = "object too bright"
-            return
+            obText = "object too faint"
+            return None, None
 
         filename = """%(filename)s_cls_g%(grism)s_s""" % locals()
         if badSeeing is not False:
             filename = """%(filename)s1p5""" % locals()
         else:
             filename = """%(filename)s1""" % locals()
-        od["b1_name"] = filename
-        od["b4_OBSERVATION.DESCRIPTION.NAME"] = filename
 
         nameForFilename = objectName.replace("-", "")
+
+        od["b1_name"] = "class_" + nameForFilename[0:23]
+        od["b4_OBSERVATION.DESCRIPTION.NAME"] = filename
+
         filename = nameForFilename[0:15] + "_%(filename)s" % locals()
         downloadFilename = "%(filename)s.obx" % locals()
 
