@@ -124,12 +124,13 @@ def transient_d3_lightcurve(
     log.info('starting the ``transient_d3_lightcurve`` function')
 
     svg = khufu.svg.svg(
-        htmlClass=False,
+        htmlClass="example01",
         csvUrl="#",
         disable=False,
         htmlId=False,
         chartType="",
-        span=12
+        span=12,
+        height="500px"
     )
 
     log.info('completed the ``transient_d3_lightcurve`` function')

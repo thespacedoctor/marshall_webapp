@@ -254,7 +254,8 @@ def _ticket_tab_template(
             thisSpan = span + 1
         count += 1
         if thisSpan == 12:
-            thisSpan = 11
+            if "overviewWell" in block:
+                thisSpan = 11
 
         block = khufu.grid_column(
             span=thisSpan,
