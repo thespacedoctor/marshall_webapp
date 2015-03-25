@@ -161,7 +161,7 @@ def ticket_table_sorting_dropdown(
         if option == "absolute peak magnitude":
             dbOption = "absolutePeakMagnitude"
         if option == "spectral type":
-            dbOption = "spectralType"
+            dbOption = "recentClassification"
         if option == "classification date":
             dbOption = "classificationDate"
         if option == "redshift":
