@@ -75,7 +75,9 @@ def development_tab(
         return None
 
     lightcurve = transient_d3_lightcurve(
-        log=log
+        log=log,
+        discoveryDataDictionary=discoveryDataDictionary,
+        request=request
     )
 
     development_tab = single_ticket._ticket_tab_template(
@@ -104,7 +106,9 @@ def development_tab(
 
 
 def transient_d3_lightcurve(
-        log):
+        log,
+        discoveryDataDictionary,
+        request):
     """transient d3 lightcurve
 
     **Key Arguments:**
@@ -123,14 +127,21 @@ def transient_d3_lightcurve(
     """
     log.info('starting the ``transient_d3_lightcurve`` function')
 
+    print discoveryDataDictionary[
+        "transientBucketId"]
+
+    href = request.route_path('transients_element_lightcurves', elementId=discoveryDataDictionary[
+                              "transientBucketId"], _query={'format': 'd3'})
+
     svg = khufu.svg.svg(
         htmlClass="example01",
-        csvUrl="#",
+        dataUrl=href,
+        dataFormat="json",
         disable=False,
         htmlId=False,
-        chartType="",
-        span=12,
-        height="500px"
+        chartType="lightcurve",
+        span=7,
+        height="square"
     )
 
     log.info('completed the ``transient_d3_lightcurve`` function')

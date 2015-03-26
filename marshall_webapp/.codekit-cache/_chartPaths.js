@@ -1,4 +1,4 @@
-// _chartLine.js
+// _chartPath.js
 // =============
 // Author: Dave Young
 // Date created: June 11, 2014
@@ -7,7 +7,7 @@
 // xjs-ready-event-function
 // xjs-get-json-response-from-python-script
 
-var chartLine = (function() {
+var chartPath = function() {
 
     // -------------- Instantiate Module Attributes ---------------- // 
     var settings = null;
@@ -74,4 +74,4 @@ var chartLine = (function() {
             // xt-public-pointers
     };
 
-})();
+};

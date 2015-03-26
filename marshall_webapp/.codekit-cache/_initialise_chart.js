@@ -1,7 +1,5 @@
 var initialise_chart = function() {
 
-    alert("ok");
-
     console.log('setUpChart function triggered');
 
     // varibale attributes
