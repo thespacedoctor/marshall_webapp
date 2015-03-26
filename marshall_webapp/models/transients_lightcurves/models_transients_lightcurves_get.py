@@ -116,4 +116,34 @@ class models_transients_lightcurves_get():
         return None
 
     # use the tab-trigger below for new method
+    def get_metadata(
+            self):
+        """ extra metadata
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean get_metadata method
+            - @review: when complete add logging
+        """
+        self.log.info('starting the ``get_metadata`` method')
+
+        transientBucketId = self.elementId
+
+        sqlQuery = u"""
+            select * from transientBucketSummaries where transientBucketId = %(transientBucketId)s
+        """ % locals()
+        extraMetadataTmp = self.request.db.execute(sqlQuery).fetchall()
+        extraMetadata = []
+        extraMetadata[:] = [dict(zip(row.keys(), row))
+                            for row in extraMetadataTmp]
+
+        self.log.info('completed the ``get_metadata`` method')
+        return extraMetadata
+
+    # use the tab-trigger below for new method
     # xt-class-method

@@ -91,7 +91,6 @@ class transients_elements_lightcurve_view(object):
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        # return {u"nice": u"nice"}
         return transients_lightcurves.get()
 
     @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table", permission="view_users")
@@ -102,5 +101,15 @@ class transients_elements_lightcurve_view(object):
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        # return {u"nice": u"nice"}
+        return transients_lightcurves.get()
+
+    @view_config(request_method='GET', request_param="format=d3", renderer="json", permission="view_users")
+    @view_config(request_param=["method=get", "format=d3"], renderer="json", permission="view_users")
+    def get_d3(self):
+        transients_lightcurves = templates_transients_lightcurves(
+            log=self.log,
+            request=self.request,
+            elementId=self.request.matchdict["elementId"],
+            format="d3"
+        )
         return transients_lightcurves.get()
