@@ -1,4 +1,4 @@
-// _chartLine.js
+// _chartPath.js
 // =============
 // Author: Dave Young
 // Date created: June 11, 2014
@@ -7,24 +7,28 @@
 // xjs-ready-event-function
 // xjs-get-json-response-from-python-script
 
-var chartLine = (function() {
+var chartPath = function() {
 
     // -------------- Instantiate Module Attributes ---------------- // 
     var settings = null;
     var area = null;
     // xt-initialise-variable
 
-    // -------------- Public Methods ---------------- //
+    // -------------- PUBLIC METHODS ---------------- //
     var initialise_path_for_chart = function(settings) {
         // console.log('initialise_path_for_chart function triggered');
 
         // xt-set-setting-if-defined
-        area = _get_area(settings)
+        if (settings.area) {
+            area = _get_area(settings);
+        } else {
+            area = undefined;
+        }
         return {
             line: _get_valueline(settings),
             area: area,
-            xValues: settings.xValues,
-            yValues: settings.yValues,
+            x1Values: settings.x1Values,
+            y1Values: settings.y1Values,
             id: settings.id,
             color: settings.color,
         }
@@ -41,10 +45,10 @@ var chartLine = (function() {
         valueline = d3.svg.line()
             .interpolate("basis")
             .x(function(d) {
-                return settings.axes.x(d[settings.xValues]);
+                return settings.axes.x1(d[settings.x1Values]);
             })
             .y(function(d) {
-                return settings.axes.y(d[settings.yValues]);
+                return settings.axes.y1(d[settings.y1Values]);
             });
         return valueline
     }
@@ -54,18 +58,18 @@ var chartLine = (function() {
         area = d3.svg.area()
             .interpolate("basis")
             .x(function(d) {
-                return settings.axes.x(d[settings.xValues]);
+                return settings.axes.x1(d[settings.x1Values]);
             })
             .y0(settings.chart.height)
             .y1(function(d) {
-                return settings.axes.y(d[settings.yValues]);
+                return settings.axes.y1(d[settings.y1Values]);
             });
         return area
     }
 
     // xt-function-as-named-variable
 
-    // -------------- Private Helper Methods ---------------- //
+    // -------------- PRIVATE HELPER METHODS ---------------- //
     // xt-function-as-named-variable
 
     //--- Reveal public pointers to private methods and attributes ---//
@@ -74,4 +78,4 @@ var chartLine = (function() {
             // xt-public-pointers
     };
 
-})();
+};
