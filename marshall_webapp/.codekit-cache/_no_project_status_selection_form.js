@@ -18,11 +18,11 @@ var _no_project_status_selection_form = (function() {
         fade_and_hide(row);
     });
 
-    // -------------- Public Methods ---------------- //
+    // -------------- PUBLIC METHODS ---------------- //
     // xt-update-object-settings-method
     // xt-function-as-named-variable
 
-    // -------------- Private Helper Methods ---------------- //
+    // -------------- PRIVATE HELPER METHODS ---------------- //
     // xt-function-as-named-variable
 
     //--- Reveal public pointers to private methods and attributes ---//

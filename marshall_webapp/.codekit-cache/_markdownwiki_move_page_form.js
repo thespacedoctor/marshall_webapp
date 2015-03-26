@@ -39,7 +39,7 @@ var _markdownwiki_move_page_form = (function() {
         // remove newer branches
         $("select[branch]").each(function(index) {
             if ($(this).attr("branch") > branch) {
-                console.log('this branch > last. branch no: ' + $(this).attr("branch"));
+                //   console.log('this branch > last. branch no: ' + $(this).attr("branch"));
                 $(this).closest(".controls").fadeOut(200, function() {
                     $(this).remove();
                 });
@@ -60,7 +60,7 @@ var _markdownwiki_move_page_form = (function() {
             thisUrl = "/apollo/assets/scripts/dryxScripts/sql_to_json.py?sqlQuery="
         } else {
             thisUrl = "/assets/scripts/dryxScripts/sql_to_json.py?sqlQuery="
-            console.log('window.location: ' + window.location);
+                //   console.log('window.location: ' + window.location);
 
         }
         sqlToJson = $.ajax({
@@ -91,9 +91,9 @@ var _markdownwiki_move_page_form = (function() {
                             thisOption = '<option value="' + results[i].pageId + '">' + results[i].title + '</option>'
                             thisSelect.append(thisOption);
                             checkArray.push(results[i].pageId);
-                            console.log('pageId: ' + results[i].pageId);
+                            //   console.log('pageId: ' + results[i].pageId);
                         } else {
-                            console.log('nope!: ' + results[i].pageId);
+                            //   console.log('nope!: ' + results[i].pageId);
                         }
                     });
                     thisForm.append(newOptions);
