@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ssdr1_stats_table.py
+ssdr_stats_table.py
 ====================
 :Summary:
-    The stats table for ESO Phase III SSDR1
+    The stats table for ESO Phase III SSDR
 
 :Author:
     David Young
@@ -34,25 +34,28 @@ import khufu
 # AUTHOR : DRYX
 
 
-def ssdr1_stats_table(
+def ssdr_stats_table(
         log,
-        request):
-    """ssdr1 stats table
+        request,
+        releaseVersion):
+    """ssdr stats table
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
+        - ``releaseVersion`` -- which release
 
     **Return:**
-        - ``table`` -- the ssdr1 FITS file stats table
+        - ``table`` -- the ssdr FITS file stats table
 
     **Todo**
     """
-    log.info('starting the ``ssdr1_stats_table`` function')
+    log.info('starting the ``ssdr_stats_table`` function')
 
     # get the table data
+    thisTable = releaseVersion.lower()
     sqlQuery = """
-        select * from stats_ssdr1_overview
+        select * from stats_%(thisTable)s_overview
     """ % locals()
     rowsTmp = request.db.execute(sqlQuery).fetchall()
     rows = []
@@ -108,7 +111,7 @@ def ssdr1_stats_table(
         tableBody = "%(tableBody)s%(tr)s" % locals()
 
     sqlQuery = """
-        select sum(numberOfFiles) as numberOfFiles, sum(dataVolumeBytes) as dataVolumeBytes from stats_ssdr1_overview
+        select sum(numberOfFiles) as numberOfFiles, sum(dataVolumeBytes) as dataVolumeBytes from stats_%(thisTable)s_overview
     """ % locals()
     rowsTmp = request.db.execute(sqlQuery).fetchall()
     rows = []
@@ -154,7 +157,7 @@ def ssdr1_stats_table(
         striped=True
     )
 
-    log.info('completed the ``ssdr1_stats_table`` function')
+    log.info('completed the ``ssdr_stats_table`` function')
     return table
 
 ###################################################################

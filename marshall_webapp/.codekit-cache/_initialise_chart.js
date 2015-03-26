@@ -1,6 +1,8 @@
 var initialise_chart = function() {
 
-    // console.log('setUpChart function triggered');
+    alert("ok");
+
+    console.log('setUpChart function triggered');
 
     // varibale attributes
     var margin = {

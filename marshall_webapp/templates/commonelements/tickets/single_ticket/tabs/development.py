@@ -71,15 +71,18 @@ def development_tab(
     for item in request.effective_principals:
         if "group:" in item:
             group = item.replace("group:", "")
-            print group
     if group not in ["superadmin"]:
         return None
+
+    lightcurve = transient_d3_lightcurve(
+        log=log
+    )
 
     development_tab = single_ticket._ticket_tab_template(
         log,
         request=request,
         tabHeader=False,
-        blockList=["development content"],
+        blockList=[lightcurve],
         tabFooter=False,
         htmlId="developmenttab"
     )
@@ -91,6 +94,47 @@ def development_tab(
 
     log.info('completed the ``development_tab`` function')
     return development_tab
+
+# use the tab-trigger below for new function
+# LAST MODIFIED : March 19, 2015
+# CREATED : March 19, 2015
+# AUTHOR : DRYX
+# copy usage method(s) into function below and select the following snippet from the command palette:
+# x-setup-worker-function-parameters-from-usage-method
+
+
+def transient_d3_lightcurve(
+        log):
+    """transient d3 lightcurve
+
+    **Key Arguments:**
+        - ``dbConn`` -- mysql database connection
+        - ``log`` -- logger
+        # copy usage method(s) here and select the following snippet from the command palette:
+        # x-setup-docstring-keys-from-selected-usage-options
+
+    **Return:**
+        - None
+
+    **Todo**
+        - @review: when complete, clean transient_d3_lightcurve function
+        - @review: when complete add logging
+        - @review: when complete, decide whether to abstract function to another module
+    """
+    log.info('starting the ``transient_d3_lightcurve`` function')
+
+    svg = khufu.svg.svg(
+        htmlClass="example01",
+        csvUrl="#",
+        disable=False,
+        htmlId=False,
+        chartType="",
+        span=12,
+        height="500px"
+    )
+
+    log.info('completed the ``transient_d3_lightcurve`` function')
+    return svg
 
 # use the tab-trigger below for new function
 # xt-def-with-logger

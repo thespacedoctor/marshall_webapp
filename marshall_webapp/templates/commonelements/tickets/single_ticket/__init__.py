@@ -73,6 +73,17 @@ def single_ticket(
     import collections
     tabDictionary = collections.OrderedDict(sorted(tabDictionary.items()))
 
+    developmentTab = tabs.development.development_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        objectHistories=objectHistories
+    )
+    if developmentTab:
+        tabDictionary["development"] = developmentTab
+
     # grab the various tabs that make up a single ticket
     overviewTab = tabs.overview.overview_tab(
         log=log,
@@ -117,17 +128,6 @@ def single_ticket(
         objectHistories=objectHistories
     )
     tabDictionary["ticket history"] = historyTab
-
-    developmentTab = tabs.development.development_tab(
-        log=log,
-        request=request,
-        discoveryDataDictionary=discoveryDataDictionary,
-        objectAkas=objectAkas,
-        atelData=atelData,
-        objectHistories=objectHistories
-    )
-    if developmentTab:
-        tabDictionary["development"] = developmentTab
 
     dryxTab = tabs.dryx.dryx_tab(
         log=log,
@@ -254,7 +254,8 @@ def _ticket_tab_template(
             thisSpan = span + 1
         count += 1
         if thisSpan == 12:
-            thisSpan = 11
+            if "overviewWell" in block:
+                thisSpan = 11
 
         block = khufu.grid_column(
             span=thisSpan,
