@@ -96,6 +96,8 @@ def main(global_config, **settings):
 
     # static views
     config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_static_view(
+        '.codekit-cache', '.codekit-cache', cache_max_age=3600)
 
     # add database connection as a setting (incase we want to use MySQLdb over
     # sqlachemy)

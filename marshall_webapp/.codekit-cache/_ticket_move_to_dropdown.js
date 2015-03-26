@@ -1,5 +1,5 @@
 $(function() {
-    console.log('move to links');
+    //   console.log('move to links');
 
     $("a.ticketMoveToLink").bind("click", function(event) {
         // alert("found you");
