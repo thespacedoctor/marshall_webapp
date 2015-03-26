@@ -24,11 +24,11 @@ var submit_modal_forms = (function() {
 
     // xt-initialise-variable
 
-    // -------------- Public Methods ---------------- //
+    // -------------- PUBLIC METHODS ---------------- //
     // xt-update-object-settings-method
     // xt-function-as-named-variable
 
-    // -------------- Private Helper Methods ---------------- //
+    // -------------- PRIVATE HELPER METHODS ---------------- //
     // xt-function-as-named-variable
 
     //--- Reveal public pointers to private methods and attributes ---//

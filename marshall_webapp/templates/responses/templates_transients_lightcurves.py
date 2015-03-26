@@ -36,6 +36,7 @@ class templates_transients_lightcurves():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element requested (or False)
+        - ``format`` -- format
 
     **Todo**
     """
@@ -45,11 +46,13 @@ class templates_transients_lightcurves():
         self,
         log,
         request,
-        elementId=False
+        elementId=False,
+        format=False
     ):
         self.log = log
         self.request = request
         self.elementId = elementId
+        self.format = format
         # xt-self-arg-tmpx
 
         log.debug(
@@ -83,6 +86,18 @@ class templates_transients_lightcurves():
             elementId=self.elementId
         )
         responseContent = transients_lightcurves.get()
+        metadata = transients_lightcurves.get_metadata()
+        metadata = metadata[0]
+
+        chartAttributes = {}
+        chartAttributes["title"] = metadata["masterName"]
+        chartAttributes["x1title"] = "MJD"
+        chartAttributes["x2title"] = "Date"
+        chartAttributes["y1title"] = "Apparent Magnitude"
+
+        if self.format:
+            responseContent = {
+                u"chartAttributes": chartAttributes, u"chartData": responseContent}
 
         self.log.info('completed the ``get`` method')
         return responseContent

@@ -15,7 +15,7 @@ var example01 = (function() {
     // Setup the datalines
     var dataLineArray = new Array();
 
-    var dataline = chartLine.initialise_dataline({
+    var dataline = chartLine.initialise_path({
         axes: axes,
         chart: chart,
         xValues: "date",
@@ -25,7 +25,7 @@ var example01 = (function() {
     });
     dataLineArray.push(dataline);
 
-    var dataline = chartLine.initialise_dataline({
+    var dataline = chartLine.initialise_path({
         axes: axes,
         chart: chart,
         xValues: "date",
