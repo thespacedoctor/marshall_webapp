@@ -9,7 +9,7 @@ $(function() {
     }
 });
 //@codekit-prepend "_test_chart.js"; 
-// @//codekit-prepend "_example01.js"; 
+//@codekit-prepend "_example01.js"; 
 // @codekit-prepend "_example02.js"; 
 // @//codekit-prepend "_example03.js"; 
 // @//codekit-prepend "_example04.js"; 

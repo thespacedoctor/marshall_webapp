@@ -28,5 +28,4 @@ test_database.sql
 /logs/log.html
 /marshall_webapp/private/*
 path_to_settings.yaml
-config.codekit
 caches

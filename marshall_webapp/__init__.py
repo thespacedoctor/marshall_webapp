@@ -73,12 +73,14 @@ def main(global_config, **settings):
         'transients_search', '/transients/search')
     config.add_route('transients_element', '/transients/{elementId}')
     config.add_route('stats', '/stats')
+    config.add_route('stats_element', '/stats/{elementId}')
     config.add_route('calendars', '/calendars')
     config.add_route(
         'refresh_sidebar_list_counts', '/actions/refresh_sidebar_list_counts')
 
     config.add_route(
         'transients_element_history', '/transients/{elementId}/history')
+
     # --- end of routes --- #
     # xpyr-add-route
 

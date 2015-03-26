@@ -209,19 +209,24 @@ def _get_esoPhaseIII_links(
         pager=False  # [ False | "previous" | "next" ]
     )
 
-    SSDR1Link = khufu.a(
-        content='SSDR1',
-        href=request.route_path('stats'),
-        tableIndex=False,
-        triggerStyle=False
-    )
+    releaseLinks = []
+    releaseVersions = ["SSDR1", "SSDR2"]
+    for releaseVersion in releaseVersions:
+        SSDRLink = khufu.a(
+            content=releaseVersion,
+            href=request.route_path('stats_element', elementId=releaseVersion),
+            tableIndex=False,
+            triggerStyle=False
+        )
+        SSDRLink = khufu.li(
+            content=SSDRLink,
+        )
+        releaseLinks.append(SSDRLink)
 
-    SSDR1Link = khufu.li(
-        content=SSDR1Link,
-    )
+    releaseLinks.insert(0, title)
 
     linkList = khufu.ul(
-        itemList=[title, SSDR1Link, ],  # e.g a list links
+        itemList=releaseLinks,  # e.g a list links
         unstyled=False,
         inline=False,
         dropDownMenu=False,  # [ false | true ]
