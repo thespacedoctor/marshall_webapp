@@ -82,7 +82,8 @@ def single_ticket(
         objectHistories=objectHistories
     )
     if developmentTab:
-        tabDictionary["development"] = developmentTab
+        pass
+        # tabDictionary["development"] = developmentTab
 
     # grab the various tabs that make up a single ticket
     overviewTab = tabs.overview.overview_tab(
