@@ -4319,15 +4319,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/templates\/commonelements\/tickets\/single_ticket\/__init__.py": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/templates\/commonelements\/tickets\/single_ticket\/__init__.py",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/templates\/commonelements\/tickets\/single_ticket\/tabs\/__init__.py": {
 		"fileType": 8192,
 		"ignore": 0,
