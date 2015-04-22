@@ -113,7 +113,7 @@ def ticket_header_bar(
     if len(theseObjectComments):
         latestComment = theseObjectComments[0]["comment"].replace("&lt;a", "<a").replace(
             "&gt;ATEL", ">ATEL").replace("&lt;/a&gt;", "</a>").replace("&quot;", '"').replace("&gt;", ">").replace('href=http',  'href="http')
-        regex = re.compile(r'(href\=\"http.*?[\w\d])\>', re.S)
+        regex = re.compile(r'(href\=\"http[\w\d\.~/:?=]*?)\>', re.S)
         latestComment = regex.sub('\g<1>">', latestComment)
         # convert bytes to unicode
         if isinstance(latestComment, str):
