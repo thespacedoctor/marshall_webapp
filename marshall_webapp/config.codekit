@@ -4319,6 +4319,15 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/templates\/commonelements\/tickets\/single_ticket\/__init__.py": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/templates\/commonelements\/tickets\/single_ticket\/__init__.py",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/templates\/commonelements\/tickets\/single_ticket\/tabs\/__init__.py": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -4409,15 +4418,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/templates\/commonelements\/tickets\/single_ticket\/ticket_building_blocks\/comments_block.py": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/templates\/commonelements\/tickets\/single_ticket\/ticket_building_blocks\/comments_block.py",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/templates\/commonelements\/tickets\/single_ticket\/ticket_building_blocks\/host_info_block.py": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -4490,15 +4490,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/templates\/commonelements\/tickets\/single_ticket\/ticket_building_blocks\/ticket_header_bar.py": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/templates\/commonelements\/tickets\/single_ticket\/ticket_building_blocks\/ticket_header_bar.py",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/templates\/commonelements\/topnavbar\/__init__.py": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -4549,15 +4540,6 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/templates\/responses\/templates_stats.py",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/templates\/responses\/templates_transients.py": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/templates\/responses\/templates_transients.py",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
