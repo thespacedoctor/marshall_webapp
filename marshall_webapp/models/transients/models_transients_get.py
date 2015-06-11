@@ -114,7 +114,7 @@ class models_transients_get():
             # -
 
         **Return:**
-            - ``objectData``, ``matchedTransientBucketIds``, ``totalTicketCount`` -- 
+            - ``objectData``, ``matchedTransientBucketIds``, ``totalTicketCount`` --
 
         **Todo**
         """
@@ -546,6 +546,8 @@ class models_transients_get():
         tableColumnNames["raDeg"] = "ra"
         tableColumnNames["decDeg"] = "dec"
         tableColumnNames["recentClassification"] = "spectral class"
+        tableColumnNames["classificationPhase"] = "classification phase"
+        tableColumnNames["classificationWRTMax"] = "classificationWRTMax"
         tableColumnNames["transientTypePrediction"] = "prediction"
         tableColumnNames["currentMagnitude"] = "latest mag"
         tableColumnNames["absolutePeakMagnitude"] = "abs peak mag"
@@ -564,6 +566,8 @@ class models_transients_get():
             "raDeg",
             "decDeg",
             "recentClassification",
+            "classificationPhase",
+            "classificationWRTMax",
             "transientTypePrediction",
             "currentMagnitude",
             "absolutePeakMagnitude",
