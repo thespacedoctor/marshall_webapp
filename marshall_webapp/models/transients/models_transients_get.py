@@ -548,6 +548,7 @@ class models_transients_get():
         tableColumnNames["recentClassification"] = "spectral class"
         tableColumnNames["classificationPhase"] = "classification phase"
         tableColumnNames["classificationWRTMax"] = "classificationWRTMax"
+        tableColumnNames["classificationDate"] = "classification date"
         tableColumnNames["transientTypePrediction"] = "prediction"
         tableColumnNames["currentMagnitude"] = "latest mag"
         tableColumnNames["absolutePeakMagnitude"] = "abs peak mag"
@@ -568,6 +569,7 @@ class models_transients_get():
             "recentClassification",
             "classificationPhase",
             "classificationWRTMax",
+            "classificationDate",
             "transientTypePrediction",
             "currentMagnitude",
             "absolutePeakMagnitude",
