@@ -147,8 +147,8 @@ class models_transients_post():
             mjd = dat.getMJDFromSqlDate(
                 sqlDate=objectDate
             )
-        elif isinstance(objectDate, float):
-            mjd = objectDate
+        elif isinstance(objectDate, float) or isinstance(objectDate, str):
+            mjd = float(objectDate)
             objectDate = dat.getDateFromMJD(
                 mjd
             )
