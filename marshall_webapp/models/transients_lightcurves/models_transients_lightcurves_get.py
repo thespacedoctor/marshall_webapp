@@ -24,6 +24,7 @@ models_transients_lightcurves_get.py
 import sys
 import os
 import khufu
+import collections
 
 
 class models_transients_lightcurves_get():
@@ -86,11 +87,21 @@ class models_transients_lightcurves_get():
 
         # GRAB THE LIGHTCURVE DATA FOR THE OBJECT
         sqlQuery = """
-            select observationDate, observationMJD, magnitude, filter, survey from transientBucket where transientBucketId = %(transientBucketId)s and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 order by observationDate asc;
+            select observationMJD, observationDate, magnitude, magnitudeError, limitingMag, filter, survey from transientBucket where transientBucketId = %(transientBucketId)s and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 order by observationDate asc;
         """ % locals()
         lightCurveTmp = self.request.db.execute(sqlQuery).fetchall()
+        odict = collections.OrderedDict(sorted({}.items()))
         lightCurve = []
-        lightCurve[:] = [dict(zip(row.keys(), row)) for row in lightCurveTmp]
+
+        for row in lightCurveTmp:
+            odict = collections.OrderedDict(sorted({}.items()))
+            for key in row.keys():
+                if row[key] == None:
+                    value = "-"
+                else:
+                    value = row[key]
+                odict[key] = value
+            lightCurve.append(odict)
 
         self.log.info('completed the ``get`` method')
         return lightCurve

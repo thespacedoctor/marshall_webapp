@@ -292,7 +292,8 @@ class models_transients_get():
         objectData[:] = [dict(zip(row.keys(), row)) for row in tmpObjectData]
         # for row in objectData:
         #     row = dict(zip(row.keys(), row))
-        self.log.debug("""{objectData}""".format(**dict(globals(), **locals())))
+        self.log.debug(
+            """{objectData}""".format(**dict(globals(), **locals())))
 
         # get the total ticket count
         totalTicketCount = self._get_total_ticket_count_for_list(
@@ -404,12 +405,13 @@ class models_transients_get():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_associated_lightcurve_data`` method')
+        self.log.info(
+            'starting the ``_get_associated_lightcurve_data`` method')
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select transientBucketId, magnitude, filter, survey, surveyObjectUrl, observationDate from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 order by observationDate desc;
+            select transientBucketId, magnitude, filter, survey, surveyObjectUrl, observationDate from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 and limitingMag = 0 order by observationDate desc;
         """ % locals()
         lightCurveDataTmp = self.request.db.execute(sqlQuery).fetchall()
         lightCurveData = []
