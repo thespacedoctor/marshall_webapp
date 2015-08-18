@@ -123,7 +123,7 @@ logging settings:
             class: logging.handlers.GroupWriteRotatingFileHandler
             level: WARNING
             formatter: file_style
-            filename: /misc/pessto/git_repos/pessto_webapp/logs/marshall.log
+            filename: /misc/pessto/git_repos/marshall_webapp/logs/marshall.log
             mode: w+
             maxBytes: 100000000
             backupCount: 3
@@ -132,28 +132,6 @@ logging settings:
             # formatter: file_style
             # filename: /Users/Dave/Desktop/marshall.log
             # mode: w
-        debug_file:
-            class: logging.handlers.GroupWriteRotatingFileHandler
-            level: WARNING
-            formatter: file_style
-            filename: /misc/pessto/git_repos/pessto_webapp/logs/marshall_debug.log
-            mode: w+
-            maxBytes: 100000000
-            backupCount: 3
-        # html_log_file:
-        #    class: logging.FileHandler
-        #    level: WARNING
-        #    formatter: html_style
-        #    filename: /misc/pessto/git_repos/pessto_webapp/logs/log.html
-        #    mode: w
-        #html_debug_file:
-        #    class: logging.handlers.GroupWriteRotatingFileHandler
-        #    formatter: html_style
-        #    level: WARNING
-        #    filename: /misc/pessto/git_repos/pessto_webapp/logs/log_debug.html
-        #    mode: w+
-        #    maxBytes: 100000000
-        #    backupCount: 3
     root:
         level: WARNING
         handlers: [file,console]
