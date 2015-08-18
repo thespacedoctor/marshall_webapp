@@ -2045,3 +2045,253 @@
 [Tue Aug 18 14:30:15 2015] [notice] caught SIGTERM, shutting down
 [Tue Aug 18 14:30:15 2015] [info] mod_wsgi (pid=63556): Python has shutdown.
 [Tue Aug 18 14:30:15 2015] [info] mod_wsgi (pid=63556): Exiting process 'localhost:8090'.
+[Tue Aug 18 15:18:16 2015] [info] mod_wsgi (pid=422): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:16 2015] [notice] Apache/2.2.15 (Unix) mod_wsgi/4.4.5 Python/2.7.3 configured -- resuming normal operations
+[Tue Aug 18 15:18:16 2015] [info] Server built: Jul 24 2015 11:52:28
+[Tue Aug 18 15:18:16 2015] [info] mod_wsgi (pid=422): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:16 2015] [info] mod_wsgi (pid=422): Initializing Python.
+[Tue Aug 18 15:18:16 2015] [info] mod_wsgi (pid=422): Attach interpreter ''.
+[Tue Aug 18 15:18:16 2015] [info] mod_wsgi (pid=422): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:16 2015] [info] mod_wsgi (pid=422, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:18 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:18 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:18:20 2015] [notice] child pid 422 exit signal Segmentation fault (11)
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=422): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=422): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=422): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=444): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=444): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=444): Initializing Python.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=444): Attach interpreter ''.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=444): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:20 2015] [info] mod_wsgi (pid=444, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:21 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:21 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:18:23 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:23 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:23 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:23 2015] [notice] child pid 444 exit signal Segmentation fault (11)
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=444): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=444): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=444): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=462): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=462): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=462): Initializing Python.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=462): Attach interpreter ''.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=462): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:23 2015] [info] mod_wsgi (pid=462, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:24 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:24 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:18:26 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:26 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:26 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:26 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:26 2015] [notice] child pid 462 exit signal Segmentation fault (11)
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=462): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=462): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=462): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=481): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=481): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=481): Initializing Python.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=481): Attach interpreter ''.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=481): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:26 2015] [info] mod_wsgi (pid=481, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:27 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:27 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:18:29 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:29 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:29 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:18:29 2015] [notice] child pid 481 exit signal Segmentation fault (11)
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=481): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=481): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=481): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=498): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=498): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=498): Initializing Python.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=498): Attach interpreter ''.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=498): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:29 2015] [info] mod_wsgi (pid=498, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:30 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:30 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:18:32 2015] [notice] child pid 498 exit signal Segmentation fault (11)
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=498): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=498): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=498): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=515): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=515): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=515): Initializing Python.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=515): Attach interpreter ''.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=515): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:32 2015] [info] mod_wsgi (pid=515, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:33 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:33 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:18:35 2015] [notice] child pid 515 exit signal Segmentation fault (11)
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=515): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=515): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=515): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=532): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=532): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=532): Initializing Python.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=532): Attach interpreter ''.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=532): Imported 'mod_wsgi'.
+[Tue Aug 18 15:18:35 2015] [info] mod_wsgi (pid=532, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:18:36 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:18:36 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:19:36 2015] [notice] child pid 532 exit signal Segmentation fault (11)
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=532): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=532): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=532): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=560): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=560): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=560): Initializing Python.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=560): Attach interpreter ''.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=560): Imported 'mod_wsgi'.
+[Tue Aug 18 15:19:36 2015] [info] mod_wsgi (pid=560, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:19:37 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:19:37 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:19:39 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:39 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:40 2015] [notice] child pid 560 exit signal Segmentation fault (11)
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=560): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=560): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=560): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=580): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=580): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=580): Initializing Python.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=580): Attach interpreter ''.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=580): Imported 'mod_wsgi'.
+[Tue Aug 18 15:19:40 2015] [info] mod_wsgi (pid=580, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:19:41 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:19:41 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:19:43 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:43 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:43 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:43 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:44 2015] [notice] child pid 580 exit signal Segmentation fault (11)
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=580): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=580): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=580): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=600): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=600): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=600): Initializing Python.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=600): Attach interpreter ''.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=600): Imported 'mod_wsgi'.
+[Tue Aug 18 15:19:44 2015] [info] mod_wsgi (pid=600, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:19:46 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:19:46 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:19:49 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:49 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients
+[Tue Aug 18 15:19:50 2015] [notice] child pid 600 exit signal Segmentation fault (11)
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=600): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=600): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=600): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=618): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=618): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=618): Initializing Python.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=618): Attach interpreter ''.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=618): Imported 'mod_wsgi'.
+[Tue Aug 18 15:19:50 2015] [info] mod_wsgi (pid=618, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:19:51 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:19:51 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:19:54 2015] [notice] child pid 618 exit signal Segmentation fault (11)
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=618): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=618): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=618): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=637): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=637): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=637): Initializing Python.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=637): Attach interpreter ''.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=637): Imported 'mod_wsgi'.
+[Tue Aug 18 15:19:54 2015] [info] mod_wsgi (pid=637, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:19:55 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:19:55 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:19:58 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:19:59 2015] [notice] child pid 637 exit signal Segmentation fault (11)
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=637): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=637): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=637): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=656): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=656): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=656): Initializing Python.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=656): Attach interpreter ''.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=656): Imported 'mod_wsgi'.
+[Tue Aug 18 15:19:59 2015] [info] mod_wsgi (pid=656, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:20:00 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:20:00 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:20:02 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:02 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:02 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:03 2015] [notice] child pid 656 exit signal Segmentation fault (11)
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=656): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=656): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=656): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=685): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=685): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=685): Initializing Python.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=685): Attach interpreter ''.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=685): Imported 'mod_wsgi'.
+[Tue Aug 18 15:20:03 2015] [info] mod_wsgi (pid=685, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:20:04 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:20:04 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:20:06 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/static/styles/css/main_marshall.css
+[Tue Aug 18 15:20:06 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:06 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:07 2015] [notice] child pid 685 exit signal Segmentation fault (11)
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=685): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=685): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=685): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=704): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=704): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=704): Initializing Python.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=704): Attach interpreter ''.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=704): Imported 'mod_wsgi'.
+[Tue Aug 18 15:20:07 2015] [info] mod_wsgi (pid=704, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:20:08 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:20:08 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:20:10 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:10 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:10 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:10 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:10 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:11 2015] [notice] child pid 704 exit signal Segmentation fault (11)
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=704): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=704): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=704): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=722): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=722): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=722): Initializing Python.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=722): Attach interpreter ''.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=722): Imported 'mod_wsgi'.
+[Tue Aug 18 15:20:11 2015] [info] mod_wsgi (pid=722, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:20:12 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:20:12 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:20:14 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:14 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:14 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:14 2015] [error] [client 127.0.0.1] Truncated or oversized response headers received from daemon process 'localhost:8090': /misc/pessto/git_repos/marshall_webapp/apache/htdocs/marshall, referer: http://www.pessto.org/marshall/transients?snoozed=1
+[Tue Aug 18 15:20:14 2015] [notice] child pid 722 exit signal Segmentation fault (11)
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=722): Process 'localhost:8090' has died, deregister and restart it.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=722): Process 'localhost:8090' terminated by signal 11
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=722): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=741): Starting process 'localhost:8090' with threads=5.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=741): Python home /home/marshall/.virtualenv/marshall_webapp.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=741): Initializing Python.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=741): Attach interpreter ''.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=741): Imported 'mod_wsgi'.
+[Tue Aug 18 15:20:14 2015] [info] mod_wsgi (pid=741, process='localhost:8090', application=''): Loading WSGI script '/misc/pessto/git_repos/marshall_webapp/apache/handler.wsgi'.
+[Tue Aug 18 15:20:15 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:20:15 2015] [error]   warnings.warn(msg, UserWarning)
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Shutdown requested 'localhost:8090'.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Stopping process 'localhost:8090'.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Destroying interpreters.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Cleanup interpreter ''.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Terminating Python.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Process 'localhost:8090' to be deregistered, as server is restarting or being shutdown.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Process 'localhost:8090' has been deregistered and will no longer be monitored.
+[Tue Aug 18 15:21:15 2015] [info] removed PID file /misc/pessto/git_repos/marshall_webapp/apache/httpd.pid (pid=421)
+[Tue Aug 18 15:21:15 2015] [notice] caught SIGTERM, shutting down
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Python has shutdown.
+[Tue Aug 18 15:21:15 2015] [info] mod_wsgi (pid=741): Exiting process 'localhost:8090'.
+[Tue Aug 18 15:22:11 2015] [notice] Apache/2.2.15 (Unix) mod_wsgi/4.4.13 Python/2.7.3 configured -- resuming normal operations
+[Tue Aug 18 15:22:13 2015] [error] /home/marshall/.virtualenv/marshall_webapp/lib/python2.7/site-packages/pkg_resources.py:1045: UserWarning: /misc/pessto/git_repos/marshall_webapp/apache/python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+[Tue Aug 18 15:22:13 2015] [error]   warnings.warn(msg, UserWarning)
