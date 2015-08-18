@@ -73,24 +73,29 @@ def identity_block(
 
     q = discoveryDataDictionary['marshallWorkflowLocation'].lower()
 
+    if discoveryDataDictionary['snoozed'] == 1:
+        q = "snoozed"
+
     icon = ""
     if q == "inbox":
-        icon = """<i class="icon-inbox"></i>"""
+        icon = """<i class="icon-inbox"></i> inbox"""
     elif q == "review for followup":
-        icon = """<i class="icon-eye"></i>"""
+        icon = """<i class="icon-eye"></i> review for followup"""
     elif q == "following":
-        icon = """<i class="icon-pin"></i>"""
+        icon = """<i class="icon-pin"></i> following"""
     elif q == "archive":
-        icon = """<i class="icon-archive"></i>"""
+        icon = """<i class="icon-archive"></i> archive"""
     elif q == "pending observation":
-        icon = """<i class="icon-target2"></i>"""
+        icon = """<i class="icon-target2"></i> classification targets"""
     elif q == "followup complete":
-        icon = """<i class="icon-checkmark-circle"></i>"""
+        icon = """<i class="icon-checkmark-circle"></i> followup complete"""
+    elif q == "snoozed":
+        icon = """<i class="icon-alarm3"></i> snoozed""" % locals()
 
     icon = khufu.coloredText(
         text=icon,
-        color="green",
-        size=4,  # 1-10
+        color="cyan",
+        size=3,  # 1-10
         pull=False,  # "left" | "right"
     )
 
@@ -151,7 +156,7 @@ def identity_block(
         pull=False,  # "left" | "right"
     )
 
-    masterName = """%(icon)s %(masterName)s""" % locals()
+    masterName = """%(masterName)s""" % locals()
 
     masterName = khufu.grid_row(
         responsive=True,
@@ -424,7 +429,8 @@ def identity_block(
 
     transientId = khufu.grid_row(
         responsive=True,
-        columns="%(transientId)s %(thisTransientBucketId)s" % locals(),
+        columns="%(transientId)s %(thisTransientBucketId)s" % locals(
+        ),
         htmlId=False,
         htmlClass=False,
         onPhone=True,
@@ -432,7 +438,23 @@ def identity_block(
         onDesktop=True
     )
 
-    content = u"%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(transientId)s " % locals(
+    listLocation = cu.little_label(
+        text="list: ",
+        lineBreak=False
+    )
+
+    listLocation = khufu.grid_row(
+        responsive=True,
+        columns="%(listLocation)s %(icon)s" % locals(
+        ),
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    content = u"%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
     )
     if isinstance(content, str):
         content = unicode(content, encoding="utf-8", errors="replace")

@@ -339,8 +339,11 @@ def _get_observation_queues(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'pending observation'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     classificationTargetsLink = khufu.a(
         content='<i class="icon-target2"></i> classification targets (%s)' % (
@@ -379,8 +382,11 @@ def _get_observation_queues(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'following'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     followupTargetsLink = khufu.a(
         content='<i class="icon-pin"></i> + followup targets (%s)' % (count,),
@@ -417,8 +423,11 @@ def _get_observation_queues(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'allObsQueue'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     allTargetsLink = khufu.a(
         content='= all targets (%s)' % (count,),
@@ -531,8 +540,11 @@ def _get_classification_queues(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'pending classification'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     queuedForClassificationLink = khufu.a(
         content='queued for classification (%s)' % (count,),
@@ -570,8 +582,11 @@ def _get_classification_queues(
 
     theseParams = dict(request.params)
     theseParams["awl"] = 'queued for atel'
-    if "mwl" in theseParams:
-        del theseParams["mwl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="awl"
+    )
 
     queuedForAtelLink = khufu.a(
         content='queued for atel (%s)' % (count,),
@@ -718,8 +733,11 @@ def _get_reference_lists(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'followup complete'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     followupCompleteLink = khufu.a(
         content='<i class="icon-checkmark-circle"></i> followup complete (%s)' % (
@@ -758,8 +776,11 @@ def _get_reference_lists(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'archive'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     allArchivedLink = khufu.a(
         content='<i class="icon-archive5"></i>  all archived (%s)' % (count,),
@@ -796,8 +817,11 @@ def _get_reference_lists(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'all'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     allLink = khufu.a(
         content='all  (%s)' % (count,),
@@ -917,8 +941,11 @@ def _get_target_selection_queue(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'inbox'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     inboxLink = khufu.a(
         content='<i class="icon-inbox"></i>  inbox (%s)' % (count,),
@@ -947,6 +974,47 @@ def _get_target_selection_queue(
     count = models_transients_count(
         log,
         request=request,
+        mwfFlag=None,
+        awfFlag=None,
+        cFlag=None,
+        snoozed=1
+    ).get()
+
+    theseParams = dict(request.params)
+    theseParams["snoozed"] = 1
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="snoozed"
+    )
+
+    snoozedLink = khufu.a(
+        content='<i class="icon-alarm3"></i>  snoozed (%s)' % (count,),
+        href=request.route_path('transients', _query=theseParams),
+        tableIndex=False,
+        triggerStyle=False
+    )
+
+    navStyle = khufu.is_navStyle_active(
+        log,
+        thisPageName,
+        "snoozed"
+    )
+
+    snoozedLink = khufu.li(
+        content=snoozedLink,  # if a subMenu for dropdown this should be <ul>
+        span=False,  # [ False | 1-12 ]
+        disabled=False,
+        submenuTitle=False,
+        divider=False,
+        navStyle=navStyle,  # [ active | header ]
+        navDropDown=False,
+        pager=False  # [ False | "previous" | "next" ]
+    )
+
+    count = models_transients_count(
+        log,
+        request=request,
         mwfFlag='"review for followup"',
         awfFlag=None,
         cFlag=None
@@ -954,11 +1022,15 @@ def _get_target_selection_queue(
 
     theseParams = dict(request.params)
     theseParams["mwl"] = 'review for followup'
-    if "awl" in theseParams:
-        del theseParams["awl"]
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramToKeep="mwl"
+    )
 
     reviewForFollowupLink = khufu.a(
-        content='<i class="icon-eye"></i>  review for followup (%s)' % (count,),
+        content='<i class="icon-eye"></i>  review for followup (%s)' % (
+            count,),
         href=request.route_path(
             'transients', _query=theseParams),
         tableIndex=False,
@@ -985,7 +1057,7 @@ def _get_target_selection_queue(
 
     linkList = khufu.ul(
         # e.g a list links
-        itemList=[title, inboxLink, reviewForFollowupLink, ],
+        itemList=[title, inboxLink, snoozedLink, reviewForFollowupLink, ],
         unstyled=False,
         inline=False,
         dropDownMenu=False,  # [ false | true ]
@@ -1021,3 +1093,29 @@ def _get_target_selection_queue(
 
     log.info('completed the ``get_tagert_selection_queue`` function')
     return targetSelectionQueue
+
+
+def _remove_parameters(
+        log,
+        params,
+        paramToKeep
+):
+    """Get the left navigation bar for the pessto marshall
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``params`` -- the parameters of the request
+        - ``paramToKeep`` -- the parameters we want to keep
+
+    **Return:**
+        - ``params`` -- the clean parameters
+    """
+    log.info('starting the ``_remove_parameter`` function')
+    ## VARIABLES ##
+
+    for key in params.keys():
+        if key != paramToKeep:
+            del params[key]
+
+    log.info('completed the ``_remove_parameters  `` function')
+    return params

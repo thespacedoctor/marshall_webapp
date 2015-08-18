@@ -127,8 +127,7 @@ def transient_d3_lightcurve(
     """
     log.info('starting the ``transient_d3_lightcurve`` function')
 
-    print discoveryDataDictionary[
-        "transientBucketId"]
+    # print discoveryDataDictionary["transientBucketId"]
 
     href = request.route_path('transients_element_lightcurves', elementId=discoveryDataDictionary[
                               "transientBucketId"], _query={'format': 'd3'})

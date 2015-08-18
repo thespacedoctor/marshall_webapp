@@ -179,6 +179,11 @@ class models_transients_get():
             thisWhere = """classifiedFlag = "%(cf)s" """ % self.qs
             sqlWhereList.append(thisWhere)
 
+        # SNOOZED?
+        if "snoozed" in self.qs:
+            thisWhere = """snoozed = "%(snoozed)s" """ % self.qs
+            sqlWhereList.append(thisWhere)
+
         # COMBINE THE WHERE CLAUSES
         queryWhere = ""
         for thisWhere in range(len(sqlWhereList) - 1):
@@ -322,7 +327,7 @@ class models_transients_get():
 
         # Assign the default values for the variables if they do not exist
         # Set inbox as the default view
-        checkList = ["q", "mwl", "cf", "awl"]
+        checkList = ["q", "mwl", "cf", "awl", "snoozed"]
         setDefaults = True
         for item in checkList:
             if item in self.qs:
@@ -507,7 +512,7 @@ class models_transients_get():
             totalTickets = 1
         else:
             ticketCountWhere = queryWhere.replace("marshallWorkflowLocation", "listName").replace(
-                "alertWorkflowLocation", "listName").replace('classifiedFlag = "1"', 'listName="classified"')
+                "alertWorkflowLocation", "listName").replace('classifiedFlag = "1"', 'listName="classified"').replace('snoozed = "1"', 'listName="snoozed"')
             sqlQuery = """
                 select count from meta_workflow_lists_counts %(ticketCountWhere)s;
             """ % locals()
