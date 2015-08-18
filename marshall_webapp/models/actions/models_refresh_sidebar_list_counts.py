@@ -102,7 +102,7 @@ class models_refresh_sidebar_list_counts():
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
 
-        # finally count all objects
+        # count all objects
         sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects) where listname = "all" """ % locals(
         )
         self.request.db.execute(sqlQuery)
@@ -110,6 +110,24 @@ class models_refresh_sidebar_list_counts():
 
         # content for response
         responseContent += "<BR>updated `alertWorkflowLocation` in `meta_workflow_lists_counts` table"
+
+        # count classified objects
+        sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects where classifiedFlag = 1) where listname = "classified" """ % locals(
+        )
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        # content for response
+        responseContent += "<BR>updated `classified` list in `meta_workflow_lists_counts` table"
+
+        # count snoozed objects
+        sqlQuery = """update meta_workflow_lists_counts set count = (select count(*) from pesstoObjects where snoozed = 1) where listname = "snoozed" """ % locals(
+        )
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        # content for response
+        responseContent += "<BR>updated `snoozed` list in `meta_workflow_lists_counts` table"
 
         self.log.info('completed the ``put`` method')
         return responseContent

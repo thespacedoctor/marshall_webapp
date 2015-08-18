@@ -54,7 +54,8 @@ class models_transients_element_post():
         self.response = ""
         # xt-self-arg-tmpx
 
-        log.debug("instansiating a new 'models_transients_element_post' object")
+        log.debug(
+            "instansiating a new 'models_transients_element_post' object")
 
         # Initial Actions
 
@@ -161,7 +162,7 @@ class models_transients_element_post():
         else:
             awl = "archived without alert"
         sqlQuery = """
-            update pesstoObjects set classifiedFlag = 1, marshallWorkflowLocation = "review for followup", alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
+            update pesstoObjects set classifiedFlag = 1, snoozed = 0, marshallWorkflowLocation = "review for followup", alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
         """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()

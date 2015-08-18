@@ -124,8 +124,17 @@ class models_transients_element_put():
         # change the marshall workflow location list if requested
         if "mwl" in self.request.params:
             mwl = self.request.params["mwl"]
+            if "snoozed" in self.request.params:
+                logEntry = "object snoozed by %(username)s" % locals(
+                )
+                snoozed = ", snoozed = 1"
+            else:
+                logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
+                )
+                snoozed = ", snoozed = 0"
+
             sqlQuery = """
-                update pesstoObjects set marshallWorkflowLocation = "%(mwl)s" where transientBucketId = %(transientBucketId)s
+                update pesstoObjects set marshallWorkflowLocation = "%(mwl)s" %(snoozed)s  where transientBucketId = %(transientBucketId)s
             """ % locals()
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
@@ -133,12 +142,6 @@ class models_transients_element_put():
                 " transientBucketId %(transientBucketId)s moved to the `%(mwl)s` marshallWorkflowLocation<BR>" % locals(
                 )
 
-            if "snoozed" in self.request.params:
-                logEntry = "object snoozed by %(username)s" % locals(
-                )
-            else:
-                logEntry = "moved from '%(oldMwl)s' to '%(mwl)s' list by %(username)s" % locals(
-                )
             for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
                 logEntry = logEntry.replace(o, n)
 
@@ -177,7 +180,7 @@ class models_transients_element_put():
         if "awl" in self.request.params:
             awl = self.request.params["awl"]
             sqlQuery = """
-                update pesstoObjects set alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
+                update pesstoObjects set alertWorkflowLocation = "%(awl)s", snoozed = 0 where transientBucketId = %(transientBucketId)s
             """ % locals()
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
@@ -286,7 +289,8 @@ class models_transients_element_put():
         self.log.info(
             'starting the ``_set_observational_priority_for_object`` method')
 
-        observationPriority = self.request.params["observationPriority"].strip()
+        observationPriority = self.request.params[
+            "observationPriority"].strip()
         transientBucketId = self.transientBucketId
         username = self.request.authenticated_userid.replace(".", " ").title()
         now = datetime.now()

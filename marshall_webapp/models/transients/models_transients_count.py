@@ -36,6 +36,7 @@ class models_transients_count():
         - ``mwfFlag`` -- marshall workflow location
         - ``awfFlag`` -- alert workflow location
         - ``cFlag`` -- classification flag
+        - ``snoozes`` -- snoozed flag
 
     **Todo**
     """
@@ -47,7 +48,8 @@ class models_transients_count():
         request,
         mwfFlag=None,
         awfFlag=None,
-        cFlag=None
+        cFlag=None,
+        snoozed=None
     ):
         self.log = log
         log.debug("instansiating a new 'models_transients_count' object")
@@ -55,6 +57,7 @@ class models_transients_count():
         self.mwfFlag = mwfFlag
         self.awfFlag = awfFlag
         self.cFlag = cFlag
+        self.snoozed = snoozed
         # xt-self-arg-tmpx
 
         # Initial Actions
@@ -79,6 +82,7 @@ class models_transients_count():
         mwfFlag = self.mwfFlag
         awfFlag = self.awfFlag
         cFlag = self.cFlag
+        snoozed = self.snoozed
 
         # build the query to count the transients within a given marshall
         # sidebar list
@@ -96,6 +100,10 @@ class models_transients_count():
 
         if(cFlag != None):
             extraWhere = """%(extraWhere)s  AND listName = "classified" """ % locals(
+            )
+
+        if(snoozed != None):
+            extraWhere = """%(extraWhere)s  AND listName = "snoozed" """ % locals(
             )
 
         sqlQuery = """%(sqlQuery)s %(extraWhere)s;""" % locals()
