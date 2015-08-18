@@ -188,6 +188,8 @@ def _link_for_popover(
                 params["filename"] = "classifications"
             elif "q" in params:
                 params["filename"] = "search_" + params["q"]
+            elif "snoozed" in params:
+                params["filename"] = "snoozed"
             elif elementId:
                 sqlQuery = u"""
                     select masterName from transientBucketSummaries where transientBucketId = %(elementId)s 

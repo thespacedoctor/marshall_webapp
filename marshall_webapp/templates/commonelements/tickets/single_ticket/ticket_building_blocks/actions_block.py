@@ -229,6 +229,7 @@ def _get_move_to_dropdown(
 
     thisMwl = discoveryDataDictionary["marshallWorkflowLocation"].lower()
     cf = discoveryDataDictionary["classifiedFlag"]
+    snoozed = discoveryDataDictionary["snoozed"]
     if thisMwl == "inbox":
         linkTitleList = ["classification targets", "archive"]
     elif thisMwl == "review for followup":
@@ -241,6 +242,8 @@ def _get_move_to_dropdown(
         linkTitleList = ["followup targets"]
     elif thisMwl == "archive" and cf == 1:
         linkTitleList = ["followup targets", "review for followup"]
+    elif thisMwl == "archive" and snoozed == 1:
+        linkTitleList = ["inbox", "classification targets", "archive"]
     elif thisMwl == "archive":
         linkTitleList = ["inbox"]
     elif thisMwl == "pending classification":
