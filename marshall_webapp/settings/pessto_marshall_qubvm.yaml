@@ -125,7 +125,7 @@ logging settings:
             formatter: file_style
             filename: /misc/pessto/git_repos/marshall_webapp/logs/marshall.log
             mode: w+
-            maxBytes: 100000000
+            maxBytes: 10000000
             backupCount: 3
             # class: logging.FileHandler
             # level: WARNING
