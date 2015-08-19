@@ -92,8 +92,19 @@ def identity_block(
     elif q == "snoozed":
         icon = """<i class="icon-alarm3"></i> snoozed""" % locals()
 
+    if discoveryDataDictionary['snoozed'] == 2:
+        unsnoozedIcon = """    <i class="icon-alarm3"></i> unsnoozed""" % locals()
+        unsnoozedIcon = khufu.coloredText(
+            text=unsnoozedIcon,
+            color="red",
+            size=3,  # 1-10
+            pull=False,  # "left" | "right"
+        )
+    else:
+        unsnoozedIcon = ""
+
     icon = khufu.coloredText(
-        text=icon,
+        text=icon + unsnoozedIcon,
         color="cyan",
         size=3,  # 1-10
         pull=False,  # "left" | "right"
