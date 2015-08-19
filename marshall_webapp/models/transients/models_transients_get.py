@@ -356,6 +356,9 @@ class models_transients_get():
             if "mwl" in self.qs and self.qs["mwl"] in ["following", "pending observation", "allObsQueue"]:
                 self.qs["sortBy"] = "observationPriority"
                 self.qs["sortDesc"] = False
+            elif ("mwl" in self.qs and self.qs["mwl"] in ["inbox"]) or "snoozed" in self.qs:
+                self.qs["sortBy"] = "currentMagnitudeDate"
+                self.qs["sortDesc"] = True
             else:
                 self.qs["sortBy"] = self.defaultQs["sortBy"]
                 self.qs["sortDesc"] = self.defaultQs["sortDesc"]

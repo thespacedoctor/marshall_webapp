@@ -74,11 +74,37 @@ def dryx_tab(
     if group not in ["superadmin"]:
         return None
 
+    lastReviewedMag = discoveryDataDictionary["lastReviewedMag"]
+    lastReviewDate = discoveryDataDictionary["lastTimeReviewed"]
+    currentMagnitudeDate = discoveryDataDictionary["currentMagnitudeDate"]
+    currentMagnitudeEstimate = discoveryDataDictionary[
+        "currentMagnitudeEstimate"]
+
+    # add text color
+    currentMagnitude = khufu.coloredText(
+        text="currentMagnitudeEstimate: %(currentMagnitudeEstimate)s (%(currentMagnitudeDate)s)" % locals(
+        ),
+        color="grey",
+        size=3,  # 1-10
+        pull=False,  # "left" | "right",
+        addBackgroundColor=False
+    )
+
+    # add text color
+    lastReviewedMag = khufu.coloredText(
+        text="lastReviewMag: %(lastReviewedMag)s (%(lastReviewDate)s)" % locals(
+        ),
+        color="grey",
+        size=3,  # 1-10
+        pull=False,  # "left" | "right",
+        addBackgroundColor=False
+    )
+
     dryx_tab = single_ticket._ticket_tab_template(
         log,
         request=request,
         tabHeader=False,
-        blockList=["dryx content"],
+        blockList=[lastReviewedMag, currentMagnitude],
         tabFooter=False,
         htmlId="dryxtab"
     )

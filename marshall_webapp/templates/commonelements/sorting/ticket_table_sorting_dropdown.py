@@ -80,6 +80,7 @@ def ticket_table_sorting_dropdown(
         "dec",
         "name",
         "date added to marshall",
+        "date of last observation",
         "discovery date",
         "predicted type",
         "pre-discovery non-detection date",
@@ -111,6 +112,8 @@ def ticket_table_sorting_dropdown(
         sortBy = "name"
     if sortBy == "dateAdded":
         sortBy = "date added to marshall"
+    if sortBy == "currentMagnitudeDate":
+        sortBy = "date of last observation"
     if sortBy == "earliestDetection":
         sortBy = "discovery date"
     if sortBy == "transientTypePrediction":
@@ -152,6 +155,8 @@ def ticket_table_sorting_dropdown(
             dbOption = "masterName"
         if option == "date added to marshall":
             dbOption = "dateAdded"
+        if option == "date of last observation":
+            dbOption = "currentMagnitudeDate"
         if option == "discovery date":
             dbOption = "earliestDetection"
         if option == "predicted type":
@@ -219,6 +224,8 @@ def ticket_table_sorting_dropdown(
         dbSortBy = "masterName"
     if sortBy == "date added to marshall":
         dbSortBy = "dateAdded"
+    if option == "date of last observation":
+        dbSortBy = "currentMagnitudeDate"
     if sortBy == "discovery date":
         dbSortBy = "earliestDetection"
     if sortBy == "predicted type":
