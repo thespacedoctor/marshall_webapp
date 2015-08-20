@@ -129,7 +129,8 @@ class templates_transients():
         ticketList = []
         for discoveryDataDictionary in self.transientData:
             transientBucketId = discoveryDataDictionary["transientBucketId"]
-            observationPriority = discoveryDataDictionary["observationPriority"]
+            observationPriority = discoveryDataDictionary[
+                "observationPriority"]
 
             self.log.debug(
                 """transientBucketId, observationPriority: `%(transientBucketId)s` %(observationPriority)s""" % locals())
@@ -146,7 +147,8 @@ class templates_transients():
             )
             ticketList.append(thisTicket)
 
-        self.log.info('completed the ``_get_list_of_transient_tickets`` method')
+        self.log.info(
+            'completed the ``_get_list_of_transient_tickets`` method')
         return ticketList
 
     def _get_sort_dropdown(
@@ -525,6 +527,8 @@ class templates_transients():
             thisPageName = self.qs["awl"]
         elif "cf" in self.qs and (self.qs["cf"] == 1 or self.qs["cf"] == "1"):
             thisPageName = "classified"
+        elif "snoozed" in self.qs:
+            thisPageName = "snoozed"
 
         self.log.info('completed the ``_get_page_name`` method')
         return thisPageName
