@@ -227,7 +227,7 @@ class models_transients_get():
             elif self.qs["sortBy"] == "observationPriority":
                 sortBy = self.qs["sortBy"]
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by p.%(sortBy)s p.raDeg %(sortDirection)s
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by p.%(sortBy)s t.raDeg %(sortDirection)s
                 """ % locals()
 
             else:
