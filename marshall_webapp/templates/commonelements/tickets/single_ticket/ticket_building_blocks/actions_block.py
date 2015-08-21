@@ -165,36 +165,11 @@ def _get_classify_button(
     # TEST THE ARGUMENTS
 
     ## VARIABLES ##
-    if discoveryDataDictionary["classifiedFlag"] == 0:
-
-        popover = khufu.popover(
-            tooltip=True,
-            placement="right",
-            trigger="hover",
-            title="add a spectral classification for this object",
-            content=False,
-        )
-
-        button = khufu.button(
-            buttonText='<i class="icon-target2"></i>',
-            # [ default | primary | info | success | warning | danger | inverse | link ]
-            buttonStyle='success',
-            buttonSize='large',  # [ large | default | small | mini ]
-            href="#classifyForm%(transientBucketId)s" % discoveryDataDictionary,
-            pull=False,
-            submit=False,
-            block=False,
-            disable=False,
-            dataToggle="modal",
-            popover=popover
-        )
-        button, thisForm = forms.classify_object_form.classify_object_form(
-            log=log,
-            request=request,
-            discoveryDataDictionary=discoveryDataDictionary
-        )
-    else:
-        return None, None
+    button, thisForm = forms.classify_object_form.classify_object_form(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary
+    )
 
     log.info('completed the ``_get_classify_button`` function')
     return button, thisForm

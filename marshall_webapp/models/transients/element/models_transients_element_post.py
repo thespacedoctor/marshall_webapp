@@ -107,7 +107,7 @@ class models_transients_element_post():
         # first select out a row from the transientBucket as a template for the
         # classification
         sqlQuery = """
-            select raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz from transientBucket where transientBucketId = %(transientBucketId)s and cx is not null limit 1
+            select p.classifiedFlag, t.raDeg, t.decDeg, t.name, t.htm20ID, t.htm16ID, t.cx, t.cy, t.cz from transientBucket t, pesstoObjects p where t.transientBucketId = %(transientBucketId)s and t.cx is not null and t.transientBucketId=p.transientBucketId limit 1
         """ % locals()
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
@@ -161,9 +161,15 @@ class models_transients_element_post():
             awl = "queued for atel"
         else:
             awl = "archived without alert"
-        sqlQuery = """
-            update pesstoObjects set classifiedFlag = 1, snoozed = 0, marshallWorkflowLocation = "review for followup", alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
-        """ % locals()
+
+        if classifiedFlag == 1:
+            sqlQuery = """
+                update pesstoObjects set snoozed = 0, alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
+            """ % locals()
+        else:
+            sqlQuery = """
+                update pesstoObjects set classifiedFlag = 1, snoozed = 0, marshallWorkflowLocation = "review for followup", alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
+            """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 

@@ -181,11 +181,16 @@ def classify_object_form(
 
     modalForm, modalTrigger = thisModal.get()
 
+    if discoveryDataDictionary["classifiedFlag"] == 0:
+        title = "add a spectral classification for this object"
+    else:
+        title = "reclassify this object"
+
     popover = khufu.popover(
         tooltip=True,
         placement="right",
         trigger="hover",
-        title="add a spectral classification for this object",
+        title=title,
         content=False,
     )
 
