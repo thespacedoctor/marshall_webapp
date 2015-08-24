@@ -94,7 +94,7 @@ def classify_object_form(
 
     typeInput = khufu.select(
         optionList=["supernova", "agn", "variable star",
-                    "galaxy", "cv", "LBV", "imposter", "unknown"],
+                    "galaxy", "cv", "LBV", "imposter", "unknown", "TDE"],
         multiple=False,
         span=4,
         htmlId="clsType",
