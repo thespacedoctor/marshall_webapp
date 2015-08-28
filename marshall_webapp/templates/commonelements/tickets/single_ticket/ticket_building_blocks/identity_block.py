@@ -182,7 +182,7 @@ def identity_block(
     # IMAGE STAMP
     transient_cache = request.static_path(
         "marshall_webapp:static/caches/transients/")
-    download_prefix = "/static/caches/transients/"
+    download_prefix = "/marshall/static/caches/transients/"
     src = "holder.js/200x60/gray/text:no image stamps available"
     dsrc = src
 

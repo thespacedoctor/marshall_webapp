@@ -72,15 +72,15 @@ def host_info_block(
         )
         exactLocationUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
         )
-        downloadContextStamp = "/static/caches/transients/%s/sdss_stamp.jpeg" % (
-            discoveryDataDictionary["transientBucketId"],)
+        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
+            discoveryDataDictionary["transientBucketId"],))
         contextStamp = request.static_path(
             "marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
                 discoveryDataDictionary["transientBucketId"],))
         stampName = "%(masterName)s_sdss_context_image" % locals()
     elif discoveryDataDictionary["ogle_color_context_stamp"] == 1:
-        downloadContextStamp = "/static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
-        )
+        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
+        ))
         contextStamp = request.static_path(
             "marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
             ))
