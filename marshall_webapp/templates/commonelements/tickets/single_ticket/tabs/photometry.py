@@ -226,8 +226,8 @@ def photometry_footer_bar(
         )
         linkList = """%(linkList)s%(link)s""" % locals()
 
-        thisImage = "/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals(
-        )
+        thisImage = request.static_path("marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals(
+        ))
         filename = "%(name)s_lsq_lightcurve" % locals()
         href = request.route_path(
             'download', _query={'url': thisImage, "webapp": "marshall_webapp", "filename": filename})

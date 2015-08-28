@@ -81,8 +81,8 @@ def lightcurve_block(
         lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
                 discoveryDataDictionary["transientBucketId"],))
-        dlightCurveImage = '/static/caches/transients/%s/master_lightcurve.png' % (
-            discoveryDataDictionary["transientBucketId"],)
+        dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],))
 
     # Override for LSQ lightcurves
     lightcurveSwitchAttempt = True
@@ -101,8 +101,8 @@ def lightcurve_block(
         lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
             ))
-        dlightCurveImage = '/static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        )
+        dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        ))
 
     if len(lightCurveImage):
         href = request.route_path(
