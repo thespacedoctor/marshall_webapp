@@ -116,7 +116,7 @@ def defaultpagetemplate(
     pageContent = khufu.grid_column(
         span=9,  # 1-12
         offset=0,  # 1-12
-        content=mainContent + request.environ['REMOTE_ADDR']
+        content=mainContent
     )
 
     content = khufu.grid_row(
