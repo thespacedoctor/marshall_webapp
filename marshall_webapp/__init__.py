@@ -143,10 +143,18 @@ def admin_only_debugtoolbar(request):
     """
     toolbar_enabled = False
     group = ""
+    print request.effective_principals
+
+    try:
+        if (("marshall/_debug_toolbar" in request.referrer) or ("marshall/transients" in request.referrer)) and "/marshall/_debug_toolbar/" in request.url:
+            toolbar_enabled = True
+    except:
+        pass
+
     for item in request.effective_principals:
         if "group:" in item:
             group = item.replace("group:", "")
-    if group in ["superadmin"]:
+    if group == "superadmin":
         toolbar_enabled = True
 
     return toolbar_enabled
