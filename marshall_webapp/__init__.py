@@ -11,6 +11,9 @@ import views
 import templates
 import models
 
+from pyramid.security import authenticated_userid
+from pyramid.settings import aslist
+
 
 def db(request):
     # database connection
@@ -127,4 +130,23 @@ def main(global_config, **settings):
     config.add_renderer(
         'plain_text', dryxPyramid.renderers.renderer_plain_text)
 
+    config.include('pyramid_debugtoolbar')
+    config.set_debugtoolbar_request_authorization(admin_only_debugtoolbar)
+
     return config.make_wsgi_app()
+
+
+def admin_only_debugtoolbar(request):
+    """
+    Enable toolbar for administrators only.
+    Returns True when it should be enabled.
+    """
+    toolbar_enabled = False
+    group = ""
+    for item in request.effective_principals:
+        if "group:" in item:
+            group = item.replace("group:", "")
+    if group in ["superadmin"]:
+        toolbar_enabled = True
+
+    return toolbar_enabled
