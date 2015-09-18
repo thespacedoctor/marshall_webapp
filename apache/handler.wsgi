@@ -8,7 +8,7 @@ import mod_wsgi.server
 
 working_directory = '/misc/pessto/git_repos/marshall_webapp'
 
-entry_point = '/misc/pessto/git_repos/marshall_webapp/production_qubvm.wsgi'
+entry_point = '/misc/pessto/git_repos/marshall_webapp/development_qubvm.wsgi'
 application_type = 'script'
 callable_object = 'application'
 mount_point = '/'
