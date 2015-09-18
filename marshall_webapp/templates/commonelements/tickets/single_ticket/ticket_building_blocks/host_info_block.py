@@ -60,6 +60,7 @@ def host_info_block(
     )
 
     masterName = discoveryDataDictionary["masterName"]
+    sherlockClassification = discoveryDataDictionary["sherlockClassification"]
 
     nearestObjectUrl = ""
     exactLocationUrl = ""
@@ -183,7 +184,30 @@ def host_info_block(
             onDesktop=True
         )
 
-    return "%(title)s %(imageModal)s %(sdssLinkRow)s %(redshift)s" % locals()
+    if sherlockClassification:
+        littleTitle = cu.little_label(
+            text="contextual classification:"
+        )
+
+        sherlockClassification = khufu.coloredText(
+            text=sherlockClassification,
+            color="red",
+            size=6,  # 1-10
+        )
+
+        sherlockClassification = khufu.grid_row(
+            responsive=True,
+            columns="%(littleTitle)s %(sherlockClassification)s" % locals(),
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+    else:
+        sherlockClassification = ""
+
+    return "%(title)s %(imageModal)s %(sdssLinkRow)s %(redshift)s %(sherlockClassification)s" % locals()
 
 
 ###################################################################
