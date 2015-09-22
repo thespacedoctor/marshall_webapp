@@ -44,7 +44,8 @@ def single_ticket(
         objectAkas,
         lightcurveData,
         atelData,
-        objectHistories):
+        objectHistories,
+        transientCrossmatches):
     """A single ticket for a transient object tin the pessto marshall
 
     **Key Arguments:**
@@ -56,6 +57,7 @@ def single_ticket(
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
         - ``objectHistories`` -- history log for object
+        - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
 
     **Return:**
         - ``ticket`` -- a single transient's info in one HTML ticket
@@ -129,6 +131,18 @@ def single_ticket(
         objectHistories=objectHistories
     )
     tabDictionary["ticket history"] = historyTab
+
+    contextTab = tabs.context.context_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        lightcurveData=lightcurveData,
+        transientCrossmatches=transientCrossmatches
+    )
+
+    tabDictionary["context"] = contextTab
 
     dryxTab = tabs.dryx.dryx_tab(
         log=log,
