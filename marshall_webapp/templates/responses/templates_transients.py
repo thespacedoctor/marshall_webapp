@@ -66,7 +66,7 @@ class templates_transients():
             elementId=self.elementId,
             search=self.search
         )
-        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transientHistories = transientModal.get(
+        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transientHistories, self.transientCrossmatches = transientModal.get(
         )
 
         return None
@@ -143,7 +143,8 @@ class templates_transients():
                 objectAkas=self.transientAkas,
                 lightcurveData=self.transientLightcurveData,
                 atelData=self.transientAtelMatches,
-                objectHistories=self.transientHistories
+                objectHistories=self.transientHistories,
+                transientCrossmatches=self.transientCrossmatches
             )
             ticketList.append(thisTicket)
 
