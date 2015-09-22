@@ -94,6 +94,7 @@ class models_transients_get():
         self.transientAtelMatches = self._get_associated_atel_data()
         self.transients_comments = self._get_associated_comments()
         self.transient_history = self._get_associated_transient_history()
+        self.transient_crossmatches = self._get_associated_transient_crossmatches()
 
         self.log.info('completed the ``get`` method')
 
@@ -104,7 +105,7 @@ class models_transients_get():
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history, self.transient_crossmatches
 
     def _get_transient_data_from_database(
             self):
@@ -668,6 +669,44 @@ class models_transients_get():
         self.log.info(
             'completed the ``_get_associated_transient_history`` method')
         return objectHistory
+
+    # use the tab-trigger below for new method
+    def _get_associated_transient_crossmatches(
+            self):
+        """ get associated transient crossmatches
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - None
+
+        **Todo**
+            - @review: when complete, clean _get_associated_transient_crossmatches method
+            - @review: when complete add logging
+        """
+        self.log.info(
+            'starting the ``_get_associated_transient_crossmatches`` method')
+
+        matchedTransientBucketIds = self.matchedTransientBucketIds
+
+        sqlQuery = """
+            select * from tcs_cross_matches where transient_object_id in (%(matchedTransientBucketIds)s) order by rank
+        """ % locals()
+
+        crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()
+        crossmatches = []
+        crossmatches[:] = [dict(zip(row.keys(), row))
+                           for row in crossmatchesTmp]
+
+        from operator import itemgetter
+        crossmatches = list(crossmatches)
+        crossmatches = sorted(
+            crossmatches, key=itemgetter('rank'), reverse=False)
+
+        self.log.info(
+            'completed the ``_get_associated_transient_crossmatches`` method')
+        return crossmatches
 
         # use the tab-trigger below for new method
         # xt-class-method
