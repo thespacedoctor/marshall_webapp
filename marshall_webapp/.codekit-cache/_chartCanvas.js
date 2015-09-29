@@ -45,7 +45,9 @@ var chartCanvas = function() {
         canvasElement = canvasElement
             .append("g")
             .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+                "translate(" + margin.left + "," + margin.top + ")")
+
+        // rel="tooltip" data-container="body" data-placement="right" data-trigger="hover" data-original-title="move object to another list" data-delay="200" data-toggle="dropdown"
         // console.log("canvas element has been set");
 
         return {
@@ -88,6 +90,14 @@ var chartCanvas = function() {
         }
         if (settings.datapoints !== undefined) {
             _add_datapoints(settings.datapoints);
+        }
+
+        if (settings.errorBars !== undefined) {
+            _add_errorbars(settings.errorBars);
+        }
+
+        if (settings.tooltips !== undefined) {
+            _add_tooltips(settings.tooltips);
         }
 
         // xt-set-setting-if-defined
@@ -347,6 +357,57 @@ var chartCanvas = function() {
             element_id: "datapoint" + datapoints.id,
             element_data: {
                 datapoints: datapoints
+            },
+            element_call: undefined,
+            parent_element: canvasElement,
+            transform: undefined,
+            parent_element: canvasElement,
+            transform: undefined
+        });
+
+    }
+
+    var _add_errorbars = function(errorBars) {
+        // console.log('_add_errorbars function triggered');
+
+        // be careful with variable names for items went compiling JS
+        var array = errorBars.data;
+        for (i = 0; i < array.length; i++) {
+            var item = array[i];
+
+            //console.log('item: ' + JSON.stringify(item));
+
+            update_chart_element.update({
+                element_type: "path",
+                element_selector: "path#line" + errorBars.line.id,
+                element_class: "line " + errorBars.line.color + " " + errorBars.line.htmlclass,
+                element_id: "line" + errorBars.line.id,
+                element_call: undefined,
+                element_data: {
+                    data: item,
+                    attr: errorBars.line.line
+                },
+                parent_element: canvasElement,
+                transform: undefined
+                    // remove_if: true
+            });
+
+        }
+
+    }
+
+    var _add_tooltips = function(tooltips) {
+        // console.log('_add_tooltips function triggered');
+
+        // console.log('tooltips.data: ' + JSON.stringify(tooltips.data));
+
+        //   console.log('_add_datapoints function triggered');
+        update_chart_element.update({
+            element_selector: "tooltips",
+            element_class: "tooltips " + tooltips.color,
+            element_id: "tooltips" + tooltips.id,
+            element_data: {
+                tooltips: tooltips
             },
             element_call: undefined,
             parent_element: canvasElement,

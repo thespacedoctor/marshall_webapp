@@ -66,6 +66,9 @@ def main(global_config, **settings):
     config.add_route('transients_comments', '/transients/comments')
     config.add_route(
         'transients_element_comments', '/transients/{elementId}/comments')
+    config.add_route('transients_context', '/transients/context')
+    config.add_route(
+        'transients_element_context', '/transients/{elementId}/context')
     config.add_route(
         'transients_lightcurves', '/transients/lightcurves')
     config.add_route(

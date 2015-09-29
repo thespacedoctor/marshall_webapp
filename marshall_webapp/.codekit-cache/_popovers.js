@@ -107,7 +107,7 @@
         return this
     }
 
-    $("[rel='tooltip']").tooltip();
-    $("[rel='popover']").popover();
-
 }(window.jQuery);
+
+// opt into popovers
+$("[rel='popover']").popover();

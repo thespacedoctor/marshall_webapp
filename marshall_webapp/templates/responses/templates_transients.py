@@ -122,12 +122,29 @@ class templates_transients():
         **Todo**
         """
         from ..commonelements.tickets.single_ticket import single_ticket
+        from dryxPython import astrotools as dat
 
         self.log.info('starting the ``_get_list_of_transient_tickets`` method')
 
         # for each transient build a ticket to be presented in the browser
         ticketList = []
         for discoveryDataDictionary in self.transientData:
+            if discoveryDataDictionary["raDeg"]:
+                raSex = dat.ra_to_sex(
+                    ra=discoveryDataDictionary["raDeg"],
+                    delimiter=':'
+                )
+                discoveryDataDictionary["raSex"] = raSex
+            else:
+                discoveryDataDictionary["raSex"] = None
+            if discoveryDataDictionary["decDeg"]:
+                decSex = dat.dec_to_sex(
+                    dec=discoveryDataDictionary["decDeg"],
+                    delimiter=':'
+                )
+                discoveryDataDictionary["decSex"] = decSex
+            else:
+                discoveryDataDictionary["decSex"] = None
             transientBucketId = discoveryDataDictionary["transientBucketId"]
             observationPriority = discoveryDataDictionary[
                 "observationPriority"]

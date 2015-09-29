@@ -2,6 +2,7 @@ from templates_transients import templates_transients
 from templates_stats import templates_stats
 from templates_calendars import templates_calendars
 from templates_transients_comments import templates_transients_comments
+from templates_transients_context import templates_transients_context
 from templates_transients_lightcurves import templates_transients_lightcurves
 
 from templates_transients_obs import templates_transients_obs

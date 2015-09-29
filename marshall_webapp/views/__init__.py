@@ -7,3 +7,4 @@ import views_transients_lightcurves
 import views_transients_obs
 
 import views_transients_history
+import views_transients_context

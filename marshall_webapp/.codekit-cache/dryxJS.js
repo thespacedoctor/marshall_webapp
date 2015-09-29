@@ -1,4 +1,5 @@
 // ============  CODEKIT IMPORTS  =========== //
+//@codekit-prepend "dryxAladin/dryxAladin.js";
 //@codekit-prepend "dryxAlert/dryxAlert.js";
 //@codekit-prepend "dryxAnchors/dryxAnchors.js";
 //@codekit-prepend "dryxAstroCalc/dryxAstroCalc.js";
@@ -16,8 +17,3 @@
 //@codekit-prepend "dryxPlotting/dryxPlotting.js";  
 //@codekit-prepend "vendor/highlight/highlight.pack.js";
 hljs.initHighlightingOnLoad();
-
-// testing tooltips
-// $(document).ready(function() {
-//     window.setTimeout("$('a').tooltip('show')", 1000);
-// });

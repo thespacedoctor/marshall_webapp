@@ -18,12 +18,15 @@ var chartPath = function() {
     var initialise_path_for_chart = function(settings) {
         // console.log('initialise_path_for_chart function triggered');
 
+        // console.log('settings.x1Values: ' + settings.x1Values);
+
         // xt-set-setting-if-defined
         if (settings.area) {
             area = _get_area(settings);
         } else {
             area = undefined;
         }
+
         return {
             line: _get_valueline(settings),
             area: area,
@@ -31,6 +34,7 @@ var chartPath = function() {
             y1Values: settings.y1Values,
             id: settings.id,
             color: settings.color,
+            htmlclass: settings.htmlclass,
         }
     }
 
