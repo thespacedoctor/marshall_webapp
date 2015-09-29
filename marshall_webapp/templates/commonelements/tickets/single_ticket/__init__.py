@@ -122,16 +122,6 @@ def single_ticket(
 
     tabDictionary["photometry"] = photometryTab
 
-    historyTab = tabs.history.history_tab(
-        log=log,
-        request=request,
-        discoveryDataDictionary=discoveryDataDictionary,
-        objectAkas=objectAkas,
-        atelData=atelData,
-        objectHistories=objectHistories
-    )
-    tabDictionary["ticket history"] = historyTab
-
     contextTab = tabs.context.context_tab(
         log=log,
         request=request,
@@ -143,6 +133,16 @@ def single_ticket(
     )
 
     tabDictionary["context"] = contextTab
+
+    historyTab = tabs.history.history_tab(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        objectHistories=objectHistories
+    )
+    tabDictionary["ticket history"] = historyTab
 
     dryxTab = tabs.dryx.dryx_tab(
         log=log,

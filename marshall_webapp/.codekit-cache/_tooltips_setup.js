@@ -15,6 +15,7 @@
 
         ,
         init: function(type, element, options) {
+            // console.log('init');
             var eventIn, eventOut, triggers, trigger, i
 
             this.type = type
@@ -38,14 +39,15 @@
 
             this.options.selector ?
                 (this._options = $.extend({}, this.options, {
-                trigger: 'manual',
-                selector: ''
-            })) :
+                    trigger: 'manual',
+                    selector: ''
+                })) :
                 this.fixTitle()
         }
 
         ,
         getOptions: function(options) {
+            // console.log('getOptions');
             options = $.extend({}, $.fn[this.type].defaults, this.$element.data(), options)
 
             if (options.delay && typeof options.delay == 'number') {
@@ -60,6 +62,7 @@
 
         ,
         enter: function(e) {
+            // console.log('enter');
             var defaults = $.fn[this.type].defaults,
                 options = {},
                 self
@@ -81,6 +84,7 @@
 
         ,
         leave: function(e) {
+            // console.log('original leave');
             var self = $(e.currentTarget)[this.type](this._options).data(this.type)
 
             if (this.timeout) clearTimeout(this.timeout)
@@ -94,6 +98,7 @@
 
         ,
         show: function() {
+            // console.log('show');
             var $tip, pos, actualWidth, actualHeight, placement, tp, e = $.Event('show')
 
             if (this.hasContent() && this.enabled) {
@@ -159,6 +164,7 @@
 
         ,
         applyPlacement: function(offset, placement) {
+            // console.log('applyPlacement');
             var $tip = this.tip(),
                 width = $tip[0].offsetWidth,
                 height = $tip[0].offsetHeight,
@@ -214,6 +220,8 @@
 
         ,
         hide: function() {
+            // console.log('hide');
+
             var that = this,
                 $tip = this.tip(),
                 e = $.Event('hide')
@@ -245,6 +253,7 @@
 
         ,
         fixTitle: function() {
+            // console.log('fixTitle');
             var $e = this.$element
             if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
                 $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
@@ -253,11 +262,13 @@
 
         ,
         hasContent: function() {
+            // console.log('hasContent');
             return this.getTitle()
         }
 
         ,
         getPosition: function() {
+            // console.log('getPosition');
             var el = this.$element[0]
             return $.extend({}, (typeof el.getBoundingClientRect == 'function') ? el.getBoundingClientRect() : {
                 width: el.offsetWidth,
@@ -339,6 +350,30 @@
 
     $.fn.tooltip.Constructor = Tooltip
 
+    // added by dryx on April 15, 2015 -- make the tooltip persist when you enter it
+    var originalLeave = $.fn.tooltip.Constructor.prototype.leave;
+    $.fn.tooltip.Constructor.prototype.leave = function(e) {
+        var container, self;
+        self = $(e.currentTarget)[this.type](this._options).data(this.type);
+        if (e.currentTarget) {
+            container = $(".tooltip");
+            this.timeout = setTimeout(function() {
+                self.hide()
+            }, 100)
+
+            return container.one("mouseenter", function() {
+                // console.log('timer cleared');
+                clearTimeout(self.timeout);
+                return container.one("mouseleave", function() {
+                    // console.log('leaving');
+                    return originalLeave.call(self, e);
+                });
+            });
+        } else {
+            // console.log('not triggered!');
+        }
+    };
+
     $.fn.tooltip.defaults = {
         animation: true,
         placement: 'top',
@@ -359,3 +394,9 @@
     }
 
 }(window.jQuery);
+
+// opt-in to tooltips
+$("[rel='tooltip']").tooltip();
+// $('body').tooltip({
+//     selector: '[rel=tooltip]'
+// });

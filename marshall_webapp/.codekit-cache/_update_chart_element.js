@@ -22,6 +22,7 @@ var update_chart_element = (function() {
         _select_element(partentElement, settings, init)
         _assign_data_to_seleted_paths(thisElement, init, settings)
         _add_datapoints(thisElement, settings)
+        _add_tooltips(thisElement, settings)
         _set_id_and_class(thisElement, settings)
         _update_titles_and_text(settings)
 
@@ -39,7 +40,7 @@ var update_chart_element = (function() {
     // -------------- PRIVATE HELPER METHODS ---------------- //
     var _select_element = function(partentElement, settings, init) {
         // INITIAL SELECT OF THE ELEMENT(S)
-        if (settings.element_selector == "datapoint") {
+        if (settings.element_selector == "datapoint" || settings.element_selector == "tooltips") {
             thisElement = partentElement.selectAll(settings.element_selector);
         } else {
             thisElement = partentElement.select(settings.elemet_selector);
@@ -56,7 +57,7 @@ var update_chart_element = (function() {
         // ADD TRANSITION TO ANY CHANGES TO THE ELEMENTS
         if (!thisElement.empty()) {
             partentElement = settings.parent_element.transition()
-            if (settings.element_selector == "datapoint") {
+            if (settings.element_selector == "datapoint" || settings.element_selector == "tooltips") {
                 thisElement = partentElement.selectAll(settings.element_selector).duration(750);
             } else {
                 thisElement = partentElement.select(settings.element_selector).duration(750);
@@ -79,14 +80,22 @@ var update_chart_element = (function() {
         if (settings.element_selector == "datapoint") {
             return
         }
+        if (settings.element_selector == "tooltips") {
+            return
+        }
 
         // NON DATAPOINTS (LINES, AREA ETC)
         if (init) {
-            thisElement.data([settings.element_data.data])
+            thisElement.data([settings.element_data.data]);
+            // console.log('settings.element_class: ' + JSON.stringify(settings.element_class));
+            // console.log('settings.element_data.data: ' + JSON.stringify(settings.element_data.data));
+
         }
 
         if (settings.element_data.attr !== undefined) {
             thisElement.attr("d", settings.element_data.attr);
+            // console.log('settings.element_data.attr: ' + JSON.stringify(thisElement.attr("d")));
+
         }
         return
     }
@@ -96,11 +105,13 @@ var update_chart_element = (function() {
             return
         }
 
-        thisElement.data(settings.element_data.datapoints.data)
+        var theseDatapoints = thisElement.data(settings.element_data.datapoints.data)
             .enter().append(settings.element_data.datapoints.shape)
             .attr("r", settings.element_data.datapoints.attrs.radius)
             .attr("cx", settings.element_data.datapoints.datapoints.x)
             .attr("cy", settings.element_data.datapoints.datapoints.y);
+        // console.log('theseDatapoints: ' + theseDatapoints);
+
     }
 
     var _set_id_and_class = function(thisElement, settings) {
@@ -108,6 +119,10 @@ var update_chart_element = (function() {
         // SET THE ID OF THE SINGLE ELEMENT
         if (settings.element_id !== undefined) {
             thisElement.attr("id", settings.element_id)
+        }
+
+        if (settings.element_class !== undefined) {
+            thisElement.attr("class", settings.element_class)
         }
     }
 
@@ -136,6 +151,28 @@ var update_chart_element = (function() {
                 thisElement.text(thisText);
             }
         }
+    }
+
+    var _add_tooltips = function(thisElement, settings) {
+        if (settings.element_selector !== "tooltips") {
+            return
+        }
+
+        var thesetooltips = thisElement.data(settings.element_data.tooltips.data)
+            .enter().append(settings.element_data.tooltips.shape)
+            .attr("r", settings.element_data.tooltips.attrs.radius)
+            .attr("cx", settings.element_data.tooltips.datapoints.x)
+            .attr("cy", settings.element_data.tooltips.datapoints.y)
+            .attr("rel", "tooltip")
+            .attr("title", settings.element_data.tooltips.datapoints.tooltip)
+            .attr("data-container", "body")
+            .attr("data-placement", "top")
+            .attr("data-trigger", "hover")
+            .attr("data-html", true)
+            // console.log('thesetooltips: ' + thesetooltips);
+
+        $('[rel="tooltip"]').tooltip();
+
     }
 
     // xt-function-as-named-variable

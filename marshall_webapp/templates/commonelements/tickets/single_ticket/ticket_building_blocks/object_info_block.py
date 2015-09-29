@@ -77,28 +77,15 @@ def object_info_block(
             size=3
         )
 
-    if discoveryDataDictionary["raDeg"]:
-        raSex = dat.ra_to_sex(
-            ra=discoveryDataDictionary["raDeg"],
-            delimiter=':'
-        )
-    else:
-        raSex = None
     raSex = khufu.coloredText(
-        text=raSex,
+        text=discoveryDataDictionary["raSex"],
         color="violet",
         size=3,
 
     )
-    if discoveryDataDictionary["decDeg"]:
-        decSex = dat.dec_to_sex(
-            dec=discoveryDataDictionary["decDeg"],
-            delimiter=':'
-        )
-    else:
-        decSex = None
+
     decSex = khufu.coloredText(
-        text=decSex,
+        text=discoveryDataDictionary["decSex"],
         color="cyan",
         size=3
     )

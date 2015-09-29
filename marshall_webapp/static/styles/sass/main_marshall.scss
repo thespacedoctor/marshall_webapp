@@ -3,8 +3,8 @@
 @import "marshallScss";
 
 $assetsFolderName: "static";
-@mixin marshall_main_css {
 
+@mixin marshall_main_css {
     @include dryxScss;
     @include marshallScss;
 }
