@@ -27,8 +27,12 @@ var chartAxes = function() {
     var y2 = undefined;
     var x1TickSize = 1;
     var x2TickSize = 1;
-    var xy1TickSize = 1;
+    var y1TickSize = 1;
     var y2TickSize = 1;
+    var y1NumberOfTicks = 3;
+    var y2NumberOfTicks = 3;
+    var x1NumberOfTicks = 3;
+    var x2NumberOfTicks = 3;
     // xt-initialise-variable
 
     // -------------- PUBLIC METHODS ---------------- //
@@ -42,16 +46,16 @@ var chartAxes = function() {
             x1: get_x1(),
             y1Axis: _get_y1_axis(),
             x1Axis: _get_x1_axis(),
-            y1Gridlines: _get_y1_grid_lines(),
-            x1Gridlines: _get_x1_grid_lines(),
+            y1Gridlines: _get_y1_grid_lines(y1NumberOfTicks),
+            x1Gridlines: _get_x1_grid_lines(x1NumberOfTicks),
             x1LabelsRotate: x1LabelsRotate,
             y1LabelsRotate: y1LabelsRotate,
             y2: get_y2(),
             x2: get_x2(),
             y2Axis: _get_y2_axis(),
             x2Axis: _get_x2_axis(),
-            y2Gridlines: _get_y2_grid_lines(),
-            x2Gridlines: _get_x2_grid_lines(),
+            y2Gridlines: _get_y2_grid_lines(y2NumberOfTicks),
+            x2Gridlines: _get_x2_grid_lines(x2NumberOfTicks),
             x2LabelsRotate: x2LabelsRotate,
             y2LabelsRotate: y2LabelsRotate,
             update_settings: update_axes_settings_via_json
@@ -60,7 +64,7 @@ var chartAxes = function() {
 
     var get_x1 = function() {
         // console.log('_getX function triggered');
-        x1 = d3.time.scale().range([0, chartObject.width]);
+        x1 = d3.scale.linear().range([0, chartObject.width]);
         return x1
     }
 
@@ -145,6 +149,22 @@ var chartAxes = function() {
         }
         if (settings.y2TickSize !== undefined) {
             settings.axes.y2Axis.tickSize(-settings.y2TickSize);
+        }
+        if (settings.y1NumberOfTicks !== undefined) {
+            settings.axes.y1Axis.ticks(settings.y1NumberOfTicks);
+            settings.axes.y1Gridlines.ticks(settings.y1NumberOfTicks);
+        }
+        if (settings.y2NumberOfTicks !== undefined) {
+            settings.axes.y2Axis.ticks(settings.y2NumberOfTicks);
+            settings.axes.y2Gridlines.ticks(settings.y2NumberOfTicks);
+        }
+        if (settings.x1NumberOfTicks !== undefined) {
+            settings.axes.x1Axis.ticks(settings.x1NumberOfTicks);
+            settings.axes.x1Gridlines.ticks(settings.x1NumberOfTicks);
+        }
+        if (settings.x2NumberOfTicks !== undefined) {
+            settings.axes.x2Axis.ticks(settings.x2NumberOfTicks);
+            settings.axes.x2Gridlines.ticks(settings.x2NumberOfTicks);
         }
         // xt-set-setting-if-defined
     }
@@ -259,56 +279,56 @@ var chartAxes = function() {
 
     var _get_x1_axis = function() {
         x1Axis = d3.svg.axis().scale(x1)
-            .orient("bottom").ticks(5);
+            .orient("bottom").ticks(x1NumberOfTicks);
         return x1Axis
     }
 
     var _get_y1_axis = function() {
         y1Axis = d3.svg.axis().scale(y1)
-            .orient("left").ticks(5);
+            .orient("left").ticks(y1NumberOfTicks);
         return y1Axis
     }
 
     var _get_x2_axis = function() {
         x2Axis = d3.svg.axis().scale(x2)
-            .orient("top").ticks(5);
+            .orient("top").ticks(x2NumberOfTicks);
         return x2Axis
     }
 
     var _get_y2_axis = function() {
         y2Axis = d3.svg.axis().scale(y2)
-            .orient("right").ticks(5);
+            .orient("right").ticks(y2NumberOfTicks);
         return y2Axis
     }
 
-    var _get_x1_grid_lines = function() {
+    var _get_x1_grid_lines = function(numTicks) {
         x1GridLines = d3.svg.axis().scale(x1)
-            .orient("bottom").ticks(5)
+            .orient("bottom").ticks(numTicks)
             .tickSize(-chartObject.height, 0, 0)
             .tickFormat("")
         return x1GridLines
     }
 
-    var _get_y1_grid_lines = function() {
+    var _get_y1_grid_lines = function(numTicks) {
         y1GridLines = d3.svg.axis().scale(y1)
-            .orient("left").ticks(5)
+            .orient("left").ticks(numTicks)
             .tickSize(-chartObject.width, 0, 0)
             .tickFormat("")
 
         return y1GridLines
     }
 
-    var _get_x2_grid_lines = function() {
+    var _get_x2_grid_lines = function(numTicks) {
         x2GridLines = d3.svg.axis().scale(x2)
-            .orient("top").ticks(5)
+            .orient("top").ticks(numTicks)
             .tickSize(-chartObject.height, 0, 0)
             .tickFormat("")
         return x2GridLines
     }
 
-    var _get_y2_grid_lines = function() {
+    var _get_y2_grid_lines = function(numTicks) {
         y2GridLines = d3.svg.axis().scale(y2)
-            .orient("right").ticks(5)
+            .orient("right").ticks(numTicks)
             .tickSize(-chartObject.width, 0, 0)
             .tickFormat("")
 
