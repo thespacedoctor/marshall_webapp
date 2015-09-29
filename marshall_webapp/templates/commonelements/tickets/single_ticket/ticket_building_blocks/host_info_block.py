@@ -191,7 +191,7 @@ def host_info_block(
 
         sherlockClassification = khufu.coloredText(
             text=sherlockClassification,
-            color="red",
+            color="violet",
             size=6,  # 1-10
         )
 

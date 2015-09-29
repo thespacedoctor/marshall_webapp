@@ -66,24 +66,6 @@ def context_tab(
 
     log.info('starting the ``context_tab`` function')
 
-    host = _host_info_block(
-        log=log,
-        request=request,
-        discoveryDataDictionary=discoveryDataDictionary
-    )
-
-    host_stamp = khufu.grid_column(
-        span=4,  # 1-12
-        offset=0,  # 1-12
-        content=host,
-        pull=False,  # ["right", "left", "center"]
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
     crossmatches = _crossmatch_info_block(
         log=log,
         request=request,
@@ -91,20 +73,31 @@ def context_tab(
         transientCrossmatches=transientCrossmatches
     )
 
-    crossmatches = khufu.grid_column(
-        span=8,  # 1-12
-        offset=0,  # 1-12
-        content=crossmatches,
-        pull=False,  # ["right", "left", "center"]
+    crossmatches = khufu.grid_row(
+        responsive=True,
+        columns=crossmatches,
         htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
+        htmlClass=False
     )
 
-    context_block = """%(host_stamp)s%(crossmatches)s""" % locals(
+    aladin = _aladin_block(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        transientCrossmatches=transientCrossmatches
     )
+
+    aladin = khufu.grid_row(
+        responsive=True,
+        columns=aladin,
+        htmlId=False,
+        htmlClass=False
+    )
+
+    context_block = """%(aladin)s %(crossmatches)s""" % locals(
+    )
+    # context_block = """%(host_stamp)s%(crossmatches)s""" % locals(
+    # )
 
     footer = context_footer_bar(
         log,
@@ -324,11 +317,29 @@ def _crossmatch_info_block(
     masterName = discoveryDataDictionary["masterName"]
     sherlockClassification = discoveryDataDictionary["sherlockClassification"]
 
+    sourceIcons = {
+        "galaxy": "spinner5",
+        "agn": "target3",
+        "qso": "target3",
+        "star": "star3",
+        "cv": "sun6",
+        "cb": "sun6",
+        "other": "help2"
+    }
+    transColors = {
+        "sn": "blue",
+        "nt": "magenta",
+        "cv": "green",
+        "agn": "yellow",
+        "variablestar": "orange",
+        "?": "violet",
+    }
+
     table = ""
     if len(cms) > 0:
 
         hs = ["Rank", "Classifcation", "Association", "Type", "Catalogue",
-              "Angular Separation", "Physical Separation", "Radius (if Galaxy)", "Distance", "Redshift"]
+              "Angular Separation", "Physical Separation", "Radius (if Galaxy)", "Distance", "Redshift", "Original Search Radius"]
         tableHead = ""
         for h in hs:
             th = khufu.th(
@@ -344,8 +355,23 @@ def _crossmatch_info_block(
         tableBody = []
 
         rs = ["rank", "association_type", "catalogue_object_id", "catalogue_object_type", "catalogue_table_name",
-              "separation", "physical_separation_kpc", "major_axis_arcsec", "distance", "z"]
+              "separation", "physical_separation_kpc", "major_axis_arcsec", "distance", "z", "original_search_radius_arcsec"]
         for c in cms:
+
+            # generate object links
+            if c["object_link"]:
+                c["catalogue_object_id"] = khufu.a(
+                    content=c["catalogue_object_id"],
+                    href=c["object_link"],
+                    openInNewTab=True
+                )
+
+            if c["catalogue_table_name"]:
+                c["catalogue_table_name"] = c[
+                    "catalogue_table_name"].replace("tcs_cat_", "").replace("_", " ")
+                regex = re.compile(r'(v\d{1,3}) (\d{1,3})( (\d{1,3}))?')
+                c["catalogue_table_name"] = regex.sub(
+                    "\g<1>.\g<2>", c["catalogue_table_name"])
 
             if c["direct_distance"]:
                 c["distance"] = c["direct_distance"]
@@ -354,18 +380,41 @@ def _crossmatch_info_block(
             for r in rs:
                 if c[r] == None:
                     c[r] = "-"
+                if r == "catalogue_object_type":
+                    icon = sourceIcons[c[r]]
+                    thisType = c[r]
+                    # add text color
+                    c[
+                        r] = """<i class="icon-%(icon)s" color="#268bd2"></i> %(thisType)s""" % locals()
+
                 if isinstance(c[r], float):
                     this = c[r]
-                    c[r] = """%(this)0.3f""" % locals()
+                    c[r] = """%(this)0.2f""" % locals()
+
+                # ADD UNITS
+                if c[r] != "-":
+                    if r in ["separation", "original_search_radius_arcsec", "major_axis_arcsec"] and c[r] != "-":
+                        c[r] = c[r] + '"'
+                    if r in ["distance"]:
+                        c[r] = c[r] + ' Mpc'
+                    if r in ["physical_separation_kpc"]:
+                        c[r] = c[r] + ' Kpc'
+                content = khufu.coloredText(
+                    text=c[r],
+                    color=transColors[c["association_type"].lower()],
+                    size=False,  # 1-10
+                    pull=False,  # "left" | "right",
+                    addBackgroundColor=False
+                )
                 td = khufu.td(
-                    content=c[r],
+                    content=content,
                     color=False
                 )
                 tableRow.append(td)
             # xkhufu-table-cell
             tr = khufu.tr(
                 cellContent=tableRow,
-                color=False
+                color=transColors[c["association_type"].lower()]
             )
             tableBody.append(tr)
 
@@ -382,7 +431,89 @@ def _crossmatch_info_block(
             condensed=True
         )
 
-    return "%(title)s %(table)s" % locals()
+    return "%(table)s" % locals()
+
+
+def _aladin_block(
+        log,
+        request,
+        discoveryDataDictionary,
+        transientCrossmatches):
+    """get aladin lite instance for transient
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``request`` -- the pyramid request
+        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+
+    **Return:**
+        - ``_aladin_block`` -- the crossmatch info from sherlock for the pesssto object
+
+    """
+    log.info('starting the ``_aladin_block`` function')
+
+    title = cu.block_title(
+        log,
+        title="crossmatch map"
+    )
+
+    # add text color
+    masterName = discoveryDataDictionary["masterName"]
+    text = khufu.coloredText(
+        text="Contextual classification for <em>%(masterName)s</em>" % locals(
+        ),
+        color="grey",
+        size=3,  # 1-10
+        pull="right",  # "left" | "right",
+        addBackgroundColor=False
+    )
+
+    masterClassification = discoveryDataDictionary["sherlockClassification"]
+
+    # add text color
+    masterClassification = khufu.coloredText(
+        text=masterClassification,
+        color="violet",
+        size=6,  # 1-10
+        pull="right",  # "left" | "right",
+        addBackgroundColor=False
+    )
+    masterClassification = masterClassification + "</br>" + text + "</br>"
+
+    text = khufu.p(
+        content='',
+        lead=False,
+        textAlign=False,  # [ left | center | right ]
+        color=False,  # [ muted | warning | info | error | success ]
+        navBar=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    coords = "%s %s" % (
+        discoveryDataDictionary["raDeg"], discoveryDataDictionary["decDeg"],)
+
+    name = discoveryDataDictionary["masterName"]
+
+    # FIND THIS TRANSIENT'S CROSSMATCHES
+    transientBucketId = discoveryDataDictionary["transientBucketId"]
+    cms = []
+    for row in transientCrossmatches:
+        if row["transient_object_id"] == transientBucketId:
+            cms.append(row)
+
+    masterName = discoveryDataDictionary["masterName"]
+    sherlockClassification = discoveryDataDictionary["sherlockClassification"]
+    if discoveryDataDictionary["sdss_coverage"] == 1:
+        survey = "P/SDSS9/color"
+    else:
+        survey = "P/DSS2/color"
+
+    aladin = '<div class="aladin-hide" coords="%(coords)s" survey="%(survey)s" data="/marshall/transients/%(transientBucketId)s/context" transient="%(name)s" style="font-family:dryx_icon_font"></div>' % locals(
+    )
+
+    return "%(masterClassification)s %(aladin)s" % locals()
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
