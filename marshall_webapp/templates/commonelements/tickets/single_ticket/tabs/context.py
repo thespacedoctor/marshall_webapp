@@ -66,6 +66,13 @@ def context_tab(
 
     log.info('starting the ``context_tab`` function')
 
+    group = ""
+    for item in request.effective_principals:
+        if "group:" in item:
+            group = item.replace("group:", "")
+    if group not in ["superadmin"]:
+        return None
+
     crossmatches = _crossmatch_info_block(
         log=log,
         request=request,
