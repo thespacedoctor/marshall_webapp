@@ -141,6 +141,9 @@ class models_transients_context_get():
                     openInNewTab=True
                 )
 
+            if c["catalogue_object_type"].lower() == "other":
+                c["catalogue_object_type"] = c["catalogue_object_subtype"]
+
             # transient_object_id': 871327L,
             # distance_modulus': None,
             # association_type': 'SN',
@@ -168,11 +171,19 @@ class models_transients_context_get():
             # association_rank': None,
             # z': None}
 
+            other = True
             for s, i in zip(sourceType, iconsUnicode):
+
                 if c["catalogue_object_type"].lower() in s:
                     rank = c["rank"]
                     c[
                         "label"] = """%(i)s%(rank)s""" % locals()
+                    other = False
+
+            if other == True:
+                rank = c["rank"]
+                c[
+                    "label"] = u"""%(rank)s""" % locals()
 
             c["radius_color"] = None
             for tt, cat, col in zip(transTypes, cats, colors):

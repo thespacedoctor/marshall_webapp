@@ -75,7 +75,7 @@ function dryxAladin(thisObject) {
             target: coords
         });
 
-        aladin.getBaseImageLayer().getColorMap().reverse();
+        aladin.getBaseImageLayer().getColorMap().reverse(1);
 
         // be careful with variable names for items went compiling JS
         var sourceOverlays = new Array();
@@ -146,6 +146,12 @@ function dryxAladin(thisObject) {
         transOverlay.addSources([A.marker(raDec[0], raDec[1], {
             popupTitle: tranName
         })]);
+
+        aladin.setImageSurvey("P/DSS/color");
+
+        setTimeout(function() {
+            aladin.setImageSurvey(survey);
+        }, 200);
 
     });
 
