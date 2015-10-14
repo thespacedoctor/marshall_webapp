@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# ['/home/marshall/.virtualenv/marshall_webapp/bin/mod_wsgi-express', 'setup-server', 'production_qubvm.wsgi', '--port=8090', '--user', 'marshall', '--group', 'marshall', '--server-root=/misc/pessto/git_repos/marshall_webapp/apache']
+# ['/usr/local/bin/mod_wsgi-express', 'setup-server', 'development_qubvm.wsgi', '--port=8090', '--user', 'marshall', '--group', 'marshall', '--server-root=/misc/pessto/git_repos/marshall_webapp/apache']
 
 HTTPD="/usr/sbin/httpd"
 HTTPD_ARGS="-f /misc/pessto/git_repos/marshall_webapp/apache/httpd.conf "
@@ -93,7 +93,7 @@ configtest)
     exec $HTTPD_COMMAND -t
     ;;
 status)
-    exec /home/marshall/.virtualenv/marshall_webapp/bin/python -m webbrowser -t $STATUSURL
+    exec /usr/local/bin/python -m webbrowser -t $STATUSURL
     ;;
 *)
     exec $HTTPD_COMMAND $ARGV

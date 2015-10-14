@@ -66,13 +66,6 @@ def context_tab(
 
     log.info('starting the ``context_tab`` function')
 
-    group = ""
-    for item in request.effective_principals:
-        if "group:" in item:
-            group = item.replace("group:", "")
-    if group not in ["superadmin"]:
-        return None
-
     crossmatches = _crossmatch_info_block(
         log=log,
         request=request,
@@ -380,6 +373,23 @@ def _crossmatch_info_block(
                 c["catalogue_table_name"] = regex.sub(
                     "\g<1>.\g<2>", c["catalogue_table_name"])
 
+                popover = khufu.popover(
+                    tooltip=True,
+                    placement="top",  # [ top | bottom | left | right ]
+                    # [ False | click | hover | focus | manual ]
+                    trigger="hover",
+                    title=c["search_name"],
+                    content=False,
+                    delay=200
+                )
+
+                # add text color
+                c["catalogue_table_name"] = khufu.a(
+                    content=c["catalogue_table_name"],
+                    href="#",
+                    popover=popover
+                )
+
             if c["direct_distance"]:
                 c["distance"] = c["direct_distance"]
             tableRow = []
@@ -389,6 +399,9 @@ def _crossmatch_info_block(
                     c[r] = "-"
                 if r == "catalogue_object_type":
                     icon = sourceIcons[c[r]]
+                    if c["catalogue_object_type"].lower() == "other":
+                        c["catalogue_object_type"] = c[
+                            "catalogue_object_subtype"]
                     thisType = c[r]
                     # add text color
                     c[
@@ -406,6 +419,7 @@ def _crossmatch_info_block(
                         c[r] = c[r] + ' Mpc'
                     if r in ["physical_separation_kpc"]:
                         c[r] = c[r] + ' Kpc'
+
                 content = khufu.coloredText(
                     text=c[r],
                     color=transColors[c["association_type"].lower()],
