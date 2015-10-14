@@ -98,6 +98,14 @@
 
         ,
         show: function() {
+
+            $("div.tooltip").not(this).each(function(index) {
+                var me = $(this).hide();
+            });
+            $("div.popover").not(this).each(function(index) {
+                var me = $(this).hide();
+            });
+
             // console.log('show');
             var $tip, pos, actualWidth, actualHeight, placement, tp, e = $.Event('show')
 
@@ -159,6 +167,7 @@
 
                 this.applyPlacement(tp, placement)
                 this.$element.trigger('shown')
+
             }
         }
 

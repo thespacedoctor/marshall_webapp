@@ -128,6 +128,12 @@ def topnavbar(log,
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
+    xmatches = khufu.a(
+        content='xmatches',
+        href=request.route_path('xmatches_catalogues'),
+        tableIndex=False,
+        # table index for the dropdown menus [ False | -1 ]
+        triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
 
     popover = khufu.popover(
         tooltip=True,
@@ -157,7 +163,7 @@ def topnavbar(log,
 
     insideNavList = khufu.nav_list(
         itemList=[
-            marshallHome, statsHome, pesstoHome, pesstoWiki, observingCalendar, pesstoGroups,
+            marshallHome, xmatches, statsHome, pesstoHome, pesstoWiki, observingCalendar, pesstoGroups,
             pesstoDocs, finderChartsRepo, externalData, help, bugTracker],
         pull='left',  # [ False | 'right' | 'left' ]
         onPhone=True,

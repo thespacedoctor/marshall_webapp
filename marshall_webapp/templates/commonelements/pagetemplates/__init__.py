@@ -85,6 +85,12 @@ def defaultpagetemplate(
             request=request,
             thisPageName=thisPageName
         )
+    elif sideBar == "xmatches":
+        sideBar = sidebar.xmatches_sidebar(
+            log=log,
+            request=request,
+            thisPageName=thisPageName
+        )
 
     # set default top navbar
     if not topNavBar:

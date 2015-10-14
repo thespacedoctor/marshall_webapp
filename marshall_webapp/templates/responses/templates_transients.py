@@ -24,6 +24,7 @@ templates_transients.py
 import sys
 import os
 import yaml
+import re
 from ...models.transients import models_transients_get
 from pyramid.path import AssetResolver
 import khufu
@@ -39,6 +40,7 @@ class templates_transients():
         - ``request`` -- the pyramid/WebObs request object
         - ``elementId`` -- the specific element requested (or False)
         - ``search`` -- is this a search? (boolean)
+        - ``tcsCatalogueId`` -- tcs catalogue Id (for catalogue match views)
 
     **Todo**
     """
@@ -49,13 +51,16 @@ class templates_transients():
         log,
         request,
         elementId=False,
-        search=False
+        search=False,
+        tcsCatalogueId=False
     ):
         self.log = log
         self.request = request
         log.debug("instansiating a new 'templates_transients' object")
         self.elementId = elementId
         self.search = search
+        self.tcsCatalogueId = tcsCatalogueId
+
         # xt-self-arg-tmpx
 
         # grab the required data from the database and add it as attributes to
@@ -64,10 +69,28 @@ class templates_transients():
             log=self.log,
             request=self.request,
             elementId=self.elementId,
-            search=self.search
+            search=self.search,
+            tcsCatalogueId=tcsCatalogueId
         )
         self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transientHistories, self.transientCrossmatches = transientModal.get(
         )
+
+        if tcsCatalogueId:
+            sqlQuery = u"""
+                select table_name from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s 
+            """ % locals()
+            objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
+            objectData = []
+            objectData[:] = [dict(zip(row.keys(), row))
+                             for row in objectDataTmp]
+            table_name = objectData[0]["table_name"]
+            table_name = table_name.replace(
+                "tcs_cat_", "").replace("_", " ")
+            regex = re.compile(r'(v\d{1,3}) (\d{1,3})( (\d{1,3}))?')
+            self.tcsCatalogueName = regex.sub(
+                "\g<1>.\g<2>", table_name)
+        else:
+            self.tcsCatalogueName = False
 
         return None
 
@@ -94,13 +117,18 @@ class templates_transients():
 
         from ..commonelements.pagetemplates import defaultpagetemplate
 
+        if self.tcsCatalogueId:
+            sideBar = "xmatches"
+        else:
+            sideBar = False
+
         webpage = defaultpagetemplate(
             log=self.log,
             request=self.request,
             bodyId=False,
             pageTitle="PESSTO Marshall",
             topNavBar=False,
-            sideBar=False,
+            sideBar=sideBar,
             mainContent=maincontent,
             relativePathFromDocRoot=False,
             thisPageName=self._get_page_name()
@@ -266,11 +294,17 @@ class templates_transients():
 
         from ..commonelements.view_switcher_buttons import view_switcher_buttons
 
+        if self.tcsCatalogueId:
+            elementId = self.tcsCatalogueId
+        else:
+            elementId = self.elementId
+
         view_switcher_buttons = view_switcher_buttons(
             log=self.log,
             params=self.qs,
             request=self.request,
-            elementId=self.elementId
+            elementId=elementId,
+            tcsTableName=self.tcsCatalogueName
         )
 
         self.log.info('completed the ``_get_view_switcher_buttons`` method')
@@ -643,7 +677,21 @@ class templates_transients():
         if pageEnd > totalCount:
             pageEnd = totalCount
 
-        if "search" not in thisListing:
+        tcsCatalogueId = self.tcsCatalogueId
+        if self.tcsCatalogueName:
+            table_name = self.tcsCatalogueName
+            if "tcsRank" in self.qs:
+                matches = "top-ranked matches"
+            else:
+                matches = "matched"
+
+            if totalCount == 0:
+                thisListing = """<span id="pageinfo">no transients were found matched against the <strong>%(table_name)s</strong> catalogue<span>""" % locals(
+                )
+            else:
+                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> %(matches)s against the <strong>%(table_name)s</strong> catalogue<span>""" % locals(
+                )
+        elif "search" not in thisListing:
             if totalCount == 0:
                 thisListing = """<span id="pageinfo">no transients were found in the <strong>%(thisListing)s</strong> list<span>""" % locals(
                 )
