@@ -133,5 +133,5 @@ logging settings:
             # filename: /Users/Dave/Desktop/marshall.log
             # mode: w
     root:
-        level: WARNING
+        level: ERROR
         handlers: [file,console]
