@@ -5,6 +5,7 @@ import views_transients_comments
 import views_actions_refresh_sidebar_list_counts
 import views_transients_lightcurves
 import views_transients_obs
-
 import views_transients_history
 import views_transients_context
+import views_xmatches
+import views_xmatches_catalogues

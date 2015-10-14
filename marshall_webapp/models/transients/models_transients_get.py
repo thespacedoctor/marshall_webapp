@@ -40,6 +40,7 @@ class models_transients_get():
         - ``request`` -- the pyramid/WebObs request object
         - ``elementId`` -- elementId (transientBucketId)
         - ``search`` -- is this a search query?
+        - ``tcsCatalogueId`` -- the catalouge ID from sherlock crossmatch
 
     **Todo**
     """
@@ -49,7 +50,8 @@ class models_transients_get():
         log,
         request,
         elementId=False,
-        search=False
+        search=False,
+        tcsCatalogueId=False
     ):
         self.log = log
         self.log.debug("instansiating a new 'models_transients_get' object")
@@ -62,10 +64,11 @@ class models_transients_get():
             "tableLimit": 100,
             "pageStart": 0,
             "sortBy": "dateAdded",
-            "sortDesc": False,
+            "sortDesc": False
         }
         self.search = search
         self.elementId = elementId
+        self.tcsCatalogueId = tcsCatalogueId
 
         # xt-self-arg-tmpx
 
@@ -122,6 +125,7 @@ class models_transients_get():
         """
         self.log.info('starting the ``get_data_from_database`` method')
 
+        tcsCatalogueId = self.tcsCatalogueId
         sqlWhereList = []
 
         # SEARCH
@@ -186,6 +190,23 @@ class models_transients_get():
             thisWhere = """snoozed = "%(snoozed)s" """ % self.qs
             sqlWhereList.append(thisWhere)
 
+        # tcsCatalogueId?
+        if tcsCatalogueId:
+            thisWhere = """cm.catalogue_table_id = %(tcsCatalogueId)s """ % locals(
+            )
+            if "tcsRank" in self.qs:
+                rank = self.qs["tcsRank"]
+                thisWhere += """ and cm.rank=%(rank)s""" % locals()
+            sqlWhereList = []
+            sqlWhereList.append(thisWhere)
+            tcsCm = ", tcs_cross_matches cm"
+            tec = "and t.transientBucketId = cm.transient_object_id"
+            sec = "and s.transientBucketId = cm.transient_object_id"
+        else:
+            tcsCm = ""
+            tec = ""
+            sec = ""
+
         # COMBINE THE WHERE CLAUSES
         queryWhere = ""
         for thisWhere in range(len(sqlWhereList) - 1):
@@ -212,35 +233,35 @@ class models_transients_get():
 
             if self.qs["sortBy"] == "redshift":
                 sqlQuery = """
-                     select s.transientBucketId from transientBucketSummaries s, pesstoObjects p %(queryWhere)s %(sep)s order by s.best_redshift %(sortDirection)s
+                     select s.transientBucketId from transientBucketSummaries s, pesstoObjects p %(tcsCm)s %(queryWhere)s %(sep)s %(sec)s  order by s.best_redshift %(sortDirection)s
                 """ % locals()
             elif self.qs["sortBy"] == "latestComment":
                 newWhere = queryWhere.replace("t.t", "t")
                 sqlQuery = """
-                    select c.pesstoObjectsId as transientBucketId, max(c.dateCreated) as latestCommentDate from pesstoObjectsComments c, pesstoObjects p %(newWhere)s and c.pesstoObjectsId = p.transientBucketID group by c.pesstoObjectsId order by latestCommentDate %(sortDirection)s
+                    select c.pesstoObjectsId as transientBucketId, max(c.dateCreated) as latestCommentDate from pesstoObjectsComments c, pesstoObjects p %(tcsCm)s %(newWhere)s and c.pesstoObjectsId = p.transientBucketID %(tec)s  group by c.pesstoObjectsId order by latestCommentDate %(sortDirection)s
                 """ % locals()
 
             elif self.qs["sortBy"] == "pi_name":
                 # the ticket selection query
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by case when p.%(sortBy)s is null then 1 else 0 end,  p.%(sortBy)s %(sortDirection)s
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by case when p.%(sortBy)s is null then 1 else 0 end,  p.%(sortBy)s %(sortDirection)s
                 """ % locals()
 
             elif self.qs["sortBy"] == "observationPriority":
                 sortBy = self.qs["sortBy"]
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by p.%(sortBy)s, t.raDeg %(sortDirection)s
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s, t.raDeg %(sortDirection)s
                 """ % locals()
 
             else:
                 # the ticket selection query
                 sortBy = self.qs["sortBy"]
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s order by case when t.%(sortBy)s is null then 1 else 0 end,  t.%(sortBy)s %(sortDirection)s
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by case when t.%(sortBy)s is null then 1 else 0 end,  t.%(sortBy)s %(sortDirection)s
                 """ % locals()
         else:
             sqlQuery = """
-                select t.transientBucketId from transientBucket t, pesstoObjects p %(queryWhere)s %(tep)s
+                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s 
             """ % locals()
 
         # Add the limits and pagination to query
@@ -504,6 +525,7 @@ class models_transients_get():
         self.log.info(
             'starting the ``_get_total_ticket_count_for_list`` method')
 
+        tcsCatalogueId = self.tcsCatalogueId
         if self.search:
             sqlQuery = """
                 select count(*) from pesstoObjects t %(queryWhere)s;
@@ -515,6 +537,22 @@ class models_transients_get():
             totalTickets = totalTickets[0]["count(*)"]
         elif self.elementId:
             totalTickets = 1
+        elif tcsCatalogueId:
+            if "tcsRank" in self.qs:
+                sqlQuery = """
+                    select top_ranked_transient_associations as count from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s;
+                """ % locals()
+            else:
+                sqlQuery = """
+                    select all_transient_associations as count from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s;
+                """ % locals()
+            ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
+            ticketCountRows = []
+            ticketCountRows[:] = [dict(zip(row.keys(), row))
+                                  for row in ticketCountRowsTmp]
+            totalTickets = 0
+            for row in ticketCountRows:
+                totalTickets += row["count"]
         else:
             ticketCountWhere = queryWhere.replace("marshallWorkflowLocation", "listName").replace(
                 "alertWorkflowLocation", "listName").replace('classifiedFlag = "1"', 'listName="classified"').replace('snoozed = "1"', 'listName="snoozed"')

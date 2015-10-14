@@ -86,6 +86,11 @@ def main(global_config, **settings):
 
     config.add_route(
         'transients_element_history', '/transients/{elementId}/history')
+    config.add_route('xmatches', '/xmatches')
+    config.add_route('xmatches_catalogues', '/xmatches/catalogues')
+    config.add_route('xmatches_elements', '/xmatches/{elementId}')
+    config.add_route('xmatches_element_catalogues',
+                     '/xmatches/catalogues/{elementId}')
 
     # --- end of routes --- #
     # xpyr-add-route
@@ -149,7 +154,7 @@ def admin_only_debugtoolbar(request):
     print request.effective_principals
 
     try:
-        if (("marshall/_debug_toolbar" in request.referrer) or ("marshall/transients" in request.referrer)) and "/marshall/_debug_toolbar/" in request.url:
+        if ("marshall/" in request.referrer) and "/_debug_toolbar/" in request.url:
             toolbar_enabled = True
     except:
         pass

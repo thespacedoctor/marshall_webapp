@@ -36,7 +36,8 @@ def view_switcher_buttons(
     log,
     params,
     request,
-    elementId=False
+    elementId=False,
+    tcsTableName=False
 ):
     """view_switcher_buttons
 
@@ -67,6 +68,7 @@ def view_switcher_buttons(
             format=f,
             params=params,
             linkText=l,
+            elementId=elementId
         )
         theseLinks = "%(theseLinks)s %(thisLink)s" % locals()
 
@@ -110,7 +112,8 @@ def view_switcher_buttons(
             params=params,
             linkText=l,
             download=True,
-            elementId=elementId
+            elementId=elementId,
+            tcsTableName=tcsTableName
         )
         theseLinks = "%(theseLinks)s %(thisLink)s" % locals()
     popover = khufu.popover(
@@ -153,7 +156,8 @@ def _link_for_popover(
         params,
         linkText=False,
         download=False,
-        elementId=False):
+        elementId=False,
+        tcsTableName=False):
     """ link for popover
 
     **Key Arguments:**
@@ -180,7 +184,9 @@ def _link_for_popover(
 
     if download:
         if "html" not in format:
-            if "mwl" in params:
+            if tcsTableName:
+                params["filename"] = tcsTableName
+            elif "mwl" in params:
                 params["filename"] = params["mwl"]
             elif "awl" in params:
                 params["filename"] = params["awl"]
@@ -217,10 +223,12 @@ def _link_for_popover(
         log.debug("""params1: `%(params)s`""" % locals())
         log.debug("""params2: `%(params)s`""" % locals())
 
+    routename = request.matched_route.name
     if "q" in params:
         href = request.route_path('transients_search', _query=params)
     else:
-        href = request.route_path('transients', _query=params)
+        href = request.route_path(
+            routename, elementId=elementId, _query=params)
 
     if linkText:
         format = linkText
