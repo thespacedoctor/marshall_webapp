@@ -333,6 +333,7 @@ def _crossmatch_info_block(
         "agn": "yellow",
         "variablestar": "orange",
         "?": "violet",
+        "kepler": "#dc322f"
     }
 
     table = ""
