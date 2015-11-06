@@ -88,9 +88,19 @@ def main(global_config, **settings):
         'transients_element_history', '/transients/{elementId}/history')
     config.add_route('xmatches', '/xmatches')
     config.add_route('xmatches_catalogues', '/xmatches/catalogues')
-    config.add_route('xmatches_elements', '/xmatches/{elementId}')
     config.add_route('xmatches_element_catalogues',
                      '/xmatches/catalogues/{elementId}')
+    config.add_route('xmatches_searches', '/xmatches/searches')
+    config.add_route('xmatches_element_searches',
+                     '/xmatches/searches/{elementId}')
+    config.add_route('xmatches_views', '/xmatches/views')
+    config.add_route('xmatches_element_views',
+                     '/xmatches/views/{elementId}')
+    config.add_route('xmatches_associations', '/xmatches/associations')
+    config.add_route('xmatches_element_associations',
+                     '/xmatches/associations/{elementId}')
+
+    config.add_route('xmatches_elements', '/xmatches/{elementId}')
 
     # --- end of routes --- #
     # xpyr-add-route
