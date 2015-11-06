@@ -9,3 +9,6 @@ import views_transients_history
 import views_transients_context
 import views_xmatches
 import views_xmatches_catalogues
+import views_xmatches_views
+import views_xmatches_searches
+import views_xmatches_associations

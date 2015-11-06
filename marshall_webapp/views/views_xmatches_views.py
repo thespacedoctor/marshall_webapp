@@ -3,90 +3,90 @@ import pyramid.httpexceptions as exc
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
-from ..templates.responses import templates_xmatches_catalogues
-from ..models.xmatches_catalogues.element import models_xmatches_element_catalogues_get, models_xmatches_element_catalogues_delete, models_xmatches_element_catalogues_put, models_xmatches_element_catalogues_post
+from ..templates.responses import templates_xmatches_views
+from ..models.xmatches_views.element import models_xmatches_element_views_get, models_xmatches_element_views_delete, models_xmatches_element_views_put, models_xmatches_element_views_post
 
 # RESOURCE CONTEXT
 
 
-@view_defaults(route_name='xmatches_catalogues', permission="view_users")
-class xmatches_catalogues_view(object):
+@view_defaults(route_name='xmatches_views', permission="view_users")
+class xmatches_views_view(object):
 
     def __init__(self, request):
         self.request = request
         self.log = logging.getLogger(__name__)
         self.log.debug(
-            "instantiating a new 'xmatches_catalogues'' view")
+            "instantiating a new 'xmatches_views'' view")
 
     @view_config(request_method='DELETE', permission="edit_users")
     @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
-        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'xmatches_catalogues' resource")
+        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'xmatches_views' resource")
 
     @view_config(request_method='PUT', permission="edit_users")
     @view_config(request_param="method=put", permission="edit_users")
     def put(self):
-        return exc.exception_response(405, body_template="The PUT method is not allowed on the 'xmatches_catalogues' resource")
+        return exc.exception_response(405, body_template="The PUT method is not allowed on the 'xmatches_views' resource")
 
     @view_config(request_method='POST', permission="edit_users")
     @view_config(request_param="method=post", permission="edit_users")
     def post(self):
-        return exc.exception_response(405, body_template="The POST method is not allowed on the 'xmatches_catalogues' resource")
+        return exc.exception_response(405, body_template="The POST method is not allowed on the 'xmatches_views' resource")
 
     @view_config(request_method='GET', permission="view_users")
     @view_config(request_param="method=get", permission="view_users")
     def get(self):
 
-        xmatches_catalogues = templates_xmatches_catalogues(
+        xmatches_views = templates_xmatches_views(
             log=self.log,
             request=self.request
         )
-        responseContent = xmatches_catalogues.get()
+        responseContent = xmatches_views.get()
         return Response(responseContent)
 
 # RESOURCE ELEMENT
 
 
-@view_defaults(route_name='xmatches_element_catalogues', permission="view_users")
-class xmatches_element_catalogues_view(object):
+@view_defaults(route_name='xmatches_element_views', permission="view_users")
+class xmatches_element_views_view(object):
 
     def __init__(self, request):
         self.request = request
         self.log = logging.getLogger(__name__)
         self.log.debug(
-            "instantiating a new 'xmatches_catalogues' view")
+            "instantiating a new 'xmatches_views' view")
 
     @view_config(request_method='DELETE', permission="edit_users")
     @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
-        xmatches_catalogues = models_xmatches_element_catalogues_delete(
+        xmatches_views = models_xmatches_element_views_delete(
             log=self.log,
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        responseContent = xmatches_catalogues.delete()
+        responseContent = xmatches_views.delete()
         return Response(responseContent)
 
     @view_config(request_method='PUT', permission="edit_users")
     @view_config(request_param="method=put", permission="edit_users")
     def put(self):
-        xmatches_catalogues = models_xmatches_element_catalogues_put(
+        xmatches_views = models_xmatches_element_views_put(
             log=self.log,
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        responseContent = xmatches_catalogues.put()
+        responseContent = xmatches_views.put()
         return Response(responseContent)
 
     @view_config(request_method='POST', permission="edit_users")
     @view_config(request_param="method=post", permission="edit_users")
     def post(self):
-        xmatches_catalogues = models_xmatches_element_catalogues_post(
+        xmatches_views = models_xmatches_element_views_post(
             log=self.log,
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        thisResponse = xmatches_catalogues.post()
+        thisResponse = xmatches_views.post()
 
         if "redirectURL" in self.request.params:
             url = self.request.params["redirectURL"]
@@ -97,39 +97,39 @@ class xmatches_element_catalogues_view(object):
     @view_config(request_method='GET', request_param="format=json", renderer="json", permission="view_users")
     @view_config(request_param=["method=get", "format=json"], renderer="json", permission="view_users")
     def get_json(self):
-        xmatches_catalogues = templates_xmatches_catalogues(
+        xmatches_views = templates_xmatches_views(
             log=self.log,
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        return xmatches_catalogues.get()
+        return xmatches_views.get()
 
     @view_config(request_method='GET', request_param="format=csv", renderer="csv", permission="view_users")
     @view_config(request_param=["method=get", "format=csv"], renderer="csv", permission="view_users")
     def get_csv(self):
-        xmatches_catalogues = models_xmatches_element_catalogues_get(
+        xmatches_views = models_xmatches_element_views_get(
             log=self.log,
             request=self.request,
             tcsCatalogueId=self.request.matchdict["elementId"]
         )
-        return xmatches_catalogues.get()
+        return xmatches_views.get()
 
     @view_config(request_method='GET', request_param="format=plain_table", renderer="plain_table", permission="view_users")
     @view_config(request_param=["method=get", "format=plain_table"], renderer="plain_table", permission="view_users")
     def get_plain_table(self):
-        xmatches_catalogues = models_xmatches_element_catalogues_get(
-            log=self.log,
-            request=self.request,
-            tcsCatalogueId=self.request.matchdict["elementId"]
-        )
-        return xmatches_catalogues.get()
-
-    @view_config(request_method='GET', permission="view_users")
-    @view_config(request_param="method=get", permission="view_users")
-    def get(self):
-        xmatches_catalogues = templates_xmatches_catalogues(
+        xmatches_views = templates_xmatches_views(
             log=self.log,
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
-        return Response(str(xmatches_catalogues.get()))
+        return xmatches_views.get()
+
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param="method=get", permission="view_users")
+    def get(self):
+        xmatches_views = templates_xmatches_views(
+            log=self.log,
+            request=self.request,
+            elementId=self.request.matchdict["elementId"]
+        )
+        return Response(str(xmatches_views.get()))
