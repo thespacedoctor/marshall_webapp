@@ -140,7 +140,7 @@ def host_info_block(
         )
 
     sdssLink = khufu.a(
-        content='sdss dr10 location',
+        content='sdss dr12 location',
         href=sdssUrl,
     )
 
