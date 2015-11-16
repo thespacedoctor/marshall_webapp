@@ -21,6 +21,9 @@ credentials:
     ps1-md:
         username: ps1sc
         password: skysurveys
+    ps1-gw:
+        username: psnsc
+        password: "!gravity"
     skymapper:
         username: pessto
         password: "!explosions"
@@ -51,8 +54,12 @@ nttarchiver:
     path to archive root folder: "/misc/pessto/data/ntt_data/archive"
 
 panstarrs urls:
-    summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
-    recurrence csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/recurrences.csv"
+    3pi:
+        summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
+        recurrence csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/recurrences.csv"
+    gw:
+        summary csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/summary.csv
+        recurrence csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/recurrences.csv
 
 skymapper urls:
     summary csv: "http://www.mso.anu.edu.au/~skymap/smt/dbi/media/trigger/pessto.csv"
