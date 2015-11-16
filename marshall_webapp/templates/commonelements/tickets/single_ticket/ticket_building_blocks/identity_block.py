@@ -129,6 +129,12 @@ def identity_block(
         surveyObjectUrl = surveyObjectUrl.replace(
             "star.", "%(user)s:%(pwd)s@star." % locals())
 
+    if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
+        user = request.registry.settings["credentials"]["ps1-gw"]["username"]
+        pwd = request.registry.settings["credentials"]["ps1-gw"]["password"]
+        surveyObjectUrl = surveyObjectUrl.replace(
+            "star.", "%(user)s:%(pwd)s@star." % locals())
+
     # MASTER NAME
     masterName = discoveryDataDictionary["masterName"]
     name = masterName
