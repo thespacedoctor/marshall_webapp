@@ -48,6 +48,9 @@ credentials:
     ps1-fgss:
         username: ps1sc
         password: skysurveys
+    ps1-gw:
+        username: psnsc
+        password: "!gravity"
     skymapper:
         username: pessto
         password: "!explosions"
@@ -56,8 +59,12 @@ credentials:
         password: "i8VLH)+d7rm}22o9P;W%&yRa7pmu7P"
 
 panstarrs urls:
-    summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
-    recurrence csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/recurrences.csv"
+    3pi:
+        summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
+        recurrence csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/recurrences.csv"
+    gw:
+        summary csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/summary.csv
+        recurrence csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/recurrences.csv
 
 lsq urls:
     summary csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates.csv"
