@@ -103,17 +103,21 @@ def latest_magnitudes_block(
         currentMagEstimate = ""
 
     # get latest magnitudes
-    littleTitle = """<span class="colortext grey littlelabel  ">lastest magnitude:</span>"""
+    littleTitle = """<span class="colortext grey littlelabel  ">magnitudes:</span>"""
     numOfPointsToDisplay = 5
     count = 0
     rows = []
     magnitudes = ""
+    for k, v in discoveryDataDictionary.iteritems():
+        print k, v
     for dataPoint in lightcurveData:
         if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
             row = dataPoint
             rows.append(row)
             count += 1
             if count >= numOfPointsToDisplay:
+                littleTitle = """<span class="colortext grey littlelabel  ">latest %(numOfPointsToDisplay)s magnitudes:</span>""" % locals(
+                )
                 break
 
     for row in rows:
