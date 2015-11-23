@@ -171,7 +171,99 @@ def lightcurve_block(
         currentMagEstimate = ""
 
     # get three latest magnitudes
-    littleTitle = """<span class="colortext grey littlelabel  ">lastest magnitude:</span>"""
+    littleTitle = """<span class="colortext grey littlelabel  ">discovery magnitude:</span>"""
+    ffilter = ""
+    if discoveryDataDictionary["earliestMagnitudeFilter"]:
+        ffilter = discoveryDataDictionary["earliestMagnitudeFilter"]
+        ffilter = """%(ffilter)s-band""" % locals()
+    elif discoveryDataDictionary["earliestMagnitude"] == None:
+        ffilter = "waiting on LSQ forced phot."
+    survey = discoveryDataDictionary["earliestMagnitudeSurvey"]
+    if not survey:
+        survey = ""
+    survey = khufu.coloredText(
+        text="""%s %s""" % (survey, ffilter, ),
+        color="orange",
+        size=3,
+        pull="left"
+    )
+    earliestMag = discoveryDataDictionary["earliestMagnitude"]
+    if earliestMag:
+        earliestMag = khufu.coloredText(
+            text="""%4.2f""" % (earliestMag,),
+            color="green",
+            size=6,
+            pull="right"
+        )
+    else:
+        earliestMag = khufu.coloredText(
+            text="""?""",
+            color="green",
+            size=6,
+            pull="right"
+        )
+
+    earliestDetection = khufu.coloredText(
+        text="""%s""" % (
+            str(discoveryDataDictionary["earliestDetection"])[0:10],),
+        color="violet",
+        pull="left",
+        size=2
+    )
+    relDate = dcu.pretty_date(
+        date=discoveryDataDictionary["earliestDetection"]
+    )
+    relDate = khufu.coloredText(
+        text="""  %s""" % (relDate[1:]),
+        color="magenta",
+        pull="left",
+        size=2
+    )
+    survey = khufu.grid_row(
+        responsive=True,
+        columns=survey
+    )
+    earliestDetection = khufu.grid_row(
+        responsive=True,
+        columns="%(earliestDetection)s %(relDate)s" % locals()
+    )
+    info = khufu.grid_column(
+        span=6,  # 1-12
+        offset=0,  # 1-12
+        content="%(survey)s %(earliestDetection)s" % locals(),
+        pull="left",  # ["right", "left", "center"]
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+    earliestMag = khufu.grid_column(
+        span=3,  # 1-12
+        offset=offset,  # 1-12
+        content=earliestMag,
+        pull=False,  # ["right", "left", "center"]
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    earliestMag = khufu.grid_row(
+        responsive=True,
+        columns="%(earliestMag)s %(info)s" % locals(),
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    earliestMag = "%(littleTitle)s<span>%(earliestMag)s</span>" % locals()
+
+    # get three latest magnitudes
+    littleTitle = """<span class="colortext grey littlelabel  ">latest magnitude:</span>"""
     numOfPointsToDisplay = 1
     count = 0
     rows = []
@@ -272,7 +364,7 @@ def lightcurve_block(
 
     magnitudes = "%(littleTitle)s<span>%(magnitudes)s</span>" % locals()
 
-    return "%(title)s %(lightCurveImage)s %(magnitudes)s %(currentMagEstimate)s" % locals()
+    return "%(title)s %(lightCurveImage)s %(earliestMag)s %(magnitudes)s %(currentMagEstimate)s" % locals()
 
 
 ###################################################################
