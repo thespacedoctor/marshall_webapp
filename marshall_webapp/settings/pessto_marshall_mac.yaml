@@ -72,6 +72,7 @@ lsq urls:
 
 master sne url: "http://observ.pereplet.ru/sn_e.html"
 tocp url: "http://www.cbat.eps.harvard.edu/unconf/tocp.html"
+des sne url: "https://portal.nersc.gov/des-sn/transients/"
 
 bright sn list urls:
     date ordered list: "http://www.rochesterastronomy.org/snimages/sndate.html"
