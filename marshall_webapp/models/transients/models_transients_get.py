@@ -243,6 +243,7 @@ class models_transients_get():
 
             elif self.qs["sortBy"] == "pi_name":
                 # the ticket selection query
+                sortBy = self.qs["sortBy"]
                 sqlQuery = """
                     select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by case when p.%(sortBy)s is null then 1 else 0 end,  p.%(sortBy)s %(sortDirection)s
                 """ % locals()
