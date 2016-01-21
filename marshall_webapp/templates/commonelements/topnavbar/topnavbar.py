@@ -79,6 +79,9 @@ def topnavbar(log,
     statsHome = khufu.a(
         content='stats',
         href=request.route_path('stats'))
+    members = khufu.a(
+        content='member list',
+        href=request.route_path('pessto_members'))
 
     pesstoHome = khufu.a(
         content='pessto.org',
@@ -164,7 +167,7 @@ def topnavbar(log,
     insideNavList = khufu.nav_list(
         itemList=[
             marshallHome, xmatches, statsHome, pesstoHome, pesstoWiki, observingCalendar, pesstoGroups,
-            pesstoDocs, finderChartsRepo, externalData, help, bugTracker],
+            pesstoDocs, finderChartsRepo, externalData, members, help, bugTracker],
         pull='left',  # [ False | 'right' | 'left' ]
         onPhone=True,
         onTablet=True,

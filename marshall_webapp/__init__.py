@@ -102,6 +102,10 @@ def main(global_config, **settings):
 
     config.add_route('xmatches_elements', '/xmatches/{elementId}')
 
+    config.add_route('pessto_members',
+                     '/pessto_members')
+    config.add_route('pessto_members_elements', '/pessto_members/{elementId}')
+
     # --- end of routes --- #
     # xpyr-add-route
 
