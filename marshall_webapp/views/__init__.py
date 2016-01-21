@@ -12,3 +12,4 @@ import views_xmatches_catalogues
 import views_xmatches_views
 import views_xmatches_searches
 import views_xmatches_associations
+import views_pessto_members
