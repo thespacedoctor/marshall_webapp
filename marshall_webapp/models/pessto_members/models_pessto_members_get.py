@@ -92,7 +92,7 @@ class models_pessto_members_get():
             orderDir = ""
 
         sqlQuery = u"""
-            select firstname, secondname from webapp_users where secondname is not "doe" %(orderBy)s  %(orderDir)s
+            select firstname, secondname from webapp_users where secondname is not "doe" and %(orderBy)s  %(orderDir)s
         """ % locals()
 
         membersTmp = self.request.db.execute(sqlQuery).fetchall()
