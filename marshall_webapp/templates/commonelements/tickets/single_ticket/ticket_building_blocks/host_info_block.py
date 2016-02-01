@@ -162,14 +162,15 @@ def host_info_block(
     imageModal = imageModal.get()
 
     redshift = ""
-    if discoveryDataDictionary["hostRedshift"]:
-        redshift = discoveryDataDictionary["hostRedshift"]
+    if discoveryDataDictionary["host_redshift"]:
+
+        redshift = discoveryDataDictionary["host_redshift"]
         littleTitle = cu.little_label(
             text="host redshift:"
         )
 
         redshift = khufu.coloredText(
-            text=redshift,
+            text="%(redshift)0.3f" % locals(),
             color="yellow",
             size=False,  # 1-10
         )
