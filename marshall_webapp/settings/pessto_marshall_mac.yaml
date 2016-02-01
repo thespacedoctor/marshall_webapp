@@ -35,6 +35,8 @@ asassn settings:
 secrets:
     authn policy: "a^h34**92"
 
+tns_cookie: "SESSf11000adb2f9f9d356be78e0a49b286d=kmGMbfeo8GRIBjBPy-vnD5q9c96kvLvzFhlWVZ_D27c; Drupal.tableDrag.showWeight=0; has_js=1"
+
 credentials:
     lsq:
         username: lsq
