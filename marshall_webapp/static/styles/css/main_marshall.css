@@ -1004,7 +1004,7 @@ input,
 button,
 select,
 textarea {
-  font-family: Quattrocento, Oxygen "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: Quattrocento, Oxygen, "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 label {
   display: block;
@@ -2522,7 +2522,7 @@ form.navbar-form {
   .navbar-search .search-query {
     margin-bottom: 0;
     padding: 4px 14px;
-    font-family: Quattrocento, Oxygen "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Quattrocento, Oxygen, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: normal;
     line-height: 1;
@@ -4184,7 +4184,7 @@ h5#createdDates {
 
 body {
   margin: 0;
-  font-family: Quattrocento, Oxygen "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Quattrocento, Oxygen, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 24px;
   color: #002b36;
