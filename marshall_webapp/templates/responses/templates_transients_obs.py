@@ -16,7 +16,7 @@ templates_transients_obs.py
     - ``_someObject`` = a 'private' object that should only be changed for debugging
 
 :Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 
 :Tasks:
 """
@@ -287,7 +287,8 @@ class templates_transients_obs():
         obDictionary["b6_DET.WIN1.BINY"] = "2"
         obDictionary["b6_SEQ.NEXPO"] = "1"
         obDictionary["b6_INS.FILT1.NAME"] = "Free"
-        obDictionary["b6_INS.GRIS1.NAME"] = "xxxxxxxxxxxxxxxxxxxxxxxxx"  # Gr#13
+        obDictionary[
+            "b6_INS.GRIS1.NAME"] = "xxxxxxxxxxxxxxxxxxxxxxxxx"  # Gr#13
         # slit#1.0
         obDictionary["b6_INS.SLIT1.NAME"] = "xxxxxxxxxxxxxxxxxxxxxxxxx"
         obDictionary["b6_DPR.TYPE"] = "OBJECT"

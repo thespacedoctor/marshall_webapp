@@ -13,7 +13,7 @@ xmatches_sidebar.py
     April 29, 2014
 
 :Notes:
-    - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 
 :Tasks:
     - [ ] when complete, extract all code out of the main function and add cl commands

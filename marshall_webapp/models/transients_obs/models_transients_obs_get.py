@@ -16,7 +16,7 @@ models_transients_obs_get.py
     - ``_someObject`` = a 'private' object that should only be changed for debugging
 
 :Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 
 :Tasks:
 """
@@ -62,7 +62,8 @@ class models_transients_obs_get():
             "grism": 13,
             "badSeeing": False
         }
-        self.log.debug("instansiating a new 'models_transients_obs_get' object")
+        self.log.debug(
+            "instansiating a new 'models_transients_obs_get' object")
 
         # Initial Actions
         self._set_default_parameters()

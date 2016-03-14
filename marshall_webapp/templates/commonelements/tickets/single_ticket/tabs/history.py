@@ -13,7 +13,7 @@ history.py
     January 7, 2014
 
 :Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 
 :Tasks:
 """
@@ -75,7 +75,8 @@ def history_tab(
 
     # determine date added to the marshall
     dateAddedToMarshall = discoveryDataDictionary["dateAdded"]
-    objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
+    objectAddedToMarshallBy = discoveryDataDictionary[
+        "objectAddedToMarshallBy"]
     if not objectAddedToMarshallBy or objectAddedToMarshallBy.lower() == "none":
         thisLog = "object added to the 'inbox' via the marshall's automatic import scripts"
         if discoveryDataDictionary["decDeg"] > 30.:
@@ -103,7 +104,8 @@ def history_tab(
     classificationDate = discoveryDataDictionary["classificationAddedDate"]
     classificationSurvey = discoveryDataDictionary["classificationSurvey"]
     classificationAddedBy = discoveryDataDictionary["classificationAddedBy"]
-    objectAddedToMarshallBy = discoveryDataDictionary["objectAddedToMarshallBy"]
+    objectAddedToMarshallBy = discoveryDataDictionary[
+        "objectAddedToMarshallBy"]
     if classificationDate:
         newEntry = {
             "transientBucketId": transientBucketId,

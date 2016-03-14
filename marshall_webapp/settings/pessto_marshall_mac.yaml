@@ -36,6 +36,7 @@ secrets:
     authn policy: "a^h34**92"
 
 tns_cookie: "SESSf11000adb2f9f9d356be78e0a49b286d=kmGMbfeo8GRIBjBPy-vnD5q9c96kvLvzFhlWVZ_D27c; Drupal.tableDrag.showWeight=0; has_js=1"
+tns_cookie: "has_js=1; SESS994899c55c2a176cceabb4a63b3cd01d=8-GLinHTz5ldt-DrAq7nzee2DSJhGwIIJhmqlcbKOJg"
 
 credentials:
     lsq:
@@ -67,6 +68,9 @@ panstarrs urls:
     gw:
         summary csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/summary.csv
         recurrence csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/recurrences.csv
+
+gaia urls:
+    summary csv: http://gsaweb.ast.cam.ac.uk/alerts/alerts.csv
 
 lsq urls:
     summary csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates.csv"
