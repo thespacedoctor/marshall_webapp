@@ -50,6 +50,9 @@ main css filepath: "/marshall/static/styles/css/main_marshall.css"
 main js filepath: "/marshall/static/js/main-ck.js"
 path to webapp icon: "/marshall/static/images/pessto_icon.png"
 
+gaia urls:
+    summary csv: http://gsaweb.ast.cam.ac.uk/alerts/alerts.csv
+
 nttarchiver:
     ## past number of days to check for new data (keep at a few days in case new data was added or there is a delay getting data into the eso archive)
     download window size: 7
