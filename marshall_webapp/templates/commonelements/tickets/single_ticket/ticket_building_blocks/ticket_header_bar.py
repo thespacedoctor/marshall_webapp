@@ -13,7 +13,7 @@ ticket_header_bar.py
     November 20, 2013
 
 :Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 
 :Tasks:
 """
@@ -394,7 +394,8 @@ def _resurrected_object_warning(
             alertText='Resurrected from archive - possibly on the rise again',
             alertHeading='Note',
             extraPadding=False,
-            alertLevel='success'  # [ "warning" | "error" | "success" | "info" ]
+            # [ "warning" | "error" | "success" | "info" ]
+            alertLevel='success'
         )
     else:
         notification = ""

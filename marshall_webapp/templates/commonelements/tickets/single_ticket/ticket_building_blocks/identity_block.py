@@ -1,10 +1,7 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-identity_block.py
-=================
-:Summary:
-    The identity block for the object ticket
+*The identity block for the object ticket*
 
 :Author:
     David Young
@@ -12,10 +9,8 @@ identity_block.py
 :Date Created:
     November 20, 2013
 
-:Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
-
-:Tasks:
+.. todo::
+    
 """
 ################# GLOBAL IMPORTS ####################
 
@@ -23,6 +18,7 @@ import re
 import datetime
 import sys
 import os
+import numpy as np
 import string
 import khufu
 
@@ -42,7 +38,8 @@ def identity_block(
         request,
         discoveryDataDictionary,
         objectAkas):
-    """get ticket identity block
+    """
+    *get ticket identity block*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -53,7 +50,8 @@ def identity_block(
     **Return:**
         - ``identity_block`` -- the ticket identity block for the pesssto object
 
-    **Todo**
+    .. todo::
+
     """
     log.info('starting the ``identity_block`` function')
 
@@ -158,128 +156,8 @@ def identity_block(
     else:
         masterNameLink = discoveryDataDictionary["masterName"]
 
-    numerator = 70.
-    if discoveryDataDictionary["classifiedFlag"]:
-        numerator = 60.
-
-    size = int(numerator / len(discoveryDataDictionary["masterName"]))
-    if size > 6:
-        size = 6
-
-    masterName = khufu.coloredText(
-        text="""%(masterNameLink)s""" % locals(),
-        color="green",
-        size=size,  # 1-10
-        pull=False,  # "left" | "right"
-    )
-
-    masterName = """%(masterName)s""" % locals()
-
-    masterName = khufu.grid_row(
-        responsive=True,
-        columns=masterName,
-        htmlId=False,
-        htmlClass="name",
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    # IMAGE STAMP
-    transient_cache = request.static_path(
-        "marshall_webapp:static/caches/transients/")
-    download_prefix = "/marshall/static/caches/transients/"
-    src = "holder.js/200x60/gray/text:no image stamps available"
-    dsrc = src
-
-    if discoveryDataDictionary["ps1_target_stamp"]:
-        stampName = "ps1_target_stamp.jpeg"
-        src = "%s%s/ps1_target_stamp.jpeg" % (transient_cache,
-                                              discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/ps1_target_stamp.jpeg" % (download_prefix,
-                                               discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["ogle_target_stamp"]:
-        stampName = "ogle_target_stamp.jpeg"
-        src = "%s%s/ogle_target_stamp.jpeg" % (transient_cache,
-                                               discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/ogle_target_stamp.jpeg" % (download_prefix,
-                                                discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["css_stamp"]:
-        stampName = "css_stamp.jpeg"
-        src = "%s%s/css_stamp.jpeg" % (transient_cache,
-                                       discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/css_stamp.jpeg" % (download_prefix,
-                                        discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["des_target_stamp"]:
-        stampName = "des_target_stamp.gif"
-        src = "%s%s/des_target_stamp.gif" % (transient_cache,
-                                             discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/des_target_stamp.gif" % (download_prefix,
-                                              discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["mls_stamp"]:
-        stampName = "mls_stamp.jpeg"
-        src = "%s%s/mls_stamp.jpeg" % (transient_cache,
-                                       discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/mls_stamp.jpeg" % (download_prefix,
-                                        discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["sss_stamp"]:
-        stampName = "sss_stamp.jpeg"
-        src = "%s%s/sss_stamp.jpeg" % (transient_cache,
-                                       discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/sss_stamp.jpeg" % (download_prefix,
-                                        discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["lsq_stamp"]:
-        stampName = "lsq_stamp.jpeg"
-        src = "%s%s/lsq_stamp.jpeg" % (transient_cache,
-                                       discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/lsq_stamp.jpeg" % (download_prefix,
-                                        discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["master_stamp"]:
-        stampName = "master_stamp.jpeg"
-        src = "%s%s/master_stamp.jpeg" % (transient_cache,
-                                          discoveryDataDictionary["transientBucketId"])
-        dsrc = "%s%s/master_stamp.jpeg" % (download_prefix,
-                                           discoveryDataDictionary["transientBucketId"])
-    elif discoveryDataDictionary["bsl_stamp"] and discoveryDataDictionary["tripletImageUrl"]:
-        remoteUrl = discoveryDataDictionary["tripletImageUrl"]
-        theseLines = string.split(remoteUrl, '.')
-        extension = theseLines[-1]
-        stampName = "bsl_stamp.%(extension)s" % locals()
-        src = "%s%s/bsl_stamp.%s" % (transient_cache,
-                                     discoveryDataDictionary["transientBucketId"], extension)
-    elif discoveryDataDictionary["targetImageUrl"]:
-        stampName = "user_added_stamp.jpeg"
-        src = discoveryDataDictionary["targetImageUrl"]
-        dsrc = discoveryDataDictionary["targetImageUrl"]
-
-    imageSource = khufu.a(
-        content='image source',
-        href=surveyObjectUrl,
-    )
-
-    if "stampName" not in locals():
-        src = 'holder.js/400x400/auto/industrial/text:no stamp'
-        stampName = "no_stamp"
-
-    objectName = discoveryDataDictionary["masterName"]
-    href = request.route_path(
-        'download', _query={'url': dsrc, "webapp": "marshall_webapp", "filename": "%(objectName)s_image_stamp" % locals()})
-    if stampName == "user_added_stamp.jpeg":
-        href = discoveryDataDictionary["targetImageUrl"]
-
-    objectStamp = khufu.imagingModal(
-        log=log,
-        imagePath=src,
-        display="polaroid",  # [ rounded | circle | polaroid | False ]
-        modalHeaderContent="Image Stamp for %(masterNameLink)s from %(survey)s" % locals(
-        ),
-        modalFooterContent=imageSource,
-        downloadLink=href
-    )
-    objectStamp = objectStamp.get()
-
     # AKA NAMES
-    rows = []
+    akaRows = []
     for item in objectAkas:
         surveyObjectUrl = item["surveyObjectUrl"]
         if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
@@ -313,14 +191,220 @@ def identity_block(
                 "star.", "%(user)s:%(pwd)s@star." % locals())
         item["surveyObjectUrl"] = surveyObjectUrl
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"]:
-            rows.append(item)
+            akaRows.append(item)
+
+    numerator = 70.
+    if discoveryDataDictionary["classifiedFlag"]:
+        numerator = 60.
+
+    size = int(numerator / len(discoveryDataDictionary["masterName"]))
+    if size > 6:
+        size = 6
+
+    masterName = khufu.coloredText(
+        text="""%(masterNameLink)s""" % locals(),
+        color="green",
+        size=size,  # 1-10
+        pull=False,  # "left" | "right"
+    )
+
+    masterName = """%(masterName)s""" % locals()
+
+    masterName = khufu.grid_row(
+        responsive=True,
+        columns=masterName,
+        htmlId=False,
+        htmlClass="name",
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    # IMAGE STAMP
+    transient_cache = request.static_path(
+        "marshall_webapp:static/caches/transients/")
+    download_prefix = "/marshall/static/caches/transients/"
+
+    sourceImages = []
+    dsourceImages = []
+    objectNames = []
+
+    stampFlags = {
+        "ps1_target_stamp": "ps1_target_stamp.jpeg",
+        "gaia_stamp": "gaia_stamp.jpeg",
+        "ogle_target_stamp": "ogle_target_stamp.jpeg",
+        "css_stamp": "css_stamp.jpeg",
+        "des_target_stamp": "des_target_stamp.gif",
+        "mls_stamp": "mls_stamp.jpeg",
+        "sss_stamp": "sss_stamp.jpeg",
+        "lsq_stamp": "lsq_stamp.jpeg",
+        "master_stamp": "master_stamp.jpeg"
+    }
+
+    hasStamp = False
+    href = False
+    for k, v in stampFlags.iteritems():
+        if discoveryDataDictionary[k]:
+            hasStamp = True
+            src = "%s%s/%s" % (transient_cache,
+                               discoveryDataDictionary["transientBucketId"], v)
+            dsrc = "%s%s/%s" % (download_prefix,
+                                discoveryDataDictionary["transientBucketId"], v)
+            sourceImages.append(src)
+            dsourceImages.append(dsrc)
+            objectName = ""
+            for item in objectAkas:
+                if k.split("_")[0] in item["name"].lower():
+                    objectName = item["name"]
+                    objectName = khufu.a(
+                        content=objectName,
+                        href=item["surveyObjectUrl"],
+                        tableIndex=False,
+                        # [ False | "dropdown" | "tab" | "modal" ],
+                        triggerStyle=False,
+                        htmlClass=False,
+                        postInBackground=False,
+                        openInNewTab=True,
+                        popover=False
+                    )
+            objectNames.append(objectName)
+
+    if discoveryDataDictionary["bsl_stamp"] and discoveryDataDictionary["tripletImageUrl"]:
+        hasStamp = True
+        remoteUrl = discoveryDataDictionary["tripletImageUrl"]
+        theseLines = string.split(remoteUrl, '.')
+        extension = theseLines[-1]
+        stampName = "bsl_stamp.%(extension)s" % locals()
+        src = "%s%s/bsl_stamp.%s" % (transient_cache,
+                                     discoveryDataDictionary["transientBucketId"], extension)
+        sourceImages.append(src)
+        dsourceImages.append(src)
+        objectNames.append("Bright SN List Stamp")
+
+    if discoveryDataDictionary["targetImageUrl"] and hasStamp == False:
+        src = discoveryDataDictionary["targetImageUrl"]
+        dsrc = discoveryDataDictionary["targetImageUrl"]
+        href = discoveryDataDictionary["targetImageUrl"]
+        objectNames.append("User Added Stamp")
+        sourceImages.append(src)
+        dsourceImages.append(dsrc)
+
+    if len(sourceImages) == 0:
+        src = 'holder.js/400x400/auto/industrial/text:no stamp'
+        dsrc = src
+        sourceImages.append(src)
+        dsourceImages.append(dsrc)
+
+    src = sourceImages[0]
+    dsrc = dsourceImages[0]
+
+    objectName = discoveryDataDictionary["masterName"]
+    if not href:
+        href = request.route_path(
+            'download', _query={'url': dsrc, "webapp": "marshall_webapp", "filename": "%(objectName)s_image_stamp" % locals()})
+
+    imageSource = khufu.a(
+        content='image source',
+        href=surveyObjectUrl,
+    )
+
+    allImage = ""
+
+    count = 0
+    for s, d, n in zip(sourceImages, dsourceImages, objectNames):
+        count += 1
+        reminderImages = len(sourceImages) % 3
+        if reminderImages == 0:
+            span = 4
+            offset = 0
+        elif count < len(sourceImages[:-reminderImages]):
+            span = 4
+            offset = 0
+        elif reminderImages == 2:
+            span = 6
+            offset = 0
+        else:
+            span = 6
+            offset = 3
+
+        if "marshall_webapp:" in s:
+            href = request.static_path('%(s)s' % locals())
+        else:
+            href = s
+        thisImage = khufu.image(
+            src=s,  # [ industrial | gray | social ]
+            href=href,
+            display="rounded",  # [ rounded | circle | polaroid | False ]
+            pull=False,  # [ "left" | "right" | "center" | False ]
+            htmlClass=False,
+            width="90%"
+        )
+        thisImage = khufu.grid_row(
+            responsive=True,
+            columns=thisImage,
+        )
+        # add text color
+        name = khufu.coloredText(
+            text=n,
+            color="blue",
+            size=7,  # 1-10
+            pull=False,  # "left" | "right",
+            addBackgroundColor=False
+        )
+
+        name = khufu.grid_row(
+            responsive=True,
+            columns=name,
+        )
+        column = khufu.grid_column(
+            span=span,  # 1-12
+            offset=offset,  # 1-12
+            content=thisImage + name,
+            pull=False,  # ["right", "left", "center"]
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+        allImage += column
+
+    grid_row = khufu.grid_row(
+        responsive=True,
+        columns=allImage,
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
+    randNum = int(np.random.rand() * 10000)
+    modal = khufu.modal(
+        modalHeaderContent="Image Stamps for %(masterNameLink)s" % locals(
+        ),
+        modalBodyContent=grid_row,
+        modalFooterContent="",
+        htmlId="hookId%(randNum)s" % locals(),
+        centerContent=True
+    )
+    objectStamp = khufu.image(
+        src=sourceImages[0],  # [ industrial | gray | social ]
+        href="#hookId%(randNum)s" % locals(),
+        display="rounded",  # [ rounded | circle | polaroid | False ]
+        pull=False,  # [ "left" | "right" | "center" | False ]
+        htmlClass=False,
+        width="100%",
+        modal=True
+    )
+    objectStamp = objectStamp + modal
 
     akaList = ""
-    if len(rows) == 0:
+    if len(akaRows) == 0:
         akaTitle = ""
-    elif len(rows) == 1:
+    elif len(akaRows) == 1:
         akaTitle = "aka: "
-        row = rows[0]
+        row = akaRows[0]
         aka = row["name"]
         size = 3
         if len(aka) > 19:
@@ -341,7 +425,7 @@ def identity_block(
         akaList = aka
     else:
         akaTitle = "akas: "
-        for row in rows:
+        for row in akaRows:
             log.debug('aka: %s' % (row,))
             aka = row["name"]
             if aka in akaList:

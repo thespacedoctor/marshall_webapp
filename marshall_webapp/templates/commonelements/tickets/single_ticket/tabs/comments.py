@@ -13,7 +13,7 @@ comments.py
     January 7, 2014
 
 :Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 
 :Tasks:
 """
@@ -42,7 +42,8 @@ def comments_tab(
         objectComments,
         objectAkas,
         atelData,
-        lightcurveData):
+        lightcurveData,
+        transientCrossmatches):
     """comments tab
 
     **Key Arguments:**
@@ -53,7 +54,7 @@ def comments_tab(
         - ``objectAkas`` -- object akas
         - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
         - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``thisUrl`` -- current url
+        - ``transientCrossmatches`` -- info from the transient crossmatcher
 
     **Return:**
         - ``comments_tab`` -- for each transient ticket in the transient listings pages
@@ -101,6 +102,7 @@ def comments_tab(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
+        transientCrossmatches=transientCrossmatches
     )
 
     lightcurve_block = ticket_building_blocks.lightcurve_block.lightcurve_block(
@@ -158,7 +160,8 @@ def comments_tab(
             comments_block, encoding="utf-8", errors="replace")
     # convert bytes to unicode
     if isinstance(overviewWell, str):
-        overviewWell = unicode(overviewWell, encoding="utf-8", errors="replace")
+        overviewWell = unicode(
+            overviewWell, encoding="utf-8", errors="replace")
 
     comments_block = u"""%(newCommentForm)s %(overviewWell)s %(comments_block)s""" % locals(
     )
@@ -174,7 +177,8 @@ def comments_tab(
 
     # convert bytes to unicode
     if isinstance(comments_tab, str):
-        comments_tab = unicode(comments_tab, encoding="utf-8", errors="replace")
+        comments_tab = unicode(
+            comments_tab, encoding="utf-8", errors="replace")
 
     log.info('completed the ``comments_tab`` function')
     return commentCount, "%(comments_tab)s" % locals()

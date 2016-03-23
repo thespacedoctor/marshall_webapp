@@ -13,7 +13,7 @@ single_ticket.py
     November 20, 2013
 
 :Notes:
-    - If you have any questions requiring this script/module please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 
 :Tasks:
 """
@@ -96,7 +96,8 @@ def single_ticket(
         objectAkas=objectAkas,
         atelData=atelData,
         lightcurveData=lightcurveData,
-        objectHistories=objectHistories
+        objectHistories=objectHistories,
+        transientCrossmatches=transientCrossmatches
     )
     tabDictionary["overview"] = overviewTab
 
@@ -107,7 +108,8 @@ def single_ticket(
         objectComments=objectComments,
         objectAkas=objectAkas,
         atelData=atelData,
-        lightcurveData=lightcurveData
+        lightcurveData=lightcurveData,
+        transientCrossmatches=transientCrossmatches
     )
     tabDictionary["comments"] = commentsTab
 

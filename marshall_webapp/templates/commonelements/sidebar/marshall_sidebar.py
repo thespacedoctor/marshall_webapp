@@ -13,7 +13,7 @@ marshall_sidebar.py
     July 23, 2013
 
 :Notes:
-    - If you have any questions requiring this script please email me: d.r.young@qub.ac.uk
+    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 """
 ################# GLOBAL IMPORTS ####################
 import sys
