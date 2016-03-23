@@ -1,10 +1,7 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_get.py
-========================
-:Summary:
-    model for transient data in the marshall database - use this code to grab the transient data
+*model for transient data in the marshall database - use this code to grab the transient data*
 
 :Author:
     David Young
@@ -12,13 +9,11 @@ models_transients_get.py
 :Date Created:
     September 30, 2014
 
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
 :Notes:
     - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 
-:Tasks:
+.. todo::
+    
 """
 ################# GLOBAL IMPORTS ####################
 import sys
@@ -33,7 +28,7 @@ import urllib
 class models_transients_get():
 
     """
-    The worker class for the models_transients_get module
+    *The worker class for the models_transients_get module*
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -42,7 +37,8 @@ class models_transients_get():
         - ``search`` -- is this a search query?
         - ``tcsCatalogueId`` -- the catalouge ID from sherlock crossmatch
 
-    **Todo**
+    .. todo::
+
     """
 
     def __init__(
@@ -84,12 +80,14 @@ class models_transients_get():
 
     # Method Attributes
     def get(self):
-        """get the transientData object
+        """
+        *get the transientData object*
 
         **Return:**
             - ``transientData``
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info('starting the ``get`` method')
 
@@ -113,7 +111,8 @@ class models_transients_get():
 
     def _get_transient_data_from_database(
             self):
-        """get the sqlquery based on the request object parameters
+        """
+        *get the sqlquery based on the request object parameters*
 
         **Key Arguments:**
             # -
@@ -121,7 +120,8 @@ class models_transients_get():
         **Return:**
             - ``objectData``, ``matchedTransientBucketIds``, ``totalTicketCount`` --
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info('starting the ``get_data_from_database`` method')
 
@@ -334,7 +334,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _set_default_parameters(
             self):
-        """set default parameters in the request object if they have not yet been set
+        """
+        *set default parameters in the request object if they have not yet been set*
 
         **Key Arguments:**
             # -
@@ -342,7 +343,8 @@ class models_transients_get():
         **Return:**
             - None
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info('starting the ``set_default_parameters`` method')
 
@@ -396,7 +398,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _get_associated_transient_aka(
             self):
-        """ get associated aka names for the trasnsients
+        """
+        *get associated aka names for the trasnsients*
 
         **Key Arguments:**
             # -
@@ -404,7 +407,8 @@ class models_transients_get():
         **Return:**
             - ``objectAkas`` -- the akas for the objects found
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info('starting the ``_get_associated_transient_aka`` method')
 
@@ -412,7 +416,7 @@ class models_transients_get():
 
         # GRAB AKAS
         sqlQuery = """
-            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0
+            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%wis-tns%%" and surveyObjectUrl not like "%%rochester%%"))
         """ % locals()
         objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
 
@@ -421,13 +425,18 @@ class models_transients_get():
         objectAkas = []
         objectAkas[:] = [dict(zip(row.keys(), row)) for row in objectAkasTmp]
 
+        for row in objectAkas:
+            if row["name"][:2] not in ["SN", "AT"] and row["surveyObjectUrl"] and "wis-tns" is row["surveyObjectUrl"]:
+                row["surveyObjectUrl"] = None
+
         self.log.info('completed the ``_get_associated_transient_aka`` method')
         return objectAkas
 
     # use the tab-trigger below for new method
     def _get_associated_lightcurve_data(
             self):
-        """ get associated lightcurve data for the matched transients
+        """
+        *get associated lightcurve data for the matched transients*
 
         **Key Arguments:**
             # -
@@ -435,7 +444,8 @@ class models_transients_get():
         **Return:**
             - ``lightCurveData`` -- the found objects' lightcurve data
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info(
             'starting the ``_get_associated_lightcurve_data`` method')
@@ -457,7 +467,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _get_associated_atel_data(
             self):
-        """ get associated atel data for the matched transients
+        """
+        *get associated atel data for the matched transients*
 
         **Key Arguments:**
             # -
@@ -465,7 +476,8 @@ class models_transients_get():
         **Return:**
             - ``transientAtelMatches`` -- the matched atels fot the transients
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info('starting the ``_get_associated_atel_data`` method')
 
@@ -485,7 +497,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _get_associated_comments(
             self):
-        """ get associated comments for the transients
+        """
+        *get associated comments for the transients*
 
         **Key Arguments:**
             # -
@@ -493,7 +506,8 @@ class models_transients_get():
         **Return:**
             - ``objectComments`` -- object comments
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info('starting the ``_get_associated_comments`` method')
 
@@ -513,7 +527,8 @@ class models_transients_get():
     def _get_total_ticket_count_for_list(
             self,
             queryWhere):
-        """ get total ticket count for list
+        """
+        *get total ticket count for list*
 
         **Key Arguments:**
             - ``queryWhere`` -- the where segment of the ticket list sqlQuery string
@@ -521,7 +536,8 @@ class models_transients_get():
         **Return:**
             - ``totalTickets`` -- total number of object in list
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info(
             'starting the ``_get_total_ticket_count_for_list`` method')
@@ -575,7 +591,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _clean_data_for_plain_text_outputs(
             self):
-        """ clean data for plain text outputs
+        """
+        *clean data for plain text outputs*
 
         **Key Arguments:**
             # -
@@ -583,7 +600,8 @@ class models_transients_get():
         **Return:**
             - None
 
-        **Todo**
+        .. todo::
+
         """
         self.log.info(
             'starting the ``_clean_data_for_plain_text_outputs`` method')
@@ -675,7 +693,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _get_associated_transient_history(
             self):
-        """ get associated transient history
+        """
+        *get associated transient history*
 
         **Key Arguments:**
             # -
@@ -683,7 +702,8 @@ class models_transients_get():
         **Return:**
             - None
 
-        **Todo**
+        .. todo::
+
             - @review: when complete, clean _get_associated_transient_history method
             - @review: when complete add logging
         """
@@ -713,7 +733,8 @@ class models_transients_get():
     # use the tab-trigger below for new method
     def _get_associated_transient_crossmatches(
             self):
-        """ get associated transient crossmatches
+        """
+        *get associated transient crossmatches*
 
         **Key Arguments:**
             # -
@@ -721,7 +742,8 @@ class models_transients_get():
         **Return:**
             - None
 
-        **Todo**
+        .. todo::
+
             - @review: when complete, clean _get_associated_transient_crossmatches method
             - @review: when complete add logging
         """
@@ -731,7 +753,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select * from tcs_cross_matches where transient_object_id in (%(matchedTransientBucketIds)s) order by rank
+            select * from tcs_cross_matches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.transientBucketId in (%(matchedTransientBucketIds)s) and b.primaryKeyId = t.transient_object_id and t.catalogue_table_id=h.id order by rank
         """ % locals()
 
         crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()
