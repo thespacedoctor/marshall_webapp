@@ -43,6 +43,9 @@ asassn settings:
 secrets:
     authn policy: "a^h34**92"
 
+
+tns_cookie: "SESSf11000adb2f9f9d356be78e0a49b286d=FkLjtY9NCX2lXzNvkMSS5FleW0j7ct6TYO2gAHCpo-E; Drupal.tableDrag.showWeight=0; has_js=1"
+
 main css filepath: "/marshall/static/styles/css/main_marshall.css"
 main js filepath: "/marshall/static/js/main-ck.js"
 path to webapp icon: "/marshall/static/images/pessto_icon.png"
@@ -70,6 +73,8 @@ lsq urls:
 
 master sne url: "http://observ.pereplet.ru/sn_e.html"
 tocp url: "http://www.cbat.eps.harvard.edu/unconf/tocp.html"
+des sne url: "https://portal.nersc.gov/des-sn/transients/"
+
 
 bright sn list urls:
     date ordered list: "http://www.rochesterastronomy.org/snimages/sndate.html"
