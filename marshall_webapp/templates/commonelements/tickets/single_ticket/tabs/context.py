@@ -273,7 +273,7 @@ def _host_info_block(
     imageModal = khufu.imagingModal(
         log=log,
         imagePath=contextStamp,
-        display="polaroid",  # [ rounded | circle | polaroid | False ]
+        display="rounded",  # [ rounded | circle | polaroid | False ]
         modalHeaderContent="Context Stamp for %(masterName)s" % locals(),
         modalFooterContent=sdssLink,
         stampWidth=400,
