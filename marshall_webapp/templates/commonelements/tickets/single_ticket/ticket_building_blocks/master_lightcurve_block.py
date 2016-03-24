@@ -118,7 +118,7 @@ def master_lightcurve_block(
         lightCurveImage = khufu.image(
             # [ industrial | gray | social ]
             src="""holder.js/190x190/auto/industrial/text:master lightcurve not ready""",
-            display="polaroid",  # [ rounded | circle | polaroid | False ]
+            display="rounded",  # [ rounded | circle | polaroid | False ]
         )
 
     return "%(title)s %(lightCurveImage)s" % locals()
