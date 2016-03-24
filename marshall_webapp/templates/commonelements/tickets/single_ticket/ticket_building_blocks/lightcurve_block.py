@@ -113,7 +113,7 @@ def lightcurve_block(
             display="polaroid",  # [ rounded | circle | polaroid | False ]
             modalHeaderContent="Lightcurve for %(masterName)s" % locals(),
             modalFooterContent="",
-            stampWidth=180,
+            stampWidth="100%",
             modalImageWidth=400,
             downloadLink=href)
         lightCurveImage = lightCurveImage.get()
@@ -122,7 +122,7 @@ def lightcurve_block(
         lightCurveImage = khufu.image(
             # [ industrial | gray | social ]
             src="""holder.js/190x190/auto/industrial/text:master lightcurve not ready""",
-            display="polaroid",  # [ rounded | circle | polaroid | False ]
+            display="rounded",  # [ rounded | circle | polaroid | False ]
         )
 
     # get current magnitude estimate

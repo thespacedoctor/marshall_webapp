@@ -144,7 +144,7 @@ def survey_lightcurves_block(
             modalHeaderContent="%(survey)s lightcurve for %(masterName)s" % locals(
             ),
             modalFooterContent=imageSource,
-            stampWidth=180,
+            stampWidth="100%",
             modalImageWidth=400,
             downloadLink=href)
         imageModal = imageModal.get()
