@@ -25,6 +25,7 @@ import datetime
 from docopt import docopt
 import numpy as np
 import khufu
+import collections
 import dryxPython.mysql as dms
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
@@ -146,6 +147,8 @@ def host_info_block(
     dec = discoveryDataDictionary["decDeg"]
 
     contextMaps = {}
+
+    contextMaps = collections.OrderedDict(sorted(contextMaps.items()))
 
     if discoveryDataDictionary["sdss_coverage"] == 1:
         nearestObjectUrl = "http://skyserver.sdss3.org/public/en/tools/explore/obj.aspx?ra=%(ra)s&dec=%(dec)s" % locals(
