@@ -124,7 +124,11 @@ def host_info_block(
             cmPhySep = "" % locals()
 
         if cmZ:
-            cmZ = "at z = %(cmZ)0.3f " % locals()
+            try:
+                cmZ = float(cmZ)
+                cmZ = "at z = %(cmZ)0.3f " % locals()
+            except:
+                cmZ = ""
         else:
             cmZ = ""
 
