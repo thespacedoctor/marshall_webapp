@@ -141,18 +141,11 @@ def host_info_block(
         else:
             cmSep = ""
 
-        if len(cmSep) and len(cmZ) and len(cmPhySep):
-            cmType = khufu.coloredText(
-                text="%(cmCat)s %(cmType)s %(cmZ)sseparated %(cmSep)s\"%(cmPhySep)s from the transient" % locals(),
-                color="yellow",
-                size=2,
-            )
-        else:
-            cmType = khufu.coloredText(
-                text="%(cmCat)s %(cmType)s" % locals(),
-                color="yellow",
-                size=2,
-            )
+         cmType = khufu.coloredText(
+            text="%(cmCat)s %(cmType)s %(cmZ)sseparated %(cmSep)s\"%(cmPhySep)s from the transient" % locals(),
+            color="yellow",
+            size=2,
+        )
 
         cm = khufu.grid_row(
             responsive=True,
