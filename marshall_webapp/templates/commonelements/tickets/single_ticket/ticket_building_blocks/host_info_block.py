@@ -141,7 +141,7 @@ def host_info_block(
         else:
             cmSep = ""
 
-        if cmSep and cmZ and cmPhySep:
+        if len(cmSep) and len(cmZ) and len(cmPhySep):
             cmType = khufu.coloredText(
                 text="%(cmCat)s %(cmType)s %(cmZ)sseparated %(cmSep)0.2f\"%(cmPhySep)s from the transient" % locals(),
                 color="yellow",
