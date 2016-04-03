@@ -117,9 +117,9 @@ def host_info_block(
         if cmPhySep:
             try:
                 cmPhySep = float(cmPhySep)
+                cmPhySep = " (%(cmPhySep)0.2f Kpc) " % locals()
             except:
-                pass
-            cmPhySep = " (%(cmPhySep)0.2f Kpc) " % locals()
+                cmPhySep = "" % locals()
         else:
             cmPhySep = "" % locals()
 
