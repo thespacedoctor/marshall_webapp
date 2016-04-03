@@ -115,6 +115,10 @@ def host_info_block(
             cmCat = "a %(cmCat)s" % locals()
 
         if cmPhySep:
+            try:
+                cmPhySep = float(cmPhySep)
+            except:
+                pass
             cmPhySep = " (%(cmPhySep)0.2f Kpc) " % locals()
         else:
             cmPhySep = "" % locals()
