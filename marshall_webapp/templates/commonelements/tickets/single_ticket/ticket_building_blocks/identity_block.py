@@ -162,7 +162,7 @@ def identity_block(
     for item in objectAkas:
 
         surveyObjectUrl = item["surveyObjectUrl"]
-        if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
+        if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"] and "@" not in surveyObjectUrl:
             if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
                 user = request.registry.settings[
                     "credentials"]["lsq"]["username"]
@@ -196,8 +196,7 @@ def identity_block(
                     "star.", "%(user)s:%(pwd)s@star." % locals())
 
             item["surveyObjectUrl"] = surveyObjectUrl
-            if item["name"] != discoveryDataDictionary["masterName"]:
-                akaRows.append(item)
+            akaRows.append(item)
 
     numerator = 70.
     if discoveryDataDictionary["classifiedFlag"]:
