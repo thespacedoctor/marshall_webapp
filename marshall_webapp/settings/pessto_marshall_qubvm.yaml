@@ -44,7 +44,8 @@ secrets:
     authn policy: "a^h34**92"
 
 
-tns_cookie: "SESSf11000adb2f9f9d356be78e0a49b286d=FkLjtY9NCX2lXzNvkMSS5FleW0j7ct6TYO2gAHCpo-E; Drupal.tableDrag.showWeight=0; has_js=1"
+tns_cookie: "Drupal.tableDrag.showWeight=0; SESSf11000adb2f9f9d356be78e0a49b286d=GLAtpftjCMmeR9MuqE7uHrITMRy7iyDDXNLr60qoJd4; SSESSf11000adb2f9f9d356be78e0a49b286d=D4fBK7ukWvFLMcnfDJPzspZXGnwG-NFbbZ61pNZo7fM; has_js=1"
+
 
 main css filepath: "/marshall/static/styles/css/main_marshall.css"
 main js filepath: "/marshall/static/js/main-ck.js"
@@ -148,5 +149,5 @@ logging settings:
             # filename: /Users/Dave/Desktop/marshall.log
             # mode: w
     root:
-        level: ERROR
+        level: WARNING
         handlers: [file,console]
