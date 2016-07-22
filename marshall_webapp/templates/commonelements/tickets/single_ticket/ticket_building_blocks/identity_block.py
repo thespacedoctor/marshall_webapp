@@ -158,39 +158,44 @@ def identity_block(
 
     # AKA NAMES
     akaRows = []
+    print len(objectAkas)
     for item in objectAkas:
+
         surveyObjectUrl = item["surveyObjectUrl"]
-        if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
-            user = request.registry.settings["credentials"]["lsq"]["username"]
-            pwd = request.registry.settings["credentials"]["lsq"]["password"]
-            surveyObjectUrl = surveyObjectUrl.replace(
-                "portal.", "%(user)s:%(pwd)s@portal." % locals())
-
-        if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-            user = request.registry.settings[
-                "credentials"]["ps1-3pi"]["username"]
-            pwd = request.registry.settings[
-                "credentials"]["ps1-3pi"]["password"]
-            surveyObjectUrl = surveyObjectUrl.replace(
-                "star.", "%(user)s:%(pwd)s@star." % locals())
-
-        if surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-            user = request.registry.settings[
-                "credentials"]["ps1-fgss"]["username"]
-            pwd = request.registry.settings[
-                "credentials"]["ps1-fgss"]["password"]
-            surveyObjectUrl = surveyObjectUrl.replace(
-                "star.", "%(user)s:%(pwd)s@star." % locals())
-
-        if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-            user = request.registry.settings[
-                "credentials"]["ps1-gw"]["username"]
-            pwd = request.registry.settings[
-                "credentials"]["ps1-gw"]["password"]
-            surveyObjectUrl = surveyObjectUrl.replace(
-                "star.", "%(user)s:%(pwd)s@star." % locals())
-        item["surveyObjectUrl"] = surveyObjectUrl
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"]:
+            if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
+                user = request.registry.settings[
+                    "credentials"]["lsq"]["username"]
+                pwd = request.registry.settings[
+                    "credentials"]["lsq"]["password"]
+                surveyObjectUrl = surveyObjectUrl.replace(
+                    "portal.", "%(user)s:%(pwd)s@portal." % locals())
+
+            elif surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
+                user = request.registry.settings[
+                    "credentials"]["ps1-3pi"]["username"]
+                pwd = request.registry.settings[
+                    "credentials"]["ps1-3pi"]["password"]
+                surveyObjectUrl = surveyObjectUrl.replace(
+                    "star.", "%(user)s:%(pwd)s@star." % locals())
+
+            elif surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
+                user = request.registry.settings[
+                    "credentials"]["ps1-fgss"]["username"]
+                pwd = request.registry.settings[
+                    "credentials"]["ps1-fgss"]["password"]
+                surveyObjectUrl = surveyObjectUrl.replace(
+                    "star.", "%(user)s:%(pwd)s@star." % locals())
+
+            elif surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
+                user = request.registry.settings[
+                    "credentials"]["ps1-gw"]["username"]
+                pwd = request.registry.settings[
+                    "credentials"]["ps1-gw"]["password"]
+                surveyObjectUrl = surveyObjectUrl.replace(
+                    "star.", "%(user)s:%(pwd)s@star." % locals())
+
+            item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
 
     numerator = 70.
