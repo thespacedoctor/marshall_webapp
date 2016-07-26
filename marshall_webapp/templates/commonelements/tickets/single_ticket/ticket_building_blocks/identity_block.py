@@ -197,9 +197,7 @@ def identity_block(
             item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
 
-        print discoveryDataDictionary["transientBucketId"]
-        print akaRows
-        print
+    print objectAkas
 
     numerator = 70.
     if discoveryDataDictionary["classifiedFlag"]:
