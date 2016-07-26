@@ -416,8 +416,9 @@ class models_transients_get():
 
         # GRAB AKAS
         sqlQuery = """
-            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%wis-tns%%" and surveyObjectUrl not like "%%rochester%%"))
+            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%rochester%%"))
         """ % locals()
+        print sqlQuery
         objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
 
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
