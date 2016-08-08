@@ -197,8 +197,6 @@ def identity_block(
             item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
 
-    print objectAkas
-
     numerator = 70.
     if discoveryDataDictionary["classifiedFlag"]:
         numerator = 60.
@@ -405,6 +403,11 @@ def identity_block(
     )
     objectStamp = objectStamp + modal
 
+    surveyURLRanking = {
+        "rochester": 0,
+        "wis-tns": 1
+    }
+
     akaList = ""
     if len(akaRows) == 0:
         akaTitle = ""
@@ -431,6 +434,15 @@ def identity_block(
         akaList = aka
     else:
         akaTitle = "akas: "
+        for row in akaRows:
+            row["urlRank"] = 10
+            for k, v in surveyURLRanking.iteritems():
+                if k in row["surveyObjectUrl"]:
+                    row["urlRank"] = v
+        from operator import itemgetter
+        akaRows = list(akaRows)
+        akaRows = sorted(akaRows, key=itemgetter('urlRank'), reverse=True)
+
         for row in akaRows:
             log.debug('aka: %s' % (row,))
             aka = row["name"]
