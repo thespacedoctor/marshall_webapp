@@ -137,7 +137,7 @@ class models_transients_get():
             self.log.debug("""searchString: `%(searchString)s`""" % locals())
             # SEARCH MASTER & AKA NAMES
             sqlQuery = """
-                select distinct t.transientBucketId as transientBucketId from transientBucket t, pesstoObjects p where (lower(t.name) like "%%%(searchString)s%%" or replace(p.pi_name," ","") like "%%%(searchString)s%%") and t.transientBucketId = p.transientBucketId
+                select distinct t.transientBucketId as transientBucketId from transientBucket t, pesstoObjects p where t.replacedByRowId = 0 and (lower(t.name) like "%%%(searchString)s%%" or replace(p.pi_name," ","") like "%%%(searchString)s%%") and t.transientBucketId = p.transientBucketId
             """ % locals()
             self.log.debug(
                 """sqlQUery for searchString: `%(sqlQuery)s`""" % locals())
@@ -262,7 +262,7 @@ class models_transients_get():
                 """ % locals()
         else:
             sqlQuery = """
-                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s 
+                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s and replacedByRowId =0  %(tep)s %(tec)s 
             """ % locals()
 
         # Add the limits and pagination to query
@@ -312,7 +312,7 @@ class models_transients_get():
 
         # grab the remaining data assocatied with the transientBucketIds
         sqlQuery = """
-            select %(selectColumns)s from transientBucket t, transientBucketSummaries s, pesstoObjects p where t.transientBucketId in (%(matchedTransientBucketIds)s) and t.masterIdFlag = 1 and t.transientBucketId = p.transientBucketId and p.transientBucketId=s.transientBucketId order by FIELD(t.transientBucketId, %(matchedTransientBucketIds)s)
+            select %(selectColumns)s from transientBucket t, transientBucketSummaries s, pesstoObjects p where t.replacedByRowId = 0 and t.transientBucketId in (%(matchedTransientBucketIds)s) and t.masterIdFlag = 1 and t.transientBucketId = p.transientBucketId and p.transientBucketId=s.transientBucketId order by FIELD(t.transientBucketId, %(matchedTransientBucketIds)s)
         """ % locals()
         tmpObjectData = self.request.db.execute(
             text(sqlQuery)).fetchall()
@@ -416,9 +416,9 @@ class models_transients_get():
 
         # GRAB AKAS
         sqlQuery = """
-            select transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%rochester%%"))
+            select transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%rochester%%"))
         """ % locals()
-        print sqlQuery
+
         objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
 
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
@@ -454,7 +454,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select transientBucketId, magnitude, filter, survey, surveyObjectUrl, observationDate from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 and limitingMag = 0 order by observationDate desc;
+            select transientBucketId, magnitude, filter, survey, surveyObjectUrl, observationDate from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 and limitingMag = 0 order by observationDate desc;
         """ % locals()
         lightCurveDataTmp = self.request.db.execute(sqlQuery).fetchall()
         lightCurveData = []
@@ -485,7 +485,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name like "%%atel_%%"
+            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name like "%%atel_%%"
         """ % locals()
         transientAtelMatchesTmp = self.request.db.execute(sqlQuery).fetchall()
         transientAtelMatches = []
@@ -754,7 +754,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select * from tcs_cross_matches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.transientBucketId in (%(matchedTransientBucketIds)s) and b.primaryKeyId = t.transient_object_id and t.catalogue_table_id=h.id order by rank
+            select * from tcs_cross_matches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.primaryKeyId = t.transient_object_id and t.catalogue_table_id=h.id order by rank
         """ % locals()
 
         crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()
