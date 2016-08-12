@@ -107,7 +107,7 @@ class models_transients_element_post():
         # first select out a row from the transientBucket as a template for the
         # classification
         sqlQuery = """
-            select p.classifiedFlag, t.raDeg, t.decDeg, t.name, t.htm20ID, t.htm16ID, t.cx, t.cy, t.cz from transientBucket t, pesstoObjects p where t.transientBucketId = %(transientBucketId)s and t.cx is not null and t.transientBucketId=p.transientBucketId limit 1
+            select p.classifiedFlag, t.raDeg, t.decDeg, t.name, t.htm20ID, t.htm16ID, t.cx, t.cy, t.cz from transientBucket t, pesstoObjects p where replacedByRowId = 0 and t.transientBucketId = %(transientBucketId)s and t.cx is not null and t.transientBucketId=p.transientBucketId limit 1
         """ % locals()
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
@@ -149,12 +149,36 @@ class models_transients_element_post():
         username = self.request.authenticated_userid
 
         # insert the new classification row into the transientBucket
-        sqlQuery = """
-            INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
-        """ % locals()
-        self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
-        self.request.db.execute(sqlQuery)
-        self.request.db.commit()
+        duplicate = False
+        try:
+            sqlQuery = """
+                INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
+            """ % locals()
+            self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
+            self.request.db.execute(sqlQuery)
+            self.request.db.commit()
+        except:
+            duplicate = True
+
+        if duplicate == True:
+            sqlQuery = """
+                select primaryKeyId from transientBucket where decDeg= %(decDeg)s and name="%(name)s" and observationMjd=%(obsMjd)s and survey="%(clsSource)s" and replacedByRowId = 0;
+            """  % locals()
+            print sqlQuery
+            objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
+            objectData = []
+            objectData[:] = [dict(zip(row.keys(), row))
+                             for row in objectDataTmp]
+            primaryKeyId = objectData[0]["primaryKeyId"]
+
+            sqlQuery = """
+                INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer, replacedByRowId) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s", %(primaryKeyId)s);
+                update transientBucket t, (SELECT primaryKeyId FROM transientBucket where replacedByRowId = %(primaryKeyId)s) as o set t.replacedByRowId = o.primaryKeyId where t.primaryKeyId = %(primaryKeyId)s;
+                update transientBucket set replacedByRowId = 0 where replacedByRowId = %(primaryKeyId)s;
+            """ % locals()
+            self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
+            self.request.db.execute(sqlQuery)
+            self.request.db.commit()
 
         # UPDATE THE OBJECT'S LOCATION IN THE VARIOUS MARSHALL WORKFLOWS
         if self.request.params["clsSendTo"].lower() == "yes":
