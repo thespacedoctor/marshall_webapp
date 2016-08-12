@@ -85,7 +85,7 @@ class models_transients_context_get():
 
         # GRAB THE LIGHTCURVE DATA FOR THE OBJECT
         sqlQuery = """
-            select * from tcs_cross_matches where transient_object_id in (select primaryKeyId from transientBucket where transientBucketId = %(transientBucketId)s);
+            select * from tcs_cross_matches where transient_object_id in (select primaryKeyId from transientBucket where replacedByRowId = 0 and transientBucketId = %(transientBucketId)s);
         """ % locals()
         context = self.request.db.execute(sqlQuery).fetchall()
 
