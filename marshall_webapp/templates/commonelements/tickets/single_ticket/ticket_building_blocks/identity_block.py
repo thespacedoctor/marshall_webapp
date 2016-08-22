@@ -115,23 +115,23 @@ def identity_block(
         surveyObjectUrl = surveyObjectUrl.replace(
             "portal.", "%(user)s:%(pwd)s@portal." % locals())
 
-    if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-        user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
-        pwd = request.registry.settings["credentials"]["ps1-3pi"]["password"]
-        surveyObjectUrl = surveyObjectUrl.replace(
-            "star.", "%(user)s:%(pwd)s@star." % locals())
+    # if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
+    #     user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
+    #     pwd = request.registry.settings["credentials"]["ps1-3pi"]["password"]
+    #     surveyObjectUrl = surveyObjectUrl.replace(
+    #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-    if surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-        user = request.registry.settings["credentials"]["ps1-fgss"]["username"]
-        pwd = request.registry.settings["credentials"]["ps1-fgss"]["password"]
-        surveyObjectUrl = surveyObjectUrl.replace(
-            "star.", "%(user)s:%(pwd)s@star." % locals())
+    # if surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
+    #     user = request.registry.settings["credentials"]["ps1-fgss"]["username"]
+    #     pwd = request.registry.settings["credentials"]["ps1-fgss"]["password"]
+    #     surveyObjectUrl = surveyObjectUrl.replace(
+    #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-    if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-        user = request.registry.settings["credentials"]["ps1-gw"]["username"]
-        pwd = request.registry.settings["credentials"]["ps1-gw"]["password"]
-        surveyObjectUrl = surveyObjectUrl.replace(
-            "star.", "%(user)s:%(pwd)s@star." % locals())
+    # if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
+    #     user = request.registry.settings["credentials"]["ps1-gw"]["username"]
+    #     pwd = request.registry.settings["credentials"]["ps1-gw"]["password"]
+    #     surveyObjectUrl = surveyObjectUrl.replace(
+    #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
     # MASTER NAME
     masterName = discoveryDataDictionary["masterName"]
@@ -142,7 +142,7 @@ def identity_block(
         survey = ""
 
     if surveyObjectUrl:
-        if "skymapper" in surveyObjectUrl:
+        if "skymapper" in surveyObjectUrl or "ps1gw" in surveyObjectUrl or "ps1fgss" in surveyObjectUrl or "ps13pi" in surveyObjectUrl:
             popover = skymapperPopover
         else:
             popover = False
@@ -171,29 +171,29 @@ def identity_block(
                     surveyObjectUrl = surveyObjectUrl.replace(
                         "portal.", "%(user)s:%(pwd)s@portal." % locals())
 
-                elif surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-                    user = request.registry.settings[
-                        "credentials"]["ps1-3pi"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["ps1-3pi"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "star.", "%(user)s:%(pwd)s@star." % locals())
+                # elif surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
+                #     user = request.registry.settings[
+                #         "credentials"]["ps1-3pi"]["username"]
+                #     pwd = request.registry.settings[
+                #         "credentials"]["ps1-3pi"]["password"]
+                #     surveyObjectUrl = surveyObjectUrl.replace(
+                #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-                elif surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-                    user = request.registry.settings[
-                        "credentials"]["ps1-fgss"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["ps1-fgss"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "star.", "%(user)s:%(pwd)s@star." % locals())
+                # elif surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
+                #     user = request.registry.settings[
+                #         "credentials"]["ps1-fgss"]["username"]
+                #     pwd = request.registry.settings[
+                #         "credentials"]["ps1-fgss"]["password"]
+                #     surveyObjectUrl = surveyObjectUrl.replace(
+                #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-                elif surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-                    user = request.registry.settings[
-                        "credentials"]["ps1-gw"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["ps1-gw"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "star.", "%(user)s:%(pwd)s@star." % locals())
+                # elif surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
+                #     user = request.registry.settings[
+                #         "credentials"]["ps1-gw"]["username"]
+                #     pwd = request.registry.settings[
+                #         "credentials"]["ps1-gw"]["password"]
+                #     surveyObjectUrl = surveyObjectUrl.replace(
+                #         "star.", "%(user)s:%(pwd)s@star." % locals())
             item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
 
