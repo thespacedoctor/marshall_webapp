@@ -59,7 +59,7 @@ def identity_block(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
-        title="""username: 'pessto' password: '!explosions'""",
+        title="""username: 'pessto'<br>password: '!explosions'""",
         content=False,
         delay=200
     )
