@@ -55,7 +55,7 @@ def identity_block(
     """
     log.info('starting the ``identity_block`` function')
 
-    skymapperPopover = khufu.popover(
+    pesstoCredentialsPopover = khufu.popover(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
@@ -143,7 +143,7 @@ def identity_block(
 
     if surveyObjectUrl:
         if "skymapper" in surveyObjectUrl or "ps1gw" in surveyObjectUrl or "ps1fgss" in surveyObjectUrl or "ps13pi" in surveyObjectUrl:
-            popover = skymapperPopover
+            popover = pesstoCredentialsPopover
         else:
             popover = False
 
@@ -452,7 +452,8 @@ def identity_block(
             aka = khufu.a(
                 content=aka,
                 href=row["surveyObjectUrl"],
-                openInNewTab=True
+                openInNewTab=True,
+                popover=pesstoCredentialsPopover
             )
             aka = """&nbsp&nbsp&nbsp%(aka)s """ % locals()
 
