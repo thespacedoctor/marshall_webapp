@@ -420,9 +420,9 @@ def identity_block(
             size = 2
 
         if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"]:
-                popover = pesstoCredentialsPopover
-            else:
-                popover = False
+            popover = pesstoCredentialsPopover
+        else:
+            popover = False
 
         aka = khufu.a(
             content=aka,
@@ -454,8 +454,6 @@ def identity_block(
             aka = row["name"]
             if aka in akaList:
                 continue
-
-           
 
             aka = khufu.a(
                 content=aka,
