@@ -88,15 +88,15 @@ class templates_stats():
             releaseVersion=self.elementId
         )
 
-        # d3 practice
-        d3plot = self.generate_d3_plot()
-        d3plot = ""
+        # # d3 practice
+        # d3plot = self.generate_d3_plot()
+        # d3plot = ""
 
         # craft the content of the page
         mainContent = khufu.grid_column(
             span=12,  # 1-12
             offset=0,  # 1-12
-            content="""%(d3plot)s %(sofiImagingPlots)s %(ssdr1Table)s""" % locals(
+            content="""%(sofiImagingPlots)s %(ssdr1Table)s""" % locals(
             ),
             pull=False,  # ["right", "left", "center"]
             htmlId=False,
