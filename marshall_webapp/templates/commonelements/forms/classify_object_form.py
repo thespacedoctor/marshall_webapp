@@ -140,7 +140,7 @@ def classify_object_form(
     )
 
     optionList = ["I", "Ia", "Ib", "Ic", "Ibc", "Ibn", "I-CSM",  "II",
-                  "IIb", "IIL", "IIP", "IIn"]
+                  "IIb", "IIL", "IIP", "IIn", "SLSN I", "SLSN Ic", "SLSN II"]
     if discoveryDataDictionary["recentClassification"] and defaultOption == "supernova":
         for o in optionList:
             if o.lower() in discoveryDataDictionary["recentClassification"].lower():
@@ -149,8 +149,7 @@ def classify_object_form(
         defaultOption = False
 
     snClassificationInput = khufu.select(
-        optionList=["Ia", "Ib", "Ic", "Ibc", "Ibn", "I-CSM", "I",
-                    "IIb", "IIL", "IIP", "IIn", "II"],
+        optionList=optionList,
         multiple=False,
         span=4,
         htmlId="clsSnClassification",
