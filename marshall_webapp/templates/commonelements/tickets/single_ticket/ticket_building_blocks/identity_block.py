@@ -237,6 +237,7 @@ def identity_block(
         "ps1_target_stamp": "ps1_target_stamp.jpeg",
         "gaia_stamp": "gaia_stamp.jpeg",
         "ogle_target_stamp": "ogle_target_stamp.jpeg",
+        "atlas_target_stamp": "atlas_target_stamp.jpeg",
         "css_stamp": "css_stamp.jpeg",
         "des_target_stamp": "des_target_stamp.gif",
         "mls_stamp": "mls_stamp.jpeg",
@@ -419,7 +420,7 @@ def identity_block(
         if len(aka) > 19:
             size = 2
 
-        if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"]:
+        if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"] or "atlas" in row["surveyObjectUrl"]:
             popover = pesstoCredentialsPopover
         else:
             popover = False
