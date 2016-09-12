@@ -71,7 +71,7 @@ def comments_block(
         )
 
         # COMMENT
-        comment = row["comment"].replace("&lt;a", "<a").replace(
+        comment = row["comment"].replace("<", "&lt;").replace("&lt;a", "<a").replace(
             "&gt;ATEL", ">ATEL").replace("&lt;/a&gt;", "</a>").replace("&quot;", '"').replace("&gt;", ">").replace('href=http',  'href="http')
         regex = re.compile(r'(href\=\"http[\w\d\.~/:?=]*?)\>', re.S)
         comment = regex.sub('\g<1>">', comment)
