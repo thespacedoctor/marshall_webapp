@@ -28,5 +28,6 @@ test_database.sql
 /logs/log.html
 /marshall_webapp/private/*
 path_to_settings.yaml
-caches
+blog-post.md
+blog-post.rstcaches
 config.codekit
