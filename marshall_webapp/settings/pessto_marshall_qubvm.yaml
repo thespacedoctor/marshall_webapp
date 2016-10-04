@@ -81,6 +81,7 @@ lsq urls:
     recurrence csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates_obs.csv"
 
 master sne url: "http://observ.pereplet.ru/sn_e.html"
+master ot url: "http://observ.pereplet.ru/MASTER_OT.html"
 tocp url: "http://www.cbat.eps.harvard.edu/unconf/tocp.html"
 des sne url: "https://portal.nersc.gov/des-sn/transients/"
 
