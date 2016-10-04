@@ -419,11 +419,6 @@ class models_transients_get():
             select transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and name not like "ATL%%" and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%rochester%%"))
         """ % locals()
 
-        # REMOVE WHEN MASTER IMPORTER FIXED
-        sqlQuery = """
-            select transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and name not like "ATL%%" and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl is not null))
-        """ % locals()
-
         objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
 
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
