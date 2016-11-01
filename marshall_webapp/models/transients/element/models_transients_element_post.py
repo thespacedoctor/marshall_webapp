@@ -152,7 +152,7 @@ class models_transients_element_post():
         duplicate = False
         try:
             sqlQuery = """
-                INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
+                INSERT INTO transientBucket (raDeg, decDeg, name, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
             """ % locals()
             self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
             self.request.db.execute(sqlQuery)
@@ -164,7 +164,6 @@ class models_transients_element_post():
             sqlQuery = """
                 select primaryKeyId from transientBucket where decDeg= %(decDeg)s and name="%(name)s" and observationMjd=%(obsMjd)s and survey="%(clsSource)s" and replacedByRowId = 0;
             """  % locals()
-            print sqlQuery
             objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
             objectData = []
             objectData[:] = [dict(zip(row.keys(), row))
@@ -172,7 +171,7 @@ class models_transients_element_post():
             primaryKeyId = objectData[0]["primaryKeyId"]
 
             sqlQuery = """
-                INSERT INTO transientBucket (raDeg, decDeg, name, htm20ID, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer, replacedByRowId) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm20ID)s, %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s", %(primaryKeyId)s);
+                INSERT INTO transientBucket (raDeg, decDeg, name, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer, replacedByRowId) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s", %(primaryKeyId)s);
                 update transientBucket t, (SELECT primaryKeyId FROM transientBucket where replacedByRowId = %(primaryKeyId)s) as o set t.replacedByRowId = o.primaryKeyId where t.primaryKeyId = %(primaryKeyId)s;
                 update transientBucket set replacedByRowId = 0 where replacedByRowId = %(primaryKeyId)s;
             """ % locals()

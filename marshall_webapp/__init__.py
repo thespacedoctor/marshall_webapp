@@ -165,7 +165,6 @@ def admin_only_debugtoolbar(request):
     """
     toolbar_enabled = False
     group = ""
-    print request.effective_principals
 
     try:
         if ("marshall/" in request.referrer) and "/_debug_toolbar/" in request.url:
