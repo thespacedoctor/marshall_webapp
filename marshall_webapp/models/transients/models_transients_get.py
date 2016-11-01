@@ -317,8 +317,6 @@ class models_transients_get():
         tmpObjectData = self.request.db.execute(
             text(sqlQuery)).fetchall()
 
-        print sqlQuery
-
         objectData = []
         objectData[:] = [dict(zip(row.keys(), row)) for row in tmpObjectData]
         # for row in objectData:
