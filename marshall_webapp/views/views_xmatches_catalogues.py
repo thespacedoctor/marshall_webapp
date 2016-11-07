@@ -132,4 +132,5 @@ class xmatches_element_catalogues_view(object):
             request=self.request,
             elementId=self.request.matchdict["elementId"]
         )
+
         return Response(unicode(xmatches_catalogues.get()))
