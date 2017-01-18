@@ -64,6 +64,7 @@ def single_ticket(
 
     **Todo**
     """
+
     log.info('starting the ``inbox_ticket`` function')
 
     tabDictionary = {}

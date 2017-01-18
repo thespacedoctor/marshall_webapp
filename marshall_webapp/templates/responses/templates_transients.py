@@ -77,7 +77,7 @@ class templates_transients():
 
         if tcsCatalogueId:
             sqlQuery = u"""
-                select table_name from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s 
+                select table_name from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s
             """ % locals()
             objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
             objectData = []
