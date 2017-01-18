@@ -85,8 +85,9 @@ class models_transients_context_get():
 
         # GRAB THE LIGHTCURVE DATA FOR THE OBJECT
         sqlQuery = """
-            select * from tcs_cross_matches where transient_object_id in (select primaryKeyId from transientBucket where replacedByRowId = 0 and transientBucketId = %(transientBucketId)s);
+            select * from tcs_cross_matches where transient_object_id in (select transientBucketId from transientBucket where replacedByRowId = 0 and transientBucketId = %(transientBucketId)s);
         """ % locals()
+
         context = self.request.db.execute(sqlQuery).fetchall()
 
         aladinFOV = 10.
@@ -121,6 +122,7 @@ class models_transients_context_get():
 
             c["object_link"] = None
             objectName = urllib.quote(c["catalogue_object_id"])
+
             if "ned" in c["catalogue_table_name"]:
                 c[
                     "object_link"] = "https://ned.ipac.caltech.edu/cgi-bin/objsearch?objname=%(objectName)s&extend=no&hconst=73&omegam=0.27&omegav=0.73&corr_z=1&out_csys=Equatorial&out_equinox=J2000.0&obj_sort=RA+or+Longitude&of=pre_text&zv_breaker=30000.0&list_limit=5&img_stamp=YES" % locals()
@@ -197,7 +199,7 @@ class models_transients_context_get():
             else:
                 dist = "%(dist)0.1f Mpc" % locals()
 
-            asep = c["separation"]
+            asep = c["separationArcsec"]
             dsep = c["physical_separation_kpc"]
 
             if dsep:

@@ -311,7 +311,7 @@ def _crossmatch_info_block(
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     cms = []
     for row in transientCrossmatches:
-        if row["transient_object_id"] == transientBucketId:
+        if row["transientBucketId"] == transientBucketId:
             cms.append(row)
 
     masterName = discoveryDataDictionary["masterName"]
@@ -356,7 +356,7 @@ def _crossmatch_info_block(
         tableBody = []
 
         rs = ["rank", "association_type", "catalogue_object_id", "catalogue_object_type", "catalogue_table_name",
-              "separation", "physical_separation_kpc", "major_axis_arcsec", "distance", "z", "original_search_radius_arcsec"]
+              "separationArcsec", "physical_separation_kpc", "major_axis_arcsec", "distance", "z", "original_search_radius_arcsec"]
         for c in cms:
 
             # generate object links
@@ -416,7 +416,7 @@ def _crossmatch_info_block(
 
                 # ADD UNITS
                 if c[r] != "-":
-                    if r in ["separation", "original_search_radius_arcsec", "major_axis_arcsec"] and c[r] != "-":
+                    if r in ["separationArcsec", "original_search_radius_arcsec", "major_axis_arcsec"] and c[r] != "-":
                         c[r] = c[r] + '"'
                     if r in ["distance"]:
                         c[r] = c[r] + ' Mpc'

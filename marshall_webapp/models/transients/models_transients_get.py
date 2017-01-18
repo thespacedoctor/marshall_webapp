@@ -270,7 +270,6 @@ class models_transients_get():
         limit = self.qs["limit"]
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
 
-        print sqlQuery
         # grab the transientBucketIds
         rows = self.request.db.execute(sqlQuery).fetchall()
         self.log.debug("""{rows}""".format(**dict(globals(), **locals())))
@@ -755,7 +754,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select * from tcs_cross_matches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.primaryKeyId = t.transient_object_id and t.catalogue_table_id=h.id order by rank
+            select * from tcs_cross_matches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.transientBucketId = t.transient_object_id  and b.masterIDFlag = 1  and t.catalogue_table_id=h.id order by rank
         """ % locals()
 
         crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()

@@ -68,6 +68,7 @@ def host_info_block(
     sherlockClassification = discoveryDataDictionary["sherlockClassification"]
 
     cm = ""
+
     for row in transientCrossmatches:
         if row["transient_object_id"] == transientBucketId and row["rank"] == 1:
             cm = row
@@ -75,7 +76,7 @@ def host_info_block(
             cmType = row["catalogue_object_type"]
             cmZ = row["z"]
             cmCat = row["catalogue_table_name"]
-            cmSep = row["separation"]
+            cmSep = row["separationArcsec"]
             cmPhySep = row["physical_separation_kpc"]
 
     if len(cm):
