@@ -83,6 +83,7 @@ class templates_transients_context():
             request=self.request,
             elementId=self.elementId
         )
+
         context = transients_context.get()
 
         self.log.info('completed the ``get`` method')
