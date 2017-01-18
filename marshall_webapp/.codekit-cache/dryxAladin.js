@@ -48,13 +48,23 @@ function dryxAladin(thisObject) {
     // GET URL FOR JSON DATA FROM HTML OBJECT
     var dataUrl = $(thisObject).attr("data");
 
+    console.log('dataUrl: '+JSON.stringify(dataUrl));
+    
+
     $.getJSON(dataUrl, function(data) {
         var coords = $(thisObject).attr("coords");
         var survey = $(thisObject).attr("survey");
-        var parameters = data["aladin_parameters"];
-        var catalogues = data["catalogues"]
-        var catalogueOrder = data["catalogueOrder"]
+        var parameters = data.aladin_parameters;
+        var catalogues = data.catalogues;
+        var catalogueOrder = data.catalogueOrder;
         var tranName = $(thisObject).attr("transient");
+
+        console.log('coords: '+JSON.stringify(coords));
+        console.log('survey: '+JSON.stringify(survey));
+        console.log('parameters: '+JSON.stringify(parameters));
+        console.log('catalogues: '+JSON.stringify(catalogues));
+        console.log('catalogueOrder: '+JSON.stringify(catalogueOrder));
+        console.log('tranName: '+JSON.stringify(tranName));
 
         var aladin = A.aladin(thisObject, {
             cooFrame: "J2000",
@@ -71,23 +81,25 @@ function dryxAladin(thisObject) {
             reticleColor: "#dc322f",
             reticleSize: 50,
             survey: survey,
-            fov: parameters["FOV"],
+            fov: parameters.FOV,
             target: coords
         });
 
         aladin.getBaseImageLayer().getColorMap().reverse(1);
 
         // be careful with variable names for items went compiling JS
-        var sourceOverlays = new Array();
+        var sourceOverlays = [];
         for (var j = 0; j < catalogueOrder.length; j++) {
             var cat = catalogueOrder[j];
+            // console.log('cat: '+JSON.stringify(cat));
+            // console.log('j: '+JSON.stringify(j));
+            
             if (catalogues.hasOwnProperty(cat)) {
-
                 // CIRCLES
                 var overlay = A.graphicOverlay({
                     name: "search areas",
-                    color: catalogues[cat]["color"],
-                    lineWidth: parameters["search_perimeter_width"]
+                    color: catalogues[cat].color,
+                    lineWidth: parameters.search_perimeter_width
                 });
                 aladin.addOverlay(overlay);
 
@@ -98,7 +110,7 @@ function dryxAladin(thisObject) {
                     sourceSize: 0,
                     labelFont: "20px dryx_icon_font",
                     displayLabel: true,
-                    color: catalogues[cat]["color"],
+                    color: catalogues[cat].color,
                     labelColumn: "mainId",
                     colorColumn: "color"
                 });
@@ -108,27 +120,30 @@ function dryxAladin(thisObject) {
                 var markerCat = A.catalog({
                     name: cat + " markers",
                     sourceSize: 0,
-                    color: catalogues[cat]["color"]
+                    color: catalogues[cat].color
                 });
                 aladin.addCatalog(markerCat);
 
-                var catData = catalogues[cat]["data"];
+                var catData = catalogues[cat].data;
                 for (var i = 0; i < catData.length; i++) {
 
-                    // CIRCLE
-                    overlay.add(A.circle(catData[i]["catalogue_object_ra"], catData[i]["catalogue_object_dec"], catData[i]["original_search_radius_arcsec"] / 3600., {
-                        color: catData[i]["radius_color"],
-                        fillOpacity: 0.1
-                    }));
+                    // console.log('catData[i]["original_search_radius_arcsec"]: '+JSON.stringify(catData[i]["original_search_radius_arcsec"]));
+                    
 
-                    markerCat.addSources([A.marker(catData[i]["catalogue_object_ra"], catData[i]["catalogue_object_dec"], {
-                        popupTitle: catData[i]["catalogue_object_id"],
-                        popupDesc: catData[i]["details"]
+                    // CIRCLE
+                    overlay.add(A.circle(catData[i].raDeg, catData[i].decDeg, catData[i].original_search_radius_arcsec / 3600, {
+                        color: catData[i].radius_color,
+                        fillOpacity: 0.1
+                    }));                    
+
+                    markerCat.addSources([A.marker(catData[i].raDeg, catData[i].decDeg, {
+                        popupTitle: catData[i].catalogue_object_id,
+                        popupDesc: catData[i].details
                     })]);
 
-                    labelCat.addSources(A.source(catData[i]["catalogue_object_ra"], catData[i]["catalogue_object_dec"], {
-                        "mainId": catData[i]["label"],
-                        "color": catData[i]["radius_color"]
+                    labelCat.addSources(A.source(catData[i].raDeg, catData[i].decDeg, {
+                        "mainId": catData[i].label,
+                        "color": catData[i].radius_color
                     }));
 
                 }
@@ -153,10 +168,12 @@ function dryxAladin(thisObject) {
             aladin.setImageSurvey(survey);
         }, 200);
 
+        var galaxyCat = A.catalog(shape = "square", color = "#268bd2", sourceSize = 50, labelColumn = "nice", labelColor = "#268bd2");
+        aladin.addCatalog(galaxyCat);
+
     });
 
-    // var galaxyCat = A.catalog(shape = "square", color = "#268bd2", sourceSize = 50, labelColumn = "nice", labelColor = "#268bd2")
-    // aladin.addCatalog(galaxyCat)
+    
 
     // -------------- PUBLIC METHODS ---------------- //
     var init = function(settings) {
@@ -164,13 +181,13 @@ function dryxAladin(thisObject) {
 
         return {
             // xt-public-pointers
-        }
-    }
+        };
+    };
 
     var update_attributes_via_json = function(settings) {
             console.log('attributes function triggered for dryxAladin');
             // xt-set-setting-if-defined
-        }
+        };
         // xt-function-as-named-variable
 
     // -------------- PRIVATE HELPER METHODS ---------------- //
@@ -183,4 +200,4 @@ function dryxAladin(thisObject) {
             // xt-public-pointers
     };
 
-};
+}
