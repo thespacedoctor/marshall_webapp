@@ -26,7 +26,6 @@ from docopt import docopt
 from dryxPython import commonutils as dcu
 import khufu
 import dryxPython.astrotools as dat
-import dryxPython.mysql as dms
 from .. import ticket_building_blocks
 from .....commonelements import commonutils as cu
 

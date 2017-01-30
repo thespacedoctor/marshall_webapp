@@ -20,7 +20,6 @@ import sys
 import os
 import collections
 from sqlalchemy.sql import text
-from dryxPython import mysql as dms
 from dryxPython import astrotools as dat
 import urllib
 
@@ -141,11 +140,9 @@ class models_transients_get():
             """ % locals()
             self.log.debug(
                 """sqlQUery for searchString: `%(sqlQuery)s`""" % locals())
-            rows = dms.execute_mysql_read_query(
-                sqlQuery=sqlQuery,
-                dbConn=self.request.registry.settings["dbConn"],
-                log=self.log
-            )
+            rows = self.request.db.execute(
+                text(sqlQuery)).fetchall()
+
             searchList = ""
             for row in rows:
                 transientBucketId = row["transientBucketId"]
