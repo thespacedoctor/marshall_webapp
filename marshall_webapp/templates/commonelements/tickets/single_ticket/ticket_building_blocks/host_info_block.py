@@ -26,7 +26,6 @@ from docopt import docopt
 import numpy as np
 import khufu
 import collections
-import dryxPython.mysql as dms
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
 

@@ -24,7 +24,6 @@ import re
 import datetime
 from docopt import docopt
 import khufu
-import dryxPython.mysql as dms
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
 

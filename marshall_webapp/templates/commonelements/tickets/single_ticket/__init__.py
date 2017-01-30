@@ -25,7 +25,6 @@ from dryxPython import commonutils as dcu
 import ticket_building_blocks
 import datetime
 import khufu
-import dryxPython.mysql as dms
 import tabs
 
 ###################################################################
