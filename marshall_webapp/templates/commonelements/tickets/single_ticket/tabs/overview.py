@@ -66,7 +66,6 @@ def overview_tab(
     ## THIRD PARTY ##
     ## LOCAL APPLICATION ##
     import khufu
-    import dryxPython.mysql as dms
     from .. import ticket_building_blocks
     from ... import single_ticket
 
