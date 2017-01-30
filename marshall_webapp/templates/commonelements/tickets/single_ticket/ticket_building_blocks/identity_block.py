@@ -456,6 +456,11 @@ def identity_block(
             if aka in akaList:
                 continue
 
+            if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"] or "atlas" in row["surveyObjectUrl"]:
+                popover = pesstoCredentialsPopover
+            else:
+                popover = False
+
             aka = khufu.a(
                 content=aka,
                 href=row["surveyObjectUrl"],
