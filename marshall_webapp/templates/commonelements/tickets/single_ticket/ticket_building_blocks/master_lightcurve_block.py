@@ -26,7 +26,7 @@ from docopt import docopt
 import khufu
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
-import dryxPython.mysql as dms
+
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
