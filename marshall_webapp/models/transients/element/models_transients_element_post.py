@@ -152,13 +152,16 @@ class models_transients_element_post():
         duplicate = False
         try:
             sqlQuery = """
-                INSERT IGNORE INTO transientBucket (raDeg, decDeg, name, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
+                INSERT INTO transientBucket (raDeg, decDeg, name, htm16ID, cx, cy, cz, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm16ID)s, %(cx)s, %(cy)s, %(cz)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
             """ % locals()
             self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
         except:
             duplicate = True
+
+        print duplicate
+        print sqlQuery
 
         if duplicate == True:
             sqlQuery = """
