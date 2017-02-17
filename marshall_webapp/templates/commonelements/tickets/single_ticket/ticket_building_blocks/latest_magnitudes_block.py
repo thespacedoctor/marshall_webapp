@@ -69,7 +69,7 @@ def latest_magnitudes_block(
     currentMagEstimateUpdated = discoveryDataDictionary[
         "currentMagnitudeEstimateUpdated"]
 
-    if currentMagEstimateUpdated and currentMagEstimate != 9999:
+    if currentMagEstimateUpdated and currentMagEstimate not in [9999, -9999]:
         now = datetime.datetime.now()
         if now - currentMagEstimateUpdated < datetime.timedelta(days=2):
             littleTitle = cu.little_label(

@@ -139,13 +139,13 @@ def lightcurve_block(
         "currentMagnitudeEstimateUpdated"]
 
     now = datetime.datetime.now()
-    if currentMagEstimate == 9999:
+    if currentMagEstimate in [9999, -9999]:
         for dataPoint in lightcurveData:
             if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
                 break
         if len(lightcurveData) and (now - dataPoint["observationDate"] < datetime.timedelta(days=7)):
             currentMagEstimate = dataPoint["magnitude"]
-    if currentMagEstimateUpdated and currentMagEstimate != 9999:
+    if currentMagEstimateUpdated and currentMagEstimate not in [9999, -9999]:
 
         if now - currentMagEstimateUpdated < datetime.timedelta(days=2):
             littleTitle = cu.little_label(
