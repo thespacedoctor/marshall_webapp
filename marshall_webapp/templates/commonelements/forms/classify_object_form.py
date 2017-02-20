@@ -175,13 +175,13 @@ def classify_object_form(
         label="sn classification"
     )
 
-    if discoveryDataDictionary["recentClassification"] and discoveryDataDictionary["transientRedshift"]:
-        if discoveryDataDictionary["best_redshift"]:
-            r = discoveryDataDictionary["best_redshift"]
-        else:
-            r = discoveryDataDictionary["transientRedshift"]
+    if discoveryDataDictionary["best_redshift"]:
+        r = discoveryDataDictionary["best_redshift"]
+    elif discoveryDataDictionary["recentClassification"] and discoveryDataDictionary["transientRedshift"]:
+        r = discoveryDataDictionary["transientRedshift"]
     else:
         r = False
+
     redshiftInput = khufu.formInput(
         # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
         ttype='float',
