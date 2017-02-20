@@ -55,6 +55,8 @@ def identity_block(
     """
     log.info('starting the ``identity_block`` function')
 
+    annotations = []
+
     pesstoCredentialsPopover = khufu.popover(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
@@ -114,6 +116,8 @@ def identity_block(
         pwd = request.registry.settings["credentials"]["lsq"]["password"]
         surveyObjectUrl = surveyObjectUrl.replace(
             "portal.", "%(user)s:%(pwd)s@portal." % locals())
+    if surveyObjectUrl and "ps1gw" in surveyObjectUrl:
+        annotations.append("potential gravitational-wave counterpart")
 
     # if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
     #     user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
@@ -194,6 +198,9 @@ def identity_block(
                 #         "credentials"]["ps1-gw"]["password"]
                 #     surveyObjectUrl = surveyObjectUrl.replace(
                 #         "star.", "%(user)s:%(pwd)s@star." % locals())
+            if surveyObjectUrl and "ps1gw" in surveyObjectUrl and "potential gravitational-wave counterpart" not in annotations:
+                annotations.append("potential gravitational-wave counterpart")
+
             item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
 
@@ -623,7 +630,32 @@ def identity_block(
         onDesktop=True
     )
 
-    content = u"%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
+    if len(annotations):
+        icon = """<i class="icon-tag"></i>"""
+        annotations = ("<BR>").join(annotations)
+        # add text color
+        annotations = khufu.coloredText(
+            text="&nbsp&nbsp%(icon)s&nbsp<em>%(annotations)s</em>" % locals(),
+            color="red",
+            size=3,  # 1-10
+            pull=False,  # "left" | "right",
+            addBackgroundColor=False
+        )
+
+        annotations = khufu.grid_row(
+            responsive=True,
+            columns="%(annotations)s" % locals(
+            ),
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+    else:
+        annotations = ""
+
+    content = u"%(title)s %(masterName)s %(annotations)s %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
     )
     if isinstance(content, str):
         content = unicode(content, encoding="utf-8", errors="replace")
