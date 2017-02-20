@@ -117,7 +117,7 @@ def identity_block(
         surveyObjectUrl = surveyObjectUrl.replace(
             "portal.", "%(user)s:%(pwd)s@portal." % locals())
     if surveyObjectUrl and "ps1gw" in surveyObjectUrl:
-        annotations.append("potential gravitational-wave counterpart")
+        annotations.append("within sky map of gravitational wave source")
 
     # if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
     #     user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
@@ -198,8 +198,9 @@ def identity_block(
                 #         "credentials"]["ps1-gw"]["password"]
                 #     surveyObjectUrl = surveyObjectUrl.replace(
                 #         "star.", "%(user)s:%(pwd)s@star." % locals())
-            if surveyObjectUrl and "ps1gw" in surveyObjectUrl and "potential gravitational-wave counterpart" not in annotations:
-                annotations.append("potential gravitational-wave counterpart")
+            if surveyObjectUrl and "ps1gw" in surveyObjectUrl and "within sky map of gravitational wave source" not in annotations:
+                annotations.append(
+                    "within sky map of gravitational wave source")
 
             item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
