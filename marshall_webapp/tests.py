@@ -1,9 +1,11 @@
+import nose2
 import unittest
 
 from pyramid import testing
 
 
 class ViewTests(unittest.TestCase):
+
     def setUp(self):
         self.config = testing.setUp()
 
