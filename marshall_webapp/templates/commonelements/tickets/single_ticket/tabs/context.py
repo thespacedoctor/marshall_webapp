@@ -350,7 +350,7 @@ def _crossmatch_info_block(
     if len(cms) > 0:
 
         hs = ["Rank", "Catalogue", "Catalogue ID", "Catalogue Type (& Subtype)", "Classification",
-              "Angular Separation from Transient", "Physical Separation from Transient", "Transient Peak <em>M</em>", "Source Distance", "Source Redshift", "Source Mag"]
+              "Angular Separation from Transient", "Physical Separation from Transient", "Transient Peak M", "Source Distance", "Source Redshift", "Source Mag"]
         tableHead = ""
         for h in hs:
             th = khufu.th(
