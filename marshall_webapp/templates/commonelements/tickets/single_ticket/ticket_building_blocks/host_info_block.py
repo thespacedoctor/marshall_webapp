@@ -64,7 +64,7 @@ def host_info_block(
 
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     masterName = discoveryDataDictionary["masterName"]
-    sherlockClassification = discoveryDataDictionary["sherlockClassification"]
+    sherlockClassification = discoveryDataDictionary["classification"]
     sherlockAnnotation = discoveryDataDictionary["annotation"]
 
     if sherlockAnnotation:
