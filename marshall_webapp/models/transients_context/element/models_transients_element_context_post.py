@@ -80,20 +80,24 @@ class models_transients_element_context_post():
         # variables
         now = dcu.get_now_sql_datetime()
         author = self.request.authenticated_userid
-        comment = self.request.params["comment"]
+        comment = self.request.params["sherlockMatchComment"]
+        if "sherlockCorrectMatch" in self.request.params:
+            sherlockCorrectMatch = 1
+        else:
+            sherlockCorrectMatch = 0
 
         comment = comment.encode('unicode_escape').replace(
             "'", "\\'").replace('"', '\\"')
 
-        # add the comment to the database
+        # # add the comment to the database
         sqlQuery = """
-            INSERT INTO pesstoObjectsComments (pesstoObjectsId,commentAuthor,comment,dateCreated,dateLastModified) VALUES(%(transientBucketId)s,"%(author)s","%(comment)s","%(now)s","%(now)s");
+           update sherlock_classifications set matchVerified = %(sherlockCorrectMatch)s, developmentComment = "%(comment)s" where transient_object_id = %(transientBucketId)s;
         """ % locals()
         self.log.debug("""add comment sqlquery: `%(sqlQuery)s`""" % locals())
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 
-        responseContent = "%(author)s added the comment:<blockquote>%(comment)s</blockquote>to transient #%(transientBucketId)s in the marshall<BR><BR>" % locals(
+        responseContent = "%(author)s added the some verification info for the sherlock classification to transient #%(transientBucketId)s in the marshall<BR><BR>" % locals(
         )
 
         self.log.info('completed the ``put`` method')
