@@ -350,7 +350,7 @@ def _crossmatch_info_block(
     if len(cms) > 0:
 
         hs = ["Rank", "Catalogue", "Catalogue ID", "Catalogue Type (& Subtype)", "Classification",
-              "Angular Separation from Transient", "Physical Separation from Transient", "Source Distance", "Source Redshift", "Source Mag"]
+              "Angular Separation from Transient", "Physical Separation from Transient", "Transient Peak <em>M</em>", "Source Distance", "Source Redshift", "Source Mag"]
         tableHead = ""
         for h in hs:
             th = khufu.th(
@@ -366,7 +366,7 @@ def _crossmatch_info_block(
         tableBody = []
 
         rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type", "predictedClassification",
-              "separationArcsec", "physical_separation_kpc", "distance", "z", "best_mag"]
+              "separationArcsec", "physical_separation_kpc", "transientAbsMag", "distance", "z", "best_mag"]
         for c in cms:
 
             # generate object links
