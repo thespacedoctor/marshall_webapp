@@ -67,11 +67,14 @@ def host_info_block(
     sherlockClassification = discoveryDataDictionary["sherlockClassification"]
     sherlockAnnotation = discoveryDataDictionary["annotation"]
 
-    sherlockAnnotation = khufu.coloredText(
-        text=" - " + sherlockAnnotation,
-        color="green",
-        size=2,
-    )
+    if sherlockAnnotation:
+        sherlockAnnotation = khufu.coloredText(
+            text=" - " + sherlockAnnotation,
+            color="green",
+            size=2,
+        )
+    else:
+        sherlockAnnotation = ""
 
     nearestObjectUrl = ""
     exactLocationUrl = ""
