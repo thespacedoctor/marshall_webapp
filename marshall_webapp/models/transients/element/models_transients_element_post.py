@@ -160,9 +160,6 @@ class models_transients_element_post():
         except:
             duplicate = True
 
-        print duplicate
-        print sqlQuery
-
         if duplicate == True:
             sqlQuery = """
                 select primaryKeyId from transientBucket where decDeg= %(decDeg)s and name="%(name)s" and observationMjd=%(obsMjd)s and survey="%(clsSource)s" and replacedByRowId = 0;
