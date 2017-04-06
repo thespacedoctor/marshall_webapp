@@ -156,6 +156,6 @@ logging settings:
             # maxBytes: 1024000
             # backupCount: 3
     root:
-        level: INFO
+        level: WARNING
         # handlers: [debug_file,file,html_log_file]
         handlers: [file,console,html_log_file]
