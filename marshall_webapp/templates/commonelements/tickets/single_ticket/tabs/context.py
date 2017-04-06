@@ -628,7 +628,7 @@ def _aladin_block(
         addBackgroundColor=False
     )
 
-    masterClassification = discoveryDataDictionary["sherlockClassification"]
+    masterClassification = discoveryDataDictionary["classification"]
 
     # add text color
     masterClassification = khufu.coloredText(

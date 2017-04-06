@@ -68,11 +68,23 @@ def host_info_block(
     sherlockAnnotation = discoveryDataDictionary["annotation"]
 
     if sherlockAnnotation:
+        # more = khufu.a(
+        #     content=' <em>more info</em>',
+        #     href="#tab" + str(transientBucketId) + "3",
+        #     triggerStyle="tab",  # [ False | "dropdown" | "tab" | "modal" ],
+        # )
+        # more = khufu.coloredText(
+        #     text=more,
+        #     color="blue",
+        #     size=2,
+        # )
         sherlockAnnotation = khufu.coloredText(
             text=" - " + sherlockAnnotation,
             color="green",
             size=2,
         )
+        # sherlockAnnotation += more
+
     else:
         sherlockAnnotation = ""
 
