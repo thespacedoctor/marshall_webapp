@@ -691,115 +691,118 @@ def _sherlock_development_form(
 
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
-    if discoveryDataDictionary["developmentComment"]:
+    if discoveryDataDictionary["mismatchComment"]:
         # add text color
+        commentDate = discoveryDataDictionary["commentDate"]
+        commentDate = commentDate.strftime("%Y-%m-%d")
         text = khufu.coloredText(
-            text="current note: ",
-            color="cyan",
-            size=3,  # 1-10
+            text="Mismatch reported by " + discoveryDataDictionary["user"].replace(".", " ").title(
+            ) + ", " + commentDate + ": ",
+            color="red",
+            size=4,  # 1-10
             pull=False,  # "left" | "right",
             addBackgroundColor=False
         )
 
         currentComment = khufu.coloredText(
-            text=text + discoveryDataDictionary["developmentComment"],
+            text=text + discoveryDataDictionary["mismatchComment"],
             color="grey",
-            size=6,  # 1-10
+            size=3,  # 1-10
             pull=False,  # "left" | "right",
             addBackgroundColor=False
         )
     else:
         currentComment = ""
 
-    currentComment = khufu.grid_column(
-        span=6,  # 1-12
-        offset=1,  # 1-12
-        content=currentComment,
-        pull=False,  # ["right", "left", "center"]
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
+    if len(currentComment) == 0:
 
-    match = khufu.checkbox(
-        optionText='Matched Correctly',
-        inline=True,
-        htmlId="sherlockCorrectMatch",
-        optionNumber=1,
-        inlineHelpText=False,
-        blockHelpText=False,
-        disabled=False,
-        checked=True
-    )
+        button = khufu.button(
+            buttonText='mismatch',
+            # [ default | primary | info | success | warning | danger | inverse | link ]
+            buttonStyle='success',
+            buttonSize='default',  # [ large | default | small | mini ]
+            htmlId=False,
+            href=False,
+            pull=False,  # right, left, center
+            submit=True,
+            block=False,
+            disable=False,
+            postInBackground=False,
+            dataToggle=False,  # [ modal ]
+            popover=False
+        )
 
-    button = khufu.button(
-        buttonText='update',
-        # [ default | primary | info | success | warning | danger | inverse | link ]
-        buttonStyle='info',
-        buttonSize='default',  # [ large | default | small | mini ]
-        htmlId=False,
-        href=False,
-        pull=False,  # right, left, center
-        submit=True,
-        block=False,
-        disable=False,
-        postInBackground=False,
-        dataToggle=False,  # [ modal ]
-        popover=False
-    )
+        correctMatchInput = khufu.formInput(
+            # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
+            ttype='text',
+            placeholder='comment ...',
+            span=10,
+            htmlId="sherlockMatchComment",
+            searchBar=False,
+            pull=False,
+            prepend=False,
+            append=False,
+            prependDropdown=False,
+            appendDropdown=False,
+            inlineHelpText=False,
+            blockHelpText=False,
+            focusedInputText=False,
+            required=True,
+            disabled=False
+        )
+        correctMatchInput = khufu.controlRow(
+            inputList=[correctMatchInput, button]
+        )
+        correctMatchLabel = khufu.horizontalFormControlLabel(
+            labelText='If you think the first ranked transient-host match is obviously incorrect please report the mismatch to help improve the contextual classifier',
+            forId="sherlockMatchComment"
+        )
 
-    correctMatchInput = khufu.formInput(
-        # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
-        ttype='text',
-        placeholder='add a comment ...',
-        span=10,
-        htmlId="sherlockMatchComment",
-        searchBar=False,
-        pull=False,
-        prepend=False,
-        append=False,
-        prependDropdown=False,
-        appendDropdown=False,
-        inlineHelpText=False,
-        blockHelpText=False,
-        focusedInputText=False,
-        required=False,
-        disabled=False
-    )
-    correctMatchInput = khufu.controlRow(
-        inputList=[correctMatchInput, match, button]
-    )
-    correctMatchLabel = khufu.horizontalFormControlLabel(
-        labelText='sherlock development comment',
-        forId="sherlockMatchComment"
-    )
+        correctMatchCG = khufu.horizontalFormControlGroup(
+            content=correctMatchLabel + correctMatchInput,
+            validationLevel=False
+        )
+        # xkhufu-tmpx-form-control-groue
 
-    correctMatchCG = khufu.horizontalFormControlGroup(
-        content=correctMatchLabel + correctMatchInput,
-        validationLevel=False
-    )
-    # xkhufu-tmpx-form-control-group
+        sherlockForm = khufu.form(
+            content=correctMatchCG,  # list of control groups
+            # [ "inline" | "horizontal" | "search" | "navbar-form" | "navbar-search" ]
+            formType='inline',
+            navBarPull=False,  # [ false | right | left ],
+            postToScript="/marshall/transients/%(transientBucketId)s/context" % locals(),
+            htmlId="sherlockDevelopment",
+            postInBackground=False,
+            htmlClass=False,
+            redirectUrl="/marshall/transients/%(transientBucketId)s" % locals(),
+            span=10,
+            offset=1
+        )
 
-    if "phaseiiiCheck" in request.params:
-        phaseiiiCheck = "?phaseiiiCheck=" + request.params["phaseiiiCheck"]
+        currentComment = khufu.grid_column(
+            span=6,  # 1-12
+            offset=1,  # 1-12
+            content=currentComment,
+            pull=False,  # ["right", "left", "center"]
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
     else:
-        phaseiiiCheck = ""
+        sherlockForm = ""
 
-    sherlockForm = khufu.form(
-        content=correctMatchCG,  # list of control groups
-        # [ "inline" | "horizontal" | "search" | "navbar-form" | "navbar-search" ]
-        formType='inline',
-        navBarPull=False,  # [ false | right | left ],
-        postToScript="/marshall/transients/%(transientBucketId)s/context" % locals(),
-        htmlId="sherlockDevelopment",
-        postInBackground=False,
-        htmlClass=False,
-        redirectUrl="/marshall/transients%(phaseiiiCheck)s" % locals(),
-        span=10,
-        offset=1
-    )
+        currentComment = khufu.grid_column(
+            span=6,  # 1-12
+            offset=0,  # 1-12
+            content=currentComment,
+            pull=False,  # ["right", "left", "center"]
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
 
     return currentComment + sherlockForm
 
