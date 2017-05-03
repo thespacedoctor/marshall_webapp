@@ -141,6 +141,82 @@ def view_switcher_buttons(
 
     return viewSwitcherButton + downloadsButton
 
+
+def ntt_view_button(
+    log,
+    params,
+    request
+):
+    """ntt_view_button
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``params`` -- the request params (defaults added if not populated)
+        - ``request`` -- the pyramid request
+
+    **Return:**
+        - None
+
+    **Todo**
+    """
+    theseLinks = ""
+    match = False
+
+    if "filterBy" in params and "filterValue" in params and "filterOp" in params:
+
+        if params["filterBy"] == "decDeg" and params["filterValue"] == "30" and (params["filterOp"] == "<" or params["filterOp"] == "lt"):
+
+            htmlClass = "on"
+            content = "show targets > +30&deg;"
+            del params["filterBy"]
+            del params["filterValue"]
+            del params["filterOp"]
+            match = True
+
+    print match
+
+    if match == False:
+        htmlClass = False
+        content = "hide targets > +30&deg;"
+        params["filterBy"] = "decDeg"
+        params["filterValue"] = 30
+        params["filterOp"] = "lt"
+
+    routename = request.matched_route.name
+    if "q" in params:
+        href = request.route_path('transients_search', _query=params)
+    else:
+        href = request.route_path(
+            routename, _query=params)
+
+    print href
+
+    popover = khufu.popover(
+        tooltip=False,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="Target Filter",
+        content=content,
+        delay=200
+    )
+    viewSwitcherButton = khufu.button(
+        buttonText="""<i class="icon-globe"></i>&nbspNTT""" % locals(),
+        # [ default | primary | info | success | warning | danger | inverse | link ]
+        buttonStyle='default',
+        buttonSize='default',  # [ large | default | small | mini ]
+        htmlId=False,
+        htmlClass=htmlClass,
+        href=href,
+        pull=False,  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        dataToggle=False,  # [ modal ]
+        popover=popover
+    )
+
+    return viewSwitcherButton
+
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
@@ -184,18 +260,21 @@ def _link_for_popover(
 
     if download:
         if "html" not in format:
+            params["filename"] = ""
             if tcsTableName:
                 params["filename"] = tcsTableName
             elif "mwl" in params:
-                params["filename"] = params["mwl"]
+                params["filename"] += params["mwl"]
             elif "awl" in params:
-                params["filename"] = params["awl"]
+                params["filename"] += params["awl"]
             elif "cf" in params:
-                params["filename"] = "classifications"
+                params["filename"] += "classifications"
             elif "q" in params:
-                params["filename"] = "search_" + params["q"]
+                params["filename"] += "search_" + params["q"]
             elif "snoozed" in params:
-                params["filename"] = "snoozed"
+                params["filename"] += "snoozed"
+            elif "filterBy" in params:
+                params["filename"] += "filtered"
             elif elementId:
                 sqlQuery = u"""
                     select masterName from transientBucketSummaries where transientBucketId = %(elementId)s 

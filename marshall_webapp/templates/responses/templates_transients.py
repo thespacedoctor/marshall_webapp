@@ -310,6 +310,38 @@ class templates_transients():
         self.log.info('completed the ``_get_view_switcher_buttons`` method')
         return view_switcher_buttons
 
+    def _get_ntt_view_button(
+            self):
+        """ get button that hides sources with dec > 30.
+
+        **Key Arguments:**
+            # -
+
+        **Return:**
+            - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
+
+        **Todo**
+        """
+        self.log.info('starting the ``_get_ntt_view_button`` method')
+
+        from ..commonelements.view_switcher_buttons import ntt_view_button
+
+        if self.tcsCatalogueId:
+            elementId = self.tcsCatalogueId
+        else:
+            elementId = self.elementId
+
+        ntt_view_button = ntt_view_button(
+            log=self.log,
+            params=self.qs,
+            request=self.request
+        )
+
+        print ntt_view_button
+
+        self.log.info('completed the ``_get_ntt_view_button`` method')
+        return ntt_view_button
+
     def _get_object_limit_dropdown(
             self):
         """ get object limit dropdown for the page
@@ -396,7 +428,9 @@ class templates_transients():
         sort = self._get_sort_dropdown()
         count = self.totalTicketCount
         pagination = self._get_pagination()
+        ntt_button = self._get_ntt_view_button()
         viewSwitcherButtons = self._get_view_switcher_buttons()
+
         objectsPerPageDropdown = self._get_object_limit_dropdown()
         notification = self._get_notification()
         pageviewInfo = self._get_page_view_info()
@@ -529,7 +563,7 @@ class templates_transients():
         smallspace = "&nbsp" * 1
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[pageviewInfo, viewSwitcherButtons, smallspace,
+            contentList=[pageviewInfo, viewSwitcherButtons, ntt_button, smallspace,
                          objectsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -601,7 +635,7 @@ class templates_transients():
         pagination = self._get_pagination()
         notification = self._get_notification()
         ticketsPerPageDropdown = self._get_object_limit_dropdown()
-
+        ntt_button = self._get_ntt_view_button()
         view_switcher_buttons = self._get_view_switcher_buttons()
 
         sort = self._get_sort_dropdown()
@@ -616,7 +650,7 @@ class templates_transients():
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[pageviewInfo, view_switcher_buttons, smallspace, sort, smallspace,
+            contentList=[pageviewInfo, view_switcher_buttons, ntt_button, smallspace, sort, smallspace,
                          ticketsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -677,6 +711,8 @@ class templates_transients():
         if pageEnd > totalCount:
             pageEnd = totalCount
 
+        filterText = self.qs["filterText"]
+
         tcsCatalogueId = self.tcsCatalogueId
         if self.tcsCatalogueName:
             table_name = self.tcsCatalogueName
@@ -691,13 +727,6 @@ class templates_transients():
             else:
                 thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> %(matches)s against the <strong>%(table_name)s</strong> catalogue<span>""" % locals(
                 )
-        elif "search" not in thisListing:
-            if totalCount == 0:
-                thisListing = """<span id="pageinfo">no transients were found in the <strong>%(thisListing)s</strong> list<span>""" % locals(
-                )
-            else:
-                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> in the <strong>%(thisListing)s</strong> list<span>""" % locals(
-                )
         elif "search" in thisListing:
             thisListing = thisListing.replace("search", "").strip()
             if totalCount == 0:
@@ -705,6 +734,13 @@ class templates_transients():
                 )
             else:
                 thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> from the search for "<strong><em>%(thisListing)s</em></strong>"<span>""" % locals(
+                )
+        elif "search" not in thisListing:
+            if totalCount == 0:
+                thisListing = """<span id="pageinfo">no transients were found %(filterText)sin the <strong>%(thisListing)s</strong> list<span>""" % locals(
+                )
+            else:
+                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> %(filterText)sin the <strong>%(thisListing)s</strong> list<span>""" % locals(
                 )
 
         else:
