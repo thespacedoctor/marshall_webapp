@@ -614,9 +614,11 @@ class models_transients_get():
             sec = "and s.transientBucketId = cm.transient_object_id"
             tep = "and t.transientBucketId = p.transientBucketId"
             sep = "and s.transientBucketId = p.transientBucketId"
+
             sqlQuery = """
-                    select count(*) as count from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s
+                    select count(*) as count from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s
                 """ % locals()
+
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
             ticketCountRows[:] = [dict(zip(row.keys(), row))
