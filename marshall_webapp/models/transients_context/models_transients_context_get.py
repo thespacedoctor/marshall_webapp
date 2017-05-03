@@ -134,11 +134,9 @@ class models_transients_context_get():
             objectName = urllib.quote(c["catalogue_object_id"])
 
             if "ned" in c["catalogue_table_name"].lower():
-                print "shit"
                 c[
                     "object_link"] = "https://ned.ipac.caltech.edu/cgi-bin/objsearch?objname=%(objectName)s&extend=no&hconst=73&omegam=0.27&omegav=0.73&corr_z=1&out_csys=Equatorial&out_equinox=J2000.0&obj_sort=RA+or+Longitude&of=pre_text&zv_breaker=30000.0&list_limit=5&img_stamp=YES" % locals()
-                print c[
-                    "object_link"]
+
             elif "sdss" in c["catalogue_table_name"].lower():
                 c[
                     "object_link"] = "http://skyserver.sdss.org/dr12/en/tools/explore/Summary.aspx?id=%(objectName)s" % locals()
