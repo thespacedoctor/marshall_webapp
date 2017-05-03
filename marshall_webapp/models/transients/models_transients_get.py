@@ -59,7 +59,9 @@ class models_transients_get():
             "tableLimit": 100,
             "pageStart": 0,
             "sortBy": "dateAdded",
-            "sortDesc": False
+            "sortDesc": False,
+            "filterBy": False,
+            "filterValue": False
         }
         self.search = search
         self.elementId = elementId
@@ -187,6 +189,14 @@ class models_transients_get():
             thisWhere = """snoozed = "%(snoozed)s" """ % self.qs
             sqlWhereList.append(thisWhere)
 
+        # FILTER?
+        if "filterBy" in self.qs and "filterValue" in self.qs and "filterOp" in self.qs:
+            if self.qs['filterBy'] in ("decDeg", "raDeg"):
+                thisWhere = """t.`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
+            else:
+                thisWhere = """`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
+            sqlWhereList.append(thisWhere)
+
         if "phaseiiiCheck" in self.qs:
             phaseiiiCheck = self.qs["phaseiiiCheck"]
             if phaseiiiCheck == "null":
@@ -215,9 +225,8 @@ class models_transients_get():
 
         # COMBINE THE WHERE CLAUSES
         queryWhere = ""
-        for thisWhere in range(len(sqlWhereList) - 1):
-            if thisWhere != 0:
-                queryWhere = """%(queryWhere)s %(thisWhere)s and""" % locals()
+        for i, v in enumerate(sqlWhereList[:-1]):
+            queryWhere = """%(queryWhere)s %(v)s and""" % locals()
         if len(sqlWhereList):
             finalWhere = sqlWhereList[-1]
             queryWhere = """where %(queryWhere)s %(finalWhere)s""" % locals()
@@ -403,6 +412,20 @@ class models_transients_get():
                 self.qs["sortBy"] = self.defaultQs["sortBy"]
                 self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
+        self.qs["filterText"] = ""
+        if "filterBy" in self.qs:
+            if "filterOp" not in self.qs:
+                self.qs["filterOp"] = self.defaultQs["filterOp"]
+            if self.qs["filterOp"].lower() == "eq":
+                self.qs["filterOp"] = "="
+            elif self.qs["filterOp"].lower() == "lt":
+                self.qs["filterOp"] = "<"
+            elif self.qs["filterOp"].lower() == "gt":
+                self.qs["filterOp"] = ">"
+
+            self.qs[
+                "filterText"] = "with <strong>%(filterBy)s %(filterOp)s %(filterValue)s</strong> " % self.qs
+
         self.log.debug("""these are the new query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
 
@@ -577,6 +600,22 @@ class models_transients_get():
             else:
                 sqlQuery = """
                     select all_transient_associations as count from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s;
+                """ % locals()
+            ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
+            ticketCountRows = []
+            ticketCountRows[:] = [dict(zip(row.keys(), row))
+                                  for row in ticketCountRowsTmp]
+            totalTickets = 0
+            for row in ticketCountRows:
+                totalTickets += row["count"]
+        elif 'filterBy' in self.qs:
+            tcsCm = ", sherlock_crossmatches cm"
+            tec = "and t.transientBucketId = cm.transient_object_id"
+            sec = "and s.transientBucketId = cm.transient_object_id"
+            tep = "and t.transientBucketId = p.transientBucketId"
+            sep = "and s.transientBucketId = p.transientBucketId"
+            sqlQuery = """
+                    select count(*) as count from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s
                 """ % locals()
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
