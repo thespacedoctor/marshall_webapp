@@ -334,6 +334,7 @@ class templates_transients():
         ntt_view_button = ntt_view_button(
             log=self.log,
             params=self.qs,
+            elementId=elementId,
             request=self.request
         )
 
