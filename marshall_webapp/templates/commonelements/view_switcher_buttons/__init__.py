@@ -145,6 +145,7 @@ def view_switcher_buttons(
 def ntt_view_button(
     log,
     params,
+    elementId,
     request
 ):
     """ntt_view_button
@@ -185,7 +186,7 @@ def ntt_view_button(
         href = request.route_path('transients_search', _query=params)
     else:
         href = request.route_path(
-            routename, _query=params)
+            routename, elementId=elementId, _query=params)
 
     popover = khufu.popover(
         tooltip=False,
