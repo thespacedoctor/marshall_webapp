@@ -337,8 +337,6 @@ class templates_transients():
             request=self.request
         )
 
-        print ntt_view_button
-
         self.log.info('completed the ``_get_ntt_view_button`` method')
         return ntt_view_button
 

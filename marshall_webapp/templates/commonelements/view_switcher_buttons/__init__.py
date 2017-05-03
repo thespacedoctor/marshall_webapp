@@ -173,8 +173,6 @@ def ntt_view_button(
             del params["filterOp"]
             match = True
 
-    print match
-
     if match == False:
         htmlClass = False
         content = "hide targets > +30&deg;"
@@ -188,8 +186,6 @@ def ntt_view_button(
     else:
         href = request.route_path(
             routename, _query=params)
-
-    print href
 
     popover = khufu.popover(
         tooltip=False,
