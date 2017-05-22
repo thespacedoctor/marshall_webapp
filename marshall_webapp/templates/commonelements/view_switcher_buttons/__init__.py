@@ -165,13 +165,13 @@ def ntt_view_button(
 
     if "filterBy" in params and "filterValue" in params and "filterOp" in params:
 
-        if params["filterBy"] == "decDeg" and params["filterValue"] == "30" and (params["filterOp"] == "<" or params["filterOp"] == "lt"):
+        if params["filterBy"] == "decDeg" and params["filterValue"] in ["30", 30] and params["filterOp"] in ["lt", "<"]:
 
             htmlClass = "on"
             content = "show targets > +30&deg;"
-            del params["filterBy"]
-            del params["filterValue"]
-            del params["filterOp"]
+            params["filterBy"] = None
+            params["filterValue"] = None
+            params["filterOp"] = None
             match = True
 
     if match == False:
@@ -250,22 +250,26 @@ def _link_for_popover(
     params["format"] = format
     params["method"] = "get"
 
-    if format == "html_table":
-        params["limit"] = 100
-    elif format == "html_tickets":
-        params["limit"] = 10
+    if ("limit" not in params or not params["limit"]):
+        if format == "html_table":
+            params["limit"] = 100
+        elif format == "html_tickets":
+            params["limit"] = 10
 
     if download:
         if "html" not in format:
             params["filename"] = ""
             if tcsTableName:
                 params["filename"] = tcsTableName
-            elif "mwl" in params:
-                params["filename"] += params["mwl"]
-            elif "awl" in params:
-                params["filename"] += params["awl"]
-            elif "cf" in params:
+            elif "snoozed" in params and params["snoozed"]:
+                params["filename"] += "snoozed"
+            elif "cf" in params and params["cf"]:
                 params["filename"] += "classifications"
+            elif "awl" in params and params["awl"]:
+                params["filename"] += params["awl"]
+            elif "mwl" in params and params["mwl"]:
+                params["filename"] += params["mwl"]
+
             elif "q" in params:
                 params["filename"] += "search_" + params["q"]
             elif "snoozed" in params:
