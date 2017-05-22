@@ -695,7 +695,12 @@ def _sherlock_development_form(
     if discoveryDataDictionary["mismatchComment"]:
         # add text color
         commentDate = discoveryDataDictionary["commentDate"]
-        commentDate = commentDate.strftime("%Y-%m-%d")
+        if commentDate:
+            commentDate = commentDate.strftime("%Y-%m-%d")
+        else:
+            commentDate = "no comment date"
+        if not discoveryDataDictionary["user"]:
+            discoveryDataDictionary["user"] = "anon"
         text = khufu.coloredText(
             text="Mismatch reported by " + discoveryDataDictionary["user"].replace(".", " ").title(
             ) + ", " + commentDate + ": ",
