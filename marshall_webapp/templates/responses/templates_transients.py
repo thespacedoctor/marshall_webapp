@@ -110,6 +110,7 @@ class templates_transients():
         self.log.info('starting the ``get`` method')
 
         # choose which format of the content to display
+
         if self.qs["format"] == "html_table":
             maincontent = self._get_object_table()
         else:
@@ -333,7 +334,7 @@ class templates_transients():
 
         ntt_view_button = ntt_view_button(
             log=self.log,
-            params=self.qs,
+            params=self.qs.copy(),
             elementId=elementId,
             request=self.request
         )
@@ -427,12 +428,11 @@ class templates_transients():
         sort = self._get_sort_dropdown()
         count = self.totalTicketCount
         pagination = self._get_pagination()
-        ntt_button = self._get_ntt_view_button()
         viewSwitcherButtons = self._get_view_switcher_buttons()
-
         objectsPerPageDropdown = self._get_object_limit_dropdown()
         notification = self._get_notification()
         pageviewInfo = self._get_page_view_info()
+        ntt_button = self._get_ntt_view_button()
 
         for obj in self.transientData:
 
@@ -560,9 +560,21 @@ class templates_transients():
         # create the table function bar
         space = "&nbsp" * 10
         smallspace = "&nbsp" * 1
+
+        pageviewInfo = khufu.p(
+            content=pageviewInfo,
+            lead=False,
+            textAlign="right",  # [ left | center | right ]
+            color=False,  # [ muted | warning | info | error | success ]
+            navBar=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[pageviewInfo, viewSwitcherButtons, ntt_button, smallspace,
+            contentList=[viewSwitcherButtons, ntt_button, smallspace,
                          objectsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -579,7 +591,7 @@ class templates_transients():
         object_table = khufu.grid_column(
             span=12,  # 1-12
             offset=0,  # 1-12
-            content="""%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(table)s %(bottomTicketTableFunctionBar)s""" % locals(
+            content="""%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(pageviewInfo)s %(table)s %(bottomTicketTableFunctionBar)s""" % locals(
             ),
             htmlId="object_table",
             htmlClass=False,
@@ -606,14 +618,14 @@ class templates_transients():
         self.log.info('starting the ``_get_page_name`` method')
 
         thisPageName = ""
-        if "mwl" in self.qs:
-            thisPageName = self.qs["mwl"]
-        elif "awl" in self.qs:
-            thisPageName = self.qs["awl"]
+        if "snoozed" in self.qs:
+            thisPageName = "snoozed"
         elif "cf" in self.qs and (self.qs["cf"] == 1 or self.qs["cf"] == "1"):
             thisPageName = "classified"
-        elif "snoozed" in self.qs:
-            thisPageName = "snoozed"
+        elif "awl" in self.qs:
+            thisPageName = self.qs["awl"]
+        elif "mwl" in self.qs:
+            thisPageName = self.qs["mwl"]
 
         self.log.info('completed the ``_get_page_name`` method')
         return thisPageName
@@ -649,7 +661,7 @@ class templates_transients():
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[pageviewInfo, view_switcher_buttons, ntt_button, smallspace, sort, smallspace,
+            contentList=[view_switcher_buttons, ntt_button, smallspace, sort, smallspace,
                          ticketsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -661,6 +673,17 @@ class templates_transients():
             transparent=True
         )
 
+        pageviewInfo = khufu.p(
+            content=pageviewInfo,
+            lead=False,
+            textAlign="right",  # [ left | center | right ]
+            color=False,  # [ muted | warning | info | error | success ]
+            navBar=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+
         bottomTicketTableFunctionBar = ticketTableFunctionBar.replace(
             "btn-group", "btn-group dropup").replace("""data-placement="bottom" """, """data-placement="top" """)
 
@@ -669,7 +692,7 @@ class templates_transients():
         ticket_table = khufu.grid_column(
             span=12,  # 1-12
             offset=0,  # 1-12
-            content="""%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(theseTickets)s %(bottomTicketTableFunctionBar)s""" % locals(
+            content="""%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(pageviewInfo)s  %(theseTickets)s %(bottomTicketTableFunctionBar)s""" % locals(
             ),
             htmlId="ticket_table",
             htmlClass=False,
@@ -700,6 +723,7 @@ class templates_transients():
 
         # craft some text from the download filename
         filename = self.qs["filename"]
+
         thisListing = filename.replace("pessto_marshall", "").replace(
             "_", " ").strip()
 

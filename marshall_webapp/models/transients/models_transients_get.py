@@ -60,8 +60,9 @@ class models_transients_get():
             "pageStart": 0,
             "sortBy": "dateAdded",
             "sortDesc": False,
-            "filterBy": False,
-            "filterValue": False
+            "filterBy": "decDeg",
+            "filterValue": 30,
+            "filterOp": "<"
         }
         self.search = search
         self.elementId = elementId
@@ -190,7 +191,7 @@ class models_transients_get():
             sqlWhereList.append(thisWhere)
 
         # FILTER?
-        if "filterBy" in self.qs and "filterValue" in self.qs and "filterOp" in self.qs:
+        if "filterBy" in self.qs and self.qs['filterBy'] and "filterValue" in self.qs and self.qs['filterValue'] and "filterOp" in self.qs and self.qs['filterOp']:
             if self.qs['filterBy'] in ("decDeg", "raDeg"):
                 thisWhere = """t.`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
             else:
@@ -412,8 +413,13 @@ class models_transients_get():
                 self.qs["sortBy"] = self.defaultQs["sortBy"]
                 self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
+        # ADD THE REST OF THE DEFAULTS TO THE QUERY STRING
+        for k, v in self.defaultQs.iteritems():
+            if k not in self.qs:
+                self.qs[k] = v
+
         self.qs["filterText"] = ""
-        if "filterBy" in self.qs:
+        if "filterBy" in self.qs and self.qs["filterBy"]:
             if "filterOp" not in self.qs:
                 self.qs["filterOp"] = self.defaultQs["filterOp"]
             if self.qs["filterOp"].lower() == "eq":

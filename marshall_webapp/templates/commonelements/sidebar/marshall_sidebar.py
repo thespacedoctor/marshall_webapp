@@ -342,7 +342,7 @@ def _get_observation_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     classificationTargetsLink = khufu.a(
@@ -385,7 +385,7 @@ def _get_observation_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     followupTargetsLink = khufu.a(
@@ -426,7 +426,7 @@ def _get_observation_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     allTargetsLink = khufu.a(
@@ -543,7 +543,7 @@ def _get_classification_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     queuedForClassificationLink = khufu.a(
@@ -585,13 +585,13 @@ def _get_classification_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="awl"
+        paramsToRemove=["snoozed", "cf", "mwl", "pageStart"]
     )
 
     queuedForAtelLink = khufu.a(
         content='queued for atel (%s)' % (count,),
         href=request.route_path(
-            'transients', _query={'awl': 'queued for atel'}),
+            'transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -698,9 +698,18 @@ def _get_reference_lists(
         cFlag='"NOT NULL"'
     ).get()
 
+    theseParams = dict(request.params)
+    theseParams["mwl"] = 'all'
+    theseParams["cf"] = 1
+    theseParams = _remove_parameters(
+        log=log,
+        params=theseParams,
+        paramsToRemove=["snoozed", "awl", "pageStart"]
+    )
+
     classifiedLink = khufu.a(
         content='classified (%s)' % (count,),
-        href=request.route_path('transients', _query={'cf': '1'}),
+        href=request.route_path('transients', _query=theseParams),
         tableIndex=False,
         triggerStyle=False
     )
@@ -736,7 +745,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     followupCompleteLink = khufu.a(
@@ -779,7 +788,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     allArchivedLink = khufu.a(
@@ -820,7 +829,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     allLink = khufu.a(
@@ -940,11 +949,12 @@ def _get_target_selection_queue(
     ).get()
 
     theseParams = dict(request.params)
+
     theseParams["mwl"] = 'inbox'
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     inboxLink = khufu.a(
@@ -982,10 +992,11 @@ def _get_target_selection_queue(
 
     theseParams = dict(request.params)
     theseParams["snoozed"] = 1
+    theseParams["mwl"] = "all"
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="snoozed"
+        paramsToRemove=["cf", "awl", "pageStart"]
     )
 
     snoozedLink = khufu.a(
@@ -1025,7 +1036,7 @@ def _get_target_selection_queue(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramToKeep="mwl"
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
     )
 
     reviewForFollowupLink = khufu.a(
@@ -1098,14 +1109,14 @@ def _get_target_selection_queue(
 def _remove_parameters(
         log,
         params,
-        paramToKeep
+        paramsToRemove
 ):
     """Get the left navigation bar for the pessto marshall
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``params`` -- the parameters of the request
-        - ``paramToKeep`` -- the parameters we want to keep
+        - ``paramsToRemove`` -- the parameters to remove from the incoming request
 
     **Return:**
         - ``params`` -- the clean parameters
@@ -1113,8 +1124,15 @@ def _remove_parameters(
     log.info('starting the ``_remove_parameter`` function')
     ## VARIABLES ##
 
-    for key in params.keys():
-        if key != paramToKeep:
+    # for key in params.keys():
+    #     if key != paramToKeep:
+    #         del params[key]
+
+    if isinstance(paramsToRemove, str):
+        paramsToRemove = [paramsToRemove]
+
+    for key in paramsToRemove:
+        if key in params:
             del params[key]
 
     log.info('completed the ``_remove_parameters  `` function')
