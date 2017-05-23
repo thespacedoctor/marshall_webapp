@@ -415,7 +415,7 @@ class models_transients_get():
 
         # ADD THE REST OF THE DEFAULTS TO THE QUERY STRING
         for k, v in self.defaultQs.iteritems():
-            if k not in self.qs:
+            if k not in self.qs and 'q' not in self.qs:
                 self.qs[k] = v
 
         self.qs["filterText"] = ""
@@ -589,7 +589,7 @@ class models_transients_get():
         tcsCatalogueId = self.tcsCatalogueId
         if self.search:
             sqlQuery = """
-                select count(*) from pesstoObjects t %(queryWhere)s;
+                select count(*) from pesstoObjects p, transientBucketSummaries t %(queryWhere)s and t.transientBucketId = p.transientBucketId;
             """ % locals()
             totalTicketsTmp = self.request.db.execute(sqlQuery).fetchall()
             totalTickets = []
