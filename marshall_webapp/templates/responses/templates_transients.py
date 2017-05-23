@@ -428,11 +428,11 @@ class templates_transients():
         sort = self._get_sort_dropdown()
         count = self.totalTicketCount
         pagination = self._get_pagination()
+        ntt_button = self._get_ntt_view_button()
         viewSwitcherButtons = self._get_view_switcher_buttons()
         objectsPerPageDropdown = self._get_object_limit_dropdown()
         notification = self._get_notification()
         pageviewInfo = self._get_page_view_info()
-        ntt_button = self._get_ntt_view_button()
 
         for obj in self.transientData:
 
