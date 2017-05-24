@@ -342,7 +342,7 @@ def _get_observation_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     classificationTargetsLink = khufu.a(
@@ -385,7 +385,7 @@ def _get_observation_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     followupTargetsLink = khufu.a(
@@ -426,7 +426,7 @@ def _get_observation_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     allTargetsLink = khufu.a(
@@ -543,7 +543,7 @@ def _get_classification_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     queuedForClassificationLink = khufu.a(
@@ -585,7 +585,7 @@ def _get_classification_queues(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "mwl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "mwl", "pageStart", "q"]
     )
 
     queuedForAtelLink = khufu.a(
@@ -704,7 +704,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "awl", "pageStart", "q"]
     )
 
     classifiedLink = khufu.a(
@@ -745,7 +745,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     followupCompleteLink = khufu.a(
@@ -788,7 +788,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     allArchivedLink = khufu.a(
@@ -829,7 +829,7 @@ def _get_reference_lists(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     allLink = khufu.a(
@@ -954,7 +954,7 @@ def _get_target_selection_queue(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     inboxLink = khufu.a(
@@ -996,7 +996,7 @@ def _get_target_selection_queue(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["cf", "awl", "pageStart"]
+        paramsToRemove=["cf", "awl", "pageStart", "q"]
     )
 
     snoozedLink = khufu.a(
@@ -1036,7 +1036,7 @@ def _get_target_selection_queue(
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart"]
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
     reviewForFollowupLink = khufu.a(
