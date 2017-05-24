@@ -415,7 +415,7 @@ class models_transients_get():
 
         # ADD THE REST OF THE DEFAULTS TO THE QUERY STRING
         for k, v in self.defaultQs.iteritems():
-            if k not in self.qs and 'q' not in self.qs:
+            if k not in self.qs and 'q' not in self.qs and not self.elementId:
                 self.qs[k] = v
 
         self.qs["filterText"] = ""
