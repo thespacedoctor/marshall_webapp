@@ -82,7 +82,6 @@ def ticket_table_sorting_dropdown(
         "date added to marshall",
         "date of last observation",
         "discovery date",
-        "predicted type",
         "pre-discovery non-detection date",
         "absolute peak magnitude",
         "spectral type",
@@ -116,8 +115,6 @@ def ticket_table_sorting_dropdown(
         sortBy = "date of last observation"
     if sortBy == "earliestDetection":
         sortBy = "discovery date"
-    if sortBy == "transientTypePrediction":
-        sortBy = "predicted type"
     if sortBy == "lastNonDetectionDate":
         sortBy = "pre-discovery non-detection date"
     if sortBy == "absolutePeakMagnitude":
@@ -159,8 +156,6 @@ def ticket_table_sorting_dropdown(
             dbOption = "currentMagnitudeDate"
         if option == "discovery date":
             dbOption = "earliestDetection"
-        if option == "predicted type":
-            dbOption = "transientTypePrediction"
         if option == "pre-discovery non-detection date":
             dbOption = "lastNonDetectionDate"
         if option == "absolute peak magnitude":
@@ -228,8 +223,6 @@ def ticket_table_sorting_dropdown(
         dbSortBy = "currentMagnitudeDate"
     if sortBy == "discovery date":
         dbSortBy = "earliestDetection"
-    if sortBy == "predicted type":
-        dbSortBy = "transientTypePrediction"
     if sortBy == "pre-discovery non-detection date":
         dbSortBy = "lastNonDetectionDate"
     if sortBy == "absolute peak magnitude":

@@ -389,7 +389,6 @@ class templates_transients():
             "raDeg": "ra",
             "decDeg": "dec",
             "recentClassification": "spectral class",
-            "transientTypePrediction": "prediction",
             "currentMagnitude": "latest mag",
             "absolutePeakMagnitude": "abs peak mag",
             "best_redshift": "z",
@@ -537,7 +536,6 @@ class templates_transients():
         nd["raDeg"] = "ra"
         nd["decDeg"] = "dec"
         nd["recentClassification"] = "classification"
-        nd["transientTypePrediction"] = "prediction"
         nd["currentMagnitude"] = "latest mag"
         nd["absolutePeakMagnitude"] = "abs peak mag"
         nd["best_redshift"] = "z"

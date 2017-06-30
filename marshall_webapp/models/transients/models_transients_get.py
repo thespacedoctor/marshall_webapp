@@ -691,7 +691,6 @@ class models_transients_get():
         tableColumnNames["classificationPhase"] = "classification phase"
         tableColumnNames["classificationWRTMax"] = "classificationWRTMax"
         tableColumnNames["classificationDate"] = "classification date"
-        tableColumnNames["transientTypePrediction"] = "prediction"
         tableColumnNames["currentMagnitude"] = "latest mag"
         tableColumnNames["absolutePeakMagnitude"] = "abs peak mag"
         tableColumnNames["best_redshift"] = "z"
