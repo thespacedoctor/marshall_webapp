@@ -365,7 +365,7 @@ def _crossmatch_info_block(
 
         tableBody = []
 
-        rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type", "predictedClassification",
+        rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type",
               "separationArcsec", "physical_separation_kpc", "transientAbsMag", "distance", "z", "best_mag"]
         for c in cms:
 
@@ -435,7 +435,6 @@ def _crossmatch_info_block(
                 href=False,
                 popover=popover
             )
-            c["predictedClassification"] = c["association_type"] + b
 
             # DISTANCE CURATION
             if c["z"]:

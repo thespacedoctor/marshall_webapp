@@ -96,23 +96,6 @@ def object_info_block(
     )
     raDec = raDecSex
 
-    # prediction
-    predictionLabel = cu.little_label(
-        text="predicted type:"
-    )
-
-    size = 5
-
-    text = khufu.coloredText(
-        text=discoveryDataDictionary["transientTypePrediction"],
-        color="blue",
-        size=size
-    )
-    prediction = khufu.grid_row(
-        responsive=True,
-        columns="%(predictionLabel)s %(text)s" % locals(),
-    )
-
     # peak magnitude
     label = cu.little_label(
         text="abs peak mag:",
@@ -224,7 +207,7 @@ def object_info_block(
             label, daysPast, discoveryDate),
     )
 
-    return "%(title)s %(raDec)s %(prediction)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
+    return "%(title)s %(raDec)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
 
 
 ###################################################################
