@@ -124,9 +124,9 @@ def main(global_config, **settings):
     config.add_static_view(
         '.codekit-cache', '.codekit-cache', cache_max_age=3600)
 
-    # add database connection as a setting (incase we want to use MySQLdb over
+    # add database connection as a setting (incase we want to use pymysql over
     # sqlachemy)
-    import MySQLdb as ms
+    import pymysql as ms
     # SETUP A DATABASE CONNECTION BASED ON WHAT ARGUMENTS HAVE BEEN PASSED
     if "database settings" in settings:
         host = settings["database settings"]["host"]
