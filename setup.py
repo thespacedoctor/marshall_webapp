@@ -16,7 +16,8 @@ install_requires = [
     'waitress',
     'paste',
     'sqlalchemy',
-    'fundamentals'
+    'fundamentals',
+    'mod_wsgi'
 ]
 
 # READ THE DOCS SERVERS
