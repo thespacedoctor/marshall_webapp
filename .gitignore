@@ -23,8 +23,8 @@ marshall_webapp/static/caches/*
 marshall_webapp/static/caches
 package_description
 ## Apache logs
-logs/
-apache/
+/logs/
+/apache/
 transients_cache/
 test_database.sql
 /logs/log.html
