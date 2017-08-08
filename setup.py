@@ -17,7 +17,13 @@ install_requires = [
     'paste',
     'sqlalchemy',
     'fundamentals',
-    'mod_wsgi'
+    'mod_wsgi',
+    'matplotlib',
+    'khufu',
+    'dryxPython',
+    'dryxPyramid',
+    'pymysql',
+    'astrocalc'
 ]
 
 # READ THE DOCS SERVERS
@@ -38,7 +44,7 @@ setup(name='marshall_webapp',
       long_description=readme(),
       classifiers=[
           "Programming Language :: Python",
-          "Framework :: Pyramid",
+          "Framework :: Pyramid",q
           "Topic :: Internet :: WWW/HTTP",
           "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
       ],
