@@ -1,7 +1,7 @@
 version: 1
 database settings:
     db: pessto_marshall
-    host: localhost
+    host: dormammu
     user: pessto
     password: p355t0
 
