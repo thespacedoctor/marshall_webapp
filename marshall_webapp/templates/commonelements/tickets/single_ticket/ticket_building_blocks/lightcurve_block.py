@@ -26,7 +26,6 @@ from docopt import docopt
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
 import khufu
-import dryxPython.mysql as dms
 
 
 ###################################################################
@@ -65,6 +64,7 @@ def lightcurve_block(
 
     masterName = discoveryDataDictionary["masterName"]
     lsqExists = False
+    atlasExist = False
 
     if displayTitle:
         title = cu.block_title(
@@ -104,17 +104,25 @@ def lightcurve_block(
         dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
         ))
 
+    # Override for ATLAS lightcurves
+    if discoveryDataDictionary["atlas_fp_lightcurve"]:
+        lightCurveImage = request.static_path(
+            'marshall_webapp:static/caches/transients/%s/atlas_fp_lightcurve.png' % (
+                discoveryDataDictionary["transientBucketId"],))
+        dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%s/atlas_fp_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],))
+
     if len(lightCurveImage):
         href = request.route_path(
             'download', _query={'url': dlightCurveImage, "webapp": "marshall_webapp", "filename": "%(masterName)s_master_lightcurve" % locals()})
         lightCurveImage = khufu.imagingModal(
             log=log,
             imagePath=lightCurveImage,
-            display="polaroid",  # [ rounded | circle | polaroid | False ]
+            display="rounded",  # [ rounded | circle | polaroid | False ]
             modalHeaderContent="Lightcurve for %(masterName)s" % locals(),
             modalFooterContent="",
             stampWidth="100%",
-            modalImageWidth=400,
+            modalImageWidth="50%",
             downloadLink=href)
         lightCurveImage = lightCurveImage.get()
 
@@ -131,13 +139,13 @@ def lightcurve_block(
         "currentMagnitudeEstimateUpdated"]
 
     now = datetime.datetime.now()
-    if currentMagEstimate == 9999:
+    if currentMagEstimate in [9999, -9999]:
         for dataPoint in lightcurveData:
             if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
                 break
         if len(lightcurveData) and (now - dataPoint["observationDate"] < datetime.timedelta(days=7)):
             currentMagEstimate = dataPoint["magnitude"]
-    if currentMagEstimateUpdated and currentMagEstimate != 9999:
+    if currentMagEstimateUpdated and currentMagEstimate not in [9999, -9999]:
 
         if now - currentMagEstimateUpdated < datetime.timedelta(days=2):
             littleTitle = cu.little_label(

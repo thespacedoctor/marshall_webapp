@@ -25,7 +25,6 @@ import datetime
 from docopt import docopt
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
-import dryxPython.mysql as dms
 import dryxPython.astrotools as dat
 import khufu
 
@@ -65,7 +64,7 @@ def ticket_header_bar(
     ## VARIABLES ##
     now = datetime.datetime.now()
     currentMagEstimate = discoveryDataDictionary["currentMagnitudeEstimate"]
-    if currentMagEstimate == 9999:
+    if currentMagEstimate in [9999, -9999]:
         for dataPoint in lightcurveData:
             if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
                 break
@@ -299,7 +298,7 @@ def _get_magnitude_warning(
     """
     log.info('starting the ``_get_magnitude_warning`` function')
 
-    if currentMag == 9999:
+    if currentMag in [9999, -9999]:
         text = "not enough data to determine a current magnitude"
         alertLevel = 'info'
         alertHeading = "Alert"

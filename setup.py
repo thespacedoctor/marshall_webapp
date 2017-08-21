@@ -1,42 +1,65 @@
+from setuptools import setup, find_packages
 import os
 
-from setuptools import setup, find_packages
+moduleDirectory = os.path.dirname(os.path.realpath(__file__))
+exec(open(moduleDirectory + "/marshall_webapp/__version__.py").read())
 
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.txt')) as f:
-    README = f.read()
-with open(os.path.join(here, 'CHANGES.txt')) as f:
-    CHANGES = f.read()
 
-requires = [
+def readme():
+    with open(moduleDirectory + '/README.rst') as f:
+        return f.read()
+
+install_requires = [
     'pyramid',
     'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'waitress',
+    'paste',
+    'sqlalchemy',
+    'fundamentals',
+    'mod_wsgi',
+    'matplotlib',
+    'khufu',
+    'dryxPython',
+    'dryxPyramid',
+    'pymysql',
+    'astrocalc'
 ]
 
+# READ THE DOCS SERVERS
+exists = os.path.exists("/home/docs/")
+if exists:
+    c_exclude_list = ['healpy', 'astropy',
+                      'numpy', 'sherlock', 'wcsaxes', 'HMpTy', 'ligo-gracedb']
+    for e in c_exclude_list:
+        try:
+            install_requires.remove(e)
+        except:
+            pass
+
+
 setup(name='marshall_webapp',
-      version='0.0',
-      description='marshall_webapp',
-      long_description=README + '\n\n' + CHANGES,
+      version=__version__,
+      description='The web application for the transient marshall',
+      long_description=readme(),
       classifiers=[
           "Programming Language :: Python",
-          "Framework :: Pyramid",
+          "Framework :: Pyramid",q
           "Topic :: Internet :: WWW/HTTP",
           "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
       ],
-      author='',
-      author_email='',
       url='',
-      keywords='web pyramid pylons',
+      author='David Young',
+      author_email='davidrobertyoung@gmail.com',
+      license='MIT',
+      keywords=['web, pyramid, pylons'],
       packages=find_packages(),
       include_package_data=True,
+      install_requires=install_requires,
+      test_suite='nose2.collector.collector',
+      tests_require=['nose2', 'cov-core'],
+      entry_points={
+          'paste.app_factory': ['main=marshall_webapp:main', ],
+      },
       zip_safe=False,
-      install_requires=requires,
-      tests_require=requires,
-      test_suite="marshall_webapp",
-      entry_points="""\
-      [paste.app_factory]
-      main = marshall_webapp:main
-      """,
       )

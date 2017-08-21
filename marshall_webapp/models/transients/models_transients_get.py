@@ -20,7 +20,6 @@ import sys
 import os
 import collections
 from sqlalchemy.sql import text
-from dryxPython import mysql as dms
 from dryxPython import astrotools as dat
 import urllib
 
@@ -60,7 +59,10 @@ class models_transients_get():
             "tableLimit": 100,
             "pageStart": 0,
             "sortBy": "dateAdded",
-            "sortDesc": False
+            "sortDesc": False,
+            "filterBy": "decDeg",
+            "filterValue": 30,
+            "filterOp": "<"
         }
         self.search = search
         self.elementId = elementId
@@ -137,15 +139,13 @@ class models_transients_get():
             self.log.debug("""searchString: `%(searchString)s`""" % locals())
             # SEARCH MASTER & AKA NAMES
             sqlQuery = """
-                select distinct t.transientBucketId as transientBucketId from transientBucket t, pesstoObjects p where (lower(t.name) like "%%%(searchString)s%%" or replace(p.pi_name," ","") like "%%%(searchString)s%%") and t.transientBucketId = p.transientBucketId
+                select distinct t.transientBucketId as transientBucketId from transientBucket t, pesstoObjects p where t.replacedByRowId = 0 and (lower(t.name) like "%%%(searchString)s%%" or replace(p.pi_name," ","") like "%%%(searchString)s%%") and t.transientBucketId = p.transientBucketId
             """ % locals()
             self.log.debug(
                 """sqlQUery for searchString: `%(sqlQuery)s`""" % locals())
-            rows = dms.execute_mysql_read_query(
-                sqlQuery=sqlQuery,
-                dbConn=self.request.registry.settings["dbConn"],
-                log=self.log
-            )
+            rows = self.request.db.execute(
+                text(sqlQuery)).fetchall()
+
             searchList = ""
             for row in rows:
                 transientBucketId = row["transientBucketId"]
@@ -190,6 +190,23 @@ class models_transients_get():
             thisWhere = """snoozed = "%(snoozed)s" """ % self.qs
             sqlWhereList.append(thisWhere)
 
+        # FILTER?
+        if "filterBy" in self.qs and self.qs['filterBy'] and "filterValue" in self.qs and self.qs['filterValue'] and "filterOp" in self.qs and self.qs['filterOp']:
+            if self.qs['filterBy'] in ("decDeg", "raDeg"):
+                thisWhere = """t.`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
+            else:
+                thisWhere = """`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
+            sqlWhereList.append(thisWhere)
+
+        if "phaseiiiCheck" in self.qs:
+            phaseiiiCheck = self.qs["phaseiiiCheck"]
+            if phaseiiiCheck == "null":
+                phaseiiiCheck = "is null"
+            else:
+                phaseiiiCheck = "= %(phaseiiiCheck)s" % locals()
+            thisWhere = """t.transientBucketId in (SELECT transientBucketId FROM phase_iii_transient_catalogue_ssdr3 p, sherlock_classifications s where s.transient_object_id=p.TransientBucketId and s.matchVerified %(phaseiiiCheck)s) """ % locals()
+            sqlWhereList.append(thisWhere)
+
         # tcsCatalogueId?
         if tcsCatalogueId:
             thisWhere = """cm.catalogue_table_id = %(tcsCatalogueId)s """ % locals(
@@ -199,7 +216,7 @@ class models_transients_get():
                 thisWhere += """ and cm.rank=%(rank)s""" % locals()
             sqlWhereList = []
             sqlWhereList.append(thisWhere)
-            tcsCm = ", tcs_cross_matches cm"
+            tcsCm = ", sherlock_crossmatchs cm"
             tec = "and t.transientBucketId = cm.transient_object_id"
             sec = "and s.transientBucketId = cm.transient_object_id"
         else:
@@ -209,8 +226,8 @@ class models_transients_get():
 
         # COMBINE THE WHERE CLAUSES
         queryWhere = ""
-        for thisWhere in range(len(sqlWhereList) - 1):
-            queryWhere = """%(queryWhere)s %(thisWhere)s and""" % locals()
+        for i, v in enumerate(sqlWhereList[:-1]):
+            queryWhere = """%(queryWhere)s %(v)s and""" % locals()
         if len(sqlWhereList):
             finalWhere = sqlWhereList[-1]
             queryWhere = """where %(queryWhere)s %(finalWhere)s""" % locals()
@@ -262,7 +279,7 @@ class models_transients_get():
                 """ % locals()
         else:
             sqlQuery = """
-                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s 
+                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s and replacedByRowId =0  %(tep)s %(tec)s 
             """ % locals()
 
         # Add the limits and pagination to query
@@ -288,7 +305,8 @@ class models_transients_get():
             "lastNonDetectionDate", "classificationWRTMax", "classificationPhase"]
         tables = {"transientBucketSummaries": "s",
                   "transientBucket": "t",
-                  "pesstoObjects": "p"}
+                  "pesstoObjects": "p",
+                  "sherlock_classifications": "sc"}
 
         thisSchema = self.request.registry.settings["database_schema"]
         for k, v in tables.iteritems():
@@ -310,9 +328,15 @@ class models_transients_get():
         self.log.debug(
             """selectColumns: {selectColumns}""".format(**dict(globals(), **locals())))
 
+        sqlQuery = """
+            insert ignore into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucket;
+        """ % locals()
+        tmpObjectData = self.request.db.execute(
+            text(sqlQuery))
+
         # grab the remaining data assocatied with the transientBucketIds
         sqlQuery = """
-            select %(selectColumns)s from transientBucket t, transientBucketSummaries s, pesstoObjects p where t.transientBucketId in (%(matchedTransientBucketIds)s) and t.masterIdFlag = 1 and t.transientBucketId = p.transientBucketId and p.transientBucketId=s.transientBucketId order by FIELD(t.transientBucketId, %(matchedTransientBucketIds)s)
+            select %(selectColumns)s from transientBucket t, transientBucketSummaries s, pesstoObjects p, sherlock_classifications sc where t.replacedByRowId = 0 and t.transientBucketId in (%(matchedTransientBucketIds)s) and t.masterIdFlag = 1 and t.transientBucketId = p.transientBucketId and p.transientBucketId=s.transientBucketId and t.transientBucketId = sc.transient_object_id order by FIELD(t.transientBucketId, %(matchedTransientBucketIds)s)
         """ % locals()
         tmpObjectData = self.request.db.execute(
             text(sqlQuery)).fetchall()
@@ -389,6 +413,25 @@ class models_transients_get():
                 self.qs["sortBy"] = self.defaultQs["sortBy"]
                 self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
+        # ADD THE REST OF THE DEFAULTS TO THE QUERY STRING
+        for k, v in self.defaultQs.iteritems():
+            if k not in self.qs and 'q' not in self.qs and not self.elementId:
+                self.qs[k] = v
+
+        self.qs["filterText"] = ""
+        if "filterBy" in self.qs and self.qs["filterBy"]:
+            if "filterOp" not in self.qs:
+                self.qs["filterOp"] = self.defaultQs["filterOp"]
+            if self.qs["filterOp"].lower() == "eq":
+                self.qs["filterOp"] = "="
+            elif self.qs["filterOp"].lower() == "lt":
+                self.qs["filterOp"] = "<"
+            elif self.qs["filterOp"].lower() == "gt":
+                self.qs["filterOp"] = ">"
+
+            self.qs[
+                "filterText"] = "with <strong>%(filterBy)s %(filterOp)s %(filterValue)s</strong> " % self.qs
+
         self.log.debug("""these are the new query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
 
@@ -416,8 +459,9 @@ class models_transients_get():
 
         # GRAB AKAS
         sqlQuery = """
-            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%wis-tns%%" and surveyObjectUrl not like "%%rochester%%"))
+            select transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and name not like "ATL%%" and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%rochester%%"))
         """ % locals()
+
         objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
 
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
@@ -453,7 +497,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select transientBucketId, magnitude, filter, survey, surveyObjectUrl, observationDate from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 and limitingMag = 0 order by observationDate desc;
+            select transientBucketId, magnitude, filter, survey, surveyObjectUrl, observationDate from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and observationDate is not null and observationDate != 0000-00-00 and magnitude is not null and magnitude < 50 and limitingMag = 0 order by observationDate desc;
         """ % locals()
         lightCurveDataTmp = self.request.db.execute(sqlQuery).fetchall()
         lightCurveData = []
@@ -484,7 +528,7 @@ class models_transients_get():
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where transientBucketId in (%(matchedTransientBucketIds)s) and name like "%%atel_%%"
+            select distinct transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name like "%%atel_%%"
         """ % locals()
         transientAtelMatchesTmp = self.request.db.execute(sqlQuery).fetchall()
         transientAtelMatches = []
@@ -545,7 +589,7 @@ class models_transients_get():
         tcsCatalogueId = self.tcsCatalogueId
         if self.search:
             sqlQuery = """
-                select count(*) from pesstoObjects t %(queryWhere)s;
+                select count(*) from pesstoObjects p, transientBucketSummaries t %(queryWhere)s and t.transientBucketId = p.transientBucketId;
             """ % locals()
             totalTicketsTmp = self.request.db.execute(sqlQuery).fetchall()
             totalTickets = []
@@ -563,6 +607,35 @@ class models_transients_get():
                 sqlQuery = """
                     select all_transient_associations as count from tcs_stats_catalogues where table_id = %(tcsCatalogueId)s;
                 """ % locals()
+            ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
+            ticketCountRows = []
+            ticketCountRows[:] = [dict(zip(row.keys(), row))
+                                  for row in ticketCountRowsTmp]
+            totalTickets = 0
+            for row in ticketCountRows:
+                totalTickets += row["count"]
+        elif 'filterBy' in self.qs:
+            tcsCm = ", sherlock_crossmatches cm"
+            tec = "and t.transientBucketId = cm.transient_object_id"
+            sec = "and s.transientBucketId = cm.transient_object_id"
+            tep = "and t.transientBucketId = p.transientBucketId"
+            sep = "and s.transientBucketId = p.transientBucketId"
+
+            sqlQuery = """
+                    select count(*) as count from transientBucketSummaries t, pesstoObjects p %(queryWhere)s %(tep)s
+                """ % locals()
+
+            ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
+            ticketCountRows = []
+            ticketCountRows[:] = [dict(zip(row.keys(), row))
+                                  for row in ticketCountRowsTmp]
+            totalTickets = 0
+            for row in ticketCountRows:
+                totalTickets += row["count"]
+        elif 'phase_iii_transient_catalogue_ssdr3' in queryWhere:
+            sqlQuery = """
+                    select count(*) as count FROM phase_iii_transient_catalogue_ssdr3 p, sherlock_classifications s where s.transient_object_id=p.TransientBucketId and s.matchVerified is null
+            """ % locals()
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
             ticketCountRows[:] = [dict(zip(row.keys(), row))
@@ -618,7 +691,6 @@ class models_transients_get():
         tableColumnNames["classificationPhase"] = "classification phase"
         tableColumnNames["classificationWRTMax"] = "classificationWRTMax"
         tableColumnNames["classificationDate"] = "classification date"
-        tableColumnNames["transientTypePrediction"] = "prediction"
         tableColumnNames["currentMagnitude"] = "latest mag"
         tableColumnNames["absolutePeakMagnitude"] = "abs peak mag"
         tableColumnNames["best_redshift"] = "z"
@@ -750,10 +822,16 @@ class models_transients_get():
         self.log.info(
             'starting the ``_get_associated_transient_crossmatches`` method')
 
+        from astrocalc.coords import unit_conversion
+        # ASTROCALC UNIT CONVERTER OBJECT
+        converter = unit_conversion(
+            log=self.log
+        )
+
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select * from tcs_cross_matches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.transientBucketId in (%(matchedTransientBucketIds)s) and b.primaryKeyId = t.transient_object_id and t.catalogue_table_id=h.id order by rank
+            select *, t.raDeg, t.decDeg from sherlock_crossmatches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.transientBucketId = t.transient_object_id  and b.masterIDFlag = 1  and t.catalogue_table_id=h.id order by rank
         """ % locals()
 
         crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()
@@ -769,18 +847,40 @@ class models_transients_get():
         for c in crossmatches:
             c["object_link"] = None
             objectName = urllib.quote(c["catalogue_object_id"])
-            if "ned" in c["catalogue_table_name"]:
+            if "ned" in c["catalogue_table_name"].lower():
                 c[
                     "object_link"] = "https://ned.ipac.caltech.edu/cgi-bin/objsearch?objname=%(objectName)s&extend=no&hconst=73&omegam=0.27&omegav=0.73&corr_z=1&out_csys=Equatorial&out_equinox=J2000.0&obj_sort=RA+or+Longitude&of=pre_text&zv_breaker=30000.0&list_limit=5&img_stamp=YES" % locals()
-            elif "sdss" in c["catalogue_table_name"]:
+            elif "sdss" in c["catalogue_table_name"].lower():
                 c[
                     "object_link"] = "http://skyserver.sdss.org/dr12/en/tools/explore/Summary.aspx?id=%(objectName)s" % locals()
-            elif "milliquas" in c["catalogue_table_name"]:
+                ra = converter.ra_decimal_to_sexegesimal(
+                    ra=c["raDeg"],
+                    delimiter=""
+                )
+                dec = converter.dec_decimal_to_sexegesimal(
+                    dec=c["decDeg"],
+                    delimiter=""
+                )
+                c["catalogue_object_id"] = "SDSS J" + ra[0:9] + dec[0:9]
+                objectName = urllib.quote(c["catalogue_object_id"])
+            elif "milliquas" in c["catalogue_table_name"].lower():
                 c[
                     "object_link"] = "https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3query.pl?bparam_name=%(objectName)s&navtrail=%%3Ca+class%%3D%%27navpast%%27+href%%3D%%27https%%3A%%2F%%2Fheasarc.gsfc.nasa.gov%%2FW3Browse%%2Fall%%2Fmilliquas.html%%27%%3E+Choose+Tables%%3C%%2Fa%%3E+%%3E+%%3Ca+class%%3D%%27navpast%%27+href%%3D%%27%%2Fcgi-bin%%2FW3Browse%%2Fw3table.pl%%3FREAL_REMOTE_HOST%%3D143.117.37.81%%26tablehead%%3Dname%%253Dmilliquas%%26Action%%3DMore%%2BOptions%%26REAL_REMOTE_HOST%%3D143%%252E117%%252E37%%252E81%%26Equinox%%3D2000%%26Action%%3DMore%%2BOptions%%26sortby%%3Dpriority%%26ResultMax%%3D1000%%26maxpriority%%3D99%%26Coordinates%%3DEquatorial%%26tablehead%%3Dname%%253Dmilliquas%%26Action%%3DParameter%%2BSearch%%27%%3EParameter+Search%%3C%%2Fa%%3E&popupFrom=Query+Results&tablehead=name%%3Dheasarc_milliquas%%26description%%3DMillion+Quasars+Catalog+%%28MILLIQUAS%%29%%2C+Version+4.5+%%2810+May+2015%%29%%26url%%3Dhttp%%3A%%2F%%2Fheasarc.gsfc.nasa.gov%%2FW3Browse%%2Fgalaxy-catalog%%2Fmilliquas.html%%26archive%%3DN%%26radius%%3D1%%26mission%%3DGALAXY+CATALOG%%26priority%%3D5%%26tabletype%%3DObject&dummy=Examples+of+query+constraints%%3A&varon=name&bparam_name%%3A%%3Aunit=+&bparam_name%%3A%%3Aformat=char25&varon=ra&bparam_ra=&bparam_ra%%3A%%3Aunit=degree&bparam_ra%%3A%%3Aformat=float8%%3A.5f&varon=dec&bparam_dec=&bparam_dec%%3A%%3Aunit=degree&bparam_dec%%3A%%3Aformat=float8%%3A.5f&varon=bmag&bparam_bmag=&bparam_bmag%%3A%%3Aunit=mag&bparam_bmag%%3A%%3Aformat=float8%%3A4.1f&varon=rmag&bparam_rmag=&bparam_rmag%%3A%%3Aunit=mag&bparam_rmag%%3A%%3Aformat=float8%%3A4.1f&varon=redshift&bparam_redshift=&bparam_redshift%%3A%%3Aunit=+&bparam_redshift%%3A%%3Aformat=float8%%3A6.3f&varon=radio_name&bparam_radio_name=&bparam_radio_name%%3A%%3Aunit=+&bparam_radio_name%%3A%%3Aformat=char22&varon=xray_name&bparam_xray_name=&bparam_xray_name%%3A%%3Aunit=+&bparam_xray_name%%3A%%3Aformat=char22&bparam_lii=&bparam_lii%%3A%%3Aunit=degree&bparam_lii%%3A%%3Aformat=float8%%3A.5f&bparam_bii=&bparam_bii%%3A%%3Aunit=degree&bparam_bii%%3A%%3Aformat=float8%%3A.5f&bparam_broad_type=&bparam_broad_type%%3A%%3Aunit=+&bparam_broad_type%%3A%%3Aformat=char4&bparam_optical_flag=&bparam_optical_flag%%3A%%3Aunit=+&bparam_optical_flag%%3A%%3Aformat=char3&bparam_red_psf_flag=&bparam_red_psf_flag%%3A%%3Aunit=+&bparam_red_psf_flag%%3A%%3Aformat=char1&bparam_blue_psf_flag=&bparam_blue_psf_flag%%3A%%3Aunit=+&bparam_blue_psf_flag%%3A%%3Aformat=char1&bparam_ref_name=&bparam_ref_name%%3A%%3Aunit=+&bparam_ref_name%%3A%%3Aformat=char6&bparam_ref_redshift=&bparam_ref_redshift%%3A%%3Aunit=+&bparam_ref_redshift%%3A%%3Aformat=char6&bparam_qso_prob=&bparam_qso_prob%%3A%%3Aunit=percent&bparam_qso_prob%%3A%%3Aformat=int2%%3A3d&bparam_alt_name_1=&bparam_alt_name_1%%3A%%3Aunit=+&bparam_alt_name_1%%3A%%3Aformat=char22&bparam_alt_name_2=&bparam_alt_name_2%%3A%%3Aunit=+&bparam_alt_name_2%%3A%%3Aformat=char22&Entry=&Coordinates=J2000&Radius=Default&Radius_unit=arcsec&NR=CheckCaches%%2FGRB%%2FSIMBAD%%2FNED&Time=&ResultMax=10&displaymode=Display&Action=Start+Search&table=heasarc_milliquas" % locals()
-            elif ("ps1" not in c["catalogue_table_name"]) and ("ritter" not in c["catalogue_table_name"]) and ("down" not in c["catalogue_table_name"]) and ("guide_star" not in c["catalogue_table_name"]) and ("kepler" not in c["catalogue_table_name"]):
+            elif ("ps1" not in c["catalogue_table_name"].lower()) and ("ritter" not in c["catalogue_table_name"].lower()) and ("down" not in c["catalogue_table_name"].lower()) and ("guide_star" not in c["catalogue_table_name"].lower()) and ("kepler" not in c["catalogue_table_name"].lower()):
                 c[
                     "object_link"] = "http://simbad.u-strasbg.fr/simbad/sim-id?Ident=%(objectName)s&NbIdent=1&Radius=2&Radius.unit=arcmin&submit=submit+id" % locals()
+
+            c["best_mag"] = None
+            c["best_mag_error"] = None
+            c["best_mag_filter"] = None
+            filters = ["R", "V", "B", "I", "J", "G", "H", "K", "U",
+                       "_r", "_g", "_i", "_g", "_z", "_y", "_u", "unkMag"]
+            for f in filters:
+                if c[f] and not c["best_mag"]:
+                    c["best_mag"] = c[f]
+                    c["best_mag_error"] = c[f + "Err"]
+                    c["best_mag_filter"] = f.replace(
+                        "_", "").replace("Mag", "")
 
         self.log.info(
             'completed the ``_get_associated_transient_crossmatches`` method')

@@ -26,7 +26,6 @@ from docopt import docopt
 from dryxPython import commonutils as dcu
 import khufu
 import dryxPython.astrotools as dat
-import dryxPython.mysql as dms
 from .. import ticket_building_blocks
 from .....commonelements import commonutils as cu
 
@@ -94,7 +93,14 @@ def context_tab(
         htmlClass=False
     )
 
-    context_block = """%(aladin)s %(crossmatches)s""" % locals(
+    sherlockForm = _sherlock_development_form(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        transientCrossmatches=transientCrossmatches
+    )
+
+    context_block = """%(aladin)s %(crossmatches)s %(sherlockForm)s """ % locals(
     )
     # context_block = """%(host_stamp)s%(crossmatches)s""" % locals(
     # )
@@ -311,7 +317,7 @@ def _crossmatch_info_block(
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     cms = []
     for row in transientCrossmatches:
-        if row["transient_object_id"] == transientBucketId:
+        if row["transientBucketId"] == transientBucketId:
             cms.append(row)
 
     masterName = discoveryDataDictionary["masterName"]
@@ -324,7 +330,8 @@ def _crossmatch_info_block(
         "star": "star3",
         "cv": "sun6",
         "cb": "sun6",
-        "other": "help2"
+        "other": "help2",
+        "unclear": "help2"
     }
     transColors = {
         "sn": "blue",
@@ -332,15 +339,18 @@ def _crossmatch_info_block(
         "cv": "green",
         "agn": "yellow",
         "variablestar": "orange",
+        "vs": "orange",
+        "bs": "brown",
         "?": "violet",
+        "unclear": "violet",
         "kepler": "#dc322f"
     }
 
     table = ""
     if len(cms) > 0:
 
-        hs = ["Rank", "Classifcation", "Association", "Type", "Catalogue",
-              "Angular Separation", "Physical Separation", "Radius (if Galaxy)", "Distance", "Redshift", "Original Search Radius"]
+        hs = ["Rank", "Catalogue", "Catalogue ID", "Catalogue Type (& Subtype)", "Classification",
+              "Angular Separation from Transient", "Physical Separation from Transient", "Transient Peak M", "Source Distance", "Source Redshift", "Source Mag"]
         tableHead = ""
         for h in hs:
             th = khufu.th(
@@ -355,8 +365,8 @@ def _crossmatch_info_block(
 
         tableBody = []
 
-        rs = ["rank", "association_type", "catalogue_object_id", "catalogue_object_type", "catalogue_table_name",
-              "separation", "physical_separation_kpc", "major_axis_arcsec", "distance", "z", "original_search_radius_arcsec"]
+        rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type",
+              "separationArcsec", "physical_separation_kpc", "transientAbsMag", "distance", "z", "best_mag"]
         for c in cms:
 
             # generate object links
@@ -368,11 +378,6 @@ def _crossmatch_info_block(
                 )
 
             if c["catalogue_table_name"]:
-                c["catalogue_table_name"] = c[
-                    "catalogue_table_name"].replace("tcs_cat_", "").replace("_", " ")
-                regex = re.compile(r'(v\d{1,3}) (\d{1,3})( (\d{1,3}))?')
-                c["catalogue_table_name"] = regex.sub(
-                    "\g<1>.\g<2>", c["catalogue_table_name"])
 
                 popover = khufu.popover(
                     tooltip=True,
@@ -391,8 +396,108 @@ def _crossmatch_info_block(
                     popover=popover
                 )
 
+            # SOURCE MAGNITUDE
+            if c["best_mag"]:
+                m = c["best_mag"]
+                e = c["best_mag_error"]
+                f = c["best_mag_filter"]
+                if e:
+                    e = " &plusmn; %(e)0.2f" % locals()
+                else:
+                    e = ""
+                c["best_mag"] = "%(f)s = %(m)0.2f%(e)s" % locals()
+
+            # CLASSIFICATION
+            if c["classificationReliability"] == 1:
+                cText = "transient is <em>synonymous</em> with this source"
+                cLevel = "success"
+            elif c["classificationReliability"] == 2:
+                cText = "transient may be <em>associated</em> with this source"
+                cLevel = "warning"
+            else:
+                cText = "<em>annotation</em> - not to be relied on for predicting transient classification"
+                cLevel = "important"
+
+            b = khufu.badge(
+                text=c["classificationReliability"],
+                level=cLevel
+            )
+            popover = khufu.popover(
+                tooltip=False,
+                placement="right",
+                trigger="hover",
+                title="<b>Classification Reliability</b>",
+                content=cText,
+                delay=200
+            )
+            b = khufu.a(
+                content=b,
+                href=False,
+                popover=popover
+            )
+
+            # DISTANCE CURATION
+            if c["z"]:
+                c["distance_method"] = "spec-z distance"
+                col = "success"
+                zbadge = "s"
+            elif c["photoZ"]:
+                c["distance_method"] = "photo-z distance"
+                col = "important"
+                zbadge = "p"
             if c["direct_distance"]:
+                col = "warning"
                 c["distance"] = c["direct_distance"]
+                c["distance_method"] = "redshift-independent distance"
+                zbadge = "r"
+
+            # REDSHIFT CURATION
+            if not c["z"]:
+                if c["photoZ"]:
+                    pz = c["photoZ"]
+                    if c["photoZErr"]:
+                        pze = c["photoZErr"]
+                        pz = "%(pz)0.3f &plusmn; %(pze)0.3f" % locals()
+                    b = khufu.badge(
+                        text='p',
+                        level='important'
+                    )
+                    popover = khufu.popover(
+                        tooltip=True,
+                        placement="right",
+                        trigger="hover",
+                        title="photo-z",
+                        content=False,
+                        delay=200
+                    )
+                    b = khufu.a(
+                        content=b,
+                        href=False,
+                        popover=popover
+                    )
+                    c["z"] = pz + b
+
+            else:
+                b = khufu.badge(
+                    text='s',
+                    level='success'
+                )
+                popover = khufu.popover(
+                    tooltip=True,
+                    placement="right",
+                    trigger="hover",
+                    title="spec-z",
+                    content=False,
+                    delay=200
+                )
+                b = khufu.a(
+                    content=b,
+                    href=False,
+                    popover=popover
+                )
+                cz = c["z"]
+                c["z"] = "%(cz)0.3f %(b)s" % locals()
+
             tableRow = []
 
             for r in rs:
@@ -407,6 +512,10 @@ def _crossmatch_info_block(
                         c["catalogue_object_type"] = c[
                             "catalogue_object_subtype"]
                     thisType = c[r]
+
+                    if c["catalogue_object_subtype"]:
+                        thisType += " (" + c["catalogue_object_subtype"] + ")"
+
                     # add text color
                     c[r] = """<i class="icon-%(icon)s" color="#268bd2"></i> %(thisType)s""" % locals()
 
@@ -416,12 +525,38 @@ def _crossmatch_info_block(
 
                 # ADD UNITS
                 if c[r] != "-":
-                    if r in ["separation", "original_search_radius_arcsec", "major_axis_arcsec"] and c[r] != "-":
+                    if r in ["original_search_radius_arcsec", "major_axis_arcsec"] and c[r] != "-":
                         c[r] = c[r] + '"'
                     if r in ["distance"]:
-                        c[r] = c[r] + ' Mpc'
+
+                        b = khufu.badge(
+                            text=zbadge,
+                            level=col
+                        )
+                        popover = khufu.popover(
+                            tooltip=True,
+                            # [ top | bottom | left | right ]
+                            placement="right",
+                            # [ False | click | hover | focus | manual ]
+                            trigger="hover",
+                            title=c["distance_method"],
+                            content=False,
+                            delay=200
+                        )
+                        b = khufu.a(
+                            content=b,
+                            href=False,
+                            popover=popover
+                        )
+
+                        c[r] = c[r] + ' Mpc ' + b
+
                     if r in ["physical_separation_kpc"]:
                         c[r] = c[r] + ' Kpc'
+                    if r in ["separationArcsec"]:
+                        n = c["northSeparationArcsec"]
+                        e = c["eastSeparationArcsec"]
+                        c[r] = c[r] + '" (%(n)0.2fN, %(e)0.2fE)' % locals()
 
                 content = khufu.coloredText(
                     text=c[r],
@@ -492,7 +627,7 @@ def _aladin_block(
         addBackgroundColor=False
     )
 
-    masterClassification = discoveryDataDictionary["sherlockClassification"]
+    masterClassification = discoveryDataDictionary["classification"]
 
     # add text color
     masterClassification = khufu.coloredText(
@@ -538,6 +673,146 @@ def _aladin_block(
     )
 
     return "%(masterClassification)s %(aladin)s" % locals()
+
+
+def _sherlock_development_form(
+        log,
+        request,
+        discoveryDataDictionary,
+        transientCrossmatches):
+    """*a form for adding comments and confirming/reporting incorrect matches from sherlock trasient classifier*
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``request`` -- the pyramid request
+        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.):
+
+    """
+
+    transientBucketId = discoveryDataDictionary["transientBucketId"]
+
+    if discoveryDataDictionary["mismatchComment"]:
+        # add text color
+        commentDate = discoveryDataDictionary["commentDate"]
+        if commentDate:
+            commentDate = commentDate.strftime("%Y-%m-%d")
+        else:
+            commentDate = "no comment date"
+        if not discoveryDataDictionary["user"]:
+            discoveryDataDictionary["user"] = "anon"
+        text = khufu.coloredText(
+            text="Mismatch reported by " + discoveryDataDictionary["user"].replace(".", " ").title(
+            ) + ", " + commentDate + ": ",
+            color="red",
+            size=4,  # 1-10
+            pull=False,  # "left" | "right",
+            addBackgroundColor=False
+        )
+
+        currentComment = khufu.coloredText(
+            text=text + discoveryDataDictionary["mismatchComment"],
+            color="grey",
+            size=3,  # 1-10
+            pull=False,  # "left" | "right",
+            addBackgroundColor=False
+        )
+    else:
+        currentComment = ""
+
+    if len(currentComment) == 0:
+
+        button = khufu.button(
+            buttonText='mismatch',
+            # [ default | primary | info | success | warning | danger | inverse | link ]
+            buttonStyle='success',
+            buttonSize='default',  # [ large | default | small | mini ]
+            htmlId=False,
+            href=False,
+            pull=False,  # right, left, center
+            submit=True,
+            block=False,
+            disable=False,
+            postInBackground=False,
+            dataToggle=False,  # [ modal ]
+            popover=False
+        )
+
+        correctMatchInput = khufu.formInput(
+            # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
+            ttype='text',
+            placeholder='comment ...',
+            span=10,
+            htmlId="sherlockMatchComment",
+            searchBar=False,
+            pull=False,
+            prepend=False,
+            append=False,
+            prependDropdown=False,
+            appendDropdown=False,
+            inlineHelpText=False,
+            blockHelpText=False,
+            focusedInputText=False,
+            required=True,
+            disabled=False
+        )
+        correctMatchInput = khufu.controlRow(
+            inputList=[correctMatchInput, button]
+        )
+        correctMatchLabel = khufu.horizontalFormControlLabel(
+            labelText='If you think the first ranked transient-host match is obviously incorrect please report the mismatch to help improve the contextual classifier',
+            forId="sherlockMatchComment"
+        )
+
+        correctMatchCG = khufu.horizontalFormControlGroup(
+            content=correctMatchLabel + correctMatchInput,
+            validationLevel=False
+        )
+        # xkhufu-tmpx-form-control-groue
+
+        sherlockForm = khufu.form(
+            content=correctMatchCG,  # list of control groups
+            # [ "inline" | "horizontal" | "search" | "navbar-form" | "navbar-search" ]
+            formType='inline',
+            navBarPull=False,  # [ false | right | left ],
+            postToScript="/marshall/transients/%(transientBucketId)s/context" % locals(),
+            htmlId="sherlockDevelopment",
+            postInBackground=False,
+            htmlClass=False,
+            redirectUrl="/marshall/transients/%(transientBucketId)s" % locals(),
+            span=10,
+            offset=1
+        )
+
+        currentComment = khufu.grid_column(
+            span=6,  # 1-12
+            offset=1,  # 1-12
+            content=currentComment,
+            pull=False,  # ["right", "left", "center"]
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+    else:
+        sherlockForm = ""
+
+        currentComment = khufu.grid_column(
+            span=6,  # 1-12
+            offset=0,  # 1-12
+            content=currentComment,
+            pull=False,  # ["right", "left", "center"]
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+
+    return currentComment + sherlockForm
+
+    # use the tab-trigger below for new method
+    # xt-class-method
 
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #

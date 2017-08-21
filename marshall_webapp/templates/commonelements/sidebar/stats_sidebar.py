@@ -210,7 +210,7 @@ def _get_esoPhaseIII_links(
     )
 
     releaseLinks = []
-    releaseVersions = ["SSDR1", "SSDR2"]
+    releaseVersions = ["SSDR1", "SSDR2", "SSDR3"]
     for releaseVersion in releaseVersions:
         SSDRLink = khufu.a(
             content=releaseVersion,

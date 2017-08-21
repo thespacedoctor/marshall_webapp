@@ -10,7 +10,7 @@
     November 20, 2013
 
 .. todo::
-    
+
 """
 ################# GLOBAL IMPORTS ####################
 
@@ -55,11 +55,13 @@ def identity_block(
     """
     log.info('starting the ``identity_block`` function')
 
-    skymapperPopover = khufu.popover(
+    annotations = []
+
+    pesstoCredentialsPopover = khufu.popover(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
-        title="""username: 'pessto' password: '!explosions'""",
+        title="""username: 'pessto'<br>password: '!explosions'""",
         content=False,
         delay=200
     )
@@ -114,24 +116,26 @@ def identity_block(
         pwd = request.registry.settings["credentials"]["lsq"]["password"]
         surveyObjectUrl = surveyObjectUrl.replace(
             "portal.", "%(user)s:%(pwd)s@portal." % locals())
+    if surveyObjectUrl and "ps1gw" in surveyObjectUrl:
+        annotations.append("within sky map of gravitational wave source")
 
-    if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-        user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
-        pwd = request.registry.settings["credentials"]["ps1-3pi"]["password"]
-        surveyObjectUrl = surveyObjectUrl.replace(
-            "star.", "%(user)s:%(pwd)s@star." % locals())
+    # if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
+    #     user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
+    #     pwd = request.registry.settings["credentials"]["ps1-3pi"]["password"]
+    #     surveyObjectUrl = surveyObjectUrl.replace(
+    #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-    if surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-        user = request.registry.settings["credentials"]["ps1-fgss"]["username"]
-        pwd = request.registry.settings["credentials"]["ps1-fgss"]["password"]
-        surveyObjectUrl = surveyObjectUrl.replace(
-            "star.", "%(user)s:%(pwd)s@star." % locals())
+    # if surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
+    #     user = request.registry.settings["credentials"]["ps1-fgss"]["username"]
+    #     pwd = request.registry.settings["credentials"]["ps1-fgss"]["password"]
+    #     surveyObjectUrl = surveyObjectUrl.replace(
+    #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-    if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-        user = request.registry.settings["credentials"]["ps1-gw"]["username"]
-        pwd = request.registry.settings["credentials"]["ps1-gw"]["password"]
-        surveyObjectUrl = surveyObjectUrl.replace(
-            "star.", "%(user)s:%(pwd)s@star." % locals())
+    # if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
+    #     user = request.registry.settings["credentials"]["ps1-gw"]["username"]
+    #     pwd = request.registry.settings["credentials"]["ps1-gw"]["password"]
+    #     surveyObjectUrl = surveyObjectUrl.replace(
+    #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
     # MASTER NAME
     masterName = discoveryDataDictionary["masterName"]
@@ -142,8 +146,8 @@ def identity_block(
         survey = ""
 
     if surveyObjectUrl:
-        if "skymapper" in surveyObjectUrl:
-            popover = skymapperPopover
+        if "skymapper" in surveyObjectUrl or "ps1gw" in surveyObjectUrl or "ps1fgss" in surveyObjectUrl or "ps13pi" in surveyObjectUrl:
+            popover = pesstoCredentialsPopover
         else:
             popover = False
 
@@ -171,35 +175,35 @@ def identity_block(
                     surveyObjectUrl = surveyObjectUrl.replace(
                         "portal.", "%(user)s:%(pwd)s@portal." % locals())
 
-                elif surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-                    user = request.registry.settings[
-                        "credentials"]["ps1-3pi"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["ps1-3pi"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "star.", "%(user)s:%(pwd)s@star." % locals())
+                # elif surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
+                #     user = request.registry.settings[
+                #         "credentials"]["ps1-3pi"]["username"]
+                #     pwd = request.registry.settings[
+                #         "credentials"]["ps1-3pi"]["password"]
+                #     surveyObjectUrl = surveyObjectUrl.replace(
+                #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-                elif surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-                    user = request.registry.settings[
-                        "credentials"]["ps1-fgss"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["ps1-fgss"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "star.", "%(user)s:%(pwd)s@star." % locals())
+                # elif surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
+                #     user = request.registry.settings[
+                #         "credentials"]["ps1-fgss"]["username"]
+                #     pwd = request.registry.settings[
+                #         "credentials"]["ps1-fgss"]["password"]
+                #     surveyObjectUrl = surveyObjectUrl.replace(
+                #         "star.", "%(user)s:%(pwd)s@star." % locals())
 
-                elif surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-                    user = request.registry.settings[
-                        "credentials"]["ps1-gw"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["ps1-gw"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "star.", "%(user)s:%(pwd)s@star." % locals())
+                # elif surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
+                #     user = request.registry.settings[
+                #         "credentials"]["ps1-gw"]["username"]
+                #     pwd = request.registry.settings[
+                #         "credentials"]["ps1-gw"]["password"]
+                #     surveyObjectUrl = surveyObjectUrl.replace(
+                #         "star.", "%(user)s:%(pwd)s@star." % locals())
+            if surveyObjectUrl and "ps1gw" in surveyObjectUrl and "within sky map of gravitational wave source" not in annotations:
+                annotations.append(
+                    "within sky map of gravitational wave source")
+
             item["surveyObjectUrl"] = surveyObjectUrl
             akaRows.append(item)
-
-        print discoveryDataDictionary["transientBucketId"]
-        print akaRows
-        print
 
     numerator = 70.
     if discoveryDataDictionary["classifiedFlag"]:
@@ -241,6 +245,7 @@ def identity_block(
         "ps1_target_stamp": "ps1_target_stamp.jpeg",
         "gaia_stamp": "gaia_stamp.jpeg",
         "ogle_target_stamp": "ogle_target_stamp.jpeg",
+        "atlas_target_stamp": "atlas_target_stamp.jpeg",
         "css_stamp": "css_stamp.jpeg",
         "des_target_stamp": "des_target_stamp.gif",
         "mls_stamp": "mls_stamp.jpeg",
@@ -407,6 +412,11 @@ def identity_block(
     )
     objectStamp = objectStamp + modal
 
+    surveyURLRanking = {
+        "rochester": 0,
+        "wis-tns": 1
+    }
+
     akaList = ""
     if len(akaRows) == 0:
         akaTitle = ""
@@ -418,10 +428,16 @@ def identity_block(
         if len(aka) > 19:
             size = 2
 
+        if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"] or "atlas" in row["surveyObjectUrl"]:
+            popover = pesstoCredentialsPopover
+        else:
+            popover = False
+
         aka = khufu.a(
             content=aka,
             href=row["surveyObjectUrl"],
-            openInNewTab=True
+            openInNewTab=True,
+            popover=pesstoCredentialsPopover
         )
 
         aka = khufu.coloredText(
@@ -434,15 +450,30 @@ def identity_block(
     else:
         akaTitle = "akas: "
         for row in akaRows:
+            row["urlRank"] = 10
+            for k, v in surveyURLRanking.iteritems():
+                if k in row["surveyObjectUrl"]:
+                    row["urlRank"] = v
+        from operator import itemgetter
+        akaRows = list(akaRows)
+        akaRows = sorted(akaRows, key=itemgetter('urlRank'), reverse=True)
+
+        for row in akaRows:
             log.debug('aka: %s' % (row,))
             aka = row["name"]
             if aka in akaList:
                 continue
 
+            if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"] or "atlas" in row["surveyObjectUrl"]:
+                popover = pesstoCredentialsPopover
+            else:
+                popover = False
+
             aka = khufu.a(
                 content=aka,
                 href=row["surveyObjectUrl"],
-                openInNewTab=True
+                openInNewTab=True,
+                popover=pesstoCredentialsPopover
             )
             aka = """&nbsp&nbsp&nbsp%(aka)s """ % locals()
 
@@ -600,7 +631,32 @@ def identity_block(
         onDesktop=True
     )
 
-    content = u"%(title)s %(masterName)s  %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
+    if len(annotations):
+        icon = """<i class="icon-tag"></i>"""
+        annotations = ("<BR>").join(annotations)
+        # add text color
+        annotations = khufu.coloredText(
+            text="&nbsp&nbsp%(icon)s&nbsp<em>%(annotations)s</em>" % locals(),
+            color="red",
+            size=3,  # 1-10
+            pull=False,  # "left" | "right",
+            addBackgroundColor=False
+        )
+
+        annotations = khufu.grid_row(
+            responsive=True,
+            columns="%(annotations)s" % locals(
+            ),
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+    else:
+        annotations = ""
+
+    content = u"%(title)s %(masterName)s %(annotations)s %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
     )
     if isinstance(content, str):
         content = unicode(content, encoding="utf-8", errors="replace")

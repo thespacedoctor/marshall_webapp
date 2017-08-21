@@ -24,7 +24,6 @@ import re
 import datetime
 from docopt import docopt
 import khufu
-import dryxPython.mysql as dms
 from dryxPython import commonutils as dcu
 from .....commonelements import commonutils as cu
 
@@ -66,6 +65,10 @@ def classification_block(
     label = cu.little_label(
         text="classification:",
     )
+
+    if len(discoveryDataDictionary["recentClassification"]) and discoveryDataDictionary["recentClassification"][0] == "I":
+        discoveryDataDictionary["recentClassification"] = "SN " + \
+            discoveryDataDictionary["recentClassification"]
     text = khufu.coloredText(
         text=discoveryDataDictionary["recentClassification"],
         color="magenta",

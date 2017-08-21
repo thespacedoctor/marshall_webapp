@@ -141,6 +141,79 @@ def view_switcher_buttons(
 
     return viewSwitcherButton + downloadsButton
 
+
+def ntt_view_button(
+    log,
+    params,
+    elementId,
+    request
+):
+    """ntt_view_button
+
+    **Key Arguments:**
+        - ``log`` -- logger
+        - ``params`` -- the request params (defaults added if not populated)
+        - ``request`` -- the pyramid request
+
+    **Return:**
+        - None
+
+    **Todo**
+    """
+    theseLinks = ""
+    match = False
+
+    if "filterBy" in params and "filterValue" in params and "filterOp" in params:
+
+        if params["filterBy"] == "decDeg" and params["filterValue"] in ["30", 30] and params["filterOp"] in ["lt", "<"]:
+
+            htmlClass = "on"
+            content = "show targets > +30&deg;"
+            params["filterBy"] = None
+            params["filterValue"] = None
+            params["filterOp"] = None
+            match = True
+
+    if match == False:
+        htmlClass = False
+        content = "hide targets > +30&deg;"
+        params["filterBy"] = "decDeg"
+        params["filterValue"] = 30
+        params["filterOp"] = "lt"
+
+    routename = request.matched_route.name
+    if "q" in params:
+        href = request.route_path('transients_search', _query=params)
+    else:
+        href = request.route_path(
+            routename, elementId=elementId, _query=params)
+
+    popover = khufu.popover(
+        tooltip=False,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="Target Filter",
+        content=content,
+        delay=200
+    )
+    viewSwitcherButton = khufu.button(
+        buttonText="""<i class="icon-globe"></i>&nbspNTT""" % locals(),
+        # [ default | primary | info | success | warning | danger | inverse | link ]
+        buttonStyle='default',
+        buttonSize='default',  # [ large | default | small | mini ]
+        htmlId=False,
+        htmlClass=htmlClass,
+        href=href,
+        pull=False,  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        dataToggle=False,  # [ modal ]
+        popover=popover
+    )
+
+    return viewSwitcherButton
+
 ###################################################################
 # PRIVATE (HELPER) FUNCTIONS                                      #
 ###################################################################
@@ -177,25 +250,32 @@ def _link_for_popover(
     params["format"] = format
     params["method"] = "get"
 
-    if format == "html_table":
-        params["limit"] = 100
-    elif format == "html_tickets":
-        params["limit"] = 10
+    if ("limit" not in params or not params["limit"]):
+        if format == "html_table":
+            params["limit"] = 100
+        elif format == "html_tickets":
+            params["limit"] = 10
 
     if download:
         if "html" not in format:
+            params["filename"] = ""
             if tcsTableName:
                 params["filename"] = tcsTableName
-            elif "mwl" in params:
-                params["filename"] = params["mwl"]
-            elif "awl" in params:
-                params["filename"] = params["awl"]
-            elif "cf" in params:
-                params["filename"] = "classifications"
+            elif "snoozed" in params and params["snoozed"]:
+                params["filename"] += "snoozed"
+            elif "cf" in params and params["cf"]:
+                params["filename"] += "classifications"
+            elif "awl" in params and params["awl"]:
+                params["filename"] += params["awl"]
+            elif "mwl" in params and params["mwl"]:
+                params["filename"] += params["mwl"]
+
             elif "q" in params:
-                params["filename"] = "search_" + params["q"]
+                params["filename"] += "search_" + params["q"]
             elif "snoozed" in params:
-                params["filename"] = "snoozed"
+                params["filename"] += "snoozed"
+            elif "filterBy" in params:
+                params["filename"] += "filtered"
             elif elementId:
                 sqlQuery = u"""
                     select masterName from transientBucketSummaries where transientBucketId = %(elementId)s 

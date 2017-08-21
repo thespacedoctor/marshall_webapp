@@ -68,6 +68,11 @@ panstarrs urls:
         summary csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/summary.csv
         recurrence csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/recurrences.csv
 
+atlas urls:
+    summary csv: "http://psweb.mp.qub.ac.uk/sne/atlas3/pesstosummary/"
+    recurrence csv: "http://psweb.mp.qub.ac.uk/sne/atlas3/pesstorecurrences/"
+
+
 skymapper urls:
     summary csv: "http://www.mso.anu.edu.au/~skymap/smt/dbi/media/trigger/pessto.csv"
 
@@ -76,6 +81,7 @@ lsq urls:
     recurrence csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates_obs.csv"
 
 master sne url: "http://observ.pereplet.ru/sn_e.html"
+master ot url: "http://observ.pereplet.ru/MASTER_OT.html"
 tocp url: "http://www.cbat.eps.harvard.edu/unconf/tocp.html"
 des sne url: "https://portal.nersc.gov/des-sn/transients/"
 
