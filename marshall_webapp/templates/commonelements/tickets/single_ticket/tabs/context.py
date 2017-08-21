@@ -504,9 +504,10 @@ def _crossmatch_info_block(
                 if c[r] == None:
                     c[r] = "-"
                 if r == "catalogue_object_type":
-                    if c[r] == "unknown":
-                        c[r] = "unclear"
-                    icon = sourceIcons[c[r]]
+                    try:
+	            	icon = sourceIcons[c[r]]
+                    except:
+                        icon = "help2"
                     if c["catalogue_object_type"].lower() == "other":
                         c["catalogue_object_type"] = c[
                             "catalogue_object_subtype"]
