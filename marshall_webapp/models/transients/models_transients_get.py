@@ -254,9 +254,12 @@ class models_transients_get():
                 """ % locals()
             elif self.qs["sortBy"] == "latestComment":
                 newWhere = queryWhere.replace("t.t", "t")
+
                 sqlQuery = """
-                    select c.pesstoObjectsId as transientBucketId, max(c.dateCreated) as latestCommentDate from pesstoObjectsComments c, pesstoObjects p %(tcsCm)s %(newWhere)s and c.pesstoObjectsId = p.transientBucketID %(tec)s  group by c.pesstoObjectsId order by latestCommentDate %(sortDirection)s
+                    select * from (select t.transientBucketId from pesstoObjects p, transientBucketSummaries t %(tcsCm)s %(newWhere)s %(tec)s %(tep)s) as a LEFT OUTER JOIN (SELECT pesstoObjectsId, MAX(dateCreated) AS latestCommentDate FROM pesstoObjectsComments GROUP BY pesstoObjectsId) as b ON a.transientBucketId = b.pesstoObjectsId ORDER BY latestCommentDate %(sortDirection)s
                 """ % locals()
+
+                print sqlQuery
 
             elif self.qs["sortBy"] == "pi_name":
                 # the ticket selection query
@@ -286,6 +289,8 @@ class models_transients_get():
         pageStart = self.qs["pageStart"]
         limit = self.qs["limit"]
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
+
+        print sqlQuery
 
         # grab the transientBucketIds
         rows = self.request.db.execute(sqlQuery).fetchall()
