@@ -115,7 +115,7 @@ def classify_object_form(
     #     print k, v
 
     optionList = ["supernova", "agn", "variable star",
-                  "galaxy", "cv", "LBV", "imposter",  "TDE", "GRB", "unknown"]
+                  "galaxy", "cv", "LBV", "imposter",  "TDE", "GRB", "kilonova", "unknown"]
     disabled = False
     if discoveryDataDictionary["recentClassification"]:
         defaultOption = "supernova"

@@ -44,7 +44,7 @@ setup(name='marshall_webapp',
       long_description=readme(),
       classifiers=[
           "Programming Language :: Python",
-          "Framework :: Pyramid",q
+          "Framework :: Pyramid",
           "Topic :: Internet :: WWW/HTTP",
           "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
       ],
