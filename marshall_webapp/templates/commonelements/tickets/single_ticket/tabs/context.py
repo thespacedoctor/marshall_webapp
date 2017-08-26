@@ -365,7 +365,7 @@ def _crossmatch_info_block(
 
         tableBody = []
 
-        rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type",
+        rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type", "sherlockClassification",
               "separationArcsec", "physical_separation_kpc", "transientAbsMag", "distance", "z", "best_mag"]
         for c in cms:
 
@@ -505,7 +505,7 @@ def _crossmatch_info_block(
                     c[r] = "-"
                 if r == "catalogue_object_type":
                     try:
-	            	icon = sourceIcons[c[r]]
+                        icon = sourceIcons[c[r]]
                     except:
                         icon = "help2"
                     if c["catalogue_object_type"].lower() == "other":
