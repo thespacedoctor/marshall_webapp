@@ -129,48 +129,41 @@ class templates_xmatches_catalogues():
         """
         self.log.info('starting the ``create_table`` method')
 
-        columnsNames = ["Catalogue", "Sources", "Number Rows",
+        columnsNames = ["Catalogue",
                         "Associated Transients", "Top Rank Associated Transients"]
-        columnsNamesDB = ["table_name", "object_types", "number_of_rows",
-                          "all_transient_associations", "top_ranked_transient_associations"]
+        columnsNamesDB = ["catalogue_table_name",
+                          "all_count", "top_rank_count"]
 
         for row in self.catalogues:
-            row["table_name"] = row["table_name"].replace("tcs_cat_", "")
+            print row
             matchObject = re.finditer(
                 r'.*_(v\d.*)',
-                row["table_name"],
+                row["catalogue_table_name"],
                 flags=0  # re.S
             )
-            for match in matchObject:
-                replaceMe = match.group(1).replace("_", ".")
-                row["table_name"] = row["table_name"].replace(
-                    match.group(1), replaceMe)
-
-            row["table_name"] = row["table_name"].replace(
-                "_", " ").replace(" final", "")
 
             for k, v in dict(row).iteritems():
                 if isinstance(v, float):
                     row[k] = "{:,.0f}".format(v)
 
             href = self.request.route_path(
-                'xmatches_element_catalogues', elementId=row["table_id"])
-            row["all_transient_associations"] = khufu.a(
-                content=row["all_transient_associations"],
+                'xmatches_element_catalogues', elementId=row["catalogue_table_id"])
+            row["all_count"] = khufu.a(
+                content=row["all_count"],
                 href=href
             )
 
             href = self.request.route_path(
-                'xmatches_element_catalogues', elementId=row["table_id"], )
-            row["all_transient_associations"] = khufu.a(
-                content=row["all_transient_associations"],
+                'xmatches_element_catalogues', elementId=row["catalogue_table_id"], )
+            row["all_count"] = khufu.a(
+                content=row["all_count"],
                 href=href
             )
 
             href = self.request.route_path('xmatches_element_catalogues', elementId=row[
-                "table_id"], _query={'tcsRank': 1})
-            row["top_ranked_transient_associations"] = khufu.a(
-                content=row["top_ranked_transient_associations"],
+                "catalogue_table_id"], _query={'tcsRank': 1})
+            row["top_rank_count"] = khufu.a(
+                content=row["top_rank_count"],
                 href=href
             )
 

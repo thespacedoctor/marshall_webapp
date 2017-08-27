@@ -405,7 +405,10 @@ def _crossmatch_info_block(
                     e = " &plusmn; %(e)0.2f" % locals()
                 else:
                     e = ""
-                c["best_mag"] = "%(f)s = %(m)0.2f%(e)s" % locals()
+                if isinstance(m, float):
+                    c["best_mag"] = "%(f)s = %(m)0.2f%(e)s" % locals()
+                else:
+                    c["best_mag"] = m
 
             # CLASSIFICATION
             if c["classificationReliability"] == 1:
@@ -496,7 +499,8 @@ def _crossmatch_info_block(
                     popover=popover
                 )
                 cz = c["z"]
-                c["z"] = "%(cz)0.3f %(b)s" % locals()
+                if isinstance(cz, float):
+                    c["z"] = "%(cz)0.3f %(b)s" % locals()
 
             tableRow = []
 

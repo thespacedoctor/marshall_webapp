@@ -216,7 +216,7 @@ class models_transients_get():
                 thisWhere += """ and cm.rank=%(rank)s""" % locals()
             sqlWhereList = []
             sqlWhereList.append(thisWhere)
-            tcsCm = ", sherlock_crossmatchs cm"
+            tcsCm = ", sherlock_crossmatches cm"
             tec = "and t.transientBucketId = cm.transient_object_id"
             sec = "and s.transientBucketId = cm.transient_object_id"
         else:

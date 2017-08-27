@@ -53,7 +53,7 @@ class models_xmatches_catalogues_get():
         self.qs = dict(request.params)  # the query string
         # the query string defaults
         self.defaultQs = {
-            "sortBy": "top_ranked_transient_associations",
+            "sortBy": "catalogue_table_id",
             "sortDesc": True
         }
 
@@ -81,7 +81,29 @@ class models_xmatches_catalogues_get():
             sortDesc = ""
 
         sqlQuery = u"""
-            select * from tcs_stats_catalogues where transientStream = 0 order by %(sortBy)s %(sortDesc)s
+            select * from (SELECT
+                a.catalogue_table_id,
+                a.catalogue_table_name,
+                b.all_count,
+                COALESCE(top_rank_count, 0) AS `top_rank_count`
+            FROM
+                (SELECT
+                    COUNT(*) AS `top_rank_count`,
+                        catalogue_table_name,
+                        catalogue_table_id
+                FROM
+                    sherlock_crossmatches
+                WHERE
+                    rank = 1
+                GROUP BY catalogue_table_name) AS a
+                    LEFT JOIN
+                (SELECT
+                    COUNT(*) AS all_count,
+                        catalogue_table_name,
+                        catalogue_table_id
+                FROM
+                    sherlock_crossmatches
+                GROUP BY catalogue_table_name) AS b ON a.catalogue_table_id = b.catalogue_table_id) as s order by %(sortBy)s %(sortDesc)s
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
