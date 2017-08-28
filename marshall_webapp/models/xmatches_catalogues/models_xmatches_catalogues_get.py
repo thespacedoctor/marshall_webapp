@@ -81,13 +81,23 @@ class models_xmatches_catalogues_get():
             sortDesc = ""
 
         sqlQuery = u"""
-            select * from (SELECT
-                a.catalogue_table_id,
-                a.catalogue_table_name,
-                b.all_count,
-                COALESCE(top_rank_count, 0) AS `top_rank_count`
+            SELECT 
+                *
             FROM
-                (SELECT
+                (SELECT 
+                    a.catalogue_table_id,
+                        a.catalogue_table_name,
+                        a.all_count,
+                        COALESCE(top_rank_count, 0) AS `top_rank_count`
+                FROM
+                    (SELECT 
+                    COUNT(*) AS all_count,
+                        catalogue_table_name,
+                        catalogue_table_id
+                FROM
+                    sherlock_crossmatches
+                GROUP BY catalogue_table_name) AS a
+                LEFT JOIN (SELECT 
                     COUNT(*) AS `top_rank_count`,
                         catalogue_table_name,
                         catalogue_table_id
@@ -95,15 +105,7 @@ class models_xmatches_catalogues_get():
                     sherlock_crossmatches
                 WHERE
                     rank = 1
-                GROUP BY catalogue_table_name) AS a
-                    LEFT JOIN
-                (SELECT
-                    COUNT(*) AS all_count,
-                        catalogue_table_name,
-                        catalogue_table_id
-                FROM
-                    sherlock_crossmatches
-                GROUP BY catalogue_table_name) AS b ON a.catalogue_table_id = b.catalogue_table_id) as s order by %(sortBy)s %(sortDesc)s
+                GROUP BY catalogue_table_name) AS b ON a.catalogue_table_id = b.catalogue_table_id) AS s order by %(sortBy)s %(sortDesc)s
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
