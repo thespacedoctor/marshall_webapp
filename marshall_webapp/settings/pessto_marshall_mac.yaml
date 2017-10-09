@@ -70,8 +70,8 @@ panstarrs urls:
         recurrence csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/recurrences.csv
 
 atlas urls:
-    summary csv: "http://psweb.mp.qub.ac.uk/sne/atlas3/pesstosummary/"
-    recurrence csv: "http://psweb.mp.qub.ac.uk/sne/atlas3/pesstorecurrences/"
+    summary csv: "http://psweb.mp.qub.ac.uk/sne/atlas3/pesstorecurrences/"
+    recurrence csv: "http://psweb.mp.qub.ac.uk/sne/atlas3/pesstosummary/"
 
 gaia urls:
     summary csv: http://gsaweb.ast.cam.ac.uk/alerts/alerts.csv
