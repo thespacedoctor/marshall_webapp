@@ -90,7 +90,8 @@ def ticket_table_sorting_dropdown(
         "latest comment date",
         "current magnitude",
         "pi",
-        "priority"
+        "priority",
+        "galactic latitude"
     ]
 
     # remove options not available for inbox items
@@ -133,6 +134,8 @@ def ticket_table_sorting_dropdown(
         sortBy = "pi"
     if sortBy == "observationPriority":
         sortBy = "priority"
+    if sortBy == "glat":
+        sortBy = "galactic latitude"
 
     optionList = sorted(optionList)
     if sortBy:
@@ -174,6 +177,8 @@ def ticket_table_sorting_dropdown(
             dbOption = "pi_name"
         if option == "priority":
             dbOption = "observationPriority"
+        if option == "galactic latitude":
+            dbOption = "glat"
 
         theseParams["sortBy"] = dbOption
         theseParams["sortDesc"] = False
@@ -237,6 +242,8 @@ def ticket_table_sorting_dropdown(
         dbSortBy = "latestComment"
     if sortBy == "current magnitude":
         dbSortBy = "currentMagnitude"
+    if sortBy == "galactic latitude":
+        dbSortBy = "glat"
 
     popover = khufu.popover(
         tooltip=True,

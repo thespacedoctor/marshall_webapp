@@ -76,6 +76,20 @@ def object_info_block(
             size=3
         )
 
+    glat = ""
+    glon = ""
+    if discoveryDataDictionary["gLat"]:
+        glat = khufu.coloredText(
+            text="%8.5f" % (discoveryDataDictionary["gLat"],),
+            color="blue",
+            size=3,
+        )
+        glon = khufu.coloredText(
+            text="%8.5f" % (discoveryDataDictionary["gLon"],),
+            color="blue",
+            size=3
+        )
+
     raSex = khufu.coloredText(
         text=discoveryDataDictionary["raSex"],
         color="violet",
@@ -95,6 +109,15 @@ def object_info_block(
         ),
     )
     raDec = raDecSex
+
+    galCoordLabel = cu.little_label(
+        text="galactic coords:"
+    )
+    galCoord = khufu.grid_row(
+        responsive=True,
+        columns="""%(galCoordLabel)s %(glon)s %(glat)s""" % locals(
+        ),
+    )
 
     # peak magnitude
     label = cu.little_label(
@@ -207,7 +230,7 @@ def object_info_block(
             label, daysPast, discoveryDate),
     )
 
-    return "%(title)s %(raDec)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
+    return "%(title)s %(raDec)s %(galCoord)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
 
 
 ###################################################################
