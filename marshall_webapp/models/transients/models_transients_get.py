@@ -702,8 +702,6 @@ class models_transients_get():
             for row in ticketCountRows:
                 totalTickets += row["count"]
 
-        print sqlQuery
-
         self.log.info(
             'completed the ``_get_total_ticket_count_for_list`` method')
         return totalTickets
