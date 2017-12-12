@@ -96,9 +96,6 @@ def main(global_config, **settings):
     config.add_route('xmatches_views', '/xmatches/views')
     config.add_route('xmatches_element_views',
                      '/xmatches/views/{elementId}')
-    config.add_route('xmatches_associations', '/xmatches/associations')
-    config.add_route('xmatches_element_associations',
-                     '/xmatches/associations/{elementId}')
 
     config.add_route('xmatches_elements', '/xmatches/{elementId}')
 

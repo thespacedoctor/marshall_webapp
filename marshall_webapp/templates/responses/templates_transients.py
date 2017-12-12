@@ -207,8 +207,7 @@ class templates_transients():
 
         **Return:**
             - ``sort`` -- the sort dropdown for the transient listings toolbar
-
-        **Todo**
+            - ``filtering`` -- the filter dropdown for the trasnsient listings toolbar
         """
         self.log.info('starting the ``_get_sort_dropdown`` method')
 
@@ -221,8 +220,18 @@ class templates_transients():
             sortDesc=self.qs["sortDesc"]
         )
 
+        from ..commonelements.filtering.ticket_table_filter_dropdown import ticket_table_filter_dropdown
+
+        filtering = ticket_table_filter_dropdown(
+            log=self.log,
+            request=self.request,
+            filterBy=self.qs["filterBy2"],
+            filterValue=self.qs["filterValue2"],
+            filterOp=self.qs["filterOp2"]
+        )
+
         self.log.info('completed the ``_get_sort_dropdown`` method')
-        return sort
+        return sort, filtering
 
     def _get_notification(
             self):
@@ -424,7 +433,7 @@ class templates_transients():
 
         # get the webpage components
         # tickets = self._get_list_of_transient_tickets()
-        sort = self._get_sort_dropdown()
+        sort, filtering = self._get_sort_dropdown()
         count = self.totalTicketCount
         pagination = self._get_pagination()
         ntt_button = self._get_ntt_view_button()
@@ -572,7 +581,7 @@ class templates_transients():
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[viewSwitcherButtons, ntt_button, smallspace,
+            contentList=[viewSwitcherButtons, ntt_button, smallspace, filtering,
                          objectsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -647,7 +656,7 @@ class templates_transients():
         ntt_button = self._get_ntt_view_button()
         view_switcher_buttons = self._get_view_switcher_buttons()
 
-        sort = self._get_sort_dropdown()
+        sort, filtering = self._get_sort_dropdown()
         pageviewInfo = self._get_page_view_info()
 
         theseTickets = ""
@@ -659,7 +668,7 @@ class templates_transients():
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[view_switcher_buttons, ntt_button, smallspace, sort, smallspace,
+            contentList=[view_switcher_buttons, ntt_button, smallspace, sort, filtering, smallspace,
                          ticketsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -732,7 +741,8 @@ class templates_transients():
         if pageEnd > totalCount:
             pageEnd = totalCount
 
-        filterText = self.qs["filterText"]
+        filterText1 = self.qs["filterText1"]
+        filterText2 = self.qs["filterText2"]
 
         tcsCatalogueId = self.tcsCatalogueId
         if self.tcsCatalogueName:
@@ -758,10 +768,10 @@ class templates_transients():
                 )
         elif "search" not in thisListing:
             if totalCount == 0:
-                thisListing = """<span id="pageinfo">no transients were found %(filterText)sin the <strong>%(thisListing)s</strong> list<span>""" % locals(
+                thisListing = """<span id="pageinfo">no transients were found %(filterText1)s%(filterText2)sin the <strong>%(thisListing)s</strong> list<span>""" % locals(
                 )
             else:
-                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> %(filterText)sin the <strong>%(thisListing)s</strong> list<span>""" % locals(
+                thisListing = """<span id="pageinfo">showing transients <strong>%(pageStart)s-%(pageEnd)s</strong> of <strong>%(totalCount)s</strong> %(filterText1)s%(filterText2)sin the <strong>%(thisListing)s</strong> list<span>""" % locals(
                 )
 
         else:

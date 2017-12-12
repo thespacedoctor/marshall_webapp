@@ -163,23 +163,23 @@ def ntt_view_button(
     theseLinks = ""
     match = False
 
-    if "filterBy" in params and "filterValue" in params and "filterOp" in params:
+    if "filterBy1" in params and "filterValue1" in params and "filterOp1" in params:
 
-        if params["filterBy"] == "decDeg" and params["filterValue"] in ["30", 30] and params["filterOp"] in ["lt", "<"]:
+        if params["filterBy1"] == "decDeg" and params["filterValue1"] in ["30", 30] and params["filterOp1"] in ["lt", "<"]:
 
             htmlClass = "on"
             content = "show targets > +30&deg;"
-            params["filterBy"] = None
-            params["filterValue"] = None
-            params["filterOp"] = None
+            params["filterBy1"] = None
+            params["filterValue1"] = None
+            params["filterOp1"] = None
             match = True
 
     if match == False:
         htmlClass = False
         content = "hide targets > +30&deg;"
-        params["filterBy"] = "decDeg"
-        params["filterValue"] = 30
-        params["filterOp"] = "lt"
+        params["filterBy1"] = "decDeg"
+        params["filterValue1"] = 30
+        params["filterOp1"] = "lt"
 
     routename = request.matched_route.name
     if "q" in params:
@@ -274,7 +274,7 @@ def _link_for_popover(
                 params["filename"] += "search_" + params["q"]
             elif "snoozed" in params:
                 params["filename"] += "snoozed"
-            elif "filterBy" in params:
+            elif "filterBy1" in params:
                 params["filename"] += "filtered"
             elif elementId:
                 sqlQuery = u"""

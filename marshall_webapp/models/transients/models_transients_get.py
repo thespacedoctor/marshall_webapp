@@ -60,9 +60,12 @@ class models_transients_get():
             "pageStart": 0,
             "sortBy": "dateAdded",
             "sortDesc": False,
-            "filterBy": "decDeg",
-            "filterValue": 30,
-            "filterOp": "<"
+            "filterBy1": "decDeg",
+            "filterValue1": 30,
+            "filterOp1": "<",
+            "filterBy2": False,
+            "filterValue2": False,
+            "filterOp2": "="
         }
         self.search = search
         self.elementId = elementId
@@ -191,11 +194,28 @@ class models_transients_get():
             sqlWhereList.append(thisWhere)
 
         # FILTER?
-        if "filterBy" in self.qs and self.qs['filterBy'] and "filterValue" in self.qs and self.qs['filterValue'] and "filterOp" in self.qs and self.qs['filterOp']:
-            if self.qs['filterBy'] in ("decDeg", "raDeg"):
-                thisWhere = """t.`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
+        if "filterBy1" in self.qs and self.qs['filterBy1'] and "filterValue1" in self.qs and self.qs['filterValue1'] and "filterOp1" in self.qs and self.qs['filterOp1']:
+            if self.qs['filterBy1'] in ("decDeg", "raDeg"):
+                thisWhere = """t.`%(filterBy1)s` %(filterOp1)s %(filterValue1)s """ % self.qs
             else:
-                thisWhere = """`%(filterBy)s` %(filterOp)s %(filterValue)s """ % self.qs
+                try:
+                    self.qs["filterValue1"] = float(self.qs["filterValue1"])
+                    thisWhere = """`%(filterBy1)s` %(filterOp1)s %(filterValue1)s """ % self.qs
+                except:
+                    thisWhere = """`%(filterBy1)s` %(filterOp1)s "%(filterValue1)s" """ % self.qs
+
+            sqlWhereList.append(thisWhere)
+
+        if "filterBy2" in self.qs and self.qs['filterBy2'] and "filterValue2" in self.qs and self.qs['filterValue2'] and "filterOp2" in self.qs and self.qs['filterOp2']:
+            if self.qs['filterBy2'] in ("decDeg", "raDeg"):
+                thisWhere = """t.`%(filterBy2)s` %(filterOp2)s %(filterValue2)s """ % self.qs
+            else:
+                try:
+                    self.qs["filterValue2"] = float(self.qs["filterValue2"])
+                    thisWhere = """`%(filterBy2)s` %(filterOp2)s %(filterValue2)s """ % self.qs
+                except:
+                    thisWhere = """`%(filterBy2)s` %(filterOp2)s "%(filterValue2)s" """ % self.qs
+
             sqlWhereList.append(thisWhere)
 
         if "phaseiiiCheck" in self.qs:
@@ -289,8 +309,6 @@ class models_transients_get():
         pageStart = self.qs["pageStart"]
         limit = self.qs["limit"]
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
-
-        print sqlQuery
 
         # grab the transientBucketIds
         rows = self.request.db.execute(sqlQuery).fetchall()
@@ -425,19 +443,39 @@ class models_transients_get():
                     continue
                 self.qs[k] = v
 
-        self.qs["filterText"] = ""
-        if "filterBy" in self.qs and self.qs["filterBy"]:
-            if "filterOp" not in self.qs:
-                self.qs["filterOp"] = self.defaultQs["filterOp"]
-            if self.qs["filterOp"].lower() == "eq":
-                self.qs["filterOp"] = "="
-            elif self.qs["filterOp"].lower() == "lt":
-                self.qs["filterOp"] = "<"
-            elif self.qs["filterOp"].lower() == "gt":
-                self.qs["filterOp"] = ">"
+        self.qs["filterText1"] = ""
+        if "filterBy1" in self.qs and self.qs["filterBy1"].lower() == "false":
+            self.qs["filterBy1"] = False
+        if "filterBy1" in self.qs and self.qs["filterBy1"]:
+            if "filterOp1" not in self.qs:
+                self.qs["filterOp1"] = self.defaultQs["filterOp1"]
+            if self.qs["filterOp1"].lower() == "eq":
+                self.qs["filterOp1"] = "="
+            elif self.qs["filterOp1"].lower() == "lt":
+                self.qs["filterOp1"] = "<"
+            elif self.qs["filterOp1"].lower() == "gt":
+                self.qs["filterOp1"] = ">"
 
             self.qs[
-                "filterText"] = "with <strong>%(filterBy)s %(filterOp)s %(filterValue)s</strong> " % self.qs
+                "filterText1"] = "with <strong>%(filterBy1)s %(filterOp1)s %(filterValue1)s</strong> " % self.qs
+
+        self.qs["filterText2"] = ""
+        if "filterBy2" in self.qs and self.qs["filterBy2"].lower() == "false":
+            self.qs["filterBy2"] = False
+        if "filterBy2" in self.qs and self.qs["filterBy2"]:
+            if "filterOp2" not in self.qs:
+                self.qs["filterOp2"] = self.defaultQs["filterOp2"]
+            if self.qs["filterOp2"].lower() == "eq":
+                self.qs["filterOp2"] = "="
+            elif self.qs["filterOp2"].lower() == "lt":
+                self.qs["filterOp2"] = "<"
+            elif self.qs["filterOp2"].lower() == "gt":
+                self.qs["filterOp2"] = ">"
+
+            self.qs[
+                "filterText2"] = "with <strong>%(filterBy2)s %(filterOp2)s %(filterValue2)s</strong> " % self.qs
+            self.qs["filterText2"] = self.qs["filterText2"].replace(
+                "sherlockClassification", "contextual classification")
 
         self.log.debug("""these are the new query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
@@ -621,7 +659,7 @@ class models_transients_get():
             totalTickets = 0
             for row in ticketCountRows:
                 totalTickets += row["count"]
-        elif 'filterBy' in self.qs:
+        elif 'filterBy1' in self.qs or 'filterBy2' in self.qs:
             tcsCm = ", sherlock_crossmatches cm"
             tec = "and t.transientBucketId = cm.transient_object_id"
             sec = "and s.transientBucketId = cm.transient_object_id"
@@ -663,6 +701,8 @@ class models_transients_get():
             totalTickets = 0
             for row in ticketCountRows:
                 totalTickets += row["count"]
+
+        print sqlQuery
 
         self.log.info(
             'completed the ``_get_total_ticket_count_for_list`` method')

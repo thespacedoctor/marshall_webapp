@@ -247,11 +247,11 @@ def ticket_table_sorting_dropdown(
 
     popover = khufu.popover(
         tooltip=True,
-        placement="bottom",  # [ top | bottom | left | right ]
+        placement="right",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="click to reserve sort or select dropdown to change sort attribute",
         content=False,
-        delay=600
+        delay=200
     )
 
     sortDropdown = khufu.dropdown(
