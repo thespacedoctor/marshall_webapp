@@ -222,6 +222,11 @@ class templates_transients():
 
         from ..commonelements.filtering.ticket_table_filter_dropdown import ticket_table_filter_dropdown
 
+        if "filterBy2" not in self.qs:
+            self.qs["filterBy2"] = False
+            self.qs["filterValue2"] = False
+            self.qs["filterOp2"] = False
+
         filtering = ticket_table_filter_dropdown(
             log=self.log,
             request=self.request,
