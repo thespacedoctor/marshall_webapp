@@ -444,7 +444,7 @@ class models_transients_get():
                 self.qs[k] = v
 
         self.qs["filterText1"] = ""
-        if "filterBy1" in self.qs and self.qs["filterBy1"].lower() == "false":
+        if "filterBy1" in self.qs and self.qs["filterBy1"] and self.qs["filterBy1"].lower() == "false":
             self.qs["filterBy1"] = False
         if "filterBy1" in self.qs and self.qs["filterBy1"]:
             if "filterOp1" not in self.qs:
@@ -460,7 +460,7 @@ class models_transients_get():
                 "filterText1"] = "with <strong>%(filterBy1)s %(filterOp1)s %(filterValue1)s</strong> " % self.qs
 
         self.qs["filterText2"] = ""
-        if "filterBy2" in self.qs and self.qs["filterBy2"].lower() == "false":
+        if "filterBy2" in self.qs and self.qs["filterBy2"] and self.qs["filterBy2"].lower() == "false":
             self.qs["filterBy2"] = False
         if "filterBy2" in self.qs and self.qs["filterBy2"]:
             if "filterOp2" not in self.qs:
