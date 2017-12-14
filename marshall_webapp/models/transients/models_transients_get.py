@@ -279,8 +279,6 @@ class models_transients_get():
                     select * from (select t.transientBucketId from pesstoObjects p, transientBucketSummaries t %(tcsCm)s %(newWhere)s %(tec)s %(tep)s) as a LEFT OUTER JOIN (SELECT pesstoObjectsId, MAX(dateCreated) AS latestCommentDate FROM pesstoObjectsComments GROUP BY pesstoObjectsId) as b ON a.transientBucketId = b.pesstoObjectsId ORDER BY latestCommentDate %(sortDirection)s
                 """ % locals()
 
-                print sqlQuery
-
             elif self.qs["sortBy"] == "pi_name":
                 # the ticket selection query
                 sortBy = self.qs["sortBy"]
@@ -311,6 +309,7 @@ class models_transients_get():
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
 
         # grab the transientBucketIds
+
         rows = self.request.db.execute(sqlQuery).fetchall()
         self.log.debug("""{rows}""".format(**dict(globals(), **locals())))
         # GET ORDERED LIST OF THE TRANSIENTBUCKETIDs

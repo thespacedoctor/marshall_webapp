@@ -91,7 +91,9 @@ def ticket_table_sorting_dropdown(
         "current magnitude",
         "pi",
         "priority",
-        "galactic latitude"
+        "galactic latitude",
+        "contextual classification",
+        "association separation"
     ]
 
     # remove options not available for inbox items
@@ -136,6 +138,10 @@ def ticket_table_sorting_dropdown(
         sortBy = "priority"
     if sortBy == "glat":
         sortBy = "galactic latitude"
+    if sortBy == "sherlockClassification":
+        sortBy = "contextual classification"
+    if sortBy == "separationArcsec":
+        sortBy = "association separation"
 
     optionList = sorted(optionList)
     if sortBy:
@@ -179,6 +185,10 @@ def ticket_table_sorting_dropdown(
             dbOption = "observationPriority"
         if option == "galactic latitude":
             dbOption = "glat"
+        if option == "contextual classification":
+            dbOption = "sherlockClassification"
+        if option == "association separation":
+            dbOption = "separationArcsec"
 
         theseParams["sortBy"] = dbOption
         theseParams["sortDesc"] = False
@@ -244,10 +254,14 @@ def ticket_table_sorting_dropdown(
         dbSortBy = "currentMagnitude"
     if sortBy == "galactic latitude":
         dbSortBy = "glat"
+    if sortBy == "contextual classification":
+        dbSortBy = "sherlockClassification"
+    if sortBy == "association separation":
+        dbSortBy = "separationArcsec"
 
     popover = khufu.popover(
         tooltip=True,
-        placement="right",  # [ top | bottom | left | right ]
+        placement="left",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="click to reserve sort or select dropdown to change sort attribute",
         content=False,

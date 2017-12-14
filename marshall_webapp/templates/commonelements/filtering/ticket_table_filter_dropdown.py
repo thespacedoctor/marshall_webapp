@@ -119,7 +119,7 @@ def ticket_table_filter_dropdown(
 
     popover = khufu.popover(
         tooltip=True,
-        placement="right",  # [ top | bottom | left | right ]
+        placement="left",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="filter tickets by a given transient parameter",
         content=False,

@@ -89,7 +89,7 @@ def number_of_objects_dropdown(
 
     popover = khufu.popover(
         tooltip=True,
-        placement="right",  # [ top | bottom | left | right ]
+        placement="left",  # [ top | bottom | left | right ]
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="set the number of objects to be displayed on each page",
         content=False,

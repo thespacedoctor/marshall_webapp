@@ -250,11 +250,10 @@ def _link_for_popover(
     params["format"] = format
     params["method"] = "get"
 
-    if ("limit" not in params or not params["limit"]):
-        if format == "html_table":
-            params["limit"] = 100
-        elif format == "html_tickets":
-            params["limit"] = 10
+    if format == "html_table":
+        params["limit"] = 100
+    elif format == "html_tickets":
+        params["limit"] = 10
 
     if download:
         if "html" not in format:

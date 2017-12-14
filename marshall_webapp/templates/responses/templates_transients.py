@@ -402,7 +402,7 @@ class templates_transients():
             "masterName": "name",
             "raDeg": "ra",
             "decDeg": "dec",
-            "recentClassification": "spectral class",
+            "recentClassification": "spectral classification",
             "currentMagnitude": "latest mag",
             "absolutePeakMagnitude": "abs peak mag",
             "best_redshift": "z",
@@ -411,7 +411,9 @@ class templates_transients():
             "lastNonDetectionDate": "last non-detection date",
             "dateAdded": "added to marshall",
             "pi_name": "PI",
-            "pi_email": "pi email"
+            "pi_email": "pi email",
+            "sherlockClassification": "contextual classificaiton",
+            "separationArcsec": "association separation"
         }
 
         # a list of names for table and csv views
@@ -421,7 +423,6 @@ class templates_transients():
             "raDeg",
             "decDeg",
             "recentClassification",
-            "transientTypePrediction",
             "currentMagnitude",
             "absolutePeakMagnitude",
             "best_redshift",
@@ -430,7 +431,9 @@ class templates_transients():
             "lastNonDetectionDate",
             "dateAdded",
             "pi_name",
-            "plainName"
+            "plainName",
+            "sherlockClassification",
+            "separationArcsec"
         ]
 
         if "mwl" not in self.qs or self.qs["mwl"] not in ["pending observation", "following", "allObsQueue"]:
@@ -536,6 +539,10 @@ class templates_transients():
                 )
                 obj["pi_name"] = pi_name
 
+        for i in self.transientData:
+            if i["separationArcsec"] is not None:
+                i["separationArcsec"] = "%(separationArcsec)4.2f''" % i
+
         # create the sortable tables of objects
         table = khufu.tables.sortable_table.sortable_table(
             currentPageUrl=self.request.path_qs,
@@ -549,7 +556,7 @@ class templates_transients():
         nd["observationPriority"] = "priority"
         nd["raDeg"] = "ra"
         nd["decDeg"] = "dec"
-        nd["recentClassification"] = "classification"
+        nd["recentClassification"] = "spectral classification"
         nd["currentMagnitude"] = "latest mag"
         nd["absolutePeakMagnitude"] = "abs peak mag"
         nd["best_redshift"] = "z"
@@ -558,8 +565,10 @@ class templates_transients():
         nd["lastNonDetectionDate"] = "last non-detection date"
         nd["dateAdded"] = "added to marshall"
         nd["pi_name"] = "pi"
+        nd["sherlockClassification"] = "contextual classification"
+        nd["separationArcsec"] = "association separation"
 
-        table.searchKeyAndColumn = ("search", "plainName")
+        table.searchKeyAndColumn = ("search?q", "plainName")
 
         # hide columns depending on what list we are looking at
         if "mwl" not in self.qs or self.qs["mwl"] == "inbox":
@@ -600,11 +609,16 @@ class templates_transients():
         bottomTicketTableFunctionBar = ticketTableFunctionBar.replace(
             "btn-group", "btn-group dropup")
         dynamicNotification = """<span id="dynamicNotification"></span>"""
+
+        table = table.decode("utf-8")
+
+        content = """%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(pageviewInfo)s %(table)s %(bottomTicketTableFunctionBar)s""" % locals(
+        )
+
         object_table = khufu.grid_column(
             span=12,  # 1-12
             offset=0,  # 1-12
-            content="""%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(pageviewInfo)s %(table)s %(bottomTicketTableFunctionBar)s""" % locals(
-            ),
+            content=content,
             htmlId="object_table",
             htmlClass=False,
             onPhone=True,
