@@ -544,39 +544,42 @@ class templates_transients():
                 i["separationArcsec"] = "%(separationArcsec)4.2f''" % i
 
         # create the sortable tables of objects
-        table = khufu.tables.sortable_table.sortable_table(
-            currentPageUrl=self.request.path_qs,
-            columnsToDisplay=tableColumns,
-            tableRowsDictionary=self.transientData,
-            log=self.log,
-            defaultSort="dateAdded"
-        )
-        nd = table.modifyDisplayNameDict
-        nd["masterName"] = "name"
-        nd["observationPriority"] = "priority"
-        nd["raDeg"] = "ra"
-        nd["decDeg"] = "dec"
-        nd["recentClassification"] = "spectral classification"
-        nd["currentMagnitude"] = "latest mag"
-        nd["absolutePeakMagnitude"] = "abs peak mag"
-        nd["best_redshift"] = "z"
-        nd["distanceMpc"] = "mpc"
-        nd["earliestDetection"] = "discovery date"
-        nd["lastNonDetectionDate"] = "last non-detection date"
-        nd["dateAdded"] = "added to marshall"
-        nd["pi_name"] = "pi"
-        nd["sherlockClassification"] = "contextual classification"
-        nd["separationArcsec"] = "association separation"
+        if int(self.totalTicketCount) > 0:
+            table = khufu.tables.sortable_table.sortable_table(
+                currentPageUrl=self.request.path_qs,
+                columnsToDisplay=tableColumns,
+                tableRowsDictionary=self.transientData,
+                log=self.log,
+                defaultSort="dateAdded"
+            )
+            nd = table.modifyDisplayNameDict
+            nd["masterName"] = "name"
+            nd["observationPriority"] = "priority"
+            nd["raDeg"] = "ra"
+            nd["decDeg"] = "dec"
+            nd["recentClassification"] = "spectral classification"
+            nd["currentMagnitude"] = "latest mag"
+            nd["absolutePeakMagnitude"] = "abs peak mag"
+            nd["best_redshift"] = "z"
+            nd["distanceMpc"] = "mpc"
+            nd["earliestDetection"] = "discovery date"
+            nd["lastNonDetectionDate"] = "last non-detection date"
+            nd["dateAdded"] = "added to marshall"
+            nd["pi_name"] = "pi"
+            nd["sherlockClassification"] = "contextual classification"
+            nd["separationArcsec"] = "association separation"
 
-        table.searchKeyAndColumn = ("search?q", "plainName")
+            table.searchKeyAndColumn = ("search?q", "plainName")
 
-        # hide columns depending on what list we are looking at
-        if "mwl" not in self.qs or self.qs["mwl"] == "inbox":
-            table.modifyColumnWidths = ["3", "1", "1", "2",
-                                        "1", "1", "1", "1", "2", "2", "2", "2"]
-            table.columnsToHide.append("recentClassification")
-        table.columnsToHide.append("plainName")
-        table = table.get()
+            # hide columns depending on what list we are looking at
+            if "mwl" not in self.qs or self.qs["mwl"] == "inbox":
+                table.modifyColumnWidths = ["3", "1", "1", "2",
+                                            "1", "1", "1", "1", "2", "2", "2", "2"]
+                table.columnsToHide.append("recentClassification")
+            table.columnsToHide.append("plainName")
+            table = table.get()
+        else:
+            table = ""
 
         # create the table function bar
         space = "&nbsp" * 10
@@ -606,8 +609,11 @@ class templates_transients():
             dark=False,
             transparent=True
         )
-        bottomTicketTableFunctionBar = ticketTableFunctionBar.replace(
-            "btn-group", "btn-group dropup")
+        if int(self.totalTicketCount) > 0:
+            bottomTicketTableFunctionBar = ticketTableFunctionBar.replace(
+                "btn-group", "btn-group dropup")
+        else:
+            bottomTicketTableFunctionBar = '<p style="text-align: center; font-size: 20em; color: #e5e0cc; margin-top: 20%;"><i class="icon-inbox" style="color: #e5e0cc;"></i><br><br><br><br><br><br><br><br>zero</p>'
         dynamicNotification = """<span id="dynamicNotification"></span>"""
 
         table = table.decode("utf-8")
@@ -710,8 +716,13 @@ class templates_transients():
             onDesktop=True
         )
 
-        bottomTicketTableFunctionBar = ticketTableFunctionBar.replace(
-            "btn-group", "btn-group dropup").replace("""data-placement="bottom" """, """data-placement="top" """)
+        if int(self.totalTicketCount) > 0:
+            bottomTicketTableFunctionBar = ticketTableFunctionBar.replace(
+                "btn-group", "btn-group dropup").replace("""data-placement="bottom" """, """data-placement="top" """)
+        else:
+
+            # add text color
+            bottomTicketTableFunctionBar = '<p style="text-align: center; font-size: 20em; color: #e5e0cc; margin-top: 20%;"><i class="icon-inbox" style="color: #e5e0cc;"></i><br><br><br><br><br><br><br><br>zero</p>'
 
         dynamicNotification = """<span id="dynamicNotification"></span>"""
 
