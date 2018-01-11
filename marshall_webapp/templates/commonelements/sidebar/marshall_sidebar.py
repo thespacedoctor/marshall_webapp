@@ -176,7 +176,7 @@ def _marshall_sidebar_header(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="manually create a ticket for a new object",
         content=False,
-        delay=200
+        delay=2000
     )
 
     createNewButton = khufu.grid_row(

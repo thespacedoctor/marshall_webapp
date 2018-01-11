@@ -144,7 +144,7 @@ def topnavbar(log,
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="report a bug or suggest a new feature",
         content=False,
-        delay=200
+        delay=2000
     )
 
     bugTracker = khufu.a(

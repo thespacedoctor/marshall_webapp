@@ -144,7 +144,7 @@ def _generate_plot_well(
                 trigger="hover",  # [ False | click | hover | focus | manual ]
                 title="view plot in new tab",
                 content=False,
-                delay=200
+                delay=2000
             )
 
             imageButton = khufu.button(
@@ -188,7 +188,7 @@ def _generate_plot_well(
                 trigger="hover",  # [ False | click | hover | focus | manual ]
                 title="view csv file in browser",
                 content=False,
-                delay=200
+                delay=2000
             )
 
             viewCsvButton = khufu.button(
@@ -219,7 +219,7 @@ def _generate_plot_well(
                 trigger="hover",  # [ False | click | hover | focus | manual ]
                 title="download csv file of plot data",
                 content=False,
-                delay=200
+                delay=2000
             )
             downloadCsv = khufu.button(
                 buttonText="""<i class="icon-pilcrow"></i>""",

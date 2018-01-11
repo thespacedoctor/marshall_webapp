@@ -109,7 +109,7 @@ def ticket_footer_bar(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="explode all web service tools",
         content=False,
-        delay=200
+        delay=2000
     )
 
     linkExploder = khufu.dropdown(
@@ -215,7 +215,7 @@ def _get_atel_list(
             trigger="hover",  # [ False | click | hover | focus | manual ]
             title="explode all atel links",
             content=False,
-            delay=200
+            delay=2000
         )
 
         atelDropdown = khufu.dropdown(

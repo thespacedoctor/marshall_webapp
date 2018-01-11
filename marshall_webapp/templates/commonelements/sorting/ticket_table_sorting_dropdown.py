@@ -265,7 +265,7 @@ def ticket_table_sorting_dropdown(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="click to reserve sort or select dropdown to change sort attribute",
         content=False,
-        delay=200
+        delay=2000
     )
 
     sortDropdown = khufu.dropdown(
