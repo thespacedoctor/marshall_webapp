@@ -78,7 +78,7 @@ def view_switcher_buttons(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="view switcher",
         content=theseLinks,
-        delay=2000
+        delay=20
     )
     viewSwitcherButton = khufu.button(
         buttonText="""<i class="icon-eye3"></i>""" % locals(),
@@ -122,7 +122,7 @@ def view_switcher_buttons(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="download options",
         content=theseLinks,
-        delay=2000
+        delay=20
     )
     downloadsButton = khufu.button(
         buttonText="""<i class="icon-save"></i>""" % locals(),
@@ -194,7 +194,7 @@ def ntt_view_button(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="Target Filter",
         content=content,
-        delay=2000
+        delay=20
     )
     viewSwitcherButton = khufu.button(
         buttonText="""<i class="icon-globe"></i>&nbspNTT""" % locals(),

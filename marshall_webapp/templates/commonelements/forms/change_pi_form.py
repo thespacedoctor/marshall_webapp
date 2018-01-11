@@ -99,7 +99,7 @@ def change_pi_form(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title=details,
         content=False,
-        delay=2000
+        delay=20
     )
 
     icon = """<i class="icon-target2"></i>&nbsp"""

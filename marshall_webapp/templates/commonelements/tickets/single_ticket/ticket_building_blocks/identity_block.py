@@ -63,7 +63,7 @@ def identity_block(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="""username: 'pessto'<br>password: '!explosions'""",
         content=False,
-        delay=2000
+        delay=20
     )
 
     title = cu.block_title(

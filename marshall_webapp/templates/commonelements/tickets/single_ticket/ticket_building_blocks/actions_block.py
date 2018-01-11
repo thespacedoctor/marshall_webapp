@@ -307,7 +307,7 @@ def _get_move_to_dropdown(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="move object to another list",
         content=False,
-        delay=2000
+        delay=20
     )
 
     thisDropdown = khufu.dropdown(
@@ -625,7 +625,7 @@ def _get_priority_switcher_dropdown(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="set the observational priority of this object",
         content=False,
-        delay=2000
+        delay=20
     )
 
     thisDropdown = khufu.dropdown(
@@ -724,7 +724,7 @@ def _snooze_button(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="snooze - hide object until more photometry obtained",
         content=False,
-        delay=2000
+        delay=20
     )
 
     ## VARIABLES ##

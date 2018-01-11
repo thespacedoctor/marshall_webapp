@@ -123,7 +123,7 @@ def ticket_table_filter_dropdown(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="filter tickets by a given transient parameter",
         content=False,
-        delay=2000
+        delay=20
     )
 
     sortDropdown = khufu.dropdown(

@@ -93,7 +93,7 @@ def number_of_objects_dropdown(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="set the number of objects to be displayed on each page",
         content=False,
-        delay=2000
+        delay=20
     )
 
     objectsPerPageDropdown = khufu.dropdown(

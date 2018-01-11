@@ -187,7 +187,7 @@ def create_new_ticket_form(
         trigger="hover",  # [ False | click | hover | focus | manual ]
         title="manually create a ticket for a new object",
         content=False,
-        delay=2000
+        delay=20
     )
 
     thisButton = khufu.button(

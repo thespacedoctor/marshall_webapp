@@ -247,7 +247,7 @@ def photometry_footer_bar(
         trigger="click hover",  # [ False | click | hover | focus | manual ]
         title="download lightcurve",
         content=linkList,
-        delay=2000
+        delay=20
     )
 
     downloadFileButton = khufu.button(
