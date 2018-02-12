@@ -455,6 +455,8 @@ class models_transients_get():
                 self.qs["filterOp1"] = "<"
             elif self.qs["filterOp1"].lower() == "gt":
                 self.qs["filterOp1"] = ">"
+            elif self.qs["filterOp1"].lower() == "neq":
+                self.qs["filterOp1"] = "!="
 
             self.qs[
                 "filterText1"] = "with <strong>%(filterBy1)s %(filterOp1)s %(filterValue1)s</strong> " % self.qs
@@ -471,6 +473,8 @@ class models_transients_get():
                 self.qs["filterOp2"] = "<"
             elif self.qs["filterOp2"].lower() == "gt":
                 self.qs["filterOp2"] = ">"
+            elif self.qs["filterOp2"].lower() == "neq":
+                self.qs["filterOp2"] = "!="
 
             self.qs[
                 "filterText2"] = "with <strong>%(filterBy2)s %(filterOp2)s %(filterValue2)s</strong> " % self.qs
