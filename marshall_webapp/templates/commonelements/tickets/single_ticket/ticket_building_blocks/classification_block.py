@@ -51,7 +51,7 @@ def classification_block(
 
     **Todo**
     """
-    log.info('starting the ``classification_block`` function')
+    log.debug('starting the ``classification_block`` function')
 
     if not discoveryDataDictionary["recentClassification"]:
         return None

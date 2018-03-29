@@ -64,7 +64,7 @@ def single_ticket(
     **Todo**
     """
 
-    log.info('starting the ``inbox_ticket`` function')
+    log.debug('starting the ``inbox_ticket`` function')
 
     tabDictionary = {}
 
@@ -169,7 +169,7 @@ def single_ticket(
         obsPriority=observationPriority
     )
 
-    log.info('completed the ``inbox_ticket`` function')
+    log.debug('completed the ``inbox_ticket`` function')
     return ticket
 
 ###################################################################

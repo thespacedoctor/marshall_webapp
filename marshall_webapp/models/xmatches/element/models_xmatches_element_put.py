@@ -69,7 +69,7 @@ class models_xmatches_element_put():
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
         """
-        self.log.info('starting the ``put`` method')
+        self.log.debug('starting the ``put`` method')
 
         elementId = self.elementId
 
@@ -81,7 +81,7 @@ class models_xmatches_element_put():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``put`` method')
+        self.log.debug('completed the ``put`` method')
         return responseContent
 
     def _set_default_parameters(
@@ -94,13 +94,13 @@ class models_xmatches_element_put():
         **Return:**
             - None
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         for k, v in self.defaultQs.iteritems():
             if k not in self.qs:
                 self.qs[k] = v
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # xt-class-method

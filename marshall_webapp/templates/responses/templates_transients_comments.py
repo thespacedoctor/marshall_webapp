@@ -72,7 +72,7 @@ class templates_transients_comments():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         templates_transients_comments = None
 
@@ -84,6 +84,6 @@ class templates_transients_comments():
         )
         responseContent = transients_comments.get()
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return responseContent
     # xt-class-method

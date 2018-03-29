@@ -61,7 +61,7 @@ def xmatches_sidebar(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``xmatches_sidebar`` function')
+    log.debug('starting the ``xmatches_sidebar`` function')
     ## VARIABLES ##
 
     leftColumnContent = ""
@@ -82,7 +82,7 @@ def xmatches_sidebar(
 %(esoPhaseIIILinks)s <br>
 """ % locals()
 
-    log.info('completed the ``xmatches_sidebar`` function')
+    log.debug('completed the ``xmatches_sidebar`` function')
     return xmatches_sidebar
 
 
@@ -114,7 +114,7 @@ def _xmatches_sidebar_header(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_xmatches_sidebar_header`` function')
+    log.debug('starting the ``_xmatches_sidebar_header`` function')
     ## VARIABLES ##
 
     pesstoIcon = khufu.image(
@@ -164,7 +164,7 @@ def _xmatches_sidebar_header(
         onDesktop=True
     )
 
-    log.info('completed the ``_xmatches_sidebar_header`` function')
+    log.debug('completed the ``_xmatches_sidebar_header`` function')
     # return "%(pesstoIcon)s %(createNewButton)s" % locals()
     return "%(pesstoIcon)s" % locals()
 
@@ -194,7 +194,7 @@ def _get_xmatches_links(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_get_development_links`` function')
+    log.debug('starting the ``_get_development_links`` function')
     ## VARIABLES ##
 
     title = khufu.li(
@@ -261,7 +261,7 @@ def _get_xmatches_links(
         onDesktop=True
     )
 
-    log.info('completed the ``_get_development_links`` function')
+    log.debug('completed the ``_get_development_links`` function')
     return developmentLinks
 
 

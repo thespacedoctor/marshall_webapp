@@ -70,7 +70,7 @@ class templates_stats():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         from ..commonelements.stats.esophaseIII import plot_wells, ssdr_stats_table
 
@@ -118,7 +118,7 @@ class templates_stats():
             thisPageName="PESSTO Stats"
         )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return webpage
 
     def generate_d3_plot(
@@ -135,7 +135,7 @@ class templates_stats():
             - @review: when complete, clean generate_d3_plot method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``generate_d3_plot`` method')
+        self.log.debug('starting the ``generate_d3_plot`` method')
 
         htmlContent = ""
         for i in range(1, 26):
@@ -265,7 +265,7 @@ class templates_stats():
             )
             htmlContent += "<hr>"
 
-        self.log.info('completed the ``generate_d3_plot`` method')
+        self.log.debug('completed the ``generate_d3_plot`` method')
         return htmlContent.decode('utf-8')
 
     # use the tab-trigger below for new method

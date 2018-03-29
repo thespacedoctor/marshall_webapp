@@ -38,7 +38,7 @@ def marshall_sidebar(
     **Return:**
         - ``leftNavBar`` -- the left navigation bar for the pessto marshall
     """
-    log.info('starting the ``marshall_sidebar`` function')
+    log.debug('starting the ``marshall_sidebar`` function')
     ## VARIABLES ##
     leftColumnContent = ""
 
@@ -90,7 +90,7 @@ def marshall_sidebar(
         # developmentLinks
     )
 
-    log.info('completed the ``marshall_sidebar`` function')
+    log.debug('completed the ``marshall_sidebar`` function')
     return marshall_sidebar
 
 
@@ -113,7 +113,7 @@ def _marshall_sidebar_header(
     **Todo**
     """
 
-    log.info('starting the ``_marshall_sidebar_header`` function')
+    log.debug('starting the ``_marshall_sidebar_header`` function')
     ## VARIABLES ##
 
     href = request.route_path('transients')
@@ -189,7 +189,7 @@ def _marshall_sidebar_header(
         onDesktop=True
     )
 
-    log.info('completed the ``_marshall_sidebar_header`` function')
+    log.debug('completed the ``_marshall_sidebar_header`` function')
     return "%(pesstoIcon)s %(createNewButton)s" % locals()
 
 
@@ -207,7 +207,7 @@ def _get_development_links(
 
     **Todo**
     """
-    log.info('starting the ``_get_development_links`` function')
+    log.debug('starting the ``_get_development_links`` function')
     ## VARIABLES ##
 
     title = khufu.li(
@@ -295,7 +295,7 @@ def _get_development_links(
         onDesktop=True
     )
 
-    log.info('completed the ``_get_development_links`` function')
+    log.debug('completed the ``_get_development_links`` function')
     return developmentLinks
 
 
@@ -314,7 +314,7 @@ def _get_observation_queues(
 
     **Todo**
     """
-    log.info('starting the ``_get_observation_queues`` function')
+    log.debug('starting the ``_get_observation_queues`` function')
     ## VARIABLES ##
 
     title = khufu.li(
@@ -490,7 +490,7 @@ def _get_observation_queues(
         onDesktop=True
     )
 
-    log.info('completed the ``_get_observation_queues`` function')
+    log.debug('completed the ``_get_observation_queues`` function')
     return observationQueues
 
 
@@ -515,7 +515,7 @@ def _get_classification_queues(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_get_classification_queues`` function')
+    log.debug('starting the ``_get_classification_queues`` function')
     ## VARIABLES ##
 
     title = khufu.li(
@@ -650,7 +650,7 @@ def _get_classification_queues(
         onDesktop=True
     )
 
-    log.info('completed the ``_get_classification_queues`` function')
+    log.debug('completed the ``_get_classification_queues`` function')
     return classificationQueues
 
 
@@ -675,7 +675,7 @@ def _get_reference_lists(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_get_reference_lists`` function')
+    log.debug('starting the ``_get_reference_lists`` function')
     ## VARIABLES ##
 
     title = khufu.li(
@@ -894,7 +894,7 @@ def _get_reference_lists(
         onDesktop=True
     )
 
-    log.info('completed the ``_get_reference_lists`` function')
+    log.debug('completed the ``_get_reference_lists`` function')
     return referenceLists
 
 
@@ -921,7 +921,7 @@ def _get_target_selection_queue(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_get_tagert_selection_queue`` function')
+    log.debug('starting the ``_get_tagert_selection_queue`` function')
     ## VARIABLES ##
 
     placeHolder = khufu.image(
@@ -1102,7 +1102,7 @@ def _get_target_selection_queue(
         onDesktop=True
     )
 
-    log.info('completed the ``get_tagert_selection_queue`` function')
+    log.debug('completed the ``get_tagert_selection_queue`` function')
     return targetSelectionQueue
 
 
@@ -1121,7 +1121,7 @@ def _remove_parameters(
     **Return:**
         - ``params`` -- the clean parameters
     """
-    log.info('starting the ``_remove_parameter`` function')
+    log.debug('starting the ``_remove_parameter`` function')
     ## VARIABLES ##
 
     # for key in params.keys():
@@ -1135,5 +1135,5 @@ def _remove_parameters(
         if key in params:
             del params[key]
 
-    log.info('completed the ``_remove_parameters  `` function')
+    log.debug('completed the ``_remove_parameters  `` function')
     return params

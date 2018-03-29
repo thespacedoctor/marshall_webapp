@@ -92,7 +92,7 @@ def _generate_plot_well(
     **Return:**
         - ``plotWell`` -- the well of plots
     """
-    log.info('starting the ``_generate_plot_well`` function')
+    log.debug('starting the ``_generate_plot_well`` function')
 
     # format attributes for titles
     instrument = instrument.upper()
@@ -247,7 +247,7 @@ def _generate_plot_well(
         else:
             log.debug('NOTHING FOUND TO PLOT')
 
-    log.info('completed the ``_generate_plot_well`` function')
+    log.debug('completed the ``_generate_plot_well`` function')
     if count:
         thisImageWell = imageWell.get()
     else:

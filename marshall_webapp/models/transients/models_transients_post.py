@@ -76,7 +76,7 @@ class models_transients_post():
 
         **Todo**
         """
-        self.log.info('starting the ``post`` method')
+        self.log.debug('starting the ``post`` method')
 
         elementId = self.elementId
 
@@ -96,7 +96,7 @@ class models_transients_post():
                 self.response += "Resource Context selected (no element)" % locals(
                 )
 
-        self.log.info('completed the ``post`` method')
+        self.log.debug('completed the ``post`` method')
         return self.response, self.redirectUrl
 
     def _add_new_transient(
@@ -111,7 +111,7 @@ class models_transients_post():
 
         **Todo**
         """
-        self.log.info('starting the ``_add_new_transient`` method')
+        self.log.debug('starting the ``_add_new_transient`` method')
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
         for arg, val in self.request.params.iteritems():
@@ -235,7 +235,7 @@ class models_transients_post():
         self.redirectUrl = self.request.route_path(
             'transients_search', _query={'q': objectName})
 
-        self.log.info('completed the ``_add_new_transient`` method')
+        self.log.debug('completed the ``_add_new_transient`` method')
         return None
 
     # xt-class-method

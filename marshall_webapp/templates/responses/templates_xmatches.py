@@ -60,7 +60,7 @@ class templates_xmatches():
         **Return:**
             - ``webpage`` -- the webapge HTML
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         from ..commonelements.pagetemplates import defaultpagetemplate
 
@@ -78,7 +78,7 @@ class templates_xmatches():
             thisPageName="xmatches"
         )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return webpage
 
     # use the tab-trigger below for new method

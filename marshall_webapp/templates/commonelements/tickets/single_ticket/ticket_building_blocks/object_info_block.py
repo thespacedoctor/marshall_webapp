@@ -51,7 +51,7 @@ def object_info_block(
         - ``object_info_block`` -- the ticket identity block for the pesssto object
 
     """
-    log.info('starting the ``object_info_block`` function')
+    log.debug('starting the ``object_info_block`` function')
 
     title = cu.block_title(
         log,

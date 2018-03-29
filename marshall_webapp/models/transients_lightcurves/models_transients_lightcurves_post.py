@@ -73,7 +73,7 @@ class models_transients_lightcurves_post():
 
         **Todo**
         """
-        self.log.info('starting the ``post`` method')
+        self.log.debug('starting the ``post`` method')
 
         elementId = self.elementId
 
@@ -85,7 +85,7 @@ class models_transients_lightcurves_post():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``post`` method')
+        self.log.debug('completed the ``post`` method')
         return responseContent
 
     # xt-class-method

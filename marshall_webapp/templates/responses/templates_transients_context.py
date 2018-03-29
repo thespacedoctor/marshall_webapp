@@ -73,7 +73,7 @@ class templates_transients_context():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         from ..commonelements.pagetemplates import defaultpagetemplate
 
@@ -86,6 +86,6 @@ class templates_transients_context():
 
         context = transients_context.get()
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return context
     # xt-class-method

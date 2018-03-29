@@ -60,7 +60,7 @@ def lightcurve_block(
 
     **Todo**
     """
-    log.info('starting the ``lightcurve_block`` function')
+    log.debug('starting the ``lightcurve_block`` function')
 
     masterName = discoveryDataDictionary["masterName"]
     lsqExists = False

@@ -58,7 +58,7 @@ def master_lightcurve_block(
 
     **Tasks:**
     """
-    log.info('starting the ``master_lightcurve_block`` function')
+    log.debug('starting the ``master_lightcurve_block`` function')
 
     lsqExists = False
     if displayTitle:

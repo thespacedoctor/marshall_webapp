@@ -39,7 +39,7 @@ def topnavbar(log,
 
     **Todo**
     """
-    log.info('starting the ``topNavigationBar`` function')
+    log.debug('starting the ``topNavigationBar`` function')
 
     username = request.authenticated_userid
     username = username.replace(".", " ").title()
@@ -194,7 +194,7 @@ def topnavbar(log,
         onDesktop=True
     )
 
-    log.info('completed the ``topNavigationBar`` function')
+    log.debug('completed the ``topNavigationBar`` function')
 
     return topNavBar
 

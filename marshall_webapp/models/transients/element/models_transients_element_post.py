@@ -74,7 +74,7 @@ class models_transients_element_post():
 
         **Todo**
         """
-        self.log.info('starting the ``post`` method')
+        self.log.debug('starting the ``post`` method')
 
         # check the right keywords are passed in the query string
         if set(("clsObsdate", "clsSource")) <= set(self.request.params):
@@ -84,7 +84,7 @@ class models_transients_element_post():
         if len(self.response) == 0:
             self.response = "no action was performed"
 
-        self.log.info('completed the ``post`` method')
+        self.log.debug('completed the ``post`` method')
         return self.response
 
     def _add_transient_classification(
@@ -99,7 +99,7 @@ class models_transients_element_post():
 
         **Todo**
         """
-        self.log.info('starting the ``_add_transient_classification`` method')
+        self.log.debug('starting the ``_add_transient_classification`` method')
 
         now = dcu.get_now_sql_datetime()
         transientBucketId = self.transientBucketId
@@ -208,7 +208,8 @@ class models_transients_element_post():
             "Add a classification to transient #%(transientBucketId)s " % locals(
             )
 
-        self.log.info('completed the ``_add_transient_classification`` method')
+        self.log.debug(
+            'completed the ``_add_transient_classification`` method')
         return None
 
     # xt-class-method

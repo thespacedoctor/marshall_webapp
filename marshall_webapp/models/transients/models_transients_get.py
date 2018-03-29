@@ -94,7 +94,7 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         self.transientAkas = self._get_associated_transient_aka()
         self.transientLightcurveData = self._get_associated_lightcurve_data()
@@ -103,7 +103,7 @@ class models_transients_get():
         self.transient_history = self._get_associated_transient_history()
         self.transient_crossmatches = self._get_associated_transient_crossmatches()
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
 
         if "format" in self.qs and (self.qs["format"] == "json" or self.qs["format"] == "csv" or self.qs["format"] == "plain_table"):
             self._clean_data_for_plain_text_outputs()
@@ -128,7 +128,7 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info('starting the ``get_data_from_database`` method')
+        self.log.debug('starting the ``get_data_from_database`` method')
 
         tcsCatalogueId = self.tcsCatalogueId
         sqlWhereList = []
@@ -351,7 +351,7 @@ class models_transients_get():
             """selectColumns: {selectColumns}""".format(**dict(globals(), **locals())))
 
         sqlQuery = """
-            insert ignore into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucket;
+            insert ignore into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucketSummaries;
         """ % locals()
         tmpObjectData = self.request.db.execute(
             text(sqlQuery))
@@ -374,7 +374,7 @@ class models_transients_get():
         totalTicketCount = self._get_total_ticket_count_for_list(
             queryWhere=queryWhere)
 
-        self.log.info('completed the ``get_data_from_database`` method')
+        self.log.debug('completed the ``get_data_from_database`` method')
         return objectData, matchedTransientBucketIds, totalTicketCount
 
     # use the tab-trigger below for new method
@@ -392,7 +392,7 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info('starting the ``set_default_parameters`` method')
+        self.log.debug('starting the ``set_default_parameters`` method')
 
         self.log.debug("""these are the current query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
@@ -483,7 +483,7 @@ class models_transients_get():
         self.log.debug("""these are the new query string key/values: {self.qs}""".format(
             **dict(globals(), **locals())))
 
-        self.log.info('completed the ``set_default_parameters`` method')
+        self.log.debug('completed the ``set_default_parameters`` method')
         return None
 
     # use the tab-trigger below for new method
@@ -501,7 +501,7 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info('starting the ``_get_associated_transient_aka`` method')
+        self.log.debug('starting the ``_get_associated_transient_aka`` method')
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
@@ -521,7 +521,8 @@ class models_transients_get():
             if row["name"][:2] not in ["SN", "AT"] and row["surveyObjectUrl"] and "wis-tns" is row["surveyObjectUrl"]:
                 row["surveyObjectUrl"] = None
 
-        self.log.info('completed the ``_get_associated_transient_aka`` method')
+        self.log.debug(
+            'completed the ``_get_associated_transient_aka`` method')
         return objectAkas
 
     # use the tab-trigger below for new method
@@ -539,8 +540,8 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info(
-            'starting the ``_get_associated_lightcurve_data`` method')
+        self.log.debug(
+            'completed the ````_get_associated_lightcurve_data`` method')
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
@@ -552,7 +553,7 @@ class models_transients_get():
         lightCurveData[:] = [dict(zip(row.keys(), row))
                              for row in lightCurveDataTmp]
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_get_associated_lightcurve_data`` method')
         return lightCurveData
 
@@ -571,7 +572,7 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info('starting the ``_get_associated_atel_data`` method')
+        self.log.debug('starting the ``_get_associated_atel_data`` method')
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
@@ -583,7 +584,7 @@ class models_transients_get():
         transientAtelMatches[:] = [
             dict(zip(row.keys(), row)) for row in transientAtelMatchesTmp]
 
-        self.log.info('completed the ``_get_associated_atel_data`` method')
+        self.log.debug('completed the ``_get_associated_atel_data`` method')
         return transientAtelMatches
 
     # use the tab-trigger below for new method
@@ -601,7 +602,7 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info('starting the ``_get_associated_comments`` method')
+        self.log.debug('starting the ``_get_associated_comments`` method')
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
@@ -613,7 +614,7 @@ class models_transients_get():
         objectComments[:] = [dict(zip(row.keys(), row))
                              for row in objectCommentsTmp]
 
-        self.log.info('completed the ``_get_associated_comments`` method')
+        self.log.debug('completed the ``_get_associated_comments`` method')
         return objectComments
 
     def _get_total_ticket_count_for_list(
@@ -631,8 +632,8 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info(
-            'starting the ``_get_total_ticket_count_for_list`` method')
+        self.log.debug(
+            'completed the ````_get_total_ticket_count_for_list`` method')
 
         tcsCatalogueId = self.tcsCatalogueId
         if self.search:
@@ -705,7 +706,7 @@ class models_transients_get():
             for row in ticketCountRows:
                 totalTickets += row["count"]
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_get_total_ticket_count_for_list`` method')
         return totalTickets
 
@@ -724,8 +725,8 @@ class models_transients_get():
         .. todo::
 
         """
-        self.log.info(
-            'starting the ``_clean_data_for_plain_text_outputs`` method')
+        self.log.debug(
+            'completed the ````_clean_data_for_plain_text_outputs`` method')
 
         # assoicate the correct column name to mysql database column name
         tmpDict = {}
@@ -806,7 +807,7 @@ class models_transients_get():
 
         self.transientData = newTransientData
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_clean_data_for_plain_text_outputs`` method')
         return None
 
@@ -827,8 +828,8 @@ class models_transients_get():
             - @review: when complete, clean _get_associated_transient_history method
             - @review: when complete add logging
         """
-        self.log.info(
-            'starting the ``_get_associated_transient_history`` method')
+        self.log.debug(
+            'completed the ````_get_associated_transient_history`` method')
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
@@ -846,7 +847,7 @@ class models_transients_get():
         objectHistory = sorted(
             objectHistory, key=itemgetter('dateCreated'), reverse=False)
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_get_associated_transient_history`` method')
         return objectHistory
 
@@ -867,8 +868,8 @@ class models_transients_get():
             - @review: when complete, clean _get_associated_transient_crossmatches method
             - @review: when complete add logging
         """
-        self.log.info(
-            'starting the ``_get_associated_transient_crossmatches`` method')
+        self.log.debug(
+            'completed the ````_get_associated_transient_crossmatches`` method')
 
         from astrocalc.coords import unit_conversion
         # ASTROCALC UNIT CONVERTER OBJECT
@@ -930,7 +931,7 @@ class models_transients_get():
                     c["best_mag_filter"] = f.replace(
                         "_", "").replace("Mag", "")
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_get_associated_transient_crossmatches`` method')
         return crossmatches
 

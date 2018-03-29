@@ -77,7 +77,7 @@ class models_transients_count():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         mwfFlag = self.mwfFlag
         awfFlag = self.awfFlag
@@ -116,6 +116,6 @@ class models_transients_count():
         for row in rows:
             count += row["count"]
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return count
     # xt-class-method

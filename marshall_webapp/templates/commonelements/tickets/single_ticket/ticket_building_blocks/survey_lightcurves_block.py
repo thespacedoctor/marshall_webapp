@@ -54,7 +54,7 @@ def survey_lightcurves_block(
 
     **Todo**
     """
-    log.info('starting the ``survey_lightcurves_block`` function')
+    log.debug('starting the ``survey_lightcurves_block`` function')
 
     ## VARIABLES ##
     lightCurveImages = []

@@ -66,7 +66,7 @@ def comments_tab(
     from ... import single_ticket
     from .....commonelements import forms
 
-    log.info('starting the ``comments_tab`` function')
+    log.debug('starting the ``comments_tab`` function')
 
     commentCount, comments_block = ticket_building_blocks.comments_block.comments_block(
         log=log,
@@ -179,7 +179,7 @@ def comments_tab(
         comments_tab = unicode(
             comments_tab, encoding="utf-8", errors="replace")
 
-    log.info('completed the ``comments_tab`` function')
+    log.debug('completed the ``comments_tab`` function')
     return commentCount, "%(comments_tab)s" % locals()
 
 

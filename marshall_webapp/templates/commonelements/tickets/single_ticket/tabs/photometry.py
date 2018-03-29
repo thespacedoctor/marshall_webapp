@@ -60,7 +60,7 @@ def photometry_tab(
     """
     from ... import single_ticket
 
-    log.info('starting the ``photometry_tab`` function')
+    log.debug('starting the ``photometry_tab`` function')
 
     master_lightcurve_block = ticket_building_blocks.master_lightcurve_block.master_lightcurve_block(
         log=log,
@@ -139,7 +139,7 @@ def photometry_tab(
         htmlId="photometrytab"
     )
 
-    log.info('completed the ``photometry_tab`` function')
+    log.debug('completed the ``photometry_tab`` function')
     return "%(photometry_tab)s" % locals()
 
 
@@ -166,7 +166,7 @@ def photometry_footer_bar(
     **Todo**
     """
     lsqExists = False
-    log.info('starting the ``photometry_footer_bar`` function')
+    log.debug('starting the ``photometry_footer_bar`` function')
     ## VARIABLES ##
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     name = discoveryDataDictionary["masterName"]

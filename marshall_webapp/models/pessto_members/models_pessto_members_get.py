@@ -76,7 +76,7 @@ class models_pessto_members_get():
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         if "sortBy" in self.qs and self.qs["sortBy"] is not False:
             orderBy = " order by " + self.qs["sortBy"]
@@ -99,7 +99,7 @@ class models_pessto_members_get():
         members = []
         members[:] = [dict(zip(row.keys(), row)) for row in membersTmp]
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return members
 
     def _set_default_parameters(
@@ -112,12 +112,12 @@ class models_pessto_members_get():
         **Return:**
             - None
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         if "format" not in self.qs:
             self.qs["format"] = self.defaultQs["format"]
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # use the tab-trigger below for new method

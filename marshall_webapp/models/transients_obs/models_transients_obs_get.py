@@ -84,12 +84,12 @@ class models_transients_obs_get():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         elementId = self.elementId
         transient_ob_data = self.qs
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return transient_ob_data
 
     def _set_default_parameters(
@@ -104,13 +104,13 @@ class models_transients_obs_get():
 
         **Todo**
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         for k, v in self.defaultQs.iteritems():
             if k not in self.qs:
                 self.qs[k] = v
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     def _get_transient_info(
@@ -125,7 +125,7 @@ class models_transients_obs_get():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_transient_info`` method')
+        self.log.debug('starting the ``_get_transient_info`` method')
 
         elementId = self.elementId
 
@@ -150,7 +150,7 @@ class models_transients_obs_get():
 
         self.qs["objectName"] = objectData["masterName"]
 
-        self.log.info('completed the ``_get_transient_info`` method')
+        self.log.debug('completed the ``_get_transient_info`` method')
         return None
 
     # use the tab-trigger below for new method

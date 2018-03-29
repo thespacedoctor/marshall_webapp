@@ -71,7 +71,7 @@ class templates_transients_obs():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         # get info needed from database
         transients_obs = models_transients_obs_get(
@@ -86,7 +86,7 @@ class templates_transients_obs():
             transient_ob_data=transient_ob_data
         )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return filename, obText
 
     def _generate_ob_text(
@@ -102,7 +102,7 @@ class templates_transients_obs():
 
         **Todo**
         """
-        self.log.info('starting the ``_generate_ob_text`` method')
+        self.log.debug('starting the ``_generate_ob_text`` method')
 
         od = {}  # override dictionary
 
@@ -386,7 +386,7 @@ class templates_transients_obs():
                 obText = "%(obText)s%(printKey)s%(value)s\n" % locals()
             obText = "%(obText)s\n\n" % locals()
 
-        self.log.info('completed the ``_generate_ob_text`` method')
+        self.log.debug('completed the ``_generate_ob_text`` method')
         return downloadFilename, obText
 
     # use the tab-trigger below for new method

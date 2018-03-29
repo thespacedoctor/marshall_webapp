@@ -71,7 +71,7 @@ class models_refresh_sidebar_list_counts():
 
         **Todo**
         """
-        self.log.info('starting the ``put`` method')
+        self.log.debug('starting the ``put`` method')
 
         # all marshall workflow list titles
         marshallWorkflowLists = ["inbox", "archive", "following", "pending observation",
@@ -129,7 +129,7 @@ class models_refresh_sidebar_list_counts():
         # content for response
         responseContent += "<BR>updated `snoozed` list in `meta_workflow_lists_counts` table"
 
-        self.log.info('completed the ``put`` method')
+        self.log.debug('completed the ``put`` method')
         return responseContent
 
     # xt-class-method

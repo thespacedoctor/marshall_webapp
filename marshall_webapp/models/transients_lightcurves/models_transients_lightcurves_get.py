@@ -81,7 +81,7 @@ class models_transients_lightcurves_get():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         transientBucketId = self.elementId
 
@@ -103,7 +103,7 @@ class models_transients_lightcurves_get():
                 odict[key] = value
             lightCurve.append(odict)
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return lightCurve
 
     def _set_default_parameters(
@@ -118,12 +118,12 @@ class models_transients_lightcurves_get():
 
         **Todo**
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         if "format" not in self.qs:
             self.qs["format"] = self.defaultQs["format"]
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # use the tab-trigger below for new method
@@ -141,7 +141,7 @@ class models_transients_lightcurves_get():
             - @review: when complete, clean get_metadata method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``get_metadata`` method')
+        self.log.debug('starting the ``get_metadata`` method')
 
         transientBucketId = self.elementId
 
@@ -153,7 +153,7 @@ class models_transients_lightcurves_get():
         extraMetadata[:] = [dict(zip(row.keys(), row))
                             for row in extraMetadataTmp]
 
-        self.log.info('completed the ``get_metadata`` method')
+        self.log.debug('completed the ``get_metadata`` method')
         return extraMetadata
 
     # use the tab-trigger below for new method

@@ -70,7 +70,7 @@ class models_transients_comments_get():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
         elementId = self.elementId
 
         responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
@@ -81,7 +81,7 @@ class models_transients_comments_get():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return responseContent
 
     # xt-class-method

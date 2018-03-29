@@ -67,7 +67,7 @@ class templates_xmatches_searches():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         from ..commonelements.pagetemplates import defaultpagetemplate
 
@@ -110,7 +110,7 @@ class templates_xmatches_searches():
                 tcsCatalogueId=self.elementId
             ).get()
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return webpage
 
     def create_table(
@@ -127,7 +127,7 @@ class templates_xmatches_searches():
             - @review: when complete, clean create_table method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``create_table`` method')
+        self.log.debug('starting the ``create_table`` method')
 
         columnsNames = ["Catalogue", "Sources", "Number Rows",
                         "Associated Transients", "Top Rank Associated Transients"]
@@ -203,7 +203,7 @@ class templates_xmatches_searches():
 
         table = table.get()
 
-        self.log.info('completed the ``create_table`` method')
+        self.log.debug('completed the ``create_table`` method')
         return table
 
     # use the tab-trigger below for new method

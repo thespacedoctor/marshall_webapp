@@ -61,7 +61,7 @@ def defaultpagetemplate(
 
     **Todo**
     """
-    log.info('starting the ``webpage`` function')
+    log.debug('starting the ``webpage`` function')
 
     # imports
     from .. import *
@@ -152,7 +152,7 @@ def defaultpagetemplate(
         content="%(head)s %(body)s" % locals()
     )
 
-    log.info('completed the ``webpage`` function')
+    log.debug('completed the ``webpage`` function')
     return webpage
 
 

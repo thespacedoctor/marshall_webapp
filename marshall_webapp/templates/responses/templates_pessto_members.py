@@ -67,7 +67,7 @@ class templates_pessto_members():
         **Return:**
             - ``webpage`` -- the webapge HTML
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         # # choose which format of the content to display
         # if self.qs["format"] == "html_table":
@@ -95,13 +95,13 @@ class templates_pessto_members():
             thisPageName="PESSTO Members"
         )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return webpage
 
     def _get_members_table(self):
         """get members table
         """
-        self.log.info('starting the ``_get_members_table`` method')
+        self.log.debug('starting the ``_get_members_table`` method')
 
         for row in self.pesstoMembers:
             for k, v in row.iteritems():
@@ -158,7 +158,7 @@ class templates_pessto_members():
             onDesktop=True
         )
 
-        self.log.info('completed the ``_get_members_table`` method')
+        self.log.debug('completed the ``_get_members_table`` method')
         return object_table
 
     # use the tab-trigger below for new method

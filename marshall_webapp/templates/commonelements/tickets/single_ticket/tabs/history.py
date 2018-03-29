@@ -63,7 +63,7 @@ def history_tab(
     from ... import single_ticket
     from .....commonelements import forms
 
-    log.info('starting the ``history_tab`` function')
+    log.debug('starting the ``history_tab`` function')
 
     theseHistories = []
     theseHistories[:] = [t for t in objectHistories]
@@ -142,7 +142,7 @@ def history_tab(
     if isinstance(history_tab, str):
         history_tab = unicode(history_tab, encoding="utf-8", errors="replace")
 
-    log.info('completed the ``history_tab`` function')
+    log.debug('completed the ``history_tab`` function')
     return history_tab
 
 
@@ -170,7 +170,7 @@ def _generate_log_string_for_ticket(
         - @review: when complete add logging
         - @review: when complete, decide whether to abstract function to another module
     """
-    log.info('starting the ``_generate_log_string_for_ticket`` function')
+    log.debug('starting the ``_generate_log_string_for_ticket`` function')
 
     relativeDate = dcu.pretty_date(
         date=logDate
@@ -224,7 +224,7 @@ def _generate_log_string_for_ticket(
         onDesktop=True
     )
 
-    log.info('completed the ``_generate_log_string_for_ticket`` function')
+    log.debug('completed the ``_generate_log_string_for_ticket`` function')
     return grid_row
 
 # use the tab-trigger below for new function

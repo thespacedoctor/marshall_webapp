@@ -73,7 +73,7 @@ class models_transients_element_context_post():
 
         **Todo**
         """
-        self.log.info('starting the ``put`` method')
+        self.log.debug('starting the ``put`` method')
 
         transientBucketId = self.elementId
 
@@ -111,7 +111,7 @@ class models_transients_element_context_post():
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 
-        self.log.info('completed the ``put`` method')
+        self.log.debug('completed the ``put`` method')
         return responseContent
 
     # xt-class-method

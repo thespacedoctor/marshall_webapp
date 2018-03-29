@@ -74,11 +74,11 @@ class models_xmatches_get():
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         responseContent = self.elementId
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return responseContent
 
     def _set_default_parameters(
@@ -91,12 +91,12 @@ class models_xmatches_get():
         **Return:**
             - None
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         if "format" not in self.qs:
             self.qs["format"] = self.defaultQs["format"]
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # xt-class-method

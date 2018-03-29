@@ -53,7 +53,7 @@ def identity_block(
     .. todo::
 
     """
-    log.info('starting the ``identity_block`` function')
+    log.debug('starting the ``identity_block`` function')
 
     annotations = []
 

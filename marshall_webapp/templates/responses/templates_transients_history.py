@@ -86,7 +86,7 @@ class templates_transients_history():
             - @review: when complete, clean get method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         templates_transients_history = None
 
@@ -97,7 +97,7 @@ class templates_transients_history():
         )
         responseContent = transients_history.get()
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return responseContent
     # xt-class-method
 

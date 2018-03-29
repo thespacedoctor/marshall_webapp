@@ -53,7 +53,7 @@ def ticket_footer_bar(
         - ``ticket_footer_bar`` -- the ticket footer bar for the pesssto object
 
     """
-    log.info('starting the ``ticket_footer_bar`` function')
+    log.debug('starting the ``ticket_footer_bar`` function')
 
     ## VARIABLES ##
     transientBucketId = discoveryDataDictionary["transientBucketId"]
@@ -176,7 +176,7 @@ def _get_atel_list(
 
     **Todo**
     """
-    log.info('starting the ``_get_atels`` function')
+    log.debug('starting the ``_get_atels`` function')
     # TEST THE ARGUMENTS
 
     rows = []

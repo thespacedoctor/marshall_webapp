@@ -78,7 +78,7 @@ class models_transients_element_obs_get():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         transientBucketId = self.elementId
 
@@ -98,7 +98,7 @@ class models_transients_element_obs_get():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return objectData
 
     def _set_default_parameters(
@@ -113,9 +113,9 @@ class models_transients_element_obs_get():
 
         **Todo**
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # xt-class-method

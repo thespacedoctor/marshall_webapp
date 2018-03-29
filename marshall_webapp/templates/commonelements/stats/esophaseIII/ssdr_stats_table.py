@@ -50,7 +50,7 @@ def ssdr_stats_table(
 
     **Todo**
     """
-    log.info('starting the ``ssdr_stats_table`` function')
+    log.debug('starting the ``ssdr_stats_table`` function')
 
     # get the table data
     thisTable = releaseVersion.lower()
@@ -157,7 +157,7 @@ def ssdr_stats_table(
         striped=True
     )
 
-    log.info('completed the ``ssdr_stats_table`` function')
+    log.debug('completed the ``ssdr_stats_table`` function')
     return table
 
 ###################################################################

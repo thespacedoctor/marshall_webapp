@@ -63,7 +63,7 @@ def development_tab(
     from ... import single_ticket
     from .....commonelements import forms
 
-    log.info('starting the ``development_tab`` function')
+    log.debug('starting the ``development_tab`` function')
 
     group = ""
     for item in request.effective_principals:
@@ -92,7 +92,7 @@ def development_tab(
         development_tab = unicode(
             development_tab, encoding="utf-8", errors="replace")
 
-    log.info('completed the ``development_tab`` function')
+    log.debug('completed the ``development_tab`` function')
     return development_tab
 
 # use the tab-trigger below for new function
@@ -123,7 +123,7 @@ def transient_d3_lightcurve(
         - @review: when complete add logging
         - @review: when complete, decide whether to abstract function to another module
     """
-    log.info('starting the ``transient_d3_lightcurve`` function')
+    log.debug('starting the ``transient_d3_lightcurve`` function')
 
     # print discoveryDataDictionary["transientBucketId"]
 
@@ -141,7 +141,7 @@ def transient_d3_lightcurve(
         height="square"
     )
 
-    log.info('completed the ``transient_d3_lightcurve`` function')
+    log.debug('completed the ``transient_d3_lightcurve`` function')
     return svg
 
 # use the tab-trigger below for new function

@@ -71,7 +71,7 @@ class models_transients_element_context_put():
 
         **Todo**
         """
-        self.log.info('starting the ``put`` method')
+        self.log.debug('starting the ``put`` method')
 
         elementId = self.elementId
 
@@ -83,7 +83,7 @@ class models_transients_element_context_put():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``put`` method')
+        self.log.debug('completed the ``put`` method')
         return responseContent
 
     # xt-class-method

@@ -63,7 +63,7 @@ def dryx_tab(
     from ... import single_ticket
     from .....commonelements import forms
 
-    log.info('starting the ``dryx_tab`` function')
+    log.debug('starting the ``dryx_tab`` function')
 
     group = ""
     for item in request.effective_principals:
@@ -112,7 +112,7 @@ def dryx_tab(
         dryx_tab = unicode(
             dryx_tab, encoding="utf-8", errors="replace")
 
-    log.info('completed the ``dryx_tab`` function')
+    log.debug('completed the ``dryx_tab`` function')
     return dryx_tab
 
 # use the tab-trigger below for new function

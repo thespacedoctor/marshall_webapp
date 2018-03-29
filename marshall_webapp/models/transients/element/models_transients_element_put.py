@@ -72,7 +72,7 @@ class models_transients_element_put():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         # move the objects to another list if requested
         if "mwl" in self.request.params or "awl" in self.request.params:
@@ -89,7 +89,7 @@ class models_transients_element_put():
         if len(self.response) == 0:
             self.response = "nothing has changed"
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
 
         return self.response
 
@@ -105,7 +105,7 @@ class models_transients_element_put():
 
         **Todo**
         """
-        self.log.info('starting the ``_create_sqlquery`` method')
+        self.log.debug('starting the ``_create_sqlquery`` method')
         transientBucketId = self.transientBucketId
 
         sqlQuery = u"""
@@ -205,7 +205,7 @@ class models_transients_element_put():
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
 
-        self.log.info('completed the ``_create_sqlquery`` method')
+        self.log.debug('completed the ``_create_sqlquery`` method')
         return None
 
     def _change_pi_for_object(
@@ -220,7 +220,7 @@ class models_transients_element_put():
 
         **Todo**
         """
-        self.log.info('starting the ``_change_pi_for_object`` method')
+        self.log.debug('starting the ``_change_pi_for_object`` method')
 
         piName = self.request.params["piName"].strip()
         piEmail = self.request.params["piEmail"].strip()
@@ -269,7 +269,7 @@ class models_transients_element_put():
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 
-        self.log.info('completed the ``_change_pi_for_object`` method')
+        self.log.debug('completed the ``_change_pi_for_object`` method')
         return None
 
     def _set_observational_priority_for_object(
@@ -286,8 +286,8 @@ class models_transients_element_put():
             - @review: when complete, clean _set_observational_priority_for_object method
             - @review: when complete add logging
         """
-        self.log.info(
-            'starting the ``_set_observational_priority_for_object`` method')
+        self.log.debug(
+            'completed the ````_set_observational_priority_for_object`` method')
 
         observationPriority = self.request.params[
             "observationPriority"].strip()
@@ -360,7 +360,7 @@ class models_transients_element_put():
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_set_observational_priority_for_object`` method')
         return None
 

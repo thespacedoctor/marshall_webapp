@@ -161,7 +161,7 @@ def _get_classify_button(
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
-    log.info('starting the ``_get_classify_button`` function')
+    log.debug('starting the ``_get_classify_button`` function')
     # TEST THE ARGUMENTS
 
     ## VARIABLES ##
@@ -171,7 +171,7 @@ def _get_classify_button(
         discoveryDataDictionary=discoveryDataDictionary
     )
 
-    log.info('completed the ``_get_classify_button`` function')
+    log.debug('completed the ``_get_classify_button`` function')
     return button, thisForm
 
 # LAST MODIFIED : November 29, 2013
@@ -198,7 +198,7 @@ def _get_move_to_dropdown(
     """
     import datetime
 
-    log.info('starting the ``_get_move_to_dropdown`` function')
+    log.debug('starting the ``_get_move_to_dropdown`` function')
 
     dropdownTitle = """<i class="icon-list-ul"></i>"""
 
@@ -325,7 +325,7 @@ def _get_move_to_dropdown(
         popover=popover
     )
 
-    log.info('completed the ``_get_move_to_dropdown`` function')
+    log.debug('completed the ``_get_move_to_dropdown`` function')
     return thisDropdown
 
 # LAST MODIFIED : November 29, 2013
@@ -352,7 +352,7 @@ def _get_alert_dropdown(
     """
     import datetime
 
-    log.info('starting the ``_get_alert_dropdown`` function')
+    log.debug('starting the ``_get_alert_dropdown`` function')
 
     dropdownTitle = "alert"
 
@@ -414,7 +414,7 @@ def _get_alert_dropdown(
             onDesktop=True
         )
 
-    log.info('completed the ``_get_alert_dropdown`` function')
+    log.debug('completed the ``_get_alert_dropdown`` function')
     return thisDropdown
 
 
@@ -444,7 +444,7 @@ def _get_change_pi_button(
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
-    log.info('starting the ``_get_change_pi_button`` function')
+    log.debug('starting the ``_get_change_pi_button`` function')
     # TEST THE ARGUMENTS
 
     ## VARIABLES ##
@@ -455,7 +455,7 @@ def _get_change_pi_button(
     )
     button = "%(button)s %(changePiForm)s" % locals()
 
-    log.info('completed the ``_get_change_pi_button`` function')
+    log.debug('completed the ``_get_change_pi_button`` function')
     return button
 
 
@@ -489,7 +489,7 @@ def _generate_ob_button(
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
-    log.info('starting the ``_get_classify_button`` function')
+    log.debug('starting the ``_get_classify_button`` function')
     # TEST THE ARGUMENTS
 
     ## VARIABLES ##
@@ -506,7 +506,7 @@ def _generate_ob_button(
     else:
         button = None
 
-    log.info('completed the ``_get_classify_button`` function')
+    log.debug('completed the ``_get_classify_button`` function')
     return button
 
 
@@ -532,10 +532,10 @@ def _get_priority_switcher_dropdown(
         - @review: when complete add logging
         - @review: when complete, decide whether to abstract function to another module
     """
-    log.info('starting the ``_get_priority_switcher_dropdown`` function')
+    log.debug('starting the ``_get_priority_switcher_dropdown`` function')
     import datetime
 
-    log.info('starting the ``_get_move_to_dropdown`` function')
+    log.debug('starting the ``_get_move_to_dropdown`` function')
 
     dropdownTitle = """<span class="colortext red"><i class="icon-fire"></i></span>"""
     dropdownTitle = """<i class="icon-fire"></i>"""
@@ -643,7 +643,7 @@ def _get_priority_switcher_dropdown(
         popover=popover
     )
 
-    log.info('completed the ``_get_priority_switcher_dropdown`` function')
+    log.debug('completed the ``_get_priority_switcher_dropdown`` function')
     return thisDropdown
 
 
@@ -669,12 +669,12 @@ def _snooze_button(
         - @review: when complete add logging
         - @review: when complete, decide whether to abstract function to another module
     """
-    log.info('starting the ``_snooze_button`` function')
+    log.debug('starting the ``_snooze_button`` function')
 
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
-    log.info('starting the ``_get_change_pi_button`` function')
+    log.debug('starting the ``_get_change_pi_button`` function')
     # TEST THE ARGUMENTS
 
     mwl = discoveryDataDictionary["marshallWorkflowLocation"]
@@ -746,7 +746,7 @@ def _snooze_button(
         notification=notification
     )
 
-    log.info('completed the ``_snooze_button`` function')
+    log.debug('completed the ``_snooze_button`` function')
     return button
 
 # use the tab-trigger below for new function

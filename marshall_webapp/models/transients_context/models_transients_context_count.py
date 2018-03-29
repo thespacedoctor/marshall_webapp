@@ -71,7 +71,7 @@ class models_transients_context_count():
 
         **Todo**
         """
-        self.log.info('starting the ``count`` method')
+        self.log.debug('starting the ``count`` method')
 
         # the transientBucketId
         elementId = self.elementId
@@ -84,7 +84,7 @@ class models_transients_context_count():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``count`` method')
+        self.log.debug('completed the ``count`` method')
         return responseContent
 
     # xt-class-method

@@ -54,7 +54,7 @@ def latest_magnitudes_block(
 
     **Tasks:**
     """
-    log.info('starting the ``latest_magnitudes_block`` function')
+    log.debug('starting the ``latest_magnitudes_block`` function')
 
     if displayTitle:
         title = cu.block_title(

@@ -73,7 +73,7 @@ class models_transients_element_comments_post():
 
         **Todo**
         """
-        self.log.info('starting the ``put`` method')
+        self.log.debug('starting the ``put`` method')
 
         transientBucketId = self.elementId
 
@@ -96,7 +96,7 @@ class models_transients_element_comments_post():
         responseContent = "%(author)s added the comment:<blockquote>%(comment)s</blockquote>to transient #%(transientBucketId)s in the marshall<BR><BR>" % locals(
         )
 
-        self.log.info('completed the ``put`` method')
+        self.log.debug('completed the ``put`` method')
         return responseContent
 
     # xt-class-method

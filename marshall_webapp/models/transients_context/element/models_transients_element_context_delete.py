@@ -71,7 +71,7 @@ class models_transients_element_context_delete():
 
         **Todo**
         """
-        self.log.info('starting the ``delete`` method')
+        self.log.debug('starting the ``delete`` method')
 
         elementId = self.elementId
 
@@ -83,7 +83,7 @@ class models_transients_element_context_delete():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``delete`` method')
+        self.log.debug('completed the ``delete`` method')
         return responseContent
 
     # xt-class-method

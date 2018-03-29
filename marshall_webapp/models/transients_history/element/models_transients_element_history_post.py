@@ -93,7 +93,7 @@ class models_transients_element_history_post():
             - @review: when complete, clean post method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``post`` method')
+        self.log.debug('starting the ``post`` method')
 
         elementId = self.elementId
 
@@ -105,7 +105,7 @@ class models_transients_element_history_post():
             responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
             )
 
-        self.log.info('completed the ``post`` method')
+        self.log.debug('completed the ``post`` method')
         return responseContent
 
     def _set_default_parameters(
@@ -122,13 +122,13 @@ class models_transients_element_history_post():
             - @review: when complete, clean _set_default_parameters method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         for k, v in self.defaultQs.iteritems():
             if k not in self.qs:
                 self.qs[k] = v
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # xt-class-method

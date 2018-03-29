@@ -107,7 +107,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         # choose which format of the content to display
 
@@ -135,7 +135,7 @@ class templates_transients():
             thisPageName=self._get_page_name()
         )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return webpage
 
     def _get_list_of_transient_tickets(
@@ -153,7 +153,8 @@ class templates_transients():
         from ..commonelements.tickets.single_ticket import single_ticket
         from dryxPython import astrotools as dat
 
-        self.log.info('starting the ``_get_list_of_transient_tickets`` method')
+        self.log.debug(
+            'starting the ``_get_list_of_transient_tickets`` method')
 
         # for each transient build a ticket to be presented in the browser
         ticketList = []
@@ -194,7 +195,7 @@ class templates_transients():
             )
             ticketList.append(thisTicket)
 
-        self.log.info(
+        self.log.debug(
             'completed the ``_get_list_of_transient_tickets`` method')
         return ticketList
 
@@ -209,7 +210,7 @@ class templates_transients():
             - ``sort`` -- the sort dropdown for the transient listings toolbar
             - ``filtering`` -- the filter dropdown for the trasnsient listings toolbar
         """
-        self.log.info('starting the ``_get_sort_dropdown`` method')
+        self.log.debug('starting the ``_get_sort_dropdown`` method')
 
         from ..commonelements.sorting.ticket_table_sorting_dropdown import ticket_table_sorting_dropdown
 
@@ -235,7 +236,7 @@ class templates_transients():
             filterOp=self.qs["filterOp2"]
         )
 
-        self.log.info('completed the ``_get_sort_dropdown`` method')
+        self.log.debug('completed the ``_get_sort_dropdown`` method')
         return sort, filtering
 
     def _get_notification(
@@ -250,7 +251,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_notification`` method')
+        self.log.debug('starting the ``_get_notification`` method')
 
         if "notification" in self.qs:
             notification = khufu.alert(
@@ -263,7 +264,7 @@ class templates_transients():
         else:
             notification = ""
 
-        self.log.info('completed the ``_get_notification`` method')
+        self.log.debug('completed the ``_get_notification`` method')
         return notification
 
     def _get_pagination(
@@ -278,7 +279,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_pagination`` method')
+        self.log.debug('starting the ``_get_pagination`` method')
 
         from ..commonelements.pagination.ticket_table_pagination import ticket_table_pagination
 
@@ -290,7 +291,7 @@ class templates_transients():
             previousPageStart=self.qs["pageStart"]
         )
 
-        self.log.info('completed the ``_get_pagination`` method')
+        self.log.debug('completed the ``_get_pagination`` method')
         return pagination
 
     def _get_view_switcher_buttons(
@@ -305,7 +306,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_view_switcher_buttons`` method')
+        self.log.debug('starting the ``_get_view_switcher_buttons`` method')
 
         from ..commonelements.view_switcher_buttons import view_switcher_buttons
 
@@ -322,7 +323,7 @@ class templates_transients():
             tcsTableName=self.tcsCatalogueName
         )
 
-        self.log.info('completed the ``_get_view_switcher_buttons`` method')
+        self.log.debug('completed the ``_get_view_switcher_buttons`` method')
         return view_switcher_buttons
 
     def _get_ntt_view_button(
@@ -337,7 +338,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_ntt_view_button`` method')
+        self.log.debug('starting the ``_get_ntt_view_button`` method')
 
         from ..commonelements.view_switcher_buttons import ntt_view_button
 
@@ -353,7 +354,7 @@ class templates_transients():
             request=self.request
         )
 
-        self.log.info('completed the ``_get_ntt_view_button`` method')
+        self.log.debug('completed the ``_get_ntt_view_button`` method')
         return ntt_view_button
 
     def _get_object_limit_dropdown(
@@ -368,7 +369,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_object_limit_dropdown`` method')
+        self.log.debug('starting the ``_get_object_limit_dropdown`` method')
 
         from ..commonelements.sorting.number_of_objects_dropdown import number_of_objects_dropdown
 
@@ -379,7 +380,7 @@ class templates_transients():
             tableView=self.qs["format"]
         )
 
-        self.log.info('completed the ``_get_object_limit_dropdown`` method')
+        self.log.debug('completed the ``_get_object_limit_dropdown`` method')
         return objectsPerPageDropdown
 
     def _get_object_table(
@@ -394,7 +395,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_object_table`` method')
+        self.log.debug('starting the ``_get_object_table`` method')
 
         # assoicate the correct column name to mysql database column name
         tableColumnNames = {
@@ -632,7 +633,7 @@ class templates_transients():
             onDesktop=True
         )
 
-        self.log.info('completed the ``_get_object_table`` method')
+        self.log.debug('completed the ``_get_object_table`` method')
         return object_table
 
     def _get_page_name(
@@ -647,7 +648,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_page_name`` method')
+        self.log.debug('starting the ``_get_page_name`` method')
 
         thisPageName = ""
         if "snoozed" in self.qs:
@@ -659,7 +660,7 @@ class templates_transients():
         elif "mwl" in self.qs:
             thisPageName = self.qs["mwl"]
 
-        self.log.info('completed the ``_get_page_name`` method')
+        self.log.debug('completed the ``_get_page_name`` method')
         return thisPageName
 
     def _get_object_tickets(
@@ -671,7 +672,7 @@ class templates_transients():
 
         **Todo**
         """
-        self.log.info('starting the ``_get_object_tickets`` method')
+        self.log.debug('starting the ``_get_object_tickets`` method')
 
         # get the webpage components
         ticketList = self._get_list_of_transient_tickets()
@@ -738,7 +739,7 @@ class templates_transients():
             onDesktop=True
         )
 
-        self.log.info('completed the ``_get_object_tickets`` method')
+        self.log.debug('completed the ``_get_object_tickets`` method')
         return ticket_table
 
     # use the tab-trigger below for new method
@@ -756,7 +757,7 @@ class templates_transients():
             - @review: when complete, clean _get_page_view_info method
             - @review: when complete add logging
         """
-        self.log.info('starting the ``_get_page_view_info`` method')
+        self.log.debug('starting the ``_get_page_view_info`` method')
 
         # craft some text from the download filename
         filename = self.qs["filename"]
@@ -807,7 +808,7 @@ class templates_transients():
         else:
             thisListing = ""
 
-        self.log.info('completed the ``_get_page_view_info`` method')
+        self.log.debug('completed the ``_get_page_view_info`` method')
         return thisListing
 
     # use the tab-trigger below for new method

@@ -70,7 +70,7 @@ class models_xmatches_element_searches_get(models_transients_get):
     #     **Return:**
     #         - ``responseContent`` -- the reponse to send to the browser
     #     """
-    #     self.log.info('starting the ``get`` method')
+    #     self.log.debug('starting the ``get`` method')
 
     #     elementId = self.elementId
 
@@ -82,7 +82,7 @@ class models_xmatches_element_searches_get(models_transients_get):
     #         responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
     #         )
 
-    #     self.log.info('completed the ``get`` method')
+    #     self.log.debug('completed the ``get`` method')
     #     return responseContent
 
     # def _set_default_parameters(
@@ -95,13 +95,13 @@ class models_xmatches_element_searches_get(models_transients_get):
     #     **Return:**
     #         - None
     #     """
-    #     self.log.info('starting the ``_set_default_parameters`` method')
+    #     self.log.debug('starting the ``_set_default_parameters`` method')
 
     #     for k, v in self.defaultQs.iteritems():
     #         if k not in self.qs:
     #             self.qs[k] = v
 
-    #     self.log.info('completed the ``_set_default_parameters`` method')
+    #     self.log.debug('completed the ``_set_default_parameters`` method')
     #     return None
 
     # xt-class-method

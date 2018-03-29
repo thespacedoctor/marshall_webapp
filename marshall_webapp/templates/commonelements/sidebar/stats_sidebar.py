@@ -61,7 +61,7 @@ def stats_sidebar(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``stats_sidebar`` function')
+    log.debug('starting the ``stats_sidebar`` function')
     ## VARIABLES ##
 
     leftColumnContent = ""
@@ -82,7 +82,7 @@ def stats_sidebar(
 %(esoPhaseIIILinks)s <br>
 """ % locals()
 
-    log.info('completed the ``stats_sidebar`` function')
+    log.debug('completed the ``stats_sidebar`` function')
     return stats_sidebar
 
 
@@ -114,7 +114,7 @@ def _stats_sidebar_header(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_stats_sidebar_header`` function')
+    log.debug('starting the ``_stats_sidebar_header`` function')
     ## VARIABLES ##
 
     pesstoIcon = khufu.image(
@@ -164,7 +164,7 @@ def _stats_sidebar_header(
         onDesktop=True
     )
 
-    log.info('completed the ``_stats_sidebar_header`` function')
+    log.debug('completed the ``_stats_sidebar_header`` function')
     # return "%(pesstoIcon)s %(createNewButton)s" % locals()
     return "%(pesstoIcon)s" % locals()
 
@@ -194,7 +194,7 @@ def _get_esoPhaseIII_links(
     ## LOCAL APPLICATION ##
     import khufu
 
-    log.info('starting the ``_get_development_links`` function')
+    log.debug('starting the ``_get_development_links`` function')
     ## VARIABLES ##
 
     title = khufu.li(
@@ -260,7 +260,7 @@ def _get_esoPhaseIII_links(
         onDesktop=True
     )
 
-    log.info('completed the ``_get_development_links`` function')
+    log.debug('completed the ``_get_development_links`` function')
     return developmentLinks
 
 

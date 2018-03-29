@@ -69,7 +69,7 @@ def overview_tab(
     from .. import ticket_building_blocks
     from ... import single_ticket
 
-    log.info('starting the ``overview_tab`` function')
+    log.debug('starting the ``overview_tab`` function')
     # TEST THE ARGUMENTS
 
     ## VARIABLES ##
@@ -144,7 +144,7 @@ def overview_tab(
         actionsBlock=actions_block
     )
 
-    log.info('completed the ``overview_tab`` function')
+    log.debug('completed the ``overview_tab`` function')
     return overview_tab
 
 ###################################################################

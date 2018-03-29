@@ -245,7 +245,7 @@ def _link_for_popover(
 
     **Todo**
     """
-    log.info('starting the ``_link_for_popover`` function')
+    log.debug('starting the ``_link_for_popover`` function')
 
     params["format"] = format
     params["method"] = "get"
@@ -320,7 +320,7 @@ def _link_for_popover(
         textAlign="center",  # [ left | center | right ]
     )
 
-    log.info('completed the ``_link_for_popover`` function')
+    log.debug('completed the ``_link_for_popover`` function')
     return thisLink
 
 # use the tab-trigger below for new function

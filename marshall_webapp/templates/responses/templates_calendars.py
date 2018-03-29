@@ -67,7 +67,7 @@ class templates_calendars():
 
         **Todo**
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         # the google calendar embed code
         maincontent = """
@@ -98,7 +98,7 @@ class templates_calendars():
             thisPageName="PESSTO Observing Calendar"
         )
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return webpage
 
     # xt-class-method

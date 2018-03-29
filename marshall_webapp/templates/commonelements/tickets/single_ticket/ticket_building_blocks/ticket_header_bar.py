@@ -59,7 +59,7 @@ def ticket_header_bar(
         - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
 
     """
-    log.info('starting the ``ticket_header_bar`` function')
+    log.debug('starting the ``ticket_header_bar`` function')
 
     ## VARIABLES ##
     now = datetime.datetime.now()
@@ -234,7 +234,7 @@ def _get_atel_warning(
 
     **Todo**
     """
-    log.info('starting the ``_get_atel_warning`` function')
+    log.debug('starting the ``_get_atel_warning`` function')
     ## VARIABLES ##
     rows = []
     for dataPoint in atelData:
@@ -261,7 +261,7 @@ def _get_atel_warning(
             if count != len(atelLinks):
                 atels = "%(atels)s, " % locals()
             count += 1
-        log.info('completed the ``_get_atel_warning`` function')
+        log.debug('completed the ``_get_atel_warning`` function')
 
         atels = khufu.alert(
             alertText=atels,
@@ -272,7 +272,7 @@ def _get_atel_warning(
 
         return atels
 
-    log.info('completed the ``_get_atel_warning`` function')
+    log.debug('completed the ``_get_atel_warning`` function')
     return None
 
 # LAST MODIFIED : April 2, 2014
@@ -296,7 +296,7 @@ def _get_magnitude_warning(
 
     **Todo**
     """
-    log.info('starting the ``_get_magnitude_warning`` function')
+    log.debug('starting the ``_get_magnitude_warning`` function')
 
     if currentMag in [9999, -9999]:
         text = "not enough data to determine a current magnitude"
@@ -315,7 +315,7 @@ def _get_magnitude_warning(
     )
     return alert
 
-    log.info('completed the ``_get_magnitude_warning`` function')
+    log.debug('completed the ``_get_magnitude_warning`` function')
     return None
 
 
@@ -338,7 +338,7 @@ def _get_no_lsq_recalibrated_data_alert(
 
     **Todo**
     """
-    log.info('starting the ``_get_no_lsq_recalibrated_data_alert`` function')
+    log.debug('starting the ``_get_no_lsq_recalibrated_data_alert`` function')
 
     alert = ""
     for row in lightcurveData:
@@ -355,7 +355,7 @@ def _get_no_lsq_recalibrated_data_alert(
                 )
                 break
 
-    log.info('completed the ``_get_no_lsq_recalibrated_data_alert`` function')
+    log.debug('completed the ``_get_no_lsq_recalibrated_data_alert`` function')
     return alert
 
 
@@ -378,7 +378,7 @@ def _resurrected_object_warning(
 
     **Todo**
     """
-    log.info('starting the ``_resurrected_object_warning`` function')
+    log.debug('starting the ``_resurrected_object_warning`` function')
 
     notification = False
     for row in objectHistories:
@@ -399,7 +399,7 @@ def _resurrected_object_warning(
     else:
         notification = ""
 
-    log.info('completed the ``_resurrected_object_warning`` function')
+    log.debug('completed the ``_resurrected_object_warning`` function')
     return notification
 
 

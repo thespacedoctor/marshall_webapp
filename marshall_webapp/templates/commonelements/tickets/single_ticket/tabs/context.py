@@ -63,7 +63,7 @@ def context_tab(
     """
     from ... import single_ticket
 
-    log.info('starting the ``context_tab`` function')
+    log.debug('starting the ``context_tab`` function')
 
     crossmatches = _crossmatch_info_block(
         log=log,
@@ -119,7 +119,7 @@ def context_tab(
         htmlId="contexttab"
     )
 
-    log.info('completed the ``context_tab`` function')
+    log.debug('completed the ``context_tab`` function')
     return "%(context_tab)s" % locals()
 
 
@@ -143,7 +143,7 @@ def context_footer_bar(
     **Todo**
     """
     lsqExists = False
-    log.info('starting the ``context_footer_bar`` function')
+    log.debug('starting the ``context_footer_bar`` function')
     ## VARIABLES ##
 
     footerColumn = khufu.grid_column(
@@ -178,7 +178,7 @@ def _host_info_block(
         - ``host_info_block`` -- the ticket identity block for the pesssto object
 
     """
-    log.info('starting the ``host_info_block`` function')
+    log.debug('starting the ``host_info_block`` function')
 
     title = cu.block_title(
         log,
@@ -306,7 +306,7 @@ def _crossmatch_info_block(
         - ``_crossmatch_info_block`` -- the crossmatch info from sherlock for the pesssto object
 
     """
-    log.info('starting the ``_crossmatch_info_block`` function')
+    log.debug('starting the ``_crossmatch_info_block`` function')
 
     title = cu.block_title(
         log,
@@ -613,7 +613,7 @@ def _aladin_block(
         - ``_aladin_block`` -- the crossmatch info from sherlock for the pesssto object
 
     """
-    log.info('starting the ``_aladin_block`` function')
+    log.debug('starting the ``_aladin_block`` function')
 
     title = cu.block_title(
         log,

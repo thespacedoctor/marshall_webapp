@@ -72,7 +72,7 @@ class models_xmatches_views_get():
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
         """
-        self.log.info('starting the ``get`` method')
+        self.log.debug('starting the ``get`` method')
 
         sortBy = self.qs["sortBy"]
         if self.qs["sortDesc"] == True or self.qs["sortDesc"].lower() == "true":
@@ -89,7 +89,7 @@ class models_xmatches_views_get():
 
         responseContent = objectData
 
-        self.log.info('completed the ``get`` method')
+        self.log.debug('completed the ``get`` method')
         return responseContent
 
     def _set_default_parameters(
@@ -102,13 +102,13 @@ class models_xmatches_views_get():
         **Return:**
             - None
         """
-        self.log.info('starting the ``_set_default_parameters`` method')
+        self.log.debug('starting the ``_set_default_parameters`` method')
 
         for k, v in self.defaultQs.iteritems():
             if k not in self.qs:
                 self.qs[k] = v
 
-        self.log.info('completed the ``_set_default_parameters`` method')
+        self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
     # xt-class-method
