@@ -206,9 +206,10 @@ class models_transients_post():
 
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
+        from fundamentals.logs import emptyLogger
         import pessto_marshall_engine.database.imports.import_user_added_transients as iua
         iua.import_user_added_transients(
-            log=self.log, dbConn=dbConn)
+            log=emptyLogger(), dbConn=dbConn)
 
         # search to make sure the object was added to the transientBucket
         from pessto_marshall_engine.database import crossmatchers
