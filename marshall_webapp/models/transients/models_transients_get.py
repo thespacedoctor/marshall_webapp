@@ -289,7 +289,7 @@ class models_transients_get():
             elif self.qs["sortBy"] == "observationPriority":
                 sortBy = self.qs["sortBy"]
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s, t.raDeg %(sortDirection)s
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s %(sortDirection)s, case when t.dateAdded is null then 1 else 0 end,  t.dateAdded desc
                 """ % locals()
 
             else:
@@ -307,6 +307,8 @@ class models_transients_get():
         pageStart = self.qs["pageStart"]
         limit = self.qs["limit"]
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
+
+        print sqlQuery
 
         # grab the transientBucketIds
 
