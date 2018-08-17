@@ -79,7 +79,8 @@ def classify_object_form(
     else:
         defaultOption = False
     sourceInput = khufu.select(
-        optionList=["atel", "ePESSTO", "cbat", "private comm.", "PESSTO"],
+        optionList=["atel", "ePESSTO", "cbat",
+                    "private comm.", "GCN", "PESSTO"],
         multiple=False,
         span=4,
         htmlId="clsSource",
