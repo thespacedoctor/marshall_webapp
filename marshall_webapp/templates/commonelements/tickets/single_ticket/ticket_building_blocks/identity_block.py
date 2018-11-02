@@ -251,7 +251,8 @@ def identity_block(
         "mls_stamp": "mls_stamp.jpeg",
         "sss_stamp": "sss_stamp.jpeg",
         "lsq_stamp": "lsq_stamp.jpeg",
-        "master_stamp": "master_stamp.jpeg"
+        "master_stamp": "master_stamp.jpeg",
+        "ztf_stamp": "ztf_triplet_stamp.jpeg"
     }
 
     hasStamp = False
