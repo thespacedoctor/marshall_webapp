@@ -308,8 +308,6 @@ class models_transients_get():
         limit = self.qs["limit"]
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
 
-        print sqlQuery
-
         # grab the transientBucketIds
 
         rows = self.request.db.execute(sqlQuery).fetchall()
