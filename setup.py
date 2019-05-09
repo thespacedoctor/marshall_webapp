@@ -22,7 +22,7 @@ install_requires = [
     'khufu',
     'dryxPython',
     'dryxPyramid',
-    'pymysql',
+    'pymysql==0.9.0',
     'astrocalc'
 ]
 
