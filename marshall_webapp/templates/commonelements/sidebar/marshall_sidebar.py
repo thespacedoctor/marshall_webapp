@@ -345,6 +345,8 @@ def _get_observation_queues(
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
+    theseParams["filterBy1"] = False
+
     classificationTargetsLink = khufu.a(
         content='<i class="icon-target2"></i> classification targets (%s)' % (
             count,),
@@ -388,6 +390,8 @@ def _get_observation_queues(
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
+    theseParams["filterBy1"] = False
+
     followupTargetsLink = khufu.a(
         content='<i class="icon-pin"></i> + followup targets (%s)' % (count,),
         href=request.route_path('transients', _query=theseParams),
@@ -428,6 +432,8 @@ def _get_observation_queues(
         params=theseParams,
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
+
+    theseParams["filterBy1"] = False
 
     allTargetsLink = khufu.a(
         content='= all targets (%s)' % (count,),
@@ -546,6 +552,8 @@ def _get_classification_queues(
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
+    theseParams["filterBy1"] = False
+
     queuedForClassificationLink = khufu.a(
         content='queued for classification (%s)' % (count,),
         href=request.route_path(
@@ -587,6 +595,8 @@ def _get_classification_queues(
         params=theseParams,
         paramsToRemove=["snoozed", "cf", "mwl", "pageStart", "q"]
     )
+
+    theseParams["filterBy1"] = False
 
     queuedForAtelLink = khufu.a(
         content='queued for atel (%s)' % (count,),
@@ -957,6 +967,10 @@ def _get_target_selection_queue(
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
 
+    theseParams["filterBy1"] = "decDeg"
+    theseParams["filterValue1"] = 30
+    theseParams["filterOp1"] = "<"
+
     inboxLink = khufu.a(
         content='<i class="icon-inbox"></i>  inbox (%s)' % (count,),
         href=request.route_path('transients', _query=theseParams),
@@ -999,6 +1013,10 @@ def _get_target_selection_queue(
         paramsToRemove=["cf", "awl", "pageStart", "q"]
     )
 
+    theseParams["filterBy1"] = "decDeg"
+    theseParams["filterValue1"] = 30
+    theseParams["filterOp1"] = "<"
+
     snoozedLink = khufu.a(
         content='<i class="icon-alarm3"></i>  snoozed (%s)' % (count,),
         href=request.route_path('transients', _query=theseParams),
@@ -1038,6 +1056,10 @@ def _get_target_selection_queue(
         params=theseParams,
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
+
+    theseParams["filterBy1"] = "decDeg"
+    theseParams["filterValue1"] = 30
+    theseParams["filterOp1"] = "<"
 
     reviewForFollowupLink = khufu.a(
         content='<i class="icon-eye"></i>  review for followup (%s)' % (

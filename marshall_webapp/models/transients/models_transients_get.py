@@ -760,7 +760,6 @@ class models_transients_get():
             "classificationPhase",
             "classificationWRTMax",
             "classificationDate",
-            "transientTypePrediction",
             "currentMagnitude",
             "absolutePeakMagnitude",
             "best_redshift",

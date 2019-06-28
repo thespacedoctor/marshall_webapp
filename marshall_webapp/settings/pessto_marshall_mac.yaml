@@ -1,6 +1,6 @@
 version: 1
 database settings:
-    db: pessto_marshall_sandbox
+    db: marshall
     host: localhost
     user: pessto
     password: p355t0
@@ -66,8 +66,8 @@ panstarrs urls:
         summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
         recurrence csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/recurrences.csv"
     gw:
-        summary csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/summary.csv
-        recurrence csv: http://star.pst.qub.ac.uk/sne/ps1gw/site_media/images/lightcurves/recurrences.csv
+        summary csv: http://star.pst.qub.ac.uk/sne/pso3/site_media/images/lightcurves/summary.csv
+        recurrence csv: http://star.pst.qub.ac.uk/sne/pso3/site_media/images/lightcurves/recurrences.csv
 
 atlas urls:
     summary csv: "https://star.pst.qub.ac.uk/sne/atlas4/pesstosummary/"
@@ -156,6 +156,6 @@ logging settings:
             # maxBytes: 1024000
             # backupCount: 3
     root:
-        level: INFO
+        level: WARNING
         # handlers: [debug_file,file,html_log_file]
         handlers: [file,console,html_log_file]
