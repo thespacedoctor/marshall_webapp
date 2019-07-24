@@ -23,7 +23,10 @@ install_requires = [
     'dryxPython',
     'dryxPyramid',
     'pymysql==0.9.0',
-    'astrocalc'
+    'astrocalc',
+    'pessto_marshall_engine',
+    'HMpTy',
+    'astropy'
 ]
 
 # READ THE DOCS SERVERS
