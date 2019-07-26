@@ -1,0 +1,5 @@
+{
+  "marshall_webapp/views/tests/test_views_transients.py::BaseTest": true, 
+  "marshall_webapp/views/tests/test_views_transients.py::test_views_transients": true, 
+  "marshall_webapp/views/tests/test_views_transients.py::test_views_transients::test_views_transients_post": true
+}

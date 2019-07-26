@@ -141,7 +141,7 @@ class models_transients_post():
             )
 
         # GET DATES AND MJD
-        if "-" in objectDate:
+        if isinstance(objectDate, str) and "-" in objectDate:
             objectDate = datetime.strptime(
                 objectDate + "T00:00:00.0", '%Y-%m-%dT%H:%M:%S.%f')
             mjd = dat.getMJDFromSqlDate(

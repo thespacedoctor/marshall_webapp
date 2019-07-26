@@ -6,7 +6,7 @@ exec(open(moduleDirectory + "/marshall_webapp/__version__.py").read())
 
 
 def readme():
-    with open(moduleDirectory + '/README.rst') as f:
+    with open(moduleDirectory + '/README.md') as f:
         return f.read()
 
 install_requires = [
@@ -26,7 +26,9 @@ install_requires = [
     'astrocalc',
     'pessto_marshall_engine',
     'HMpTy',
-    'astropy'
+    'astropy',
+    'pytest',
+    'webtest'
 ]
 
 # READ THE DOCS SERVERS
