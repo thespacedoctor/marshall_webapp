@@ -27,7 +27,7 @@ import numpy as np
 import khufu
 import collections
 from dryxPython import commonutils as dcu
-from .....commonelements import commonutils as cu
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
 ###################################################################

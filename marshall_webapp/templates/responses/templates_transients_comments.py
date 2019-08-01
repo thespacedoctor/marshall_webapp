@@ -24,8 +24,8 @@ templates_transients_comments.py
 import sys
 import os
 import khufu
-from ...models.transients_comments import models_transients_comments_get
-from ...models.transients_comments.element import models_transients_element_comments_get
+from marshall_webapp.models.transients_comments import models_transients_comments_get
+from marshall_webapp.models.transients_comments.element import models_transients_element_comments_get
 
 
 class templates_transients_comments():

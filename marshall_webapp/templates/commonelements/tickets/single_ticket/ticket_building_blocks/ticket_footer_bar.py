@@ -23,7 +23,7 @@ import os
 import re
 from docopt import docopt
 from dryxPython import commonutils as dcu
-from .....commonelements import commonutils as cu
+from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 import dryxPython.astrotools as dat
 

@@ -27,6 +27,7 @@ import khufu
 from datetime import datetime
 from dryxPython import astrotools as dat
 import pessto_marshall_engine.database.housekeeping.flags.update_transientbucketsummaries_flags as update_transientbucketsummaries_flags
+from marshallEngine.feeders.useradded import data, images
 
 
 class models_transients_post():
@@ -206,31 +207,18 @@ class models_transients_post():
 
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
-        from fundamentals.logs import emptyLogger
-        import pessto_marshall_engine.database.imports.import_user_added_transients as iua
-        iua.import_user_added_transients(
-            log=emptyLogger(), dbConn=dbConn)
 
-        # search to make sure the object was added to the transientBucket
-        from pessto_marshall_engine.database import crossmatchers
-        transientBucketIdList, raList, decList, objectNameList = crossmatchers.conesearch_marshall_transientBucket_objects(
-            dbConn=dbConn,
+        # IMPORT THE DATA AND IMAGES
+        ingester = data(
             log=self.log,
-            ra=float(objectRa),
-            dec=float(objectDec),
-            radiusArcSec=5.,
-            nearest=True
-        )
-
-        # if there's a match, update_transientbucketsummaries_flags
-        if transientBucketIdList:
-            for i in range(2):
-                self.log.debug('updating flags %(i)s' % locals())
-                update_transientbucketsummaries_flags.update_transientbucketsummaries_flags(
-                    self.log, dbConn, updateAll=False, transientBucketId=transientBucketIdList)
-
-        self.response = "Added new transient (%(objectName)s) to the Marshall database" % locals(
-        )
+            settings=self.request.registry.settings,
+            dbConn=dbConn
+        ).ingest(withinLastDays=3000)
+        cacher = images(
+            log=self.log,
+            settings=self.request.registry.settings,
+            dbConn=dbConn
+        ).cache(limit=3000)
 
         # Create the redirect URL based on the name of the new object added
         self.redirectUrl = self.request.route_path(

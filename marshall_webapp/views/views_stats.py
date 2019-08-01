@@ -2,7 +2,7 @@ import logging
 import pyramid.httpexceptions as exc
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
-from ..templates.responses import templates_stats
+from marshall_webapp.templates.responses import templates_stats
 
 
 @view_defaults(route_name='stats', permission="view_users")
@@ -73,4 +73,3 @@ class stats_element_view(object):
         )
         responseContent = stats.get()
         return Response(responseContent)
-

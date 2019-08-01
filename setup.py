@@ -28,7 +28,8 @@ install_requires = [
     'HMpTy',
     'astropy',
     'pytest',
-    'webtest'
+    'webtest',
+    'marshallEngine'
 ]
 
 # READ THE DOCS SERVERS

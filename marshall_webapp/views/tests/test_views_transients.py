@@ -25,11 +25,11 @@ su = tools(
 )
 arguments, settings, log, dbConn = su.setup()
 
-# load settings
-stream = file(
-    "/Users/Dave/.config/marshall_webapp/marshall_webapp.yaml", 'r')
-settings = yaml.load(stream)
-stream.close()
+# # load settings
+# stream = file(
+#     "/Users/Dave/.config/marshall_webapp/marshall_webapp.yaml", 'r')
+# settings = yaml.load(stream)
+# stream.close()
 
 # SETUP AND TEARDOWN FIXTURE FUNCTIONS FOR THE ENTIRE MODULE
 moduleDirectory = os.path.dirname(__file__)
@@ -61,9 +61,14 @@ class test_views_transients(BaseTest):
         BaseTest.__init__(self, *args, **kwargs)
         self.testIni = moduleDirectory + "/../../../test.ini#marshall_webapp"
         self.testSettings = settings
+        self.settings = settings
+        utKit.refresh_database()
 
     def test_views_transients_post(self):
-
+        self.config.add_route('transients', '/transients')
+        self.config.add_route(
+            'transients_search', '/transients/search')
+        utKit.refresh_database()
         from marshall_webapp.views import transients_view
         params = {
             "objectName": "TestSource",
@@ -85,7 +90,7 @@ class test_views_transients(BaseTest):
             request=request
         )
         response = resource.post()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_views_transients_function_exception(self):
 

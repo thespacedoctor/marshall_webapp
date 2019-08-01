@@ -25,7 +25,7 @@ import datetime as datetime
 from docopt import docopt
 import khufu
 from dryxPython import commonutils as dcu
-from .....commonelements import commonutils as cu
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
 ###################################################################

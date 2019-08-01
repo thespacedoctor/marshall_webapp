@@ -58,10 +58,9 @@ def development_tab(
     """
     ################ > IMPORTS ################
     from time import strftime
-    from .. import ticket_building_blocks
-    from .. import tabs
-    from ... import single_ticket
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
+    from marshall_webapp.templates.commonelements import forms
 
     log.debug('starting the ``development_tab`` function')
 

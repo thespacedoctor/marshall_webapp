@@ -19,7 +19,7 @@ templates_pessto_members.py
 import sys
 import os
 import yaml
-from ...models.pessto_members import models_pessto_members_get
+from marshall_webapp.models.pessto_members import models_pessto_members_get
 from pyramid.path import AssetResolver
 import khufu
 
@@ -76,7 +76,7 @@ class templates_pessto_members():
         #     maincontent = self._get_object_tickets()
 
         maincontent = self._get_members_table()
-        from ..commonelements.pagetemplates import defaultpagetemplate
+        from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
         # if self.tcsCatalogueId:
         #     sideBar = "xmatches"

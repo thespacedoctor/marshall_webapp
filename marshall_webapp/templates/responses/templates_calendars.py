@@ -24,7 +24,7 @@ templates_calendars.py
 import sys
 import os
 import khufu
-from ..commonelements.pagetemplates import defaultpagetemplate
+from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
 
 class templates_calendars():

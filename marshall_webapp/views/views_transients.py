@@ -4,8 +4,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from marshall_webapp.templates.responses import templates_transients
-from ..models.transients import models_transients_post, models_transients_put, models_transients_get
-from ..models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
+from marshall_webapp.models.transients import models_transients_post, models_transients_put, models_transients_get
+from marshall_webapp.models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
 
 
 # @view_config(route_name='index', request_method='GET', permission="view_users")

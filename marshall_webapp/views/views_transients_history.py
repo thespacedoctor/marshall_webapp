@@ -5,8 +5,8 @@ import pyramid.httpexceptions as exc
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
-from ..templates.responses import templates_transients_history
-from ..models.transients_history.element import models_transients_element_history_delete, models_transients_element_history_put, models_transients_element_history_post
+from marshall_webapp.templates.responses import templates_transients_history
+from marshall_webapp.models.transients_history.element import models_transients_element_history_delete, models_transients_element_history_put, models_transients_element_history_post
 
 # RESOURCE ELEMENT
 

@@ -2,7 +2,7 @@ import logging
 import pyramid.httpexceptions as exc
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
-from ..templates.responses import templates_calendars
+from marshall_webapp.templates.responses import templates_calendars
 
 
 @view_defaults(route_name='calendars',  permission="view_users")

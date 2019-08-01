@@ -3,7 +3,7 @@ import pyramid.httpexceptions as exc
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
-from ..models.actions import models_refresh_sidebar_list_counts
+from marshall_webapp.models.actions import models_refresh_sidebar_list_counts
 
 # RESOURCE CONTEXT
 

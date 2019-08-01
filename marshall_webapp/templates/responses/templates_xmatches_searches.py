@@ -23,8 +23,8 @@ import sys
 import os
 import khufu
 import re
-from ...models.xmatches_searches import models_xmatches_searches_get
-from ...models.xmatches_searches.element import models_xmatches_element_searches_get
+from marshall_webapp.models.xmatches_searches import models_xmatches_searches_get
+from marshall_webapp.models.xmatches_searches.element import models_xmatches_element_searches_get
 
 
 class templates_xmatches_searches():
@@ -69,7 +69,7 @@ class templates_xmatches_searches():
         """
         self.log.debug('starting the ``get`` method')
 
-        from ..commonelements.pagetemplates import defaultpagetemplate
+        from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
         if self.elementId == False:
             xmatches_searches = models_xmatches_searches_get(
@@ -78,7 +78,7 @@ class templates_xmatches_searches():
             )
             self.catalogues = xmatches_searches.get()
 
-            from ..commonelements.pagetemplates import defaultpagetemplate
+            from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
             # add text color
             text = khufu.coloredText(

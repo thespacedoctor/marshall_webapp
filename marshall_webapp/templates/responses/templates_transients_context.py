@@ -24,8 +24,8 @@ templates_transients_context.py
 import sys
 import os
 import khufu
-from ...models.transients_context import models_transients_context_get
-from ...models.transients_context.element import models_transients_element_context_get
+from marshall_webapp.models.transients_context import models_transients_context_get
+from marshall_webapp.models.transients_context.element import models_transients_element_context_get
 
 
 class templates_transients_context():
@@ -75,7 +75,7 @@ class templates_transients_context():
         """
         self.log.debug('starting the ``get`` method')
 
-        from ..commonelements.pagetemplates import defaultpagetemplate
+        from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
         # grab the comments from the database
         transients_context = models_transients_context_get(

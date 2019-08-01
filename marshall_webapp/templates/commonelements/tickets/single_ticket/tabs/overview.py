@@ -66,8 +66,8 @@ def overview_tab(
     ## THIRD PARTY ##
     ## LOCAL APPLICATION ##
     import khufu
-    from .. import ticket_building_blocks
-    from ... import single_ticket
+    from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
 
     log.debug('starting the ``overview_tab`` function')
     # TEST THE ARGUMENTS

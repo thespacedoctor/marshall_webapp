@@ -19,8 +19,8 @@ marshall_sidebar.py
 import sys
 import os
 import khufu
-from ....models.transients import models_transients_count
-from ...commonelements import forms
+from marshall_webapp.models.transients import models_transients_count
+from marshall_webapp.templates.commonelements import forms
 
 
 def marshall_sidebar(

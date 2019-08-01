@@ -24,7 +24,7 @@ templates_stats.py
 import sys
 import os
 import khufu
-from ..commonelements.pagetemplates import defaultpagetemplate
+from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
 
 class templates_stats():
@@ -72,7 +72,7 @@ class templates_stats():
         """
         self.log.debug('starting the ``get`` method')
 
-        from ..commonelements.stats.esophaseIII import plot_wells, ssdr_stats_table
+        from marshall_webapp.templates.commonelements.stats.esophaseIII import plot_wells, ssdr_stats_table
 
         # get the image wells for the plots
         sofiImagingPlots = plot_wells(

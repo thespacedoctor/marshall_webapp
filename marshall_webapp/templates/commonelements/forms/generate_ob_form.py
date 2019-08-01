@@ -25,7 +25,7 @@ from docopt import docopt
 from dryxPython import commonutils as dcu
 import khufu
 import dryxPython.astrotools as dat
-from ..tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
+from marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #

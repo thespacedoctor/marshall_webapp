@@ -24,7 +24,7 @@ templates_transients_obs.py
 import sys
 import os
 import khufu
-from ...models.transients_obs import models_transients_obs_get
+from marshall_webapp.models.transients_obs import models_transients_obs_get
 
 
 class templates_transients_obs():

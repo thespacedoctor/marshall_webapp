@@ -22,7 +22,7 @@ import numpy as np
 import string
 import khufu
 
-from .....commonelements import commonutils as cu
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
 ###################################################################
@@ -242,6 +242,7 @@ def identity_block(
     objectNames = []
 
     stampFlags = {
+        "user_added_stamp": "useradded_target_stamp.jpeg",
         "ps1_target_stamp": "ps1_target_stamp.jpeg",
         "gaia_stamp": "gaia_stamp.jpeg",
         "ogle_target_stamp": "ogle_target_stamp.jpeg",

@@ -19,7 +19,7 @@ templates_xmatches.py
 import sys
 import os
 import yaml
-from ...models.xmatches import models_xmatches_get
+from marshall_webapp.models.xmatches import models_xmatches_get
 from pyramid.path import AssetResolver
 import khufu
 
@@ -62,7 +62,7 @@ class templates_xmatches():
         """
         self.log.debug('starting the ``get`` method')
 
-        from ..commonelements.pagetemplates import defaultpagetemplate
+        from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
         maincontent = ""
 

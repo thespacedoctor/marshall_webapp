@@ -25,7 +25,7 @@ templates_transients_history.py
 import sys
 import os
 import khufu
-from ...models.transients_history.element import models_transients_element_history_get
+from marshall_webapp.models.transients_history.element import models_transients_element_history_get
 
 
 class templates_transients_history():

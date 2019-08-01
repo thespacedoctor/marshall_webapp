@@ -24,7 +24,7 @@ from datetime import datetime, date, time
 from docopt import docopt
 from dryxPython import commonutils as dcu
 import khufu
-from .....commonelements import commonutils as cu
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
 ###################################################################
@@ -52,7 +52,7 @@ def actions_block(
 
     **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
     title = cu.block_title(
         log,
         title="actions"
@@ -157,7 +157,7 @@ def _get_classify_button(
 
     **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
@@ -439,7 +439,7 @@ def _get_change_pi_button(
 
     **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
 
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
@@ -485,7 +485,7 @@ def _generate_ob_button(
 
     **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 

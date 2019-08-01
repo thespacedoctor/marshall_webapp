@@ -1,8 +1,8 @@
 version: 1
 database settings:
-    db: unit_testing
+    db: unit_tests
     host: localhost
-    user: unittesting
+    user: utuser
     password: utpass
     loginPath: unittesting
     tunnel: False
@@ -23,6 +23,9 @@ ssh tunnel:
     remote ip: mydomain.co.uk
     remote datbase host: mydatabaseName
     port: 9002
+
+downloads:
+    transient cache directory: "/Users/Dave/git_repos/marshall_webapp/marshall_webapp/static/caches/transients/"
 
 logging settings:
     formatters:

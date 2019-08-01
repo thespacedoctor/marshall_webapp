@@ -24,7 +24,7 @@ templates_transients_lightcurves.py
 import sys
 import os
 import khufu
-from ...models.transients_lightcurves import models_transients_lightcurves_get
+from marshall_webapp.models.transients_lightcurves import models_transients_lightcurves_get
 
 
 class templates_transients_lightcurves():

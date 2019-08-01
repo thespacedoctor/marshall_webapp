@@ -25,7 +25,7 @@ import sys
 import os
 import yaml
 import re
-from ...models.transients import models_transients_get
+from marshall_webapp.models.transients import models_transients_get
 from pyramid.path import AssetResolver
 import khufu
 
@@ -116,7 +116,7 @@ class templates_transients():
         else:
             maincontent = self._get_object_tickets()
 
-        from ..commonelements.pagetemplates import defaultpagetemplate
+        from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
         if self.tcsCatalogueId:
             sideBar = "xmatches"
@@ -150,7 +150,7 @@ class templates_transients():
 
         **Todo**
         """
-        from ..commonelements.tickets.single_ticket import single_ticket
+        from marshall_webapp.templates.commonelements.tickets.single_ticket import single_ticket
         from dryxPython import astrotools as dat
 
         self.log.debug(
@@ -212,7 +212,7 @@ class templates_transients():
         """
         self.log.debug('starting the ``_get_sort_dropdown`` method')
 
-        from ..commonelements.sorting.ticket_table_sorting_dropdown import ticket_table_sorting_dropdown
+        from marshall_webapp.templates.commonelements.sorting.ticket_table_sorting_dropdown import ticket_table_sorting_dropdown
 
         sort = ticket_table_sorting_dropdown(
             log=self.log,
@@ -221,7 +221,7 @@ class templates_transients():
             sortDesc=self.qs["sortDesc"]
         )
 
-        from ..commonelements.filtering.ticket_table_filter_dropdown import ticket_table_filter_dropdown
+        from marshall_webapp.templates.commonelements.filtering.ticket_table_filter_dropdown import ticket_table_filter_dropdown
 
         if "filterBy2" not in self.qs:
             self.qs["filterBy2"] = False
@@ -281,7 +281,7 @@ class templates_transients():
         """
         self.log.debug('starting the ``_get_pagination`` method')
 
-        from ..commonelements.pagination.ticket_table_pagination import ticket_table_pagination
+        from marshall_webapp.templates.commonelements.pagination.ticket_table_pagination import ticket_table_pagination
 
         pagination = ticket_table_pagination(
             log=self.log,
@@ -308,7 +308,7 @@ class templates_transients():
         """
         self.log.debug('starting the ``_get_view_switcher_buttons`` method')
 
-        from ..commonelements.view_switcher_buttons import view_switcher_buttons
+        from marshall_webapp.templates.commonelements.view_switcher_buttons import view_switcher_buttons
 
         if self.tcsCatalogueId:
             elementId = self.tcsCatalogueId
@@ -340,7 +340,7 @@ class templates_transients():
         """
         self.log.debug('starting the ``_get_ntt_view_button`` method')
 
-        from ..commonelements.view_switcher_buttons import ntt_view_button
+        from marshall_webapp.templates.commonelements.view_switcher_buttons import ntt_view_button
 
         if self.tcsCatalogueId:
             elementId = self.tcsCatalogueId
@@ -371,7 +371,7 @@ class templates_transients():
         """
         self.log.debug('starting the ``_get_object_limit_dropdown`` method')
 
-        from ..commonelements.sorting.number_of_objects_dropdown import number_of_objects_dropdown
+        from marshall_webapp.templates.commonelements.sorting.number_of_objects_dropdown import number_of_objects_dropdown
 
         objectsPerPageDropdown = number_of_objects_dropdown(
             log=self.log,

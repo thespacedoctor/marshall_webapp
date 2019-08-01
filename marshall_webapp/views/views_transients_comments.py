@@ -3,8 +3,8 @@ import pyramid.httpexceptions as exc
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
-from ..templates.responses import templates_transients_comments
-from ..models.transients_comments.element import models_transients_element_comments_delete, models_transients_element_comments_put, models_transients_element_comments_post
+from marshall_webapp.templates.responses import templates_transients_comments
+from marshall_webapp.models.transients_comments.element import models_transients_element_comments_delete, models_transients_element_comments_put, models_transients_element_comments_post
 
 # RESOURCE CONTEXT
 

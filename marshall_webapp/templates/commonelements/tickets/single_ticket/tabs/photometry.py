@@ -26,7 +26,7 @@ from docopt import docopt
 from dryxPython import commonutils as dcu
 import khufu
 import dryxPython.astrotools as dat
-from .. import ticket_building_blocks
+from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
 
 ###################################################################
 # PUBLIC FUNCTIONS                                                #
@@ -58,7 +58,7 @@ def photometry_tab(
 
     **Todo**
     """
-    from ... import single_ticket
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
 
     log.debug('starting the ``photometry_tab`` function')
 

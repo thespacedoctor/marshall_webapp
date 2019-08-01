@@ -64,7 +64,7 @@ def defaultpagetemplate(
     log.debug('starting the ``webpage`` function')
 
     # imports
-    from .. import *
+    from marshall_webapp.templates.commonelements import *
 
     # set default variables
     if not bodyId:
