@@ -26,7 +26,7 @@ import os
 import khufu
 from dryxPython import commonutils as dcu
 from dryxPython import astrotools as dat
-from pessto_marshall_engine.database.housekeeping.flags.update_transientbucketsummaries_flags import update_transientbucketsummaries_flags
+from marshallEngine.housekeeping import update_transient_summaries
 
 
 class models_transients_element_post():
@@ -107,7 +107,7 @@ class models_transients_element_post():
         # first select out a row from the transientBucket as a template for the
         # classification
         sqlQuery = """
-            select p.classifiedFlag, t.raDeg, t.decDeg, t.name, t.htm20ID, t.htm16ID from transientBucket t, pesstoObjects p where replacedByRowId = 0 and t.transientBucketId = %(transientBucketId)s and t.transientBucketId=p.transientBucketId limit 1
+            select p.classifiedFlag, t.raDeg, t.decDeg, t.name from transientBucket t, pesstoObjects p where replacedByRowId = 0 and t.transientBucketId = %(transientBucketId)s and t.transientBucketId=p.transientBucketId limit 1
         """ % locals()
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
@@ -152,10 +152,12 @@ class models_transients_element_post():
         duplicate = False
         try:
             sqlQuery = """
-                INSERT INTO transientBucket (raDeg, decDeg, name, htm16ID, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm16ID)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
+                INSERT INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
             """ % locals()
+
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
+
         except:
             duplicate = True
 
@@ -163,6 +165,7 @@ class models_transients_element_post():
             sqlQuery = """
                 select primaryKeyId from transientBucket where decDeg= %(decDeg)s and name="%(name)s" and observationMjd=%(obsMjd)s and survey="%(clsSource)s" and replacedByRowId = 0;
             """  % locals()
+
             objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
             objectData = []
             objectData[:] = [dict(zip(row.keys(), row))
@@ -170,7 +173,7 @@ class models_transients_element_post():
             primaryKeyId = objectData[0]["primaryKeyId"]
 
             sqlQuery = """
-                INSERT IGNORE INTO transientBucket (raDeg, decDeg, name, htm16ID, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer, replacedByRowId) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(htm16ID)s, %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s", %(primaryKeyId)s);
+                INSERT IGNORE INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer, replacedByRowId) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s", %(primaryKeyId)s);
             """ % locals()
             self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
             self.request.db.execute(sqlQuery)
@@ -207,13 +210,11 @@ class models_transients_element_post():
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 
-        # update_transientbucketsummaries_flags
-        update_transientbucketsummaries_flags(
+        updater = update_transient_summaries(
             log=self.log,
-            dbConn=self.request.registry.settings["dbConn"],
-            updateAll=False,
-            transientBucketId=transientBucketId
-        )
+            settings=self.request.registry.settings,
+            dbConn=self.request.registry.settings["dbConn"]
+        ).update()
 
         self.response = self.response + \
             "Add a classification to transient #%(transientBucketId)s " % locals(

@@ -142,7 +142,9 @@ class models_transients_get():
             self.log.debug("""searchString: `%(searchString)s`""" % locals())
             # SEARCH MASTER & AKA NAMES
             sqlQuery = """
-                select distinct t.transientBucketId as transientBucketId from transientBucket t, pesstoObjects p where t.replacedByRowId = 0 and (lower(t.name) like "%%%(searchString)s%%" or replace(p.pi_name," ","") like "%%%(searchString)s%%") and t.transientBucketId = p.transientBucketId
+                (select DISTINCT  transientBucketId from transientBucket where MATCH (name) AGAINST ('*%(searchString)s*' IN BOOLEAN MODE))
+                    union
+                (select DISTINCT  transientBucketId from pesstoObjects where MATCH (pi_name) AGAINST ('*%(searchString)s*' IN BOOLEAN MODE))
             """ % locals()
             self.log.debug(
                 """sqlQUery for searchString: `%(sqlQuery)s`""" % locals())
@@ -443,7 +445,7 @@ class models_transients_get():
                 self.qs[k] = v
 
         self.qs["filterText1"] = ""
-        if "filterBy1" in self.qs and self.qs["filterBy1"] and self.qs["filterBy1"].lower() == "false":
+        if "filterBy1" in self.qs and self.qs["filterBy1"] and (self.qs["filterBy1"].lower() == "false" or "null" in self.qs["filterBy1"].lower()):
             self.qs["filterBy1"] = False
         if "filterBy1" in self.qs and self.qs["filterBy1"]:
             if "filterOp1" not in self.qs:
@@ -790,6 +792,7 @@ class models_transients_get():
             newRow = collections.OrderedDict(sorted(tmpRow.items()))
 
             for oldName, newName in tableColumnNames.iteritems():
+
                 newRow[newName] = oldRow[oldName]
                 if "decdeg" in oldName.lower():
                     raSex = dat.ra_to_sex(

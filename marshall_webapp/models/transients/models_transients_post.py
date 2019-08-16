@@ -26,7 +26,6 @@ import os
 import khufu
 from datetime import datetime
 from dryxPython import astrotools as dat
-import pessto_marshall_engine.database.housekeeping.flags.update_transientbucketsummaries_flags as update_transientbucketsummaries_flags
 from marshallEngine.feeders.useradded import data, images
 
 
@@ -207,6 +206,8 @@ class models_transients_post():
 
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
+
+        print dbConn
 
         # IMPORT THE DATA AND IMAGES
         ingester = data(
