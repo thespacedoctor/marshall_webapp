@@ -109,8 +109,8 @@ def lightcurve_block(
         lightCurveImage = request.static_path(
             'marshall_webapp:static/caches/transients/%s/atlas_fp_lightcurve.png' % (
                 discoveryDataDictionary["transientBucketId"],))
-        dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%s/atlas_fp_lightcurve.png' % (
-            discoveryDataDictionary["transientBucketId"],))
+        dlightCurveImage = 'static/caches/transients/%s/atlas_fp_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],)
 
     if len(lightCurveImage):
         href = request.route_path(
