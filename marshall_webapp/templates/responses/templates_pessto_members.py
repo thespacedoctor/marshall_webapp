@@ -1,31 +1,22 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_pessto_members.py
-=======================
-:Summary:
-    Template for the pessto_members view
+*Template for the pessto_members view*
 
 :Author:
     David Young
 
 :Date Created:
     January 21, 2016
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-import yaml
 from marshall_webapp.models.pessto_members import models_pessto_members_get
 from pyramid.path import AssetResolver
 import khufu
 
 
 class templates_pessto_members():
-
     """
     The worker class for the templates_pessto_members module
 
@@ -35,7 +26,6 @@ class templates_pessto_members():
         - ``elementId`` -- the specific element requested (or False)
         - ``search`` -- is this a search? (boolean)
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -60,7 +50,6 @@ class templates_pessto_members():
 
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_pessto_members object
 
@@ -69,19 +58,8 @@ class templates_pessto_members():
         """
         self.log.debug('starting the ``get`` method')
 
-        # # choose which format of the content to display
-        # if self.qs["format"] == "html_table":
-        #     maincontent = self._get_object_table()
-        # else:
-        #     maincontent = self._get_object_tickets()
-
         maincontent = self._get_members_table()
         from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
-
-        # if self.tcsCatalogueId:
-        #     sideBar = "xmatches"
-        # else:
-        #     sideBar = False
 
         webpage = defaultpagetemplate(
             log=self.log,
@@ -109,19 +87,19 @@ class templates_pessto_members():
 
         total = len(self.pesstoMembers)
 
-        # assoicate the correct column name to mysql database column name
+        # ASSOICATE THE CORRECT COLUMN NAME TO MYSQL DATABASE COLUMN NAME
         tableColumnNames = {
             "firstname": "First Name",
             "secondname": "Second Name"
         }
 
-        # a list of names for table and csv views
+        # A LIST OF NAMES FOR TABLE AND CSV VIEWS
         tableColumns = [
             "firstname",
             "secondname",
         ]
 
-        # create the sortable tables of objects
+        # CREATE THE SORTABLE TABLES OF OBJECTS
         table = khufu.tables.sortable_table.sortable_table(
             currentPageUrl=self.request.path_qs,
             columnsToDisplay=tableColumns,
@@ -137,7 +115,7 @@ class templates_pessto_members():
 
         table = table.get()
 
-        # add text color
+        # ADD TEXT COLOR
         text = khufu.coloredText(
             text="There are currently %(total)s PESSTO Members signed up to use the Marshall<BR><BR>" % locals(
             ),
@@ -161,5 +139,4 @@ class templates_pessto_members():
         self.log.debug('completed the ``_get_members_table`` method')
         return object_table
 
-    # use the tab-trigger below for new method
     # xt-class-method

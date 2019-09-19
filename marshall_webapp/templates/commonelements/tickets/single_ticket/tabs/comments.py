@@ -1,37 +1,18 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-comments.py
-===========
-:Summary:
-    The comments tab for the PESSTO Object tickets
+*The comments tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import datetime
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
 
 
 def comments_tab(
@@ -57,8 +38,6 @@ def comments_tab(
 
     **Return:**
         - ``comments_tab`` -- for each transient ticket in the transient listings pages
-
-    **Todo**
     """
     ################ > IMPORTS ################
     from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
@@ -180,12 +159,3 @@ def comments_tab(
 
     log.debug('completed the ``comments_tab`` function')
     return commentCount, "%(comments_tab)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

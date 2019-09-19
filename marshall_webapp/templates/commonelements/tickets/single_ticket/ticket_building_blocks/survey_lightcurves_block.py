@@ -1,38 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-survey_lightcurves_block.py
-===========================
-:Summary:
-    The master lightcurve block for the object ticket
+*The master lightcurve block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     March 26, 2014 
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime as datetime
-from docopt import docopt
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : March 26, 2014
-# CREATED : March 26, 2014
-# AUTHOR : DRYX
 
 
 def survey_lightcurves_block(
@@ -51,8 +33,6 @@ def survey_lightcurves_block(
 
     **Return:**
         - ``survey_lightcurves_block`` -- the ticket identity block for the pesssto object
-
-    **Todo**
     """
     log.debug('starting the ``survey_lightcurves_block`` function')
 
@@ -61,7 +41,7 @@ def survey_lightcurves_block(
     tinyDict = {}
     transientBucketId = discoveryDataDictionary["transientBucketId"]
 
-    # turning the title for the block on or off
+    # TURNING THE TITLE FOR THE BLOCK ON OR OFF
     if displayTitle:
         title = cu.block_title(
             log,
@@ -70,17 +50,17 @@ def survey_lightcurves_block(
     else:
         title = ""
 
-    # the surveys and lightcurve extensions used
+    # THE SURVEYS AND LIGHTCURVE EXTENSIONS USED
     surveyList = [{"lsq": "gif"}, {"ogle": "png"},
                   {"css": "png"}, {"mls": "png"}, {"sss": "png"}]
 
-    # for each possible survey with lightcurve info ...
+    # FOR EACH POSSIBLE SURVEY WITH LIGHTCURVE INFO ...
     for survey in surveyList:
         thisSurvey = survey.keys()[0]
         thisExt = survey.values()[0]
         lightCurveFlag = "%(thisSurvey)s_lightcurve" % locals()
 
-        # if the survey lightcurve exists
+        # IF THE SURVEY LIGHTCURVE EXISTS
         if discoveryDataDictionary[lightCurveFlag]:
             tinyDict = {}
             tinyDict["url"] = ""
@@ -151,11 +131,3 @@ def survey_lightcurves_block(
         )
 
     return "%(title)s %(surveyLightcurves)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

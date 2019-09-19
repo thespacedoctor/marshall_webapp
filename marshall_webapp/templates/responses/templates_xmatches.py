@@ -1,31 +1,22 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_xmatches.py
-=======================
-:Summary:
-    Template for the xmatches view
+*Template for the xmatches view*
 
 :Author:
     David Young
 
 :Date Created:
     October 12, 2015
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-import yaml
 from marshall_webapp.models.xmatches import models_xmatches_get
 from pyramid.path import AssetResolver
 import khufu
 
 
 class templates_xmatches():
-
     """
     The worker class for the templates_xmatches module
 
@@ -35,7 +26,6 @@ class templates_xmatches():
         - ``elementId`` -- the specific element requested (or False)
         - ``search`` -- is this a search? (boolean)
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -53,7 +43,6 @@ class templates_xmatches():
 
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_xmatches object
 
@@ -81,5 +70,4 @@ class templates_xmatches():
         self.log.debug('completed the ``get`` method')
         return webpage
 
-    # use the tab-trigger below for new method
     # xt-class-method

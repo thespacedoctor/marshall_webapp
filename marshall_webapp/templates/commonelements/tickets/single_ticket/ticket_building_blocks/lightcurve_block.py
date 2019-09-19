@@ -1,39 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-lightcurve_block.py
-=================
-:Summary:
-    The lightcurve block for the object ticket
+*The lightcurve block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime as datetime
-from docopt import docopt
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
+from fundamentals import times
 
 
 def lightcurve_block(
@@ -57,8 +39,6 @@ def lightcurve_block(
 
     **Return:**
         - ``lightcurve_block`` -- the ticket identity block for the pesssto object
-
-    **Todo**
     """
     log.debug('starting the ``lightcurve_block`` function')
 
@@ -218,9 +198,9 @@ def lightcurve_block(
         pull="left",
         size=2
     )
-    relDate = dcu.pretty_date(
-        date=discoveryDataDictionary["earliestDetection"]
-    )
+
+    relDate = times.datetime_relative_to_now(
+        discoveryDataDictionary["earliestDetection"])
     relDate = khufu.coloredText(
         text="""  %s""" % (relDate[1:]),
         color="magenta",
@@ -296,9 +276,8 @@ def lightcurve_block(
             size=3,
             pull="left"
         )
-        relDate = dcu.pretty_date(
-            date=row["observationDate"]
-        )
+
+        relDate = times.datetime_relative_to_now(row["observationDate"])
         dateObs = khufu.coloredText(
             text="""%s""" % (
                 str(row["observationDate"])[0:10],),
@@ -373,11 +352,3 @@ def lightcurve_block(
     magnitudes = "%(littleTitle)s<span>%(magnitudes)s</span>" % locals()
 
     return "%(title)s %(lightCurveImage)s %(earliestMag)s %(magnitudes)s %(currentMagEstimate)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

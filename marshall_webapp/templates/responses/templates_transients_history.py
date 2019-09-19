@@ -1,27 +1,14 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_transients_history.py
-===============================
-:Summary:
-    The HTML template module for the `templates_transients_history.py` resource
+*The HTML template module for the `templates_transients_history.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 27, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
-    @review: when complete review and cleanup this `templates_transients_history.py` module
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
@@ -29,7 +16,6 @@ from marshall_webapp.models.transients_history.element import models_transients_
 
 
 class templates_transients_history():
-
     """
     The worker class for the templates_transients_history module
 
@@ -37,15 +23,7 @@ class templates_transients_history():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element requested (or False)
-
-    **Todo**
-        - @review: when complete, clean templates_transients_history class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
-    # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -60,31 +38,17 @@ class templates_transients_history():
 
         log.debug("instansiating a new 'templates_transients_history' object")
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
-    # Method Attributes
     def get(self):
         """get the templates_transients_history object
 
         **Return:**
             - ``responseContent`` -- the response
-
-        **Todo**
-            - @review: when complete, clean get method
-            - @review: when complete add logging
         """
         self.log.debug('starting the ``get`` method')
 
@@ -99,8 +63,5 @@ class templates_transients_history():
 
         self.log.debug('completed the ``get`` method')
         return responseContent
-    # xt-class-method
 
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
     # method-override-tmpx

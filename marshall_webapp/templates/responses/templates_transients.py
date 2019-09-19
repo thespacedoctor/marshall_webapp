@@ -1,29 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_transients.py
-=======================
-:Summary:
-    Template for the transients view
+*Template for the transients view*
 
 :Author:
     David Young
 
 :Date Created:
     October 3, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-import yaml
 import re
 from marshall_webapp.models.transients import models_transients_get
 from pyramid.path import AssetResolver
@@ -31,7 +18,6 @@ import khufu
 
 
 class templates_transients():
-
     """
     The worker class for the templates_transients module
 
@@ -41,10 +27,7 @@ class templates_transients():
         - ``elementId`` -- the specific element requested (or False)
         - ``search`` -- is this a search? (boolean)
         - ``tcsCatalogueId`` -- tcs catalogue Id (for catalogue match views)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -63,8 +46,8 @@ class templates_transients():
 
         # xt-self-arg-tmpx
 
-        # grab the required data from the database and add it as attributes to
-        # this object
+        # GRAB THE REQUIRED DATA FROM THE DATABASE AND ADD IT AS ATTRIBUTES TO
+        # THIS OBJECT
         transientModal = models_transients_get(
             log=self.log,
             request=self.request,
@@ -98,19 +81,15 @@ class templates_transients():
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_transients object
 
         **Return:**
             - ``webpage`` -- the webapge HTML
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 
-        # choose which format of the content to display
-
+        # CHOOSE WHICH FORMAT OF THE CONTENT TO DISPLAY
         if self.qs["format"] == "html_table":
             maincontent = self._get_object_table()
         else:
@@ -142,37 +121,35 @@ class templates_transients():
             self):
         """ get list of transient tickets
 
-        **Key Arguments:**
-            # -
-
         **Return:**
             - ``ticketList`` -- a list of HTML tickets to display in the webapp
-
-        **Todo**
         """
         from marshall_webapp.templates.commonelements.tickets.single_ticket import single_ticket
-        from dryxPython import astrotools as dat
+        from astrocalc.coords import unit_conversion
 
         self.log.debug(
             'starting the ``_get_list_of_transient_tickets`` method')
+
+        # ASTROCALC UNIT CONVERTER OBJECT
+        converter = unit_conversion(
+            log=self.log
+        )
 
         # for each transient build a ticket to be presented in the browser
         ticketList = []
         for discoveryDataDictionary in self.transientData:
             if discoveryDataDictionary["raDeg"]:
-                raSex = dat.ra_to_sex(
+                discoveryDataDictionary["raSex"] = converter.ra_decimal_to_sexegesimal(
                     ra=discoveryDataDictionary["raDeg"],
-                    delimiter=':'
+                    delimiter=":"
                 )
-                discoveryDataDictionary["raSex"] = raSex
             else:
                 discoveryDataDictionary["raSex"] = None
             if discoveryDataDictionary["decDeg"]:
-                decSex = dat.dec_to_sex(
+                discoveryDataDictionary["decSex"] = converter.dec_decimal_to_sexegesimal(
                     dec=discoveryDataDictionary["decDeg"],
-                    delimiter=':'
+                    delimiter=":"
                 )
-                discoveryDataDictionary["decSex"] = decSex
             else:
                 discoveryDataDictionary["decSex"] = None
             transientBucketId = discoveryDataDictionary["transientBucketId"]
@@ -202,9 +179,6 @@ class templates_transients():
     def _get_sort_dropdown(
             self):
         """ get sort dropdown
-
-        **Key Arguments:**
-            # -
 
         **Return:**
             - ``sort`` -- the sort dropdown for the transient listings toolbar
@@ -243,13 +217,8 @@ class templates_transients():
             self):
         """ get notification for the page
 
-        **Key Arguments:**
-            # -
-
         **Return:**
             - ``notification`` -- notifcation to append to the top of the transient listing page
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_notification`` method')
 
@@ -271,13 +240,8 @@ class templates_transients():
             self):
         """ get pagination for the page
 
-        **Key Arguments:**
-            # -
-
         **Return:**
             - ``pagination`` -- pagination options for the toolbar of the transient listing pages
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_pagination`` method')
 
@@ -298,13 +262,8 @@ class templates_transients():
             self):
         """ get view switcher buttons for the page
 
-        **Key Arguments:**
-            # -
-
         **Return:**
             - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_view_switcher_buttons`` method')
 
@@ -330,13 +289,9 @@ class templates_transients():
             self):
         """ get button that hides sources with dec > 30.
 
-        **Key Arguments:**
-            # -
 
         **Return:**
             - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_ntt_view_button`` method')
 
@@ -361,13 +316,8 @@ class templates_transients():
             self):
         """ get object limit dropdown for the page
 
-        **Key Arguments:**
-            # -
-
         **Return:**
             - ``objectsPerPageDropdown`` -- options to display certain numbers of transients on a single webpage (for top toolbar of transient listing page)
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_object_limit_dropdown`` method')
 
@@ -387,17 +337,12 @@ class templates_transients():
             self):
         """get a table of transients
 
-        **Key Arguments:**
-            # -
-
         **Return:**
             - ``object_table`` -- the table view content for the transient listing pages
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_object_table`` method')
 
-        # assoicate the correct column name to mysql database column name
+        # ASSOICATE THE CORRECT COLUMN NAME TO MYSQL DATABASE COLUMN NAME
         tableColumnNames = {
             "observationPriority": "priority",
             "masterName": "name",
@@ -417,7 +362,7 @@ class templates_transients():
             "separationArcsec": "association separation"
         }
 
-        # a list of names for table and csv views
+        # A LIST OF NAMES FOR TABLE AND CSV VIEWS
         tableColumns = [
             "observationPriority",
             "masterName",
@@ -440,7 +385,7 @@ class templates_transients():
         if "mwl" not in self.qs or self.qs["mwl"] not in ["pending observation", "following", "allObsQueue"]:
             tableColumns.remove("observationPriority")
 
-        # get the webpage components
+        # GET THE WEBPAGE COMPONENTS
         # tickets = self._get_list_of_transient_tickets()
         sort, filtering = self._get_sort_dropdown()
         count = self.totalTicketCount
@@ -453,7 +398,7 @@ class templates_transients():
 
         for obj in self.transientData:
 
-            # convert priorities to words
+            # CONVERT PRIORITIES TO WORDS
             if "marshallWorkflowLocation" in obj:
                 if obj["marshallWorkflowLocation"] == "following":
                     for n, w, c in zip([1, 2, 3, 4], ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"], ["green", "yellow", "red", "blue"]):
@@ -480,8 +425,8 @@ class templates_transients():
                     obj["observationPriority"] = """<strong>""" + \
                         obj["observationPriority"] + """</strong>"""
 
-            # clean data in the obj dictionary
-            # set name font sizes
+            # CLEAN DATA IN THE OBJ DICTIONARY
+            # SET NAME FONT SIZES
             size = 3
             numerator = 30.
             if "mwl" not in self.qs or self.qs["mwl"] == "inbox":
@@ -490,7 +435,7 @@ class templates_transients():
             if test < 3:
                 size = test
 
-            # set icons for object names
+            # SET ICONS FOR OBJECT NAMES
             q = obj['marshallWorkflowLocation'].lower()
             icon = ""
             if q == "inbox":
@@ -523,7 +468,7 @@ class templates_transients():
             obj["plainName"] = obj["masterName"]
             obj["masterName"] = "%(icon)s %(thisName)s" % locals()
 
-            # set mailto links for pi
+            # SET MAILTO LINKS FOR PI
             if obj["pi_name"]:
                 pi_name = obj["pi_name"]
                 firstName = pi_name.split(' ', 1)[0]
@@ -544,7 +489,7 @@ class templates_transients():
             if i["separationArcsec"] is not None:
                 i["separationArcsec"] = "%(separationArcsec)4.2f''" % i
 
-        # create the sortable tables of objects
+        # CREATE THE SORTABLE TABLES OF OBJECTS
         if int(self.totalTicketCount) > 0:
             table = khufu.tables.sortable_table.sortable_table(
                 currentPageUrl=self.request.path_qs,
@@ -582,7 +527,7 @@ class templates_transients():
         else:
             table = ""
 
-        # create the table function bar
+        # CREATE THE TABLE FUNCTION BAR
         space = "&nbsp" * 10
         smallspace = "&nbsp" * 1
 
@@ -639,14 +584,6 @@ class templates_transients():
     def _get_page_name(
             self):
         """ get page name
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_page_name`` method')
 
@@ -669,12 +606,10 @@ class templates_transients():
 
         **Return:**
             - ``ticket_table`` -- the ticket to display as the main content of the page
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_object_tickets`` method')
 
-        # get the webpage components
+        # GET THE WEBPAGE COMPONENTS
         ticketList = self._get_list_of_transient_tickets()
         pagination = self._get_pagination()
         notification = self._get_notification()
@@ -742,24 +677,13 @@ class templates_transients():
         self.log.debug('completed the ``_get_object_tickets`` method')
         return ticket_table
 
-    # use the tab-trigger below for new method
     def _get_page_view_info(
             self):
         """ get page view info
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean _get_page_view_info method
-            - @review: when complete add logging
         """
         self.log.debug('starting the ``_get_page_view_info`` method')
 
-        # craft some text from the download filename
+        # CRAFT SOME TEXT FROM THE DOWNLOAD FILENAME
         filename = self.qs["filename"]
 
         thisListing = filename.replace("pessto_marshall", "").replace(

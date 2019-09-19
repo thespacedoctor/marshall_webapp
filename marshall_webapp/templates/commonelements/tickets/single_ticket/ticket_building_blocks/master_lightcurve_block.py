@@ -1,39 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-master_lightcurve_block.py
-===========================
-:Summary:
-    The master lightcurve block for the object ticket
+*The master lightcurve block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     March 26, 2014 
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime as datetime
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : March 26, 2014
-# CREATED : March 26, 2014
-# AUTHOR : DRYX
 
 
 def master_lightcurve_block(
@@ -55,8 +36,6 @@ def master_lightcurve_block(
 
     **Return:**
         - ``master_lightcurve_block`` -- the ticket identity block for the pesssto object
-
-    **Tasks:**
     """
     log.debug('starting the ``master_lightcurve_block`` function')
 
@@ -122,11 +101,3 @@ def master_lightcurve_block(
         )
 
     return "%(title)s %(lightCurveImage)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

@@ -1,40 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-context.py
-=============
-:Summary:
-    The context tab for the PESSTO Object tickets
+*The context tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import datetime
 import re
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import khufu
-import dryxPython.astrotools as dat
 from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
 from marshall_webapp.templates.commonelements import commonutils as cu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
 
 
 def context_tab(
@@ -58,8 +39,6 @@ def context_tab(
 
     **Return:**
         - ``context_tab`` -- the lightcurve/context tab for a single ticket on the transient listings page
-
-    **Todo**
     """
     from marshall_webapp.templates.commonelements.tickets import single_ticket
 
@@ -123,10 +102,6 @@ def context_tab(
     return "%(context_tab)s" % locals()
 
 
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
-
 def context_footer_bar(
         log,
         request):
@@ -139,8 +114,6 @@ def context_footer_bar(
 
     **Return:**
         - ``context_footer_bar`` -- the ticket footer bar for the pesssto object
-
-    **Todo**
     """
     lsqExists = False
     log.debug('starting the ``context_footer_bar`` function')
@@ -176,7 +149,6 @@ def _host_info_block(
 
     **Return:**
         - ``host_info_block`` -- the ticket identity block for the pesssto object
-
     """
     log.debug('starting the ``host_info_block`` function')
 
@@ -304,7 +276,6 @@ def _crossmatch_info_block(
 
     **Return:**
         - ``_crossmatch_info_block`` -- the crossmatch info from sherlock for the pesssto object
-
     """
     log.debug('starting the ``_crossmatch_info_block`` function')
 
@@ -611,7 +582,6 @@ def _aladin_block(
 
     **Return:**
         - ``_aladin_block`` -- the crossmatch info from sherlock for the pesssto object
-
     """
     log.debug('starting the ``_aladin_block`` function')
 
@@ -620,7 +590,7 @@ def _aladin_block(
         title="crossmatch map"
     )
 
-    # add text color
+    # ADD TEXT COLOR
     masterName = discoveryDataDictionary["masterName"]
     text = khufu.coloredText(
         text="Contextual classification for <em>%(masterName)s</em>" % locals(
@@ -633,7 +603,7 @@ def _aladin_block(
 
     masterClassification = discoveryDataDictionary["classification"]
 
-    # add text color
+    # ADD TEXT COLOR
     masterClassification = khufu.coloredText(
         text=masterClassification,
         color="violet",
@@ -690,7 +660,6 @@ def _sherlock_development_form(
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.):
-
     """
 
     transientBucketId = discoveryDataDictionary["transientBucketId"]
@@ -815,13 +784,4 @@ def _sherlock_development_form(
 
     return currentComment + sherlockForm
 
-    # use the tab-trigger below for new method
     # xt-class-method
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

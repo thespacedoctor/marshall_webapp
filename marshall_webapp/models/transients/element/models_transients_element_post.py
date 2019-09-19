@@ -1,36 +1,23 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_element_post.py
-=================================
-:Summary:
-    The HTML template module for the `models_transients_element_post.py` resource
+*The HTML template module for the `models_transients_element_post.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 10, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from dryxPython import commonutils as dcu
-from dryxPython import astrotools as dat
 from marshallEngine.housekeeping import update_transient_summaries
+from astrocalc.times import conversions
+from fundamentals import times
 
 
 class models_transients_element_post():
-
     """
     The worker class for the models_transients_element_post module
 
@@ -38,10 +25,7 @@ class models_transients_element_post():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -57,30 +41,25 @@ class models_transients_element_post():
         log.debug(
             "instansiating a new 'models_transients_element_post' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def post(self):
         """execute the post method on the models_transients_element_post object
 
         **Return:**
             - ``response`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``post`` method')
 
-        # check the right keywords are passed in the query string
+        # CHECK THE RIGHT KEYWORDS ARE PASSED IN THE QUERY STRING
         if set(("clsObsdate", "clsSource")) <= set(self.request.params):
             self._add_transient_classification()
 
-        # if the right keywords are not passed throw a warning
+        # IF THE RIGHT KEYWORDS ARE NOT PASSED THROW A WARNING
         if len(self.response) == 0:
             self.response = "no action was performed"
 
@@ -90,51 +69,47 @@ class models_transients_element_post():
     def _add_transient_classification(
             self):
         """ add transient classification
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_add_transient_classification`` method')
 
-        now = dcu.get_now_sql_datetime()
+        now = times.get_now_sql_datetime()
         transientBucketId = self.transientBucketId
 
-        # first select out a row from the transientBucket as a template for the
-        # classification
+        # ASTROCALC CONVERTER
+        converter = conversions(
+            log=log
+        )
+
+        # FIRST SELECT OUT A ROW FROM THE TRANSIENTBUCKET AS A TEMPLATE FOR THE
+        # CLASSIFICATION
         sqlQuery = """
             select p.classifiedFlag, t.raDeg, t.decDeg, t.name from transientBucket t, pesstoObjects p where replacedByRowId = 0 and t.transientBucketId = %(transientBucketId)s and t.transientBucketId=p.transientBucketId limit 1
         """ % locals()
+        print sqlQuery
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
         rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
 
-        # add variables to locals()
+        # ADD VARIABLES TO LOCALS()
         for row in rows:
             for arg, val in row.iteritems():
                 varname = arg
-                if isinstance(val, str) or isinstance(val, unicode):
+                if isinstance(val, ("".__class__, u"".__class__)):
                     exec(varname + """ = '%s' """ % (val,))
                 else:
                     exec(varname + """ = %s """ % (val,))
         for arg, val in self.request.params.iteritems():
             varname = arg
-            if isinstance(val, str) or isinstance(val, unicode):
+            if isinstance(val, ("".__class__, u"".__class__)):
                 exec(varname + ' = """%s""" ' % (val,))
             else:
                 exec(varname + " = %s" % (val,))
 
-        # convert date to mjd
-        obsMjd = dat.getMJDFromSqlDate(
-            # "%Y-%m-%dT%H:%M:%S.%f"
-            sqlDate="%(clsObsdate)sT00:00:00.0" % locals()
-        )
+        # CONVERT DATE TO MJD
+        obsMjd = converter.ut_datetime_to_mjd(
+            utDatetime="%(clsObsdate)sT00:00:00.0" % locals())
 
-        # add some default values / null values
+        # ADD SOME DEFAULT VALUES / NULL VALUES
         if "clsPeculiar" in locals():
             clsSnClassification = "%(clsSnClassification)s-p" % locals()
         if clsType == "supernova":
@@ -148,7 +123,7 @@ class models_transients_element_post():
 
         username = self.request.authenticated_userid
 
-        # insert the new classification row into the transientBucket
+        # INSERT THE NEW CLASSIFICATION ROW INTO THE TRANSIENTBUCKET
         duplicate = False
         try:
             sqlQuery = """

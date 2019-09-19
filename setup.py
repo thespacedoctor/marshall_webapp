@@ -20,7 +20,6 @@ install_requires = [
     'mod_wsgi',
     'matplotlib',
     'khufu',
-    'dryxPython',
     'dryxPyramid',
     'pymysql==0.9.0',
     'astrocalc',

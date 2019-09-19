@@ -1,24 +1,14 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_xmatches_element_get.py
-=================================================================
-:Summary:
-    The data model module for the `xmatches_element_get` resource
+*The data model module for the `xmatches_element_get` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 12, 2015
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
@@ -34,7 +24,6 @@ class models_xmatches_element_get():
         - ``elementId`` -- the specific element id requests (or False)
         - ``search`` -- is this a search request (boolean)
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -57,12 +46,10 @@ class models_xmatches_element_get():
 
         # Variable Data Atrributes
 
-        # Initial Actions
         self._set_default_parameters()
 
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_xmatches_element_get object
 
@@ -87,12 +74,6 @@ class models_xmatches_element_get():
     def _set_default_parameters(
             self):
         """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 

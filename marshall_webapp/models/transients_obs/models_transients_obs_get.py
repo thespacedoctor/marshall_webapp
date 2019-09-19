@@ -1,34 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_obs_get.py
-===========================
-:Summary:
-    The data model module for the `transients_obs_get` resource
+*The data model module for the `transients_obs_get` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 14, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from dryxPython import astrotools as dat
+from astrocalc.coords import unit_conversion
 
 
 class models_transients_obs_get():
-
     """
     The worker class for the models_transients_obs_get module
 
@@ -37,10 +24,7 @@ class models_transients_obs_get():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
         - ``search`` -- is this a search query?
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -65,7 +49,6 @@ class models_transients_obs_get():
         self.log.debug(
             "instansiating a new 'models_transients_obs_get' object")
 
-        # Initial Actions
         self._set_default_parameters()
         self._get_transient_info()
 
@@ -75,14 +58,11 @@ class models_transients_obs_get():
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_transients_obs_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 
@@ -102,7 +82,6 @@ class models_transients_obs_get():
         **Return:**
             - None
 
-        **Todo**
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
@@ -116,14 +95,6 @@ class models_transients_obs_get():
     def _get_transient_info(
             self):
         """ get transient info
-
-        **Key Arguments:**
-            -
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_get_transient_info`` method')
 
@@ -138,14 +109,15 @@ class models_transients_obs_get():
         objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
         objectData = objectData[0]
 
-        self.qs["ra"] = dat.ra_to_sex(
-            ra=objectData["raDeg"],
-            delimiter=':'
+        # ASTROCALC UNIT CONVERTER OBJECT
+        converter = unit_conversion(
+            log=self.log
         )
-
-        self.qs["dec"] = dat.dec_to_sex(
-            dec=objectData["decDeg"],
-            delimiter=':'
+        self.qs["ra"] = converter.ra_sexegesimal_to_decimal(
+            ra=objectData["raDeg"]
+        )
+        self.qs["dec"] = converter.dec_sexegesimal_to_decimal(
+            dec=objectData["decDeg"]
         )
 
         self.qs["objectName"] = objectData["masterName"]

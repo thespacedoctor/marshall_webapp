@@ -60,7 +60,7 @@ class test_views_transients(BaseTest):
         self.settings = settings
         utKit.refresh_database()
 
-    def test_views_transients_post(self):
+    def test_01_views_transients_post(self):
         utKit.refresh_database()
         params = {
             "objectName": "TestSource",
@@ -201,7 +201,7 @@ class test_views_transients(BaseTest):
                                      params=params)
         self.assertEqual(respsonse.status_code, 302)
 
-    def test_views_transients_put_move(self):
+    def test_02_views_transients_put_move(self):
 
         params = {
             "method": "put",

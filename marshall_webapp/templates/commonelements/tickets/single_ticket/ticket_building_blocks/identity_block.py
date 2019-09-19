@@ -8,11 +8,7 @@
 
 :Date Created:
     November 20, 2013
-
-.. todo::
-
 """
-################# GLOBAL IMPORTS ####################
 
 import re
 import datetime
@@ -23,14 +19,6 @@ import string
 import khufu
 
 from marshall_webapp.templates.commonelements import commonutils as cu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
 
 
 def identity_block(
@@ -49,9 +37,6 @@ def identity_block(
 
     **Return:**
         - ``identity_block`` -- the ticket identity block for the pesssto object
-
-    .. todo::
-
     """
     log.debug('starting the ``identity_block`` function')
 
@@ -664,11 +649,3 @@ def identity_block(
         content = unicode(content, encoding="utf-8", errors="replace")
 
     return content
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

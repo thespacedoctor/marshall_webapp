@@ -1,28 +1,17 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-add_new_comment_to_object_form.py
-=================================
-:Summary:
-    A form to add a new comment to an object ticket in the PESSTO Marshall
+*A form to add a new comment to an object ticket in the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 
 
 def add_new_comment_to_object_form(
@@ -39,8 +28,6 @@ def add_new_comment_to_object_form(
 
     **Return:**
         - ``newCommentForm`` -- the new comment form
-
-    **Todo**
     """
     commentInput = khufu.textarea(
         rows=1,
@@ -49,14 +36,7 @@ def add_new_comment_to_object_form(
         htmlId="comment" % locals(),
         required=True
     )
-    # authorInput = khufu.formInput(
-    # [ text | password | datetime | datetime-local | date | month | time | week | number | float | email | url | search | tel | color ]
-    #     ttype='text',
-    #     placeholder='author',
-    #     span=2,
-    #     htmlId="author" % locals(),
-    #     required=True
-    # )
+
     addButton = khufu.button(
         buttonText='add',
         # [ default | primary | info | success | warning | danger | inverse | link ]
@@ -94,12 +74,3 @@ def add_new_comment_to_object_form(
     )
 
     return newCommentForm
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

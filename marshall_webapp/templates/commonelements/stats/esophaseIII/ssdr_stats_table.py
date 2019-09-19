@@ -1,37 +1,17 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ssdr_stats_table.py
-====================
-:Summary:
-    The stats table for ESO Phase III SSDR
+*The stats table for ESO Phase III SSDR*
 
 :Author:
     David Young
 
 :Date Created:
     October 6, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : October 6, 2014
-# CREATED : October 6, 2014
-# AUTHOR : DRYX
 
 
 def ssdr_stats_table(
@@ -47,8 +27,6 @@ def ssdr_stats_table(
 
     **Return:**
         - ``table`` -- the ssdr FITS file stats table
-
-    **Todo**
     """
     log.debug('starting the ``ssdr_stats_table`` function')
 
@@ -159,10 +137,3 @@ def ssdr_stats_table(
 
     log.debug('completed the ``ssdr_stats_table`` function')
     return table
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

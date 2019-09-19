@@ -1,38 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-single_ticket.py
-================
-:Summary:
-    A ticket for a single PESSTO Object give all info known about it
+*A ticket for a single PESSTO Object give all info known about it*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import ticket_building_blocks
 import datetime
 import khufu
 import tabs
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 21, 2013
-# CREATED : November 21, 2013
-# AUTHOR : DRYX
 
 
 def single_ticket(
@@ -60,8 +42,6 @@ def single_ticket(
 
     **Return:**
         - ``ticket`` -- a single transient's info in one HTML ticket
-
-    **Todo**
     """
 
     log.debug('starting the ``inbox_ticket`` function')
@@ -87,7 +67,7 @@ def single_ticket(
         pass
         # tabDictionary["development"] = developmentTab
 
-    # grab the various tabs that make up a single ticket
+    # GRAB THE VARIOUS TABS THAT MAKE UP A SINGLE TICKET
     overviewTab = tabs.overview.overview_tab(
         log=log,
         request=request,
@@ -172,11 +152,6 @@ def single_ticket(
     log.debug('completed the ``inbox_ticket`` function')
     return ticket
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-# The tab template for the tickets
-
 
 def _single_ticket_template(
         log,
@@ -195,8 +170,6 @@ def _single_ticket_template(
 
     **Return:**
         - ``single_ticket`` -- build the single ticket
-
-    **Todo**
     """
     if commentCount is not False:
         contentCount = {"comments": commentCount}
@@ -244,12 +217,10 @@ def _ticket_tab_template(
 
     **Return:**
         - ``ticket_tab`` -- template for each ticket tab
-
-    **Todo**
     """
     theseBlocks = ""
 
-    # Remove empty blocks
+    # REMOVE EMPTY BLOCKS
     newBlockList = []
     for block in blockList:
         if block is not None:
@@ -286,7 +257,7 @@ def _ticket_tab_template(
         )
         theseBlocks = "%(theseBlocks)s%(block)s" % locals()
 
-    # convert bytes to unicode
+    # CONVERT BYTES TO UNICODE
     if isinstance(theseBlocks, str):
         theseBlocks = unicode(theseBlocks, encoding="utf-8", errors="replace")
 
@@ -324,7 +295,3 @@ def _ticket_tab_template(
     )
 
     return ticket_tab
-
-
-if __name__ == '__main__':
-    main()

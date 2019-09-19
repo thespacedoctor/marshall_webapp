@@ -1,42 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-xmatches_sidebar.py
-===============
-:Summary:
-    xmatches_sidebar for the PESSTO Marshall
+*xmatches_sidebar for the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     April 29, 2014
-
-:Notes:
-    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
-
-:Tasks:
-    - [ ] when complete, extract all code out of the main function and add cl commands
-    - [ ] make internal function private
-    - [ ] pull all general functions and classes into dryxPythonModules
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-
-
-# LAST MODIFIED : July 2, 2013
-# CREATED : July 2, 2013
-# AUTHOR : DRYX
 def xmatches_sidebar(
         log,
         request,
@@ -51,18 +28,10 @@ def xmatches_sidebar(
 
     **Return:**
         - ``leftNavBar`` -- the left navigation bar for the pessto marshall
-
-    **Todo**
-    - [ ] when complete, clean xmatches_sidebar function & add logging
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
 
     log.debug('starting the ``xmatches_sidebar`` function')
-    ## VARIABLES ##
 
     leftColumnContent = ""
 
@@ -86,14 +55,6 @@ def xmatches_sidebar(
     return xmatches_sidebar
 
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-# LAST MODIFIED : July 2, 2013
-# CREATED : July 2, 2013
-# AUTHOR : DRYX
 def _xmatches_sidebar_header(
         log,
         request):
@@ -105,17 +66,10 @@ def _xmatches_sidebar_header(
 
     **Return:**
         - ``content`` -- the left nav bar header content
-
-    **Todo**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
 
     log.debug('starting the ``_xmatches_sidebar_header`` function')
-    ## VARIABLES ##
 
     pesstoIcon = khufu.image(
         src=request.static_path(
@@ -169,9 +123,6 @@ def _xmatches_sidebar_header(
     return "%(pesstoIcon)s" % locals()
 
 
-# LAST MODIFIED : July 3, 2013
-# CREATED : July 3, 2013
-# AUTHOR : DRYX
 def _get_xmatches_links(
         log,
         request,
@@ -184,18 +135,11 @@ def _get_xmatches_links(
 
     **Return:**
         - ``developmentLinks`` -- the development queue - a list of links
-
-    **Todo**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
     import os
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
 
     log.debug('starting the ``_get_development_links`` function')
-    ## VARIABLES ##
 
     title = khufu.li(
         content="Catalogue Crossmatches",
@@ -263,7 +207,3 @@ def _get_xmatches_links(
 
     log.debug('completed the ``_get_development_links`` function')
     return developmentLinks
-
-
-if __name__ == '__main__':
-    main()

@@ -1,39 +1,23 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-latest_magnitudes_block.py
-===========================
-:Summary:
-    The latest magnitudes block for the object ticket
+*The latest magnitudes block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     March 26, 2014 
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime as datetime
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
+from fundamentals import times
 
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : March 26, 2014
-# CREATED : March 26, 2014
-# AUTHOR : DRYX
 def latest_magnitudes_block(
         log,
         request,
@@ -51,8 +35,6 @@ def latest_magnitudes_block(
 
     **Return:**
         - ``latest_magnitudes_block`` -- the ticket identity block for the pesssto object
-
-    **Tasks:**
     """
     log.debug('starting the ``latest_magnitudes_block`` function')
 
@@ -64,7 +46,7 @@ def latest_magnitudes_block(
     else:
         title = ""
 
-    # get current magnitude estimate
+    # GET CURRENT MAGNITUDE ESTIMATE
     currentMagEstimate = discoveryDataDictionary["currentMagnitudeEstimate"]
     currentMagEstimateUpdated = discoveryDataDictionary[
         "currentMagnitudeEstimateUpdated"]
@@ -101,7 +83,7 @@ def latest_magnitudes_block(
     else:
         currentMagEstimate = ""
 
-    # get latest magnitudes
+    # GET LATEST MAGNITUDES
     littleTitle = """<span class="colortext grey littlelabel  ">magnitudes:</span>"""
     numOfPointsToDisplay = 5
     count = 0
@@ -131,9 +113,8 @@ def latest_magnitudes_block(
             size=3,
             pull="left"
         )
-        relDate = dcu.pretty_date(
-            date=row["observationDate"]
-        )
+
+        relDate = times.datetime_relative_to_now(row["observationDate"])
         dateObs = khufu.coloredText(
             text="""%s""" % (
                 str(row["observationDate"])[0:10],),
@@ -192,11 +173,3 @@ def latest_magnitudes_block(
     magnitudes = "%(littleTitle)s<span>%(magnitudes)s</span>" % locals()
 
     return "%(title)s %(magnitudes)s %(currentMagEstimate)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

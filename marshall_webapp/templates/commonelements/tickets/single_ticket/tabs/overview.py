@@ -1,34 +1,16 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-overview.py
-===========
-:Summary:
-    The overview tab for the PESSTO Object tickets
+*The overview tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
 
 
 def overview_tab(
@@ -57,14 +39,8 @@ def overview_tab(
 
     **Return:**
         - ``overview_tab`` -- the transient overview info tab for the single ticket displayed on the transient listing pages
-
-    **Todo**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
     import datetime
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
     from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
     from marshall_webapp.templates.commonelements.tickets import single_ticket
@@ -146,11 +122,3 @@ def overview_tab(
 
     log.debug('completed the ``overview_tab`` function')
     return overview_tab
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

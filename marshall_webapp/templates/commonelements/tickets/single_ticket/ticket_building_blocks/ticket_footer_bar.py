@@ -1,39 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ticket_footer_bar.py
-=================
-:Summary:
-    The ticket footer bar for the object ticket
+*The ticket footer bar for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
-from docopt import docopt
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
-import dryxPython.astrotools as dat
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
 
 
 def ticket_footer_bar(
@@ -51,7 +31,6 @@ def ticket_footer_bar(
 
     **Return:**
         - ``ticket_footer_bar`` -- the ticket footer bar for the pesssto object
-
     """
     log.debug('starting the ``ticket_footer_bar`` function')
 
@@ -98,7 +77,7 @@ def ticket_footer_bar(
             openInNewTab=True
         )
         dropDownLink = khufu.li(
-            # if a subMenu for dropdown this should be <ul>
+            # IF A SUBMENU FOR DROPDOWN THIS SHOULD BE <UL>
             content=dropDownLink,
         )
         dropDownLinks.append(dropDownLink)
@@ -153,13 +132,6 @@ def ticket_footer_bar(
     return ticket_footer_bar
 
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-# LAST MODIFIED : December 2, 2013
-# CREATED : December 2, 2013
-# AUTHOR : DRYX
 def _get_atel_list(
         log,
         transientBucketId,
@@ -173,11 +145,8 @@ def _get_atel_list(
 
     **Return:**
         - ``atelLinks`` -- the names of the atels linked to original pages
-
-    **Todo**
     """
     log.debug('starting the ``_get_atels`` function')
-    # TEST THE ARGUMENTS
 
     rows = []
     for dataPoint in atelData:
@@ -236,7 +205,3 @@ def _get_atel_list(
         )
 
     return atelDropdown
-
-
-if __name__ == '__main__':
-    main()

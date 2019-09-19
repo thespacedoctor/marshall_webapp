@@ -1,35 +1,17 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-webpage.py
-==========
-:Summary:
-    The webpage scaffolding for the pessto marshall
+*The webpage scaffolding for the pessto marshall*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : September 30, 2014
-# CREATED : July 1, 2013
-# AUTHOR : DRYX
 
 
 def defaultpagetemplate(
@@ -58,21 +40,19 @@ def defaultpagetemplate(
 
     **Return:**
         - ``webpage`` -- the webpage to be displayed
-
-    **Todo**
     """
     log.debug('starting the ``webpage`` function')
 
     # imports
     from marshall_webapp.templates.commonelements import *
 
-    # set default variables
+    # SET DEFAULT VARIABLES
     if not bodyId:
         bodyId = "inbox"
     if not relativePathFromDocRoot:
         relativePathFromDocRoot = ""
 
-    # select the sidebar flavour
+    # SELECT THE SIDEBAR FLAVOUR
     if not sideBar or sideBar == "marshall":
         sideBar = sidebar.marshall_sidebar(
             log=log,
@@ -92,7 +72,7 @@ def defaultpagetemplate(
             thisPageName=thisPageName
         )
 
-    # set default top navbar
+    # SET DEFAULT TOP NAVBAR
     if not topNavBar:
         topNavBar = topnavbar.topnavbar(
             log=log,
@@ -154,12 +134,3 @@ def defaultpagetemplate(
 
     log.debug('completed the ``webpage`` function')
     return webpage
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

@@ -1,36 +1,22 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_post.py
-=========================
-:Summary:
-    The HTML template module for the `models_transients_post.py` resource
+*The HTML template module for the `models_transients_post.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 10, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 from datetime import datetime
-from dryxPython import astrotools as dat
 from marshallEngine.feeders.useradded import data, images
 
 
 class models_transients_post():
-
     """
     The worker class for the models_transients_post module
 
@@ -38,10 +24,7 @@ class models_transients_post():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -58,34 +41,29 @@ class models_transients_post():
 
         log.debug("instansiating a new 'models_transients_post' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def post(self):
         """execute the post method on the models_transients_post object
 
         **Return:**
             - ``response`` -- the reponse to send to the browser
             - ``redirectUrl`` -- the URL to redirect to once the transient has been added
-
-        **Todo**
         """
         self.log.debug('starting the ``post`` method')
 
         elementId = self.elementId
 
-        # check the query string parameters for the correct variable required to
-        # add a transient
+        # CHECK THE QUERY STRING PARAMETERS FOR THE CORRECT VARIABLE REQUIRED TO
+        # ADD A TRANSIENT
         if set(("objectRa", "objectDec", "objectName")) <= set(self.request.params):
             self._add_new_transient()
 
-        # add alert if nothing was added to the database
+        # ADD ALERT IF NOTHING WAS ADDED TO THE DATABASE
         if len(self.response) == 0:
             self.response = "Response from <code>" + \
                 __name__ + "</code><BR><BR>No Action Was Performed<BR><BR>"
@@ -102,55 +80,46 @@ class models_transients_post():
     def _add_new_transient(
             self):
         """ add new transient to the marshall
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_add_new_transient`` method')
+
+        # ASTROCALC UNIT CONVERTER OBJECT
+        from astrocalc.coords import unit_conversion
+        from astrocalc.times import conversions
+        converter = unit_conversion(
+            log=self.log
+        )
+        # CONVERTER TO CONVERT MJD TO DATE
+        timeConverter = conversions(
+            log=log
+        )
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
         for arg, val in self.request.params.iteritems():
             varname = arg
-            if isinstance(val, str) or isinstance(val, unicode):
+            if isinstance(val, ("".__class__, u"".__class__)) or isinstance(val, unicode):
                 exec(varname + ' = """%s""" ' % (val,))
             else:
                 exec(varname + " = %s" % (val,))
             self.log.debug('%s = %s' % (varname, val,))
 
         # CONVERT RA AND DEC IF REQUIRED
-        try:
-            tmp = float(objectRa)
-        except:
-            tmp = None
-        if not tmp:
-            objectRa = dat.ra_sexegesimal_to_decimal.ra_sexegesimal_to_decimal(
-                ra=objectRa
-            )
-        try:
-            tmp = float(objectDec)
-        except:
-            tmp = None
-        if not tmp:
-            objectDec = dat.declination_sexegesimal_to_decimal.declination_sexegesimal_to_decimal(
-                dec=objectDec
-            )
+
+        objectRa = converter.ra_sexegesimal_to_decimal(
+            ra=objectRa
+        )
+        objectDec = converter.dec_sexegesimal_to_decimal(
+            dec=objectDec
+        )
 
         # GET DATES AND MJD
-        if isinstance(objectDate, str) and "-" in objectDate:
-            objectDate = datetime.strptime(
-                objectDate + "T00:00:00.0", '%Y-%m-%dT%H:%M:%S.%f')
-            mjd = dat.getMJDFromSqlDate(
-                sqlDate=objectDate
-            )
-        elif isinstance(objectDate, float) or isinstance(objectDate, str):
+        if isinstance(objectDate, ("".__class__, u"".__class__)) and "-" in objectDate:
+            mjd = timeConverter.ut_datetime_to_mjd(utDatetime=objectDate)
+        elif isinstance(objectDate, float) or isinstance(objectDate, ("".__class__, u"".__class__)):
             mjd = float(objectDate)
-            objectDate = dat.getDateFromMJD(
-                mjd
+            objectDate = timeConverter.mjd_to_ut_datetime(
+                mjd=mjd,
+                sqlDate=True
             )
 
         ticketAuthor = self.request.authenticated_userid
@@ -206,8 +175,6 @@ class models_transients_post():
 
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
-
-        print dbConn
 
         # IMPORT THE DATA AND IMAGES
         ingester = data(

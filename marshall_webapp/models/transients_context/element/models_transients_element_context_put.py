@@ -1,33 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_element_context_put.py
-=======================================
-:Summary:
-    The HTML template module for the `models_transients_element_context_put.py` resource
+*The HTML template module for the `models_transients_element_context_put.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
-    ddate
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
+    September 18, 2014
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 
 
 class models_transients_element_context_put():
-
     """
     The worker class for the models_transients_element_context_put module
 
@@ -35,10 +22,7 @@ class models_transients_element_context_put():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -54,22 +38,17 @@ class models_transients_element_context_put():
         log.debug(
             "instansiating a new 'models_transients_element_context_put' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def put(self):
         """execute the put method on the models_transients_element_context_put object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``put`` method')
 

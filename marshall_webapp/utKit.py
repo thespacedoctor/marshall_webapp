@@ -7,14 +7,12 @@ from dryxPyramid.utKit import utKit
 
 
 class utKit(utKit):
-
     """
     *Override dryxPyramid utKit*
     """
     # Variable Data Atrributes
 
     # Override Variable Data Atrributes
-    # Initialisation
     def __init__(
             self,
             moduleDirectory

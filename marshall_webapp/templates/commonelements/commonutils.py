@@ -1,36 +1,17 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-commonutils.py
-==============
-:Summary:
-    Common Utilities for the PESSTO Webapp(s)
+*Common Utilities for the PESSTO Webapp(s)*
 
 :Author:
     David Young
 
 :Date Created:
     November 21, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-from dryxPython import logs as dl
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 21, 2013
-# CREATED : November 21, 2013
-# AUTHOR : DRYX
 
 
 def block_title(
@@ -47,8 +28,6 @@ def block_title(
 
     **Return:**
         - ``title`` -- the title for the ticket block
-
-    **Todo**
     """
     log.debug('starting the ``block_title`` function')
 
@@ -73,10 +52,6 @@ def block_title(
     log.debug('completed the ``block_title`` function')
     return title
 
-# LAST MODIFIED : YYMD
-# CREATED : YYMD
-# AUTHOR : DRYX
-
 
 def little_label(
         text="",
@@ -91,8 +66,6 @@ def little_label(
 
     **Return:**
         - ``text`` -- little label 
-
-    **Todo**
     """
     if lineBreak is not False:
         lineBreak = "<br>&nbsp&nbsp&nbsp"

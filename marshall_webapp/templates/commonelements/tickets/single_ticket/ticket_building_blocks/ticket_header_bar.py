@@ -1,39 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ticket_header_bar.py
-=================
-:Summary:
-    The ticket header bar for the object ticket
+*The ticket header bar for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
-import dryxPython.astrotools as dat
 import khufu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
+from fundamentals import times
 
 
 def ticket_header_bar(
@@ -57,7 +39,6 @@ def ticket_header_bar(
 
     **Return:**
         - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
-
     """
     log.debug('starting the ``ticket_header_bar`` function')
 
@@ -129,14 +110,13 @@ def ticket_header_bar(
             pull=False,  # "left" | "right"
         )
 
-        # from datetime import datetime, date, time
+        # FROM DATETIME IMPORT DATETIME, DATE, TIME
         now = datetime.datetime.now()
         delta = now - commentDate
         delta = delta.days
         if (delta < 13):
-            thisDate = dcu.pretty_date(
-                date=commentDate
-            )
+
+            thisDate = times.datetime_relative_to_now(commentDate)
             if thisDate[-1:] == "d":
                 thisDate = thisDate[2:-1]
                 thisDate = """%(thisDate)s days ago""" % locals()
@@ -154,7 +134,7 @@ def ticket_header_bar(
             pull=False,  # "left" | "right"
         )
 
-        # add text color
+        # ADD TEXT COLOR
         latestComment = khufu.coloredText(
             text=latestComment,
             color="cream",
@@ -169,7 +149,7 @@ def ticket_header_bar(
             wellSize='small'
         )
 
-    # LSQ Force Photometry Warning
+    # LSQ FORCE PHOTOMETRY WARNING
     lsqFPAlert = _get_no_lsq_recalibrated_data_alert(
         log=log,
         lightcurveData=lightcurveData,
@@ -212,12 +192,6 @@ def ticket_header_bar(
     return topbar
 
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-# LAST MODIFIED : December 2, 2013
-# CREATED : December 2, 2013
-# AUTHOR : DRYX
 def _get_atel_warning(
         log,
         atelData,
@@ -231,8 +205,6 @@ def _get_atel_warning(
 
     **Return:**
         - ``warning`` or None -- the atel warning
-
-    **Todo**
     """
     log.debug('starting the ``_get_atel_warning`` function')
     ## VARIABLES ##
@@ -275,10 +247,6 @@ def _get_atel_warning(
     log.debug('completed the ``_get_atel_warning`` function')
     return None
 
-# LAST MODIFIED : April 2, 2014
-# CREATED : April 2, 2014
-# AUTHOR : DRYX
-
 
 def _get_magnitude_warning(
         log,
@@ -293,8 +261,6 @@ def _get_magnitude_warning(
 
     **Return:**
         - ``warning`` or None -- the atel warning
-
-    **Todo**
     """
     log.debug('starting the ``_get_magnitude_warning`` function')
 
@@ -319,9 +285,6 @@ def _get_magnitude_warning(
     return None
 
 
-# LAST MODIFIED : August 27, 2014
-# CREATED : August 27, 2014
-# AUTHOR : DRYX
 def _get_no_lsq_recalibrated_data_alert(
         log,
         lightcurveData,
@@ -335,8 +298,6 @@ def _get_no_lsq_recalibrated_data_alert(
 
     **Return:**
         - ``alert`` -- alert for when LSQ object has no recalibrated data yet
-
-    **Todo**
     """
     log.debug('starting the ``_get_no_lsq_recalibrated_data_alert`` function')
 
@@ -359,9 +320,6 @@ def _get_no_lsq_recalibrated_data_alert(
     return alert
 
 
-# LAST MODIFIED : August 27, 2014
-# CREATED : August 27, 2014
-# AUTHOR : DRYX
 def _resurrected_object_warning(
         log,
         objectHistories,
@@ -375,8 +333,6 @@ def _resurrected_object_warning(
 
     **Return:**
         - ``alert`` -- alert for when LSQ object has no recalibrated data yet
-
-    **Todo**
     """
     log.debug('starting the ``_resurrected_object_warning`` function')
 
@@ -401,7 +357,3 @@ def _resurrected_object_warning(
 
     log.debug('completed the ``_resurrected_object_warning`` function')
     return notification
-
-
-if __name__ == '__main__':
-    main()

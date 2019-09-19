@@ -1,33 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_element_obs_get.py
-===================================
-:Summary:
-    The data model module for the `transients_element_obs_get` resource
+*The data model module for the `transients_element_obs_get` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 14, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 
 
 class models_transients_element_obs_get():
-
     """
     The worker class for the models_transients_element_obs_get module
 
@@ -36,10 +23,7 @@ class models_transients_element_obs_get():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
         - ``search`` -- is this a search request (boolean)`
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -60,7 +44,6 @@ class models_transients_element_obs_get():
         log.debug(
             "instansiating a new 'models_transients_element_obs_get' object")
 
-        # Initial Actions
         self._set_default_parameters()
 
         return None
@@ -69,20 +52,17 @@ class models_transients_element_obs_get():
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_transients_element_obs_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 
         transientBucketId = self.elementId
 
-        # grab the summary data for the transient
+        # GRAB THE SUMMARY DATA FOR THE TRANSIENT
         sqlQuery = u"""
             select * from transientBucketSummaries where transientBucketId = %(transientBucketId)s 
         """ % locals()
@@ -104,14 +84,6 @@ class models_transients_element_obs_get():
     def _set_default_parameters(
             self):
         """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 

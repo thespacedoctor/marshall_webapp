@@ -1,33 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_lightcurves_count.py
-====================================
-:Summary:
-    The data model module for the `transients_lightcurves_count` resource
+*The data model module for the `transients_lightcurves_count` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 5, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 
 
 class models_transients_lightcurves_count():
-
     """
     The worker class for the models_transients_lightcurves_count module
 
@@ -36,10 +23,7 @@ class models_transients_lightcurves_count():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
         - ``search`` -- if this a search request (boolean)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -57,22 +41,17 @@ class models_transients_lightcurves_count():
         log.debug(
             "instansiating a new 'models_transients_lightcurves_count' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def count(self):
         """execute the count method on the models_transients_lightcurves_count object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``count`` method')
 

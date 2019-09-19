@@ -1,39 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-object_info_block.py
-=================
-:Summary:
-    The Object Info block for the object ticket
+*The Object Info block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
-from dryxPython import commonutils as dcu
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
-import dryxPython.astrotools as dat
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
+from fundamentals import times
 
 
 def object_info_block(
@@ -49,7 +31,6 @@ def object_info_block(
 
     **Return:**
         - ``object_info_block`` -- the ticket identity block for the pesssto object
-
     """
     log.debug('starting the ``object_info_block`` function')
 
@@ -119,7 +100,7 @@ def object_info_block(
         ),
     )
 
-    # peak magnitude
+    # PEAK MAGNITUDE
     label = cu.little_label(
         text="abs peak mag:",
         lineBreak=True
@@ -136,7 +117,7 @@ def object_info_block(
             columns="""%s   %s""" % (label, text,),
         )
 
-    # pre-discovery non-detection
+    # PRE-DISCOVERY NON-DETECTION
     label = cu.little_label(
         text="pre-disc non-detection:",
         pull=False
@@ -146,7 +127,9 @@ def object_info_block(
         lastNonDetectionDate = "unknown"
         daysPast = "unknown"
     else:
-        daysPast = dcu.pretty_date(lastNonDetectionDate)[2:]
+
+        daysPast = times.datetime_relative_to_now(lastNonDetectionDate)[2:]
+
         if daysPast[-1] == "d":
             daysPast = "%s days ago" % (daysPast[0:-1],)
         else:
@@ -180,7 +163,7 @@ def object_info_block(
         text="date added to marshall:"
     )
     dateAdded = discoveryDataDictionary["dateAdded"]
-    daysPast = dcu.pretty_date(dateAdded)[2:]
+    daysPast = times.datetime_relative_to_now(dateAdded)[2:]
     if daysPast[-1] == "d":
         daysPast = "%s days ago" % (daysPast[0:-1],)
     else:
@@ -207,7 +190,7 @@ def object_info_block(
         text="discovery date:"
     )
     discoveryDate = discoveryDataDictionary["earliestDetection"]
-    daysPast = dcu.pretty_date(discoveryDate)[2:]
+    daysPast = times.datetime_relative_to_now(discoveryDate)[2:]
     if daysPast[-1] == "d":
         daysPast = "%s days ago" % (daysPast[0:-1],)
     else:
@@ -231,11 +214,3 @@ def object_info_block(
     )
 
     return "%(title)s %(raDec)s %(galCoord)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()
