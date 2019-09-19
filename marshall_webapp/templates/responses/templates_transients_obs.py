@@ -1,34 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_transients_obs.py
-==========================
-:Summary:
-    The HTML template module for the `templates_transients_obs.py` resource
+*The HTML template module for the `templates_transients_obs.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 14, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from ...models.transients_obs import models_transients_obs_get
+from marshall_webapp.models.transients_obs import models_transients_obs_get
 
 
 class templates_transients_obs():
-
     """
     The worker class for the templates_transients_obs module
 
@@ -36,10 +23,7 @@ class templates_transients_obs():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element requested (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -54,22 +38,18 @@ class templates_transients_obs():
 
         log.debug("instansiating a new 'templates_transients_obs' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_transients_obs object
 
         **Return:**
-            - ``responseContent`` -- the response
-
-        **Todo**
+            - ``filename``
+            - ``obText``
         """
         self.log.debug('starting the ``get`` method')
 
@@ -95,12 +75,11 @@ class templates_transients_obs():
         """ generate ob text
 
         **Key Arguments:**
-            # -
+            - ``transient_ob_data``
 
         **Return:**
-            - None
-
-        **Todo**
+            - ``downloadFilename`` 
+            - ``obText``
         """
         self.log.debug('starting the ``_generate_ob_text`` method')
 
@@ -109,7 +88,7 @@ class templates_transients_obs():
         # UNPACK DICTIONARY VALUES TO LOCAL()
         for arg, val in transient_ob_data.iteritems():
             varname = arg
-            if isinstance(val, str) or isinstance(val, unicode):
+            if isinstance(val, ("".__class__, u"".__class__)) or isinstance(val, unicode):
                 exec(varname + ' = """%s""" ' % (val,))
             else:
                 exec(varname + " = %s" % (val,))
@@ -389,5 +368,4 @@ class templates_transients_obs():
         self.log.debug('completed the ``_generate_ob_text`` method')
         return downloadFilename, obText
 
-    # use the tab-trigger below for new method
     # xt-class-method

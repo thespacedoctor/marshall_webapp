@@ -3,8 +3,8 @@ import pyramid.httpexceptions as exc
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
-from ..templates.responses import templates_transients_obs
-from ..models.transients_obs.element import models_transients_element_obs_get
+from marshall_webapp.templates.responses import templates_transients_obs
+from marshall_webapp.models.transients_obs.element import models_transients_element_obs_get
 
 # RESOURCE ELEMENT
 

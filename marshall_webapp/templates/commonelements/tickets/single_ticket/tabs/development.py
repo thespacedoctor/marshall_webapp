@@ -1,37 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-development.py
-===========
-:Summary:
-    The development tab for the PESSTO Object tickets
+*The development tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
 
 
 def development_tab(
@@ -53,15 +35,11 @@ def development_tab(
 
     **Return:**
         - ``development_tab`` -- for each transient ticket in the transient listings pages
-
-    **Todo**
     """
-    ################ > IMPORTS ################
     from time import strftime
-    from .. import ticket_building_blocks
-    from .. import tabs
-    from ... import single_ticket
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
+    from marshall_webapp.templates.commonelements import forms
 
     log.debug('starting the ``development_tab`` function')
 
@@ -87,20 +65,13 @@ def development_tab(
         htmlId="developmenttab"
     )
 
-    # convert bytes to unicode
+    # CONVERT BYTES TO UNICODE
     if isinstance(development_tab, str):
         development_tab = unicode(
             development_tab, encoding="utf-8", errors="replace")
 
     log.debug('completed the ``development_tab`` function')
     return development_tab
-
-# use the tab-trigger below for new function
-# LAST MODIFIED : March 19, 2015
-# CREATED : March 19, 2015
-# AUTHOR : DRYX
-# copy usage method(s) into function below and select the following snippet from the command palette:
-# x-setup-worker-function-parameters-from-usage-method
 
 
 def transient_d3_lightcurve(
@@ -112,16 +83,6 @@ def transient_d3_lightcurve(
     **Key Arguments:**
         - ``dbConn`` -- mysql database connection
         - ``log`` -- logger
-        # copy usage method(s) here and select the following snippet from the command palette:
-        # x-setup-docstring-keys-from-selected-usage-options
-
-    **Return:**
-        - None
-
-    **Todo**
-        - @review: when complete, clean transient_d3_lightcurve function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.debug('starting the ``transient_d3_lightcurve`` function')
 
@@ -144,14 +105,5 @@ def transient_d3_lightcurve(
     log.debug('completed the ``transient_d3_lightcurve`` function')
     return svg
 
-# use the tab-trigger below for new function
+
 # xt-def-with-logger
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

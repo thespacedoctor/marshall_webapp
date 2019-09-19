@@ -1,32 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_count.py
-==========================
-:Summary:
-    Count the transients with a give flagset
+*Count the transients with a given flagset*
 
 :Author:
     David Young
 
 :Date Created:
     October 3, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 
 
 class models_transients_count():
-
     """
     The worker class for the models_transients_count module
 
@@ -37,10 +24,7 @@ class models_transients_count():
         - ``awfFlag`` -- alert workflow location
         - ``cFlag`` -- classification flag
         - ``snoozes`` -- snoozed flag
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -60,22 +44,18 @@ class models_transients_count():
         self.snoozed = snoozed
         # xt-self-arg-tmpx
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """get the models_transients_count object
 
         **Return:**
             - ``models_transients_count``
 
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 

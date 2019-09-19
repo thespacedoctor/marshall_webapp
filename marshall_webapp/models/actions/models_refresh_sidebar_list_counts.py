@@ -1,33 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_refresh_sidebar_list_counts.py
-=====================================
-:Summary:
-    The data model module for the `models_refresh_sidebar_list_counts` resource
+*The data model module for the `models_refresh_sidebar_list_counts` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 13, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 
 
 class models_refresh_sidebar_list_counts():
-
     """
     The worker class for the models_refresh_sidebar_list_counts module
 
@@ -35,10 +22,7 @@ class models_refresh_sidebar_list_counts():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -53,23 +37,17 @@ class models_refresh_sidebar_list_counts():
 
         log.debug(
             "instansiating a new 'models_refresh_sidebar_list_counts' object")
-
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def put(self):
         """execute the put method on the models_refresh_sidebar_list_counts object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``put`` method')
 

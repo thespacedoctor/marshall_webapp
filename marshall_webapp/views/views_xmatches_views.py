@@ -3,8 +3,8 @@ import pyramid.httpexceptions as exc
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
-from ..templates.responses import templates_xmatches_views
-from ..models.xmatches_views.element import models_xmatches_element_views_get, models_xmatches_element_views_delete, models_xmatches_element_views_put, models_xmatches_element_views_post
+from marshall_webapp.templates.responses import templates_xmatches_views
+from marshall_webapp.models.xmatches_views.element import models_xmatches_element_views_get, models_xmatches_element_views_delete, models_xmatches_element_views_put, models_xmatches_element_views_post
 
 # RESOURCE CONTEXT
 

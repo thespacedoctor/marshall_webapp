@@ -1,34 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_element_history_post.py
-=========================================
-:Summary:
-    The data model module for the `transients_element_history_post` resource
+*The data model module for the `transients_element_history_post` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 27, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
-    @review: when complete review and cleanup this models_transients_element_history_post.py module
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 
 
 class models_transients_element_history_post():
-
     """
     The worker class for the models_transients_element_history_post module
 
@@ -37,15 +23,7 @@ class models_transients_element_history_post():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
         - ``search`` -- is this a search request (boolean)
-
-    **Todo**
-        - @review: when complete, clean models_transients_element_history_post class
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract class to another module
     """
-    # Initialisation
-    # 1. @flagged: what are the unique attrributes for each object? Add them
-    # to __init__
 
     def __init__(
         self,
@@ -66,13 +44,6 @@ class models_transients_element_history_post():
         log.debug(
             "instansiating a new 'models_transients_element_history_post' object")
 
-        # 2. @flagged: what are the default attrributes each object could have? Add them to variable attribute set here
-        # Variable Data Atrributes
-
-        # 3. @flagged: what variable attrributes need overriden in any baseclass(es) used
-        # Override Variable Data Atrributes
-
-        # Initial Actions
         self._set_default_parameters()
 
         return None
@@ -81,17 +52,11 @@ class models_transients_element_history_post():
         del self
         return None
 
-    # 4. @flagged: what actions does each object have to be able to perform? Add them here
-    # Method Attributes
     def post(self):
         """execute the post method on the models_transients_element_history_post object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
-            - @review: when complete, clean post method
-            - @review: when complete add logging
         """
         self.log.debug('starting the ``post`` method')
 
@@ -111,16 +76,6 @@ class models_transients_element_history_post():
     def _set_default_parameters(
             self):
         """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean _set_default_parameters method
-            - @review: when complete add logging
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
@@ -131,8 +86,4 @@ class models_transients_element_history_post():
         self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
-    # xt-class-method
-
-    # 5. @flagged: what actions of the base class(es) need ammending? ammend them here
-    # Override Method Attributes
     # method-override-tmpx

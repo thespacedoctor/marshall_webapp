@@ -1,35 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_element_context_post.py
-=======================================
-:Summary:
-    The HTML template module for the `models_transients_element_context_post.py` resource
+*The HTML template module for the `models_transients_element_context_post.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
-    ddate
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
+    September 18, 2014
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-import cgi
-import dryxPython.commonutils as dcu
+from fundamentals import times
 
 
 class models_transients_element_context_post():
-
     """
     The worker class for the models_transients_element_context_post module
 
@@ -37,10 +23,7 @@ class models_transients_element_context_post():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -56,36 +39,31 @@ class models_transients_element_context_post():
         log.debug(
             "instansiating a new 'models_transients_element_context_post' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def post(self):
         """execute the put method on the models_transients_element_context_post object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``put`` method')
 
         transientBucketId = self.elementId
 
         # variables
-        now = dcu.get_now_sql_datetime()
+        now = times.get_now_sql_datetime()
         author = self.request.authenticated_userid
         comment = self.request.params["sherlockMatchComment"]
 
         comment = comment.encode('unicode_escape').replace(
             "'", "\\'").replace('"', '\\"')
 
-        # # add the comment to the database
+        # # ADD THE COMMENT TO THE DATABASE
         sqlQuery = """
            update sherlock_classifications set mismatchComment = "%(comment)s", user = "%(author)s", commentDate=now() where transient_object_id = %(transientBucketId)s;
         """ % locals()

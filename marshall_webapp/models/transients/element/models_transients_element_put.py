@@ -1,46 +1,28 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_element_put.py
-==============================
-:Summary:
-    The HTML template module for the `models_transients_element_put.py` resource
+*The HTML template module for the `models_transients_element_put.py` resource*
 
 :Author:
-    David Youn
+    David Young
+
 :Date Created:
     October 7, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 from datetime import datetime, date, time
-from dryxPython import commonutils as dcu
-from dryxPython import astrotools as dat
-from datetime import datetime, date, time
 
 
 class models_transients_element_put():
-
     """
     The worker class for the models_transients_element_put module
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -55,22 +37,17 @@ class models_transients_element_put():
 
         log.debug("instansiating a new 'models_transients_element_put' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def put(self):
         """get the models_transients_element_put object
 
         **Return:**
-            - ``models_transients_element_put``
-
-        **Todo**
+            - ``response``
         """
         self.log.debug('starting the ``get`` method')
 
@@ -96,14 +73,6 @@ class models_transients_element_put():
     def _move_transient_to_another_list(
             self):
         """ create sqlquery for the put request
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_create_sqlquery`` method')
         transientBucketId = self.transientBucketId
@@ -121,7 +90,7 @@ class models_transients_element_put():
         now = datetime.now()
         now = now.strftime("%Y-%m-%d %H:%M:%S")
 
-        # change the marshall workflow location list if requested
+        # CHANGE THE MARSHALL WORKFLOW LOCATION LIST IF REQUESTED
         if "mwl" in self.request.params:
             mwl = self.request.params["mwl"]
             if "snoozed" in self.request.params:
@@ -158,7 +127,7 @@ class models_transients_element_put():
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
 
-            # reset priority if required
+            # RESET PRIORITY IF REQUIRED
             if mwl == "following":
                 sqlQuery = """
                     update pesstoObjects set observationPriority = 2 where transientBucketId = %(transientBucketId)s
@@ -166,7 +135,7 @@ class models_transients_element_put():
                 self.request.db.execute(sqlQuery)
                 self.request.db.commit()
 
-            # reset the last time reviewe if required
+            # RESET THE LAST TIME REVIEWE IF REQUIRED
             if mwl == "archive":
                 now = datetime.now()
                 now = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -176,7 +145,7 @@ class models_transients_element_put():
                 self.request.db.execute(sqlQuery)
                 self.request.db.commit()
 
-        # change the alert workflow location list if requested
+        # CHANGE THE ALERT WORKFLOW LOCATION LIST IF REQUESTED
         if "awl" in self.request.params:
             awl = self.request.params["awl"]
             sqlQuery = """
@@ -211,14 +180,6 @@ class models_transients_element_put():
     def _change_pi_for_object(
             self):
         """ change pi for object
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_change_pi_for_object`` method')
 
@@ -238,7 +199,7 @@ class models_transients_element_put():
         oldPiName = objectData[0]["pi_name"]
         oldPiEmail = objectData[0]["pi_email"]
 
-        # change the pi in the database
+        # CHANGE THE PI IN THE DATABASE
         sqlQuery = """
             update pesstoObjects set pi_name = "%(piName)s", pi_email = "%(piEmail)s" where transientBucketId = %(transientBucketId)s   
         """ % locals()
@@ -275,16 +236,6 @@ class models_transients_element_put():
     def _set_observational_priority_for_object(
             self):
         """ change the observational priority for an object
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean _set_observational_priority_for_object method
-            - @review: when complete add logging
         """
         self.log.debug(
             'completed the ````_set_observational_priority_for_object`` method')
@@ -296,7 +247,7 @@ class models_transients_element_put():
         now = datetime.now()
         now = now.strftime("%Y-%m-%d %H:%M:%S")
 
-        # get old data
+        # GET OLD DATA
         sqlQuery = """
             select observationPriority, marshallWorkflowLocation from pesstoObjects where transientBucketId = %(transientBucketId)s   
         """ % locals()
@@ -306,14 +257,14 @@ class models_transients_element_put():
         oldobservationPriority = objectData[0]["observationPriority"]
         mwl = objectData[0]["marshallWorkflowLocation"]
 
-        # change the observationPriority in the database
+        # CHANGE THE OBSERVATIONPRIORITY IN THE DATABASE
         sqlQuery = """
             update pesstoObjects set observationPriority = "%(observationPriority)s" where transientBucketId = %(transientBucketId)s   
         """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
 
-        # response
+        # RESPONSE
         self.response = self.response + \
             "changed the observational priority of transient #%(transientBucketId)s to '%(observationPriority)s'" % locals(
             )
@@ -330,11 +281,11 @@ class models_transients_element_put():
                 if n == observationPriority:
                     observationPriority = w
 
-            # log entry
+            # LOG ENTRY
             logEntry = "observation priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
             )
 
-        elif mwl == "pending observation":
+        else:
             for n, w in zip([1, 2, 3], ["HIGH", "MEDIUM", "LOW"]):
                 if n == oldobservationPriority:
                     oldobservationPriority = w
@@ -343,7 +294,7 @@ class models_transients_element_put():
                 if n == observationPriority:
                     observationPriority = w
 
-            # log entry
+            # LOG ENTRY
             logEntry = "classification priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
             )
 
@@ -364,5 +315,4 @@ class models_transients_element_put():
             'completed the ``_set_observational_priority_for_object`` method')
         return None
 
-    # use the tab-trigger below for new method
     # xt-class-method

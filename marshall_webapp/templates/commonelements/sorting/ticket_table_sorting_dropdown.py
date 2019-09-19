@@ -1,36 +1,18 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ticket_table_sorting_dropdown.py
-============================
-:Summary:
-    The sort dropdown used to sort the tickets displayed in the marshall
+*The sort dropdown used to sort the tickets displayed in the marshall*
 
 :Author:
     David Young
 
 :Date Created:
     January 22, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 22, 2014
-# CREATED : January 22, 2014
-# AUTHOR : DRYX
 
 
 def ticket_table_sorting_dropdown(
@@ -49,8 +31,6 @@ def ticket_table_sorting_dropdown(
 
     **Return:**
         - ``sortDropdown`` -- the sort dropdown for the transient listing pages
-
-    **Todo**
     """
     routename = request.matched_route.name
     if "elementId" in request.matchdict:
@@ -63,16 +43,6 @@ def ticket_table_sorting_dropdown(
     for i in alist:
         if i in theseParams:
             del theseParams[i]
-
-    # thisUrl = re.sub(r"(\&|\?)sortBy=[a-zA-Z_]*", "", thisUrl)
-    # thisUrl = re.sub(r"(\&|\?)sortDesc=[a-zA-Z]*", "", thisUrl)
-    # thisUrl = re.sub(r"(\&|\?)=\d*", "", thisUrl)
-    # thisUrl = re.sub(r"(\&|\?)pageStart=\d*", "", thisUrl)
-    # thisUrl = re.sub(r"index.py&", "index.py?", thisUrl)
-    # if thisUrl[-3:] == ".py":
-    #     thisUrl = "%(thisUrl)s?" % locals()
-    # elif thisUrl[-1:] not in ["?", "&"]:
-    #     thisUrl = "%(thisUrl)s&" % locals()
 
     # GENERATE THE SORT OPTION LIST
     optionList = [
@@ -150,7 +120,7 @@ def ticket_table_sorting_dropdown(
         except:
             pass
 
-    # add links to options
+    # ADD LINKS TO OPTIONS
     linkList = []
     for option in optionList:
         if option == "ra":
@@ -204,7 +174,7 @@ def ticket_table_sorting_dropdown(
         )
         linkList.append(thisLink)
 
-    # set sort arrow direction
+    # SET SORT ARROW DIRECTION
     if sortDesc != "True":
         arrow = """<i class="icon-arrow-down4"></i>"""
         theseParams["sortBy"] = dbSortBy
@@ -218,7 +188,7 @@ def ticket_table_sorting_dropdown(
         topButtonLink = request.route_path(
             routename, elementId=elementId, _query=theseParams)
 
-    # add text color
+    # ADD TEXT COLOR
     arrow = khufu.coloredText(
         text=arrow,
         color="red",
@@ -287,12 +257,3 @@ def ticket_table_sorting_dropdown(
     )
 
     return sortDropdown
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

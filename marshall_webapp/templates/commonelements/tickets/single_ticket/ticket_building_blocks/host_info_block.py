@@ -1,41 +1,22 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-host_info_block.py
-=================
-:Summary:
-    The host info block for the object ticket
+*The host info block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
 import numpy as np
 import khufu
 import collections
-from dryxPython import commonutils as dcu
-from .....commonelements import commonutils as cu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
 def host_info_block(
@@ -53,7 +34,6 @@ def host_info_block(
 
     **Return:**
         - ``host_info_block`` -- the ticket identity block for the pesssto object
-
     """
     log.debug('starting the ``host_info_block`` function')
 
@@ -68,22 +48,12 @@ def host_info_block(
     sherlockAnnotation = discoveryDataDictionary["annotation"]
 
     if sherlockAnnotation:
-        # more = khufu.a(
-        #     content=' <em>more info</em>',
-        #     href="#tab" + str(transientBucketId) + "3",
-        #     triggerStyle="tab",  # [ False | "dropdown" | "tab" | "modal" ],
-        # )
-        # more = khufu.coloredText(
-        #     text=more,
-        #     color="blue",
-        #     size=2,
-        # )
+
         sherlockAnnotation = khufu.coloredText(
             text=" - " + sherlockAnnotation,
             color="green",
             size=2,
         )
-        # sherlockAnnotation += more
 
     else:
         sherlockAnnotation = ""
@@ -279,17 +249,6 @@ def host_info_block(
     if noModal == False:
         imageModal = imageModal + modal
 
-    # imageModal = khufu.imagingModal(
-    #     log=log,
-    #     imagePath=contextStamp,
-    #     display="rounded",  # [ rounded | circle | polaroid | False ]
-    #     modalHeaderContent="Context Stamp for %(masterName)s" % locals(),
-    #     modalFooterContent=sdssLink,
-    #     stampWidth="100%",
-    #     modalImageWidth=400,
-    #     downloadLink=href)
-    # imageModal = imageModal.get()
-
     if sherlockClassification:
         littleTitle = cu.little_label(
             text="contextual classification:"
@@ -315,11 +274,3 @@ def host_info_block(
         sherlockClassification = ""
 
     return "%(title)s %(imageModal)s %(sdssLinkRow)s %(sherlockClassification)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

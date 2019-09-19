@@ -34,3 +34,4 @@ blog-post.md
 blog-post.rstcaches
 config.codekit
 /marshall_webapp/static/caches
+/backup_marshall_schema_to_here.sh

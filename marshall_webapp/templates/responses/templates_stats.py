@@ -1,34 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_stats.py
-==================
-:Summary:
-    The HTML template module for the `templates_stats.py` resource
+*The HTML template module for the `templates_stats.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 6, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from ..commonelements.pagetemplates import defaultpagetemplate
+from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
 
 class templates_stats():
-
     """
     The worker class for the templates_stats module
 
@@ -36,10 +23,7 @@ class templates_stats():
         - ``log`` -- logger
         - ``request`` -- request
         - ``elementId`` -- elementId
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -53,35 +37,30 @@ class templates_stats():
         self.elementId = elementId
         # xt-self-arg-tmpx
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_stats object
 
         **Return:**
             - ``webpage`` -- the webpage HTML
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 
-        from ..commonelements.stats.esophaseIII import plot_wells, ssdr_stats_table
+        from marshall_webapp.templates.commonelements.stats.esophaseIII import plot_wells, ssdr_stats_table
 
-        # get the image wells for the plots
+        # GET THE IMAGE WELLS FOR THE PLOTS
         sofiImagingPlots = plot_wells(
             log=self.log,
             request=self.request,
             releaseVersion=self.elementId
         )
 
-        # get the ssdr1 stats table
+        # GET THE SSDR1 STATS TABLE
         ssdr1Table = ssdr_stats_table(
             log=self.log,
             request=self.request,
@@ -92,7 +71,7 @@ class templates_stats():
         # d3plot = self.generate_d3_plot()
         # d3plot = ""
 
-        # craft the content of the page
+        # CRAFT THE CONTENT OF THE PAGE
         mainContent = khufu.grid_column(
             span=12,  # 1-12
             offset=0,  # 1-12
@@ -124,16 +103,6 @@ class templates_stats():
     def generate_d3_plot(
             self):
         """generate d3 plot
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean generate_d3_plot method
-            - @review: when complete add logging
         """
         self.log.debug('starting the ``generate_d3_plot`` method')
 
@@ -268,5 +237,4 @@ class templates_stats():
         self.log.debug('completed the ``generate_d3_plot`` method')
         return htmlContent.decode('utf-8')
 
-    # use the tab-trigger below for new method
     # xt-class-method

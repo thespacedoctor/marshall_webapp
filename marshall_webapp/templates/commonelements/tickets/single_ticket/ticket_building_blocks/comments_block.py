@@ -1,37 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-comments_block.py
-=================
-:Summary:
-    The comments block for the comments tab of the PESSTO Marshall object ticket
+*The comments block for the comments tab of the PESSTO Marshall object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
+from fundamentals import times
 
 
 def comments_block(
@@ -50,8 +33,6 @@ def comments_block(
 
     **Return:**
         - ``commentBlock`` -- the comments block for the transient ticket in the transient listings pages
-
-    **Todo**
     """
     commentBlock = ""
     count = 0
@@ -89,9 +70,8 @@ def comments_block(
         delta = now - row["dateCreated"]
         delta = delta.days
         if (delta < 13):
-            thisDate = dcu.pretty_date(
-                date=row["dateCreated"]
-            )
+
+            thisDate = times.datetime_relative_to_now(row["dateCreated"])
             if thisDate[-1:] == "d":
                 thisDate = thisDate[2:-1]
                 thisDate = """%(thisDate)s days ago""" % locals()
@@ -117,12 +97,3 @@ def comments_block(
         commentBlock = """%(commentBlock)s %(commentRow)s""" % locals()
 
     return count, commentBlock
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

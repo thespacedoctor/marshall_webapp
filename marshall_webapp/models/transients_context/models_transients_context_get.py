@@ -1,26 +1,14 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_context_get.py
-===============================
-:Summary:
-    The HTML template module for the `models_transients_context_get.py` resource
+*The HTML template module for the `models_transients_context_get.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 9, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
@@ -30,7 +18,6 @@ import re
 
 
 class models_transients_context_get():
-
     """
     The worker class for the models_transients_context_get module
 
@@ -38,10 +25,7 @@ class models_transients_context_get():
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -62,22 +46,17 @@ class models_transients_context_get():
 
         log.debug("instansiating a new 'models_transients_context_get' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_transients_context_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 
@@ -292,14 +271,6 @@ class models_transients_context_get():
     def _set_default_parameters(
             self):
         """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
@@ -309,20 +280,9 @@ class models_transients_context_get():
         self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
-    # use the tab-trigger below for new method
     def get_metadata(
             self):
         """ extra metadata
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean get_metadata method
-            - @review: when complete add logging
         """
         self.log.debug('starting the ``get_metadata`` method')
 

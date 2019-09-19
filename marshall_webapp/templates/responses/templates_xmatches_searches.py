@@ -1,34 +1,23 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_xmatches_searches.py
-========================================================
-:Summary:
-    The HTML template module for the `templates_xmatches_searches.py` resource
+*The HTML template module for the `templates_xmatches_searches.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 13, 2015
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 import re
-from ...models.xmatches_searches import models_xmatches_searches_get
-from ...models.xmatches_searches.element import models_xmatches_element_searches_get
+from marshall_webapp.models.xmatches_searches import models_xmatches_searches_get
+from marshall_webapp.models.xmatches_searches.element import models_xmatches_element_searches_get
 
 
 class templates_xmatches_searches():
-
     """
     The worker class for the templates_xmatches_searches module
 
@@ -37,7 +26,6 @@ class templates_xmatches_searches():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the element id of the resource requested (or false)
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -54,22 +42,17 @@ class templates_xmatches_searches():
         log.debug(
             "instansiating a new 'templates_xmatches_searches' object")
 
-        # Initial Actions
-
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_xmatches_searches object
 
         **Return:**
-            - ``responseContent`` -- the response
-
-        **Todo**
+            - ``webpage`` -- the webpage
         """
         self.log.debug('starting the ``get`` method')
 
-        from ..commonelements.pagetemplates import defaultpagetemplate
+        from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
         if self.elementId == False:
             xmatches_searches = models_xmatches_searches_get(
@@ -78,7 +61,7 @@ class templates_xmatches_searches():
             )
             self.catalogues = xmatches_searches.get()
 
-            from ..commonelements.pagetemplates import defaultpagetemplate
+            from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
             # add text color
             text = khufu.coloredText(
@@ -117,15 +100,8 @@ class templates_xmatches_searches():
             self):
         """create table
 
-        **Key Arguments:**
-            # -
-
         **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean create_table method
-            - @review: when complete add logging
+            - ``table``
         """
         self.log.debug('starting the ``create_table`` method')
 
@@ -184,27 +160,15 @@ class templates_xmatches_searches():
             defaultSort=False
         )
 
-        # replace column names with display names (e.g. for when MySQL column
-        # names are used)
+        # REPLACE COLUMN NAMES WITH DISPLAY NAMES (E.G. FOR WHEN MYSQL COLUMN
+        # NAMES ARE USED)
         nd = table.modifyDisplayNameDict
         for o, n in zip(columnsNamesDB, columnsNames):
             nd[o] = n
-
-        # replace column names with sortBy names (e.g. for when MySQL column names are used)
-        # sd = table.modifySortByDict
-        # xt-sortby-dictionary
-
-        # change relative column sizes
-        # table.modifyColumnWidths = ["3", "28", ... ]
-
-        # search trigger when clicking on a row
-        # table.searchKeyAndColumn = ("searchString", "plainName")
-        # table.columnsToHide = ["plainName"]
 
         table = table.get()
 
         self.log.debug('completed the ``create_table`` method')
         return table
 
-    # use the tab-trigger below for new method
     # xt-class-method

@@ -1,0 +1,4 @@
+[
+  "marshall_webapp/views/tests/test_views_transients.py::test_views_transients::test_views_transients_function_exception", 
+  "marshall_webapp/views/tests/test_views_transients.py::test_views_transients::test_views_transients_post"
+]

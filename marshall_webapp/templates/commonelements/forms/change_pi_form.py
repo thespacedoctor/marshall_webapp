@@ -1,36 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-change_pi_form.py
-=================
-:Summary:
-    Create the change PI form
+*Create the change PI form*
 
 :Author:
     David Young
 
 :Date Created:
     February 21, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : February 21, 2014
-# CREATED : February 21, 2014
-# AUTHOR : DRYX
 def change_pi_form(
     log,
     request,
@@ -45,8 +28,6 @@ def change_pi_form(
 
     **Return:**
         - ``changePiForm`` -- the change PI modal form
-
-    **Todo**
     """
     postToScriptUrl = request.route_path(
         'transients_element', elementId=discoveryDataDictionary["transientBucketId"], _query={'method': 'put'})
@@ -81,9 +62,6 @@ def change_pi_form(
         formObject=emailInput,
         label="Email"
     )
-    # xkhufu-add-form-object-to-modalForm
-    # xkhufu-add-hidden-parameter-to-modalForm
-
     modalForm, modalTrigger = thisModal.get()
 
     if discoveryDataDictionary["pi_name"]:
@@ -118,11 +96,3 @@ def change_pi_form(
     )
 
     return modalForm, thisButton
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

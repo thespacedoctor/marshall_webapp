@@ -1,37 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-number_of_objects_dropdown.py
-=============================
-:Summary:
-    Dropdown to select the numnber of objects to be displayed on a page
+*Dropdown to select the numnber of objects to be displayed on a page*
 
 :Author:
     David Young
 
 :Date Created:
     February 20, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import khufu
 
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : February 20, 2014
-# CREATED : February 20, 2014
-# AUTHOR : DRYX
 
 def number_of_objects_dropdown(
     log,
@@ -49,8 +31,6 @@ def number_of_objects_dropdown(
 
     **Return:**
         - ``objectsPerPageDropdown``
-
-    **Todo**
     """
     routename = request.matched_route.name
     if "elementId" in request.matchdict:
@@ -65,7 +45,7 @@ def number_of_objects_dropdown(
         if i in theseParams:
             del theseParams[i]
 
-    # determine which icon to use:
+    # DETERMINE WHICH ICON TO USE:
     if tableView == "table":
         icon = """<i class="icon-reorder"></i>"""
     else:
@@ -108,11 +88,3 @@ def number_of_objects_dropdown(
     )
 
     return objectsPerPageDropdown
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

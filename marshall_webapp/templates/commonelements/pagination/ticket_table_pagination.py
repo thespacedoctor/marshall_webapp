@@ -1,38 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ticket_table_pagination.py
-==========================
-:Summary:
-    The pagintation for pages displaying a ticket table
+*The pagintation for pages displaying a ticket table*
 
 :Author:
     David Young
 
 :Date Created:
     January 9, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import math
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 9, 2014
-# CREATED : January 9, 2014
-# AUTHOR : DRYX
 
 
 def ticket_table_pagination(
@@ -55,8 +36,6 @@ def ticket_table_pagination(
 
     **Return:**
         - ``pagination`` -- the pagination to be displayed
-
-    **Todo**
     """
     routename = request.matched_route.name
     if "elementId" in request.matchdict:
@@ -71,13 +50,6 @@ def ticket_table_pagination(
         if i in theseParams:
             del theseParams[i]
 
-    # STRIP THE URL OF PREVIOUS PAGINATION SETTINGS
-    # thisUrl = re.sub(r"(&|\?)limit=\d*", "", thisUrl)
-    # thisUrl = re.sub(r"(&|\?)pageStart=\d*", "", thisUrl)
-    # APPEND THE RELEVANT SYMBOL AT END OF NEW URL
-    # beginUrlWith = "&"
-    # if "?" not in thisUrl:
-    #     beginUrlWith = "?"
     # PLACE VARIABLES IN CORRECT FORMAT
     limit = float(limit)
     previousPageStart = float(previousPageStart)
@@ -176,11 +148,3 @@ def ticket_table_pagination(
     )
 
     return pagination
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()
