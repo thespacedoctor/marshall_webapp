@@ -8,52 +8,47 @@ from fundamentals import tools
 from marshall_webapp.utKit import utKit
 from dryxPyramid.utKit import BaseTest
 
-moduleDirectory = os.path.dirname(__file__)
-
-su = tools(
-    arguments={"settingsFile": moduleDirectory + "/../../test_settings.yaml"},
-    docString=__doc__,
-    logLevel="WARNING",
-    options_first=False,
-    projectName="marshall_webapp",
-    defaultSettingsFile=False
-)
-arguments, settings, log, dbConn = su.setup()
-
-# # load settings
-# stream = file(
-#     "/Users/Dave/.config/marshall_webapp/marshall_webapp.yaml", 'r')
-# settings = yaml.load(stream)
-# stream.close()
 
 # SETUP AND TEARDOWN FIXTURE FUNCTIONS FOR THE ENTIRE MODULE
 moduleDirectory = os.path.dirname(__file__)
 stream = file(
     moduleDirectory + "/../../test_settings.yaml", 'r')
 utKit = utKit(moduleDirectory)
-log, dbConn, pathToInputDir, pathToOutputDir = utKit.setupModule()
-utKit.tearDownModule()
-
-
-import shutil
-try:
-    shutil.rmtree(pathToOutputDir)
-except:
-    pass
-# COPY INPUT TO OUTPUT DIR
-shutil.copytree(pathToInputDir, pathToOutputDir)
-
-# Recursively create missing directories
-if not os.path.exists(pathToOutputDir):
-    os.makedirs(pathToOutputDir)
-
-# xt-setup-unit-testing-files-and-folders
 
 
 class test_views_transients(BaseTest):
 
     def __init__(self, *args, **kwargs):
         BaseTest.__init__(self, *args, **kwargs)
+        moduleDirectory = os.path.dirname(__file__)
+        su = tools(
+            arguments={"settingsFile": moduleDirectory +
+                       "/../../test_settings.yaml"},
+            docString=__doc__,
+            logLevel="WARNING",
+            options_first=False,
+            projectName="marshall_webapp",
+            defaultSettingsFile=False
+        )
+        arguments, settings, log, dbConn = su.setup()
+
+        log, dbConn, pathToInputDir, pathToOutputDir = utKit.setupModule()
+        utKit.tearDownModule()
+
+        import shutil
+        try:
+            shutil.rmtree(pathToOutputDir)
+        except:
+            pass
+        # COPY INPUT TO OUTPUT DIR
+        shutil.copytree(pathToInputDir, pathToOutputDir)
+
+        # Recursively create missing directories
+        if not os.path.exists(pathToOutputDir):
+            os.makedirs(pathToOutputDir)
+
+        # xt-setup-unit-testing-files-and-folders
+
         self.testIni = moduleDirectory + "/../../../test.ini#marshall_webapp"
 
         self.testSettings = settings

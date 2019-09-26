@@ -77,7 +77,7 @@ class models_transients_element_post():
 
         # ASTROCALC CONVERTER
         converter = conversions(
-            log=log
+            log=self.log
         )
 
         # FIRST SELECT OUT A ROW FROM THE TRANSIENTBUCKET AS A TEMPLATE FOR THE

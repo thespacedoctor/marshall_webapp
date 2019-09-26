@@ -91,7 +91,7 @@ class models_transients_post():
         )
         # CONVERTER TO CONVERT MJD TO DATE
         timeConverter = conversions(
-            log=log
+            log=self.log
         )
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
