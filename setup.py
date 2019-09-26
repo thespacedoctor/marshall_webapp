@@ -18,16 +18,12 @@ install_requires = [
     'sqlalchemy',
     'fundamentals',
     'mod_wsgi',
-    'matplotlib',
     'khufu',
     'dryxPyramid',
-    'pymysql==0.9.0',
+    'pymysql',
     'astrocalc',
-    'pessto_marshall_engine',
-    'HMpTy',
-    'astropy',
-    'pytest',
-    'webtest',
+    # 'pytest',
+    # 'webtest',
     'marshallEngine'
 ]
 

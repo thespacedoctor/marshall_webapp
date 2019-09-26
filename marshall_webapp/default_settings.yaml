@@ -45,7 +45,7 @@ logging settings:
             class: logging.handlers.GroupWriteRotatingFileHandler
             level: WARNING
             formatter: file_style
-            filename: /Users/Dave/.config/marshallEngine/marshallEngine.log
+            filename: ~/.config/marshallEngine/marshallEngine.log
             mode: w+
             maxBytes: 102400
             backupCount: 1

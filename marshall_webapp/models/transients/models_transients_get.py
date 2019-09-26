@@ -331,7 +331,7 @@ class models_transients_get():
             """selectColumns: {selectColumns}""".format(**dict(globals(), **locals())))
 
         sqlQuery = """
-            insert ignore into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucketSummaries;
+            insert into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucketSummaries ON DUPLICATE KEY UPDATE  transient_object_id = transientBucketId;
         """ % locals()
         tmpObjectData = self.request.db.execute(
             text(sqlQuery))
