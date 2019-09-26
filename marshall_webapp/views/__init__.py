@@ -1,4 +1,4 @@
-import views_transients
+from views_transients import transients_view
 import views_stats
 import views_calendars
 import views_transients_comments

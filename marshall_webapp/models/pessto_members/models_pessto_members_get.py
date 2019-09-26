@@ -1,34 +1,22 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_pessto_members_get.py
-===============================
-:Summary:
-    The model get for the `models_pessto_members_get.py` resource
+*The model get for the `models_pessto_members_get.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 9, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
 import collections
-import urllib
 import re
 
 
 class models_pessto_members_get():
-
     """
     The worker class for the models_pessto_members_get module
 
@@ -37,7 +25,6 @@ class models_pessto_members_get():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -61,15 +48,12 @@ class models_pessto_members_get():
         log.debug(
             "instansiating a new 'models_pessto_members_get' object")
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_pessto_members_get object
 
@@ -106,9 +90,6 @@ class models_pessto_members_get():
             self):
         """ set default parameters
 
-        **Key Arguments:**
-            -
-
         **Return:**
             - None
         """
@@ -120,5 +101,4 @@ class models_pessto_members_get():
         self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
-    # use the tab-trigger below for new method
     # xt-class-method

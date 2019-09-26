@@ -1,10 +1,7 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-ticket_table_filter_dropdown.py
-============================
-:Summary:
-    The filter dropdown used to filter the tickets displayed in the marshall
+*The filter dropdown used to filter the tickets displayed in the marshall*
 
 :Author:
     David Young
@@ -12,13 +9,10 @@ ticket_table_filter_dropdown.py
 :Date Created:
     December 11, 2017
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 
 
 def ticket_table_filter_dropdown(
@@ -78,7 +72,7 @@ def ticket_table_filter_dropdown(
         except:
             pass
 
-    # add links to options
+    # ADD LINKS TO OPTIONS
     linkList = []
     for option in filterList:
         if "predicted" in option:
@@ -141,12 +135,3 @@ def ticket_table_filter_dropdown(
     )
 
     return sortDropdown
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

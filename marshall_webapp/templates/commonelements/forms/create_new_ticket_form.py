@@ -1,36 +1,17 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-create_new_ticket_form.py
-=========================
-:Summary:
-    The create new ticket form for the PESSTO Marshall
+*The create new ticket form for the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     December 11, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : December 11, 2013
-# CREATED : December 11, 2013
-# AUTHOR : DRYX
 
 
 def create_new_ticket_form(
@@ -45,8 +26,6 @@ def create_new_ticket_form(
 
     **Return:**
         - ``createNewTicketForm``
-
-    **Todo**
     """
     postToScriptUrl = request.route_path(
         'transients', _query={'method': 'post'})
@@ -212,12 +191,3 @@ def create_new_ticket_form(
     )
 
     return modalForm, thisButton
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

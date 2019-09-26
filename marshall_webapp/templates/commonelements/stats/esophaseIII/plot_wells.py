@@ -1,41 +1,20 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-plot_wells.py
-
-===============
-:Summary:
-    Plots and stats for ESO PhaseIII Data Products
+*Plots and stats for ESO PhaseIII Data Products*
 
 :Author:
     David Young
 
 :Date Created:
     April 29, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import khufu
 
-###################################################################
-# CLASSES                                                         #
-###################################################################
-# class-tmpx
 
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : April 29, 2014
-# CREATED : April 29, 2014
-# AUTHOR : DRYX
 def plot_wells(
         log,
         request,
@@ -69,10 +48,6 @@ def plot_wells(
 
     return plotWells
 
-# LAST MODIFIED : April 30, 2014
-# CREATED : April 30, 2014
-# AUTHOR : DRYX
-
 
 def _generate_plot_well(
         log,
@@ -99,7 +74,7 @@ def _generate_plot_well(
     dataType = dataType[0].upper() + dataType[1:].lower()
     title = "%(instrument)s %(dataType)s" % locals()
 
-    # generate the empty well
+    # GENERATE THE EMPTY WELL
     imageWell = khufu.imageWell(
         log=log,
         title=title,
@@ -107,16 +82,16 @@ def _generate_plot_well(
         )
     )
 
-    # reformat attributes for detecting filenames
+    # REFORMAT ATTRIBUTES FOR DETECTING FILENAMES
     instrument = instrument.lower()
     dataType = dataType.lower()
 
-    # setup the phaseIII stats cache directory
+    # SETUP THE PHASEIII STATS CACHE DIRECTORY
     statsCache = request.registry.settings["stats cache directory"]
     esoPhaseIII = """%(statsCache)s/phaseIII""" % locals()
 
-    # find each sofi/efosc imaging/spectra png in the phaseIII stats cache and append it to
-    # the imaging well
+    # FIND EACH SOFI/EFOSC IMAGING/SPECTRA PNG IN THE PHASEIII STATS CACHE AND APPEND IT TO
+    # THE IMAGING WELL
     basePath = esoPhaseIII
     count = 0
     for d in os.listdir(basePath):
@@ -256,12 +231,3 @@ def _generate_plot_well(
     return thisImageWell
 
 # use the tab-trigger below for new function
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

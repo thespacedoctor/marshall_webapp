@@ -1,38 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-classification_block.py
-=================
-:Summary:
-    The classification block for the object ticket
+*The classification block for the object ticket*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
+from fundamentals import times
 import khufu
-from dryxPython import commonutils as dcu
-from .....commonelements import commonutils as cu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
 def classification_block(
@@ -48,8 +31,6 @@ def classification_block(
 
     **Return:**
         - ``classification_block`` -- the ticket identity block for the pesssto object
-
-    **Todo**
     """
     log.debug('starting the ``classification_block`` function')
 
@@ -105,7 +86,8 @@ def classification_block(
 
     daysPast = discoveryDataDictionary["classificationDate"]
     if daysPast:
-        daysPast = dcu.pretty_date(daysPast)[1:]
+
+        daysPast = times.datetime_relative_to_now(daysPast)[1:]
         if "just" not in daysPast:
             daysPast = daysPast[1:]
         if daysPast[-1] == "d":
@@ -198,11 +180,3 @@ def classification_block(
         )
 
     return "%(title)s %(spectralType)s %(classificationSurvey)s %(classificationDate)s %(classificationPhase)s %(redshift)s %(distanceMpc)s" % locals()
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-if __name__ == '__main__':
-    main()

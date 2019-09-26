@@ -1,37 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-classify_object_form.py
-=========================
-:Summary:
-    The classify object form for the PESSTO Marshall
+*The classify object form for the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     December 11, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 from datetime import datetime, date, time
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : December 11, 2013
-# CREATED : December 11, 2013
-# AUTHOR : DRYX
 def classify_object_form(
     log,
     request,
@@ -46,11 +29,7 @@ def classify_object_form(
 
     **Return:**
         - ``classifyObjectForm`` -- the modal form used to classify transients
-
-    **Todo**
     """
-    # get the datetime for now
-
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
@@ -79,8 +58,8 @@ def classify_object_form(
     else:
         defaultOption = False
     sourceInput = khufu.select(
-        optionList=["atel", "ePESSTO", "cbat",
-                    "private comm.", "GCN", "PESSTO"],
+        optionList=["atel", "ePESSTO+", "cbat",
+                    "private comm.", "GCN", "ePESSTO", "PESSTO"],
         multiple=False,
         span=4,
         htmlId="clsSource",
@@ -111,9 +90,6 @@ def classify_object_form(
         formObject=obsDateInput,
         label="classification date"
     )
-
-    # for k, v in discoveryDataDictionary.iteritems():
-    #     print k, v
 
     optionList = ["supernova", "agn", "variable star",
                   "galaxy", "cv", "LBV", "imposter",  "TDE", "GRB", "kilonova", "unknown"]
@@ -292,11 +268,3 @@ def classify_object_form(
     )
 
     return thisButton, modalForm
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

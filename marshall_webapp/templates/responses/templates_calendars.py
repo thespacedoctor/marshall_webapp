@@ -1,44 +1,28 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-templates_calendars.py
-======================
-:Summary:
-    The HTML template module for the `templates_calendars.py` resource
+*The HTML template module for the `templates_calendars.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 6, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from ..commonelements.pagetemplates import defaultpagetemplate
+from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
 
 class templates_calendars():
-
     """
     The worker class for the templates_calendars module
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -50,22 +34,17 @@ class templates_calendars():
         self.request = request
         # xt-self-arg-tmpx
 
-        # Initial Actions
-
         return None
 
     def close(self):
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """get the templates_calendars object
 
         **Return:**
             - ``webpage`` -- the webpage for the calendar
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 

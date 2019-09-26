@@ -1,37 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-dryx.py
-===========
-:Summary:
-    The dryx tab for the PESSTO Object tickets
+*The dryx tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
 
 
 def dryx_tab(
@@ -53,15 +35,11 @@ def dryx_tab(
 
     **Return:**
         - ``dryx_tab`` -- for each transient ticket in the transient listings pages
-
-    **Todo**
     """
-    ################ > IMPORTS ################
     from time import strftime
-    from .. import ticket_building_blocks
-    from .. import tabs
-    from ... import single_ticket
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
+    from marshall_webapp.templates.commonelements import forms
 
     log.debug('starting the ``dryx_tab`` function')
 
@@ -78,7 +56,7 @@ def dryx_tab(
     currentMagnitudeEstimate = discoveryDataDictionary[
         "currentMagnitudeEstimate"]
 
-    # add text color
+    # ADD TEXT COLOR
     currentMagnitude = khufu.coloredText(
         text="currentMagnitudeEstimate: %(currentMagnitudeEstimate)s (%(currentMagnitudeDate)s)" % locals(
         ),
@@ -88,7 +66,7 @@ def dryx_tab(
         addBackgroundColor=False
     )
 
-    # add text color
+    # ADD TEXT COLOR
     lastReviewedMag = khufu.coloredText(
         text="lastReviewMag: %(lastReviewedMag)s (%(lastReviewDate)s)" % locals(
         ),
@@ -107,7 +85,7 @@ def dryx_tab(
         htmlId="dryxtab"
     )
 
-    # convert bytes to unicode
+    # CONVERT BYTES TO UNICODE
     if isinstance(dryx_tab, str):
         dryx_tab = unicode(
             dryx_tab, encoding="utf-8", errors="replace")
@@ -115,14 +93,4 @@ def dryx_tab(
     log.debug('completed the ``dryx_tab`` function')
     return dryx_tab
 
-# use the tab-trigger below for new function
 # xt-def-with-logger
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

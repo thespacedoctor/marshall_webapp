@@ -1,38 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-generate_ob_form.py
-=========================
-:Summary:
-    The generate object form for the PESSTO Marshall
+*The generate object form for the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     March 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 from datetime import datetime, date, time
-from docopt import docopt
-from dryxPython import commonutils as dcu
+from fundamentals import times
 import khufu
-import dryxPython.astrotools as dat
-from ..tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : March 7, 2014
-# CREATED : March 7, 2014
-# AUTHOR : DRYX
+from marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
 
 
 def generate_ob_form(
@@ -53,8 +35,6 @@ def generate_ob_form(
 
     **Return:**
         - ``modalForm``, ``thisButton`` -- the modal form and the button used to trigger the modal
-
-    **Todo**
     """
     # Header Text
     lsqExists = False
@@ -93,14 +73,14 @@ def generate_ob_form(
             display="polaroid",  # [ rounded | circle | polaroid | False ]
         )
 
-    # Convert Lightcurve into image
+    # CONVERT LIGHTCURVE INTO IMAGE
     lightCurveImage = khufu.image(
         src=lightCurveImage,  # [ industrial | gray | social ]
         pull=False,  # [ "left" | "right" | "center" | False ]
         width=400
     )
 
-    # get latest magnitudes
+    # GET LATEST MAGNITUDES
     littleTitle = """<span class="colortext grey littlelabel  ">latest magnitudes:</span>"""
     numOfPointsToDisplay = 3
     count = 0
@@ -124,9 +104,8 @@ def generate_ob_form(
             size=3,
             pull="left"
         )
-        relDate = dcu.pretty_date(
-            date=row["observationDate"]
-        )
+
+        relDate = times.datetime_relative_to_now(row["observationDate"])
         dateObs = khufu.coloredText(
             text="""%s""" % (
                 str(row["observationDate"])[0:10],),
@@ -189,7 +168,6 @@ def generate_ob_form(
 
     magnitudes = "%(littleTitle)s<span>%(magnitudes)s</span>" % locals()
 
-    # x-tmpx-form-control-group
     downloadButton = khufu.button(
         buttonText="""<i class="icon-download-alt"></i>""",
         # [ default | primary | info | success | warning | danger | inverse | link ]
@@ -206,7 +184,6 @@ def generate_ob_form(
         close=False
     )
 
-    ######
     postToScript = request.route_path(
         'transients_element_obs', elementId=discoveryDataDictionary["transientBucketId"], _query={"method": "get"})
 
@@ -281,8 +258,6 @@ def generate_ob_form(
 
     return modalForm, thisButton
 
-# use the tab-trigger below for new function
-# x-def-with-logger
 
 if __name__ == '__main__':
     main()

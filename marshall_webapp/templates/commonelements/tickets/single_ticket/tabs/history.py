@@ -1,37 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-history.py
-===========
-:Summary:
-    The history tab for the PESSTO Object tickets
+*The history tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import re
 import datetime
-from docopt import docopt
+from fundamentals import times
 import khufu
-from dryxPython import commonutils as dcu
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
 
 
 def history_tab(
@@ -53,15 +36,12 @@ def history_tab(
 
     **Return:**
         - ``history_tab`` -- for each transient ticket in the transient listings pages
-
-    **Todo**
     """
     ################ > IMPORTS ################
     from time import strftime
-    from .. import ticket_building_blocks
-    from .. import tabs
-    from ... import single_ticket
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
+    from marshall_webapp.templates.commonelements import forms
 
     log.debug('starting the ``history_tab`` function')
 
@@ -146,11 +126,6 @@ def history_tab(
     return history_tab
 
 
-# LAST MODIFIED : March 6, 2015
-# CREATED : March 6, 2015
-# AUTHOR : DRYX
-# copy usage method(s) into function below and select the following snippet from the command palette:
-# x-setup-worker-function-parameters-from-usage-method
 def _generate_log_string_for_ticket(
         log,
         logDate,
@@ -159,22 +134,10 @@ def _generate_log_string_for_ticket(
 
     **Key Arguments:**
         - ``log`` -- logger
-        # copy usage method(s) here and select the following snippet from the command palette:
-        # x-setup-docstring-keys-from-selected-usage-options
-
-    **Return:**
-        - None
-
-    **Todo**
-        - @review: when complete, clean _generate_log_string_for_ticket function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.debug('starting the ``_generate_log_string_for_ticket`` function')
 
-    relativeDate = dcu.pretty_date(
-        date=logDate
-    )
+    relativeDate = times.datetime_relative_to_now(logDate)
     logDate = logDate.strftime('%Y-%m-%d %H:%M:%S')
     # add text color
     logDate = khufu.coloredText(
@@ -227,14 +190,5 @@ def _generate_log_string_for_ticket(
     log.debug('completed the ``_generate_log_string_for_ticket`` function')
     return grid_row
 
-# use the tab-trigger below for new function
+
 # xt-def-with-logger
-
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

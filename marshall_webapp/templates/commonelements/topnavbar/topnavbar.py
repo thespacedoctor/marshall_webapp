@@ -1,33 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-topnavbar.py
-============
-:Summary:
-    The top navigation bar for the PESSTO Marshall
+*The top navigation bar for the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     November 20, 2013
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
-from docopt import docopt
 import khufu
-from dryxPython import commonutils as dcu
 
 
 def topnavbar(log,
-              request
-              ):
+              request):
     """
     Get a top navigation bar for the pessto marshall.
 
@@ -36,8 +24,6 @@ def topnavbar(log,
 
     **Return:**
         - ``topNavBar`` -- the top navigation bar for the pessto marshall
-
-    **Todo**
     """
     log.debug('starting the ``topNavigationBar`` function')
 
@@ -197,11 +183,3 @@ def topnavbar(log,
     log.debug('completed the ``topNavigationBar`` function')
 
     return topNavBar
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

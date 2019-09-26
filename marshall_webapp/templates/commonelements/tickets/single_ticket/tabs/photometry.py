@@ -1,39 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-photometry.py
-=============
-:Summary:
-    The photometry tab for the PESSTO Object tickets
+*The photometry tab for the PESSTO Object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 7, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import datetime
 import re
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import khufu
-import dryxPython.astrotools as dat
-from .. import ticket_building_blocks
-
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 7, 2014
-# CREATED : January 7, 2014
-# AUTHOR : DRYX
+from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
 
 
 def photometry_tab(
@@ -55,10 +36,8 @@ def photometry_tab(
 
     **Return:**
         - ``photometry_tab`` -- the lightcurve/photometry tab for a single ticket on the transient listings page
-
-    **Todo**
     """
-    from ... import single_ticket
+    from marshall_webapp.templates.commonelements.tickets import single_ticket
 
     log.debug('starting the ``photometry_tab`` function')
 
@@ -143,10 +122,6 @@ def photometry_tab(
     return "%(photometry_tab)s" % locals()
 
 
-# LAST MODIFIED : November 20, 2013
-# CREATED : November 20, 2013
-# AUTHOR : DRYX
-
 def photometry_footer_bar(
         log,
         request,
@@ -162,8 +137,6 @@ def photometry_footer_bar(
 
     **Return:**
         - ``photometry_footer_bar`` -- the ticket footer bar for the pesssto object
-
-    **Todo**
     """
     lsqExists = False
     log.debug('starting the ``photometry_footer_bar`` function')
@@ -273,11 +246,3 @@ def photometry_footer_bar(
     )
 
     return photometry_footer_bar
-
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
-
-if __name__ == '__main__':
-    main()

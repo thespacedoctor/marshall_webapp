@@ -1,24 +1,14 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_xmatches_views_get.py
-===============================
-:Summary:
-    The model get for the `models_xmatches_views_get.py` resource
+*The model get for the `models_xmatches_views_get.py` resource*
 
 :Author:
     David Young
 
 :Date Created:
     October 9, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
@@ -28,7 +18,6 @@ import re
 
 
 class models_xmatches_views_get():
-
     """
     The worker class for the models_xmatches_views_get module
 
@@ -37,7 +26,6 @@ class models_xmatches_views_get():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -60,12 +48,10 @@ class models_xmatches_views_get():
         log.debug(
             "instansiating a new 'models_xmatches_views_get' object")
 
-        # Initial Actions
         self._set_default_parameters()
 
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_xmatches_views_get object
 
@@ -95,12 +81,6 @@ class models_xmatches_views_get():
     def _set_default_parameters(
             self):
         """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 

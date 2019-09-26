@@ -3,8 +3,8 @@ import pyramid.httpexceptions as exc
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
-from ..templates.responses import templates_pessto_members
-from ..models.pessto_members.element import models_pessto_members_element_delete, models_pessto_members_element_put, models_pessto_members_element_post
+from marshall_webapp.templates.responses import templates_pessto_members
+from marshall_webapp.models.pessto_members.element import models_pessto_members_element_delete, models_pessto_members_element_put, models_pessto_members_element_post
 
 # RESOURCE CONTEXT
 

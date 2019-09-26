@@ -1,38 +1,21 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-actions_block.py
-================
-:Summary:
-    The actions block for the marshall object tickets
+*The actions block for the marshall object tickets*
 
 :Author:
     David Young
 
 :Date Created:
     January 10, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 from datetime import datetime, date, time
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import khufu
-from .....commonelements import commonutils as cu
+from marshall_webapp.templates.commonelements import commonutils as cu
 
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : January 10, 2014
-# CREATED : January 10, 2014
-# AUTHOR : DRYX
 def actions_block(
         log,
         request,
@@ -49,10 +32,8 @@ def actions_block(
 
     **Return:**
         - ``action_block`` -- the ticket identity block for the pesssto object
-
-    **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
     title = cu.block_title(
         log,
         title="actions"
@@ -132,14 +113,6 @@ def actions_block(
     return "%(title)s %(buttonGroup)s %(classifyForm)s" % locals()
 
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-# LAST MODIFIED : November 29, 2013
-# CREATED : November 29, 2013
-# AUTHOR : DRYX
-
-
 def _get_classify_button(
         log,
         request,
@@ -154,10 +127,8 @@ def _get_classify_button(
 
     **Return:**
         - ``button`` -- the classification button with hidden modal form
-
-    **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
@@ -174,10 +145,6 @@ def _get_classify_button(
     log.debug('completed the ``_get_classify_button`` function')
     return button, thisForm
 
-# LAST MODIFIED : November 29, 2013
-# CREATED : November 29, 2013
-# AUTHOR : DRYX
-
 
 def _get_move_to_dropdown(
         log,
@@ -193,8 +160,6 @@ def _get_move_to_dropdown(
 
     **Return:**
         - ``thisDropdown`` -- the move to other list dropdown
-
-    **Todo**
     """
     import datetime
 
@@ -328,10 +293,6 @@ def _get_move_to_dropdown(
     log.debug('completed the ``_get_move_to_dropdown`` function')
     return thisDropdown
 
-# LAST MODIFIED : November 29, 2013
-# CREATED : November 29, 2013
-# AUTHOR : DRYX
-
 
 def _get_alert_dropdown(
         log,
@@ -347,8 +308,6 @@ def _get_alert_dropdown(
 
     **Return:**
         - ``thisDropdown`` -- the move to other alert list dropdown
-
-    **Todo**
     """
     import datetime
 
@@ -418,10 +377,6 @@ def _get_alert_dropdown(
     return thisDropdown
 
 
-# LAST MODIFIED : February 21, 2014
-# CREATED : February 21, 2014
-# AUTHOR : DRYX
-
 def _get_change_pi_button(
         log,
         request,
@@ -436,10 +391,8 @@ def _get_change_pi_button(
 
     **Return:**
         - ``button`` -- the change PI button and hidden modal form
-
-    **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
 
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
@@ -457,11 +410,6 @@ def _get_change_pi_button(
 
     log.debug('completed the ``_get_change_pi_button`` function')
     return button
-
-
-# LAST MODIFIED : March 7, 2014
-# CREATED : March 7, 2014
-# AUTHOR : DRYX
 
 
 def _generate_ob_button(
@@ -482,10 +430,8 @@ def _generate_ob_button(
 
     **Return:**
         - ``button`` - the generate OB button with hidden modal form
-
-    **Todo**
     """
-    from .....commonelements import forms
+    from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
 
@@ -510,9 +456,6 @@ def _generate_ob_button(
     return button
 
 
-# LAST MODIFIED : February 25, 2015
-# CREATED : February 25, 2015
-# AUTHOR : DRYX
 def _get_priority_switcher_dropdown(
         request,
         discoveryDataDictionary,
@@ -523,14 +466,6 @@ def _get_priority_switcher_dropdown(
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-
-    **Return:**
-        - None
-
-    **Todo**
-        - @review: when complete, clean _get_priority_switcher_dropdown function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.debug('starting the ``_get_priority_switcher_dropdown`` function')
     import datetime
@@ -647,9 +582,6 @@ def _get_priority_switcher_dropdown(
     return thisDropdown
 
 
-# LAST MODIFIED : March 16, 2015
-# CREATED : March 16, 2015
-# AUTHOR : DRYX
 def _snooze_button(
         request,
         discoveryDataDictionary,
@@ -660,14 +592,6 @@ def _snooze_button(
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-
-    **Return:**
-        - None
-
-    **Todo**
-        - @review: when complete, clean _snooze_button function
-        - @review: when complete add logging
-        - @review: when complete, decide whether to abstract function to another module
     """
     log.debug('starting the ``_snooze_button`` function')
 
@@ -749,9 +673,5 @@ def _snooze_button(
     log.debug('completed the ``_snooze_button`` function')
     return button
 
-# use the tab-trigger below for new function
+
 # xt-def-with-logger
-
-
-if __name__ == '__main__':
-    main()

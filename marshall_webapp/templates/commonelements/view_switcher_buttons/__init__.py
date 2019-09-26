@@ -1,37 +1,20 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-view_switcher_buttons.py
-===========
-:Summary:
-    View switcher buttons for ticket table toolbar
+*View switcher buttons for ticket table toolbar*
 
 :Author:
     David Young
 
 :Date Created:
     March 4, 2014
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import re
 import os
-from docopt import docopt
-from dryxPython import commonutils as dcu
 import khufu
 
 
-###################################################################
-# PUBLIC FUNCTIONS                                                #
-###################################################################
-# LAST MODIFIED : March 4, 2014
-# CREATED : March 4, 2014
-# AUTHOR : DRYX
 def view_switcher_buttons(
     log,
     params,
@@ -48,9 +31,7 @@ def view_switcher_buttons(
         - ``elementId`` -- the transientBucketId
 
     **Return:**
-        - None
-
-    **Todo**
+        - ``viewSwitcherButton`` + ``downloadsButton``
     """
     theseLinks = ""
 
@@ -156,9 +137,7 @@ def ntt_view_button(
         - ``request`` -- the pyramid request
 
     **Return:**
-        - None
-
-    **Todo**
+        - ``viewSwitcherButton`` -- the view switching button
     """
     theseLinks = ""
     match = False
@@ -214,13 +193,6 @@ def ntt_view_button(
 
     return viewSwitcherButton
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-# LAST MODIFIED : November 7, 2014
-# CREATED : November 7, 2014
-# AUTHOR : DRYX
-
 
 def _link_for_popover(
         log,
@@ -242,8 +214,6 @@ def _link_for_popover(
 
     **Return:**
         - ``thisLink`` -- the link for the popover
-
-    **Todo**
     """
     log.debug('starting the ``_link_for_popover`` function')
 
@@ -296,7 +266,7 @@ def _link_for_popover(
 
             params["filename"] = "pessto_marshall_" + params["filename"]
 
-    # if plain text download (json, csv ...) remove limits
+    # IF PLAIN TEXT DOWNLOAD (JSON, CSV ...) REMOVE LIMITS
     if "html" not in params["format"]:
         params = dict(params)
         log.debug("""params1: `%(params)s`""" % locals())
@@ -322,10 +292,3 @@ def _link_for_popover(
 
     log.debug('completed the ``_link_for_popover`` function')
     return thisLink
-
-# use the tab-trigger below for new function
-# xt-def-with-logger
-
-
-if __name__ == '__main__':
-    main()

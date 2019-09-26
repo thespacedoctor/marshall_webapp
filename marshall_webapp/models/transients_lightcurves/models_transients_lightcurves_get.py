@@ -1,26 +1,14 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-models_transients_lightcurves_get.py
-==================================
-:Summary:
-    The data model module for the `transients_lightcurves_get` resource
+*The data model module for the `transients_lightcurves_get` resource*
 
 :Author:
     David Young
 
 :Date Created:
     November 5, 2014
-
-:dryx syntax:
-    - ``_someObject`` = a 'private' object that should only be changed for debugging
-
-:Notes:
-    - If you have any questions requiring this script/module please email me: davidrobertyoung@gmail.com
-
-:Tasks:
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
@@ -28,7 +16,6 @@ import collections
 
 
 class models_transients_lightcurves_get():
-
     """
     The worker class for the models_transients_lightcurves_get module
 
@@ -37,10 +24,7 @@ class models_transients_lightcurves_get():
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
         - ``search`` -- is this a search request (boolean)
-
-    **Todo**
     """
-    # Initialisation
 
     def __init__(
         self,
@@ -63,7 +47,6 @@ class models_transients_lightcurves_get():
         log.debug(
             "instansiating a new 'models_transients_lightcurves_get' object")
 
-        # Initial Actions
         self._set_default_parameters()
 
         return None
@@ -72,14 +55,11 @@ class models_transients_lightcurves_get():
         del self
         return None
 
-    # Method Attributes
     def get(self):
         """execute the get method on the models_transients_lightcurves_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
-
-        **Todo**
         """
         self.log.debug('starting the ``get`` method')
 
@@ -109,14 +89,6 @@ class models_transients_lightcurves_get():
     def _set_default_parameters(
             self):
         """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
-
-        **Todo**
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
@@ -126,20 +98,9 @@ class models_transients_lightcurves_get():
         self.log.debug('completed the ``_set_default_parameters`` method')
         return None
 
-    # use the tab-trigger below for new method
     def get_metadata(
             self):
-        """ extra metadata
-
-        **Key Arguments:**
-            # -
-
-        **Return:**
-            - None
-
-        **Todo**
-            - @review: when complete, clean get_metadata method
-            - @review: when complete add logging
+        """Get some extra transient metadata
         """
         self.log.debug('starting the ``get_metadata`` method')
 
@@ -156,5 +117,4 @@ class models_transients_lightcurves_get():
         self.log.debug('completed the ``get_metadata`` method')
         return extraMetadata
 
-    # use the tab-trigger below for new method
     # xt-class-method

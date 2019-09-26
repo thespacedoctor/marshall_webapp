@@ -136,7 +136,10 @@ def main(global_config, **settings):
             passwd=passwd,
             db=dbName,
             use_unicode=True,
-            charset='utf8'
+            charset='utf8',
+            local_infile=1,
+            client_flag=ms.constants.CLIENT.MULTI_STATEMENTS,
+            connect_timeout=3600
         )
         dbConn.autocommit(True)
         config.add_settings({"dbConn": dbConn})

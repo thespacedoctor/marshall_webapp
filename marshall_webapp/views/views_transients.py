@@ -4,8 +4,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from marshall_webapp.templates.responses import templates_transients
-from ..models.transients import models_transients_post, models_transients_put, models_transients_get
-from ..models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
+from marshall_webapp.models.transients import models_transients_post, models_transients_put, models_transients_get
+from marshall_webapp.models.transients.element import models_transients_element_delete, models_transients_element_put, models_transients_element_post
 
 
 # @view_config(route_name='index', request_method='GET', permission="view_users")
@@ -28,12 +28,14 @@ class index_view(object):
     @view_config(request_param="method=post", permission="edit_users")
     def post(self):
         href = self.request.route_path('transients')
+        # REDIRECTS TO /transients
         return HTTPFound(location=href)
 
     @view_config(request_method='GET', permission="view_users")
     @view_config(request_param="method=get", permission="view_users")
     def get(self):
         href = self.request.route_path('transients')
+        # REDIRECTS TO /transients
         return HTTPFound(location=href)
 
 
@@ -53,6 +55,7 @@ class transients_view(object):
     @view_config(request_method='PUT', permission="edit_users")
     @view_config(request_param="method=put", permission="edit_users")
     def put(self):
+        # PLACEHOLDER METHOD - ADD LOGIC WHEN NEEDED ..
         transients = models_transients_put(
             log=self.log,
             request=self.request
@@ -67,6 +70,7 @@ class transients_view(object):
     @view_config(request_method='POST', permission="edit_users")
     @view_config(request_param="method=post", permission="edit_users")
     def post(self):
+        # ADD A NEW TRANSIENT TO THE MARSHALL - VIA CREATE NEW TICKET BUTTON
         transients = models_transients_post(
             log=self.log,
             request=self.request

@@ -1,26 +1,19 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-marshall_sidebar.py
-===============
-:Summary:
-    marshall_sidebar for the PESSTO Marshall
+*marshall_sidebar for the PESSTO Marshall*
 
 :Author:
     David Young
 
 :Date Created:
     July 23, 2013
-
-:Notes:
-    - If you have any questions requiring this script please email me: davidrobertyoung@gmail.com
 """
-################# GLOBAL IMPORTS ####################
 import sys
 import os
 import khufu
-from ....models.transients import models_transients_count
-from ...commonelements import forms
+from marshall_webapp.models.transients import models_transients_count
+from marshall_webapp.templates.commonelements import forms
 
 
 def marshall_sidebar(
@@ -94,10 +87,6 @@ def marshall_sidebar(
     return marshall_sidebar
 
 
-###################################################################
-# PRIVATE (HELPER) FUNCTIONS                                      #
-###################################################################
-
 def _marshall_sidebar_header(
         log,
         request):
@@ -109,8 +98,6 @@ def _marshall_sidebar_header(
 
     **Return:**
         - ``content`` -- the left nav bar header content
-
-    **Todo**
     """
 
     log.debug('starting the ``_marshall_sidebar_header`` function')
@@ -204,8 +191,6 @@ def _get_development_links(
 
     **Return:**
         - ``developmentLinks`` -- the development queue - a list of links
-
-    **Todo**
     """
     log.debug('starting the ``_get_development_links`` function')
     ## VARIABLES ##
@@ -240,25 +225,6 @@ def _get_development_links(
         navDropDown=False,
         pager=False  # [ False | "previous" | "next" ]
     )
-
-    # documentationLink = khufu.a(
-    #     content='documentation',
-    #     href='/pessto/private/marshall/documentation/_build/html/index.html',
-    #     tableIndex=False,
-    #     triggerStyle=False
-    # )
-
-    # documentationLink = khufu.li(
-    #     content=documentationLink,
-    # if a subMenu for dropdown this should be <ul>
-    # span=False,  # [ False | 1-12 ]
-    #     disabled=False,
-    #     submenuTitle=False,
-    #     divider=False,
-    # navStyle=False,  # [ active | header ]
-    #     navDropDown=False,
-    # pager=False  # [ False | "previous" | "next" ]
-    # )
 
     linkList = khufu.ul(
         itemList=[title, loggingLink, ],  # e.g a list links
@@ -311,8 +277,6 @@ def _get_observation_queues(
 
     **Return:**
         - ``observationQueues`` -- the observation queue - a list of links
-
-    **Todo**
     """
     log.debug('starting the ``_get_observation_queues`` function')
     ## VARIABLES ##
@@ -512,13 +476,7 @@ def _get_classification_queues(
 
     **Return:**
         - ``classificationQueues`` -- the classification queue - a list of links
-
-    **Todo**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
 
     log.debug('starting the ``_get_classification_queues`` function')
@@ -676,13 +634,7 @@ def _get_reference_lists(
 
     **Return:**
         - ``referenceLists`` -- the reference queue - a list of links
-
-    **Todo**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
 
     log.debug('starting the ``_get_reference_lists`` function')
@@ -908,9 +860,6 @@ def _get_reference_lists(
     return referenceLists
 
 
-# LAST MODIFIED : July 3, 2013
-# CREATED : July 3, 2013
-# AUTHOR : DRYX
 def _get_target_selection_queue(
         log,
         request,
@@ -922,13 +871,7 @@ def _get_target_selection_queue(
 
     **Return:**
         - ``targetSelectionQueue`` -- the target selection queue - a list of links
-
-    **Todo**
     """
-    ################ > IMPORTS ################
-    ## STANDARD LIB ##
-    ## THIRD PARTY ##
-    ## LOCAL APPLICATION ##
     import khufu
 
     log.debug('starting the ``_get_tagert_selection_queue`` function')
@@ -1144,13 +1087,8 @@ def _remove_parameters(
         - ``params`` -- the clean parameters
     """
     log.debug('starting the ``_remove_parameter`` function')
-    ## VARIABLES ##
 
-    # for key in params.keys():
-    #     if key != paramToKeep:
-    #         del params[key]
-
-    if isinstance(paramsToRemove, str):
+    if isinstance(paramsToRemove, ("".__class__, u"".__class__)):
         paramsToRemove = [paramsToRemove]
 
     for key in paramsToRemove:
