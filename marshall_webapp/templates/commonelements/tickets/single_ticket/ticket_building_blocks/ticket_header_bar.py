@@ -304,7 +304,7 @@ def _get_no_lsq_recalibrated_data_alert(
     alert = ""
     for row in lightcurveData:
         if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
-            if row["survey"].lower() == "lsq-discoveries":
+            if row["survey"] and row["survey"].lower() == "lsq-discoveries":
                 name = discoveryDataDictionary["masterName"]
                 alert = khufu.alert(
                     alertText='lsq forced photometry not yet available for %(name)s' % locals(
