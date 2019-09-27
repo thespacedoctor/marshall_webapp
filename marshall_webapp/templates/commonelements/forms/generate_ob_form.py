@@ -54,7 +54,7 @@ def generate_ob_form(
     lightcurveSwitchAttempt = True
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     for row in lightcurveData:
-        if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq-disc" in row["survey"].lower():
+        if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and row["survey"] and "lsq-disc" in row["survey"].lower():
             lightcurveSwitchAttempt = False
     if lightcurveSwitchAttempt == True:
         filePath = request.registry.settings["downloads"][
