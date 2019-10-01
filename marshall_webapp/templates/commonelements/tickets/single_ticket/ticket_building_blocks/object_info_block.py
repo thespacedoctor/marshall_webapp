@@ -72,14 +72,14 @@ def object_info_block(
         )
 
     raSex = khufu.coloredText(
-        text=discoveryDataDictionary["raSex"],
+        text=discoveryDataDictionary["raSex"][0:12],
         color="violet",
         size=3,
 
     )
 
     decSex = khufu.coloredText(
-        text=discoveryDataDictionary["decSex"],
+        text=discoveryDataDictionary["decSex"][0:12],
         color="cyan",
         size=3
     )
