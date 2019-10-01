@@ -120,14 +120,16 @@ class models_transients_get():
             self.log.debug("""searchString: `%(searchString)s`""" % locals())
             # SEARCH MASTER & AKA NAMES
             sqlQuery = """
-                (select DISTINCT  transientBucketId from transientBucket where MATCH (name) AGAINST ('*%(searchString)s*' IN BOOLEAN MODE))
+                (select DISTINCT  transientBucketId from transientBucket where MATCH (name) AGAINST ('%(searchString)s* AT%(searchString)s* SN%(searchString)s* AT20%(searchString)s* SN20%(searchString)s*' IN BOOLEAN MODE))
                     union
-                (select DISTINCT  transientBucketId from pesstoObjects where MATCH (pi_name) AGAINST ('*%(searchString)s*' IN BOOLEAN MODE))
+                (select DISTINCT  transientBucketId from pesstoObjects where MATCH (pi_name) AGAINST ('+%(searchString)s*' IN BOOLEAN MODE))
             """ % locals()
             self.log.debug(
                 """sqlQUery for searchString: `%(sqlQuery)s`""" % locals())
             rows = self.request.db.execute(
                 text(sqlQuery)).fetchall()
+
+            print sqlQuery
 
             searchList = ""
             for row in rows:
