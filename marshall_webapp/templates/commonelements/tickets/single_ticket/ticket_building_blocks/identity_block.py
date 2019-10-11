@@ -244,7 +244,7 @@ def identity_block(
     hasStamp = False
     href = False
     for k, v in stampFlags.iteritems():
-        if discoveryDataDictionary[k]:
+        if discoveryDataDictionary[k] == 1:
             hasStamp = True
             src = "%s%s/%s" % (transient_cache,
                                discoveryDataDictionary["transientBucketId"], v)
