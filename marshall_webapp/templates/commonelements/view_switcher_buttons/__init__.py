@@ -220,11 +220,6 @@ def _link_for_popover(
     params["format"] = format
     params["method"] = "get"
 
-    if format == "html_table":
-        params["limit"] = 100
-    elif format == "html_tickets":
-        params["limit"] = 10
-
     if download:
         if "html" not in format:
             params["filename"] = ""
@@ -266,18 +261,25 @@ def _link_for_popover(
 
             params["filename"] = "pessto_marshall_" + params["filename"]
 
+    import copy
+    p = copy.deepcopy(params)
+    if format == "html_table":
+        p["limit"] = 100
+    elif format == "html_tickets":
+        p["limit"] = 10
+
     # IF PLAIN TEXT DOWNLOAD (JSON, CSV ...) REMOVE LIMITS
-    if "html" not in params["format"]:
-        params = dict(params)
-        log.debug("""params1: `%(params)s`""" % locals())
-        log.debug("""params2: `%(params)s`""" % locals())
+    if "html" not in p["format"]:
+        p = dict(p)
+        log.debug("""p1: `%(p)s`""" % locals())
+        log.debug("""p2: `%(p)s`""" % locals())
 
     routename = request.matched_route.name
-    if "q" in params:
-        href = request.route_path('transients_search', _query=params)
+    if "q" in p:
+        href = request.route_path('transients_search', _query=p)
     else:
         href = request.route_path(
-            routename, elementId=elementId, _query=params)
+            routename, elementId=elementId, _query=p)
 
     if linkText:
         format = linkText
