@@ -208,7 +208,7 @@ def lightcurve_block(
             pull="left",
             size=2
         )
-    else:
+    except:
         relDate = "?"
     survey = khufu.grid_row(
         responsive=True,
