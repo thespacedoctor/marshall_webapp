@@ -163,12 +163,17 @@ def object_info_block(
         text="date added to marshall:"
     )
     dateAdded = discoveryDataDictionary["dateAdded"]
-    daysPast = times.datetime_relative_to_now(dateAdded)[2:]
-    if daysPast[-1] == "d":
-        daysPast = "%s days ago" % (daysPast[0:-1],)
+    if dateAdded:
+        daysPast = times.datetime_relative_to_now(dateAdded)[2:]
+        if daysPast[-1] == "d":
+            daysPast = "%s days ago" % (daysPast[0:-1],)
+        else:
+            daysPast = "(+%s)" % (daysPast,)
+        dateAdded = datetime.date.isoformat(dateAdded)
     else:
-        daysPast = "(+%s)" % (daysPast,)
-    dateAdded = datetime.date.isoformat(dateAdded)
+        dateAdded = "?"
+        t = discoveryDataDictionary["transientBucketId"]
+        log.error("Could not get date added for %(t)s" % locals())
     dateAdded = khufu.coloredText(
         text="""(%(dateAdded)s)""" % locals(),
         color="magenta",
