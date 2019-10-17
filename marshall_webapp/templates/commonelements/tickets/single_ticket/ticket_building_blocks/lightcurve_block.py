@@ -199,14 +199,17 @@ def lightcurve_block(
         size=2
     )
 
-    relDate = times.datetime_relative_to_now(
-        discoveryDataDictionary["earliestDetection"])
-    relDate = khufu.coloredText(
-        text="""  %s""" % (relDate[1:]),
-        color="magenta",
-        pull="left",
-        size=2
-    )
+    try:
+        relDate = times.datetime_relative_to_now(
+            discoveryDataDictionary["earliestDetection"])
+        relDate = khufu.coloredText(
+            text="""  %s""" % (relDate[1:]),
+            color="magenta",
+            pull="left",
+            size=2
+        )
+    else:
+        relDate = "?"
     survey = khufu.grid_row(
         responsive=True,
         columns=survey
