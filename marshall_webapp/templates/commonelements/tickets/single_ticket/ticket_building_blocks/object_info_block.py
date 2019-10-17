@@ -195,12 +195,15 @@ def object_info_block(
         text="discovery date:"
     )
     discoveryDate = discoveryDataDictionary["earliestDetection"]
-    daysPast = times.datetime_relative_to_now(discoveryDate)[2:]
-    if daysPast[-1] == "d":
-        daysPast = "%s days ago" % (daysPast[0:-1],)
+    if discoveryDate:
+        daysPast = times.datetime_relative_to_now(discoveryDate)[2:]
+        if daysPast[-1] == "d":
+            daysPast = "%s days ago" % (daysPast[0:-1],)
+        else:
+            daysPast = "(+%s)" % (daysPast,)
+        discoveryDate = datetime.date.isoformat(discoveryDate)
     else:
-        daysPast = "(+%s)" % (daysPast,)
-    discoveryDate = datetime.date.isoformat(discoveryDate)
+        discoveryDate = "?"
     discoveryDate = khufu.coloredText(
         text="""(%(discoveryDate)s)""" % locals(),
         color="blue",
