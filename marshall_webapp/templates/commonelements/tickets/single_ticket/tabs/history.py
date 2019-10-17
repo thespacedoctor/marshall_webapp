@@ -137,8 +137,13 @@ def _generate_log_string_for_ticket(
     """
     log.debug('starting the ``_generate_log_string_for_ticket`` function')
 
-    relativeDate = times.datetime_relative_to_now(logDate)
-    logDate = logDate.strftime('%Y-%m-%d %H:%M:%S')
+    if logDate:
+        relativeDate = times.datetime_relative_to_now(logDate)
+        logDate = logDate.strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        relativeDate = "?"
+        logDate = "?"
+
     # add text color
     logDate = khufu.coloredText(
         text=logDate,
