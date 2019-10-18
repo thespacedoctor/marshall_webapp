@@ -151,7 +151,7 @@ def identity_block(
 
         surveyObjectUrl = item["url"]
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"]:
-            if "@" not in surveyObjectUrl:
+            if surveyObjectUrl and "@" not in surveyObjectUrl:
                 if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
                     user = request.registry.settings[
                         "credentials"]["lsq"]["username"]
