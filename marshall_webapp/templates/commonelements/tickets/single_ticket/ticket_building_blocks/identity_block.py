@@ -51,6 +51,15 @@ def identity_block(
         delay=20
     )
 
+    asassnCredentialsPopover = khufu.popover(
+        tooltip=True,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="""username: 'public'<br>password: 'not@public&yet!'""",
+        content=False,
+        delay=20
+    )
+
     title = cu.block_title(
         log,
         title="identity"
@@ -417,6 +426,8 @@ def identity_block(
 
         if row["url"] and ("skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]):
             popover = pesstoCredentialsPopover
+        elif row["url"] and "asassn.china" in row["url"]:
+            popover = asassnCredentialsPopover
         else:
             popover = False
 
@@ -424,7 +435,7 @@ def identity_block(
             content=aka,
             href=row["url"],
             openInNewTab=True,
-            popover=pesstoCredentialsPopover
+            popover=popover
         )
 
         aka = khufu.coloredText(
@@ -453,6 +464,8 @@ def identity_block(
 
             if row["url"] and ("skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]):
                 popover = pesstoCredentialsPopover
+            elif row["url"] and "asassn.china" in row["url"]:
+                popover = asassnCredentialsPopover
             else:
                 popover = False
 
@@ -460,7 +473,7 @@ def identity_block(
                 content=aka,
                 href=row["url"],
                 openInNewTab=True,
-                popover=pesstoCredentialsPopover
+                popover=popover
             )
             aka = """&nbsp&nbsp&nbsp%(aka)s """ % locals()
 
