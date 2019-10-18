@@ -415,7 +415,7 @@ def identity_block(
         if len(aka) > 19:
             size = 2
 
-        if "skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]:
+        if row["url"] and ("skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]):
             popover = pesstoCredentialsPopover
         else:
             popover = False
