@@ -439,7 +439,7 @@ def identity_block(
         for row in akaRows:
             row["urlRank"] = 10
             for k, v in surveyURLRanking.iteritems():
-                if k in row["url"]:
+                if row["url"] and k in row["url"]:
                     row["urlRank"] = v
         from operator import itemgetter
         akaRows = list(akaRows)
@@ -451,7 +451,7 @@ def identity_block(
             if aka in akaList:
                 continue
 
-            if "skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]:
+            if row["url"] and ("skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]):
                 popover = pesstoCredentialsPopover
             else:
                 popover = False
