@@ -85,7 +85,7 @@ class models_transients_element_post():
         sqlQuery = """
             select p.classifiedFlag, t.raDeg, t.decDeg, t.name from transientBucket t, pesstoObjects p where replacedByRowId = 0 and t.transientBucketId = %(transientBucketId)s and t.transientBucketId=p.transientBucketId limit 1
         """ % locals()
-        print sqlQuery
+
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
         rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]

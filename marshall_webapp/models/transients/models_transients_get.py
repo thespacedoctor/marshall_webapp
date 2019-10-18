@@ -129,8 +129,6 @@ class models_transients_get():
             rows = self.request.db.execute(
                 text(sqlQuery)).fetchall()
 
-            print sqlQuery
-
             searchList = ""
             for row in rows:
                 transientBucketId = row["transientBucketId"]
