@@ -470,21 +470,15 @@ class models_transients_get():
 
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
-        # GRAB AKAS
         sqlQuery = """
-            select transientBucketId, name, surveyObjectUrl from transientBucket where replacedByRowId = 0 and transientBucketId in (%(matchedTransientBucketIds)s) and name not like "%%atel%%" and masterIDFlag=0 and (((name like "SN%%" or name like "AT%%") and name not like "ATL%%" and surveyObjectUrl  like "%%wis-tns%%") or (surveyObjectUrl not like "%%rochester%%"))
+            select * from marshall_transient_akas where transientBucketId in (%(matchedTransientBucketIds)s)
         """ % locals()
-
         objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
 
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
 
         objectAkas = []
         objectAkas[:] = [dict(zip(row.keys(), row)) for row in objectAkasTmp]
-
-        for row in objectAkas:
-            if row["name"][:2] not in ["SN", "AT"] and row["surveyObjectUrl"] and "wis-tns" is row["surveyObjectUrl"]:
-                row["surveyObjectUrl"] = None
 
         self.log.debug(
             'completed the ``_get_associated_transient_aka`` method')

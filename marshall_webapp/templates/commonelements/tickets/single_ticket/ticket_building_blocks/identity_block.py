@@ -149,7 +149,7 @@ def identity_block(
     akaRows = []
     for item in objectAkas:
 
-        surveyObjectUrl = item["surveyObjectUrl"]
+        surveyObjectUrl = item["url"]
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"]:
             if "@" not in surveyObjectUrl:
                 if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
@@ -187,7 +187,7 @@ def identity_block(
                 annotations.append(
                     "within sky map of gravitational wave source")
 
-            item["surveyObjectUrl"] = surveyObjectUrl
+            item["url"] = surveyObjectUrl
             akaRows.append(item)
 
     numerator = 70.
@@ -258,7 +258,7 @@ def identity_block(
                     objectName = item["name"]
                     objectName = khufu.a(
                         content=objectName,
-                        href=item["surveyObjectUrl"],
+                        href=item["url"],
                         tableIndex=False,
                         # [ False | "dropdown" | "tab" | "modal" ],
                         triggerStyle=False,
@@ -415,14 +415,14 @@ def identity_block(
         if len(aka) > 19:
             size = 2
 
-        if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"] or "atlas" in row["surveyObjectUrl"]:
+        if "skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]:
             popover = pesstoCredentialsPopover
         else:
             popover = False
 
         aka = khufu.a(
             content=aka,
-            href=row["surveyObjectUrl"],
+            href=row["url"],
             openInNewTab=True,
             popover=pesstoCredentialsPopover
         )
@@ -439,7 +439,7 @@ def identity_block(
         for row in akaRows:
             row["urlRank"] = 10
             for k, v in surveyURLRanking.iteritems():
-                if k in row["surveyObjectUrl"]:
+                if k in row["url"]:
                     row["urlRank"] = v
         from operator import itemgetter
         akaRows = list(akaRows)
@@ -451,14 +451,14 @@ def identity_block(
             if aka in akaList:
                 continue
 
-            if "skymapper" in row["surveyObjectUrl"] or "ps1gw" in row["surveyObjectUrl"] or "ps1fgss" in row["surveyObjectUrl"] or "ps13pi" in row["surveyObjectUrl"] or "atlas" in row["surveyObjectUrl"]:
+            if "skymapper" in row["url"] or "ps1gw" in row["url"] or "ps1fgss" in row["url"] or "ps13pi" in row["url"] or "atlas" in row["url"]:
                 popover = pesstoCredentialsPopover
             else:
                 popover = False
 
             aka = khufu.a(
                 content=aka,
-                href=row["surveyObjectUrl"],
+                href=row["url"],
                 openInNewTab=True,
                 popover=pesstoCredentialsPopover
             )
