@@ -188,7 +188,8 @@ class models_transients_element_post():
         updater = update_transient_summaries(
             log=self.log,
             settings=self.request.registry.settings,
-            dbConn=self.request.registry.settings["dbConn"]
+            dbConn=self.request.registry.settings["dbConn"],
+            transientBucketId=transientBucketId
         ).update()
 
         self.response = self.response + \
