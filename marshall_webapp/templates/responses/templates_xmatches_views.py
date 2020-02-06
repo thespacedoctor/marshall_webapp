@@ -78,7 +78,7 @@ class templates_xmatches_views():
                 log=self.log,
                 request=self.request,
                 bodyId=False,
-                pageTitle="PESSTO Marshall",
+                pageTitle="ePESSTO+ Marshall",
                 topNavBar=False,
                 sideBar="xmatches",
                 mainContent=maincontent,

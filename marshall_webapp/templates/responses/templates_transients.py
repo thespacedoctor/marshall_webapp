@@ -102,11 +102,15 @@ class templates_transients():
         else:
             sideBar = False
 
+        pageTitle = "ePESSTO+ Marshall"
+        if "q" in self.qs:
+            pageTitle = self.qs["q"]
+
         webpage = defaultpagetemplate(
             log=self.log,
             request=self.request,
             bodyId=False,
-            pageTitle="PESSTO Marshall",
+            pageTitle=pageTitle,
             topNavBar=False,
             sideBar=sideBar,
             mainContent=maincontent,
