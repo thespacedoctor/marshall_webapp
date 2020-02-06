@@ -192,7 +192,7 @@ def classify_object_form(
     )
     thisModal.add_form_object(
         formObject="%(sendToInput1)s %(sendToInput2)s" % locals(),
-        label="send to atel queue"
+        label="send to astronote queue"
     )
 
     optionList = ["unknown", "pre-max", "at max", "post-max"]

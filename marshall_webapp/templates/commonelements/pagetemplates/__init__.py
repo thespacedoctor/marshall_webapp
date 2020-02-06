@@ -18,7 +18,7 @@ def defaultpagetemplate(
         log,
         request,
         bodyId=False,
-        pageTitle="PESSTO Marshall",
+        pageTitle="ePESSTO+ Marshall",
         topNavBar=False,
         sideBar=False,
         mainContent=False,

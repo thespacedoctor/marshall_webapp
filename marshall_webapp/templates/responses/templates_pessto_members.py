@@ -65,7 +65,7 @@ class templates_pessto_members():
             log=self.log,
             request=self.request,
             bodyId=False,
-            pageTitle="PESSTO Marshall",
+            pageTitle="ePESSTO+ Marshall",
             topNavBar=False,
             sideBar=False,
             mainContent="<BR><BR>" + maincontent,
