@@ -69,7 +69,7 @@ class templates_calendars():
             log=self.log,
             request=self.request,
             bodyId=False,
-            pageTitle="PESSTO Marshall",
+            pageTitle="ePESSTO+ Marshall",
             topNavBar=False,
             sideBar=False,
             mainContent=maincontent,
