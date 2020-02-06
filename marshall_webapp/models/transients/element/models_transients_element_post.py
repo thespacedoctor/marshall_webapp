@@ -15,6 +15,7 @@ import khufu
 from marshallEngine.housekeeping import update_transient_summaries
 from astrocalc.times import conversions
 from fundamentals import times
+from fundamentals.logs import emptyLogger
 
 
 class models_transients_element_post():
@@ -186,7 +187,7 @@ class models_transients_element_post():
         self.request.db.commit()
 
         updater = update_transient_summaries(
-            log=self.log,
+            log=emptyLogger(),
             settings=self.request.registry.settings,
             dbConn=self.request.registry.settings["dbConn"],
             transientBucketId=transientBucketId
