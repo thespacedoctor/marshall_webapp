@@ -483,7 +483,7 @@ def _get_classification_queues(
     ## VARIABLES ##
 
     title = khufu.li(
-        content="classification & atel queues",
+        content="classification & astronote queues",
         # if a subMenu for dropdown this should be <ul>
         span=False,  # [ False | 1-12 ]
         disabled=False,
@@ -557,7 +557,7 @@ def _get_classification_queues(
     theseParams["filterBy1"] = False
 
     queuedForAtelLink = khufu.a(
-        content='queued for atel (%s)' % (count,),
+        content='queued for astronote (%s)' % (count,),
         href=request.route_path(
             'transients', _query=theseParams),
         tableIndex=False,
@@ -567,7 +567,7 @@ def _get_classification_queues(
     navStyle = khufu.is_navStyle_active(
         log,
         thisPageName,
-        "queued for atel"
+        "queued for astronote"
     )
 
     queuedForAtelLink = khufu.li(
