@@ -37,3 +37,4 @@ config.codekit
 /backup_marshall_schema_to_here.sh
 /.cache/v/cache/lastfailed
 marshall_schema.sql.bak
+/logs/marshall.log*

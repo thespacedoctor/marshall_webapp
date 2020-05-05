@@ -16,6 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary table structure for view `_subview_object_akas`
+--
+
+DROP TABLE IF EXISTS `_subview_object_akas`;
+/*!50001 DROP VIEW IF EXISTS `_subview_object_akas`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `_subview_object_akas` AS SELECT 
+ 1 AS `transientBucketId`,
+ 1 AS `primaryKeyId`,
+ 1 AS `name`,
+ 1 AS `survey`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `referenceImageUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `subtractedImageUrl`,
+ 1 AS `tripletImageUrl`,
+ 1 AS `finderImageUrl`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `atel_coordinates`
 --
 
@@ -42,7 +63,6 @@ CREATE TABLE `atel_coordinates` (
   `updated` tinyint(1) DEFAULT '0',
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
-  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `atelnumber_ra_dec` (`atelNumber`,`raDeg`,`decDeg`),
   KEY `ra_deg` (`raDeg`,`decDeg`),
@@ -53,7 +73,7 @@ CREATE TABLE `atel_coordinates` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=87734 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +86,7 @@ DROP TABLE IF EXISTS `atel_fullcontent`;
 CREATE TABLE `atel_fullcontent` (
   `primaryId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'An internal counter',
   `atelNumber` int(11) DEFAULT NULL,
-  `authors` text,
+  `authors` mediumtext,
   `backRefList` varchar(450) DEFAULT NULL,
   `dateCreated` datetime DEFAULT NULL,
   `dateLastModified` datetime DEFAULT NULL,
@@ -75,14 +95,14 @@ CREATE TABLE `atel_fullcontent` (
   `refList` varchar(450) DEFAULT NULL,
   `tags` varchar(450) DEFAULT NULL,
   `title` varchar(450) DEFAULT NULL,
-  `userText` text,
+  `userText` mediumtext,
   `datePublished` datetime NOT NULL,
   `atelType` varchar(500) DEFAULT NULL,
   `dateParsed` datetime DEFAULT NULL COMMENT 'The date the ATel text was parsed for names and coordinates',
   `updated` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `atelnumber` (`atelNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=19824 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,12 +125,11 @@ CREATE TABLE `atel_names` (
   `survey` varchar(45) NOT NULL,
   `titleToComment` tinyint(4) NOT NULL DEFAULT '0',
   `summaryRow` tinyint(4) DEFAULT NULL,
-  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `atelnumber_name` (`atelNumber`,`name`),
   KEY `atelNumber` (`atelNumber`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=151148 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -369,7 +388,7 @@ CREATE TABLE `corrupted_files` (
   `updatedFilename` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `filename` (`filename`)
-) ENGINE=InnoDB AUTO_INCREMENT=9693 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -383,7 +402,7 @@ CREATE TABLE `downloads_eso_archive_nightly_data` (
   `night` datetime NOT NULL,
   `number_of_files` int(11) DEFAULT NULL,
   PRIMARY KEY (`night`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -398,7 +417,7 @@ CREATE TABLE `efosc_average_zero_points` (
   `zeropoint` double DEFAULT NULL,
   `zeropoint_error` double DEFAULT NULL,
   PRIMARY KEY (`filter`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -986,7 +1005,7 @@ CREATE TABLE `efosc_imaging` (
   KEY `currentFilename` (`currentFilename`) KEY_BLOCK_SIZE=1024,
   KEY `data_rel` (`DATA_REL`) KEY_BLOCK_SIZE=1024,
   KEY `calibratation_reduction_stage` (`filetype_key_reduction_stage`,`filetype_key_image_or_spectrum`) KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM AUTO_INCREMENT=74097 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -998,33 +1017,33 @@ DROP TABLE IF EXISTS `efosc_spectra`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `efosc_spectra` (
   `primaryId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'An internal counter',
-  `ARCFILE` tinytext,
+  `ARCFILE` text,
   `BITPIX` int(11) DEFAULT NULL,
   `BSCALE` int(11) DEFAULT NULL,
   `BZERO` int(11) DEFAULT NULL,
   `CDELT1` int(11) DEFAULT NULL,
   `CDELT2` int(11) DEFAULT NULL,
-  `CHECKSUM` tinytext,
+  `CHECKSUM` text,
   `CRPIX1` float DEFAULT NULL,
   `CRPIX2` float DEFAULT NULL,
   `CRVAL1` int(11) DEFAULT NULL,
   `CRVAL2` int(11) DEFAULT NULL,
-  `CTYPE1` tinytext,
-  `CTYPE2` tinytext,
-  `DATASUM` tinytext,
+  `CTYPE1` text,
+  `CTYPE2` text,
+  `DATASUM` text,
   `DATE` datetime DEFAULT NULL,
   `DATE_OBS` datetime DEFAULT NULL COMMENT 'original keyword: DATE-OBS',
   `DECL` double DEFAULT NULL COMMENT 'original keyword: DEC',
   `EQUINOX` int(11) DEFAULT NULL,
   `ESO_ADA_ABSROT_END` double DEFAULT NULL COMMENT 'original keyword: ESO ADA ABSROT END',
   `ESO_ADA_ABSROT_START` double DEFAULT NULL COMMENT 'original keyword: ESO ADA ABSROT START',
-  `ESO_ADA_GUID_STATUS` tinytext COMMENT 'original keyword: ESO ADA GUID STATUS',
+  `ESO_ADA_GUID_STATUS` text COMMENT 'original keyword: ESO ADA GUID STATUS',
   `ESO_ADA_POSANG` double DEFAULT NULL COMMENT 'original keyword: ESO ADA POSANG',
   `ESO_DET_BITS` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET BITS',
-  `ESO_DET_CHIP1_DATE` tinytext COMMENT 'original keyword: ESO DET CHIP1 DATE',
-  `ESO_DET_CHIP1_ID` tinytext COMMENT 'original keyword: ESO DET CHIP1 ID',
+  `ESO_DET_CHIP1_DATE` text COMMENT 'original keyword: ESO DET CHIP1 DATE',
+  `ESO_DET_CHIP1_ID` text COMMENT 'original keyword: ESO DET CHIP1 ID',
   `ESO_DET_CHIP1_INDEX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIP1 INDEX',
-  `ESO_DET_CHIP1_NAME` tinytext COMMENT 'original keyword: ESO DET CHIP1 NAME',
+  `ESO_DET_CHIP1_NAME` text COMMENT 'original keyword: ESO DET CHIP1 NAME',
   `ESO_DET_CHIP1_NX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIP1 NX',
   `ESO_DET_CHIP1_NY` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIP1 NY',
   `ESO_DET_CHIP1_PSZX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIP1 PSZX',
@@ -1034,23 +1053,23 @@ CREATE TABLE `efosc_spectra` (
   `ESO_DET_CHIP1_Y` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIP1 Y',
   `ESO_DET_CHIP1_YGAP` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIP1 YGAP',
   `ESO_DET_CHIPS` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET CHIPS',
-  `ESO_DET_DATE` tinytext COMMENT 'original keyword: ESO DET DATE',
+  `ESO_DET_DATE` text COMMENT 'original keyword: ESO DET DATE',
   `ESO_DET_DEC` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET DEC',
-  `ESO_DET_DID` tinytext COMMENT 'original keyword: ESO DET DID',
+  `ESO_DET_DID` text COMMENT 'original keyword: ESO DET DID',
   `ESO_DET_EXP_NO` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET EXP NO',
   `ESO_DET_EXP_RDTTIME` float DEFAULT NULL COMMENT 'original keyword: ESO DET EXP RDTTIME',
-  `ESO_DET_EXP_TYPE` tinytext COMMENT 'original keyword: ESO DET EXP TYPE',
+  `ESO_DET_EXP_TYPE` text COMMENT 'original keyword: ESO DET EXP TYPE',
   `ESO_DET_EXP_XFERTIM` float DEFAULT NULL COMMENT 'original keyword: ESO DET EXP XFERTIM',
   `ESO_DET_FRAM_ID` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET FRAM ID',
-  `ESO_DET_FRAM_TYPE` tinytext COMMENT 'original keyword: ESO DET FRAM TYPE',
-  `ESO_DET_ID` tinytext COMMENT 'original keyword: ESO DET ID',
-  `ESO_DET_NAME` tinytext COMMENT 'original keyword: ESO DET NAME',
+  `ESO_DET_FRAM_TYPE` text COMMENT 'original keyword: ESO DET FRAM TYPE',
+  `ESO_DET_ID` text COMMENT 'original keyword: ESO DET ID',
+  `ESO_DET_NAME` text COMMENT 'original keyword: ESO DET NAME',
   `ESO_DET_OUT1_CHIP` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 CHIP',
   `ESO_DET_OUT1_CONAD` float DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 CONAD',
   `ESO_DET_OUT1_GAIN` float DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 GAIN',
   `ESO_DET_OUT1_ID` varchar(200) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 ID',
   `ESO_DET_OUT1_INDEX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 INDEX',
-  `ESO_DET_OUT1_NAME` tinytext COMMENT 'original keyword: ESO DET OUT1 NAME',
+  `ESO_DET_OUT1_NAME` text COMMENT 'original keyword: ESO DET OUT1 NAME',
   `ESO_DET_OUT1_NX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 NX',
   `ESO_DET_OUT1_NY` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 NY',
   `ESO_DET_OUT1_OVSCX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT1 OVSCX',
@@ -1063,15 +1082,15 @@ CREATE TABLE `efosc_spectra` (
   `ESO_DET_OUTPUTS` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUTPUTS',
   `ESO_DET_OUTREF` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUTREF',
   `ESO_DET_RA` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET RA',
-  `ESO_DET_READ_CLOCK` tinytext COMMENT 'original keyword: ESO DET READ CLOCK',
-  `ESO_DET_READ_MODE` tinytext COMMENT 'original keyword: ESO DET READ MODE',
+  `ESO_DET_READ_CLOCK` text COMMENT 'original keyword: ESO DET READ CLOCK',
+  `ESO_DET_READ_MODE` text COMMENT 'original keyword: ESO DET READ MODE',
   `ESO_DET_READ_NFRAM` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET READ NFRAM',
-  `ESO_DET_READ_SPEED` tinytext COMMENT 'original keyword: ESO DET READ SPEED',
-  `ESO_DET_SHUT_ID` tinytext COMMENT 'original keyword: ESO DET SHUT ID',
+  `ESO_DET_READ_SPEED` text COMMENT 'original keyword: ESO DET READ SPEED',
+  `ESO_DET_SHUT_ID` text COMMENT 'original keyword: ESO DET SHUT ID',
   `ESO_DET_SHUT_TMCLOS` float DEFAULT NULL COMMENT 'original keyword: ESO DET SHUT TMCLOS',
   `ESO_DET_SHUT_TMOPEN` float DEFAULT NULL COMMENT 'original keyword: ESO DET SHUT TMOPEN',
-  `ESO_DET_SHUT_TYPE` tinytext COMMENT 'original keyword: ESO DET SHUT TYPE',
-  `ESO_DET_SOFW_MODE` tinytext COMMENT 'original keyword: ESO DET SOFW MODE',
+  `ESO_DET_SHUT_TYPE` text COMMENT 'original keyword: ESO DET SHUT TYPE',
+  `ESO_DET_SOFW_MODE` text COMMENT 'original keyword: ESO DET SOFW MODE',
   `ESO_DET_WIN1_BINX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 BINX',
   `ESO_DET_WIN1_BINY` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 BINY',
   `ESO_DET_WIN1_DIT1` double DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 DIT1',
@@ -1079,47 +1098,47 @@ CREATE TABLE `efosc_spectra` (
   `ESO_DET_WIN1_NDIT` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 NDIT',
   `ESO_DET_WIN1_NX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 NX',
   `ESO_DET_WIN1_NY` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 NY',
-  `ESO_DET_WIN1_ST` tinytext COMMENT 'original keyword: ESO DET WIN1 ST',
+  `ESO_DET_WIN1_ST` text COMMENT 'original keyword: ESO DET WIN1 ST',
   `ESO_DET_WIN1_STRX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 STRX',
   `ESO_DET_WIN1_STRY` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 STRY',
   `ESO_DET_WIN1_UIT1` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 UIT1',
   `ESO_DET_WINDOWS` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET WINDOWS',
-  `ESO_DPR_CATG` tinytext COMMENT 'original keyword: ESO DPR CATG',
-  `ESO_DPR_TECH` tinytext COMMENT 'original keyword: ESO DPR TECH',
-  `ESO_DPR_TYPE` tinytext COMMENT 'original keyword: ESO DPR TYPE',
-  `ESO_INS_DATE` tinytext COMMENT 'original keyword: ESO INS DATE',
-  `ESO_INS_DID` tinytext COMMENT 'original keyword: ESO INS DID',
+  `ESO_DPR_CATG` text COMMENT 'original keyword: ESO DPR CATG',
+  `ESO_DPR_TECH` text COMMENT 'original keyword: ESO DPR TECH',
+  `ESO_DPR_TYPE` text COMMENT 'original keyword: ESO DPR TYPE',
+  `ESO_INS_DATE` text COMMENT 'original keyword: ESO INS DATE',
+  `ESO_INS_DID` text COMMENT 'original keyword: ESO INS DID',
   `ESO_INS_DPOR_POS` float DEFAULT NULL COMMENT 'original keyword: ESO INS DPOR POS',
-  `ESO_INS_DPOR_ST` tinytext COMMENT 'original keyword: ESO INS DPOR ST',
-  `ESO_INS_FILT1_ID` tinytext COMMENT 'original keyword: ESO INS FILT1 ID',
-  `ESO_INS_FILT1_NAME` tinytext COMMENT 'original keyword: ESO INS FILT1 NAME',
+  `ESO_INS_DPOR_ST` text COMMENT 'original keyword: ESO INS DPOR ST',
+  `ESO_INS_FILT1_ID` text COMMENT 'original keyword: ESO INS FILT1 ID',
+  `ESO_INS_FILT1_NAME` text COMMENT 'original keyword: ESO INS FILT1 NAME',
   `ESO_INS_FILT1_NO` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO INS FILT1 NO',
-  `ESO_INS_GRIS1_ID` tinytext COMMENT 'original keyword: ESO INS GRIS1 ID',
-  `ESO_INS_GRIS1_NAME` tinytext COMMENT 'original keyword: ESO INS GRIS1 NAME',
+  `ESO_INS_GRIS1_ID` text COMMENT 'original keyword: ESO INS GRIS1 ID',
+  `ESO_INS_GRIS1_NAME` text COMMENT 'original keyword: ESO INS GRIS1 NAME',
   `ESO_INS_GRIS1_NO` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO INS GRIS1 NO',
-  `ESO_INS_GRIS1_TYPE` tinytext COMMENT 'original keyword: ESO INS GRIS1 TYPE',
-  `ESO_INS_ID` tinytext COMMENT 'original keyword: ESO INS ID',
-  `ESO_INS_MODE` tinytext COMMENT 'original keyword: ESO INS MODE',
+  `ESO_INS_GRIS1_TYPE` text COMMENT 'original keyword: ESO INS GRIS1 TYPE',
+  `ESO_INS_ID` text COMMENT 'original keyword: ESO INS ID',
+  `ESO_INS_MODE` text COMMENT 'original keyword: ESO INS MODE',
   `ESO_INS_SLIT1_ENC` int(11) DEFAULT NULL COMMENT 'original keyword: ESO INS SLIT1 ENC',
   `ESO_INS_SLIT1_LEN` float DEFAULT NULL COMMENT 'original keyword: ESO INS SLIT1 LEN',
-  `ESO_INS_SLIT1_NAME` tinytext COMMENT 'original keyword: ESO INS SLIT1 NAME',
+  `ESO_INS_SLIT1_NAME` text COMMENT 'original keyword: ESO INS SLIT1 NAME',
   `ESO_INS_SLIT1_NO` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO INS SLIT1 NO',
   `ESO_INS_SLIT1_WID` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO INS SLIT1 WID',
-  `ESO_INS_SWSIM` tinytext COMMENT 'original keyword: ESO INS SWSIM',
-  `ESO_INS_WP_NAME` tinytext COMMENT 'original keyword: ESO INS WP NAME',
-  `ESO_INS_WP_ST` tinytext COMMENT 'original keyword: ESO INS WP ST',
-  `ESO_OBS_DID` tinytext COMMENT 'original keyword: ESO OBS DID',
+  `ESO_INS_SWSIM` text COMMENT 'original keyword: ESO INS SWSIM',
+  `ESO_INS_WP_NAME` text COMMENT 'original keyword: ESO INS WP NAME',
+  `ESO_INS_WP_ST` text COMMENT 'original keyword: ESO INS WP ST',
+  `ESO_OBS_DID` text COMMENT 'original keyword: ESO OBS DID',
   `ESO_OBS_EXECTIME` int(11) DEFAULT NULL COMMENT 'original keyword: ESO OBS EXECTIME',
   `ESO_OBS_GRP` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO OBS GRP',
   `ESO_OBS_ID` int(11) DEFAULT NULL COMMENT 'original keyword: ESO OBS ID',
-  `ESO_OBS_NAME` tinytext COMMENT 'original keyword: ESO OBS NAME',
-  `ESO_OBS_OBSERVER` tinytext COMMENT 'original keyword: ESO OBS OBSERVER',
+  `ESO_OBS_NAME` text COMMENT 'original keyword: ESO OBS NAME',
+  `ESO_OBS_OBSERVER` text COMMENT 'original keyword: ESO OBS OBSERVER',
   `ESO_OBS_PI_COI_ID` int(11) DEFAULT NULL COMMENT 'original keyword: ESO OBS PI-COI ID',
-  `ESO_OBS_PI_COI_NAME` tinytext COMMENT 'original keyword: ESO OBS PI-COI NAME',
-  `ESO_OBS_PROG_ID` tinytext COMMENT 'original keyword: ESO OBS PROG ID',
+  `ESO_OBS_PI_COI_NAME` text COMMENT 'original keyword: ESO OBS PI-COI NAME',
+  `ESO_OBS_PROG_ID` text COMMENT 'original keyword: ESO OBS PROG ID',
   `ESO_OBS_START` datetime DEFAULT NULL COMMENT 'original keyword: ESO OBS START',
   `ESO_OBS_TPLNO` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO OBS TPLNO',
-  `ESO_OCS_DET1_IMGNAME` tinytext COMMENT 'original keyword: ESO OCS DET1 IMGNAME',
+  `ESO_OCS_DET1_IMGNAME` text COMMENT 'original keyword: ESO OCS DET1 IMGNAME',
   `ESO_TEL_AIRM_END` float DEFAULT NULL COMMENT 'original keyword: ESO TEL AIRM END',
   `ESO_TEL_AIRM_START` float DEFAULT NULL COMMENT 'original keyword: ESO TEL AIRM START',
   `ESO_TEL_ALT` float DEFAULT NULL COMMENT 'original keyword: ESO TEL ALT',
@@ -1132,137 +1151,137 @@ CREATE TABLE `efosc_spectra` (
   `ESO_TEL_AMBI_WINDDIR` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL AMBI WINDDIR',
   `ESO_TEL_AMBI_WINDSP` float DEFAULT NULL COMMENT 'original keyword: ESO TEL AMBI WINDSP',
   `ESO_TEL_AZ` float DEFAULT NULL COMMENT 'original keyword: ESO TEL AZ',
-  `ESO_TEL_CHOP_ST` tinytext COMMENT 'original keyword: ESO TEL CHOP ST',
+  `ESO_TEL_CHOP_ST` text COMMENT 'original keyword: ESO TEL CHOP ST',
   `ESO_TEL_DATE` datetime DEFAULT NULL COMMENT 'original keyword: ESO TEL DATE',
-  `ESO_TEL_DID` tinytext COMMENT 'original keyword: ESO TEL DID',
-  `ESO_TEL_DOME_STATUS` tinytext COMMENT 'original keyword: ESO TEL DOME STATUS',
-  `ESO_TEL_FOCU_ID` tinytext COMMENT 'original keyword: ESO TEL FOCU ID',
+  `ESO_TEL_DID` text COMMENT 'original keyword: ESO TEL DID',
+  `ESO_TEL_DOME_STATUS` text COMMENT 'original keyword: ESO TEL DOME STATUS',
+  `ESO_TEL_FOCU_ID` text COMMENT 'original keyword: ESO TEL FOCU ID',
   `ESO_TEL_FOCU_LEN` float DEFAULT NULL COMMENT 'original keyword: ESO TEL FOCU LEN',
   `ESO_TEL_FOCU_SCALE` float DEFAULT NULL COMMENT 'original keyword: ESO TEL FOCU SCALE',
   `ESO_TEL_FOCU_VALUE` float DEFAULT NULL COMMENT 'original keyword: ESO TEL FOCU VALUE',
   `ESO_TEL_GEOELEV` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL GEOELEV',
   `ESO_TEL_GEOLAT` float DEFAULT NULL COMMENT 'original keyword: ESO TEL GEOLAT',
   `ESO_TEL_GEOLON` float DEFAULT NULL COMMENT 'original keyword: ESO TEL GEOLON',
-  `ESO_TEL_ID` tinytext COMMENT 'original keyword: ESO TEL ID',
+  `ESO_TEL_ID` text COMMENT 'original keyword: ESO TEL ID',
   `ESO_TEL_MOON_DEC` double DEFAULT NULL COMMENT 'original keyword: ESO TEL MOON DEC',
   `ESO_TEL_MOON_RA` double DEFAULT NULL COMMENT 'original keyword: ESO TEL MOON RA',
-  `ESO_TEL_OPER` tinytext COMMENT 'original keyword: ESO TEL OPER',
+  `ESO_TEL_OPER` text COMMENT 'original keyword: ESO TEL OPER',
   `ESO_TEL_PARANG_END` float DEFAULT NULL COMMENT 'original keyword: ESO TEL PARANG END',
   `ESO_TEL_PARANG_START` float DEFAULT NULL COMMENT 'original keyword: ESO TEL PARANG START',
   `ESO_TEL_TARG_ALPHA` double DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG ALPHA',
-  `ESO_TEL_TARG_COORDTYPE` tinytext COMMENT 'original keyword: ESO TEL TARG COORDTYPE',
+  `ESO_TEL_TARG_COORDTYPE` text COMMENT 'original keyword: ESO TEL TARG COORDTYPE',
   `ESO_TEL_TARG_DELTA` float DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG DELTA',
   `ESO_TEL_TARG_EPOCH` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG EPOCH',
-  `ESO_TEL_TARG_EPOCHSYSTEM` tinytext COMMENT 'original keyword: ESO TEL TARG EPOCHSYSTEM',
+  `ESO_TEL_TARG_EPOCHSYSTEM` text COMMENT 'original keyword: ESO TEL TARG EPOCHSYSTEM',
   `ESO_TEL_TARG_EQUINOX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG EQUINOX',
   `ESO_TEL_TARG_PARALLAX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG PARALLAX',
   `ESO_TEL_TARG_PMA` double DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG PMA',
   `ESO_TEL_TARG_PMD` double DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG PMD',
   `ESO_TEL_TARG_RADVEL` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL TARG RADVEL',
   `ESO_TEL_TH_M1_TEMP` int(11) DEFAULT NULL COMMENT 'original keyword: ESO TEL TH M1 TEMP',
-  `ESO_TEL_TRAK_STATUS` tinytext COMMENT 'original keyword: ESO TEL TRAK STATUS',
+  `ESO_TEL_TRAK_STATUS` text COMMENT 'original keyword: ESO TEL TRAK STATUS',
   `ESO_TEL_TSS_TEMP8` float DEFAULT NULL COMMENT 'original keyword: ESO TEL TSS TEMP8',
-  `ESO_TPL_DID` tinytext COMMENT 'original keyword: ESO TPL DID',
+  `ESO_TPL_DID` text COMMENT 'original keyword: ESO TPL DID',
   `ESO_TPL_EXPNO` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO TPL EXPNO',
-  `ESO_TPL_ID` tinytext COMMENT 'original keyword: ESO TPL ID',
-  `ESO_TPL_NAME` tinytext COMMENT 'original keyword: ESO TPL NAME',
+  `ESO_TPL_ID` text COMMENT 'original keyword: ESO TPL ID',
+  `ESO_TPL_NAME` text COMMENT 'original keyword: ESO TPL NAME',
   `ESO_TPL_NEXP` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO TPL NEXP',
-  `ESO_TPL_PRESEQ` tinytext COMMENT 'original keyword: ESO TPL PRESEQ',
+  `ESO_TPL_PRESEQ` text COMMENT 'original keyword: ESO TPL PRESEQ',
   `ESO_TPL_START` datetime DEFAULT NULL COMMENT 'original keyword: ESO TPL START',
-  `ESO_TPL_VERSION` tinytext COMMENT 'original keyword: ESO TPL VERSION',
+  `ESO_TPL_VERSION` text COMMENT 'original keyword: ESO TPL VERSION',
   `EXPTIME` double DEFAULT NULL,
-  `EXTEND` tinytext,
+  `EXTEND` text,
   `GCOUNT` tinyint(4) DEFAULT NULL,
-  `INHERIT` tinytext,
-  `INSTRUME` tinytext,
+  `INHERIT` text,
+  `INSTRUME` text,
   `LST` double DEFAULT NULL,
   `MJD_OBS` double DEFAULT NULL COMMENT 'original keyword: MJD-OBS',
   `NAXIS` tinyint(4) DEFAULT NULL,
   `NAXIS1` int(11) DEFAULT NULL,
   `NAXIS2` int(11) DEFAULT NULL,
-  `OBJECT` tinytext,
-  `OBSERVER` tinytext,
-  `ORIGFILE` tinytext,
-  `ORIGIN` tinytext,
+  `OBJECT` text,
+  `OBSERVER` text,
+  `ORIGFILE` text,
+  `ORIGIN` text,
   `PCOUNT` tinyint(4) DEFAULT NULL,
-  `PI_COI` tinytext COMMENT 'original keyword: PI-COI',
+  `PI_COI` text COMMENT 'original keyword: PI-COI',
   `RA` double DEFAULT NULL,
-  `RADECSYS` tinytext,
-  `SIMPLE` tinytext,
-  `TELESCOP` tinytext,
+  `RADECSYS` text,
+  `SIMPLE` text,
+  `TELESCOP` text,
   `UTC` int(11) DEFAULT NULL,
   `dateCreated` datetime DEFAULT NULL,
   `dateLastModified` datetime DEFAULT NULL,
   `dateLastRead` datetime DEFAULT NULL,
-  `filePath` text,
+  `filePath` mediumtext,
   `filename` varchar(200) DEFAULT NULL,
   `headerExtension` tinyint(4) DEFAULT NULL,
   `AIRMASS` double DEFAULT NULL,
   `APERTURE` double DEFAULT NULL,
-  `APNUM1` tinytext,
-  `ARC` tinytext,
-  `BANDID1` tinytext,
-  `BANDID2` tinytext,
-  `BANDID3` tinytext,
-  `BANDID4` tinytext,
-  `BIASSEC` tinytext,
-  `BUNIT` tinytext,
+  `APNUM1` text,
+  `ARC` text,
+  `BANDID1` text,
+  `BANDID2` text,
+  `BANDID3` text,
+  `BANDID4` text,
+  `BIASSEC` text,
+  `BUNIT` text,
   `CCDMEAN` double DEFAULT NULL,
   `CCDMEANT` int(11) DEFAULT NULL,
-  `CCDPROC` tinytext,
-  `CCDSEC` tinytext,
+  `CCDPROC` text,
+  `CCDSEC` text,
   `CD1_1` double DEFAULT NULL,
   `CD2_2` double DEFAULT NULL,
   `CD3_3` double DEFAULT NULL,
-  `CONTNORM` tinytext,
-  `CTYPE3` tinytext,
+  `CONTNORM` text,
+  `CTYPE3` text,
   `DC_FLAG` tinyint(4) DEFAULT NULL COMMENT 'original keyword: DC-FLAG',
-  `DCLOG1` tinytext,
+  `DCLOG1` text,
   `DETRON` float DEFAULT NULL,
-  `DISPELEM` tinytext,
+  `DISPELEM` text,
   `EFFRON` double DEFAULT NULL,
   `ESO_ADA_GUID_DEC` double DEFAULT NULL COMMENT 'original keyword: ESO ADA GUID DEC',
   `ESO_ADA_GUID_RA` double DEFAULT NULL COMMENT 'original keyword: ESO ADA GUID RA',
   `ESO_DET_TELE_INT` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET TELE INT',
   `ESO_DET_TELE_NO` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET TELE NO',
   `ESO_DET_TLM1_END` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM1 END',
-  `ESO_DET_TLM1_ID` tinytext COMMENT 'original keyword: ESO DET TLM1 ID',
-  `ESO_DET_TLM1_NAME` tinytext COMMENT 'original keyword: ESO DET TLM1 NAME',
+  `ESO_DET_TLM1_ID` text COMMENT 'original keyword: ESO DET TLM1 ID',
+  `ESO_DET_TLM1_NAME` text COMMENT 'original keyword: ESO DET TLM1 NAME',
   `ESO_DET_TLM1_START` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM1 START',
   `ESO_DET_TLM2_END` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM2 END',
-  `ESO_DET_TLM2_ID` tinytext COMMENT 'original keyword: ESO DET TLM2 ID',
-  `ESO_DET_TLM2_NAME` tinytext COMMENT 'original keyword: ESO DET TLM2 NAME',
+  `ESO_DET_TLM2_ID` text COMMENT 'original keyword: ESO DET TLM2 ID',
+  `ESO_DET_TLM2_NAME` text COMMENT 'original keyword: ESO DET TLM2 NAME',
   `ESO_DET_TLM2_START` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM2 START',
   `ESO_DET_TLM3_END` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM3 END',
-  `ESO_DET_TLM3_ID` tinytext COMMENT 'original keyword: ESO DET TLM3 ID',
-  `ESO_DET_TLM3_NAME` tinytext COMMENT 'original keyword: ESO DET TLM3 NAME',
+  `ESO_DET_TLM3_ID` text COMMENT 'original keyword: ESO DET TLM3 ID',
+  `ESO_DET_TLM3_NAME` text COMMENT 'original keyword: ESO DET TLM3 NAME',
   `ESO_DET_TLM3_START` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM3 START',
   `ESO_DET_TLM4_END` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM4 END',
-  `ESO_DET_TLM4_ID` tinytext COMMENT 'original keyword: ESO DET TLM4 ID',
-  `ESO_DET_TLM4_NAME` tinytext COMMENT 'original keyword: ESO DET TLM4 NAME',
+  `ESO_DET_TLM4_ID` text COMMENT 'original keyword: ESO DET TLM4 ID',
+  `ESO_DET_TLM4_NAME` text COMMENT 'original keyword: ESO DET TLM4 NAME',
   `ESO_DET_TLM4_START` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM4 START',
   `ESO_DET_TLM5_END` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM5 END',
-  `ESO_DET_TLM5_ID` tinytext COMMENT 'original keyword: ESO DET TLM5 ID',
-  `ESO_DET_TLM5_NAME` tinytext COMMENT 'original keyword: ESO DET TLM5 NAME',
+  `ESO_DET_TLM5_ID` text COMMENT 'original keyword: ESO DET TLM5 ID',
+  `ESO_DET_TLM5_NAME` text COMMENT 'original keyword: ESO DET TLM5 NAME',
   `ESO_DET_TLM5_START` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM5 START',
   `ESO_DET_TLM6_END` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM6 END',
-  `ESO_DET_TLM6_ID` tinytext COMMENT 'original keyword: ESO DET TLM6 ID',
-  `ESO_DET_TLM6_NAME` tinytext COMMENT 'original keyword: ESO DET TLM6 NAME',
+  `ESO_DET_TLM6_ID` text COMMENT 'original keyword: ESO DET TLM6 ID',
+  `ESO_DET_TLM6_NAME` text COMMENT 'original keyword: ESO DET TLM6 NAME',
   `ESO_DET_TLM6_START` float DEFAULT NULL COMMENT 'original keyword: ESO DET TLM6 START',
   `ESO_INS_MOS1_LEN` int(11) DEFAULT NULL COMMENT 'original keyword: ESO INS MOS1 LEN',
   `ESO_INS_MOS1_POSX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO INS MOS1 POSX',
   `ESO_INS_MOS1_POSY` int(11) DEFAULT NULL COMMENT 'original keyword: ESO INS MOS1 POSY',
-  `ESO_OBS_TARG_NAME` tinytext COMMENT 'original keyword: ESO OBS TARG NAME',
-  `ESO_OCS_CON_WCSFITS` tinytext COMMENT 'original keyword: ESO OCS CON WCSFITS',
-  `EXT_OBJ` tinytext,
+  `ESO_OBS_TARG_NAME` text COMMENT 'original keyword: ESO OBS TARG NAME',
+  `ESO_OCS_CON_WCSFITS` text COMMENT 'original keyword: ESO OCS CON WCSFITS',
+  `EXT_OBJ` text,
   `FILETYPE` int(11) DEFAULT NULL,
-  `FILTER` tinytext,
-  `FLATCOR` tinytext,
-  `FLUXCAL` tinytext,
+  `FILTER` text,
+  `FLATCOR` text,
+  `FLUXCAL` text,
   `FLUXERR` float DEFAULT NULL,
   `GAIN` float DEFAULT NULL,
   `IRAF_TLM` datetime DEFAULT NULL COMMENT 'original keyword: IRAF-TLM',
-  `LACOSMIC` tinytext,
+  `LACOSMIC` text,
   `LAMNLIN` int(11) DEFAULT NULL,
   `LAMRMS` double DEFAULT NULL,
   `LTM1_1` int(11) DEFAULT NULL,
@@ -1270,54 +1289,54 @@ CREATE TABLE `efosc_spectra` (
   `LTM3_3` int(11) DEFAULT NULL,
   `MAGSTD` float DEFAULT NULL,
   `MJD_END` double DEFAULT NULL COMMENT 'original keyword: MJD-END',
-  `M_EPOCH` tinytext,
+  `M_EPOCH` text,
   `NAXIS3` tinyint(4) DEFAULT NULL,
   `NCOMBINE` tinyint(4) DEFAULT NULL,
   `OBID1` int(11) DEFAULT NULL,
-  `OBSTECH` tinytext,
-  `PROCSOFT` tinytext,
-  `PRODCATG` tinytext,
-  `PROG_ID` tinytext,
-  `PROV1` tinytext,
+  `OBSTECH` text,
+  `PROCSOFT` text,
+  `PRODCATG` text,
+  `PROG_ID` text,
+  `PROV1` text,
   `QUALITY` varchar(10) DEFAULT NULL,
-  `REFERENC` tinytext,
-  `SINGLEXP` tinytext,
-  `SPECSYS` tinytext,
+  `REFERENC` text,
+  `SINGLEXP` text,
+  `SPECSYS` text,
   `SPEC_BIN` decimal(5,4) DEFAULT NULL,
   `SPEC_BW` double DEFAULT NULL,
   `SPEC_ERR` double DEFAULT NULL,
   `SPEC_RES` double DEFAULT NULL,
   `SPEC_SYE` double DEFAULT NULL,
   `SPEC_VAL` double DEFAULT NULL,
-  `STDNAME` tinytext,
+  `STDNAME` text,
   `TELAPSE` decimal(10,4) DEFAULT NULL,
   `TEXPTIME` double DEFAULT NULL,
-  `TITLE` tinytext,
+  `TITLE` text,
   `TMID` double DEFAULT NULL,
-  `TOT_FLUX` tinytext,
-  `TRACE1` tinytext,
-  `TRIM` tinytext,
-  `VOCLASS` tinytext,
-  `VOPUB` tinytext,
-  `WAT0_001` tinytext,
-  `WAT1_001` tinytext,
-  `WAT1_002` tinytext,
-  `WAT2_001` tinytext,
-  `WAT3_001` tinytext,
+  `TOT_FLUX` text,
+  `TRACE1` text,
+  `TRIM` text,
+  `VOCLASS` text,
+  `VOPUB` text,
+  `WAT0_001` text,
+  `WAT1_001` text,
+  `WAT1_002` text,
+  `WAT2_001` text,
+  `WAT3_001` text,
   `WAVELMAX` double DEFAULT NULL,
   `WAVELMIN` double DEFAULT NULL,
   `WCSDIM` tinyint(4) DEFAULT NULL,
   `XMAX` double DEFAULT NULL,
   `XMIN` double DEFAULT NULL,
-  `ZEROCOR` tinytext,
+  `ZEROCOR` text,
   `DATAMAX` double DEFAULT NULL,
   `DATAMIN` double DEFAULT NULL,
   `SHIFT` float DEFAULT NULL,
-  `ASSOC1` tinytext,
-  `ASSON1` tinytext,
+  `ASSOC1` text,
+  `ASSON1` text,
   `CA_FLAG` tinyint(4) DEFAULT NULL COMMENT 'original keyword: CA-FLAG',
   `EX_FLAG` tinyint(4) DEFAULT NULL COMMENT 'original keyword: EX-FLAG',
-  `SENSFUN` tinytext,
+  `SENSFUN` text,
   `SNR` double DEFAULT NULL,
   `CD1_2` double DEFAULT NULL,
   `CD2_1` double DEFAULT NULL,
@@ -1325,26 +1344,26 @@ CREATE TABLE `efosc_spectra` (
   `ESO_DET_WIN1_DIT2` double DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 DIT2',
   `ESO_DET_WIN1_UIT2` double DEFAULT NULL COMMENT 'original keyword: ESO DET WIN1 UIT2',
   `LTV2` double DEFAULT NULL,
-  `REFSPEC1` tinytext,
-  `ATMOFILE` tinytext,
+  `REFSPEC1` text,
+  `ATMOFILE` text,
   `DISPAXIS` tinyint(4) DEFAULT NULL,
   `OBID` int(11) DEFAULT NULL,
   `DARKTIME` float DEFAULT NULL,
-  `PROV2` tinytext,
-  `PROV3` tinytext,
-  `PROV4` tinytext,
-  `PROV5` tinytext,
-  `TRACE2` tinytext,
-  `TRACE3` tinytext,
-  `TRACE4` tinytext,
-  `TRACE5` tinytext,
-  `COMMENT` tinytext,
-  `FILTER1` tinytext,
-  `GRISM` tinytext,
-  `IMAGETYP` tinytext,
-  `ST` tinytext,
-  `UT` tinytext,
-  `OVERSCAN` tinytext,
+  `PROV2` text,
+  `PROV3` text,
+  `PROV4` text,
+  `PROV5` text,
+  `TRACE2` text,
+  `TRACE3` text,
+  `TRACE4` text,
+  `TRACE5` text,
+  `COMMENT` text,
+  `FILTER1` text,
+  `GRISM` text,
+  `IMAGETYP` text,
+  `ST` text,
+  `UT` text,
+  `OVERSCAN` text,
   `filetype_key_instrument` tinyint(4) NOT NULL DEFAULT '0',
   `filetype_key_image_or_spectrum` tinyint(4) NOT NULL DEFAULT '0',
   `filetype_key_reduction_stage` tinyint(4) NOT NULL DEFAULT '0',
@@ -1352,31 +1371,31 @@ CREATE TABLE `efosc_spectra` (
   `transientBucketId` bigint(20) NOT NULL DEFAULT '0',
   `nameChangeRequired` tinyint(4) NOT NULL DEFAULT '0',
   `esoPhaseIII` bigint(20) NOT NULL DEFAULT '0',
-  `updatedFilename` tinytext,
+  `updatedFilename` text,
   `filenameUpdated` tinyint(4) NOT NULL DEFAULT '0',
-  `objectInFilename` tinytext,
+  `objectInFilename` text,
   `updateObjectName` tinyint(4) NOT NULL DEFAULT '0',
-  `ASSOC2` tinytext,
-  `ASSOC3` tinytext,
-  `ASSOC4` tinytext,
-  `ASSOC5` tinytext,
-  `OBJ_OLD` tinytext COMMENT 'original keyword: OBJ-OLD',
+  `ASSOC2` text,
+  `ASSOC3` text,
+  `ASSOC4` text,
+  `ASSOC5` text,
+  `OBJ_OLD` text COMMENT 'original keyword: OBJ-OLD',
   `TELE_DEC` double DEFAULT NULL COMMENT 'original keyword: TELE-DEC',
   `TELE_RA` double DEFAULT NULL COMMENT 'original keyword: TELE-RA',
   `binary_table_associated_spectrum_id` bigint(20) NOT NULL DEFAULT '0',
-  `currentFilename` tinytext,
-  `currentFilepath` text,
-  `updatedFilepath` text,
-  `archivePath` tinytext,
+  `currentFilename` text,
+  `currentFilepath` mediumtext,
+  `updatedFilepath` mediumtext,
+  `archivePath` text,
   `rewriteFitsHeader` tinyint(4) NOT NULL DEFAULT '0',
-  `APNUM2` tinytext,
+  `APNUM2` text,
   `archivedLocally` tinyint(4) DEFAULT '0',
   `ESO_DET_OUT2_CHIP` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 CHIP',
   `ESO_DET_OUT2_CONAD` float DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 CONAD',
   `ESO_DET_OUT2_GAIN` float DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 GAIN',
-  `ESO_DET_OUT2_ID` tinytext COMMENT 'original keyword: ESO DET OUT2 ID',
+  `ESO_DET_OUT2_ID` text COMMENT 'original keyword: ESO DET OUT2 ID',
   `ESO_DET_OUT2_INDEX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 INDEX',
-  `ESO_DET_OUT2_NAME` tinytext COMMENT 'original keyword: ESO DET OUT2 NAME',
+  `ESO_DET_OUT2_NAME` text COMMENT 'original keyword: ESO DET OUT2 NAME',
   `ESO_DET_OUT2_NX` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 NX',
   `ESO_DET_OUT2_NY` int(11) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 NY',
   `ESO_DET_OUT2_OVSCX` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 OVSCX',
@@ -1387,25 +1406,25 @@ CREATE TABLE `efosc_spectra` (
   `ESO_DET_OUT2_X` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 X',
   `ESO_DET_OUT2_Y` tinyint(4) DEFAULT NULL COMMENT 'original keyword: ESO DET OUT2 Y',
   `isInTransientBucket` tinyint(4) DEFAULT NULL,
-  `DATA_REL` tinytext,
-  `PROV6` tinytext,
-  `PROV16` tinytext,
-  `PROV14` tinytext,
-  `PROV15` tinytext,
-  `PROV13` tinytext,
-  `PROV12` tinytext,
-  `PROV11` tinytext,
-  `PROV10` tinytext,
-  `PROV9` tinytext,
-  `PROV8` tinytext,
-  `PROV7` tinytext,
+  `DATA_REL` text,
+  `PROV6` text,
+  `PROV16` text,
+  `PROV14` text,
+  `PROV15` text,
+  `PROV13` text,
+  `PROV12` text,
+  `PROV11` text,
+  `PROV10` text,
+  `PROV9` text,
+  `PROV8` text,
+  `PROV7` text,
   `nelem` int(11) DEFAULT NULL,
   `filesize` int(11) DEFAULT NULL,
-  `BI_FLAG` tinytext COMMENT 'original keyword: BI-FLAG',
-  `FF_FLAG` tinytext COMMENT 'original keyword: FF-FLAG',
+  `BI_FLAG` text COMMENT 'original keyword: BI-FLAG',
+  `FF_FLAG` text COMMENT 'original keyword: FF-FLAG',
   `OTIME` int(11) DEFAULT NULL,
   `TTIME` int(11) DEFAULT NULL,
-  `TRACE6` tinytext,
+  `TRACE6` text,
   `do_not_release` tinyint(1) NOT NULL DEFAULT '0',
   `flux_scaling_factor` float DEFAULT NULL,
   `OFILTER` varchar(100) DEFAULT NULL,
@@ -1419,12 +1438,12 @@ CREATE TABLE `efosc_spectra` (
   `TRACE8` varchar(100) DEFAULT NULL,
   `TRACE9` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
-  UNIQUE KEY `filename_quality` (`filename`,`QUALITY`) KEY_BLOCK_SIZE=2048,
-  UNIQUE KEY `filename` (`filename`) KEY_BLOCK_SIZE=1024,
-  KEY `currentFilename` (`currentFilename`(200)) KEY_BLOCK_SIZE=1024,
+  UNIQUE KEY `filename_quality` (`filename`,`QUALITY`) KEY_BLOCK_SIZE=4096,
+  UNIQUE KEY `filename` (`filename`) KEY_BLOCK_SIZE=4096,
+  KEY `currentFilename` (`currentFilename`(200)) KEY_BLOCK_SIZE=4096,
   KEY `data_rel` (`DATA_REL`(50)) KEY_BLOCK_SIZE=1024,
   KEY `calibratation_reduction_stage` (`filetype_key_reduction_stage`,`filetype_key_image_or_spectrum`) KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM AUTO_INCREMENT=123423 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1444,7 +1463,7 @@ CREATE TABLE `efosc_spectra_associations` (
   UNIQUE KEY `imageId_assosId` (`image_id`,`association_id`),
   KEY `image_id` (`image_id`),
   KEY `association_id` (`association_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1521,7 +1540,7 @@ CREATE TABLE `efosc_spectra_binary_table_extension` (
   `SIMPLE` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`efosc_spectra_id`),
   UNIQUE KEY `filename` (`filename`)
-) ENGINE=InnoDB AUTO_INCREMENT=123423 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1537,7 +1556,7 @@ CREATE TABLE `filetype_key_calibration` (
   PRIMARY KEY (`key`),
   UNIQUE KEY `value_UNIQUE` (`value`),
   UNIQUE KEY `key_UNIQUE` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1553,7 +1572,7 @@ CREATE TABLE `filetype_key_reduction_stage` (
   PRIMARY KEY (`key`),
   UNIQUE KEY `value_UNIQUE` (`value`),
   UNIQUE KEY `key_UNIQUE` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1584,7 +1603,7 @@ CREATE TABLE `fits_header_keywords` (
   UNIQUE KEY `fits_keyword_UNIQUE` (`fits_keyword`),
   KEY `mysql_keywords` (`mysql_keyword`),
   KEY `fits_keywords` (`fits_keyword`)
-) ENGINE=InnoDB AUTO_INCREMENT=2983 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1630,7 +1649,7 @@ CREATE TABLE `fs_asassn_sne` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12630414 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1670,7 +1689,7 @@ CREATE TABLE `fs_asassn_transients` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27110270 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1701,18 +1720,18 @@ CREATE TABLE `fs_atlas` (
   `summaryRow` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Summary row flag. 1 = summary row, 0 = recurrence. There should always be one summary row and at least one recurrence.',
   `ingested` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Transient Bucket ingest flag.  Has this data been ingested yet?',
   `htm16ID` bigint(20) unsigned DEFAULT NULL,
-  `survey` varchar(45) NOT NULL DEFAULT 'PS1',
+  `survey` varchar(45) NOT NULL DEFAULT 'ATLAS',
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `dateLastRead` datetime DEFAULT NULL,
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
   `transientBucketId` bigint(20) DEFAULT NULL,
+  `updated` tinyint(4) DEFAULT '0',
   `cz` double DEFAULT NULL,
   `cx` double DEFAULT NULL,
   `htm20ID` bigint(20) DEFAULT NULL,
   `cy` double DEFAULT NULL,
-  `updated` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_uq_candidateID_observationMJD_mag_filter_summaryRow` (`candidateID`,`observationMJD`,`mag`,`filter`,`summaryRow`),
   UNIQUE KEY `idx_uq_candidateID_discDate` (`candidateID`,`discDate`),
@@ -1726,8 +1745,9 @@ CREATE TABLE `fs_atlas` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`),
-  KEY `idx_htm20ID` (`htm20ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1066762750 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  KEY `idx_htm20ID` (`htm20ID`),
+  KEY `idx_transientBucketId` (`transientBucketId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1791,8 +1811,12 @@ CREATE TABLE `fs_atlas_forced_phot` (
   KEY `idx_htm13ID` (`htm13ID`),
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
-  KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=160940658 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  KEY `i_htm16ID` (`htm16ID`),
+  KEY `idx_transientBucketId` (`transientBucketId`),
+  KEY `idx_atlas_designation` (`atlas_designation`),
+  KEY `idx_dateCreated` (`dateCreated`),
+  KEY `idx_transientBucketId_designation` (`atlas_designation`,`transientBucketId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1805,7 +1829,7 @@ DROP TABLE IF EXISTS `fs_crts_css`;
 CREATE TABLE `fs_crts_css` (
   `primaryId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'An internal counter',
   `circularUrl` varchar(450) DEFAULT NULL,
-  `comment` text,
+  `comment` mediumtext,
   `commentIngested` tinyint(4) DEFAULT NULL,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1845,7 +1869,7 @@ CREATE TABLE `fs_crts_css` (
   KEY `idx_htm16ID` (`htm16ID`),
   KEY `idx_htm10ID` (`htm10ID`),
   KEY `idx_htm13ID` (`htm13ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9887551 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1858,7 +1882,7 @@ DROP TABLE IF EXISTS `fs_crts_mls`;
 CREATE TABLE `fs_crts_mls` (
   `primaryId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'An internal counter',
   `circularUrl` varchar(450) DEFAULT NULL,
-  `comment` text,
+  `comment` mediumtext,
   `commentIngested` tinyint(4) DEFAULT NULL,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1898,7 +1922,7 @@ CREATE TABLE `fs_crts_mls` (
   KEY `idx_htm16ID` (`htm16ID`),
   KEY `idx_htm10ID` (`htm10ID`),
   KEY `idx_htm13ID` (`htm13ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8379959 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1911,7 +1935,7 @@ DROP TABLE IF EXISTS `fs_crts_sss`;
 CREATE TABLE `fs_crts_sss` (
   `primaryId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'An internal counter',
   `circularUrl` varchar(450) DEFAULT NULL,
-  `comment` text,
+  `comment` mediumtext,
   `commentIngested` tinyint(4) DEFAULT NULL,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -1951,7 +1975,7 @@ CREATE TABLE `fs_crts_sss` (
   KEY `idx_htm16ID` (`htm16ID`),
   KEY `idx_htm10ID` (`htm10ID`),
   KEY `idx_htm13ID` (`htm13ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=105419 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1999,7 +2023,7 @@ CREATE TABLE `fs_des` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2211494 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2028,6 +2052,10 @@ CREATE TABLE `fs_gaia` (
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
   `transientBucketId` bigint(20) DEFAULT NULL,
+  `cz` double DEFAULT NULL,
+  `cx` double DEFAULT NULL,
+  `htm20ID` bigint(20) DEFAULT NULL,
+  `cy` double DEFAULT NULL,
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `candidateid_observationmjd` (`candidateID`,`observationMJD`),
@@ -2036,8 +2064,9 @@ CREATE TABLE `fs_gaia` (
   KEY `idx_htm13ID` (`htm13ID`),
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
-  KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=337323977 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  KEY `i_htm16ID` (`htm16ID`),
+  KEY `idx_htm20ID` (`htm20ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2086,7 +2115,7 @@ CREATE TABLE `fs_master` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4204683 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2144,7 +2173,7 @@ CREATE TABLE `fs_ogle` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=33869229 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2181,8 +2210,8 @@ CREATE TABLE `fs_panstarrs` (
   `htm10ID` int(11) DEFAULT NULL,
   `updated` tinyint(4) DEFAULT '0',
   `transientBucketId` bigint(20) DEFAULT NULL,
+  `summaryRow` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`) KEY_BLOCK_SIZE=1024,
-  UNIQUE KEY `idx_uq_candidateID_observationMJD_mag_filter_summaryRow` (`candidateID`,`observationMJD`,`mag`,`filter`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `idx_uq_candidateID_discDate` (`candidateID`,`discDate`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `uni_id_mag_mjd` (`candidateID`,`mag`,`observationMJD`),
   KEY `idx_candidateID` (`candidateID`) KEY_BLOCK_SIZE=1024,
@@ -2194,7 +2223,7 @@ CREATE TABLE `fs_panstarrs` (
   KEY `i_htm10ID` (`htm10ID`) KEY_BLOCK_SIZE=1024,
   KEY `i_htm13ID` (`htm13ID`) KEY_BLOCK_SIZE=1024,
   KEY `i_htm16ID` (`htm16ID`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB AUTO_INCREMENT=437078479 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2238,6 +2267,10 @@ CREATE TABLE `fs_skymapper` (
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
   `transientBucketId` bigint(20) DEFAULT NULL,
+  `cz` double DEFAULT NULL,
+  `cx` double DEFAULT NULL,
+  `htm20ID` bigint(20) DEFAULT NULL,
+  `cy` double DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `candidateid_mjd` (`candidateID`,`mjd`),
   KEY `htm16` (`htm16ID`),
@@ -2248,8 +2281,9 @@ CREATE TABLE `fs_skymapper` (
   KEY `idx_htm13ID` (`htm13ID`),
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
-  KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=63272 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  KEY `i_htm16ID` (`htm16ID`),
+  KEY `idx_htm20ID` (`htm20ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2297,7 +2331,7 @@ CREATE TABLE `fs_tns_transients` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=100565529 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2346,7 +2380,7 @@ CREATE TABLE `fs_user_added` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=862 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2373,9 +2407,7 @@ CREATE TABLE `fs_ztf` (
   `surveyUrl` varchar(200) DEFAULT NULL,
   `tripletImageUrl` varchar(200) DEFAULT NULL,
   `ingested` tinyint(4) DEFAULT '0',
-  `survey` varchar(5) DEFAULT 'ZTF',
   `htm16ID` bigint(20) DEFAULT NULL,
-  `summaryRow` tinyint(4) DEFAULT NULL,
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
   `scorr` double DEFAULT NULL,
@@ -2386,15 +2418,26 @@ CREATE TABLE `fs_ztf` (
   `distnr` double DEFAULT NULL,
   `distpsnr1` double DEFAULT NULL,
   `sgscore1` double DEFAULT NULL,
-  `transientBucketId` bigint(20) DEFAULT NULL,
   `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
   `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
+  UNIQUE KEY `uni_objectId_mjd` (`objectId`,`mjd`),
   UNIQUE KEY `candidateId_UNIQUE` (`candidateId`),
   KEY `idx_htm16ID` (`htm16ID`),
   KEY `idx_htm10ID` (`htm10ID`),
-  KEY `idx_htm13ID` (`htm13ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21812944 DEFAULT CHARSET=latin1;
+  KEY `idx_htm13ID` (`htm13ID`),
+  KEY `idx_filt` (`filt`),
+  KEY `idx_fid` (`fid`),
+  KEY `idx_filt_fid` (`fid`,`filt`),
+  KEY `idx_transientBucketID` (`transientBucketId`),
+  KEY `idx_dateCreated` (`dateCreated`),
+  KEY `idx_objectID` (`objectId`),
+  KEY `idx_surveyUrl` (`surveyUrl`),
+  KEY `idx_tripletImageUrl` (`tripletImageUrl`),
+  KEY `idx_mjd` (`mjd`),
+  KEY `idx_isdiffpos` (`isdiffpos`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2411,7 +2454,7 @@ CREATE TABLE `logs_executable_timings` (
   `end_time` datetime NOT NULL,
   `running_time` varchar(100) NOT NULL,
   PRIMARY KEY (`primaryId`)
-) ENGINE=InnoDB AUTO_INCREMENT=690451 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2428,7 +2471,7 @@ CREATE TABLE `map_survey_marshall_discoveries` (
   `view_tns_photometry_discoveries` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`columnName`),
   UNIQUE KEY `columnName_UNIQUE` (`columnName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2443,7 +2486,7 @@ CREATE TABLE `map_survey_marshall_photometry` (
   `tns_photometry` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`columnName`),
   UNIQUE KEY `columnName_UNIQUE` (`columnName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2458,7 +2501,7 @@ CREATE TABLE `map_survey_marshall_spectra` (
   `tns_spectra` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`columnName`),
   UNIQUE KEY `columnName_UNIQUE` (`columnName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2472,7 +2515,7 @@ CREATE TABLE `map_survey_transientBucket` (
   `columnName` varchar(150) NOT NULL,
   PRIMARY KEY (`columnName`),
   UNIQUE KEY `columnName_UNIQUE` (`columnName`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2489,8 +2532,8 @@ CREATE TABLE `marshall_fs_column_map` (
   `transientBucket_column` varchar(45) DEFAULT NULL,
   `fs_table_column` varchar(45) NOT NULL,
   PRIMARY KEY (`primaryId`),
-  UNIQUE KEY `unquie_fs_table_name_fs_table_column` (`fs_table_column`,`fs_table_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1019 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `unquie_fs_table_name_fs_table_column` (`fs_table_name`,`fs_table_column`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2510,7 +2553,7 @@ CREATE TABLE `marshall_sources` (
   UNIQUE KEY `u_marshallId` (`marshallId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `u_raDeg_decDeg` (`raDeg`,`decDeg`) KEY_BLOCK_SIZE=1024,
   KEY `i_marshallId` (`marshallId`)
-) ENGINE=InnoDB AUTO_INCREMENT=30730671 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2549,7 +2592,7 @@ CREATE TABLE `marshall_sources_discoveries` (
   KEY `i_survey` (`survey`),
   KEY `i_surveyId` (`name`),
   KEY `i_masterId` (`masterId`)
-) ENGINE=InnoDB AUTO_INCREMENT=103656 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2579,7 +2622,7 @@ CREATE TABLE `marshall_sources_photometry` (
   UNIQUE KEY `u_primaryId` (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `u_surveyId_mjd` (`name`,`observationMJD`),
   KEY `i_marshallId` (`marshallId`)
-) ENGINE=InnoDB AUTO_INCREMENT=920430 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2596,7 +2639,7 @@ CREATE TABLE `marshall_sources_related_files` (
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `u_primaryId` (`primaryId`) KEY_BLOCK_SIZE=1024,
   KEY `i_marshallId` (`marshallId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2628,7 +2671,27 @@ CREATE TABLE `marshall_sources_spectra` (
   UNIQUE KEY `u_name_mjd` (`name`,`observationMJD`),
   UNIQUE KEY `u_id_survey_specType` (`spectralType`,`marshallId`,`survey`),
   KEY `i_marshallId` (`marshallId`)
-) ENGINE=InnoDB AUTO_INCREMENT=62959 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `marshall_transient_akas`
+--
+
+DROP TABLE IF EXISTS `marshall_transient_akas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marshall_transient_akas` (
+  `primaryId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `transientBucketId` bigint(20) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`primaryId`),
+  UNIQUE KEY `uni_transientbucketid_name` (`transientBucketId`,`name`),
+  KEY `idx_transientbucketid` (`transientBucketId`),
+  KEY `idx_name` (`name`),
+  KEY `idx_url` (`url`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2645,7 +2708,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `primaryId_UNIQUE` (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `listname_unique` (`listname`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2673,7 +2736,7 @@ CREATE TABLE `ntt_photometric_night_log_keys` (
   `flag` tinyint(4) NOT NULL DEFAULT '0',
   `value` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`flag`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2689,7 +2752,7 @@ CREATE TABLE `ntt_standards` (
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `primaryId_UNIQUE` (`primaryId`),
   UNIQUE KEY `object_UNIQUE` (`object`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2755,14 +2818,17 @@ CREATE TABLE `pesstoObjects` (
   `atlas_fp_lightcurve` datetime DEFAULT NULL,
   `ztf_stamp` tinyint(4) DEFAULT NULL,
   `user_added_stamp` tinyint(4) DEFAULT NULL,
+  `resurrectionCount` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`pesstoObjectsId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `pesstoObjectId_UNIQUE` (`pesstoObjectsId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `masterSnId_UNIQUE` (`transientBucketId`) KEY_BLOCK_SIZE=1024,
   KEY `transientBucketId` (`transientBucketId`),
   KEY `classified` (`classifiedFlag`),
   KEY `mwl` (`marshallWorkflowLocation`),
-  KEY `awl` (`alertWorkflowLocation`)
-) ENGINE=InnoDB AUTO_INCREMENT=30732233 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  KEY `awl` (`alertWorkflowLocation`),
+  FULLTEXT KEY `fulltext` (`pi_name`),
+  FULLTEXT KEY `fulltext_pi_name` (`pi_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2775,11 +2841,11 @@ DROP TABLE IF EXISTS `pesstoObjectsChangeLog`;
 CREATE TABLE `pesstoObjectsChangeLog` (
   `pesstoObjectsChangeLog` int(11) NOT NULL AUTO_INCREMENT,
   `pesstoObjectsId` int(11) NOT NULL,
-  `whatWasChanged` text NOT NULL,
+  `whatWasChanged` mediumtext NOT NULL,
   `whenChangeOccured` datetime NOT NULL,
   `changeAuthor` varchar(45) NOT NULL,
   PRIMARY KEY (`pesstoObjectsChangeLog`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB AUTO_INCREMENT=15876 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2797,11 +2863,11 @@ CREATE TABLE `pesstoObjectsComments` (
   `dateLastModified` datetime NOT NULL,
   `removed` tinyint(4) NOT NULL DEFAULT '0',
   `localAttachmentUrl` varchar(300) DEFAULT NULL,
-  `comment` mediumtext NOT NULL,
+  `comment` longtext NOT NULL,
   PRIMARY KEY (`pesstoObjectsCommentsId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `objectId_date_author_comment` (`pesstoObjectsId`,`dateCreated`,`commentAuthor`,`comment`(90)) KEY_BLOCK_SIZE=1024,
   KEY `pesstoObjectsId` (`pesstoObjectsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3430688 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2813,11 +2879,11 @@ DROP TABLE IF EXISTS `pessto_marshall_object_summaries`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pessto_marshall_object_summaries` (
   `transientBucketId` bigint(20) NOT NULL COMMENT 'This is set to the primaryKeyId of the **first** entry of this object into the database (i.e. earliest dateCreated)',
-  `name` varchar(40) NOT NULL COMMENT 'the name of the transient given by the reporting survey.',
-  `survey` varchar(45) NOT NULL COMMENT 'the survey reporting observation of this transient',
+  `name` varchar(40) CHARACTER SET utf8 NOT NULL COMMENT 'the name of the transient given by the reporting survey.',
+  `survey` varchar(45) CHARACTER SET utf8 DEFAULT NULL COMMENT 'the survey reporting observation of this transient',
   `raDeg` double DEFAULT NULL COMMENT 'RA is decimal degreed',
   `decDeg` double DEFAULT NULL COMMENT 'DEC in decimal degrees',
-  `spectralType` varchar(100) DEFAULT NULL COMMENT 'the spectral classification given by the reporting survey (if any)',
+  `spectralType` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT 'the spectral classification given by the reporting survey (if any)',
   `transientRedshift` float DEFAULT NULL COMMENT 'redshift as measured from a spectrum of the transient'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2850,7 +2916,7 @@ CREATE TABLE `pessto_papers` (
   `authors` varchar(800) DEFAULT NULL,
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `bibcode_pubdate` (`bibcode`,`pubdate`) KEY_BLOCK_SIZE=4096
-) ENGINE=InnoDB AUTO_INCREMENT=1913527 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2906,7 +2972,7 @@ CREATE TABLE `phase_iii_photometry_catalogue_ssdr3` (
   `V_SWIFT_MAGERR` decimal(7,2) DEFAULT NULL,
   PRIMARY KEY (`PHOT_ID`),
   UNIQUE KEY `UNIQUE_SOURCE_MJD` (`SOURCE_ID`,`MJD`)
-) ENGINE=InnoDB AUTO_INCREMENT=1004974 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2964,7 +3030,7 @@ CREATE TABLE `phase_iii_transient_catalogue_ssdr2` (
   UNIQUE KEY `primaryKeyId_UNIQUE` (`primaryKeyId`),
   UNIQUE KEY `transientID` (`TRANSIENT_ID`),
   UNIQUE KEY `ra_dec` (`TRANSIENT_RAJ2000`,`TRANSIENT_DECJ2000`)
-) ENGINE=InnoDB AUTO_INCREMENT=557 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3036,7 +3102,31 @@ CREATE TABLE `phase_iii_transient_catalogue_ssdr3` (
   PRIMARY KEY (`primaryKeyId`),
   UNIQUE KEY `primaryKeyId_UNIQUE` (`primaryKeyId`),
   UNIQUE KEY `transientid` (`TRANSIENT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1050 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `scheduler_api_calls`
+--
+
+DROP TABLE IF EXISTS `scheduler_api_calls`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scheduler_api_calls` (
+  `primaryId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `transientBucketId` bigint(20) NOT NULL,
+  `objectName` varchar(50) NOT NULL,
+  `magnitude` double DEFAULT NULL,
+  `limitingMagnitude` tinyint(4) DEFAULT NULL,
+  `apiCallType` varchar(45) DEFAULT NULL,
+  `triggerTime` datetime NOT NULL,
+  `stampUrl` varchar(200) DEFAULT NULL,
+  `raDeg` double DEFAULT NULL,
+  `decDeg` double DEFAULT NULL,
+  PRIMARY KEY (`primaryId`),
+  UNIQUE KEY `primaryId_UNIQUE` (`primaryId`),
+  UNIQUE KEY `uni_transientbucketid_triggerDate` (`transientBucketId`,`triggerTime`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3049,7 +3139,7 @@ DROP TABLE IF EXISTS `sherlock_classifications`;
 CREATE TABLE `sherlock_classifications` (
   `transient_object_id` bigint(20) NOT NULL,
   `classification` varchar(45) DEFAULT NULL,
-  `annotation` text,
+  `annotation` mediumtext,
   `summary` varchar(50) DEFAULT NULL,
   `mismatchComment` varchar(500) DEFAULT NULL,
   `dateLastModified` datetime DEFAULT NULL,
@@ -3060,10 +3150,10 @@ CREATE TABLE `sherlock_classifications` (
   `separationArcsec` double DEFAULT NULL,
   PRIMARY KEY (`transient_object_id`),
   KEY `idx_classification` (`classification`),
-  KEY `idx_summary` (`summary`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `idx_summary` (`summary`),
+  KEY `idx_dateLastModified` (`dateLastModified`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -3084,8 +3174,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-
-
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -3105,7 +3193,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-
 
 --
 -- Table structure for table `sherlock_crossmatches`
@@ -3189,7 +3276,7 @@ CREATE TABLE `sherlock_crossmatches` (
   KEY `key_catalogue_object_id` (`catalogue_object_id`),
   KEY `idx_separationArcsec` (`separationArcsec`),
   KEY `idx_rank` (`rank`)
-) ENGINE=InnoDB AUTO_INCREMENT=2374980 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3661,7 +3748,7 @@ CREATE TABLE `sofi_imaging` (
   KEY `currentFilename` (`currentFilename`) KEY_BLOCK_SIZE=1024,
   KEY `data_rel` (`DATA_REL`) KEY_BLOCK_SIZE=1024,
   KEY `calibratation_reduction_stage` (`filetype_key_reduction_stage`,`filetype_key_image_or_spectrum`) KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM AUTO_INCREMENT=56425 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3679,7 +3766,7 @@ CREATE TABLE `sofi_imaging_associations` (
   `added_to_fits_header` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `imageId_assosId` (`image_id`,`association_id`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4078,7 +4165,7 @@ CREATE TABLE `sofi_spectra` (
   KEY `currentFilename` (`currentFilename`) KEY_BLOCK_SIZE=1024,
   KEY `data_rel` (`DATA_REL`) KEY_BLOCK_SIZE=1024,
   KEY `calibratation_reduction_stage` (`filetype_key_reduction_stage`,`filetype_key_image_or_spectrum`) KEY_BLOCK_SIZE=1024
-) ENGINE=MyISAM AUTO_INCREMENT=21657 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4096,7 +4183,7 @@ CREATE TABLE `sofi_spectra_associations` (
   `added_to_fits_header` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `imageId_assosId` (`image_id`,`association_id`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4179,7 +4266,7 @@ CREATE TABLE `sofi_spectra_binary_table_extension` (
   UNIQUE KEY `primaryId_UNIQUE` (`sofi_spectra_id`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `filename` (`filename`) KEY_BLOCK_SIZE=1024,
   KEY `sofi_spec_id` (`sofi_spectra_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21657 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4195,7 +4282,7 @@ CREATE TABLE `stats_full_release_overview` (
   `numberOfFiles` int(11) DEFAULT NULL,
   `dataVolumeBytes` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4211,7 +4298,7 @@ CREATE TABLE `stats_ssdr1_overview` (
   `numberOfFiles` int(11) DEFAULT NULL,
   `dataVolumeBytes` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4227,7 +4314,7 @@ CREATE TABLE `stats_ssdr2_overview` (
   `numberOfFiles` int(11) DEFAULT NULL,
   `dataVolumeBytes` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4243,7 +4330,7 @@ CREATE TABLE `stats_ssdr3_overview` (
   `numberOfFiles` int(11) DEFAULT NULL,
   `dataVolumeBytes` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4259,7 +4346,7 @@ CREATE TABLE `tcs_catalogue_tables` (
   `description` varchar(60) NOT NULL,
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4303,7 +4390,7 @@ CREATE TABLE `tcs_cross_matches_old` (
   KEY `key_transient_object_id` (`transient_object_id`),
   KEY `key_catalogue_object_id` (`catalogue_object_id`),
   KEY `idx_separation` (`separation`)
-) ENGINE=InnoDB AUTO_INCREMENT=570112 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4321,7 +4408,7 @@ CREATE TABLE `tcs_helper_catalogue_tables_info` (
   `number_of_rows` bigint(20) DEFAULT NULL,
   `reference_url` varchar(200) DEFAULT NULL,
   `reference_text` varchar(70) DEFAULT NULL,
-  `notes` text,
+  `notes` mediumtext,
   `vizier_link` varchar(200) DEFAULT NULL,
   `in_ned` tinyint(4) DEFAULT NULL,
   `object_types` varchar(100) DEFAULT NULL,
@@ -4355,7 +4442,7 @@ CREATE TABLE `tcs_helper_catalogue_tables_info` (
   `filterName5ColName` varchar(45) DEFAULT NULL,
   `filterErr5ColName` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4367,14 +4454,14 @@ DROP TABLE IF EXISTS `tcs_helper_catalogue_views_info`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tcs_helper_catalogue_views_info` (
   `id` smallint(5) unsigned NOT NULL,
-  `view_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `view_name` varchar(100) DEFAULT NULL,
   `number_of_rows` bigint(20) DEFAULT NULL,
-  `object_type` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `object_type` varchar(100) DEFAULT NULL,
   `legacy_view` tinyint(4) DEFAULT '0',
-  `old_view_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `old_view_name` varchar(100) DEFAULT NULL,
   `table_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4397,7 +4484,7 @@ CREATE TABLE `tcs_stats_catalogues` (
   `transientStream` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `table_id` (`table_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=897298 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4420,7 +4507,7 @@ CREATE TABLE `tns_files` (
   `comment` varchar(800) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `tnsid_url` (`TNSId`,`url`)
-) ENGINE=InnoDB AUTO_INCREMENT=4105445 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4451,11 +4538,17 @@ CREATE TABLE `tns_photometry` (
   `remarks` varchar(800) DEFAULT NULL,
   `sourceComment` varchar(800) DEFAULT NULL,
   `observationMJD` double DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
+  `ingested` tinyint(4) DEFAULT '0',
+  `raDeg` double DEFAULT NULL,
+  `decDeg` double DEFAULT NULL,
+  `reportingGroup` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `u_tnsid_obsdate_mag` (`mag`,`obsdate`,`TNSId`),
   UNIQUE KEY `u_tnsid_survey_obsdate` (`TNSId`,`survey`,`obsdate`),
-  UNIQUE KEY `u_tnsid_obsdate_objname` (`TNSId`,`obsdate`,`objectName`)
-) ENGINE=InnoDB AUTO_INCREMENT=98962747 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  UNIQUE KEY `u_tnsid_obsdate_objname` (`TNSId`,`obsdate`,`objectName`),
+  KEY `idx_transientBucketId` (`transientBucketId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4487,9 +4580,14 @@ CREATE TABLE `tns_sources` (
   `hostName` varchar(100) DEFAULT NULL,
   `hostRedshift` double DEFAULT NULL,
   `survey` varchar(100) DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
+  `ingested` tinyint(4) DEFAULT '0',
+  `reportingSurvey` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
-  UNIQUE KEY `tnsid` (`TNSId`)
-) ENGINE=InnoDB AUTO_INCREMENT=46595477 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  UNIQUE KEY `tnsid` (`TNSId`),
+  KEY `idx_transientBucketId` (`transientBucketId`),
+  KEY `idx_ingested` (`ingested`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4517,10 +4615,18 @@ CREATE TABLE `tns_spectra` (
   `sourceComment` varchar(800) DEFAULT NULL,
   `observationMJD` double DEFAULT NULL,
   `discoveryName` varchar(50) DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
+  `ingested` tinyint(4) DEFAULT '0',
+  `TNSName` varchar(45) DEFAULT NULL,
+  `raDeg` double DEFAULT NULL,
+  `decDeg` double DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `tnsid_survey_obsdate` (`TNSId`,`survey`,`obsdate`),
-  UNIQUE KEY `u_tnsid_TNSUser_obsdate` (`TNSId`,`TNSuser`,`obsdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=1442377 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+  UNIQUE KEY `u_tnsid_TNSUser_obsdate` (`TNSId`,`TNSuser`,`obsdate`),
+  KEY `idx_transientBucketId` (`transientBucketId`),
+  KEY `idx_ingested` (`ingested`),
+  KEY `idx_TNSName` (`TNSName`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4535,7 +4641,7 @@ CREATE TABLE `transientBucket` (
   `transientBucketId` bigint(20) NOT NULL COMMENT 'This is set to the primaryKeyId of the **first** entry of this object into the database (i.e. earliest dateCreated)',
   `masterIDFlag` int(11) NOT NULL DEFAULT '0' COMMENT 'If this flag is set (=1) then the transient is assigned this name as it''s master ID. If not set (=0) then there is another entry in this table where the master ID has been set.',
   `name` varchar(40) NOT NULL COMMENT 'the name of the transient given by the reporting survey.',
-  `survey` varchar(45) NOT NULL COMMENT 'the survey reporting observation of this transient',
+  `survey` varchar(45) DEFAULT 'unknown' COMMENT 'the survey reporting observation of this transient',
   `raDeg` double DEFAULT NULL COMMENT 'RA is decimal degreed',
   `decDeg` double DEFAULT NULL COMMENT 'DEC in decimal degrees',
   `raDegErr` double DEFAULT NULL,
@@ -4549,8 +4655,8 @@ CREATE TABLE `transientBucket` (
   `transientRedshiftNotes` varchar(40) DEFAULT NULL COMMENT 'transient redshift notes',
   `spectralType` varchar(100) DEFAULT NULL COMMENT 'the spectral classification given by the reporting survey (if any)',
   `discoveryPhase` varchar(20) DEFAULT NULL COMMENT 'the discovery phase given by the reporting survey (if any)',
-  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dateLastModified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateCreated` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `surveyObjectUrl` varchar(400) DEFAULT NULL COMMENT 'the url for dedicated webpage of transients supplied by the reporting survey (if any)',
   `transientTypePrediction` varchar(40) DEFAULT NULL COMMENT 'an attempt at predicting the transient type by the reporting survey.',
   `transientTypePredicationSource` varchar(40) DEFAULT NULL COMMENT 'the name of the source/catalogue that was used to predict the transient type',
@@ -4579,6 +4685,10 @@ CREATE TABLE `transientBucket` (
   `updated` tinyint(4) DEFAULT '0',
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
+  `cz` double DEFAULT NULL,
+  `cx` double DEFAULT NULL,
+  `htm20ID` bigint(20) DEFAULT NULL,
+  `cy` double DEFAULT NULL,
   PRIMARY KEY (`primaryKeyId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `primaryKey_UNIQUE` (`primaryKeyId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `name_observationmjd_magnitude_filter_survey` (`name`,`observationMJD`,`magnitude`,`filter`,`survey`,`replacedByRowId`) KEY_BLOCK_SIZE=1024,
@@ -4588,20 +4698,23 @@ CREATE TABLE `transientBucket` (
   KEY `idx_name` (`name`) KEY_BLOCK_SIZE=1024,
   KEY `tbi` (`transientBucketId`),
   KEY `masterflag` (`masterIDFlag`),
-  KEY `name` (`name`),
   KEY `idx_htm10ID` (`htm13ID`),
   KEY `idx_htm13ID` (`htm13ID`),
   KEY `idx_transientBucketId` (`transientBucketId`),
   KEY `idx_replacedByRowId` (`replacedByRowId`),
   KEY `idx_sherlockClassifcaition` (`sherlockClassification`),
   KEY `idx_magnitude` (`magnitude`),
+  KEY `idx_htm20ID` (`htm20ID`),
   KEY `idx_dateLastModified` (`dateLastModified`),
-  KEY `idx_limiting_mag` (`limitingMag`),
-  KEY `idx_replacedByRowId_limiting_mag_obdate` (`replacedByRowId`,`limitingMag`,`observationDate`),
   KEY `idx_observationmjd` (`observationMJD`),
   KEY `idx_observationDate` (`observationDate`),
-  KEY `idx_surveyObjectUrl` (`surveyObjectUrl`)
-) ENGINE=InnoDB AUTO_INCREMENT=31194871 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 COMMENT='This is the core table of the marshall containing all detections of all sources.';
+  KEY `idx_surveyObjectUrl` (`surveyObjectUrl`),
+  KEY `idx_dateCreated` (`dateCreated`),
+  KEY `idx_replace_master` (`replacedByRowId`,`masterIDFlag`),
+  FULLTEXT KEY `fulltext` (`name`,`survey`,`surveyObjectUrl`),
+  FULLTEXT KEY `fulltext_name_survey_surveyObjectUrl` (`name`,`survey`,`surveyObjectUrl`),
+  FULLTEXT KEY `fulltext_name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4620,6 +4733,7 @@ CREATE TABLE `transientBucketSummaries` (
   `peakMagnitude` double DEFAULT NULL,
   `absolutePeakMagnitude` decimal(20,17) DEFAULT NULL,
   `distanceMpc` double DEFAULT NULL,
+  `has_atel` tinyint(4) DEFAULT NULL,
   `best_redshift` double DEFAULT NULL,
   `masterName` varchar(200) DEFAULT NULL,
   `surveyObjectUrl` varchar(500) DEFAULT NULL,
@@ -4629,14 +4743,16 @@ CREATE TABLE `transientBucketSummaries` (
   `decDeg` double DEFAULT NULL,
   `classificationSurvey` varchar(200) DEFAULT NULL,
   `classificationDate` datetime DEFAULT NULL,
+  `transientTypePrediction` varchar(200) DEFAULT NULL,
   `currentMagnitudeEstimate` double DEFAULT NULL,
   `currentMagnitudeEstimateUpdated` datetime DEFAULT NULL,
   `recentSlopeOfLightcurve` double DEFAULT NULL,
   `classificationWRTMax` varchar(45) DEFAULT NULL,
   `classificationPhase` int(11) DEFAULT NULL,
   `classificationAddedBy` varchar(100) DEFAULT NULL,
+  `objectAddedToMarshallBy` varchar(100) DEFAULT NULL,
   `currentMagnitudeDate` datetime DEFAULT NULL,
-  `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `lastTBSUpdate` datetime DEFAULT NULL,
   `classificationAddedDate` datetime DEFAULT NULL,
   `sherlockClassification` varchar(200) DEFAULT NULL,
   `earliestMagnitude` double DEFAULT NULL,
@@ -4649,15 +4765,14 @@ CREATE TABLE `transientBucketSummaries` (
   `currentMagnitudeFilter` varchar(45) DEFAULT NULL,
   `currentMagnitudeSurvey` varchar(45) DEFAULT NULL,
   `updateNeeded` tinyint(4) DEFAULT '1',
-  `objectAddedToMarshallBy` varchar(200) DEFAULT NULL,
+  `dateLastModified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`transientBucketId`) KEY_BLOCK_SIZE=1024,
   KEY `tbi` (`transientBucketId`),
   KEY `masterName` (`masterName`),
   KEY `ra_dec` (`raDeg`,`decDeg`),
-  KEY `idx_dateLastModified` (`dateLastModified`),
   KEY `idx_updateNeeded` (`updateNeeded`),
   KEY `idx_surveyObjectUrl` (`surveyObjectUrl`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4670,12 +4785,12 @@ DROP TABLE IF EXISTS `transients_history_logs`;
 CREATE TABLE `transients_history_logs` (
   `primaryId` bigint(20) NOT NULL AUTO_INCREMENT,
   `transientBucketId` bigint(20) NOT NULL,
-  `dateCreated` datetime NOT NULL,
+  `dateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `log` varchar(200) NOT NULL,
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `unique_index` (`transientBucketId`,`dateCreated`) KEY_BLOCK_SIZE=1024,
   KEY `tbi` (`transientBucketId`)
-) ENGINE=InnoDB AUTO_INCREMENT=59978 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -9107,6 +9222,184 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `view_fs_crts_css_summary`
+--
+
+DROP TABLE IF EXISTS `view_fs_crts_css_summary`;
+/*!50001 DROP VIEW IF EXISTS `view_fs_crts_css_summary`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `view_fs_crts_css_summary` AS SELECT 
+ 1 AS `primaryId`,
+ 1 AS `circularUrl`,
+ 1 AS `comment`,
+ 1 AS `commentIngested`,
+ 1 AS `dateCreated`,
+ 1 AS `dateLastModified`,
+ 1 AS `dateLastRead`,
+ 1 AS `decDeg`,
+ 1 AS `filter`,
+ 1 AS `finderChartUrl`,
+ 1 AS `finderChartWebpage`,
+ 1 AS `imagesUrl`,
+ 1 AS `ingested`,
+ 1 AS `lightcurveUrl`,
+ 1 AS `mag`,
+ 1 AS `name`,
+ 1 AS `observationDate`,
+ 1 AS `observationMJD`,
+ 1 AS `raDeg`,
+ 1 AS `summaryRow`,
+ 1 AS `survey`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `transientTypePrediction`,
+ 1 AS `uniqueId`,
+ 1 AS `htm16ID`,
+ 1 AS `magErr`,
+ 1 AS `lastNonDetectionDate`,
+ 1 AS `lastNonDetectionMJD`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `view_fs_crts_mls_summary`
+--
+
+DROP TABLE IF EXISTS `view_fs_crts_mls_summary`;
+/*!50001 DROP VIEW IF EXISTS `view_fs_crts_mls_summary`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `view_fs_crts_mls_summary` AS SELECT 
+ 1 AS `primaryId`,
+ 1 AS `circularUrl`,
+ 1 AS `comment`,
+ 1 AS `commentIngested`,
+ 1 AS `dateCreated`,
+ 1 AS `dateLastModified`,
+ 1 AS `dateLastRead`,
+ 1 AS `decDeg`,
+ 1 AS `filter`,
+ 1 AS `finderChartUrl`,
+ 1 AS `finderChartWebpage`,
+ 1 AS `imagesUrl`,
+ 1 AS `ingested`,
+ 1 AS `lightcurveUrl`,
+ 1 AS `mag`,
+ 1 AS `name`,
+ 1 AS `observationDate`,
+ 1 AS `observationMJD`,
+ 1 AS `raDeg`,
+ 1 AS `summaryRow`,
+ 1 AS `survey`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `transientTypePrediction`,
+ 1 AS `uniqueId`,
+ 1 AS `htm16ID`,
+ 1 AS `magErr`,
+ 1 AS `lastNonDetectionDate`,
+ 1 AS `lastNonDetectionMJD`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `view_fs_crts_sss_summary`
+--
+
+DROP TABLE IF EXISTS `view_fs_crts_sss_summary`;
+/*!50001 DROP VIEW IF EXISTS `view_fs_crts_sss_summary`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `view_fs_crts_sss_summary` AS SELECT 
+ 1 AS `primaryId`,
+ 1 AS `circularUrl`,
+ 1 AS `comment`,
+ 1 AS `commentIngested`,
+ 1 AS `dateCreated`,
+ 1 AS `dateLastModified`,
+ 1 AS `dateLastRead`,
+ 1 AS `decDeg`,
+ 1 AS `filter`,
+ 1 AS `finderChartUrl`,
+ 1 AS `finderChartWebpage`,
+ 1 AS `imagesUrl`,
+ 1 AS `ingested`,
+ 1 AS `lightcurveUrl`,
+ 1 AS `mag`,
+ 1 AS `name`,
+ 1 AS `observationDate`,
+ 1 AS `observationMJD`,
+ 1 AS `raDeg`,
+ 1 AS `summaryRow`,
+ 1 AS `survey`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `transientTypePrediction`,
+ 1 AS `uniqueId`,
+ 1 AS `htm16ID`,
+ 1 AS `magErr`,
+ 1 AS `lastNonDetectionDate`,
+ 1 AS `lastNonDetectionMJD`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `view_fs_ogle_summary`
+--
+
+DROP TABLE IF EXISTS `view_fs_ogle_summary`;
+/*!50001 DROP VIEW IF EXISTS `view_fs_ogle_summary`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `view_fs_ogle_summary` AS SELECT 
+ 1 AS `primaryId`,
+ 1 AS `dateCreated`,
+ 1 AS `dateLastModified`,
+ 1 AS `dateLastRead`,
+ 1 AS `decDeg`,
+ 1 AS `filter`,
+ 1 AS `ingested`,
+ 1 AS `lastNonDetectionDate`,
+ 1 AS `lastNonDetectionMJD`,
+ 1 AS `lightcurveUrl`,
+ 1 AS `mag`,
+ 1 AS `name`,
+ 1 AS `observationDate`,
+ 1 AS `observationMJD`,
+ 1 AS `raDeg`,
+ 1 AS `referenceFitsUrl`,
+ 1 AS `referenceImageUrl`,
+ 1 AS `subtractedFitsUrl`,
+ 1 AS `subtractedImageUrl`,
+ 1 AS `summaryRow`,
+ 1 AS `survey`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `targetFitsUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `transientTypePrediction`,
+ 1 AS `htm16ID`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `view_object_akas`
+--
+
+DROP TABLE IF EXISTS `view_object_akas`;
+/*!50001 DROP VIEW IF EXISTS `view_object_akas`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `view_object_akas` AS SELECT 
+ 1 AS `transientBucketId`,
+ 1 AS `primaryKeyId`,
+ 1 AS `name`,
+ 1 AS `survey`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `referenceImageUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `subtractedImageUrl`,
+ 1 AS `tripletImageUrl`,
+ 1 AS `finderImageUrl`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `view_object_temporal_data`
 --
 
@@ -13435,6 +13728,59 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `view_transientbucketmaster`
+--
+
+DROP TABLE IF EXISTS `view_transientbucketmaster`;
+/*!50001 DROP VIEW IF EXISTS `view_transientbucketmaster`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `view_transientbucketmaster` AS SELECT 
+ 1 AS `primaryKeyId`,
+ 1 AS `transientBucketId`,
+ 1 AS `masterIDFlag`,
+ 1 AS `name`,
+ 1 AS `survey`,
+ 1 AS `raDeg`,
+ 1 AS `decDeg`,
+ 1 AS `raDegErr`,
+ 1 AS `decDegErr`,
+ 1 AS `observationDate`,
+ 1 AS `observationMJD`,
+ 1 AS `magnitude`,
+ 1 AS `magnitudeError`,
+ 1 AS `filter`,
+ 1 AS `transientRedshift`,
+ 1 AS `transientRedshiftNotes`,
+ 1 AS `spectralType`,
+ 1 AS `discoveryPhase`,
+ 1 AS `dateCreated`,
+ 1 AS `dateLastModified`,
+ 1 AS `surveyObjectUrl`,
+ 1 AS `transientTypePrediction`,
+ 1 AS `transientTypePredicationSource`,
+ 1 AS `hostRedshift`,
+ 1 AS `hostRedshiftType`,
+ 1 AS `referenceImageUrl`,
+ 1 AS `targetImageUrl`,
+ 1 AS `subtractedImageUrl`,
+ 1 AS `tripletImageUrl`,
+ 1 AS `htm20ID`,
+ 1 AS `htm16ID`,
+ 1 AS `cx`,
+ 1 AS `cy`,
+ 1 AS `cz`,
+ 1 AS `telescope`,
+ 1 AS `instrument`,
+ 1 AS `reducer`,
+ 1 AS `lastNonDetectionDate`,
+ 1 AS `lastNonDetectionMJD`,
+ 1 AS `dateLastRead`,
+ 1 AS `finderImageUrl`,
+ 1 AS `lightcurveURL`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `view_wiserep_object_summaries`
 --
 
@@ -13467,7 +13813,7 @@ CREATE TABLE `webapp_users` (
   `permissions` varchar(45) NOT NULL DEFAULT 'edit_users',
   PRIMARY KEY (`id`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `first_second` (`firstname`,`secondname`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13496,7 +13842,7 @@ CREATE TABLE `zlegacy_april2016_april2017_stats` (
   `classificationSubtype` varchar(45) DEFAULT NULL,
   `classificationPhaseBin` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`transientBucketId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13535,7 +13881,7 @@ CREATE TABLE `zlegacy_cbats` (
   KEY `idx_cbat_type` (`cbatType`),
   KEY `name` (`snType`),
   KEY `ra_dec` (`raDeg`,`decDeg`)
-) ENGINE=InnoDB AUTO_INCREMENT=5916 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13563,7 +13909,7 @@ CREATE TABLE `zlegacy_fs_asassn_discoveries` (
   UNIQUE KEY `candidateid` (`candidateID`),
   KEY `ra_dec` (`dec_deg`,`ra_deg`),
   KEY `htm16` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13590,6 +13936,7 @@ CREATE TABLE `zlegacy_fs_brightsnlist_discoveries` (
   `htm16ID` bigint(20) DEFAULT NULL,
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `name` (`name`),
   KEY `htm16` (`htm16ID`),
@@ -13601,7 +13948,7 @@ CREATE TABLE `zlegacy_fs_brightsnlist_discoveries` (
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
   KEY `i_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20260251 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13656,7 +14003,7 @@ CREATE TABLE `zlegacy_fs_lsq` (
   KEY `htm16` (`htm16ID`),
   KEY `ingested` (`ingested`),
   KEY `summaryRow` (`summaryRow`)
-) ENGINE=InnoDB AUTO_INCREMENT=26386 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13711,7 +14058,7 @@ CREATE TABLE `zlegacy_fs_lsq_current_summaries` (
   KEY `htm16` (`htm16ID`),
   KEY `ingested` (`ingested`),
   KEY `summaryRow` (`summaryRow`)
-) ENGINE=InnoDB AUTO_INCREMENT=2148624 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13761,7 +14108,7 @@ CREATE TABLE `zlegacy_fs_lsq_discoveries` (
   KEY `htm16` (`htm16ID`),
   KEY `ingested` (`ingested`),
   KEY `summaryRow` (`summaryRow`)
-) ENGINE=InnoDB AUTO_INCREMENT=1068257 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13806,12 +14153,13 @@ CREATE TABLE `zlegacy_fs_lsq_recalibrated_data` (
   `Telescope` varchar(100) DEFAULT NULL,
   `chi2` varchar(100) DEFAULT NULL,
   `iscoadd` varchar(100) DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `name_mjd` (`name`,`MJD`),
   KEY `htm16` (`htm16ID`),
   KEY `ingested` (`ingested`),
   KEY `summaryRow` (`summaryRow`)
-) ENGINE=InnoDB AUTO_INCREMENT=162049 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13838,6 +14186,7 @@ CREATE TABLE `zlegacy_fs_tocp` (
   `htm16ID` bigint(20) DEFAULT NULL,
   `htm13ID` int(11) DEFAULT NULL,
   `htm10ID` int(11) DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `name` (`name`),
   KEY `htm16` (`htm16ID`),
@@ -13847,7 +14196,7 @@ CREATE TABLE `zlegacy_fs_tocp` (
   KEY `idx_htm16ID` (`htm16ID`),
   KEY `idx_htm10ID` (`htm13ID`),
   KEY `idx_htm13ID` (`htm13ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3285394 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13897,7 +14246,7 @@ CREATE TABLE `zlegacy_lssndb_candidates` (
   KEY `cand_name` (`cand_name`),
   KEY `cand_index` (`cand_index`),
   KEY `ra_dec` (`ra`,`dec`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13916,7 +14265,7 @@ CREATE TABLE `zlegacy_lssndb_comments` (
   `comment_added` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`comment_id`),
   KEY `cand_name` (`cand_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13960,7 +14309,7 @@ CREATE TABLE `zlegacy_lssndb_marshall_comments` (
   `user_name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cand_name` (`cand_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -13976,7 +14325,7 @@ CREATE TABLE `zlegacy_lssndb_marshall_lc_followup` (
   `survey` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `cand_name` (`cand_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -14021,7 +14370,7 @@ CREATE TABLE `zlegacy_lssndb_ms_lightcurves` (
   KEY `mjd` (`mjd`),
   KEY `summary` (`summaryRow`),
   KEY `idx_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -14089,7 +14438,7 @@ CREATE TABLE `zlegacy_lssndb_summary` (
   KEY `ra_dec` (`avg_ra`,`avg_dec`),
   KEY `idx_htm20ID` (`htm20ID`),
   KEY `idx_htm16ID` (`htm16ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=201191166 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -14203,9 +14552,10 @@ DELIMITER ;
 DELIMITER ;;
 CREATE  PROCEDURE `insert_new_transients_into_transientbucketsummaries`()
 BEGIN
--- ADD NEW TRANSIENTS TO THE transientBucketSummaries TABLE
+
 INSERT ignore INTO transientBucketSummaries (transientBucketId)
-select distinct transientBucketId from transientBucket where replacedByRowId = 0;
+select distinct transientBucketId from transientBucket where replacedByRowId = 0 and transientBucketId != 0 and masterIDFlag = 1;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -14238,6 +14588,114 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `resurrect_objects` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `resurrect_objects`()
+BEGIN
+
+
+
+
+insert into transients_history_logs (transientBucketId, log) (SELECT 
+    s.transientBucketId, "moved to 'inbox' by marshall's object resurrector"
+FROM
+    transientBucketSummaries s,
+    pesstoObjects p
+WHERE
+    currentMagnitudeEstimate < 19.5
+        AND currentMagnitudeEstimate > 3.0
+        AND p.resurrectionCount < 5
+        AND sherlockClassification not in ('VS','BS','CV','AGN')
+        AND (p.lastTimeReviewed < s.currentMagnitudeEstimateUpdated)
+        AND (currentMagnitudeEstimate < p.lastReviewedMag)
+        AND currentMagnitudeDate > NOW() - INTERVAL 10 DAY
+        AND (p.marshallWorkflowLocation = 'archive'
+		OR p.marshallWorkflowLocation = 'followup complete')
+        AND s.transientBucketId = p.transientBucketId);
+        
+
+update pesstoObjects set snoozed = 2, marshallWorkflowLocation = "inbox", resurrectionCount = resurrectionCount+1  where transientBucketId in (select * from (SELECT 
+    s.transientBucketId
+FROM
+    transientBucketSummaries s,
+    pesstoObjects p
+WHERE
+    currentMagnitudeEstimate < 19.5
+        AND currentMagnitudeEstimate > 3.0
+        AND p.resurrectionCount < 5
+        AND sherlockClassification not in ('VS','BS','CV','AGN')
+        AND (p.lastTimeReviewed < s.currentMagnitudeEstimateUpdated)
+        AND (currentMagnitudeEstimate < p.lastReviewedMag)
+        AND currentMagnitudeDate > NOW() - INTERVAL 10 DAY
+        AND (p.marshallWorkflowLocation = 'archive'
+        OR p.marshallWorkflowLocation = 'followup complete')
+        AND s.transientBucketId = p.transientBucketId) as a);
+        
+
+UPDATE pesstoObjects 
+SET 
+    classifiedFlag = 1
+WHERE
+    transientBucketId IN (SELECT 
+            *
+        FROM
+            (SELECT DISTINCT
+                transientBucketId
+            FROM
+                transientBucket
+            WHERE
+                (spectralType IS NOT NULL
+                    AND transientBucketId NOT IN (SELECT 
+                        transientBucketId
+                    FROM
+                        pesstoObjects
+                    WHERE
+                        classifiedFlag = 1))) AS a);
+                        
+
+insert into transients_history_logs  (transientBucketId, log) SELECT 
+                pesstoObjectsId, CONCAT("moved from ",marshallWorkflowLocation, " to 'review for followup' by marshall code")
+            FROM
+                pesstoObjects
+            WHERE
+                marshallWorkflowLocation in ('pending classification', 'inbox')
+                    AND classifiedFlag = 1;
+
+
+UPDATE pesstoObjects 
+SET 
+    marshallWorkflowLocation = 'review for followup',
+    snoozed = 0
+WHERE
+    pesstoObjectsId IN (SELECT 
+            *
+        FROM
+            (SELECT 
+                pesstoObjectsId
+            FROM
+                pesstoObjects
+            WHERE
+                marshallWorkflowLocation in ('pending classification', 'inbox')
+                    AND classifiedFlag = 1) AS alias);
+        
+
+update pesstoObjects set lastTimeReviewed = NOW();
+        
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sync_marshall_feeder_survey_transientBucketId` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -14246,41 +14704,73 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `sync_marshall_feeder_survey_transientBucketId`(ARG_fs_table varchar(45))
 BEGIN
-	-- NAME OF OBJECT IN FEEDER SURVEY TABLE
-	set @object = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "name" and fs_table_name = ARG_fs_table);  
-    -- SURVEY NAME
-    set @survey = (select fs_survey_name from marshall_fs_column_map where fs_table_name = ARG_fs_table limit 1);  
-    -- NOW SYNC THE TRANSIENTBUCKETIDS > FS_TABLE
-    set @myquery = concat('UPDATE ',ARG_fs_table,' a, transientBucket b 
-SET 
-    a.transientBucketId = b.transientBucketId
-WHERE
-    a.candidateID = b.name
-        AND a.transientBucketId IS NULL;');
+	set @fs_table = convert(ARG_fs_table using utf8) collate utf8_general_ci;
+    
+	
+	set @object = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "name" and fs_table_name = @fs_table);  
+    
+    set @survey = (select fs_survey_name from marshall_fs_column_map where fs_table_name = @fs_table limit 1);  
+    
+    set @myquery = concat('UPDATE ',@fs_table,' a
+INNER JOIN 
+(
+    select distinct name, transientBucketId from transientBucket order by name desc
+)AS b
+ON a.',@object,' = b.name
+set a.transientBucketId = b.transientBucketId
+where a.transientBucketId IS NULL;');
 	PREPARE stmt FROM @myquery;
 	EXECUTE stmt;
     
-    -- SYNC ALL NEW MATCHED FEEDER SURVEY ROWS TO TRANSIENTBUCKET
+    
     if @survey is not null then 
-		set @tbcolumns = (select CONCAT_WS(',',GROUP_CONCAT(transientBucket_column  order  by primaryId),'survey') from marshall_fs_column_map where fs_table_name = ARG_fs_table);
+		set @tbcolumns = (select CONCAT_WS(',',GROUP_CONCAT(transientBucket_column  order  by primaryId),'survey') from marshall_fs_column_map where fs_table_name = @fs_table);
 		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = ARG_fs_table);
-		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,',"',@survey,'" from ',ARG_fs_table,' where ingested = 0 and transientBucketId is not null;' );
+		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,',"',@survey,'" from ',@fs_table,' where ingested = 0 and transientBucketId is not null;' );
 	else
-		set @tbcolumns = (select GROUP_CONCAT(transientBucket_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = ARG_fs_table);
-		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = ARG_fs_table);
-		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,' from ',ARG_fs_table,' where ingested = 0 and transientBucketId is not null;' );
+		set @tbcolumns = (select GROUP_CONCAT(transientBucket_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table);
+		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table);
+		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,' from ',@fs_table,' where ingested = 0 and transientBucketId is not null;' );
 	end if;
     PREPARE stmt FROM @myquery;
     EXECUTE stmt;
     
-    -- SET INGEST = 1 FOR ALL ROWS SYNCED TO TRANSIENTBUCKET
+    
     set @myquery = concat('update ',ARG_fs_table,' set ingested = 1 where transientBucketId is not null and ingested = 0');
 	PREPARE stmt FROM @myquery;
     EXECUTE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_fs_atlas_forced_phot` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_fs_atlas_forced_phot`()
+BEGIN
+	update fs_atlas_forced_phot set apfit = (mag-zp+2.5*log10(peakfit * major * minor / texp))  where peakfit is not null and major is not null and minor is not null and texp is not null and limiting_mag = 0 and apfit is null;
+	update fs_atlas_forced_phot set apfit = (mag-zp+2.5*log10(dpeak * major * minor * snr / texp)) where dpeak is not null and snr is not null and major is not null and minor is not null and texp is not null and limiting_mag = 1 and apfit is null;
+	update fs_atlas_forced_phot set marshall_limiting_mag = 1 where snr < 5.0 and dpeak is not null and marshall_limiting_mag is null;
+	update fs_atlas_forced_phot set marshall_limiting_mag =  0 where snr >= 5.0 and dpeak is not null and marshall_limiting_mag is null;
+	update fs_atlas_forced_phot set marshall_mag =  mag where snr >= 5.0 and dpeak is not null and marshall_mag is null;
+	update fs_atlas_forced_phot set marshall_mag_error = dm where snr >= 5.0 and dpeak is not null and marshall_mag_error is null;
+	update fs_atlas_forced_phot set marshall_mag = cast(mag-2.5*log10(5/snr) as decimal(10,2)) where dpeak is not null and limiting_mag = 1 and mag is not null and marshall_mag is null;
+	update fs_atlas_forced_phot set marshall_mag = cast(mag-2.5*log10(dpeak*5/peakfit) as decimal(10,2)) where dpeak is not null and limiting_mag = 0 and mag is not null and snr < 5 and marshall_mag is null;
+	update fs_atlas_forced_phot set fnu =(pow(10,-(48.6 + zp)/2.5) * pow(10,-apfit/2.5) * (peakfit*major*minor/texp)) where apfit is not null and zp is not null and peakfit is not null and fnu is null;
+	update fs_atlas_forced_phot set fnu_error = (pow(10,-(48.6 + zp)/2.5) * pow(10,-apfit/2.5) * (dpeak*major*minor/texp)) where apfit is not null and zp is not null and dpeak is not null and fnu_error is null;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -14291,11 +14781,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `update_fs_ztf`()
 BEGIN
@@ -14304,60 +14794,9 @@ BEGIN
 	update fs_ztf set filt = 'i' where fid = 3 and filt is null;
     update fs_ztf set primaryId = candidateId where primaryId is null;
 	update fs_ztf set  surveyUrl = CONCAT("http://lasair.roe.ac.uk/object/",objectId) where surveyUrl is null;
-	update fs_ztf set tripletImageUrl = concat("http://lasair.roe.ac.uk/lasair/static/ztf/stamps/jpg/",SUBSTRING(candidateId, 1, 3),"/candid",candidateId,".jpg") where tripletImageUrl is null;
-	
-## UPDATE NON-SUMMARY ROWS
-UPDATE fs_ztf 
-SET 
-    summaryRow = 0
-WHERE
-    summaryRow IS NULL
-        AND objectId IN (SELECT 
-            *
-        FROM
-            (SELECT 
-                objectId
-            FROM
-                fs_ztf
-            WHERE
-                summaryRow = 1) AS a);
+	update fs_ztf set tripletImageUrl = concat("http://lasair.roe.ac.uk/lasair/static/ztf/stamps/jpg/",SUBSTRING(candidateId, 1, 3),"/candid",candidateId,".jpg") where tripletImageUrl is null and candidateId is not null;
 
-## UPDATE SUMMARY ROWS
-UPDATE fs_ztf 
-SET 
-    summaryRow = 1
-WHERE
-	summaryRow is null and 
-    candidateId IN (SELECT 
-            *
-        FROM
-            (SELECT 
-                candidateId
-            FROM
-                (SELECT 
-                candidateId, objectId
-            FROM
-                fs_ztf
-            ORDER BY objectId , candidateID) AS a
-            GROUP BY objectId) AS b);
-            
-## UPDATE NON-SUMMARY ROWS
-UPDATE fs_ztf 
-SET 
-    summaryRow = 0
-WHERE
-    summaryRow IS NULL
-        AND objectId IN (SELECT 
-            *
-        FROM
-            (SELECT 
-                objectId
-            FROM
-                fs_ztf
-            WHERE
-                summaryRow = 1) AS a);
-                
-## UPDATE NONDETECTION COORDINATES
+
 update fs_ztf a, (SELECT 
     objectId, raDeg, decDeg
 FROM
@@ -14374,6 +14813,661 @@ WHERE
             WHERE
                 limitingMag = 1 AND raDeg IS NULL) AS z) group by objectId) b set a.raDeg=b.raDeg,a.decDeg=b.decDeg where a.objectId=b.objectId and a.raDeg is null;
 
+
+delete from fs_ztf where raDeg is null and limitingMag = 0;
+
+
+update fs_ztf set ingested = 1 where (isdiffpos = "f" or  isdiffpos = "0") and ingested  = 0;
+
+
+delete from fs_ztf where mjd < (TO_SECONDS(UTC_TIMESTAMP())/(3600*24)-678941-42) and transientBucketId is not null and ingested = 1;
+
+
+delete from fs_ztf where raDeg is null;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_inbox_auto_archiver` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_inbox_auto_archiver`()
+BEGIN
+	
+UPDATE transientBucketSummaries t,
+        pesstoObjects p 
+    SET 
+        marshallWorkflowLocation = 'archive'
+    WHERE
+        t.mastername LIKE 'ZTF%%'
+            AND (t.currentMagnitude > 20.0
+            OR ABS(t.gLat) < 10)
+            AND p.transientBucketId = t.transientBucketId
+            AND marshallWorkflowLocation = "inbox" ;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_sherlock_xmatch_counts` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_sherlock_xmatch_counts`()
+BEGIN
+
+UPDATE tcs_stats_catalogues t 
+LEFT JOIN
+(SELECT 
+    catalogue_table_id, count(*) as 'all_transient_associations'
+FROM
+    (SELECT DISTINCT
+        c.transient_object_id, c.catalogue_table_id
+    FROM
+        sherlock_crossmatches c, transientBucketSummaries s
+    WHERE
+        s.transientBucketId = c.transient_object_id) AS alais group by catalogue_table_id) o 
+ON t.table_id = o.catalogue_table_id
+set t.all_transient_associations=o.all_transient_associations;
+
+update tcs_stats_catalogues set all_transient_associations = 0 where all_transient_associations is null;
+
+
+UPDATE tcs_stats_catalogues t 
+LEFT JOIN
+(SELECT 
+    catalogue_table_id, count(*) as 'top_ranked_transient_associations'
+FROM
+    (SELECT DISTINCT
+        c.transient_object_id, c.catalogue_table_id
+    FROM
+        sherlock_crossmatches c, transientBucketSummaries s
+    WHERE
+        s.transientBucketId = c.transient_object_id and c.rank=1) AS alais group by catalogue_table_id) o 
+ON t.table_id = o.catalogue_table_id
+set t.top_ranked_transient_associations=o.top_ranked_transient_associations;
+
+update tcs_stats_catalogues set top_ranked_transient_associations = 0 where top_ranked_transient_associations is null;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_single_transientbucket_summary` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_single_transientbucket_summary`(
+	IN thisID BIGINT(20)
+)
+BEGIN
+
+
+
+UPDATE pesstoObjects 
+SET 
+    classifiedFlag = 1
+WHERE
+    transientBucketId IN (SELECT 
+            *
+        FROM
+            (SELECT DISTINCT
+                transientBucketId
+            FROM
+                transientBucket
+            WHERE
+                (spectralType IS NOT NULL
+                    AND transientBucketId = thisID)) AS a);
+                        
+insert into transients_history_logs  (transientBucketId, log) SELECT 
+                pesstoObjectsId, CONCAT("moved from ",marshallWorkflowLocation, " to 'review for followup' by marshall code")
+            FROM
+                pesstoObjects
+            WHERE
+                marshallWorkflowLocation in ('pending classification', 'inbox')
+                    AND classifiedFlag = 1;
+
+UPDATE pesstoObjects 
+SET 
+    marshallWorkflowLocation = 'review for followup',
+    snoozed = 0
+WHERE
+    pesstoObjectsId IN (SELECT 
+            *
+        FROM
+            (SELECT 
+                pesstoObjectsId
+            FROM
+                pesstoObjects
+            WHERE
+                marshallWorkflowLocation in ('pending classification', 'inbox')
+                    AND classifiedFlag = 1 and transientBucketId = thisID) AS alias);
+                    
+
+INSERT INTO pesstoObjects (
+		pesstoObjectsId,
+		transientBucketId,
+		classifiedFlag,
+		marshallWorkflowLocation,
+		alertWorkflowLocation,
+		publicStatus,
+		dateAdded,
+		dateLastModified)  
+	SELECT 
+		transientBucketId, transientBucketId, 0, "Inbox", 'Pending Classification', 1, now(), now()
+	FROM
+		transientBucket
+	WHERE
+		transientBucketId NOT IN (SELECT 
+				transientBucketId
+			FROM
+				pesstoObjects) AND transientBucketId > 0 and transientBucketId = thisID and masterIDFlag = 1;
+
+INSERT ignore INTO transientBucketSummaries (transientBucketId)
+select distinct transientBucketId from transientBucket where replacedByRowId = 0 and transientBucketId != 0 and transientBucketId = thisID;
+
+
+UPDATE transientBucketSummaries 
+SET 
+    updateNeeded = 1
+WHERE
+    transientBucketId = thisId;	
+
+UPDATE transientBucketSummaries s,
+    transientBucket t 
+SET 
+    s.masterName = t.name,
+    s.surveyObjectUrl = t.surveyObjectUrl
+WHERE
+    masterIdFlag = 1 AND replacedByRowId = 0
+        AND s.transientBucketId = t.transientBucketId
+        AND t.transientBucketId=thisID;
+	
+
+UPDATE transientBucket t,
+    transientBucketSummaries s 
+SET 
+    s.surveyObjectUrl = t.surveyObjectUrl
+WHERE
+    t.surveyObjectUrl IS NOT NULL
+        AND s.surveyObjectUrl IS NULL
+        AND t.transientBucketId = s.transientBucketId
+        AND t.surveyObjectUrl NOT LIKE '%%astronomerstelegram%%'
+        AND t.surveyObjectUrl NOT LIKE '%%roche%%'
+        AND replacedByRowId = 0
+        AND masterIDFlag = 1
+        AND t.transientBucketId=thisID;
+
+UPDATE transientBucket t,
+    transientBucketSummaries s 
+SET 
+    s.surveyObjectUrl = t.surveyObjectUrl
+WHERE
+    t.surveyObjectUrl IS NOT NULL
+        AND s.surveyObjectUrl IS NULL
+        AND t.transientBucketId = s.transientBucketId
+        AND t.surveyObjectUrl NOT LIKE '%%astronomerstelegram%%'
+        AND t.surveyObjectUrl NOT LIKE '%%roche%%'
+        AND replacedByRowId = 0
+        AND t.transientBucketId=thisID;
+	
+
+UPDATE transientBucketSummaries s,
+    transientBucket t 
+SET 
+    s.objectAddedToMarshallBy = t.reducer
+WHERE
+    t.reducer IS NOT NULL
+        AND t.spectralType IS NULL
+        AND t.transientBucketId = s.transientBucketId
+        AND replacedByRowId = 0
+        AND s.updateNeeded = 1
+        AND t.transientBucketId=thisID;
+	
+
+UPDATE transientBucketSummaries s,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        transientBucketId,
+            AVG(raDeg) AS raDeg,
+            AVG(decDeg) AS decDeg,
+            MIN(dateCreated) AS dateAdded,
+            MIN(magnitude) AS peakMagnitude
+    FROM
+        transientBucket
+    WHERE
+		transientBucketId=thisID and
+        replacedByRowId = 0 AND limitingMag = 0
+            AND magnitude IS NOT NULL
+            AND magnitude > 0.0
+            AND magnitude < 25.0
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS a
+    ORDER BY transientBucketId) t 
+SET 
+    s.raDeg = t.raDeg,
+    s.decDeg = t.decDeg,
+    s.dateAdded = t.dateAdded,
+    s.peakMagnitude = t.peakMagnitude
+WHERE
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1
+        AND t.transientBucketId=thisID;
+
+UPDATE transientBucketSummaries s,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        transientBucketId,
+            AVG(raDeg) AS raDeg,
+            AVG(decDeg) AS decDeg
+    FROM
+        transientBucket
+    WHERE
+		transientBucketId=thisID and
+        replacedByRowId = 0
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                raDeg IS NULL AND updateNeeded = 1)
+    GROUP BY transientBucketId) AS a
+    ORDER BY transientBucketId) t 
+SET 
+    s.raDeg = t.raDeg,
+    s.decDeg = t.decDeg
+WHERE
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1
+        AND t.transientBucketId=thisID;
+
+UPDATE transientBucketSummaries s,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        transientBucketId, MIN(hostRedshift) AS host_redshift
+    FROM
+        transientBucket
+    WHERE
+		transientBucketId=thisID and
+        replacedByRowId = 0
+            AND hostRedshift IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS a
+    ORDER BY transientBucketId) t 
+SET 
+    s.host_redshift = t.host_redshift
+WHERE
+    s.transientBucketId = t.transientBucketId
+        AND updateNeeded = 1
+        AND t.transientBucketId=thisID;
+
+UPDATE transientBucketSummaries s,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        a.transientBucketId,
+            a.observationDate AS earliestDetection,
+            a.magnitude AS earliestMagnitude,
+            a.filter AS earliestMagnitudeFilter,
+            a.survey AS earliestMagnitudeSurvey
+    FROM
+        transientBucket a
+    JOIN (SELECT 
+        MIN(observationDate) AS minval, transientBucketId
+    FROM
+        transientBucket
+    WHERE
+		transientBucketId=thisID and
+        magnitude IS NOT NULL
+            AND limitingMag = 0
+            AND replacedByRowId = 0
+            AND observationDate IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
+        AND a.observationDate = b.minval
+    WHERE
+        a.limitingMag = 0
+            AND a.replacedByRowId = 0
+            AND observationDate IS NOT NULL
+            AND a.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+				transientBucketId=thisID and
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS c
+    ORDER BY transientBucketId) t 
+SET 
+    s.earliestDetection = t.earliestDetection,
+    s.earliestMagnitude = t.earliestMagnitude,
+    s.earliestMagnitudeFilter = t.earliestMagnitudeFilter,
+    s.earliestMagnitudeSurvey = t.earliestMagnitudeSurvey
+WHERE
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1
+        AND t.transientBucketId=thisID;
+
+
+UPDATE transientBucketSummaries a,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        s.transientBucketId,
+            MAX(t.lastNonDetectionDate) AS lastNonDetectionDate
+    FROM
+        transientBucket t, transientBucketSummaries s
+    WHERE
+		t.transientBucketId=thisID and
+        t.lastNonDetectionDate < s.earliestDetection
+            AND s.transientBucketId = t.transientBucketId
+            AND replacedByRowId = 0
+            AND t.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+				transientBucketId=thisID and
+                updateNeeded = 1)
+    GROUP BY s.transientBucketId) AS c
+    ORDER BY transientBucketId) b 
+SET 
+    a.lastNonDetectionDate = b.lastNonDetectionDate
+WHERE
+    a.transientBucketId = b.transientBucketId
+        AND a.updateNeeded = 1
+        AND a.transientBucketId=thisID;
+    
+
+UPDATE transientBucketSummaries a,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        s.transientBucketId,
+            MAX(t.observationDate) AS lastNonDetectionDate
+    FROM
+        transientBucket t, transientBucketSummaries s
+    WHERE
+		t.transientBucketId=thisID and
+        t.observationDate < s.earliestDetection
+            AND (t.observationDate > s.lastNonDetectionDate
+            OR s.lastNonDetectionDate IS NULL)
+            AND s.transientBucketId = t.transientBucketId
+            AND replacedByRowId = 0
+            AND t.limitingMag = 1
+            AND t.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY s.transientBucketId) AS a
+    ORDER BY transientBucketId) b 
+SET 
+    a.lastNonDetectionDate = b.lastNonDetectionDate
+WHERE
+    a.transientBucketId = b.transientBucketId
+        AND a.updateNeeded = 1
+        AND a.transientBucketId=thisID;
+
+
+UPDATE transientBucketSummaries s,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        a.transientBucketId,
+            a.observationDate AS currentMagnitudeDate,
+            a.magnitude AS currentMagnitude,
+            a.filter AS currentMagnitudeFilter,
+            a.survey AS currentMagnitudeSurvey
+    FROM
+        transientBucket a
+    JOIN (SELECT 
+        *
+    FROM
+        (SELECT 
+        MAX(observationDate) AS maxval, transientBucketId
+    FROM
+        transientBucket
+    WHERE
+		transientBucketId=thisID and
+        magnitude IS NOT NULL
+            AND limitingMag = 0
+            AND replacedByRowId = 0
+            AND observationDate IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS d
+    ORDER BY transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
+        AND a.observationDate = b.maxval
+    WHERE
+        a.limitingMag = 0
+            AND a.replacedByRowId = 0
+            AND observationDate IS NOT NULL
+            AND a.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS c
+    ORDER BY transientBucketId) t 
+SET 
+    s.currentMagnitudeDate = t.currentMagnitudeDate,
+    s.currentMagnitude = t.currentMagnitude,
+    s.currentMagnitudeFilter = t.currentMagnitudeFilter,
+    s.currentMagnitudeSurvey = t.currentMagnitudeSurvey
+WHERE
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1
+        AND t.transientBucketId=thisID;
+
+
+
+
+UPDATE transientBucketSummaries s,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        a.transientBucketId,
+            a.observationDate AS classificationDate,
+            a.spectralType AS recentClassification,
+            a.classificationWRTMax AS classificationWRTMax,
+            a.classificationPhase AS classificationPhase,
+            a.reducer AS classificationAddedBy,
+            a.dateCreated AS classificationAddedDate,
+            a.transientRedshift AS best_redshift
+    FROM
+        transientBucket a
+    JOIN (SELECT 
+        *
+    FROM
+        (SELECT 
+        MAX(observationDate) AS maxval, transientBucketId
+    FROM
+        transientBucket
+    WHERE
+		transientBucketId=thisID and
+        spectralType IS NOT NULL
+            AND replacedByRowId = 0
+            AND observationDate IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+				transientBucketId=thisID and
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS c
+    ORDER BY transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
+        AND a.observationDate = b.maxval
+    WHERE
+        spectralType IS NOT NULL
+            AND a.replacedByRowId = 0
+            AND observationDate IS NOT NULL
+            AND a.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS d
+    ORDER BY transientBucketId) t 
+SET 
+    s.classificationDate = t.classificationDate,
+    s.recentClassification = t.recentClassification,
+    s.classificationWRTMax = t.classificationWRTMax,
+    s.classificationPhase = t.classificationPhase,
+    s.classificationAddedBy = t.classificationAddedBy,
+    s.classificationAddedDate = t.classificationAddedDate,
+    s.best_redshift = t.best_redshift
+WHERE
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1
+        AND t.transientBucketId=thisID;
+
+        
+
+UPDATE transientBucketSummaries s,
+    sherlock_crossmatches c 
+SET 
+    s.sherlockClassification = c.association_type,
+    s.separationArcsec = c.separationArcsec,
+    s.distanceMpc = IF(c.direct_distance,
+        c.direct_distance,
+        c.distance),
+    s.best_redshift = IF(s.best_redshift IS NULL,
+        c.z,
+        s.best_redshift),
+    s.host_redshift = IF(c.z AND c.z != s.host_redshift,
+        c.z,
+        s.host_redshift)
+WHERE
+	
+    c.rank = 1
+        AND s.transientBucketId = c.transient_object_id
+        AND c.transient_object_id IN (SELECT 
+            *
+        FROM
+            (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1) AS a)
+        AND s.updateNeeded = 1
+        AND s.transientBucketId=thisID;
+
+
+UPDATE transientBucketSummaries 
+SET 
+    absolutePeakMagnitude = peakMagnitude - (5 * LOG10(distanceMpc * 1000000) - 5)
+WHERE
+    distanceMpc IS NOT NULL
+        AND peakMagnitude IS NOT NULL
+        AND peakMagnitude < 24.0
+        AND absolutePeakMagnitude IS NULL
+        AND transientBucketId=thisID;
+    
+    
+
+UPDATE transientBucketSummaries s 
+SET 
+    updateNeeded = 2
+WHERE
+    updateNeeded = 1
+    AND transientBucketId=thisID;
+
+
+UPDATE transientBucketSummaries t,
+        pesstoObjects p 
+    SET 
+        marshallWorkflowLocation = 'archive'
+    WHERE
+        t.mastername LIKE 'ZTF%%'
+            AND (t.currentMagnitude > 20.0
+            OR ABS(t.gLat) < 10)
+            AND p.transientBucketId = t.transientBucketId
+            AND marshallWorkflowLocation = "inbox"
+            AND t.transientBucketId=thisID;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_tns_tables` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_tns_tables`()
+BEGIN
+update tns_spectra set ingested  = 1 where survey like "%PESSTO%";
+update tns_spectra set TNSName = concat("AT",TNSId) where specType not like "%SN%" and TNSName is null;
+update tns_spectra set TNSName = concat("SN",TNSId) where specType  like "%SN%" and TNSName is null;
+update tns_spectra p, tns_sources s set p.raDeg = s.raDeg, p.decDeg = s.decDeg where p.TNSId=s.TNSId and s.raDeg is not null;
+update tns_photometry p, tns_sources s set p.raDeg = s.raDeg, p.decDeg = s.decDeg where p.TNSId=s.TNSId and s.raDeg is not null;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -14388,12 +15482,59 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `update_transientbucketsummaries`()
 BEGIN
 
--- ADD NEW SOURCES TO PESSTOOBJECTS -- NEED TO MERGE PESSTOOBJECTS INTO transientBucketSummaries TABLE
+
+UPDATE pesstoObjects 
+SET 
+    classifiedFlag = 1
+WHERE
+    transientBucketId IN (SELECT 
+            *
+        FROM
+            (SELECT DISTINCT
+                transientBucketId
+            FROM
+                transientBucket
+            WHERE
+                (spectralType IS NOT NULL
+                    AND transientBucketId NOT IN (SELECT 
+                        transientBucketId
+                    FROM
+                        pesstoObjects
+                    WHERE
+                        classifiedFlag = 1))) AS a);
+                        
+
+insert into transients_history_logs  (transientBucketId, log) SELECT 
+                pesstoObjectsId, CONCAT("moved from ",marshallWorkflowLocation, " to 'review for followup' by marshall code")
+            FROM
+                pesstoObjects
+            WHERE
+                marshallWorkflowLocation in ('pending classification', 'inbox')
+                    AND classifiedFlag = 1;
+
+
+UPDATE pesstoObjects 
+SET 
+    marshallWorkflowLocation = 'review for followup',
+    snoozed = 0
+WHERE
+    pesstoObjectsId IN (SELECT 
+            *
+        FROM
+            (SELECT 
+                pesstoObjectsId
+            FROM
+                pesstoObjects
+            WHERE
+                marshallWorkflowLocation in ('pending classification', 'inbox')
+                    AND classifiedFlag = 1) AS alias);
+                    
+
 INSERT INTO pesstoObjects (
 		pesstoObjectsId,
 		transientBucketId,
@@ -14413,11 +15554,11 @@ INSERT INTO pesstoObjects (
 			FROM
 				pesstoObjects) AND transientBucketId > 0 and masterIDFlag = 1;
 
--- ADD NEW TRANSIENTS TO THE transientBucketSummaries TABLE
-INSERT ignore INTO transientBucketSummaries (transientBucketId)
-select distinct transientBucketId from transientBucket where replacedByRowId = 0 and dateLastModified > DATE_SUB(curdate(), INTERVAL 1 WEEK) and transientBucketId != 0;
 
--- SET UPDATE FLAG
+INSERT ignore INTO transientBucketSummaries (transientBucketId)
+select distinct transientBucketId from transientBucket where replacedByRowId = 0 and transientBucketId != 0 and masterIDFlag = 1 and dateLastModified > DATE_SUB(curdate(), INTERVAL 1 WEEK);
+
+
 UPDATE transientBucketSummaries 
 SET 
     updateNeeded = 1
@@ -14431,24 +15572,27 @@ WHERE
                 transientBucketSummaries a, (SELECT 
                 transientBucketId, MAX(dateLastModified) AS dateLastModified
             FROM
-                transientBucket where dateLastModified > DATE_SUB(curdate(), INTERVAL 1 WEEK)
-            GROUP BY transientBucketId) b  WHERE
+                transientBucket
+            WHERE
+                dateLastModified > DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+            GROUP BY transientBucketId) b
+            WHERE
                 a.transientBucketId = b.transientBucketId
                     AND a.dateLastModified < b.dateLastModified
-                    AND a.updateNeeded != 1) c);	
+                    AND a.updateNeeded NOT IN (1 , 2)) c);	
 
--- UPDATE MASTER TRANSIENTS NAMES & DISCOVERY SURVEY (EPOCH OF FIRST DETECTION)
+
 UPDATE transientBucketSummaries s,
     transientBucket t 
 SET 
     s.masterName = t.name,
     s.surveyObjectUrl = t.surveyObjectUrl
 WHERE
-    masterIdFlag = 1 AND replacedByRowId = 0 
+    masterIdFlag = 1 AND replacedByRowId = 0
         AND s.transientBucketId = t.transientBucketId
         AND s.updateNeeded = 1;
        
--- UPDATE SURVEYURL IF MISSING
+
 UPDATE transientBucket t,
     transientBucketSummaries s 
 SET 
@@ -14474,7 +15618,7 @@ WHERE
         AND t.surveyObjectUrl NOT LIKE '%%roche%%'
         AND replacedByRowId = 0;
       
--- ADDED BY WHICH USER     
+
 UPDATE transientBucketSummaries s,
     transientBucket t 
 SET 
@@ -14483,73 +15627,110 @@ WHERE
     t.reducer IS NOT NULL
         AND t.spectralType IS NULL
         AND t.transientBucketId = s.transientBucketId
-        AND replacedByRowId = 0 AND s.updateNeeded = 1;
+        AND replacedByRowId = 0
+        AND s.updateNeeded = 1;
       
--- UPDATE OBJECT'S METADATA
+
 UPDATE transientBucketSummaries s,
-    (select * from (SELECT 
+    (SELECT 
+        *
+    FROM
+        (SELECT 
         transientBucketId,
             AVG(raDeg) AS raDeg,
             AVG(decDeg) AS decDeg,
-            MIN(dateCreated) as dateAdded,
-            min(magnitude) as peakMagnitude
+            MIN(dateCreated) AS dateAdded,
+            MIN(magnitude) AS peakMagnitude
     FROM
         transientBucket
     WHERE
-        replacedByRowId = 0 and limitingMag = 0 and magnitude is not null and magnitude > 0.0 and magnitude < 25.0 and transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId) as a order by transientBucketId) t 
+        replacedByRowId = 0 AND limitingMag = 0
+            AND magnitude IS NOT NULL
+            AND magnitude > 0.0
+            AND magnitude < 25.0
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS a
+    ORDER BY transientBucketId) t 
 SET 
     s.raDeg = t.raDeg,
     s.decDeg = t.decDeg,
     s.dateAdded = t.dateAdded,
-    s.peakMagnitude=t.peakMagnitude
+    s.peakMagnitude = t.peakMagnitude
 WHERE
-    s.transientBucketId = t.transientBucketId 
-    AND s.updateNeeded = 1;
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1;
 
--- NULL RA/DEC
+
 UPDATE transientBucketSummaries s,
-    (select * from (SELECT 
+    (SELECT 
+        *
+    FROM
+        (SELECT 
         transientBucketId,
             AVG(raDeg) AS raDeg,
             AVG(decDeg) AS decDeg
     FROM
         transientBucket
     WHERE
-        replacedByRowId = 0 and transientBucketId in (select transientBucketId from transientBucketSummaries where raDeg is null and updateNeeded = 1)
-    GROUP BY transientBucketId) as a order by transientBucketId) t 
+        replacedByRowId = 0
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                raDeg IS NULL AND updateNeeded = 1)
+    GROUP BY transientBucketId) AS a
+    ORDER BY transientBucketId) t 
 SET 
     s.raDeg = t.raDeg,
     s.decDeg = t.decDeg
 WHERE
-    s.transientBucketId = t.transientBucketId 
-    AND s.updateNeeded = 1;
+    s.transientBucketId = t.transientBucketId
+        AND s.updateNeeded = 1;
 
 UPDATE transientBucketSummaries s,
-    (select * from (SELECT 
-        transientBucketId,
-            min(hostRedshift) as host_redshift
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        transientBucketId, MIN(hostRedshift) AS host_redshift
     FROM
         transientBucket
     WHERE
-        replacedByRowId = 0 and hostRedshift is not null and  transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId) as a order by transientBucketId) t 
+        replacedByRowId = 0
+            AND hostRedshift IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS a
+    ORDER BY transientBucketId) t 
 SET 
     s.host_redshift = t.host_redshift
 WHERE
-    s.transientBucketId = t.transientBucketId 
-    AND updateNeeded = 1;
+    s.transientBucketId = t.transientBucketId
+        AND updateNeeded = 1;
 
--- UPDATE EARLIEST DETECTION INFORMATION
+
 UPDATE transientBucketSummaries s,
-    (select * from (SELECT 
+    (SELECT 
+        *
+    FROM
+        (SELECT 
         a.transientBucketId,
             a.observationDate AS earliestDetection,
             a.magnitude AS earliestMagnitude,
             a.filter AS earliestMagnitudeFilter,
             a.survey AS earliestMagnitudeSurvey
     FROM
-        transientBucket a 
+        transientBucket a
     JOIN (SELECT 
         MIN(observationDate) AS minval, transientBucketId
     FROM
@@ -14558,16 +15739,27 @@ UPDATE transientBucketSummaries s,
         magnitude IS NOT NULL
             AND limitingMag = 0
             AND replacedByRowId = 0
-            AND observationDate is not null
-            AND transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
+            AND observationDate IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
     GROUP BY transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
         AND a.observationDate = b.minval
     WHERE
         a.limitingMag = 0
             AND a.replacedByRowId = 0
-            AND observationDate is not null
-            AND a.transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId) as c order by transientBucketId) t 
+            AND observationDate IS NOT NULL
+            AND a.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS c
+    ORDER BY transientBucketId) t 
 SET 
     s.earliestDetection = t.earliestDetection,
     s.earliestMagnitude = t.earliestMagnitude,
@@ -14575,45 +15767,73 @@ SET
     s.earliestMagnitudeSurvey = t.earliestMagnitudeSurvey
 WHERE
     s.transientBucketId = t.transientBucketId
-    AND s.updateNeeded = 1;
+        AND s.updateNeeded = 1;
 
--- LAST NON-DETECTION
-update transientBucketSummaries a, 
-(select * from (SELECT 
-    s.transientBucketId, max(t.lastNonDetectionDate) as lastNonDetectionDate
-FROM
-    transientBucket t,
-    transientBucketSummaries s
+
+UPDATE transientBucketSummaries a,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        s.transientBucketId,
+            MAX(t.lastNonDetectionDate) AS lastNonDetectionDate
+    FROM
+        transientBucket t, transientBucketSummaries s
+    WHERE
+        t.lastNonDetectionDate < s.earliestDetection
+            AND s.transientBucketId = t.transientBucketId
+            AND replacedByRowId = 0
+            AND t.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY s.transientBucketId) AS c
+    ORDER BY transientBucketId) b 
+SET 
+    a.lastNonDetectionDate = b.lastNonDetectionDate
 WHERE
-    t.lastNonDetectionDate < s.earliestDetection
-        AND s.transientBucketId = t.transientBucketId
-        AND replacedByRowId = 0
-        AND t.transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-        group by s.transientBucketId) as c order by transientBucketId) b
-set a.lastNonDetectionDate=b.lastNonDetectionDate where a.transientBucketId=b.transientBucketId
-AND a.updateNeeded = 1;
+    a.transientBucketId = b.transientBucketId
+        AND a.updateNeeded = 1;
     
 
-update transientBucketSummaries a, 
-(select * from (SELECT 
-    s.transientBucketId, max(t.observationDate) as lastNonDetectionDate
-FROM
-    transientBucket t,
-    transientBucketSummaries s
+UPDATE transientBucketSummaries a,
+    (SELECT 
+        *
+    FROM
+        (SELECT 
+        s.transientBucketId,
+            MAX(t.observationDate) AS lastNonDetectionDate
+    FROM
+        transientBucket t, transientBucketSummaries s
+    WHERE
+        t.observationDate < s.earliestDetection
+            AND (t.observationDate > s.lastNonDetectionDate
+            OR s.lastNonDetectionDate IS NULL)
+            AND s.transientBucketId = t.transientBucketId
+            AND replacedByRowId = 0
+            AND t.limitingMag = 1
+            AND t.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY s.transientBucketId) AS a
+    ORDER BY transientBucketId) b 
+SET 
+    a.lastNonDetectionDate = b.lastNonDetectionDate
 WHERE
-    t.observationDate < s.earliestDetection
-		AND t.observationDate > s.lastNonDetectionDate
-        AND s.transientBucketId = t.transientBucketId
-        AND replacedByRowId = 0
-        AND t.limitingMag = 1
-        and t.transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-        group by s.transientBucketId) as a order by transientBucketId) b
-set a.lastNonDetectionDate=b.lastNonDetectionDate where a.transientBucketId=b.transientBucketId
-AND a.updateNeeded = 1;
+    a.transientBucketId = b.transientBucketId
+        AND a.updateNeeded = 1;
 
--- UPDATE CURRENT MAGNITUDE INFORMATION
+
 UPDATE transientBucketSummaries s,
-    (select * from (SELECT 
+    (SELECT 
+        *
+    FROM
+        (SELECT 
         a.transientBucketId,
             a.observationDate AS currentMagnitudeDate,
             a.magnitude AS currentMagnitude,
@@ -14621,7 +15841,10 @@ UPDATE transientBucketSummaries s,
             a.survey AS currentMagnitudeSurvey
     FROM
         transientBucket a
-    JOIN (select * from (SELECT 
+    JOIN (SELECT 
+        *
+    FROM
+        (SELECT 
         MAX(observationDate) AS maxval, transientBucketId
     FROM
         transientBucket
@@ -14629,16 +15852,28 @@ UPDATE transientBucketSummaries s,
         magnitude IS NOT NULL
             AND limitingMag = 0
             AND replacedByRowId = 0
-            AND observationDate is not null
-            and transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId) as d order by transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
+            AND observationDate IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS d
+    ORDER BY transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
         AND a.observationDate = b.maxval
     WHERE
         a.limitingMag = 0
             AND a.replacedByRowId = 0
-            AND observationDate  is not null
-            and a.transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId) as c order by transientBucketId) t 
+            AND observationDate IS NOT NULL
+            AND a.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS c
+    ORDER BY transientBucketId) t 
 SET 
     s.currentMagnitudeDate = t.currentMagnitudeDate,
     s.currentMagnitude = t.currentMagnitude,
@@ -14646,40 +15881,58 @@ SET
     s.currentMagnitudeSurvey = t.currentMagnitudeSurvey
 WHERE
     s.transientBucketId = t.transientBucketId
-    AND s.updateNeeded = 1;
+        AND s.updateNeeded = 1;
 
 
 
--- UPDATE LATEST CLASSIFICATION INFORMATION
+
 UPDATE transientBucketSummaries s,
-    (select * from (SELECT 
+    (SELECT 
+        *
+    FROM
+        (SELECT 
         a.transientBucketId,
             a.observationDate AS classificationDate,
             a.spectralType AS recentClassification,
             a.classificationWRTMax AS classificationWRTMax,
             a.classificationPhase AS classificationPhase,
             a.reducer AS classificationAddedBy,
-            a.dateCreated as classificationAddedDate,
-            a.transientRedshift as best_redshift
+            a.dateCreated AS classificationAddedDate,
+            a.transientRedshift AS best_redshift
     FROM
         transientBucket a
-    JOIN (select * from (SELECT 
+    JOIN (SELECT 
+        *
+    FROM
+        (SELECT 
         MAX(observationDate) AS maxval, transientBucketId
     FROM
         transientBucket
     WHERE
         spectralType IS NOT NULL
             AND replacedByRowId = 0
-            AND observationDate is not null
-            and transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId)  as c order by transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
+            AND observationDate IS NOT NULL
+            AND transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS c
+    ORDER BY transientBucketId) AS b ON a.transientBucketId = b.transientBucketId
         AND a.observationDate = b.maxval
     WHERE
         spectralType IS NOT NULL
             AND a.replacedByRowId = 0
-            AND observationDate is not null
-            and a.transientBucketId in (select transientBucketId from transientBucketSummaries where updateNeeded = 1)
-    GROUP BY transientBucketId) as d order by transientBucketId) t 
+            AND observationDate IS NOT NULL
+            AND a.transientBucketId IN (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1)
+    GROUP BY transientBucketId) AS d
+    ORDER BY transientBucketId) t 
 SET 
     s.classificationDate = t.classificationDate,
     s.recentClassification = t.recentClassification,
@@ -14690,34 +15943,176 @@ SET
     s.best_redshift = t.best_redshift
 WHERE
     s.transientBucketId = t.transientBucketId
-    AND s.updateNeeded = 1;
+        AND s.updateNeeded = 1;
 
         
--- UPDATE CONTEXT INFO FROM SHERLOCK 
+
 UPDATE transientBucketSummaries s,
     sherlock_crossmatches c 
 SET 
     s.sherlockClassification = c.association_type,
     s.separationArcsec = c.separationArcsec,
-    s.distanceMpc = IF(c.direct_distance,c.direct_distance,c.distance),
-    s.best_redshift = IF(s.best_redshift is null,c.z,s.best_redshift),
-    s.host_redshift = IF(c.z and c.z != s.host_redshift,c.z,s.host_redshift)
+    s.distanceMpc = IF(c.direct_distance,
+        c.direct_distance,
+        c.distance),
+    s.best_redshift = IF(s.best_redshift IS NULL,
+        c.z,
+        s.best_redshift),
+    s.host_redshift = IF(c.z AND c.z != s.host_redshift,
+        c.z,
+        s.host_redshift)
 WHERE
-	c.rank = 1 and 
-    s.transientBucketId = c.transient_object_id
-    and c.transient_object_id in (select * from (select transientBucketId from transientBucketSummaries where updateNeeded = 1) as a)
-    AND s.updateNeeded = 1;
+    c.rank = 1
+        AND s.transientBucketId = c.transient_object_id
+        AND c.transient_object_id IN (SELECT 
+            *
+        FROM
+            (SELECT 
+                transientBucketId
+            FROM
+                transientBucketSummaries
+            WHERE
+                updateNeeded = 1) AS a)
+        AND s.updateNeeded = 1;
 
--- UPDATE ABS PEAK MAG
-update transientBucketSummaries set absolutePeakMagnitude = peakMagnitude - (5*log10(distanceMpc*1000000)-5) where distanceMpc is not null and peakMagnitude is not null and peakMagnitude < 24.0 and absolutePeakMagnitude is null;
+
+UPDATE transientBucketSummaries 
+SET 
+    absolutePeakMagnitude = peakMagnitude - (5 * LOG10(distanceMpc * 1000000) - 5)
+WHERE
+    distanceMpc IS NOT NULL
+        AND peakMagnitude IS NOT NULL
+        AND peakMagnitude < 24.0
+        AND absolutePeakMagnitude IS NULL;
     
     
--- KEEP FLAG SET FOR PYTHON UPDATES
-UPDATE transientBucketSummaries s set updateNeeded = 2 where updateNeeded = 1; 
+
+UPDATE transientBucketSummaries s 
+SET 
+    updateNeeded = 2
+WHERE
+    updateNeeded = 1; 
 
 
+UPDATE transientBucketSummaries t,
+        pesstoObjects p 
+    SET 
+        marshallWorkflowLocation = 'archive'
+    WHERE
+        t.mastername LIKE 'ZTF%%'
+            AND (t.currentMagnitude > 20.0
+            OR ABS(t.gLat) < 10)
+            AND p.transientBucketId = t.transientBucketId
+            AND marshallWorkflowLocation = "inbox";
 
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_transientBucket_atlas_sources` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_transientBucket_atlas_sources`()
+BEGIN
+	
+	UPDATE transientBucket t,
+            (SELECT DISTINCT
+                transientBucketId,
+                    targetImageUrl,
+                    referenceImageUrl,
+                    subtractedImageUrl
+            FROM
+                transientBucket
+            WHERE
+                survey = 'atlas'
+                    AND targetImageUrl like "%%atlas4%%" and dateDeleted is null) m 
+        SET 
+            t.targetImageUrl = m.targetImageUrl,
+            t.referenceImageUrl = m.referenceImageUrl,
+            t.subtractedImageUrl = m.subtractedImageUrl
+        WHERE
+            t.transientBucketId = m.transientBucketId
+                AND survey = 'ATLAS FP';
+                
+    
+        UPDATE transientBucket t,
+            (SELECT DISTINCT
+                transientBucketId,
+                    surveyObjectUrl
+            FROM
+                transientBucket
+            WHERE
+                survey = 'atlas'
+                    AND surveyObjectUrl like "%atlas4%" and dateDeleted is null) m 
+        SET 
+            t.surveyObjectUrl = m.surveyObjectUrl
+        WHERE
+            t.transientBucketId = m.transientBucketId
+                AND t.survey = 'ATLAS FP' and (t.surveyObjectUrl not like "%atlas4%" or t.surveyObjectUrl  is null);
+                
+	
+        UPDATE transientBucket 
+        SET 
+            masterIdFlag = 1
+        WHERE
+            primaryKeyId IN (SELECT 
+                    *
+                FROM
+                    (SELECT 
+                        primaryKeyId
+                    FROM
+                        transientBucket
+                    WHERE
+                        survey = 'ATLAS FP'
+                            AND transientBucketId IN (SELECT DISTINCT
+                                transientBucketId
+                            FROM
+                                transientBucket
+                            WHERE
+                                survey = 'atlas' AND masterIDFlag = 1 and surveyObjectURL not like "%wis-tns%" and dateDeleted is null)
+                    GROUP BY transientBucketId) a);
+                    
+	
+        UPDATE transientBucket 
+        SET 
+            dateDeleted = NOW(),
+            replacedbyRowId = -1
+        WHERE
+            survey = 'atlas' AND dateDeleted IS NULL and surveyObjectURL not like "%%wis-tns%%"
+                AND transientBucketId IN (SELECT 
+                    *
+                FROM
+                    (SELECT DISTINCT
+                        transientBucketId
+                    FROM
+                        transientBucket
+                    WHERE
+                        survey = 'ATLAS FP'  and limitingMag = 0) a);
+                        
+	
+    UPDATE transientBucket 
+        SET 
+            surveyObjectUrl = CONCAT('https://star.pst.qub.ac.uk/sne/atlas4/candidate/',
+                    SUBSTRING_INDEX(SUBSTRING_INDEX(referenceImageUrl, '_', 2),
+                            '/',
+                            - 1))
+        WHERE
+            survey = 'ATLAS FP'
+                AND surveyObjectUrl IS NULL
+                AND referenceImageUrl IS NOT NULL;
+                
+	
+	update transientBucket t, (select distinct candidateId, objectURL from fs_atlas where objectURL is not null) a set surveyObjectUrl=objectURL where t.surveyObjectUrl is null and t.name=a.candidateId;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -14732,19 +16127,26 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `update_transientbucket_observation_dates`()
 BEGIN
 	UPDATE transientBucket set observationMJD = null where observationMJD = 0;
 UPDATE transientBucket set observationMJD = observationMJD - 2400000.5 where observationMJD > 245000;
 
-UPDATE transientBucket 
+UPDATE ignore transientBucket 
 SET 
     observationDate = FROM_UNIXTIME((observationMJD + 678941) * (3600 * 24) - TO_SECONDS('1970-01-01 00:00:00') + TO_SECONDS(UTC_TIMESTAMP()) - TO_SECONDS(CURRENT_TIMESTAMP()))
 WHERE
     observationMJD IS NOT NULL and observationDate is null;
 
+UPDATE ignore transientBucket 
+SET 
+    observationMjd = TO_SECONDS(observationDate) / (3600 * 24) - 678941
+WHERE
+    observationMjd IS NULL
+        AND observationDate IS NOT NULL;
+delete from transientBucket where observationMJD is null;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -14759,32 +16161,168 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `update_transients_with_no_masteridflag`()
 BEGIN
-	update transientbucket t, transientBucketSummaries s set t.masterIDFlag = 1, s.updateNeeded = 1 where t.transientBucketId = s.transientBucketId and primaryKeyId in (select * from 
+
+IF (@fix > 0) THEN
+   update transientBucket set masterIDFlag  = 0 where masterIDFlag  = 1 and replacedByRowId = 0 and transientBucketId in (select transientBucketId FROM
+    (SELECT DISTINCT
+        transientBucketId, COUNT(*) AS count
+    FROM
+        transientBucket
+    WHERE
+        masterIDFlag = 1
+        and replacedByRowId = 0
+    GROUP BY transientBucketId) AS a
+WHERE
+    count > 1) and primaryKeyId not in (select * from 
 (select  
     MIN(primaryKeyId)
 FROM
-    transientbucket
+    transientBucket
 WHERE
+	replacedByRowId = 0 GROUP BY transientBucketId) as b);
+END IF;
+    
+update transientBucket set masterIDFlag  = 0 where masterIDFlag  = 1 and replacedByRowId != 0;
+
+
+update transientBucket t, transientBucketSummaries s set t.masterIDFlag = 1, s.updateNeeded = 1 where t.transientBucketId = s.transientBucketId and t.primaryKeyId in (select * from 
+(select  
+    MIN(primaryKeyId)
+FROM
+    transientBucket
+WHERE
+	replacedByRowId = 0 AND
     transientBucketId NOT IN (SELECT 
             *
         FROM
             (SELECT DISTINCT
                 transientBucketId
             FROM
-                transientbucket
+                transientBucket
             WHERE
-                masterIDFlag = 1) AS a)
+                masterIDFlag = 1 and replacedByRowId = 0) AS a)
 GROUP BY transientBucketId) as b);
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_transient_akas` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `update_transient_akas`()
+BEGIN
+INSERT IGNORE INTO marshall_transient_akas (transientBucketId, name)
+select distinct transientBucketId, name from transientBucket where name not like "atel_%" and dateCreated > DATE_SUB(curdate(), INTERVAL 3 WEEK) order by transientBucketId;
+
+
+update
+        fs_atlas_forced_phot a, transientBucket t
+set t.surveyObjectUrl=CONCAT('https://star.pst.qub.ac.uk/sne/atlas4/candidate/', a.atlas_object_id)
+WHERE
+    t.surveyObjectUrl IS NULL
+        AND t.name = a.atlas_designation
+        AND a.atlas_designation IN (SELECT 
+            name
+        FROM
+            marshall_transient_akas
+        WHERE
+            url IS NULL and name like "ATLAS%");
+
+update marshall_transient_akas set url = concat("https://lasair.roe.ac.uk/object/",name) where name like "ZTF%" and url is null;
+update marshall_transient_akas set url = concat("https://wis-tns.weizmann.ac.il/object/",name) where (name like "AT20%" or name like "AT19%" or name like "SN19%" or name like "SN20%") and url is null;
+update marshall_transient_akas a, (select distinct name, surveyObjectUrl from transientBucket where name like "LSQ%" and surveyObjectUrl is not null and surveyObjectUrl  like "%nersc%") t set a.url = t.surveyObjectUrl where a.name=t.name and a.url is null;
+update marshall_transient_akas a, (select distinct name, surveyObjectUrl from transientBucket where (name like "PS1%" or name like "PS2%") and surveyObjectUrl is not null and surveyObjectUrl like "%star.pst%") t set a.url = t.surveyObjectUrl where a.name=t.name and a.url is null;
+update marshall_transient_akas a, (select distinct name, surveyObjectUrl from transientBucket where name like "ATLAS%" and surveyObjectUrl is not null and surveyObjectUrl like "%star.pst%") t set a.url = t.surveyObjectUrl where a.name=t.name and a.url is null;
+update marshall_transient_akas a, (select distinct name, surveyObjectUrl from transientBucket where (name like "CSS%" or name like "MLS%" or name like "SSS%") and surveyObjectUrl is not null and surveyObjectUrl like "%nesssi%") t set a.url = t.surveyObjectUrl where a.name=t.name and a.url is null;
+update marshall_transient_akas a, (select distinct name, surveyObjectUrl from transientBucket where name like "PSN%" and surveyObjectUrl is not null and surveyObjectUrl like "%cbat%") t set a.url = t.surveyObjectUrl where a.name=t.name and a.url is null;
+update marshall_transient_akas set url = concat("http://gsaweb.ast.cam.ac.uk/alerts/alert/",name) where name like "Gaia%" and url is null;
+update marshall_transient_akas set url = "http://www.astronomy.ohio-state.edu/asassn/sn_list.html" where (name like "ASASSN-1%" and name not like "ASASSN-19%") and url is null;
+update marshall_transient_akas set url = "http://ogle.astrouw.edu.pl/ogle4/transients/" where name like "OGLE%" and url is null;
+
+
+UPDATE marshall_transient_akas c,
+    (SELECT 
+        a.name,
+            REPLACE(b.name, 'AT', 'http://asassn.china-vo.org/public/lc?dir=') AS url
+    FROM
+        marshall_transient_akas a
+    INNER JOIN marshall_transient_akas b ON a.transientBucketId = b.transientBucketId
+    WHERE
+        b.name LIKE 'AT2%'
+            AND (a.name LIKE 'ASASSN-19%'
+            OR a.name LIKE 'ASASSN-2%')
+            AND a.url IS NULL
+            AND LENGTH(b.name) > 8
+            AND b.name NOT LIKE '%19a%'
+            AND b.name NOT LIKE '%19b%'
+            AND b.name LIKE '%19%') d 
+SET 
+    c.url = d.url
+WHERE
+    c.name = d.name;
+    
+
+UPDATE marshall_transient_akas c,
+    (SELECT 
+        a.name,
+            REPLACE(b.name, 'SN', 'http://asassn.china-vo.org/public/lc?dir=') AS url
+    FROM
+        marshall_transient_akas a
+    INNER JOIN marshall_transient_akas b ON a.transientBucketId = b.transientBucketId
+    WHERE
+        b.name LIKE 'SN2%'
+            AND (a.name LIKE 'ASASSN-19%'
+            OR a.name LIKE 'ASASSN-2%')
+            AND a.url IS NULL
+            AND LENGTH(b.name) > 8
+            AND b.name NOT LIKE '%19a%'
+            AND b.name NOT LIKE '%19b%'
+            AND b.name LIKE '%19%') d 
+SET 
+    c.url = d.url
+WHERE
+    c.name = d.name;
+
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `_subview_object_akas`
+--
+
+/*!50001 DROP VIEW IF EXISTS `_subview_object_akas`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `_subview_object_akas` AS select 1 AS `transientBucketId`,1 AS `primaryKeyId`,1 AS `name`,1 AS `survey`,1 AS `surveyObjectUrl`,1 AS `referenceImageUrl`,1 AS `targetImageUrl`,1 AS `subtractedImageUrl`,1 AS `tripletImageUrl`,1 AS `finderImageUrl` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `view_efosc_imaging_benetti`
@@ -15075,6 +16613,96 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `view_fs_crts_css_summary`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_fs_crts_css_summary`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `view_fs_crts_css_summary` AS select `fs_crts_css`.`primaryId` AS `primaryId`,`fs_crts_css`.`circularUrl` AS `circularUrl`,`fs_crts_css`.`comment` AS `comment`,`fs_crts_css`.`commentIngested` AS `commentIngested`,`fs_crts_css`.`dateCreated` AS `dateCreated`,`fs_crts_css`.`dateLastModified` AS `dateLastModified`,`fs_crts_css`.`dateLastRead` AS `dateLastRead`,`fs_crts_css`.`decDeg` AS `decDeg`,`fs_crts_css`.`filter` AS `filter`,`fs_crts_css`.`finderChartUrl` AS `finderChartUrl`,`fs_crts_css`.`finderChartWebpage` AS `finderChartWebpage`,`fs_crts_css`.`imagesUrl` AS `imagesUrl`,`fs_crts_css`.`ingested` AS `ingested`,`fs_crts_css`.`lightcurveUrl` AS `lightcurveUrl`,`fs_crts_css`.`mag` AS `mag`,`fs_crts_css`.`name` AS `name`,`fs_crts_css`.`observationDate` AS `observationDate`,`fs_crts_css`.`observationMJD` AS `observationMJD`,`fs_crts_css`.`raDeg` AS `raDeg`,`fs_crts_css`.`summaryRow` AS `summaryRow`,`fs_crts_css`.`survey` AS `survey`,`fs_crts_css`.`surveyObjectUrl` AS `surveyObjectUrl`,`fs_crts_css`.`targetImageUrl` AS `targetImageUrl`,`fs_crts_css`.`transientTypePrediction` AS `transientTypePrediction`,`fs_crts_css`.`uniqueId` AS `uniqueId`,`fs_crts_css`.`htm16ID` AS `htm16ID`,`fs_crts_css`.`magErr` AS `magErr`,`fs_crts_css`.`lastNonDetectionDate` AS `lastNonDetectionDate`,`fs_crts_css`.`lastNonDetectionMJD` AS `lastNonDetectionMJD` from `fs_crts_css` where (`fs_crts_css`.`summaryRow` is true) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_fs_crts_mls_summary`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_fs_crts_mls_summary`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `view_fs_crts_mls_summary` AS select `fs_crts_mls`.`primaryId` AS `primaryId`,`fs_crts_mls`.`circularUrl` AS `circularUrl`,`fs_crts_mls`.`comment` AS `comment`,`fs_crts_mls`.`commentIngested` AS `commentIngested`,`fs_crts_mls`.`dateCreated` AS `dateCreated`,`fs_crts_mls`.`dateLastModified` AS `dateLastModified`,`fs_crts_mls`.`dateLastRead` AS `dateLastRead`,`fs_crts_mls`.`decDeg` AS `decDeg`,`fs_crts_mls`.`filter` AS `filter`,`fs_crts_mls`.`finderChartUrl` AS `finderChartUrl`,`fs_crts_mls`.`finderChartWebpage` AS `finderChartWebpage`,`fs_crts_mls`.`imagesUrl` AS `imagesUrl`,`fs_crts_mls`.`ingested` AS `ingested`,`fs_crts_mls`.`lightcurveUrl` AS `lightcurveUrl`,`fs_crts_mls`.`mag` AS `mag`,`fs_crts_mls`.`name` AS `name`,`fs_crts_mls`.`observationDate` AS `observationDate`,`fs_crts_mls`.`observationMJD` AS `observationMJD`,`fs_crts_mls`.`raDeg` AS `raDeg`,`fs_crts_mls`.`summaryRow` AS `summaryRow`,`fs_crts_mls`.`survey` AS `survey`,`fs_crts_mls`.`surveyObjectUrl` AS `surveyObjectUrl`,`fs_crts_mls`.`targetImageUrl` AS `targetImageUrl`,`fs_crts_mls`.`transientTypePrediction` AS `transientTypePrediction`,`fs_crts_mls`.`uniqueId` AS `uniqueId`,`fs_crts_mls`.`htm16ID` AS `htm16ID`,`fs_crts_mls`.`magErr` AS `magErr`,`fs_crts_mls`.`lastNonDetectionDate` AS `lastNonDetectionDate`,`fs_crts_mls`.`lastNonDetectionMJD` AS `lastNonDetectionMJD` from `fs_crts_mls` where (`fs_crts_mls`.`summaryRow` is true) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_fs_crts_sss_summary`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_fs_crts_sss_summary`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `view_fs_crts_sss_summary` AS select `fs_crts_sss`.`primaryId` AS `primaryId`,`fs_crts_sss`.`circularUrl` AS `circularUrl`,`fs_crts_sss`.`comment` AS `comment`,`fs_crts_sss`.`commentIngested` AS `commentIngested`,`fs_crts_sss`.`dateCreated` AS `dateCreated`,`fs_crts_sss`.`dateLastModified` AS `dateLastModified`,`fs_crts_sss`.`dateLastRead` AS `dateLastRead`,`fs_crts_sss`.`decDeg` AS `decDeg`,`fs_crts_sss`.`filter` AS `filter`,`fs_crts_sss`.`finderChartUrl` AS `finderChartUrl`,`fs_crts_sss`.`finderChartWebpage` AS `finderChartWebpage`,`fs_crts_sss`.`imagesUrl` AS `imagesUrl`,`fs_crts_sss`.`ingested` AS `ingested`,`fs_crts_sss`.`lightcurveUrl` AS `lightcurveUrl`,`fs_crts_sss`.`mag` AS `mag`,`fs_crts_sss`.`name` AS `name`,`fs_crts_sss`.`observationDate` AS `observationDate`,`fs_crts_sss`.`observationMJD` AS `observationMJD`,`fs_crts_sss`.`raDeg` AS `raDeg`,`fs_crts_sss`.`summaryRow` AS `summaryRow`,`fs_crts_sss`.`survey` AS `survey`,`fs_crts_sss`.`surveyObjectUrl` AS `surveyObjectUrl`,`fs_crts_sss`.`targetImageUrl` AS `targetImageUrl`,`fs_crts_sss`.`transientTypePrediction` AS `transientTypePrediction`,`fs_crts_sss`.`uniqueId` AS `uniqueId`,`fs_crts_sss`.`htm16ID` AS `htm16ID`,`fs_crts_sss`.`magErr` AS `magErr`,`fs_crts_sss`.`lastNonDetectionDate` AS `lastNonDetectionDate`,`fs_crts_sss`.`lastNonDetectionMJD` AS `lastNonDetectionMJD` from `fs_crts_sss` where (`fs_crts_sss`.`summaryRow` is true) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_fs_ogle_summary`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_fs_ogle_summary`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `view_fs_ogle_summary` AS select `fs_ogle`.`primaryId` AS `primaryId`,`fs_ogle`.`dateCreated` AS `dateCreated`,`fs_ogle`.`dateLastModified` AS `dateLastModified`,`fs_ogle`.`dateLastRead` AS `dateLastRead`,`fs_ogle`.`decDeg` AS `decDeg`,`fs_ogle`.`filter` AS `filter`,`fs_ogle`.`ingested` AS `ingested`,`fs_ogle`.`lastNonDetectionDate` AS `lastNonDetectionDate`,`fs_ogle`.`lastNonDetectionMJD` AS `lastNonDetectionMJD`,`fs_ogle`.`lightcurveUrl` AS `lightcurveUrl`,`fs_ogle`.`mag` AS `mag`,`fs_ogle`.`name` AS `name`,`fs_ogle`.`observationDate` AS `observationDate`,`fs_ogle`.`observationMJD` AS `observationMJD`,`fs_ogle`.`raDeg` AS `raDeg`,`fs_ogle`.`referenceFitsUrl` AS `referenceFitsUrl`,`fs_ogle`.`referenceImageUrl` AS `referenceImageUrl`,`fs_ogle`.`subtractedFitsUrl` AS `subtractedFitsUrl`,`fs_ogle`.`subtractedImageUrl` AS `subtractedImageUrl`,`fs_ogle`.`summaryRow` AS `summaryRow`,`fs_ogle`.`survey` AS `survey`,`fs_ogle`.`surveyObjectUrl` AS `surveyObjectUrl`,`fs_ogle`.`targetFitsUrl` AS `targetFitsUrl`,`fs_ogle`.`targetImageUrl` AS `targetImageUrl`,`fs_ogle`.`transientTypePrediction` AS `transientTypePrediction`,`fs_ogle`.`htm16ID` AS `htm16ID` from `fs_ogle` where (`fs_ogle`.`summaryRow` is true) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_object_akas`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_object_akas`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `view_object_akas` AS select `_subview_object_akas`.`transientBucketId` AS `transientBucketId`,`_subview_object_akas`.`primaryKeyId` AS `primaryKeyId`,`_subview_object_akas`.`name` AS `name`,`_subview_object_akas`.`survey` AS `survey`,`_subview_object_akas`.`surveyObjectUrl` AS `surveyObjectUrl`,`_subview_object_akas`.`referenceImageUrl` AS `referenceImageUrl`,`_subview_object_akas`.`targetImageUrl` AS `targetImageUrl`,`_subview_object_akas`.`subtractedImageUrl` AS `subtractedImageUrl`,`_subview_object_akas`.`tripletImageUrl` AS `tripletImageUrl`,`_subview_object_akas`.`finderImageUrl` AS `finderImageUrl` from `_subview_object_akas` group by `_subview_object_akas`.`name` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `view_object_temporal_data`
 --
 
@@ -15087,7 +16715,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_object_temporal_data` AS select 1 AS `transientBucketId`,1 AS `name`,1 AS `survey`,1 AS `observationDate`,1 AS `observationMJD`,1 AS `magnitude`,1 AS `magnitudeError`,1 AS `filter`,1 AS `surveyObjectUrl`,1 AS `referenceImageUrl`,1 AS `targetImageUrl`,1 AS `subtractedImageUrl`,1 AS `tripletImageUrl`,1 AS `telescope`,1 AS `instrument` */;
+/*!50001 VIEW `view_object_temporal_data` AS select `transientbucket`.`transientBucketId` AS `transientBucketId`,`transientbucket`.`name` AS `name`,`transientbucket`.`survey` AS `survey`,`transientbucket`.`observationDate` AS `observationDate`,`transientbucket`.`observationMJD` AS `observationMJD`,`transientbucket`.`magnitude` AS `magnitude`,`transientbucket`.`magnitudeError` AS `magnitudeError`,`transientbucket`.`filter` AS `filter`,`transientbucket`.`surveyObjectUrl` AS `surveyObjectUrl`,`transientbucket`.`referenceImageUrl` AS `referenceImageUrl`,`transientbucket`.`targetImageUrl` AS `targetImageUrl`,`transientbucket`.`subtractedImageUrl` AS `subtractedImageUrl`,`transientbucket`.`tripletImageUrl` AS `tripletImageUrl`,`transientbucket`.`telescope` AS `telescope`,`transientbucket`.`instrument` AS `instrument` from `transientbucket` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15138,10 +16766,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_benetti` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETA`,1 AS `ESO_SEQ_CUMOFFSETD`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_CUMOFFSETY`,1 AS `ESO_SEQ_POISSON`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_SEQ_RELOFFSETY`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `GAIN`,1 AS `ILLUMCOR`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PIXSCALE`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WCSDIM`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `NCOMBINE`,1 AS `OBJMASK`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `TRACE2`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `OBID`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `COMMENT`,1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `CD1_2`,1 AS `CD2_1`,1 AS `CRDER1`,1 AS `CRDER2`,1 AS `CSYER1`,1 AS `CSYER2`,1 AS `CUNIT1`,1 AS `CUNIT2`,1 AS `ELLIPTIC`,1 AS `FLUXCAL`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTCRPIX1`,1 AS `NTCRPIX2`,1 AS `NUSTEP`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PSF_FWHM`,1 AS `PROV12`,1 AS `ZPJJH`,1 AS `PROV13`,1 AS `PROV5`,1 AS `PROV14`,1 AS `PROV6`,1 AS `PROV15`,1 AS `PROV7`,1 AS `PROV16`,1 AS `PROV8`,1 AS `PROV9`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE5`,1 AS `TRACE14`,1 AS `TRACE6`,1 AS `TRACE15`,1 AS `TRACE7`,1 AS `TRACE16`,1 AS `TRACE8`,1 AS `TRACE9`,1 AS `ZPKHK`,1 AS `DARKTIME`,1 AS `ZPHJH`,1 AS `MKILLUM`,1 AS `HDRVER`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader`,1 AS `archivedLocally` */;
+/*!50001 VIEW `view_sofi_imaging_benetti` AS select `sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ARCFILE` AS `ARCFILE`,`sofi_imaging`.`BIASSEC` AS `BIASSEC`,`sofi_imaging`.`BITPIX` AS `BITPIX`,`sofi_imaging`.`BUNIT` AS `BUNIT`,`sofi_imaging`.`CCDMEANT` AS `CCDMEANT`,`sofi_imaging`.`CCDPROC` AS `CCDPROC`,`sofi_imaging`.`CCDSEC` AS `CCDSEC`,`sofi_imaging`.`CD1_1` AS `CD1_1`,`sofi_imaging`.`CD2_2` AS `CD2_2`,`sofi_imaging`.`CDELT1` AS `CDELT1`,`sofi_imaging`.`CDELT2` AS `CDELT2`,`sofi_imaging`.`CHECKSUM` AS `CHECKSUM`,`sofi_imaging`.`CROSSTAL` AS `CROSSTAL`,`sofi_imaging`.`CRPIX1` AS `CRPIX1`,`sofi_imaging`.`CRPIX2` AS `CRPIX2`,`sofi_imaging`.`CRVAL1` AS `CRVAL1`,`sofi_imaging`.`CRVAL2` AS `CRVAL2`,`sofi_imaging`.`CTYPE1` AS `CTYPE1`,`sofi_imaging`.`CTYPE2` AS `CTYPE2`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATASUM` AS `DATASUM`,`sofi_imaging`.`DATE` AS `DATE`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EQUINOX` AS `EQUINOX`,`sofi_imaging`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_imaging`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_imaging`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_imaging`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_imaging`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_imaging`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_imaging`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_imaging`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_imaging`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_imaging`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_imaging`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_imaging`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_imaging`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_imaging`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_imaging`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_imaging`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_imaging`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_imaging`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_imaging`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_imaging`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_imaging`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_imaging`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_imaging`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_imaging`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_imaging`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_imaging`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_imaging`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_imaging`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_imaging`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_imaging`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_imaging`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_imaging`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_imaging`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_imaging`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_imaging`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_imaging`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_imaging`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_imaging`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_imaging`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_imaging`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_imaging`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_imaging`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_imaging`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_imaging`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_imaging`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_imaging`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_imaging`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_imaging`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_imaging`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_imaging`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_imaging`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_imaging`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_imaging`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_imaging`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_imaging`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_imaging`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_imaging`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_imaging`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_imaging`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_imaging`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_imaging`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_imaging`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_imaging`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_imaging`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_imaging`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_imaging`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_imaging`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_imaging`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_imaging`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_imaging`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_imaging`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_imaging`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_imaging`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_imaging`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_imaging`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_imaging`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_imaging`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_imaging`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_imaging`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_imaging`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_imaging`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_imaging`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_imaging`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_imaging`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_imaging`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_imaging`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETA` AS `ESO_SEQ_CUMOFFSETA`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETD` AS `ESO_SEQ_CUMOFFSETD`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETY` AS `ESO_SEQ_CUMOFFSETY`,`sofi_imaging`.`ESO_SEQ_POISSON` AS `ESO_SEQ_POISSON`,`sofi_imaging`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_imaging`.`ESO_SEQ_RELOFFSETY` AS `ESO_SEQ_RELOFFSETY`,`sofi_imaging`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_imaging`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_imaging`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_imaging`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_imaging`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_imaging`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_imaging`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_imaging`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_imaging`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_imaging`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_imaging`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_imaging`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_imaging`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_imaging`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_imaging`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_imaging`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_imaging`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_imaging`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_imaging`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_imaging`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_imaging`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_imaging`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_imaging`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_imaging`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_imaging`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_imaging`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_imaging`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_imaging`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_imaging`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_imaging`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_imaging`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_imaging`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_imaging`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_imaging`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_imaging`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_imaging`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_imaging`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_imaging`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_imaging`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_imaging`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_imaging`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_imaging`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_imaging`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_imaging`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_imaging`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_imaging`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`EXTEND` AS `EXTEND`,`sofi_imaging`.`FILETYPE` AS `FILETYPE`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLATCOR` AS `FLATCOR`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`ILLUMCOR` AS `ILLUMCOR`,`sofi_imaging`.`INSTRUME` AS `INSTRUME`,`sofi_imaging`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_imaging`.`LST` AS `LST`,`sofi_imaging`.`LTM1_1` AS `LTM1_1`,`sofi_imaging`.`LTM2_2` AS `LTM2_2`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`M_EPOCH` AS `M_EPOCH`,`sofi_imaging`.`NAXIS` AS `NAXIS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`OBID1` AS `OBID1`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`OBSERVER` AS `OBSERVER`,`sofi_imaging`.`OBSTECH` AS `OBSTECH`,`sofi_imaging`.`ORIGFILE` AS `ORIGFILE`,`sofi_imaging`.`ORIGIN` AS `ORIGIN`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`PIXSCALE` AS `PIXSCALE`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROG_ID` AS `PROG_ID`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`RADECSYS` AS `RADECSYS`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`SIMPLE` AS `SIMPLE`,`sofi_imaging`.`SINGLEXP` AS `SINGLEXP`,`sofi_imaging`.`SKYSUB` AS `SKYSUB`,`sofi_imaging`.`TELESCOP` AS `TELESCOP`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TRACE1` AS `TRACE1`,`sofi_imaging`.`TRIM` AS `TRIM`,`sofi_imaging`.`UTC` AS `UTC`,`sofi_imaging`.`WAT0_001` AS `WAT0_001`,`sofi_imaging`.`WAT1_001` AS `WAT1_001`,`sofi_imaging`.`WAT2_001` AS `WAT2_001`,`sofi_imaging`.`WCSDIM` AS `WCSDIM`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`dateLastModified` AS `dateLastModified`,`sofi_imaging`.`dateLastRead` AS `dateLastRead`,`sofi_imaging`.`filePath` AS `filePath`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`headerExtension` AS `headerExtension`,`sofi_imaging`.`CCDMEAN` AS `CCDMEAN`,`sofi_imaging`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_imaging`.`PC1_1` AS `PC1_1`,`sofi_imaging`.`PC1_2` AS `PC1_2`,`sofi_imaging`.`PC2_1` AS `PC2_1`,`sofi_imaging`.`PC2_2` AS `PC2_2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`OBJMASK` AS `OBJMASK`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`TRACE2` AS `TRACE2`,`sofi_imaging`.`TRACE3` AS `TRACE3`,`sofi_imaging`.`TRACE4` AS `TRACE4`,`sofi_imaging`.`IMCMB001` AS `IMCMB001`,`sofi_imaging`.`IMCMB002` AS `IMCMB002`,`sofi_imaging`.`OBID` AS `OBID`,`sofi_imaging`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_imaging`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_imaging`.`COMMENT` AS `COMMENT`,`sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`CD1_2` AS `CD1_2`,`sofi_imaging`.`CD2_1` AS `CD2_1`,`sofi_imaging`.`CRDER1` AS `CRDER1`,`sofi_imaging`.`CRDER2` AS `CRDER2`,`sofi_imaging`.`CSYER1` AS `CSYER1`,`sofi_imaging`.`CSYER2` AS `CSYER2`,`sofi_imaging`.`CUNIT1` AS `CUNIT1`,`sofi_imaging`.`CUNIT2` AS `CUNIT2`,`sofi_imaging`.`ELLIPTIC` AS `ELLIPTIC`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTCRPIX1` AS `NTCRPIX1`,`sofi_imaging`.`NTCRPIX2` AS `NTCRPIX2`,`sofi_imaging`.`NUSTEP` AS `NUSTEP`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`ZPJJH` AS `ZPJJH`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`TRACE10` AS `TRACE10`,`sofi_imaging`.`TRACE11` AS `TRACE11`,`sofi_imaging`.`TRACE12` AS `TRACE12`,`sofi_imaging`.`TRACE13` AS `TRACE13`,`sofi_imaging`.`TRACE5` AS `TRACE5`,`sofi_imaging`.`TRACE14` AS `TRACE14`,`sofi_imaging`.`TRACE6` AS `TRACE6`,`sofi_imaging`.`TRACE15` AS `TRACE15`,`sofi_imaging`.`TRACE7` AS `TRACE7`,`sofi_imaging`.`TRACE16` AS `TRACE16`,`sofi_imaging`.`TRACE8` AS `TRACE8`,`sofi_imaging`.`TRACE9` AS `TRACE9`,`sofi_imaging`.`ZPKHK` AS `ZPKHK`,`sofi_imaging`.`DARKTIME` AS `DARKTIME`,`sofi_imaging`.`ZPHJH` AS `ZPHJH`,`sofi_imaging`.`MKILLUM` AS `MKILLUM`,`sofi_imaging`.`HDRVER` AS `HDRVER`,`sofi_imaging`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_imaging`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_imaging`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`transientBucketId` AS `transientBucketId`,`sofi_imaging`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`updatedFilename` AS `updatedFilename`,`sofi_imaging`.`filenameUpdated` AS `filenameUpdated`,`sofi_imaging`.`objectInFilename` AS `objectInFilename`,`sofi_imaging`.`updateObjectName` AS `updateObjectName`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`updatedFilepath` AS `updatedFilepath`,`sofi_imaging`.`archivePath` AS `archivePath`,`sofi_imaging`.`rewriteFitsHeader` AS `rewriteFitsHeader`,`sofi_imaging`.`archivedLocally` AS `archivedLocally` from `sofi_imaging` where (`sofi_imaging`.`filetype_key_reduction_stage` = 5) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15156,10 +16784,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_esophaseiii` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETA`,1 AS `ESO_SEQ_CUMOFFSETD`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_CUMOFFSETY`,1 AS `ESO_SEQ_POISSON`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_SEQ_RELOFFSETY`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `GAIN`,1 AS `ILLUMCOR`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PIXSCALE`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WCSDIM`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `NCOMBINE`,1 AS `OBJMASK`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `TRACE2`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `OBID`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `COMMENT`,1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `CD1_2`,1 AS `CD2_1`,1 AS `CRDER1`,1 AS `CRDER2`,1 AS `CSYER1`,1 AS `CSYER2`,1 AS `CUNIT1`,1 AS `CUNIT2`,1 AS `ELLIPTIC`,1 AS `FLUXCAL`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTCRPIX1`,1 AS `NTCRPIX2`,1 AS `NUSTEP`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PSF_FWHM`,1 AS `PROV12`,1 AS `ZPJJH`,1 AS `PROV13`,1 AS `PROV5`,1 AS `PROV14`,1 AS `PROV6`,1 AS `PROV15`,1 AS `PROV7`,1 AS `PROV16`,1 AS `PROV8`,1 AS `PROV9`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE5`,1 AS `TRACE14`,1 AS `TRACE6`,1 AS `TRACE15`,1 AS `TRACE7`,1 AS `TRACE16`,1 AS `TRACE8`,1 AS `TRACE9`,1 AS `ZPKHK`,1 AS `DARKTIME`,1 AS `ZPHJH`,1 AS `MKILLUM`,1 AS `HDRVER`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader` */;
+/*!50001 VIEW `view_sofi_imaging_esophaseiii` AS select `sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ARCFILE` AS `ARCFILE`,`sofi_imaging`.`BIASSEC` AS `BIASSEC`,`sofi_imaging`.`BITPIX` AS `BITPIX`,`sofi_imaging`.`BUNIT` AS `BUNIT`,`sofi_imaging`.`CCDMEANT` AS `CCDMEANT`,`sofi_imaging`.`CCDPROC` AS `CCDPROC`,`sofi_imaging`.`CCDSEC` AS `CCDSEC`,`sofi_imaging`.`CD1_1` AS `CD1_1`,`sofi_imaging`.`CD2_2` AS `CD2_2`,`sofi_imaging`.`CDELT1` AS `CDELT1`,`sofi_imaging`.`CDELT2` AS `CDELT2`,`sofi_imaging`.`CHECKSUM` AS `CHECKSUM`,`sofi_imaging`.`CROSSTAL` AS `CROSSTAL`,`sofi_imaging`.`CRPIX1` AS `CRPIX1`,`sofi_imaging`.`CRPIX2` AS `CRPIX2`,`sofi_imaging`.`CRVAL1` AS `CRVAL1`,`sofi_imaging`.`CRVAL2` AS `CRVAL2`,`sofi_imaging`.`CTYPE1` AS `CTYPE1`,`sofi_imaging`.`CTYPE2` AS `CTYPE2`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATASUM` AS `DATASUM`,`sofi_imaging`.`DATE` AS `DATE`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EQUINOX` AS `EQUINOX`,`sofi_imaging`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_imaging`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_imaging`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_imaging`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_imaging`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_imaging`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_imaging`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_imaging`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_imaging`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_imaging`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_imaging`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_imaging`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_imaging`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_imaging`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_imaging`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_imaging`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_imaging`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_imaging`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_imaging`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_imaging`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_imaging`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_imaging`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_imaging`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_imaging`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_imaging`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_imaging`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_imaging`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_imaging`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_imaging`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_imaging`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_imaging`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_imaging`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_imaging`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_imaging`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_imaging`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_imaging`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_imaging`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_imaging`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_imaging`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_imaging`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_imaging`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_imaging`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_imaging`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_imaging`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_imaging`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_imaging`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_imaging`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_imaging`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_imaging`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_imaging`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_imaging`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_imaging`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_imaging`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_imaging`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_imaging`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_imaging`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_imaging`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_imaging`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_imaging`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_imaging`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_imaging`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_imaging`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_imaging`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_imaging`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_imaging`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_imaging`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_imaging`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_imaging`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_imaging`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_imaging`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_imaging`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_imaging`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_imaging`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_imaging`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_imaging`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_imaging`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_imaging`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_imaging`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_imaging`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_imaging`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_imaging`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_imaging`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_imaging`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_imaging`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_imaging`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_imaging`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETA` AS `ESO_SEQ_CUMOFFSETA`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETD` AS `ESO_SEQ_CUMOFFSETD`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETY` AS `ESO_SEQ_CUMOFFSETY`,`sofi_imaging`.`ESO_SEQ_POISSON` AS `ESO_SEQ_POISSON`,`sofi_imaging`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_imaging`.`ESO_SEQ_RELOFFSETY` AS `ESO_SEQ_RELOFFSETY`,`sofi_imaging`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_imaging`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_imaging`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_imaging`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_imaging`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_imaging`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_imaging`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_imaging`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_imaging`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_imaging`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_imaging`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_imaging`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_imaging`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_imaging`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_imaging`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_imaging`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_imaging`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_imaging`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_imaging`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_imaging`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_imaging`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_imaging`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_imaging`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_imaging`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_imaging`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_imaging`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_imaging`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_imaging`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_imaging`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_imaging`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_imaging`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_imaging`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_imaging`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_imaging`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_imaging`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_imaging`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_imaging`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_imaging`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_imaging`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_imaging`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_imaging`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_imaging`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_imaging`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_imaging`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_imaging`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_imaging`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`EXTEND` AS `EXTEND`,`sofi_imaging`.`FILETYPE` AS `FILETYPE`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLATCOR` AS `FLATCOR`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`ILLUMCOR` AS `ILLUMCOR`,`sofi_imaging`.`INSTRUME` AS `INSTRUME`,`sofi_imaging`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_imaging`.`LST` AS `LST`,`sofi_imaging`.`LTM1_1` AS `LTM1_1`,`sofi_imaging`.`LTM2_2` AS `LTM2_2`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`M_EPOCH` AS `M_EPOCH`,`sofi_imaging`.`NAXIS` AS `NAXIS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`OBID1` AS `OBID1`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`OBSERVER` AS `OBSERVER`,`sofi_imaging`.`OBSTECH` AS `OBSTECH`,`sofi_imaging`.`ORIGFILE` AS `ORIGFILE`,`sofi_imaging`.`ORIGIN` AS `ORIGIN`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`PIXSCALE` AS `PIXSCALE`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROG_ID` AS `PROG_ID`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`RADECSYS` AS `RADECSYS`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`SIMPLE` AS `SIMPLE`,`sofi_imaging`.`SINGLEXP` AS `SINGLEXP`,`sofi_imaging`.`SKYSUB` AS `SKYSUB`,`sofi_imaging`.`TELESCOP` AS `TELESCOP`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TRACE1` AS `TRACE1`,`sofi_imaging`.`TRIM` AS `TRIM`,`sofi_imaging`.`UTC` AS `UTC`,`sofi_imaging`.`WAT0_001` AS `WAT0_001`,`sofi_imaging`.`WAT1_001` AS `WAT1_001`,`sofi_imaging`.`WAT2_001` AS `WAT2_001`,`sofi_imaging`.`WCSDIM` AS `WCSDIM`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`dateLastModified` AS `dateLastModified`,`sofi_imaging`.`dateLastRead` AS `dateLastRead`,`sofi_imaging`.`filePath` AS `filePath`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`headerExtension` AS `headerExtension`,`sofi_imaging`.`CCDMEAN` AS `CCDMEAN`,`sofi_imaging`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_imaging`.`PC1_1` AS `PC1_1`,`sofi_imaging`.`PC1_2` AS `PC1_2`,`sofi_imaging`.`PC2_1` AS `PC2_1`,`sofi_imaging`.`PC2_2` AS `PC2_2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`OBJMASK` AS `OBJMASK`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`TRACE2` AS `TRACE2`,`sofi_imaging`.`TRACE3` AS `TRACE3`,`sofi_imaging`.`TRACE4` AS `TRACE4`,`sofi_imaging`.`IMCMB001` AS `IMCMB001`,`sofi_imaging`.`IMCMB002` AS `IMCMB002`,`sofi_imaging`.`OBID` AS `OBID`,`sofi_imaging`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_imaging`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_imaging`.`COMMENT` AS `COMMENT`,`sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`CD1_2` AS `CD1_2`,`sofi_imaging`.`CD2_1` AS `CD2_1`,`sofi_imaging`.`CRDER1` AS `CRDER1`,`sofi_imaging`.`CRDER2` AS `CRDER2`,`sofi_imaging`.`CSYER1` AS `CSYER1`,`sofi_imaging`.`CSYER2` AS `CSYER2`,`sofi_imaging`.`CUNIT1` AS `CUNIT1`,`sofi_imaging`.`CUNIT2` AS `CUNIT2`,`sofi_imaging`.`ELLIPTIC` AS `ELLIPTIC`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTCRPIX1` AS `NTCRPIX1`,`sofi_imaging`.`NTCRPIX2` AS `NTCRPIX2`,`sofi_imaging`.`NUSTEP` AS `NUSTEP`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`ZPJJH` AS `ZPJJH`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`TRACE10` AS `TRACE10`,`sofi_imaging`.`TRACE11` AS `TRACE11`,`sofi_imaging`.`TRACE12` AS `TRACE12`,`sofi_imaging`.`TRACE13` AS `TRACE13`,`sofi_imaging`.`TRACE5` AS `TRACE5`,`sofi_imaging`.`TRACE14` AS `TRACE14`,`sofi_imaging`.`TRACE6` AS `TRACE6`,`sofi_imaging`.`TRACE15` AS `TRACE15`,`sofi_imaging`.`TRACE7` AS `TRACE7`,`sofi_imaging`.`TRACE16` AS `TRACE16`,`sofi_imaging`.`TRACE8` AS `TRACE8`,`sofi_imaging`.`TRACE9` AS `TRACE9`,`sofi_imaging`.`ZPKHK` AS `ZPKHK`,`sofi_imaging`.`DARKTIME` AS `DARKTIME`,`sofi_imaging`.`ZPHJH` AS `ZPHJH`,`sofi_imaging`.`MKILLUM` AS `MKILLUM`,`sofi_imaging`.`HDRVER` AS `HDRVER`,`sofi_imaging`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_imaging`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_imaging`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`transientBucketId` AS `transientBucketId`,`sofi_imaging`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`updatedFilename` AS `updatedFilename`,`sofi_imaging`.`filenameUpdated` AS `filenameUpdated`,`sofi_imaging`.`objectInFilename` AS `objectInFilename`,`sofi_imaging`.`updateObjectName` AS `updateObjectName`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`updatedFilepath` AS `updatedFilepath`,`sofi_imaging`.`archivePath` AS `archivePath`,`sofi_imaging`.`rewriteFitsHeader` AS `rewriteFitsHeader` from `sofi_imaging` where (`sofi_imaging`.`esoPhaseIII` = 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15174,10 +16802,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_intermediate` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETA`,1 AS `ESO_SEQ_CUMOFFSETD`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_CUMOFFSETY`,1 AS `ESO_SEQ_POISSON`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_SEQ_RELOFFSETY`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `GAIN`,1 AS `ILLUMCOR`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PIXSCALE`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WCSDIM`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `NCOMBINE`,1 AS `OBJMASK`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `TRACE2`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `OBID`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `COMMENT`,1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `CD1_2`,1 AS `CD2_1`,1 AS `CRDER1`,1 AS `CRDER2`,1 AS `CSYER1`,1 AS `CSYER2`,1 AS `CUNIT1`,1 AS `CUNIT2`,1 AS `ELLIPTIC`,1 AS `FLUXCAL`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTCRPIX1`,1 AS `NTCRPIX2`,1 AS `NUSTEP`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PSF_FWHM`,1 AS `PROV12`,1 AS `ZPJJH`,1 AS `PROV13`,1 AS `PROV5`,1 AS `PROV14`,1 AS `PROV6`,1 AS `PROV15`,1 AS `PROV7`,1 AS `PROV16`,1 AS `PROV8`,1 AS `PROV9`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE5`,1 AS `TRACE14`,1 AS `TRACE6`,1 AS `TRACE15`,1 AS `TRACE7`,1 AS `TRACE16`,1 AS `TRACE8`,1 AS `TRACE9`,1 AS `ZPKHK`,1 AS `DARKTIME`,1 AS `ZPHJH`,1 AS `MKILLUM`,1 AS `HDRVER`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader`,1 AS `archivedLocally` */;
+/*!50001 VIEW `view_sofi_imaging_intermediate` AS select `sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ARCFILE` AS `ARCFILE`,`sofi_imaging`.`BIASSEC` AS `BIASSEC`,`sofi_imaging`.`BITPIX` AS `BITPIX`,`sofi_imaging`.`BUNIT` AS `BUNIT`,`sofi_imaging`.`CCDMEANT` AS `CCDMEANT`,`sofi_imaging`.`CCDPROC` AS `CCDPROC`,`sofi_imaging`.`CCDSEC` AS `CCDSEC`,`sofi_imaging`.`CD1_1` AS `CD1_1`,`sofi_imaging`.`CD2_2` AS `CD2_2`,`sofi_imaging`.`CDELT1` AS `CDELT1`,`sofi_imaging`.`CDELT2` AS `CDELT2`,`sofi_imaging`.`CHECKSUM` AS `CHECKSUM`,`sofi_imaging`.`CROSSTAL` AS `CROSSTAL`,`sofi_imaging`.`CRPIX1` AS `CRPIX1`,`sofi_imaging`.`CRPIX2` AS `CRPIX2`,`sofi_imaging`.`CRVAL1` AS `CRVAL1`,`sofi_imaging`.`CRVAL2` AS `CRVAL2`,`sofi_imaging`.`CTYPE1` AS `CTYPE1`,`sofi_imaging`.`CTYPE2` AS `CTYPE2`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATASUM` AS `DATASUM`,`sofi_imaging`.`DATE` AS `DATE`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EQUINOX` AS `EQUINOX`,`sofi_imaging`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_imaging`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_imaging`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_imaging`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_imaging`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_imaging`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_imaging`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_imaging`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_imaging`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_imaging`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_imaging`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_imaging`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_imaging`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_imaging`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_imaging`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_imaging`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_imaging`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_imaging`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_imaging`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_imaging`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_imaging`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_imaging`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_imaging`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_imaging`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_imaging`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_imaging`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_imaging`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_imaging`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_imaging`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_imaging`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_imaging`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_imaging`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_imaging`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_imaging`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_imaging`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_imaging`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_imaging`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_imaging`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_imaging`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_imaging`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_imaging`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_imaging`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_imaging`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_imaging`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_imaging`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_imaging`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_imaging`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_imaging`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_imaging`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_imaging`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_imaging`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_imaging`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_imaging`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_imaging`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_imaging`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_imaging`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_imaging`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_imaging`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_imaging`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_imaging`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_imaging`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_imaging`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_imaging`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_imaging`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_imaging`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_imaging`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_imaging`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_imaging`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_imaging`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_imaging`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_imaging`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_imaging`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_imaging`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_imaging`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_imaging`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_imaging`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_imaging`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_imaging`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_imaging`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_imaging`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_imaging`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_imaging`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_imaging`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_imaging`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_imaging`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_imaging`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETA` AS `ESO_SEQ_CUMOFFSETA`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETD` AS `ESO_SEQ_CUMOFFSETD`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETY` AS `ESO_SEQ_CUMOFFSETY`,`sofi_imaging`.`ESO_SEQ_POISSON` AS `ESO_SEQ_POISSON`,`sofi_imaging`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_imaging`.`ESO_SEQ_RELOFFSETY` AS `ESO_SEQ_RELOFFSETY`,`sofi_imaging`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_imaging`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_imaging`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_imaging`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_imaging`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_imaging`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_imaging`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_imaging`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_imaging`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_imaging`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_imaging`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_imaging`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_imaging`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_imaging`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_imaging`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_imaging`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_imaging`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_imaging`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_imaging`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_imaging`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_imaging`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_imaging`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_imaging`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_imaging`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_imaging`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_imaging`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_imaging`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_imaging`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_imaging`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_imaging`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_imaging`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_imaging`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_imaging`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_imaging`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_imaging`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_imaging`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_imaging`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_imaging`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_imaging`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_imaging`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_imaging`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_imaging`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_imaging`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_imaging`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_imaging`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_imaging`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`EXTEND` AS `EXTEND`,`sofi_imaging`.`FILETYPE` AS `FILETYPE`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLATCOR` AS `FLATCOR`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`ILLUMCOR` AS `ILLUMCOR`,`sofi_imaging`.`INSTRUME` AS `INSTRUME`,`sofi_imaging`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_imaging`.`LST` AS `LST`,`sofi_imaging`.`LTM1_1` AS `LTM1_1`,`sofi_imaging`.`LTM2_2` AS `LTM2_2`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`M_EPOCH` AS `M_EPOCH`,`sofi_imaging`.`NAXIS` AS `NAXIS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`OBID1` AS `OBID1`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`OBSERVER` AS `OBSERVER`,`sofi_imaging`.`OBSTECH` AS `OBSTECH`,`sofi_imaging`.`ORIGFILE` AS `ORIGFILE`,`sofi_imaging`.`ORIGIN` AS `ORIGIN`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`PIXSCALE` AS `PIXSCALE`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROG_ID` AS `PROG_ID`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`RADECSYS` AS `RADECSYS`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`SIMPLE` AS `SIMPLE`,`sofi_imaging`.`SINGLEXP` AS `SINGLEXP`,`sofi_imaging`.`SKYSUB` AS `SKYSUB`,`sofi_imaging`.`TELESCOP` AS `TELESCOP`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TRACE1` AS `TRACE1`,`sofi_imaging`.`TRIM` AS `TRIM`,`sofi_imaging`.`UTC` AS `UTC`,`sofi_imaging`.`WAT0_001` AS `WAT0_001`,`sofi_imaging`.`WAT1_001` AS `WAT1_001`,`sofi_imaging`.`WAT2_001` AS `WAT2_001`,`sofi_imaging`.`WCSDIM` AS `WCSDIM`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`dateLastModified` AS `dateLastModified`,`sofi_imaging`.`dateLastRead` AS `dateLastRead`,`sofi_imaging`.`filePath` AS `filePath`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`headerExtension` AS `headerExtension`,`sofi_imaging`.`CCDMEAN` AS `CCDMEAN`,`sofi_imaging`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_imaging`.`PC1_1` AS `PC1_1`,`sofi_imaging`.`PC1_2` AS `PC1_2`,`sofi_imaging`.`PC2_1` AS `PC2_1`,`sofi_imaging`.`PC2_2` AS `PC2_2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`OBJMASK` AS `OBJMASK`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`TRACE2` AS `TRACE2`,`sofi_imaging`.`TRACE3` AS `TRACE3`,`sofi_imaging`.`TRACE4` AS `TRACE4`,`sofi_imaging`.`IMCMB001` AS `IMCMB001`,`sofi_imaging`.`IMCMB002` AS `IMCMB002`,`sofi_imaging`.`OBID` AS `OBID`,`sofi_imaging`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_imaging`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_imaging`.`COMMENT` AS `COMMENT`,`sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`CD1_2` AS `CD1_2`,`sofi_imaging`.`CD2_1` AS `CD2_1`,`sofi_imaging`.`CRDER1` AS `CRDER1`,`sofi_imaging`.`CRDER2` AS `CRDER2`,`sofi_imaging`.`CSYER1` AS `CSYER1`,`sofi_imaging`.`CSYER2` AS `CSYER2`,`sofi_imaging`.`CUNIT1` AS `CUNIT1`,`sofi_imaging`.`CUNIT2` AS `CUNIT2`,`sofi_imaging`.`ELLIPTIC` AS `ELLIPTIC`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTCRPIX1` AS `NTCRPIX1`,`sofi_imaging`.`NTCRPIX2` AS `NTCRPIX2`,`sofi_imaging`.`NUSTEP` AS `NUSTEP`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`ZPJJH` AS `ZPJJH`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`TRACE10` AS `TRACE10`,`sofi_imaging`.`TRACE11` AS `TRACE11`,`sofi_imaging`.`TRACE12` AS `TRACE12`,`sofi_imaging`.`TRACE13` AS `TRACE13`,`sofi_imaging`.`TRACE5` AS `TRACE5`,`sofi_imaging`.`TRACE14` AS `TRACE14`,`sofi_imaging`.`TRACE6` AS `TRACE6`,`sofi_imaging`.`TRACE15` AS `TRACE15`,`sofi_imaging`.`TRACE7` AS `TRACE7`,`sofi_imaging`.`TRACE16` AS `TRACE16`,`sofi_imaging`.`TRACE8` AS `TRACE8`,`sofi_imaging`.`TRACE9` AS `TRACE9`,`sofi_imaging`.`ZPKHK` AS `ZPKHK`,`sofi_imaging`.`DARKTIME` AS `DARKTIME`,`sofi_imaging`.`ZPHJH` AS `ZPHJH`,`sofi_imaging`.`MKILLUM` AS `MKILLUM`,`sofi_imaging`.`HDRVER` AS `HDRVER`,`sofi_imaging`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_imaging`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_imaging`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`transientBucketId` AS `transientBucketId`,`sofi_imaging`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`updatedFilename` AS `updatedFilename`,`sofi_imaging`.`filenameUpdated` AS `filenameUpdated`,`sofi_imaging`.`objectInFilename` AS `objectInFilename`,`sofi_imaging`.`updateObjectName` AS `updateObjectName`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`updatedFilepath` AS `updatedFilepath`,`sofi_imaging`.`archivePath` AS `archivePath`,`sofi_imaging`.`rewriteFitsHeader` AS `rewriteFitsHeader`,`sofi_imaging`.`archivedLocally` AS `archivedLocally` from `sofi_imaging` where ((`sofi_imaging`.`filetype_key_reduction_stage` = 2) or (`sofi_imaging`.`filetype_key_reduction_stage` = 4) or (`sofi_imaging`.`filetype_key_reduction_stage` = 6)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15192,10 +16820,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_raw` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETA`,1 AS `ESO_SEQ_CUMOFFSETD`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_CUMOFFSETY`,1 AS `ESO_SEQ_POISSON`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_SEQ_RELOFFSETY`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `GAIN`,1 AS `ILLUMCOR`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PIXSCALE`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WCSDIM`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `NCOMBINE`,1 AS `OBJMASK`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `TRACE2`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `OBID`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `COMMENT`,1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `CD1_2`,1 AS `CD2_1`,1 AS `CRDER1`,1 AS `CRDER2`,1 AS `CSYER1`,1 AS `CSYER2`,1 AS `CUNIT1`,1 AS `CUNIT2`,1 AS `ELLIPTIC`,1 AS `FLUXCAL`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTCRPIX1`,1 AS `NTCRPIX2`,1 AS `NUSTEP`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PSF_FWHM`,1 AS `PROV12`,1 AS `ZPJJH`,1 AS `PROV13`,1 AS `PROV5`,1 AS `PROV14`,1 AS `PROV6`,1 AS `PROV15`,1 AS `PROV7`,1 AS `PROV16`,1 AS `PROV8`,1 AS `PROV9`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE5`,1 AS `TRACE14`,1 AS `TRACE6`,1 AS `TRACE15`,1 AS `TRACE7`,1 AS `TRACE16`,1 AS `TRACE8`,1 AS `TRACE9`,1 AS `ZPKHK`,1 AS `DARKTIME`,1 AS `ZPHJH`,1 AS `MKILLUM`,1 AS `HDRVER`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader` */;
+/*!50001 VIEW `view_sofi_imaging_raw` AS select `sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ARCFILE` AS `ARCFILE`,`sofi_imaging`.`BIASSEC` AS `BIASSEC`,`sofi_imaging`.`BITPIX` AS `BITPIX`,`sofi_imaging`.`BUNIT` AS `BUNIT`,`sofi_imaging`.`CCDMEANT` AS `CCDMEANT`,`sofi_imaging`.`CCDPROC` AS `CCDPROC`,`sofi_imaging`.`CCDSEC` AS `CCDSEC`,`sofi_imaging`.`CD1_1` AS `CD1_1`,`sofi_imaging`.`CD2_2` AS `CD2_2`,`sofi_imaging`.`CDELT1` AS `CDELT1`,`sofi_imaging`.`CDELT2` AS `CDELT2`,`sofi_imaging`.`CHECKSUM` AS `CHECKSUM`,`sofi_imaging`.`CROSSTAL` AS `CROSSTAL`,`sofi_imaging`.`CRPIX1` AS `CRPIX1`,`sofi_imaging`.`CRPIX2` AS `CRPIX2`,`sofi_imaging`.`CRVAL1` AS `CRVAL1`,`sofi_imaging`.`CRVAL2` AS `CRVAL2`,`sofi_imaging`.`CTYPE1` AS `CTYPE1`,`sofi_imaging`.`CTYPE2` AS `CTYPE2`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATASUM` AS `DATASUM`,`sofi_imaging`.`DATE` AS `DATE`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EQUINOX` AS `EQUINOX`,`sofi_imaging`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_imaging`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_imaging`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_imaging`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_imaging`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_imaging`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_imaging`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_imaging`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_imaging`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_imaging`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_imaging`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_imaging`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_imaging`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_imaging`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_imaging`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_imaging`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_imaging`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_imaging`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_imaging`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_imaging`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_imaging`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_imaging`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_imaging`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_imaging`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_imaging`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_imaging`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_imaging`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_imaging`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_imaging`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_imaging`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_imaging`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_imaging`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_imaging`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_imaging`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_imaging`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_imaging`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_imaging`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_imaging`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_imaging`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_imaging`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_imaging`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_imaging`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_imaging`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_imaging`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_imaging`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_imaging`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_imaging`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_imaging`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_imaging`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_imaging`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_imaging`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_imaging`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_imaging`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_imaging`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_imaging`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_imaging`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_imaging`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_imaging`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_imaging`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_imaging`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_imaging`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_imaging`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_imaging`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_imaging`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_imaging`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_imaging`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_imaging`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_imaging`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_imaging`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_imaging`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_imaging`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_imaging`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_imaging`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_imaging`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_imaging`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_imaging`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_imaging`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_imaging`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_imaging`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_imaging`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_imaging`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_imaging`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_imaging`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_imaging`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_imaging`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_imaging`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETA` AS `ESO_SEQ_CUMOFFSETA`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETD` AS `ESO_SEQ_CUMOFFSETD`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETY` AS `ESO_SEQ_CUMOFFSETY`,`sofi_imaging`.`ESO_SEQ_POISSON` AS `ESO_SEQ_POISSON`,`sofi_imaging`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_imaging`.`ESO_SEQ_RELOFFSETY` AS `ESO_SEQ_RELOFFSETY`,`sofi_imaging`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_imaging`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_imaging`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_imaging`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_imaging`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_imaging`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_imaging`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_imaging`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_imaging`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_imaging`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_imaging`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_imaging`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_imaging`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_imaging`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_imaging`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_imaging`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_imaging`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_imaging`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_imaging`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_imaging`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_imaging`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_imaging`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_imaging`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_imaging`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_imaging`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_imaging`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_imaging`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_imaging`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_imaging`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_imaging`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_imaging`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_imaging`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_imaging`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_imaging`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_imaging`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_imaging`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_imaging`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_imaging`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_imaging`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_imaging`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_imaging`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_imaging`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_imaging`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_imaging`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_imaging`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_imaging`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`EXTEND` AS `EXTEND`,`sofi_imaging`.`FILETYPE` AS `FILETYPE`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLATCOR` AS `FLATCOR`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`ILLUMCOR` AS `ILLUMCOR`,`sofi_imaging`.`INSTRUME` AS `INSTRUME`,`sofi_imaging`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_imaging`.`LST` AS `LST`,`sofi_imaging`.`LTM1_1` AS `LTM1_1`,`sofi_imaging`.`LTM2_2` AS `LTM2_2`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`M_EPOCH` AS `M_EPOCH`,`sofi_imaging`.`NAXIS` AS `NAXIS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`OBID1` AS `OBID1`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`OBSERVER` AS `OBSERVER`,`sofi_imaging`.`OBSTECH` AS `OBSTECH`,`sofi_imaging`.`ORIGFILE` AS `ORIGFILE`,`sofi_imaging`.`ORIGIN` AS `ORIGIN`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`PIXSCALE` AS `PIXSCALE`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROG_ID` AS `PROG_ID`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`RADECSYS` AS `RADECSYS`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`SIMPLE` AS `SIMPLE`,`sofi_imaging`.`SINGLEXP` AS `SINGLEXP`,`sofi_imaging`.`SKYSUB` AS `SKYSUB`,`sofi_imaging`.`TELESCOP` AS `TELESCOP`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TRACE1` AS `TRACE1`,`sofi_imaging`.`TRIM` AS `TRIM`,`sofi_imaging`.`UTC` AS `UTC`,`sofi_imaging`.`WAT0_001` AS `WAT0_001`,`sofi_imaging`.`WAT1_001` AS `WAT1_001`,`sofi_imaging`.`WAT2_001` AS `WAT2_001`,`sofi_imaging`.`WCSDIM` AS `WCSDIM`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`dateLastModified` AS `dateLastModified`,`sofi_imaging`.`dateLastRead` AS `dateLastRead`,`sofi_imaging`.`filePath` AS `filePath`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`headerExtension` AS `headerExtension`,`sofi_imaging`.`CCDMEAN` AS `CCDMEAN`,`sofi_imaging`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_imaging`.`PC1_1` AS `PC1_1`,`sofi_imaging`.`PC1_2` AS `PC1_2`,`sofi_imaging`.`PC2_1` AS `PC2_1`,`sofi_imaging`.`PC2_2` AS `PC2_2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`OBJMASK` AS `OBJMASK`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`TRACE2` AS `TRACE2`,`sofi_imaging`.`TRACE3` AS `TRACE3`,`sofi_imaging`.`TRACE4` AS `TRACE4`,`sofi_imaging`.`IMCMB001` AS `IMCMB001`,`sofi_imaging`.`IMCMB002` AS `IMCMB002`,`sofi_imaging`.`OBID` AS `OBID`,`sofi_imaging`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_imaging`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_imaging`.`COMMENT` AS `COMMENT`,`sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`CD1_2` AS `CD1_2`,`sofi_imaging`.`CD2_1` AS `CD2_1`,`sofi_imaging`.`CRDER1` AS `CRDER1`,`sofi_imaging`.`CRDER2` AS `CRDER2`,`sofi_imaging`.`CSYER1` AS `CSYER1`,`sofi_imaging`.`CSYER2` AS `CSYER2`,`sofi_imaging`.`CUNIT1` AS `CUNIT1`,`sofi_imaging`.`CUNIT2` AS `CUNIT2`,`sofi_imaging`.`ELLIPTIC` AS `ELLIPTIC`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTCRPIX1` AS `NTCRPIX1`,`sofi_imaging`.`NTCRPIX2` AS `NTCRPIX2`,`sofi_imaging`.`NUSTEP` AS `NUSTEP`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`ZPJJH` AS `ZPJJH`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`TRACE10` AS `TRACE10`,`sofi_imaging`.`TRACE11` AS `TRACE11`,`sofi_imaging`.`TRACE12` AS `TRACE12`,`sofi_imaging`.`TRACE13` AS `TRACE13`,`sofi_imaging`.`TRACE5` AS `TRACE5`,`sofi_imaging`.`TRACE14` AS `TRACE14`,`sofi_imaging`.`TRACE6` AS `TRACE6`,`sofi_imaging`.`TRACE15` AS `TRACE15`,`sofi_imaging`.`TRACE7` AS `TRACE7`,`sofi_imaging`.`TRACE16` AS `TRACE16`,`sofi_imaging`.`TRACE8` AS `TRACE8`,`sofi_imaging`.`TRACE9` AS `TRACE9`,`sofi_imaging`.`ZPKHK` AS `ZPKHK`,`sofi_imaging`.`DARKTIME` AS `DARKTIME`,`sofi_imaging`.`ZPHJH` AS `ZPHJH`,`sofi_imaging`.`MKILLUM` AS `MKILLUM`,`sofi_imaging`.`HDRVER` AS `HDRVER`,`sofi_imaging`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_imaging`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_imaging`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`transientBucketId` AS `transientBucketId`,`sofi_imaging`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`updatedFilename` AS `updatedFilename`,`sofi_imaging`.`filenameUpdated` AS `filenameUpdated`,`sofi_imaging`.`objectInFilename` AS `objectInFilename`,`sofi_imaging`.`updateObjectName` AS `updateObjectName`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`updatedFilepath` AS `updatedFilepath`,`sofi_imaging`.`archivePath` AS `archivePath`,`sofi_imaging`.`rewriteFitsHeader` AS `rewriteFitsHeader` from `sofi_imaging` where (`sofi_imaging`.`filetype_key_reduction_stage` = 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15213,7 +16841,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_reduced` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETA`,1 AS `ESO_SEQ_CUMOFFSETD`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_CUMOFFSETY`,1 AS `ESO_SEQ_POISSON`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_SEQ_RELOFFSETY`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `GAIN`,1 AS `ILLUMCOR`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PIXSCALE`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WCSDIM`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `NCOMBINE`,1 AS `OBJMASK`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `TRACE2`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `OBID`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `COMMENT`,1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `CD1_2`,1 AS `CD2_1`,1 AS `CRDER1`,1 AS `CRDER2`,1 AS `CSYER1`,1 AS `CSYER2`,1 AS `CUNIT1`,1 AS `CUNIT2`,1 AS `ELLIPTIC`,1 AS `FLUXCAL`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTCRPIX1`,1 AS `NTCRPIX2`,1 AS `NUSTEP`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PSF_FWHM`,1 AS `PROV12`,1 AS `ZPJJH`,1 AS `PROV13`,1 AS `PROV5`,1 AS `PROV14`,1 AS `PROV6`,1 AS `PROV15`,1 AS `PROV7`,1 AS `PROV16`,1 AS `PROV8`,1 AS `PROV9`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE5`,1 AS `TRACE14`,1 AS `TRACE6`,1 AS `TRACE15`,1 AS `TRACE7`,1 AS `TRACE16`,1 AS `TRACE8`,1 AS `TRACE9`,1 AS `ZPKHK`,1 AS `DARKTIME`,1 AS `ZPHJH`,1 AS `MKILLUM`,1 AS `HDRVER`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader`,1 AS `archivedLocally`,1 AS `isInTransientBucket`,1 AS `DATA_REL`,1 AS `NTID`,1 AS `ESO_INS_LAMP3_NAME`,1 AS `ESO_INS_LAMP3_SET`,1 AS `EFFRON`,1 AS `astromet_rmsx`,1 AS `astromet_rmsy`,1 AS `astromet_sources`,1 AS `astromet_error_arcsec` */;
+/*!50001 VIEW `view_sofi_imaging_reduced` AS select `sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ARCFILE` AS `ARCFILE`,`sofi_imaging`.`BIASSEC` AS `BIASSEC`,`sofi_imaging`.`BITPIX` AS `BITPIX`,`sofi_imaging`.`BUNIT` AS `BUNIT`,`sofi_imaging`.`CCDMEANT` AS `CCDMEANT`,`sofi_imaging`.`CCDPROC` AS `CCDPROC`,`sofi_imaging`.`CCDSEC` AS `CCDSEC`,`sofi_imaging`.`CD1_1` AS `CD1_1`,`sofi_imaging`.`CD2_2` AS `CD2_2`,`sofi_imaging`.`CDELT1` AS `CDELT1`,`sofi_imaging`.`CDELT2` AS `CDELT2`,`sofi_imaging`.`CHECKSUM` AS `CHECKSUM`,`sofi_imaging`.`CROSSTAL` AS `CROSSTAL`,`sofi_imaging`.`CRPIX1` AS `CRPIX1`,`sofi_imaging`.`CRPIX2` AS `CRPIX2`,`sofi_imaging`.`CRVAL1` AS `CRVAL1`,`sofi_imaging`.`CRVAL2` AS `CRVAL2`,`sofi_imaging`.`CTYPE1` AS `CTYPE1`,`sofi_imaging`.`CTYPE2` AS `CTYPE2`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATASUM` AS `DATASUM`,`sofi_imaging`.`DATE` AS `DATE`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EQUINOX` AS `EQUINOX`,`sofi_imaging`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_imaging`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_imaging`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_imaging`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_imaging`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_imaging`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_imaging`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_imaging`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_imaging`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_imaging`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_imaging`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_imaging`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_imaging`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_imaging`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_imaging`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_imaging`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_imaging`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_imaging`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_imaging`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_imaging`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_imaging`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_imaging`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_imaging`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_imaging`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_imaging`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_imaging`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_imaging`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_imaging`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_imaging`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_imaging`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_imaging`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_imaging`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_imaging`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_imaging`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_imaging`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_imaging`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_imaging`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_imaging`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_imaging`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_imaging`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_imaging`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_imaging`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_imaging`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_imaging`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_imaging`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_imaging`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_imaging`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_imaging`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_imaging`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_imaging`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_imaging`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_imaging`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_imaging`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_imaging`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_imaging`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_imaging`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_imaging`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_imaging`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_imaging`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_imaging`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_imaging`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_imaging`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_imaging`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_imaging`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_imaging`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_imaging`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_imaging`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_imaging`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_imaging`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_imaging`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_imaging`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_imaging`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_imaging`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_imaging`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_imaging`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_imaging`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_imaging`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_imaging`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_imaging`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_imaging`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_imaging`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_imaging`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_imaging`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_imaging`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_imaging`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_imaging`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_imaging`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_imaging`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_imaging`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETA` AS `ESO_SEQ_CUMOFFSETA`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETD` AS `ESO_SEQ_CUMOFFSETD`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_imaging`.`ESO_SEQ_CUMOFFSETY` AS `ESO_SEQ_CUMOFFSETY`,`sofi_imaging`.`ESO_SEQ_POISSON` AS `ESO_SEQ_POISSON`,`sofi_imaging`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_imaging`.`ESO_SEQ_RELOFFSETY` AS `ESO_SEQ_RELOFFSETY`,`sofi_imaging`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_imaging`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_imaging`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_imaging`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_imaging`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_imaging`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_imaging`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_imaging`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_imaging`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_imaging`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_imaging`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_imaging`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_imaging`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_imaging`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_imaging`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_imaging`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_imaging`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_imaging`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_imaging`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_imaging`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_imaging`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_imaging`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_imaging`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_imaging`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_imaging`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_imaging`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_imaging`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_imaging`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_imaging`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_imaging`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_imaging`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_imaging`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_imaging`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_imaging`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_imaging`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_imaging`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_imaging`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_imaging`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_imaging`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_imaging`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_imaging`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_imaging`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_imaging`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_imaging`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_imaging`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_imaging`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_imaging`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_imaging`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`EXTEND` AS `EXTEND`,`sofi_imaging`.`FILETYPE` AS `FILETYPE`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLATCOR` AS `FLATCOR`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`ILLUMCOR` AS `ILLUMCOR`,`sofi_imaging`.`INSTRUME` AS `INSTRUME`,`sofi_imaging`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_imaging`.`LST` AS `LST`,`sofi_imaging`.`LTM1_1` AS `LTM1_1`,`sofi_imaging`.`LTM2_2` AS `LTM2_2`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`M_EPOCH` AS `M_EPOCH`,`sofi_imaging`.`NAXIS` AS `NAXIS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`OBID1` AS `OBID1`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`OBSERVER` AS `OBSERVER`,`sofi_imaging`.`OBSTECH` AS `OBSTECH`,`sofi_imaging`.`ORIGFILE` AS `ORIGFILE`,`sofi_imaging`.`ORIGIN` AS `ORIGIN`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`PIXSCALE` AS `PIXSCALE`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROG_ID` AS `PROG_ID`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`RADECSYS` AS `RADECSYS`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`SIMPLE` AS `SIMPLE`,`sofi_imaging`.`SINGLEXP` AS `SINGLEXP`,`sofi_imaging`.`SKYSUB` AS `SKYSUB`,`sofi_imaging`.`TELESCOP` AS `TELESCOP`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TRACE1` AS `TRACE1`,`sofi_imaging`.`TRIM` AS `TRIM`,`sofi_imaging`.`UTC` AS `UTC`,`sofi_imaging`.`WAT0_001` AS `WAT0_001`,`sofi_imaging`.`WAT1_001` AS `WAT1_001`,`sofi_imaging`.`WAT2_001` AS `WAT2_001`,`sofi_imaging`.`WCSDIM` AS `WCSDIM`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`dateLastModified` AS `dateLastModified`,`sofi_imaging`.`dateLastRead` AS `dateLastRead`,`sofi_imaging`.`filePath` AS `filePath`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`headerExtension` AS `headerExtension`,`sofi_imaging`.`CCDMEAN` AS `CCDMEAN`,`sofi_imaging`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_imaging`.`PC1_1` AS `PC1_1`,`sofi_imaging`.`PC1_2` AS `PC1_2`,`sofi_imaging`.`PC2_1` AS `PC2_1`,`sofi_imaging`.`PC2_2` AS `PC2_2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`OBJMASK` AS `OBJMASK`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`TRACE2` AS `TRACE2`,`sofi_imaging`.`TRACE3` AS `TRACE3`,`sofi_imaging`.`TRACE4` AS `TRACE4`,`sofi_imaging`.`IMCMB001` AS `IMCMB001`,`sofi_imaging`.`IMCMB002` AS `IMCMB002`,`sofi_imaging`.`OBID` AS `OBID`,`sofi_imaging`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_imaging`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_imaging`.`COMMENT` AS `COMMENT`,`sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`CD1_2` AS `CD1_2`,`sofi_imaging`.`CD2_1` AS `CD2_1`,`sofi_imaging`.`CRDER1` AS `CRDER1`,`sofi_imaging`.`CRDER2` AS `CRDER2`,`sofi_imaging`.`CSYER1` AS `CSYER1`,`sofi_imaging`.`CSYER2` AS `CSYER2`,`sofi_imaging`.`CUNIT1` AS `CUNIT1`,`sofi_imaging`.`CUNIT2` AS `CUNIT2`,`sofi_imaging`.`ELLIPTIC` AS `ELLIPTIC`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTCRPIX1` AS `NTCRPIX1`,`sofi_imaging`.`NTCRPIX2` AS `NTCRPIX2`,`sofi_imaging`.`NUSTEP` AS `NUSTEP`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`ZPJJH` AS `ZPJJH`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`TRACE10` AS `TRACE10`,`sofi_imaging`.`TRACE11` AS `TRACE11`,`sofi_imaging`.`TRACE12` AS `TRACE12`,`sofi_imaging`.`TRACE13` AS `TRACE13`,`sofi_imaging`.`TRACE5` AS `TRACE5`,`sofi_imaging`.`TRACE14` AS `TRACE14`,`sofi_imaging`.`TRACE6` AS `TRACE6`,`sofi_imaging`.`TRACE15` AS `TRACE15`,`sofi_imaging`.`TRACE7` AS `TRACE7`,`sofi_imaging`.`TRACE16` AS `TRACE16`,`sofi_imaging`.`TRACE8` AS `TRACE8`,`sofi_imaging`.`TRACE9` AS `TRACE9`,`sofi_imaging`.`ZPKHK` AS `ZPKHK`,`sofi_imaging`.`DARKTIME` AS `DARKTIME`,`sofi_imaging`.`ZPHJH` AS `ZPHJH`,`sofi_imaging`.`MKILLUM` AS `MKILLUM`,`sofi_imaging`.`HDRVER` AS `HDRVER`,`sofi_imaging`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_imaging`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_imaging`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`transientBucketId` AS `transientBucketId`,`sofi_imaging`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`updatedFilename` AS `updatedFilename`,`sofi_imaging`.`filenameUpdated` AS `filenameUpdated`,`sofi_imaging`.`objectInFilename` AS `objectInFilename`,`sofi_imaging`.`updateObjectName` AS `updateObjectName`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`updatedFilepath` AS `updatedFilepath`,`sofi_imaging`.`archivePath` AS `archivePath`,`sofi_imaging`.`rewriteFitsHeader` AS `rewriteFitsHeader`,`sofi_imaging`.`archivedLocally` AS `archivedLocally`,`sofi_imaging`.`isInTransientBucket` AS `isInTransientBucket`,`sofi_imaging`.`DATA_REL` AS `DATA_REL`,`sofi_imaging`.`NTID` AS `NTID`,`sofi_imaging`.`ESO_INS_LAMP3_NAME` AS `ESO_INS_LAMP3_NAME`,`sofi_imaging`.`ESO_INS_LAMP3_SET` AS `ESO_INS_LAMP3_SET`,`sofi_imaging`.`EFFRON` AS `EFFRON`,`sofi_imaging`.`astromet_rmsx` AS `astromet_rmsx`,`sofi_imaging`.`astromet_rmsy` AS `astromet_rmsy`,`sofi_imaging`.`astromet_sources` AS `astromet_sources`,`sofi_imaging`.`astromet_error_arcsec` AS `astromet_error_arcsec` from `sofi_imaging` where (`sofi_imaging`.`filetype_key_reduction_stage` = 3) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15231,7 +16859,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_ssdr1` AS select 1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `AIRMASS`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `astromet_error_arcsec`,1 AS `astromet_rmsx`,1 AS `astromet_rmsy`,1 AS `astromet_sources`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `DATA_REL`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATE_OBS`,1 AS `dateCreated`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EFFRON`,1 AS `esoPhaseIII`,1 AS `EXPTIME`,1 AS `filename`,1 AS `filesize`,1 AS `filetype_key_calibration`,1 AS `FILTER`,1 AS `FLUXCAL`,1 AS `GAIN`,1 AS `isInTransientBucket`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NCOMBINE`,1 AS `NDIT`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTID`,1 AS `OBJECT`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PI_COI`,1 AS `primaryId`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROV1`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV9`,1 AS `PSF_FWHM`,1 AS `QUALITY`,1 AS `RA`,1 AS `REFERENC`,1 AS `RRELEASE`,1 AS `TEXPTIME`,1 AS `TMID`,1 AS `transientBucketId` */;
+/*!50001 VIEW `view_sofi_imaging_ssdr1` AS (select `sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`astromet_error_arcsec` AS `astromet_error_arcsec`,`sofi_imaging`.`astromet_rmsx` AS `astromet_rmsx`,`sofi_imaging`.`astromet_rmsy` AS `astromet_rmsy`,`sofi_imaging`.`astromet_sources` AS `astromet_sources`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`DATA_REL` AS `DATA_REL`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EFFRON` AS `EFFRON`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`filesize` AS `filesize`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`isInTransientBucket` AS `isInTransientBucket`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTID` AS `NTID`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`RRELEASE` AS `RRELEASE`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TMID` AS `TMID`,`sofi_imaging`.`transientBucketId` AS `transientBucketId` from `sofi_imaging` where (`sofi_imaging`.`DATA_REL` = 'SSDR1') order by `sofi_imaging`.`filetype_key_calibration`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15249,7 +16877,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_ssdr2` AS select 1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `AIRMASS`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `astromet_error_arcsec`,1 AS `astromet_rmsx`,1 AS `astromet_rmsy`,1 AS `astromet_sources`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `DATA_REL`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATE_OBS`,1 AS `dateCreated`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EFFRON`,1 AS `esoPhaseIII`,1 AS `EXPTIME`,1 AS `filename`,1 AS `filesize`,1 AS `filetype_key_calibration`,1 AS `FILTER`,1 AS `FLUXCAL`,1 AS `GAIN`,1 AS `isInTransientBucket`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NCOMBINE`,1 AS `NDIT`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTID`,1 AS `OBJECT`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PI_COI`,1 AS `primaryId`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROV1`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV9`,1 AS `PSF_FWHM`,1 AS `QUALITY`,1 AS `RA`,1 AS `REFERENC`,1 AS `RRELEASE`,1 AS `TEXPTIME`,1 AS `TMID`,1 AS `transientBucketId` */;
+/*!50001 VIEW `view_sofi_imaging_ssdr2` AS (select `sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`astromet_error_arcsec` AS `astromet_error_arcsec`,`sofi_imaging`.`astromet_rmsx` AS `astromet_rmsx`,`sofi_imaging`.`astromet_rmsy` AS `astromet_rmsy`,`sofi_imaging`.`astromet_sources` AS `astromet_sources`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`DATA_REL` AS `DATA_REL`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EFFRON` AS `EFFRON`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`filesize` AS `filesize`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`isInTransientBucket` AS `isInTransientBucket`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTID` AS `NTID`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`RRELEASE` AS `RRELEASE`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TMID` AS `TMID`,`sofi_imaging`.`transientBucketId` AS `transientBucketId` from `sofi_imaging` where (`sofi_imaging`.`DATA_REL` = 'SSDR2') order by `sofi_imaging`.`filetype_key_calibration`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15267,7 +16895,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_imaging_ssdr3` AS select 1 AS `ABMAGLIM`,1 AS `ABMAGSAT`,1 AS `AIRMASS`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `ASTROMET`,1 AS `astromet_error_arcsec`,1 AS `astromet_rmsx`,1 AS `astromet_rmsy`,1 AS `astromet_sources`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `DATA_REL`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATE_OBS`,1 AS `dateCreated`,1 AS `DECL`,1 AS `DETRON`,1 AS `DIT`,1 AS `EFFRON`,1 AS `esoPhaseIII`,1 AS `EXPTIME`,1 AS `filename`,1 AS `filesize`,1 AS `filetype_key_calibration`,1 AS `FILTER`,1 AS `FLUXCAL`,1 AS `GAIN`,1 AS `isInTransientBucket`,1 AS `MBKG`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NCOMBINE`,1 AS `NDIT`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NTID`,1 AS `OBJECT`,1 AS `PHOTSYS`,1 AS `PHOTZP`,1 AS `PHOTZPER`,1 AS `PI_COI`,1 AS `primaryId`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROV1`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV9`,1 AS `PROV17`,1 AS `PROV18`,1 AS `PROV19`,1 AS `PROV20`,1 AS `PROV21`,1 AS `PROV22`,1 AS `PROV23`,1 AS `PROV24`,1 AS `PROV25`,1 AS `PROV26`,1 AS `PROV27`,1 AS `PROV28`,1 AS `PROV29`,1 AS `PROV30`,1 AS `PROV31`,1 AS `PROV32`,1 AS `PROV33`,1 AS `PROV34`,1 AS `PROV35`,1 AS `PROV36`,1 AS `PROV37`,1 AS `PROV38`,1 AS `PROV39`,1 AS `PROV40`,1 AS `PROV41`,1 AS `PROV42`,1 AS `PROV43`,1 AS `PROV44`,1 AS `PROV45`,1 AS `PROV46`,1 AS `PROV47`,1 AS `PROV48`,1 AS `PROV49`,1 AS `PROV50`,1 AS `PROV51`,1 AS `PROV52`,1 AS `PROV53`,1 AS `PROV54`,1 AS `PROV55`,1 AS `PROV56`,1 AS `PROV57`,1 AS `PROV58`,1 AS `PROV59`,1 AS `PROV60`,1 AS `PSF_FWHM`,1 AS `QUALITY`,1 AS `RA`,1 AS `REFERENC`,1 AS `RRELEASE`,1 AS `TEXPTIME`,1 AS `TMID`,1 AS `transientBucketId` */;
+/*!50001 VIEW `view_sofi_imaging_ssdr3` AS (select `sofi_imaging`.`ABMAGLIM` AS `ABMAGLIM`,`sofi_imaging`.`ABMAGSAT` AS `ABMAGSAT`,`sofi_imaging`.`AIRMASS` AS `AIRMASS`,`sofi_imaging`.`ASSOC1` AS `ASSOC1`,`sofi_imaging`.`ASSON1` AS `ASSON1`,`sofi_imaging`.`ASTROMET` AS `ASTROMET`,`sofi_imaging`.`astromet_error_arcsec` AS `astromet_error_arcsec`,`sofi_imaging`.`astromet_rmsx` AS `astromet_rmsx`,`sofi_imaging`.`astromet_rmsy` AS `astromet_rmsy`,`sofi_imaging`.`astromet_sources` AS `astromet_sources`,`sofi_imaging`.`currentFilename` AS `currentFilename`,`sofi_imaging`.`currentFilepath` AS `currentFilepath`,`sofi_imaging`.`DATA_REL` AS `DATA_REL`,`sofi_imaging`.`DATAMAX` AS `DATAMAX`,`sofi_imaging`.`DATAMIN` AS `DATAMIN`,`sofi_imaging`.`DATE_OBS` AS `DATE_OBS`,`sofi_imaging`.`dateCreated` AS `dateCreated`,`sofi_imaging`.`DECL` AS `DECL`,`sofi_imaging`.`DETRON` AS `DETRON`,`sofi_imaging`.`DIT` AS `DIT`,`sofi_imaging`.`EFFRON` AS `EFFRON`,`sofi_imaging`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_imaging`.`EXPTIME` AS `EXPTIME`,`sofi_imaging`.`filename` AS `filename`,`sofi_imaging`.`filesize` AS `filesize`,`sofi_imaging`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_imaging`.`FILTER` AS `FILTER`,`sofi_imaging`.`FLUXCAL` AS `FLUXCAL`,`sofi_imaging`.`GAIN` AS `GAIN`,`sofi_imaging`.`isInTransientBucket` AS `isInTransientBucket`,`sofi_imaging`.`MBKG` AS `MBKG`,`sofi_imaging`.`MJD_END` AS `MJD_END`,`sofi_imaging`.`MJD_OBS` AS `MJD_OBS`,`sofi_imaging`.`NAXIS1` AS `NAXIS1`,`sofi_imaging`.`NAXIS2` AS `NAXIS2`,`sofi_imaging`.`NCOMBINE` AS `NCOMBINE`,`sofi_imaging`.`NDIT` AS `NDIT`,`sofi_imaging`.`NJITTER` AS `NJITTER`,`sofi_imaging`.`NOFFSETS` AS `NOFFSETS`,`sofi_imaging`.`NTID` AS `NTID`,`sofi_imaging`.`OBJECT` AS `OBJECT`,`sofi_imaging`.`PHOTSYS` AS `PHOTSYS`,`sofi_imaging`.`PHOTZP` AS `PHOTZP`,`sofi_imaging`.`PHOTZPER` AS `PHOTZPER`,`sofi_imaging`.`PI_COI` AS `PI_COI`,`sofi_imaging`.`primaryId` AS `primaryId`,`sofi_imaging`.`PROCSOFT` AS `PROCSOFT`,`sofi_imaging`.`PRODCATG` AS `PRODCATG`,`sofi_imaging`.`PROV1` AS `PROV1`,`sofi_imaging`.`PROV10` AS `PROV10`,`sofi_imaging`.`PROV11` AS `PROV11`,`sofi_imaging`.`PROV12` AS `PROV12`,`sofi_imaging`.`PROV13` AS `PROV13`,`sofi_imaging`.`PROV14` AS `PROV14`,`sofi_imaging`.`PROV15` AS `PROV15`,`sofi_imaging`.`PROV16` AS `PROV16`,`sofi_imaging`.`PROV2` AS `PROV2`,`sofi_imaging`.`PROV3` AS `PROV3`,`sofi_imaging`.`PROV4` AS `PROV4`,`sofi_imaging`.`PROV5` AS `PROV5`,`sofi_imaging`.`PROV6` AS `PROV6`,`sofi_imaging`.`PROV7` AS `PROV7`,`sofi_imaging`.`PROV8` AS `PROV8`,`sofi_imaging`.`PROV9` AS `PROV9`,`sofi_imaging`.`PROV17` AS `PROV17`,`sofi_imaging`.`PROV18` AS `PROV18`,`sofi_imaging`.`PROV19` AS `PROV19`,`sofi_imaging`.`PROV20` AS `PROV20`,`sofi_imaging`.`PROV21` AS `PROV21`,`sofi_imaging`.`PROV22` AS `PROV22`,`sofi_imaging`.`PROV23` AS `PROV23`,`sofi_imaging`.`PROV24` AS `PROV24`,`sofi_imaging`.`PROV25` AS `PROV25`,`sofi_imaging`.`PROV26` AS `PROV26`,`sofi_imaging`.`PROV27` AS `PROV27`,`sofi_imaging`.`PROV28` AS `PROV28`,`sofi_imaging`.`PROV29` AS `PROV29`,`sofi_imaging`.`PROV30` AS `PROV30`,`sofi_imaging`.`PROV31` AS `PROV31`,`sofi_imaging`.`PROV32` AS `PROV32`,`sofi_imaging`.`PROV33` AS `PROV33`,`sofi_imaging`.`PROV34` AS `PROV34`,`sofi_imaging`.`PROV35` AS `PROV35`,`sofi_imaging`.`PROV36` AS `PROV36`,`sofi_imaging`.`PROV37` AS `PROV37`,`sofi_imaging`.`PROV38` AS `PROV38`,`sofi_imaging`.`PROV39` AS `PROV39`,`sofi_imaging`.`PROV40` AS `PROV40`,`sofi_imaging`.`PROV41` AS `PROV41`,`sofi_imaging`.`PROV42` AS `PROV42`,`sofi_imaging`.`PROV43` AS `PROV43`,`sofi_imaging`.`PROV44` AS `PROV44`,`sofi_imaging`.`PROV45` AS `PROV45`,`sofi_imaging`.`PROV46` AS `PROV46`,`sofi_imaging`.`PROV47` AS `PROV47`,`sofi_imaging`.`PROV48` AS `PROV48`,`sofi_imaging`.`PROV49` AS `PROV49`,`sofi_imaging`.`PROV50` AS `PROV50`,`sofi_imaging`.`PROV51` AS `PROV51`,`sofi_imaging`.`PROV52` AS `PROV52`,`sofi_imaging`.`PROV53` AS `PROV53`,`sofi_imaging`.`PROV54` AS `PROV54`,`sofi_imaging`.`PROV55` AS `PROV55`,`sofi_imaging`.`PROV56` AS `PROV56`,`sofi_imaging`.`PROV57` AS `PROV57`,`sofi_imaging`.`PROV58` AS `PROV58`,`sofi_imaging`.`PROV59` AS `PROV59`,`sofi_imaging`.`PROV60` AS `PROV60`,`sofi_imaging`.`PSF_FWHM` AS `PSF_FWHM`,`sofi_imaging`.`QUALITY` AS `QUALITY`,`sofi_imaging`.`RA` AS `RA`,`sofi_imaging`.`REFERENC` AS `REFERENC`,`sofi_imaging`.`RRELEASE` AS `RRELEASE`,`sofi_imaging`.`TEXPTIME` AS `TEXPTIME`,`sofi_imaging`.`TMID` AS `TMID`,`sofi_imaging`.`transientBucketId` AS `transientBucketId` from `sofi_imaging` where (`sofi_imaging`.`DATA_REL` = 'SSDR3') order by `sofi_imaging`.`filetype_key_calibration`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15282,10 +16910,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_benetti` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARC`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CONTNORM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DC_FLAG`,1 AS `DCLOG1`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPAXIS`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NC_NSAMPPIX`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_NDSAMPLES`,1 AS `ESO_DET_NDSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_JITTER_WIDTH`,1 AS `ESO_SEQ_NODTHROW`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `EXT_OBJ`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `PROV2`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `SPECSYS`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_SYE`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `TOT_FLUX`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `VOCLASS`,1 AS `VOPUB`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `WCSDIM`,1 AS `XMAX`,1 AS `XMIN`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `LTV1`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `APERTURE`,1 AS `APNUM1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `CD3_3`,1 AS `MAGSTD`,1 AS `CTYPE3`,1 AS `STDNAME`,1 AS `LTM3_3`,1 AS `NCOMBINE`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NUSTEP`,1 AS `WAT3_001`,1 AS `TRACE2`,1 AS `NAXIS3`,1 AS `COMMENT`,1 AS `ESO_INS_LAMP1_NAME`,1 AS `ESO_INS_LAMP1_ST`,1 AS `REFSPEC1`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `PROV3`,1 AS `PROV4`,1 AS `SENSFUN`,1 AS `SENSPHOT`,1 AS `SNR`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV10`,1 AS `PROV9`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `TRACE5`,1 AS `TRACE6`,1 AS `TRACE7`,1 AS `TRACE8`,1 AS `DARKTIME`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE14`,1 AS `TRACE15`,1 AS `TRACE16`,1 AS `TRACE9`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `IMCMB003`,1 AS `IMCMB004`,1 AS `IMCMB005`,1 AS `IMCMB006`,1 AS `IMCMB007`,1 AS `IMCMB008`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `binary_table_associated_spectrum_id`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader`,1 AS `archivedLocally` */;
+/*!50001 VIEW `view_sofi_spectra_benetti` AS select `sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`ARC` AS `ARC`,`sofi_spectra`.`ARCFILE` AS `ARCFILE`,`sofi_spectra`.`BIASSEC` AS `BIASSEC`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`BUNIT` AS `BUNIT`,`sofi_spectra`.`CCDMEANT` AS `CCDMEANT`,`sofi_spectra`.`CCDPROC` AS `CCDPROC`,`sofi_spectra`.`CCDSEC` AS `CCDSEC`,`sofi_spectra`.`CD1_1` AS `CD1_1`,`sofi_spectra`.`CD2_2` AS `CD2_2`,`sofi_spectra`.`CDELT1` AS `CDELT1`,`sofi_spectra`.`CDELT2` AS `CDELT2`,`sofi_spectra`.`CHECKSUM` AS `CHECKSUM`,`sofi_spectra`.`CONTNORM` AS `CONTNORM`,`sofi_spectra`.`CROSSTAL` AS `CROSSTAL`,`sofi_spectra`.`CRPIX1` AS `CRPIX1`,`sofi_spectra`.`CRPIX2` AS `CRPIX2`,`sofi_spectra`.`CRVAL1` AS `CRVAL1`,`sofi_spectra`.`CRVAL2` AS `CRVAL2`,`sofi_spectra`.`CTYPE1` AS `CTYPE1`,`sofi_spectra`.`CTYPE2` AS `CTYPE2`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATASUM` AS `DATASUM`,`sofi_spectra`.`DATE` AS `DATE`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`DC_FLAG` AS `DC_FLAG`,`sofi_spectra`.`DCLOG1` AS `DCLOG1`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPAXIS` AS `DISPAXIS`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EQUINOX` AS `EQUINOX`,`sofi_spectra`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_spectra`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_spectra`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_spectra`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_spectra`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_spectra`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_spectra`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_spectra`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_spectra`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_spectra`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_spectra`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_spectra`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_spectra`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_spectra`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_spectra`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_spectra`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_spectra`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_spectra`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_spectra`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_spectra`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_spectra`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_spectra`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_spectra`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_spectra`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_spectra`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_spectra`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_spectra`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_spectra`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_spectra`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_spectra`.`ESO_DET_NC_NSAMPPIX` AS `ESO_DET_NC_NSAMPPIX`,`sofi_spectra`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_spectra`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_spectra`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_spectra`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_spectra`.`ESO_DET_NDSAMPLES` AS `ESO_DET_NDSAMPLES`,`sofi_spectra`.`ESO_DET_NDSKIP` AS `ESO_DET_NDSKIP`,`sofi_spectra`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_spectra`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_spectra`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_spectra`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_spectra`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_spectra`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_spectra`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_spectra`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_spectra`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_spectra`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_spectra`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_spectra`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_spectra`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_spectra`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_spectra`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_spectra`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_spectra`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_spectra`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_spectra`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_spectra`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_spectra`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_spectra`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_spectra`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_spectra`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_spectra`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_spectra`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_spectra`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_spectra`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_spectra`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_spectra`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_spectra`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_spectra`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_spectra`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_spectra`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_spectra`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_spectra`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_spectra`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_spectra`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_spectra`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_spectra`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_spectra`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_spectra`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_spectra`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_spectra`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_spectra`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_spectra`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_spectra`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_spectra`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_spectra`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_spectra`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_spectra`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_spectra`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_spectra`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_spectra`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_spectra`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_spectra`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_spectra`.`ESO_SEQ_JITTER_WIDTH` AS `ESO_SEQ_JITTER_WIDTH`,`sofi_spectra`.`ESO_SEQ_NODTHROW` AS `ESO_SEQ_NODTHROW`,`sofi_spectra`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_spectra`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_spectra`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_spectra`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_spectra`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_spectra`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_spectra`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_spectra`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_spectra`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_spectra`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_spectra`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_spectra`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_spectra`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_spectra`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_spectra`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_spectra`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_spectra`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_spectra`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_spectra`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_spectra`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_spectra`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_spectra`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_spectra`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_spectra`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_spectra`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_spectra`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_spectra`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_spectra`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_spectra`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_spectra`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_spectra`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_spectra`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_spectra`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_spectra`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_spectra`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_spectra`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_spectra`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_spectra`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_spectra`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_spectra`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_spectra`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_spectra`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_spectra`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_spectra`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_spectra`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_spectra`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_spectra`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`EXTEND` AS `EXTEND`,`sofi_spectra`.`EXT_OBJ` AS `EXT_OBJ`,`sofi_spectra`.`FILETYPE` AS `FILETYPE`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLATCOR` AS `FLATCOR`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`INSTRUME` AS `INSTRUME`,`sofi_spectra`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`LST` AS `LST`,`sofi_spectra`.`LTM1_1` AS `LTM1_1`,`sofi_spectra`.`LTM2_2` AS `LTM2_2`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`M_EPOCH` AS `M_EPOCH`,`sofi_spectra`.`NAXIS` AS `NAXIS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`OBID1` AS `OBID1`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`OBSERVER` AS `OBSERVER`,`sofi_spectra`.`OBSTECH` AS `OBSTECH`,`sofi_spectra`.`ORIGFILE` AS `ORIGFILE`,`sofi_spectra`.`ORIGIN` AS `ORIGIN`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROG_ID` AS `PROG_ID`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`RADECSYS` AS `RADECSYS`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SIMPLE` AS `SIMPLE`,`sofi_spectra`.`SINGLEXP` AS `SINGLEXP`,`sofi_spectra`.`SKYSUB` AS `SKYSUB`,`sofi_spectra`.`SPECSYS` AS `SPECSYS`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_SYE` AS `SPEC_SYE`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TELESCOP` AS `TELESCOP`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`TOT_FLUX` AS `TOT_FLUX`,`sofi_spectra`.`TRACE1` AS `TRACE1`,`sofi_spectra`.`TRIM` AS `TRIM`,`sofi_spectra`.`UTC` AS `UTC`,`sofi_spectra`.`VOCLASS` AS `VOCLASS`,`sofi_spectra`.`VOPUB` AS `VOPUB`,`sofi_spectra`.`WAT0_001` AS `WAT0_001`,`sofi_spectra`.`WAT1_001` AS `WAT1_001`,`sofi_spectra`.`WAT2_001` AS `WAT2_001`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`WCSDIM` AS `WCSDIM`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`dateLastModified` AS `dateLastModified`,`sofi_spectra`.`dateLastRead` AS `dateLastRead`,`sofi_spectra`.`filePath` AS `filePath`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`headerExtension` AS `headerExtension`,`sofi_spectra`.`CCDMEAN` AS `CCDMEAN`,`sofi_spectra`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_spectra`.`LTV1` AS `LTV1`,`sofi_spectra`.`PC1_1` AS `PC1_1`,`sofi_spectra`.`PC1_2` AS `PC1_2`,`sofi_spectra`.`PC2_1` AS `PC2_1`,`sofi_spectra`.`PC2_2` AS `PC2_2`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`APNUM1` AS `APNUM1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`CD3_3` AS `CD3_3`,`sofi_spectra`.`MAGSTD` AS `MAGSTD`,`sofi_spectra`.`CTYPE3` AS `CTYPE3`,`sofi_spectra`.`STDNAME` AS `STDNAME`,`sofi_spectra`.`LTM3_3` AS `LTM3_3`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`NUSTEP` AS `NUSTEP`,`sofi_spectra`.`WAT3_001` AS `WAT3_001`,`sofi_spectra`.`TRACE2` AS `TRACE2`,`sofi_spectra`.`NAXIS3` AS `NAXIS3`,`sofi_spectra`.`COMMENT` AS `COMMENT`,`sofi_spectra`.`ESO_INS_LAMP1_NAME` AS `ESO_INS_LAMP1_NAME`,`sofi_spectra`.`ESO_INS_LAMP1_ST` AS `ESO_INS_LAMP1_ST`,`sofi_spectra`.`REFSPEC1` AS `REFSPEC1`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`SENSFUN` AS `SENSFUN`,`sofi_spectra`.`SENSPHOT` AS `SENSPHOT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`TRACE3` AS `TRACE3`,`sofi_spectra`.`TRACE4` AS `TRACE4`,`sofi_spectra`.`TRACE5` AS `TRACE5`,`sofi_spectra`.`TRACE6` AS `TRACE6`,`sofi_spectra`.`TRACE7` AS `TRACE7`,`sofi_spectra`.`TRACE8` AS `TRACE8`,`sofi_spectra`.`DARKTIME` AS `DARKTIME`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`TRACE10` AS `TRACE10`,`sofi_spectra`.`TRACE11` AS `TRACE11`,`sofi_spectra`.`TRACE12` AS `TRACE12`,`sofi_spectra`.`TRACE13` AS `TRACE13`,`sofi_spectra`.`TRACE14` AS `TRACE14`,`sofi_spectra`.`TRACE15` AS `TRACE15`,`sofi_spectra`.`TRACE16` AS `TRACE16`,`sofi_spectra`.`TRACE9` AS `TRACE9`,`sofi_spectra`.`IMCMB001` AS `IMCMB001`,`sofi_spectra`.`IMCMB002` AS `IMCMB002`,`sofi_spectra`.`IMCMB003` AS `IMCMB003`,`sofi_spectra`.`IMCMB004` AS `IMCMB004`,`sofi_spectra`.`IMCMB005` AS `IMCMB005`,`sofi_spectra`.`IMCMB006` AS `IMCMB006`,`sofi_spectra`.`IMCMB007` AS `IMCMB007`,`sofi_spectra`.`IMCMB008` AS `IMCMB008`,`sofi_spectra`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_spectra`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_spectra`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_spectra`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`updatedFilename` AS `updatedFilename`,`sofi_spectra`.`filenameUpdated` AS `filenameUpdated`,`sofi_spectra`.`objectInFilename` AS `objectInFilename`,`sofi_spectra`.`updateObjectName` AS `updateObjectName`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`updatedFilepath` AS `updatedFilepath`,`sofi_spectra`.`archivePath` AS `archivePath`,`sofi_spectra`.`rewriteFitsHeader` AS `rewriteFitsHeader`,`sofi_spectra`.`archivedLocally` AS `archivedLocally` from `sofi_spectra` where (`sofi_spectra`.`filetype_key_reduction_stage` = 5) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15300,10 +16928,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_esophaseiii` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARC`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CONTNORM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DC_FLAG`,1 AS `DCLOG1`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPAXIS`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NC_NSAMPPIX`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_NDSAMPLES`,1 AS `ESO_DET_NDSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_JITTER_WIDTH`,1 AS `ESO_SEQ_NODTHROW`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `EXT_OBJ`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `PROV2`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `SPECSYS`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_SYE`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `TOT_FLUX`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `VOCLASS`,1 AS `VOPUB`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `WCSDIM`,1 AS `XMAX`,1 AS `XMIN`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `LTV1`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `APERTURE`,1 AS `APNUM1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `CD3_3`,1 AS `MAGSTD`,1 AS `CTYPE3`,1 AS `STDNAME`,1 AS `LTM3_3`,1 AS `NCOMBINE`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NUSTEP`,1 AS `WAT3_001`,1 AS `TRACE2`,1 AS `NAXIS3`,1 AS `COMMENT`,1 AS `ESO_INS_LAMP1_NAME`,1 AS `ESO_INS_LAMP1_ST`,1 AS `REFSPEC1`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `PROV3`,1 AS `PROV4`,1 AS `SENSFUN`,1 AS `SENSPHOT`,1 AS `SNR`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV10`,1 AS `PROV9`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `TRACE5`,1 AS `TRACE6`,1 AS `TRACE7`,1 AS `TRACE8`,1 AS `DARKTIME`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE14`,1 AS `TRACE15`,1 AS `TRACE16`,1 AS `TRACE9`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `IMCMB003`,1 AS `IMCMB004`,1 AS `IMCMB005`,1 AS `IMCMB006`,1 AS `IMCMB007`,1 AS `IMCMB008`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `binary_table_associated_spectrum_id`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader` */;
+/*!50001 VIEW `view_sofi_spectra_esophaseiii` AS select `sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`ARC` AS `ARC`,`sofi_spectra`.`ARCFILE` AS `ARCFILE`,`sofi_spectra`.`BIASSEC` AS `BIASSEC`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`BUNIT` AS `BUNIT`,`sofi_spectra`.`CCDMEANT` AS `CCDMEANT`,`sofi_spectra`.`CCDPROC` AS `CCDPROC`,`sofi_spectra`.`CCDSEC` AS `CCDSEC`,`sofi_spectra`.`CD1_1` AS `CD1_1`,`sofi_spectra`.`CD2_2` AS `CD2_2`,`sofi_spectra`.`CDELT1` AS `CDELT1`,`sofi_spectra`.`CDELT2` AS `CDELT2`,`sofi_spectra`.`CHECKSUM` AS `CHECKSUM`,`sofi_spectra`.`CONTNORM` AS `CONTNORM`,`sofi_spectra`.`CROSSTAL` AS `CROSSTAL`,`sofi_spectra`.`CRPIX1` AS `CRPIX1`,`sofi_spectra`.`CRPIX2` AS `CRPIX2`,`sofi_spectra`.`CRVAL1` AS `CRVAL1`,`sofi_spectra`.`CRVAL2` AS `CRVAL2`,`sofi_spectra`.`CTYPE1` AS `CTYPE1`,`sofi_spectra`.`CTYPE2` AS `CTYPE2`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATASUM` AS `DATASUM`,`sofi_spectra`.`DATE` AS `DATE`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`DC_FLAG` AS `DC_FLAG`,`sofi_spectra`.`DCLOG1` AS `DCLOG1`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPAXIS` AS `DISPAXIS`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EQUINOX` AS `EQUINOX`,`sofi_spectra`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_spectra`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_spectra`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_spectra`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_spectra`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_spectra`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_spectra`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_spectra`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_spectra`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_spectra`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_spectra`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_spectra`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_spectra`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_spectra`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_spectra`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_spectra`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_spectra`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_spectra`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_spectra`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_spectra`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_spectra`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_spectra`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_spectra`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_spectra`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_spectra`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_spectra`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_spectra`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_spectra`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_spectra`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_spectra`.`ESO_DET_NC_NSAMPPIX` AS `ESO_DET_NC_NSAMPPIX`,`sofi_spectra`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_spectra`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_spectra`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_spectra`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_spectra`.`ESO_DET_NDSAMPLES` AS `ESO_DET_NDSAMPLES`,`sofi_spectra`.`ESO_DET_NDSKIP` AS `ESO_DET_NDSKIP`,`sofi_spectra`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_spectra`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_spectra`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_spectra`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_spectra`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_spectra`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_spectra`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_spectra`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_spectra`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_spectra`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_spectra`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_spectra`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_spectra`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_spectra`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_spectra`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_spectra`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_spectra`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_spectra`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_spectra`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_spectra`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_spectra`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_spectra`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_spectra`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_spectra`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_spectra`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_spectra`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_spectra`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_spectra`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_spectra`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_spectra`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_spectra`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_spectra`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_spectra`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_spectra`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_spectra`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_spectra`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_spectra`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_spectra`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_spectra`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_spectra`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_spectra`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_spectra`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_spectra`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_spectra`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_spectra`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_spectra`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_spectra`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_spectra`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_spectra`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_spectra`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_spectra`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_spectra`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_spectra`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_spectra`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_spectra`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_spectra`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_spectra`.`ESO_SEQ_JITTER_WIDTH` AS `ESO_SEQ_JITTER_WIDTH`,`sofi_spectra`.`ESO_SEQ_NODTHROW` AS `ESO_SEQ_NODTHROW`,`sofi_spectra`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_spectra`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_spectra`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_spectra`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_spectra`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_spectra`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_spectra`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_spectra`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_spectra`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_spectra`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_spectra`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_spectra`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_spectra`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_spectra`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_spectra`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_spectra`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_spectra`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_spectra`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_spectra`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_spectra`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_spectra`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_spectra`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_spectra`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_spectra`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_spectra`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_spectra`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_spectra`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_spectra`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_spectra`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_spectra`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_spectra`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_spectra`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_spectra`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_spectra`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_spectra`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_spectra`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_spectra`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_spectra`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_spectra`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_spectra`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_spectra`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_spectra`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_spectra`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_spectra`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_spectra`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_spectra`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_spectra`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`EXTEND` AS `EXTEND`,`sofi_spectra`.`EXT_OBJ` AS `EXT_OBJ`,`sofi_spectra`.`FILETYPE` AS `FILETYPE`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLATCOR` AS `FLATCOR`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`INSTRUME` AS `INSTRUME`,`sofi_spectra`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`LST` AS `LST`,`sofi_spectra`.`LTM1_1` AS `LTM1_1`,`sofi_spectra`.`LTM2_2` AS `LTM2_2`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`M_EPOCH` AS `M_EPOCH`,`sofi_spectra`.`NAXIS` AS `NAXIS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`OBID1` AS `OBID1`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`OBSERVER` AS `OBSERVER`,`sofi_spectra`.`OBSTECH` AS `OBSTECH`,`sofi_spectra`.`ORIGFILE` AS `ORIGFILE`,`sofi_spectra`.`ORIGIN` AS `ORIGIN`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROG_ID` AS `PROG_ID`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`RADECSYS` AS `RADECSYS`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SIMPLE` AS `SIMPLE`,`sofi_spectra`.`SINGLEXP` AS `SINGLEXP`,`sofi_spectra`.`SKYSUB` AS `SKYSUB`,`sofi_spectra`.`SPECSYS` AS `SPECSYS`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_SYE` AS `SPEC_SYE`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TELESCOP` AS `TELESCOP`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`TOT_FLUX` AS `TOT_FLUX`,`sofi_spectra`.`TRACE1` AS `TRACE1`,`sofi_spectra`.`TRIM` AS `TRIM`,`sofi_spectra`.`UTC` AS `UTC`,`sofi_spectra`.`VOCLASS` AS `VOCLASS`,`sofi_spectra`.`VOPUB` AS `VOPUB`,`sofi_spectra`.`WAT0_001` AS `WAT0_001`,`sofi_spectra`.`WAT1_001` AS `WAT1_001`,`sofi_spectra`.`WAT2_001` AS `WAT2_001`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`WCSDIM` AS `WCSDIM`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`dateLastModified` AS `dateLastModified`,`sofi_spectra`.`dateLastRead` AS `dateLastRead`,`sofi_spectra`.`filePath` AS `filePath`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`headerExtension` AS `headerExtension`,`sofi_spectra`.`CCDMEAN` AS `CCDMEAN`,`sofi_spectra`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_spectra`.`LTV1` AS `LTV1`,`sofi_spectra`.`PC1_1` AS `PC1_1`,`sofi_spectra`.`PC1_2` AS `PC1_2`,`sofi_spectra`.`PC2_1` AS `PC2_1`,`sofi_spectra`.`PC2_2` AS `PC2_2`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`APNUM1` AS `APNUM1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`CD3_3` AS `CD3_3`,`sofi_spectra`.`MAGSTD` AS `MAGSTD`,`sofi_spectra`.`CTYPE3` AS `CTYPE3`,`sofi_spectra`.`STDNAME` AS `STDNAME`,`sofi_spectra`.`LTM3_3` AS `LTM3_3`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`NUSTEP` AS `NUSTEP`,`sofi_spectra`.`WAT3_001` AS `WAT3_001`,`sofi_spectra`.`TRACE2` AS `TRACE2`,`sofi_spectra`.`NAXIS3` AS `NAXIS3`,`sofi_spectra`.`COMMENT` AS `COMMENT`,`sofi_spectra`.`ESO_INS_LAMP1_NAME` AS `ESO_INS_LAMP1_NAME`,`sofi_spectra`.`ESO_INS_LAMP1_ST` AS `ESO_INS_LAMP1_ST`,`sofi_spectra`.`REFSPEC1` AS `REFSPEC1`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`SENSFUN` AS `SENSFUN`,`sofi_spectra`.`SENSPHOT` AS `SENSPHOT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`TRACE3` AS `TRACE3`,`sofi_spectra`.`TRACE4` AS `TRACE4`,`sofi_spectra`.`TRACE5` AS `TRACE5`,`sofi_spectra`.`TRACE6` AS `TRACE6`,`sofi_spectra`.`TRACE7` AS `TRACE7`,`sofi_spectra`.`TRACE8` AS `TRACE8`,`sofi_spectra`.`DARKTIME` AS `DARKTIME`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`TRACE10` AS `TRACE10`,`sofi_spectra`.`TRACE11` AS `TRACE11`,`sofi_spectra`.`TRACE12` AS `TRACE12`,`sofi_spectra`.`TRACE13` AS `TRACE13`,`sofi_spectra`.`TRACE14` AS `TRACE14`,`sofi_spectra`.`TRACE15` AS `TRACE15`,`sofi_spectra`.`TRACE16` AS `TRACE16`,`sofi_spectra`.`TRACE9` AS `TRACE9`,`sofi_spectra`.`IMCMB001` AS `IMCMB001`,`sofi_spectra`.`IMCMB002` AS `IMCMB002`,`sofi_spectra`.`IMCMB003` AS `IMCMB003`,`sofi_spectra`.`IMCMB004` AS `IMCMB004`,`sofi_spectra`.`IMCMB005` AS `IMCMB005`,`sofi_spectra`.`IMCMB006` AS `IMCMB006`,`sofi_spectra`.`IMCMB007` AS `IMCMB007`,`sofi_spectra`.`IMCMB008` AS `IMCMB008`,`sofi_spectra`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_spectra`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_spectra`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_spectra`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`updatedFilename` AS `updatedFilename`,`sofi_spectra`.`filenameUpdated` AS `filenameUpdated`,`sofi_spectra`.`objectInFilename` AS `objectInFilename`,`sofi_spectra`.`updateObjectName` AS `updateObjectName`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`updatedFilepath` AS `updatedFilepath`,`sofi_spectra`.`archivePath` AS `archivePath`,`sofi_spectra`.`rewriteFitsHeader` AS `rewriteFitsHeader` from `sofi_spectra` where (`sofi_spectra`.`esoPhaseIII` = 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15318,10 +16946,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_intermediate` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARC`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CONTNORM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DC_FLAG`,1 AS `DCLOG1`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPAXIS`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NC_NSAMPPIX`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_NDSAMPLES`,1 AS `ESO_DET_NDSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_JITTER_WIDTH`,1 AS `ESO_SEQ_NODTHROW`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `EXT_OBJ`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `PROV2`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `SPECSYS`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_SYE`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `TOT_FLUX`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `VOCLASS`,1 AS `VOPUB`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `WCSDIM`,1 AS `XMAX`,1 AS `XMIN`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `LTV1`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `APERTURE`,1 AS `APNUM1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `CD3_3`,1 AS `MAGSTD`,1 AS `CTYPE3`,1 AS `STDNAME`,1 AS `LTM3_3`,1 AS `NCOMBINE`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NUSTEP`,1 AS `WAT3_001`,1 AS `TRACE2`,1 AS `NAXIS3`,1 AS `COMMENT`,1 AS `ESO_INS_LAMP1_NAME`,1 AS `ESO_INS_LAMP1_ST`,1 AS `REFSPEC1`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `PROV3`,1 AS `PROV4`,1 AS `SENSFUN`,1 AS `SENSPHOT`,1 AS `SNR`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV10`,1 AS `PROV9`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `TRACE5`,1 AS `TRACE6`,1 AS `TRACE7`,1 AS `TRACE8`,1 AS `DARKTIME`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE14`,1 AS `TRACE15`,1 AS `TRACE16`,1 AS `TRACE9`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `IMCMB003`,1 AS `IMCMB004`,1 AS `IMCMB005`,1 AS `IMCMB006`,1 AS `IMCMB007`,1 AS `IMCMB008`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `binary_table_associated_spectrum_id`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader`,1 AS `archivedLocally` */;
+/*!50001 VIEW `view_sofi_spectra_intermediate` AS select `sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`ARC` AS `ARC`,`sofi_spectra`.`ARCFILE` AS `ARCFILE`,`sofi_spectra`.`BIASSEC` AS `BIASSEC`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`BUNIT` AS `BUNIT`,`sofi_spectra`.`CCDMEANT` AS `CCDMEANT`,`sofi_spectra`.`CCDPROC` AS `CCDPROC`,`sofi_spectra`.`CCDSEC` AS `CCDSEC`,`sofi_spectra`.`CD1_1` AS `CD1_1`,`sofi_spectra`.`CD2_2` AS `CD2_2`,`sofi_spectra`.`CDELT1` AS `CDELT1`,`sofi_spectra`.`CDELT2` AS `CDELT2`,`sofi_spectra`.`CHECKSUM` AS `CHECKSUM`,`sofi_spectra`.`CONTNORM` AS `CONTNORM`,`sofi_spectra`.`CROSSTAL` AS `CROSSTAL`,`sofi_spectra`.`CRPIX1` AS `CRPIX1`,`sofi_spectra`.`CRPIX2` AS `CRPIX2`,`sofi_spectra`.`CRVAL1` AS `CRVAL1`,`sofi_spectra`.`CRVAL2` AS `CRVAL2`,`sofi_spectra`.`CTYPE1` AS `CTYPE1`,`sofi_spectra`.`CTYPE2` AS `CTYPE2`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATASUM` AS `DATASUM`,`sofi_spectra`.`DATE` AS `DATE`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`DC_FLAG` AS `DC_FLAG`,`sofi_spectra`.`DCLOG1` AS `DCLOG1`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPAXIS` AS `DISPAXIS`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EQUINOX` AS `EQUINOX`,`sofi_spectra`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_spectra`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_spectra`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_spectra`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_spectra`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_spectra`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_spectra`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_spectra`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_spectra`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_spectra`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_spectra`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_spectra`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_spectra`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_spectra`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_spectra`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_spectra`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_spectra`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_spectra`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_spectra`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_spectra`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_spectra`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_spectra`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_spectra`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_spectra`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_spectra`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_spectra`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_spectra`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_spectra`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_spectra`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_spectra`.`ESO_DET_NC_NSAMPPIX` AS `ESO_DET_NC_NSAMPPIX`,`sofi_spectra`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_spectra`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_spectra`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_spectra`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_spectra`.`ESO_DET_NDSAMPLES` AS `ESO_DET_NDSAMPLES`,`sofi_spectra`.`ESO_DET_NDSKIP` AS `ESO_DET_NDSKIP`,`sofi_spectra`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_spectra`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_spectra`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_spectra`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_spectra`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_spectra`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_spectra`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_spectra`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_spectra`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_spectra`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_spectra`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_spectra`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_spectra`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_spectra`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_spectra`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_spectra`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_spectra`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_spectra`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_spectra`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_spectra`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_spectra`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_spectra`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_spectra`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_spectra`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_spectra`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_spectra`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_spectra`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_spectra`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_spectra`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_spectra`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_spectra`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_spectra`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_spectra`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_spectra`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_spectra`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_spectra`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_spectra`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_spectra`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_spectra`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_spectra`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_spectra`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_spectra`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_spectra`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_spectra`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_spectra`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_spectra`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_spectra`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_spectra`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_spectra`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_spectra`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_spectra`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_spectra`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_spectra`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_spectra`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_spectra`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_spectra`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_spectra`.`ESO_SEQ_JITTER_WIDTH` AS `ESO_SEQ_JITTER_WIDTH`,`sofi_spectra`.`ESO_SEQ_NODTHROW` AS `ESO_SEQ_NODTHROW`,`sofi_spectra`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_spectra`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_spectra`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_spectra`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_spectra`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_spectra`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_spectra`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_spectra`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_spectra`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_spectra`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_spectra`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_spectra`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_spectra`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_spectra`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_spectra`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_spectra`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_spectra`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_spectra`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_spectra`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_spectra`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_spectra`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_spectra`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_spectra`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_spectra`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_spectra`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_spectra`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_spectra`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_spectra`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_spectra`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_spectra`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_spectra`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_spectra`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_spectra`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_spectra`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_spectra`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_spectra`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_spectra`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_spectra`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_spectra`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_spectra`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_spectra`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_spectra`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_spectra`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_spectra`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_spectra`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_spectra`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_spectra`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`EXTEND` AS `EXTEND`,`sofi_spectra`.`EXT_OBJ` AS `EXT_OBJ`,`sofi_spectra`.`FILETYPE` AS `FILETYPE`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLATCOR` AS `FLATCOR`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`INSTRUME` AS `INSTRUME`,`sofi_spectra`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`LST` AS `LST`,`sofi_spectra`.`LTM1_1` AS `LTM1_1`,`sofi_spectra`.`LTM2_2` AS `LTM2_2`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`M_EPOCH` AS `M_EPOCH`,`sofi_spectra`.`NAXIS` AS `NAXIS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`OBID1` AS `OBID1`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`OBSERVER` AS `OBSERVER`,`sofi_spectra`.`OBSTECH` AS `OBSTECH`,`sofi_spectra`.`ORIGFILE` AS `ORIGFILE`,`sofi_spectra`.`ORIGIN` AS `ORIGIN`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROG_ID` AS `PROG_ID`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`RADECSYS` AS `RADECSYS`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SIMPLE` AS `SIMPLE`,`sofi_spectra`.`SINGLEXP` AS `SINGLEXP`,`sofi_spectra`.`SKYSUB` AS `SKYSUB`,`sofi_spectra`.`SPECSYS` AS `SPECSYS`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_SYE` AS `SPEC_SYE`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TELESCOP` AS `TELESCOP`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`TOT_FLUX` AS `TOT_FLUX`,`sofi_spectra`.`TRACE1` AS `TRACE1`,`sofi_spectra`.`TRIM` AS `TRIM`,`sofi_spectra`.`UTC` AS `UTC`,`sofi_spectra`.`VOCLASS` AS `VOCLASS`,`sofi_spectra`.`VOPUB` AS `VOPUB`,`sofi_spectra`.`WAT0_001` AS `WAT0_001`,`sofi_spectra`.`WAT1_001` AS `WAT1_001`,`sofi_spectra`.`WAT2_001` AS `WAT2_001`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`WCSDIM` AS `WCSDIM`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`dateLastModified` AS `dateLastModified`,`sofi_spectra`.`dateLastRead` AS `dateLastRead`,`sofi_spectra`.`filePath` AS `filePath`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`headerExtension` AS `headerExtension`,`sofi_spectra`.`CCDMEAN` AS `CCDMEAN`,`sofi_spectra`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_spectra`.`LTV1` AS `LTV1`,`sofi_spectra`.`PC1_1` AS `PC1_1`,`sofi_spectra`.`PC1_2` AS `PC1_2`,`sofi_spectra`.`PC2_1` AS `PC2_1`,`sofi_spectra`.`PC2_2` AS `PC2_2`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`APNUM1` AS `APNUM1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`CD3_3` AS `CD3_3`,`sofi_spectra`.`MAGSTD` AS `MAGSTD`,`sofi_spectra`.`CTYPE3` AS `CTYPE3`,`sofi_spectra`.`STDNAME` AS `STDNAME`,`sofi_spectra`.`LTM3_3` AS `LTM3_3`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`NUSTEP` AS `NUSTEP`,`sofi_spectra`.`WAT3_001` AS `WAT3_001`,`sofi_spectra`.`TRACE2` AS `TRACE2`,`sofi_spectra`.`NAXIS3` AS `NAXIS3`,`sofi_spectra`.`COMMENT` AS `COMMENT`,`sofi_spectra`.`ESO_INS_LAMP1_NAME` AS `ESO_INS_LAMP1_NAME`,`sofi_spectra`.`ESO_INS_LAMP1_ST` AS `ESO_INS_LAMP1_ST`,`sofi_spectra`.`REFSPEC1` AS `REFSPEC1`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`SENSFUN` AS `SENSFUN`,`sofi_spectra`.`SENSPHOT` AS `SENSPHOT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`TRACE3` AS `TRACE3`,`sofi_spectra`.`TRACE4` AS `TRACE4`,`sofi_spectra`.`TRACE5` AS `TRACE5`,`sofi_spectra`.`TRACE6` AS `TRACE6`,`sofi_spectra`.`TRACE7` AS `TRACE7`,`sofi_spectra`.`TRACE8` AS `TRACE8`,`sofi_spectra`.`DARKTIME` AS `DARKTIME`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`TRACE10` AS `TRACE10`,`sofi_spectra`.`TRACE11` AS `TRACE11`,`sofi_spectra`.`TRACE12` AS `TRACE12`,`sofi_spectra`.`TRACE13` AS `TRACE13`,`sofi_spectra`.`TRACE14` AS `TRACE14`,`sofi_spectra`.`TRACE15` AS `TRACE15`,`sofi_spectra`.`TRACE16` AS `TRACE16`,`sofi_spectra`.`TRACE9` AS `TRACE9`,`sofi_spectra`.`IMCMB001` AS `IMCMB001`,`sofi_spectra`.`IMCMB002` AS `IMCMB002`,`sofi_spectra`.`IMCMB003` AS `IMCMB003`,`sofi_spectra`.`IMCMB004` AS `IMCMB004`,`sofi_spectra`.`IMCMB005` AS `IMCMB005`,`sofi_spectra`.`IMCMB006` AS `IMCMB006`,`sofi_spectra`.`IMCMB007` AS `IMCMB007`,`sofi_spectra`.`IMCMB008` AS `IMCMB008`,`sofi_spectra`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_spectra`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_spectra`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_spectra`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`updatedFilename` AS `updatedFilename`,`sofi_spectra`.`filenameUpdated` AS `filenameUpdated`,`sofi_spectra`.`objectInFilename` AS `objectInFilename`,`sofi_spectra`.`updateObjectName` AS `updateObjectName`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`updatedFilepath` AS `updatedFilepath`,`sofi_spectra`.`archivePath` AS `archivePath`,`sofi_spectra`.`rewriteFitsHeader` AS `rewriteFitsHeader`,`sofi_spectra`.`archivedLocally` AS `archivedLocally` from `sofi_spectra` where ((`sofi_spectra`.`filetype_key_reduction_stage` = 2) or (`sofi_spectra`.`filetype_key_reduction_stage` = 4) or (`sofi_spectra`.`filetype_key_reduction_stage` = 6)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15336,10 +16964,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_raw` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARC`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CONTNORM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DC_FLAG`,1 AS `DCLOG1`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPAXIS`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NC_NSAMPPIX`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_NDSAMPLES`,1 AS `ESO_DET_NDSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_JITTER_WIDTH`,1 AS `ESO_SEQ_NODTHROW`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `EXT_OBJ`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `PROV2`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `SPECSYS`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_SYE`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `TOT_FLUX`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `VOCLASS`,1 AS `VOPUB`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `WCSDIM`,1 AS `XMAX`,1 AS `XMIN`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `LTV1`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `APERTURE`,1 AS `APNUM1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `CD3_3`,1 AS `MAGSTD`,1 AS `CTYPE3`,1 AS `STDNAME`,1 AS `LTM3_3`,1 AS `NCOMBINE`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NUSTEP`,1 AS `WAT3_001`,1 AS `TRACE2`,1 AS `NAXIS3`,1 AS `COMMENT`,1 AS `ESO_INS_LAMP1_NAME`,1 AS `ESO_INS_LAMP1_ST`,1 AS `REFSPEC1`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `PROV3`,1 AS `PROV4`,1 AS `SENSFUN`,1 AS `SENSPHOT`,1 AS `SNR`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV10`,1 AS `PROV9`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `TRACE5`,1 AS `TRACE6`,1 AS `TRACE7`,1 AS `TRACE8`,1 AS `DARKTIME`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE14`,1 AS `TRACE15`,1 AS `TRACE16`,1 AS `TRACE9`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `IMCMB003`,1 AS `IMCMB004`,1 AS `IMCMB005`,1 AS `IMCMB006`,1 AS `IMCMB007`,1 AS `IMCMB008`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `binary_table_associated_spectrum_id`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader` */;
+/*!50001 VIEW `view_sofi_spectra_raw` AS select `sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`ARC` AS `ARC`,`sofi_spectra`.`ARCFILE` AS `ARCFILE`,`sofi_spectra`.`BIASSEC` AS `BIASSEC`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`BUNIT` AS `BUNIT`,`sofi_spectra`.`CCDMEANT` AS `CCDMEANT`,`sofi_spectra`.`CCDPROC` AS `CCDPROC`,`sofi_spectra`.`CCDSEC` AS `CCDSEC`,`sofi_spectra`.`CD1_1` AS `CD1_1`,`sofi_spectra`.`CD2_2` AS `CD2_2`,`sofi_spectra`.`CDELT1` AS `CDELT1`,`sofi_spectra`.`CDELT2` AS `CDELT2`,`sofi_spectra`.`CHECKSUM` AS `CHECKSUM`,`sofi_spectra`.`CONTNORM` AS `CONTNORM`,`sofi_spectra`.`CROSSTAL` AS `CROSSTAL`,`sofi_spectra`.`CRPIX1` AS `CRPIX1`,`sofi_spectra`.`CRPIX2` AS `CRPIX2`,`sofi_spectra`.`CRVAL1` AS `CRVAL1`,`sofi_spectra`.`CRVAL2` AS `CRVAL2`,`sofi_spectra`.`CTYPE1` AS `CTYPE1`,`sofi_spectra`.`CTYPE2` AS `CTYPE2`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATASUM` AS `DATASUM`,`sofi_spectra`.`DATE` AS `DATE`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`DC_FLAG` AS `DC_FLAG`,`sofi_spectra`.`DCLOG1` AS `DCLOG1`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPAXIS` AS `DISPAXIS`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EQUINOX` AS `EQUINOX`,`sofi_spectra`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_spectra`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_spectra`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_spectra`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_spectra`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_spectra`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_spectra`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_spectra`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_spectra`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_spectra`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_spectra`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_spectra`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_spectra`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_spectra`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_spectra`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_spectra`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_spectra`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_spectra`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_spectra`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_spectra`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_spectra`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_spectra`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_spectra`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_spectra`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_spectra`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_spectra`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_spectra`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_spectra`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_spectra`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_spectra`.`ESO_DET_NC_NSAMPPIX` AS `ESO_DET_NC_NSAMPPIX`,`sofi_spectra`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_spectra`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_spectra`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_spectra`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_spectra`.`ESO_DET_NDSAMPLES` AS `ESO_DET_NDSAMPLES`,`sofi_spectra`.`ESO_DET_NDSKIP` AS `ESO_DET_NDSKIP`,`sofi_spectra`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_spectra`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_spectra`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_spectra`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_spectra`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_spectra`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_spectra`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_spectra`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_spectra`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_spectra`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_spectra`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_spectra`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_spectra`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_spectra`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_spectra`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_spectra`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_spectra`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_spectra`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_spectra`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_spectra`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_spectra`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_spectra`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_spectra`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_spectra`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_spectra`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_spectra`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_spectra`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_spectra`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_spectra`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_spectra`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_spectra`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_spectra`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_spectra`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_spectra`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_spectra`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_spectra`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_spectra`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_spectra`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_spectra`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_spectra`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_spectra`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_spectra`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_spectra`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_spectra`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_spectra`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_spectra`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_spectra`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_spectra`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_spectra`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_spectra`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_spectra`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_spectra`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_spectra`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_spectra`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_spectra`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_spectra`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_spectra`.`ESO_SEQ_JITTER_WIDTH` AS `ESO_SEQ_JITTER_WIDTH`,`sofi_spectra`.`ESO_SEQ_NODTHROW` AS `ESO_SEQ_NODTHROW`,`sofi_spectra`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_spectra`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_spectra`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_spectra`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_spectra`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_spectra`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_spectra`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_spectra`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_spectra`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_spectra`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_spectra`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_spectra`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_spectra`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_spectra`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_spectra`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_spectra`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_spectra`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_spectra`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_spectra`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_spectra`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_spectra`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_spectra`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_spectra`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_spectra`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_spectra`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_spectra`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_spectra`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_spectra`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_spectra`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_spectra`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_spectra`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_spectra`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_spectra`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_spectra`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_spectra`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_spectra`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_spectra`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_spectra`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_spectra`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_spectra`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_spectra`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_spectra`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_spectra`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_spectra`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_spectra`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_spectra`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_spectra`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`EXTEND` AS `EXTEND`,`sofi_spectra`.`EXT_OBJ` AS `EXT_OBJ`,`sofi_spectra`.`FILETYPE` AS `FILETYPE`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLATCOR` AS `FLATCOR`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`INSTRUME` AS `INSTRUME`,`sofi_spectra`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`LST` AS `LST`,`sofi_spectra`.`LTM1_1` AS `LTM1_1`,`sofi_spectra`.`LTM2_2` AS `LTM2_2`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`M_EPOCH` AS `M_EPOCH`,`sofi_spectra`.`NAXIS` AS `NAXIS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`OBID1` AS `OBID1`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`OBSERVER` AS `OBSERVER`,`sofi_spectra`.`OBSTECH` AS `OBSTECH`,`sofi_spectra`.`ORIGFILE` AS `ORIGFILE`,`sofi_spectra`.`ORIGIN` AS `ORIGIN`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROG_ID` AS `PROG_ID`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`RADECSYS` AS `RADECSYS`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SIMPLE` AS `SIMPLE`,`sofi_spectra`.`SINGLEXP` AS `SINGLEXP`,`sofi_spectra`.`SKYSUB` AS `SKYSUB`,`sofi_spectra`.`SPECSYS` AS `SPECSYS`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_SYE` AS `SPEC_SYE`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TELESCOP` AS `TELESCOP`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`TOT_FLUX` AS `TOT_FLUX`,`sofi_spectra`.`TRACE1` AS `TRACE1`,`sofi_spectra`.`TRIM` AS `TRIM`,`sofi_spectra`.`UTC` AS `UTC`,`sofi_spectra`.`VOCLASS` AS `VOCLASS`,`sofi_spectra`.`VOPUB` AS `VOPUB`,`sofi_spectra`.`WAT0_001` AS `WAT0_001`,`sofi_spectra`.`WAT1_001` AS `WAT1_001`,`sofi_spectra`.`WAT2_001` AS `WAT2_001`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`WCSDIM` AS `WCSDIM`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`dateLastModified` AS `dateLastModified`,`sofi_spectra`.`dateLastRead` AS `dateLastRead`,`sofi_spectra`.`filePath` AS `filePath`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`headerExtension` AS `headerExtension`,`sofi_spectra`.`CCDMEAN` AS `CCDMEAN`,`sofi_spectra`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_spectra`.`LTV1` AS `LTV1`,`sofi_spectra`.`PC1_1` AS `PC1_1`,`sofi_spectra`.`PC1_2` AS `PC1_2`,`sofi_spectra`.`PC2_1` AS `PC2_1`,`sofi_spectra`.`PC2_2` AS `PC2_2`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`APNUM1` AS `APNUM1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`CD3_3` AS `CD3_3`,`sofi_spectra`.`MAGSTD` AS `MAGSTD`,`sofi_spectra`.`CTYPE3` AS `CTYPE3`,`sofi_spectra`.`STDNAME` AS `STDNAME`,`sofi_spectra`.`LTM3_3` AS `LTM3_3`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`NUSTEP` AS `NUSTEP`,`sofi_spectra`.`WAT3_001` AS `WAT3_001`,`sofi_spectra`.`TRACE2` AS `TRACE2`,`sofi_spectra`.`NAXIS3` AS `NAXIS3`,`sofi_spectra`.`COMMENT` AS `COMMENT`,`sofi_spectra`.`ESO_INS_LAMP1_NAME` AS `ESO_INS_LAMP1_NAME`,`sofi_spectra`.`ESO_INS_LAMP1_ST` AS `ESO_INS_LAMP1_ST`,`sofi_spectra`.`REFSPEC1` AS `REFSPEC1`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`SENSFUN` AS `SENSFUN`,`sofi_spectra`.`SENSPHOT` AS `SENSPHOT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`TRACE3` AS `TRACE3`,`sofi_spectra`.`TRACE4` AS `TRACE4`,`sofi_spectra`.`TRACE5` AS `TRACE5`,`sofi_spectra`.`TRACE6` AS `TRACE6`,`sofi_spectra`.`TRACE7` AS `TRACE7`,`sofi_spectra`.`TRACE8` AS `TRACE8`,`sofi_spectra`.`DARKTIME` AS `DARKTIME`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`TRACE10` AS `TRACE10`,`sofi_spectra`.`TRACE11` AS `TRACE11`,`sofi_spectra`.`TRACE12` AS `TRACE12`,`sofi_spectra`.`TRACE13` AS `TRACE13`,`sofi_spectra`.`TRACE14` AS `TRACE14`,`sofi_spectra`.`TRACE15` AS `TRACE15`,`sofi_spectra`.`TRACE16` AS `TRACE16`,`sofi_spectra`.`TRACE9` AS `TRACE9`,`sofi_spectra`.`IMCMB001` AS `IMCMB001`,`sofi_spectra`.`IMCMB002` AS `IMCMB002`,`sofi_spectra`.`IMCMB003` AS `IMCMB003`,`sofi_spectra`.`IMCMB004` AS `IMCMB004`,`sofi_spectra`.`IMCMB005` AS `IMCMB005`,`sofi_spectra`.`IMCMB006` AS `IMCMB006`,`sofi_spectra`.`IMCMB007` AS `IMCMB007`,`sofi_spectra`.`IMCMB008` AS `IMCMB008`,`sofi_spectra`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_spectra`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_spectra`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_spectra`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`updatedFilename` AS `updatedFilename`,`sofi_spectra`.`filenameUpdated` AS `filenameUpdated`,`sofi_spectra`.`objectInFilename` AS `objectInFilename`,`sofi_spectra`.`updateObjectName` AS `updateObjectName`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`updatedFilepath` AS `updatedFilepath`,`sofi_spectra`.`archivePath` AS `archivePath`,`sofi_spectra`.`rewriteFitsHeader` AS `rewriteFitsHeader` from `sofi_spectra` where (`sofi_spectra`.`filetype_key_reduction_stage` = 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15354,10 +16982,10 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8 */;
 /*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET collation_connection      = utf8_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_reduced` AS select 1 AS `primaryId`,1 AS `AIRMASS`,1 AS `ARC`,1 AS `ARCFILE`,1 AS `BIASSEC`,1 AS `BITPIX`,1 AS `BUNIT`,1 AS `CCDMEANT`,1 AS `CCDPROC`,1 AS `CCDSEC`,1 AS `CD1_1`,1 AS `CD2_2`,1 AS `CDELT1`,1 AS `CDELT2`,1 AS `CHECKSUM`,1 AS `CONTNORM`,1 AS `CROSSTAL`,1 AS `CRPIX1`,1 AS `CRPIX2`,1 AS `CRVAL1`,1 AS `CRVAL2`,1 AS `CTYPE1`,1 AS `CTYPE2`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATASUM`,1 AS `DATE`,1 AS `DATE_OBS`,1 AS `DC_FLAG`,1 AS `DCLOG1`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPAXIS`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EQUINOX`,1 AS `ESO_ADA_ABSROT_END`,1 AS `ESO_ADA_ABSROT_START`,1 AS `ESO_ADA_GUID_DEC`,1 AS `ESO_ADA_GUID_RA`,1 AS `ESO_ADA_GUID_STATUS`,1 AS `ESO_ADA_POSANG`,1 AS `ESO_DET_CHIP_ID`,1 AS `ESO_DET_CHIP_NAME`,1 AS `ESO_DET_CHIP_NX`,1 AS `ESO_DET_CHIP_NY`,1 AS `ESO_DET_CHIP_PXSPACE`,1 AS `ESO_DET_CHIP_TYPE`,1 AS `ESO_DET_CHOP_CYCSKIP`,1 AS `ESO_DET_CHOP_FREQ`,1 AS `ESO_DET_CHOP_NCYCLES`,1 AS `ESO_DET_CHOP_ST`,1 AS `ESO_DET_CON_OPMODE`,1 AS `ESO_DET_DID`,1 AS `ESO_DET_DIT`,1 AS `ESO_DET_DITDELAY`,1 AS `ESO_DET_EXP_NAME`,1 AS `ESO_DET_EXP_NO`,1 AS `ESO_DET_EXP_UTC`,1 AS `ESO_DET_FILE_CUBE_ST`,1 AS `ESO_DET_FRAM_NO`,1 AS `ESO_DET_FRAM_TYPE`,1 AS `ESO_DET_FRAM_UTC`,1 AS `ESO_DET_IRACE_ADC1_DELAY`,1 AS `ESO_DET_IRACE_ADC1_ENABLE`,1 AS `ESO_DET_IRACE_ADC1_FILTER1`,1 AS `ESO_DET_IRACE_ADC1_FILTER2`,1 AS `ESO_DET_IRACE_ADC1_HEADER`,1 AS `ESO_DET_IRACE_ADC1_NAME`,1 AS `ESO_DET_IRACE_SEQCONT`,1 AS `ESO_DET_MODE_NAME`,1 AS `ESO_DET_NC_NSAMPPIX`,1 AS `ESO_DET_NCORRS`,1 AS `ESO_DET_NCORRS_NAME`,1 AS `ESO_DET_NDIT`,1 AS `ESO_DET_NDITSKIP`,1 AS `ESO_DET_NDSAMPLES`,1 AS `ESO_DET_NDSKIP`,1 AS `ESO_DET_RSPEED`,1 AS `ESO_DET_RSPEEDADD`,1 AS `ESO_DET_WIN_NX`,1 AS `ESO_DET_WIN_NY`,1 AS `ESO_DET_WIN_STARTX`,1 AS `ESO_DET_WIN_STARTY`,1 AS `ESO_DET_WIN_TYPE`,1 AS `ESO_DPR_CATG`,1 AS `ESO_DPR_TECH`,1 AS `ESO_DPR_TYPE`,1 AS `ESO_INS_COLLIM_ENC`,1 AS `ESO_INS_DID`,1 AS `ESO_INS_FILT1_ID`,1 AS `ESO_INS_FILT1_NAME`,1 AS `ESO_INS_FILT1_NO`,1 AS `ESO_INS_FILT1_TYPE`,1 AS `ESO_INS_FILT2_ID`,1 AS `ESO_INS_FILT2_NAME`,1 AS `ESO_INS_FILT2_NO`,1 AS `ESO_INS_FILT2_TYPE`,1 AS `ESO_INS_ID`,1 AS `ESO_INS_MODE`,1 AS `ESO_INS_OPTI1_ID`,1 AS `ESO_INS_OPTI1_NAME`,1 AS `ESO_INS_OPTI1_NO`,1 AS `ESO_INS_OPTI1_TYPE`,1 AS `ESO_INS_OPTI2_ID`,1 AS `ESO_INS_OPTI2_NAME`,1 AS `ESO_INS_OPTI2_NO`,1 AS `ESO_INS_OPTI2_TYPE`,1 AS `ESO_INS_OPTI3_ID`,1 AS `ESO_INS_OPTI3_NAME`,1 AS `ESO_INS_OPTI3_NO`,1 AS `ESO_INS_OPTI3_TYPE`,1 AS `ESO_INS_PIXSCALE`,1 AS `ESO_INS_SWSIM`,1 AS `ESO_INS_TEMP_DETSW`,1 AS `ESO_INS_TEMP_DETSW_SET`,1 AS `ESO_INS_TEMP_MON_NAME1`,1 AS `ESO_INS_TEMP_MON_NAME10`,1 AS `ESO_INS_TEMP_MON_NAME2`,1 AS `ESO_INS_TEMP_MON_NAME3`,1 AS `ESO_INS_TEMP_MON_NAME4`,1 AS `ESO_INS_TEMP_MON_NAME5`,1 AS `ESO_INS_TEMP_MON_NAME6`,1 AS `ESO_INS_TEMP_MON_NAME7`,1 AS `ESO_INS_TEMP_MON_NAME8`,1 AS `ESO_INS_TEMP_MON_NAME9`,1 AS `ESO_INS_TEMP_MON_TEMP1`,1 AS `ESO_INS_TEMP_MON_TEMP10`,1 AS `ESO_INS_TEMP_MON_TEMP2`,1 AS `ESO_INS_TEMP_MON_TEMP3`,1 AS `ESO_INS_TEMP_MON_TEMP4`,1 AS `ESO_INS_TEMP_MON_TEMP5`,1 AS `ESO_INS_TEMP_MON_TEMP6`,1 AS `ESO_INS_TEMP_MON_TEMP7`,1 AS `ESO_INS_TEMP_MON_TEMP8`,1 AS `ESO_INS_TEMP_MON_TEMP9`,1 AS `ESO_INS_TEMP_VACP`,1 AS `ESO_INS_TIME`,1 AS `ESO_OBS_DID`,1 AS `ESO_OBS_EXECTIME`,1 AS `ESO_OBS_GRP`,1 AS `ESO_OBS_ID`,1 AS `ESO_OBS_NAME`,1 AS `ESO_OBS_OBSERVER`,1 AS `ESO_OBS_PI_COI_ID`,1 AS `ESO_OBS_PI_COI_NAME`,1 AS `ESO_OBS_PROG_ID`,1 AS `ESO_OBS_START`,1 AS `ESO_OBS_TARG_NAME`,1 AS `ESO_OBS_TPLNO`,1 AS `ESO_OCS_COMP_ID`,1 AS `ESO_OCS_DID`,1 AS `ESO_OCS_SELECT_ARM`,1 AS `ESO_SEQ_CUMOFFSETX`,1 AS `ESO_SEQ_JITTER_WIDTH`,1 AS `ESO_SEQ_NODTHROW`,1 AS `ESO_SEQ_RELOFFSETX`,1 AS `ESO_TEL_AIRM_END`,1 AS `ESO_TEL_AIRM_START`,1 AS `ESO_TEL_ALT`,1 AS `ESO_TEL_AMBI_FWHM_END`,1 AS `ESO_TEL_AMBI_FWHM_START`,1 AS `ESO_TEL_AMBI_PRES_END`,1 AS `ESO_TEL_AMBI_PRES_START`,1 AS `ESO_TEL_AMBI_RHUM`,1 AS `ESO_TEL_AMBI_TEMP`,1 AS `ESO_TEL_AMBI_WINDDIR`,1 AS `ESO_TEL_AMBI_WINDSP`,1 AS `ESO_TEL_AZ`,1 AS `ESO_TEL_CHOP_ST`,1 AS `ESO_TEL_DATE`,1 AS `ESO_TEL_DID`,1 AS `ESO_TEL_DOME_STATUS`,1 AS `ESO_TEL_FOCU_ID`,1 AS `ESO_TEL_FOCU_LEN`,1 AS `ESO_TEL_FOCU_SCALE`,1 AS `ESO_TEL_FOCU_VALUE`,1 AS `ESO_TEL_GEOELEV`,1 AS `ESO_TEL_GEOLAT`,1 AS `ESO_TEL_GEOLON`,1 AS `ESO_TEL_ID`,1 AS `ESO_TEL_MOON_DEC`,1 AS `ESO_TEL_MOON_RA`,1 AS `ESO_TEL_OPER`,1 AS `ESO_TEL_PARANG_END`,1 AS `ESO_TEL_PARANG_START`,1 AS `ESO_TEL_TARG_ALPHA`,1 AS `ESO_TEL_TARG_COORDTYPE`,1 AS `ESO_TEL_TARG_DELTA`,1 AS `ESO_TEL_TARG_EPOCH`,1 AS `ESO_TEL_TARG_EPOCHSYSTEM`,1 AS `ESO_TEL_TARG_EQUINOX`,1 AS `ESO_TEL_TARG_PARALLAX`,1 AS `ESO_TEL_TARG_PMA`,1 AS `ESO_TEL_TARG_PMD`,1 AS `ESO_TEL_TARG_RADVEL`,1 AS `ESO_TEL_TH_M1_TEMP`,1 AS `ESO_TEL_TRAK_STATUS`,1 AS `ESO_TEL_TSS_TEMP8`,1 AS `ESO_TPL_DID`,1 AS `ESO_TPL_EXPNO`,1 AS `ESO_TPL_ID`,1 AS `ESO_TPL_NAME`,1 AS `ESO_TPL_NEXP`,1 AS `ESO_TPL_PRESEQ`,1 AS `ESO_TPL_START`,1 AS `ESO_TPL_VERSION`,1 AS `EXPTIME`,1 AS `EXTEND`,1 AS `EXT_OBJ`,1 AS `FILETYPE`,1 AS `FILTER`,1 AS `FLATCOR`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `INSTRUME`,1 AS `IRAF_TLM`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `LST`,1 AS `LTM1_1`,1 AS `LTM2_2`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `M_EPOCH`,1 AS `NAXIS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NDIT`,1 AS `OBID1`,1 AS `OBJECT`,1 AS `OBSERVER`,1 AS `OBSTECH`,1 AS `ORIGFILE`,1 AS `ORIGIN`,1 AS `PI_COI`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROG_ID`,1 AS `PROV1`,1 AS `PROV2`,1 AS `QUALITY`,1 AS `RA`,1 AS `RADECSYS`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SIMPLE`,1 AS `SINGLEXP`,1 AS `SKYSUB`,1 AS `SPECSYS`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_SYE`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TELESCOP`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `TOT_FLUX`,1 AS `TRACE1`,1 AS `TRIM`,1 AS `UTC`,1 AS `VOCLASS`,1 AS `VOPUB`,1 AS `WAT0_001`,1 AS `WAT1_001`,1 AS `WAT2_001`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `WCSDIM`,1 AS `XMAX`,1 AS `XMIN`,1 AS `dateCreated`,1 AS `dateLastModified`,1 AS `dateLastRead`,1 AS `filePath`,1 AS `filename`,1 AS `headerExtension`,1 AS `CCDMEAN`,1 AS `ESO_OCS_WCS_RTD_ST`,1 AS `LTV1`,1 AS `PC1_1`,1 AS `PC1_2`,1 AS `PC2_1`,1 AS `PC2_2`,1 AS `APERTURE`,1 AS `APNUM1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `CD3_3`,1 AS `MAGSTD`,1 AS `CTYPE3`,1 AS `STDNAME`,1 AS `LTM3_3`,1 AS `NCOMBINE`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `NUSTEP`,1 AS `WAT3_001`,1 AS `TRACE2`,1 AS `NAXIS3`,1 AS `COMMENT`,1 AS `ESO_INS_LAMP1_NAME`,1 AS `ESO_INS_LAMP1_ST`,1 AS `REFSPEC1`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `PROV3`,1 AS `PROV4`,1 AS `SENSFUN`,1 AS `SENSPHOT`,1 AS `SNR`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV10`,1 AS `PROV9`,1 AS `TRACE3`,1 AS `TRACE4`,1 AS `TRACE5`,1 AS `TRACE6`,1 AS `TRACE7`,1 AS `TRACE8`,1 AS `DARKTIME`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `TRACE10`,1 AS `TRACE11`,1 AS `TRACE12`,1 AS `TRACE13`,1 AS `TRACE14`,1 AS `TRACE15`,1 AS `TRACE16`,1 AS `TRACE9`,1 AS `IMCMB001`,1 AS `IMCMB002`,1 AS `IMCMB003`,1 AS `IMCMB004`,1 AS `IMCMB005`,1 AS `IMCMB006`,1 AS `IMCMB007`,1 AS `IMCMB008`,1 AS `filetype_key_instrument`,1 AS `filetype_key_image_or_spectrum`,1 AS `filetype_key_reduction_stage`,1 AS `filetype_key_calibration`,1 AS `transientBucketId`,1 AS `nameChangeRequired`,1 AS `esoPhaseIII`,1 AS `updatedFilename`,1 AS `filenameUpdated`,1 AS `objectInFilename`,1 AS `updateObjectName`,1 AS `binary_table_associated_spectrum_id`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `updatedFilepath`,1 AS `archivePath`,1 AS `rewriteFitsHeader` */;
+/*!50001 VIEW `view_sofi_spectra_reduced` AS select `sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`ARC` AS `ARC`,`sofi_spectra`.`ARCFILE` AS `ARCFILE`,`sofi_spectra`.`BIASSEC` AS `BIASSEC`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`BUNIT` AS `BUNIT`,`sofi_spectra`.`CCDMEANT` AS `CCDMEANT`,`sofi_spectra`.`CCDPROC` AS `CCDPROC`,`sofi_spectra`.`CCDSEC` AS `CCDSEC`,`sofi_spectra`.`CD1_1` AS `CD1_1`,`sofi_spectra`.`CD2_2` AS `CD2_2`,`sofi_spectra`.`CDELT1` AS `CDELT1`,`sofi_spectra`.`CDELT2` AS `CDELT2`,`sofi_spectra`.`CHECKSUM` AS `CHECKSUM`,`sofi_spectra`.`CONTNORM` AS `CONTNORM`,`sofi_spectra`.`CROSSTAL` AS `CROSSTAL`,`sofi_spectra`.`CRPIX1` AS `CRPIX1`,`sofi_spectra`.`CRPIX2` AS `CRPIX2`,`sofi_spectra`.`CRVAL1` AS `CRVAL1`,`sofi_spectra`.`CRVAL2` AS `CRVAL2`,`sofi_spectra`.`CTYPE1` AS `CTYPE1`,`sofi_spectra`.`CTYPE2` AS `CTYPE2`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATASUM` AS `DATASUM`,`sofi_spectra`.`DATE` AS `DATE`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`DC_FLAG` AS `DC_FLAG`,`sofi_spectra`.`DCLOG1` AS `DCLOG1`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPAXIS` AS `DISPAXIS`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EQUINOX` AS `EQUINOX`,`sofi_spectra`.`ESO_ADA_ABSROT_END` AS `ESO_ADA_ABSROT_END`,`sofi_spectra`.`ESO_ADA_ABSROT_START` AS `ESO_ADA_ABSROT_START`,`sofi_spectra`.`ESO_ADA_GUID_DEC` AS `ESO_ADA_GUID_DEC`,`sofi_spectra`.`ESO_ADA_GUID_RA` AS `ESO_ADA_GUID_RA`,`sofi_spectra`.`ESO_ADA_GUID_STATUS` AS `ESO_ADA_GUID_STATUS`,`sofi_spectra`.`ESO_ADA_POSANG` AS `ESO_ADA_POSANG`,`sofi_spectra`.`ESO_DET_CHIP_ID` AS `ESO_DET_CHIP_ID`,`sofi_spectra`.`ESO_DET_CHIP_NAME` AS `ESO_DET_CHIP_NAME`,`sofi_spectra`.`ESO_DET_CHIP_NX` AS `ESO_DET_CHIP_NX`,`sofi_spectra`.`ESO_DET_CHIP_NY` AS `ESO_DET_CHIP_NY`,`sofi_spectra`.`ESO_DET_CHIP_PXSPACE` AS `ESO_DET_CHIP_PXSPACE`,`sofi_spectra`.`ESO_DET_CHIP_TYPE` AS `ESO_DET_CHIP_TYPE`,`sofi_spectra`.`ESO_DET_CHOP_CYCSKIP` AS `ESO_DET_CHOP_CYCSKIP`,`sofi_spectra`.`ESO_DET_CHOP_FREQ` AS `ESO_DET_CHOP_FREQ`,`sofi_spectra`.`ESO_DET_CHOP_NCYCLES` AS `ESO_DET_CHOP_NCYCLES`,`sofi_spectra`.`ESO_DET_CHOP_ST` AS `ESO_DET_CHOP_ST`,`sofi_spectra`.`ESO_DET_CON_OPMODE` AS `ESO_DET_CON_OPMODE`,`sofi_spectra`.`ESO_DET_DID` AS `ESO_DET_DID`,`sofi_spectra`.`ESO_DET_DIT` AS `ESO_DET_DIT`,`sofi_spectra`.`ESO_DET_DITDELAY` AS `ESO_DET_DITDELAY`,`sofi_spectra`.`ESO_DET_EXP_NAME` AS `ESO_DET_EXP_NAME`,`sofi_spectra`.`ESO_DET_EXP_NO` AS `ESO_DET_EXP_NO`,`sofi_spectra`.`ESO_DET_EXP_UTC` AS `ESO_DET_EXP_UTC`,`sofi_spectra`.`ESO_DET_FILE_CUBE_ST` AS `ESO_DET_FILE_CUBE_ST`,`sofi_spectra`.`ESO_DET_FRAM_NO` AS `ESO_DET_FRAM_NO`,`sofi_spectra`.`ESO_DET_FRAM_TYPE` AS `ESO_DET_FRAM_TYPE`,`sofi_spectra`.`ESO_DET_FRAM_UTC` AS `ESO_DET_FRAM_UTC`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_DELAY` AS `ESO_DET_IRACE_ADC1_DELAY`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_ENABLE` AS `ESO_DET_IRACE_ADC1_ENABLE`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER1` AS `ESO_DET_IRACE_ADC1_FILTER1`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_FILTER2` AS `ESO_DET_IRACE_ADC1_FILTER2`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_HEADER` AS `ESO_DET_IRACE_ADC1_HEADER`,`sofi_spectra`.`ESO_DET_IRACE_ADC1_NAME` AS `ESO_DET_IRACE_ADC1_NAME`,`sofi_spectra`.`ESO_DET_IRACE_SEQCONT` AS `ESO_DET_IRACE_SEQCONT`,`sofi_spectra`.`ESO_DET_MODE_NAME` AS `ESO_DET_MODE_NAME`,`sofi_spectra`.`ESO_DET_NC_NSAMPPIX` AS `ESO_DET_NC_NSAMPPIX`,`sofi_spectra`.`ESO_DET_NCORRS` AS `ESO_DET_NCORRS`,`sofi_spectra`.`ESO_DET_NCORRS_NAME` AS `ESO_DET_NCORRS_NAME`,`sofi_spectra`.`ESO_DET_NDIT` AS `ESO_DET_NDIT`,`sofi_spectra`.`ESO_DET_NDITSKIP` AS `ESO_DET_NDITSKIP`,`sofi_spectra`.`ESO_DET_NDSAMPLES` AS `ESO_DET_NDSAMPLES`,`sofi_spectra`.`ESO_DET_NDSKIP` AS `ESO_DET_NDSKIP`,`sofi_spectra`.`ESO_DET_RSPEED` AS `ESO_DET_RSPEED`,`sofi_spectra`.`ESO_DET_RSPEEDADD` AS `ESO_DET_RSPEEDADD`,`sofi_spectra`.`ESO_DET_WIN_NX` AS `ESO_DET_WIN_NX`,`sofi_spectra`.`ESO_DET_WIN_NY` AS `ESO_DET_WIN_NY`,`sofi_spectra`.`ESO_DET_WIN_STARTX` AS `ESO_DET_WIN_STARTX`,`sofi_spectra`.`ESO_DET_WIN_STARTY` AS `ESO_DET_WIN_STARTY`,`sofi_spectra`.`ESO_DET_WIN_TYPE` AS `ESO_DET_WIN_TYPE`,`sofi_spectra`.`ESO_DPR_CATG` AS `ESO_DPR_CATG`,`sofi_spectra`.`ESO_DPR_TECH` AS `ESO_DPR_TECH`,`sofi_spectra`.`ESO_DPR_TYPE` AS `ESO_DPR_TYPE`,`sofi_spectra`.`ESO_INS_COLLIM_ENC` AS `ESO_INS_COLLIM_ENC`,`sofi_spectra`.`ESO_INS_DID` AS `ESO_INS_DID`,`sofi_spectra`.`ESO_INS_FILT1_ID` AS `ESO_INS_FILT1_ID`,`sofi_spectra`.`ESO_INS_FILT1_NAME` AS `ESO_INS_FILT1_NAME`,`sofi_spectra`.`ESO_INS_FILT1_NO` AS `ESO_INS_FILT1_NO`,`sofi_spectra`.`ESO_INS_FILT1_TYPE` AS `ESO_INS_FILT1_TYPE`,`sofi_spectra`.`ESO_INS_FILT2_ID` AS `ESO_INS_FILT2_ID`,`sofi_spectra`.`ESO_INS_FILT2_NAME` AS `ESO_INS_FILT2_NAME`,`sofi_spectra`.`ESO_INS_FILT2_NO` AS `ESO_INS_FILT2_NO`,`sofi_spectra`.`ESO_INS_FILT2_TYPE` AS `ESO_INS_FILT2_TYPE`,`sofi_spectra`.`ESO_INS_ID` AS `ESO_INS_ID`,`sofi_spectra`.`ESO_INS_MODE` AS `ESO_INS_MODE`,`sofi_spectra`.`ESO_INS_OPTI1_ID` AS `ESO_INS_OPTI1_ID`,`sofi_spectra`.`ESO_INS_OPTI1_NAME` AS `ESO_INS_OPTI1_NAME`,`sofi_spectra`.`ESO_INS_OPTI1_NO` AS `ESO_INS_OPTI1_NO`,`sofi_spectra`.`ESO_INS_OPTI1_TYPE` AS `ESO_INS_OPTI1_TYPE`,`sofi_spectra`.`ESO_INS_OPTI2_ID` AS `ESO_INS_OPTI2_ID`,`sofi_spectra`.`ESO_INS_OPTI2_NAME` AS `ESO_INS_OPTI2_NAME`,`sofi_spectra`.`ESO_INS_OPTI2_NO` AS `ESO_INS_OPTI2_NO`,`sofi_spectra`.`ESO_INS_OPTI2_TYPE` AS `ESO_INS_OPTI2_TYPE`,`sofi_spectra`.`ESO_INS_OPTI3_ID` AS `ESO_INS_OPTI3_ID`,`sofi_spectra`.`ESO_INS_OPTI3_NAME` AS `ESO_INS_OPTI3_NAME`,`sofi_spectra`.`ESO_INS_OPTI3_NO` AS `ESO_INS_OPTI3_NO`,`sofi_spectra`.`ESO_INS_OPTI3_TYPE` AS `ESO_INS_OPTI3_TYPE`,`sofi_spectra`.`ESO_INS_PIXSCALE` AS `ESO_INS_PIXSCALE`,`sofi_spectra`.`ESO_INS_SWSIM` AS `ESO_INS_SWSIM`,`sofi_spectra`.`ESO_INS_TEMP_DETSW` AS `ESO_INS_TEMP_DETSW`,`sofi_spectra`.`ESO_INS_TEMP_DETSW_SET` AS `ESO_INS_TEMP_DETSW_SET`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME1` AS `ESO_INS_TEMP_MON_NAME1`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME10` AS `ESO_INS_TEMP_MON_NAME10`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME2` AS `ESO_INS_TEMP_MON_NAME2`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME3` AS `ESO_INS_TEMP_MON_NAME3`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME4` AS `ESO_INS_TEMP_MON_NAME4`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME5` AS `ESO_INS_TEMP_MON_NAME5`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME6` AS `ESO_INS_TEMP_MON_NAME6`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME7` AS `ESO_INS_TEMP_MON_NAME7`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME8` AS `ESO_INS_TEMP_MON_NAME8`,`sofi_spectra`.`ESO_INS_TEMP_MON_NAME9` AS `ESO_INS_TEMP_MON_NAME9`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP1` AS `ESO_INS_TEMP_MON_TEMP1`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP10` AS `ESO_INS_TEMP_MON_TEMP10`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP2` AS `ESO_INS_TEMP_MON_TEMP2`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP3` AS `ESO_INS_TEMP_MON_TEMP3`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP4` AS `ESO_INS_TEMP_MON_TEMP4`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP5` AS `ESO_INS_TEMP_MON_TEMP5`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP6` AS `ESO_INS_TEMP_MON_TEMP6`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP7` AS `ESO_INS_TEMP_MON_TEMP7`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP8` AS `ESO_INS_TEMP_MON_TEMP8`,`sofi_spectra`.`ESO_INS_TEMP_MON_TEMP9` AS `ESO_INS_TEMP_MON_TEMP9`,`sofi_spectra`.`ESO_INS_TEMP_VACP` AS `ESO_INS_TEMP_VACP`,`sofi_spectra`.`ESO_INS_TIME` AS `ESO_INS_TIME`,`sofi_spectra`.`ESO_OBS_DID` AS `ESO_OBS_DID`,`sofi_spectra`.`ESO_OBS_EXECTIME` AS `ESO_OBS_EXECTIME`,`sofi_spectra`.`ESO_OBS_GRP` AS `ESO_OBS_GRP`,`sofi_spectra`.`ESO_OBS_ID` AS `ESO_OBS_ID`,`sofi_spectra`.`ESO_OBS_NAME` AS `ESO_OBS_NAME`,`sofi_spectra`.`ESO_OBS_OBSERVER` AS `ESO_OBS_OBSERVER`,`sofi_spectra`.`ESO_OBS_PI_COI_ID` AS `ESO_OBS_PI_COI_ID`,`sofi_spectra`.`ESO_OBS_PI_COI_NAME` AS `ESO_OBS_PI_COI_NAME`,`sofi_spectra`.`ESO_OBS_PROG_ID` AS `ESO_OBS_PROG_ID`,`sofi_spectra`.`ESO_OBS_START` AS `ESO_OBS_START`,`sofi_spectra`.`ESO_OBS_TARG_NAME` AS `ESO_OBS_TARG_NAME`,`sofi_spectra`.`ESO_OBS_TPLNO` AS `ESO_OBS_TPLNO`,`sofi_spectra`.`ESO_OCS_COMP_ID` AS `ESO_OCS_COMP_ID`,`sofi_spectra`.`ESO_OCS_DID` AS `ESO_OCS_DID`,`sofi_spectra`.`ESO_OCS_SELECT_ARM` AS `ESO_OCS_SELECT_ARM`,`sofi_spectra`.`ESO_SEQ_CUMOFFSETX` AS `ESO_SEQ_CUMOFFSETX`,`sofi_spectra`.`ESO_SEQ_JITTER_WIDTH` AS `ESO_SEQ_JITTER_WIDTH`,`sofi_spectra`.`ESO_SEQ_NODTHROW` AS `ESO_SEQ_NODTHROW`,`sofi_spectra`.`ESO_SEQ_RELOFFSETX` AS `ESO_SEQ_RELOFFSETX`,`sofi_spectra`.`ESO_TEL_AIRM_END` AS `ESO_TEL_AIRM_END`,`sofi_spectra`.`ESO_TEL_AIRM_START` AS `ESO_TEL_AIRM_START`,`sofi_spectra`.`ESO_TEL_ALT` AS `ESO_TEL_ALT`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_END` AS `ESO_TEL_AMBI_FWHM_END`,`sofi_spectra`.`ESO_TEL_AMBI_FWHM_START` AS `ESO_TEL_AMBI_FWHM_START`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_END` AS `ESO_TEL_AMBI_PRES_END`,`sofi_spectra`.`ESO_TEL_AMBI_PRES_START` AS `ESO_TEL_AMBI_PRES_START`,`sofi_spectra`.`ESO_TEL_AMBI_RHUM` AS `ESO_TEL_AMBI_RHUM`,`sofi_spectra`.`ESO_TEL_AMBI_TEMP` AS `ESO_TEL_AMBI_TEMP`,`sofi_spectra`.`ESO_TEL_AMBI_WINDDIR` AS `ESO_TEL_AMBI_WINDDIR`,`sofi_spectra`.`ESO_TEL_AMBI_WINDSP` AS `ESO_TEL_AMBI_WINDSP`,`sofi_spectra`.`ESO_TEL_AZ` AS `ESO_TEL_AZ`,`sofi_spectra`.`ESO_TEL_CHOP_ST` AS `ESO_TEL_CHOP_ST`,`sofi_spectra`.`ESO_TEL_DATE` AS `ESO_TEL_DATE`,`sofi_spectra`.`ESO_TEL_DID` AS `ESO_TEL_DID`,`sofi_spectra`.`ESO_TEL_DOME_STATUS` AS `ESO_TEL_DOME_STATUS`,`sofi_spectra`.`ESO_TEL_FOCU_ID` AS `ESO_TEL_FOCU_ID`,`sofi_spectra`.`ESO_TEL_FOCU_LEN` AS `ESO_TEL_FOCU_LEN`,`sofi_spectra`.`ESO_TEL_FOCU_SCALE` AS `ESO_TEL_FOCU_SCALE`,`sofi_spectra`.`ESO_TEL_FOCU_VALUE` AS `ESO_TEL_FOCU_VALUE`,`sofi_spectra`.`ESO_TEL_GEOELEV` AS `ESO_TEL_GEOELEV`,`sofi_spectra`.`ESO_TEL_GEOLAT` AS `ESO_TEL_GEOLAT`,`sofi_spectra`.`ESO_TEL_GEOLON` AS `ESO_TEL_GEOLON`,`sofi_spectra`.`ESO_TEL_ID` AS `ESO_TEL_ID`,`sofi_spectra`.`ESO_TEL_MOON_DEC` AS `ESO_TEL_MOON_DEC`,`sofi_spectra`.`ESO_TEL_MOON_RA` AS `ESO_TEL_MOON_RA`,`sofi_spectra`.`ESO_TEL_OPER` AS `ESO_TEL_OPER`,`sofi_spectra`.`ESO_TEL_PARANG_END` AS `ESO_TEL_PARANG_END`,`sofi_spectra`.`ESO_TEL_PARANG_START` AS `ESO_TEL_PARANG_START`,`sofi_spectra`.`ESO_TEL_TARG_ALPHA` AS `ESO_TEL_TARG_ALPHA`,`sofi_spectra`.`ESO_TEL_TARG_COORDTYPE` AS `ESO_TEL_TARG_COORDTYPE`,`sofi_spectra`.`ESO_TEL_TARG_DELTA` AS `ESO_TEL_TARG_DELTA`,`sofi_spectra`.`ESO_TEL_TARG_EPOCH` AS `ESO_TEL_TARG_EPOCH`,`sofi_spectra`.`ESO_TEL_TARG_EPOCHSYSTEM` AS `ESO_TEL_TARG_EPOCHSYSTEM`,`sofi_spectra`.`ESO_TEL_TARG_EQUINOX` AS `ESO_TEL_TARG_EQUINOX`,`sofi_spectra`.`ESO_TEL_TARG_PARALLAX` AS `ESO_TEL_TARG_PARALLAX`,`sofi_spectra`.`ESO_TEL_TARG_PMA` AS `ESO_TEL_TARG_PMA`,`sofi_spectra`.`ESO_TEL_TARG_PMD` AS `ESO_TEL_TARG_PMD`,`sofi_spectra`.`ESO_TEL_TARG_RADVEL` AS `ESO_TEL_TARG_RADVEL`,`sofi_spectra`.`ESO_TEL_TH_M1_TEMP` AS `ESO_TEL_TH_M1_TEMP`,`sofi_spectra`.`ESO_TEL_TRAK_STATUS` AS `ESO_TEL_TRAK_STATUS`,`sofi_spectra`.`ESO_TEL_TSS_TEMP8` AS `ESO_TEL_TSS_TEMP8`,`sofi_spectra`.`ESO_TPL_DID` AS `ESO_TPL_DID`,`sofi_spectra`.`ESO_TPL_EXPNO` AS `ESO_TPL_EXPNO`,`sofi_spectra`.`ESO_TPL_ID` AS `ESO_TPL_ID`,`sofi_spectra`.`ESO_TPL_NAME` AS `ESO_TPL_NAME`,`sofi_spectra`.`ESO_TPL_NEXP` AS `ESO_TPL_NEXP`,`sofi_spectra`.`ESO_TPL_PRESEQ` AS `ESO_TPL_PRESEQ`,`sofi_spectra`.`ESO_TPL_START` AS `ESO_TPL_START`,`sofi_spectra`.`ESO_TPL_VERSION` AS `ESO_TPL_VERSION`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`EXTEND` AS `EXTEND`,`sofi_spectra`.`EXT_OBJ` AS `EXT_OBJ`,`sofi_spectra`.`FILETYPE` AS `FILETYPE`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLATCOR` AS `FLATCOR`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`INSTRUME` AS `INSTRUME`,`sofi_spectra`.`IRAF_TLM` AS `IRAF_TLM`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`LST` AS `LST`,`sofi_spectra`.`LTM1_1` AS `LTM1_1`,`sofi_spectra`.`LTM2_2` AS `LTM2_2`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`M_EPOCH` AS `M_EPOCH`,`sofi_spectra`.`NAXIS` AS `NAXIS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`OBID1` AS `OBID1`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`OBSERVER` AS `OBSERVER`,`sofi_spectra`.`OBSTECH` AS `OBSTECH`,`sofi_spectra`.`ORIGFILE` AS `ORIGFILE`,`sofi_spectra`.`ORIGIN` AS `ORIGIN`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROG_ID` AS `PROG_ID`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`RADECSYS` AS `RADECSYS`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SIMPLE` AS `SIMPLE`,`sofi_spectra`.`SINGLEXP` AS `SINGLEXP`,`sofi_spectra`.`SKYSUB` AS `SKYSUB`,`sofi_spectra`.`SPECSYS` AS `SPECSYS`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_SYE` AS `SPEC_SYE`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TELESCOP` AS `TELESCOP`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`TOT_FLUX` AS `TOT_FLUX`,`sofi_spectra`.`TRACE1` AS `TRACE1`,`sofi_spectra`.`TRIM` AS `TRIM`,`sofi_spectra`.`UTC` AS `UTC`,`sofi_spectra`.`VOCLASS` AS `VOCLASS`,`sofi_spectra`.`VOPUB` AS `VOPUB`,`sofi_spectra`.`WAT0_001` AS `WAT0_001`,`sofi_spectra`.`WAT1_001` AS `WAT1_001`,`sofi_spectra`.`WAT2_001` AS `WAT2_001`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`WCSDIM` AS `WCSDIM`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`dateLastModified` AS `dateLastModified`,`sofi_spectra`.`dateLastRead` AS `dateLastRead`,`sofi_spectra`.`filePath` AS `filePath`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`headerExtension` AS `headerExtension`,`sofi_spectra`.`CCDMEAN` AS `CCDMEAN`,`sofi_spectra`.`ESO_OCS_WCS_RTD_ST` AS `ESO_OCS_WCS_RTD_ST`,`sofi_spectra`.`LTV1` AS `LTV1`,`sofi_spectra`.`PC1_1` AS `PC1_1`,`sofi_spectra`.`PC1_2` AS `PC1_2`,`sofi_spectra`.`PC2_1` AS `PC2_1`,`sofi_spectra`.`PC2_2` AS `PC2_2`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`APNUM1` AS `APNUM1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`CD3_3` AS `CD3_3`,`sofi_spectra`.`MAGSTD` AS `MAGSTD`,`sofi_spectra`.`CTYPE3` AS `CTYPE3`,`sofi_spectra`.`STDNAME` AS `STDNAME`,`sofi_spectra`.`LTM3_3` AS `LTM3_3`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`NUSTEP` AS `NUSTEP`,`sofi_spectra`.`WAT3_001` AS `WAT3_001`,`sofi_spectra`.`TRACE2` AS `TRACE2`,`sofi_spectra`.`NAXIS3` AS `NAXIS3`,`sofi_spectra`.`COMMENT` AS `COMMENT`,`sofi_spectra`.`ESO_INS_LAMP1_NAME` AS `ESO_INS_LAMP1_NAME`,`sofi_spectra`.`ESO_INS_LAMP1_ST` AS `ESO_INS_LAMP1_ST`,`sofi_spectra`.`REFSPEC1` AS `REFSPEC1`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`SENSFUN` AS `SENSFUN`,`sofi_spectra`.`SENSPHOT` AS `SENSPHOT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`TRACE3` AS `TRACE3`,`sofi_spectra`.`TRACE4` AS `TRACE4`,`sofi_spectra`.`TRACE5` AS `TRACE5`,`sofi_spectra`.`TRACE6` AS `TRACE6`,`sofi_spectra`.`TRACE7` AS `TRACE7`,`sofi_spectra`.`TRACE8` AS `TRACE8`,`sofi_spectra`.`DARKTIME` AS `DARKTIME`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`TRACE10` AS `TRACE10`,`sofi_spectra`.`TRACE11` AS `TRACE11`,`sofi_spectra`.`TRACE12` AS `TRACE12`,`sofi_spectra`.`TRACE13` AS `TRACE13`,`sofi_spectra`.`TRACE14` AS `TRACE14`,`sofi_spectra`.`TRACE15` AS `TRACE15`,`sofi_spectra`.`TRACE16` AS `TRACE16`,`sofi_spectra`.`TRACE9` AS `TRACE9`,`sofi_spectra`.`IMCMB001` AS `IMCMB001`,`sofi_spectra`.`IMCMB002` AS `IMCMB002`,`sofi_spectra`.`IMCMB003` AS `IMCMB003`,`sofi_spectra`.`IMCMB004` AS `IMCMB004`,`sofi_spectra`.`IMCMB005` AS `IMCMB005`,`sofi_spectra`.`IMCMB006` AS `IMCMB006`,`sofi_spectra`.`IMCMB007` AS `IMCMB007`,`sofi_spectra`.`IMCMB008` AS `IMCMB008`,`sofi_spectra`.`filetype_key_instrument` AS `filetype_key_instrument`,`sofi_spectra`.`filetype_key_image_or_spectrum` AS `filetype_key_image_or_spectrum`,`sofi_spectra`.`filetype_key_reduction_stage` AS `filetype_key_reduction_stage`,`sofi_spectra`.`filetype_key_calibration` AS `filetype_key_calibration`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`nameChangeRequired` AS `nameChangeRequired`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`updatedFilename` AS `updatedFilename`,`sofi_spectra`.`filenameUpdated` AS `filenameUpdated`,`sofi_spectra`.`objectInFilename` AS `objectInFilename`,`sofi_spectra`.`updateObjectName` AS `updateObjectName`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`updatedFilepath` AS `updatedFilepath`,`sofi_spectra`.`archivePath` AS `archivePath`,`sofi_spectra`.`rewriteFitsHeader` AS `rewriteFitsHeader` from `sofi_spectra` where (`sofi_spectra`.`filetype_key_reduction_stage` = 3) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15375,7 +17003,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_ssdr1` AS select 1 AS `AIRMASS`,1 AS `APERTURE`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `binary_table_associated_spectrum_id`,1 AS `BITPIX`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `DATA_REL`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATE_OBS`,1 AS `dateCreated`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EFFRON`,1 AS `esoPhaseIII`,1 AS `EXPTIME`,1 AS `filename`,1 AS `filesize`,1 AS `FILTER`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NCOMBINE`,1 AS `NDIT`,1 AS `nelem`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `OBJECT`,1 AS `PI_COI`,1 AS `primaryId`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROV1`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV9`,1 AS `QUALITY`,1 AS `RA`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SNR`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `transientBucketId`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `XMAX`,1 AS `XMIN` */;
+/*!50001 VIEW `view_sofi_spectra_ssdr1` AS (select `sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`DATA_REL` AS `DATA_REL`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EFFRON` AS `EFFRON`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`filesize` AS `filesize`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`nelem` AS `nelem`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN` from `sofi_spectra` where (`sofi_spectra`.`DATA_REL` = 'SSDR1') order by `sofi_spectra`.`BITPIX`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15393,7 +17021,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_ssdr2` AS select 1 AS `AIRMASS`,1 AS `APERTURE`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `binary_table_associated_spectrum_id`,1 AS `BITPIX`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `DATA_REL`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATE_OBS`,1 AS `dateCreated`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EFFRON`,1 AS `esoPhaseIII`,1 AS `EXPTIME`,1 AS `filename`,1 AS `filesize`,1 AS `FILTER`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NCOMBINE`,1 AS `NDIT`,1 AS `nelem`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `OBJECT`,1 AS `PI_COI`,1 AS `primaryId`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROV1`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV9`,1 AS `QUALITY`,1 AS `RA`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SNR`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `transientBucketId`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `XMAX`,1 AS `XMIN` */;
+/*!50001 VIEW `view_sofi_spectra_ssdr2` AS (select `sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`DATA_REL` AS `DATA_REL`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EFFRON` AS `EFFRON`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`filesize` AS `filesize`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`nelem` AS `nelem`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN` from `sofi_spectra` where (`sofi_spectra`.`DATA_REL` = 'SSDR2') order by `sofi_spectra`.`BITPIX`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15411,7 +17039,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_sofi_spectra_ssdr3` AS select 1 AS `AIRMASS`,1 AS `APERTURE`,1 AS `ASSOC1`,1 AS `ASSON1`,1 AS `BANDID1`,1 AS `BANDID2`,1 AS `BANDID3`,1 AS `BANDID4`,1 AS `binary_table_associated_spectrum_id`,1 AS `BITPIX`,1 AS `currentFilename`,1 AS `currentFilepath`,1 AS `DATA_REL`,1 AS `DATAMAX`,1 AS `DATAMIN`,1 AS `DATE_OBS`,1 AS `dateCreated`,1 AS `DECL`,1 AS `DETRON`,1 AS `DISPELEM`,1 AS `DIT`,1 AS `EFFRON`,1 AS `esoPhaseIII`,1 AS `EXPTIME`,1 AS `filename`,1 AS `filesize`,1 AS `FILTER`,1 AS `FLUXCAL`,1 AS `FLUXERR`,1 AS `GAIN`,1 AS `LAMNLIN`,1 AS `LAMRMS`,1 AS `MJD_END`,1 AS `MJD_OBS`,1 AS `NAXIS1`,1 AS `NAXIS2`,1 AS `NCOMBINE`,1 AS `NDIT`,1 AS `nelem`,1 AS `NJITTER`,1 AS `NOFFSETS`,1 AS `OBJECT`,1 AS `PI_COI`,1 AS `primaryId`,1 AS `PROCSOFT`,1 AS `PRODCATG`,1 AS `PROV1`,1 AS `PROV10`,1 AS `PROV11`,1 AS `PROV12`,1 AS `PROV13`,1 AS `PROV14`,1 AS `PROV15`,1 AS `PROV16`,1 AS `PROV2`,1 AS `PROV3`,1 AS `PROV4`,1 AS `PROV5`,1 AS `PROV6`,1 AS `PROV7`,1 AS `PROV8`,1 AS `PROV9`,1 AS `QUALITY`,1 AS `RA`,1 AS `REFERENC`,1 AS `SHIFT`,1 AS `SNR`,1 AS `SPEC_BIN`,1 AS `SPEC_BW`,1 AS `SPEC_ERR`,1 AS `SPEC_RES`,1 AS `SPEC_VAL`,1 AS `TELAPSE`,1 AS `TEXPTIME`,1 AS `TITLE`,1 AS `TMID`,1 AS `transientBucketId`,1 AS `WAVELMAX`,1 AS `WAVELMIN`,1 AS `XMAX`,1 AS `XMIN` */;
+/*!50001 VIEW `view_sofi_spectra_ssdr3` AS (select `sofi_spectra`.`AIRMASS` AS `AIRMASS`,`sofi_spectra`.`APERTURE` AS `APERTURE`,`sofi_spectra`.`ASSOC1` AS `ASSOC1`,`sofi_spectra`.`ASSON1` AS `ASSON1`,`sofi_spectra`.`BANDID1` AS `BANDID1`,`sofi_spectra`.`BANDID2` AS `BANDID2`,`sofi_spectra`.`BANDID3` AS `BANDID3`,`sofi_spectra`.`BANDID4` AS `BANDID4`,`sofi_spectra`.`binary_table_associated_spectrum_id` AS `binary_table_associated_spectrum_id`,`sofi_spectra`.`BITPIX` AS `BITPIX`,`sofi_spectra`.`currentFilename` AS `currentFilename`,`sofi_spectra`.`currentFilepath` AS `currentFilepath`,`sofi_spectra`.`DATA_REL` AS `DATA_REL`,`sofi_spectra`.`DATAMAX` AS `DATAMAX`,`sofi_spectra`.`DATAMIN` AS `DATAMIN`,`sofi_spectra`.`DATE_OBS` AS `DATE_OBS`,`sofi_spectra`.`dateCreated` AS `dateCreated`,`sofi_spectra`.`DECL` AS `DECL`,`sofi_spectra`.`DETRON` AS `DETRON`,`sofi_spectra`.`DISPELEM` AS `DISPELEM`,`sofi_spectra`.`DIT` AS `DIT`,`sofi_spectra`.`EFFRON` AS `EFFRON`,`sofi_spectra`.`esoPhaseIII` AS `esoPhaseIII`,`sofi_spectra`.`EXPTIME` AS `EXPTIME`,`sofi_spectra`.`filename` AS `filename`,`sofi_spectra`.`filesize` AS `filesize`,`sofi_spectra`.`FILTER` AS `FILTER`,`sofi_spectra`.`FLUXCAL` AS `FLUXCAL`,`sofi_spectra`.`FLUXERR` AS `FLUXERR`,`sofi_spectra`.`GAIN` AS `GAIN`,`sofi_spectra`.`LAMNLIN` AS `LAMNLIN`,`sofi_spectra`.`LAMRMS` AS `LAMRMS`,`sofi_spectra`.`MJD_END` AS `MJD_END`,`sofi_spectra`.`MJD_OBS` AS `MJD_OBS`,`sofi_spectra`.`NAXIS1` AS `NAXIS1`,`sofi_spectra`.`NAXIS2` AS `NAXIS2`,`sofi_spectra`.`NCOMBINE` AS `NCOMBINE`,`sofi_spectra`.`NDIT` AS `NDIT`,`sofi_spectra`.`nelem` AS `nelem`,`sofi_spectra`.`NJITTER` AS `NJITTER`,`sofi_spectra`.`NOFFSETS` AS `NOFFSETS`,`sofi_spectra`.`OBJECT` AS `OBJECT`,`sofi_spectra`.`PI_COI` AS `PI_COI`,`sofi_spectra`.`primaryId` AS `primaryId`,`sofi_spectra`.`PROCSOFT` AS `PROCSOFT`,`sofi_spectra`.`PRODCATG` AS `PRODCATG`,`sofi_spectra`.`PROV1` AS `PROV1`,`sofi_spectra`.`PROV10` AS `PROV10`,`sofi_spectra`.`PROV11` AS `PROV11`,`sofi_spectra`.`PROV12` AS `PROV12`,`sofi_spectra`.`PROV13` AS `PROV13`,`sofi_spectra`.`PROV14` AS `PROV14`,`sofi_spectra`.`PROV15` AS `PROV15`,`sofi_spectra`.`PROV16` AS `PROV16`,`sofi_spectra`.`PROV2` AS `PROV2`,`sofi_spectra`.`PROV3` AS `PROV3`,`sofi_spectra`.`PROV4` AS `PROV4`,`sofi_spectra`.`PROV5` AS `PROV5`,`sofi_spectra`.`PROV6` AS `PROV6`,`sofi_spectra`.`PROV7` AS `PROV7`,`sofi_spectra`.`PROV8` AS `PROV8`,`sofi_spectra`.`PROV9` AS `PROV9`,`sofi_spectra`.`QUALITY` AS `QUALITY`,`sofi_spectra`.`RA` AS `RA`,`sofi_spectra`.`REFERENC` AS `REFERENC`,`sofi_spectra`.`SHIFT` AS `SHIFT`,`sofi_spectra`.`SNR` AS `SNR`,`sofi_spectra`.`SPEC_BIN` AS `SPEC_BIN`,`sofi_spectra`.`SPEC_BW` AS `SPEC_BW`,`sofi_spectra`.`SPEC_ERR` AS `SPEC_ERR`,`sofi_spectra`.`SPEC_RES` AS `SPEC_RES`,`sofi_spectra`.`SPEC_VAL` AS `SPEC_VAL`,`sofi_spectra`.`TELAPSE` AS `TELAPSE`,`sofi_spectra`.`TEXPTIME` AS `TEXPTIME`,`sofi_spectra`.`TITLE` AS `TITLE`,`sofi_spectra`.`TMID` AS `TMID`,`sofi_spectra`.`transientBucketId` AS `transientBucketId`,`sofi_spectra`.`WAVELMAX` AS `WAVELMAX`,`sofi_spectra`.`WAVELMIN` AS `WAVELMIN`,`sofi_spectra`.`XMAX` AS `XMAX`,`sofi_spectra`.`XMIN` AS `XMIN` from `sofi_spectra` where (`sofi_spectra`.`DATA_REL` = 'SSDR3') order by `sofi_spectra`.`BITPIX`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15429,7 +17057,25 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_tns_photometry_discoveries` AS select 1 AS `raDeg`,1 AS `decDeg`,1 AS `objectName`,1 AS `survey`,1 AS `suggestedType`,1 AS `hostRedshift` */;
+/*!50001 VIEW `view_tns_photometry_discoveries` AS select distinct `s`.`raDeg` AS `raDeg`,`s`.`decDeg` AS `decDeg`,`p`.`objectName` AS `objectName`,`p`.`survey` AS `survey`,`p`.`suggestedType` AS `suggestedType`,`s`.`hostRedshift` AS `hostRedshift` from (`tns_sources` `s` join `tns_photometry` `p`) where ((`s`.`TNSId` = `p`.`TNSId`) and (`p`.`objectName` is not null)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `view_transientbucketmaster`
+--
+
+/*!50001 DROP VIEW IF EXISTS `view_transientbucketmaster`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013  SQL SECURITY DEFINER */
+/*!50001 VIEW `view_transientbucketmaster` AS select `transientbucket`.`primaryKeyId` AS `primaryKeyId`,`transientbucket`.`transientBucketId` AS `transientBucketId`,`transientbucket`.`masterIDFlag` AS `masterIDFlag`,`transientbucket`.`name` AS `name`,`transientbucket`.`survey` AS `survey`,`transientbucket`.`raDeg` AS `raDeg`,`transientbucket`.`decDeg` AS `decDeg`,`transientbucket`.`raDegErr` AS `raDegErr`,`transientbucket`.`decDegErr` AS `decDegErr`,`transientbucket`.`observationDate` AS `observationDate`,`transientbucket`.`observationMJD` AS `observationMJD`,`transientbucket`.`magnitude` AS `magnitude`,`transientbucket`.`magnitudeError` AS `magnitudeError`,`transientbucket`.`filter` AS `filter`,`transientbucket`.`transientRedshift` AS `transientRedshift`,`transientbucket`.`transientRedshiftNotes` AS `transientRedshiftNotes`,`transientbucket`.`spectralType` AS `spectralType`,`transientbucket`.`discoveryPhase` AS `discoveryPhase`,`transientbucket`.`dateCreated` AS `dateCreated`,`transientbucket`.`dateLastModified` AS `dateLastModified`,`transientbucket`.`surveyObjectUrl` AS `surveyObjectUrl`,`transientbucket`.`transientTypePrediction` AS `transientTypePrediction`,`transientbucket`.`transientTypePredicationSource` AS `transientTypePredicationSource`,`transientbucket`.`hostRedshift` AS `hostRedshift`,`transientbucket`.`hostRedshiftType` AS `hostRedshiftType`,`transientbucket`.`referenceImageUrl` AS `referenceImageUrl`,`transientbucket`.`targetImageUrl` AS `targetImageUrl`,`transientbucket`.`subtractedImageUrl` AS `subtractedImageUrl`,`transientbucket`.`tripletImageUrl` AS `tripletImageUrl`,`transientbucket`.`htm20ID` AS `htm20ID`,`transientbucket`.`htm16ID` AS `htm16ID`,`transientbucket`.`cx` AS `cx`,`transientbucket`.`cy` AS `cy`,`transientbucket`.`cz` AS `cz`,`transientbucket`.`telescope` AS `telescope`,`transientbucket`.`instrument` AS `instrument`,`transientbucket`.`reducer` AS `reducer`,`transientbucket`.`lastNonDetectionDate` AS `lastNonDetectionDate`,`transientbucket`.`lastNonDetectionMJD` AS `lastNonDetectionMJD`,`transientbucket`.`dateLastRead` AS `dateLastRead`,`transientbucket`.`finderImageUrl` AS `finderImageUrl`,`transientbucket`.`lightcurveURL` AS `lightcurveURL` from `transientbucket` where (`transientbucket`.`masterIDFlag` = 1) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15447,7 +17093,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013  SQL SECURITY DEFINER */
-/*!50001 VIEW `view_wiserep_object_summaries` AS select 1 AS `transientBucketId`,1 AS `name`,1 AS `survey`,1 AS `raDeg`,1 AS `decDeg`,1 AS `spectralType`,1 AS `transientRedshift` */;
+/*!50001 VIEW `view_wiserep_object_summaries` AS (select `master`.`transientBucketId` AS `transientBucketId`,`master`.`name` AS `name`,`master`.`survey` AS `survey`,`master`.`raDeg` AS `raDeg`,`master`.`decDeg` AS `decDeg`,`spec`.`spectralType` AS `spectralType`,`z`.`transientRedshift` AS `transientRedshift` from ((`transientbucket` `master` left join `view_objectspectraltypes` `spec` on(((`spec`.`transientBucketId` = `master`.`transientBucketId`) or isnull(`spec`.`transientBucketId`)))) left join `view_objectredshifts` `z` on(((`z`.`transientBucketId` = `master`.`transientBucketId`) or isnull(`z`.`transientBucketId`)))) where ((`master`.`masterIDFlag` = 1) and ((`z`.`transientRedshift` is not null) or (`spec`.`spectralType` is not null)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -15461,7 +17107,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-01 13:05:57
+-- Dump completed on 2020-04-19 20:01:41
 -- MySQL dump 10.13  Distrib 5.7.26, for macos10.14 (x86_64)
 --
 -- Host: localhost    Database: marshall
@@ -15493,7 +17139,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
   PRIMARY KEY (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `primaryId_UNIQUE` (`primaryId`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `listname_unique` (`listname`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -15521,7 +17167,7 @@ CREATE TABLE `webapp_users` (
   `permissions` varchar(45) NOT NULL DEFAULT 'edit_users',
   PRIMARY KEY (`id`) KEY_BLOCK_SIZE=1024,
   UNIQUE KEY `first_second` (`firstname`,`secondname`) KEY_BLOCK_SIZE=1024
-) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -15530,7 +17176,7 @@ CREATE TABLE `webapp_users` (
 
 LOCK TABLES `webapp_users` WRITE;
 /*!40000 ALTER TABLE `webapp_users` DISABLE KEYS */;
-INSERT INTO `webapp_users` VALUES (1,'yen-chen','pan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(2,'alejandro','clocchiatt','noaccess','edit_users'),(3,'anders','jerkstrand','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(4,'anders','nyholm','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(5,'andrea','pastorello','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(6,'andy','howell','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(8,'antonia','morales-garoffolo','noaccess','edit_users'),(9,'ariel','goobar','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(10,'armin','rest','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(11,'Assaf','Sternberg','noaccess','edit_users'),(12,'avet','harutyunyan','noaccess','edit_users'),(13,'avishay','gal-yam','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(14,'brian','schmidt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(15,'charlie','baltay','noaccess','edit_users'),(16,'chris','ashall','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(17,'christophe','balland','noaccess','edit_users'),(18,'claes','fransson','noaccess','edit_users'),(19,'claudia','gutierrez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(20,'Cosimo','Inserra','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(21,'cristina','barbarino','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(22,'cristina','knapic','noaccess','edit_users'),(23,'cristina','romero-canizales','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(24,'darryl','wright','noaccess','edit_users'),(25,'david','bersier','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(26,'david','rabinowitz','noaccess','edit_users'),(27,'David','Young','$5$rounds=110000$xUZS2oqgUMEL3eSv$.OL5UMZ7lOpDOcZ5LcMZaX.tg/IxZjZeZ/hcapmwcX/','superadmin'),(28,'elisabeth','gall','noaccess','edit_users'),(29,'ellie','hadjiyska','noaccess','edit_users'),(30,'Emille','Ishida','noaccess','edit_users'),(31,'emir','karamehmetoglu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(32,'emma','riley','noaccess','edit_users'),(33,'emma','walker','noaccess','edit_users'),(34,'enrico','cappellaro','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(35,'eric','hsiao','noaccess','edit_users'),(36,'erkki','kankare','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(37,'fang','yuan','noaccess','edit_users'),(38,'Felipe','Olivares','noaccess','edit_users'),(39,'flora','cellier-holtzem','noaccess','edit_users'),(40,'Francesco','Taddia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(41,'francisco','forster','noaccess','edit_users'),(42,'franciso','forster','noaccess','edit_users'),(43,'Franz','Bauer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(44,'Giacomo','Terreran','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(45,'giorgos','dimitriadis','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(46,'Giorgos','Leloudas','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(47,'giuliano','pignata','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(48,'hanindyo','kuncarayakti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(49,'heather','campbell','noaccess','edit_users'),(50,'Iair','Arcavi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(51,'isobel','hook','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(52,'jayne','doe','noaccess','edit_users'),(53,'jean-baptiste','marquette','noaccess','edit_users'),(54,'jesper','sollerman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(55,'joe','anderson','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(56,'joe','lyman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(57,'Joe','Polshaw','noaccess','edit_users'),(58,'joel','johansson','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(59,'john','danziger','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(60,'john','eldridge','noaccess','edit_users'),(61,'jonathan','mackey','noaccess','edit_users'),(62,'jordi','isern','noaccess','edit_users'),(63,'jose','maza','noaccess','edit_users'),(64,'justyn','maund','noaccess','edit_users'),(65,'Katalin','Takats','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(66,'kate','maguire','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(67,'Ken','Smith','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(68,'laura','greggio','noaccess','edit_users'),(69,'laurent','le-guillou','noaccess','edit_users'),(70,'leonardo','tartaglia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(71,'letizia','pumo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(72,'linda','astman','noaccess','edit_users'),(73,'lindsay','magill','noaccess','edit_users'),(74,'lluis','galbany','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(75,'luca','zampieri','noaccess','edit_users'),(76,'lukasz','wyrzykowski','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(77,'marco','limongi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(78,'marco','molinaro','noaccess','edit_users'),(79,'marek','kowalski','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(80,'maria','teresa-botticella','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(81,'mario','hamuy','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(82,'mark','huber','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(83,'Mark','Magee','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(84,'mark','sullivan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(85,'markus','kromer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(86,'massimo','dall\'ora','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(87,'massimo','della-valle','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(88,'massimo','turatto','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(89,'mathilde','fleury','noaccess','edit_users'),(90,'matt','mccrum','noaccess','edit_users'),(91,'matthew','nicholl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(92,'mattia','bulla','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(93,'mattias','ergon','noaccess','edit_users'),(94,'max','stritzinger','noaccess','edit_users'),(95,'Michael','Childress','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(96,'michel','dennefeld','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(97,'milena','bufano','noaccess','edit_users'),(98,'morgan','fraser','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(99,'nadejda','blagorodnova','noaccess','edit_users'),(100,'nancy','elias-rosa','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(101,'nando','patat','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(102,'neil','meharg','noaccess','edit_users'),(103,'nicholas','walton','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(104,'nicolas','regnault','noaccess','edit_users'),(105,'norbert','langer','noaccess','edit_users'),(106,'ofer','yaron','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(107,'Paolo','Mazzali','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(108,'peter','lundqvist','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(109,'peter','nugent','noaccess','edit_users'),(110,'phil','james','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(111,'Philipp','Podsiadlowski','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(112,'pierre-francois','leget','noaccess','edit_users'),(113,'pignata','giuliano','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(114,'rahman','amanullah','noaccess','edit_users'),(115,'reynald','pain','noaccess','edit_users'),(116,'ricardo','smareglia','noaccess','edit_users'),(117,'richard','scalzo','noaccess','edit_users'),(118,'robert','firth','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(119,'rubina','kotak','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(120,'sandra','benitez','noaccess','edit_users'),(121,'santiago','gonzalez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(122,'sebastien','bongard','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(123,'seppo','mattila','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(124,'simon','hodgkin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(125,'sina','rostami','noaccess','edit_users'),(126,'stefan','taubenberger','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(127,'stefano','benetti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(128,'Stefano','Valenti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(129,'stephan','hachinger','noaccess','edit_users'),(130,'stephane','blondin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(131,'Stephen','Smartt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(132,'steve','schulze','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(133,'steven','margheim','noaccess','edit_users'),(134,'stuart','sim','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(135,'susanna','spiro','noaccess','edit_users'),(136,'sylvain','baumont','noaccess','edit_users'),(137,'Thomas','De','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(138,'Ting-Wan','Chen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(139,'tuomas','kangas','noaccess','edit_users'),(140,'ulrich','feindt','noaccess','edit_users'),(141,'Vahagn','Harutyunyan','noaccess','edit_users'),(142,'vallery','stanishev','noaccess','edit_users'),(143,'wolfgang','hillebrandt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(145,'griffin','hosseinzadeh','noaccess','edit_users'),(147,'nicolas','chotard','noaccess','edit_users'),(149,'fang','huang','noaccess','edit_users'),(151,'marine','ducrot','noaccess','edit_users'),(153,'matt','smith','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(155,'jussi','harmanen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(157,'christoffer','fremling','noaccess','edit_users'),(159,'john','doe','noaccess','edit_users'),(161,'mikael','normann','noaccess','edit_users'),(163,'katia','migotto','noaccess','edit_users'),(165,'lina','tomasella','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(167,'paula','zelaya','noaccess','edit_users'),(169,'sergio','campana','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(171,'chris','frohmaier','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(173,'natasha','karpenka','noaccess','edit_users'),(175,'regis','cartier','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(177,'szymon','prajs','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(179,'ken','chambers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(181,'steven','williams','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(183,'assaf','horesh','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(185,'heather','flewelling','noaccess','edit_users'),(186,'alessandro','razza','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(187,'ismael','pessa','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(188,'tania','moraga','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(189,'claudia','agliozzo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(190,'patrice','bouchet','noaccess','edit_users'),(191,'simon','prentice','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(192,'thomas','de.jaeger','noaccess','edit_users'),(193,'kate','furnell','noaccess','edit_users'),(194,'john','tonry','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(195,'larry','denneau','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(196,'andrei','sherst','noaccess','edit_users'),(197,'brian','stalder','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(198,'aren','heinze','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(200,'michele','sasdelli','noaccess','edit_users'),(201,'remy.le','breton','noaccess','edit_users'),(202,'ilan','manulis','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(203,'ayan','mitra','noaccess','edit_users'),(204,'aleksandar','cikota','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(205,'tamar','faran','noaccess','edit_users'),(206,'peter','jonker','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(207,'nancy','ellman','noaccess','edit_users'),(208,'curtis','mccully','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(209,'ira','bar','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(211,'anais','moller','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(212,'brad','tucker','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(213,'tom','reynolds','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(214,'ashley','ruiter','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(215,'ivo','seitenzahl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(216,'bonnie','zhang','noaccess','edit_users'),(217,'lawrence','short','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(218,'michael','coughlin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(219,'peter','clark','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(220,'miika','pursiainen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(221,'pilar','ruiz-lapuente','noaccess','edit_users'),(222,'azalee','bostroem','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(223,'lixin','yu','noaccess','edit_users'),(224,'lingzhi','wang','noaccess','edit_users'),(225,'osmar','rodriguez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(226,'david','oneill','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(227,'yongzhi','cai','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(228,'andreas','floers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(229,'zach','cano','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(230,'silvia','piranomonte','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(231,'francesca','onori','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(232,'aleksandra','hamanowicz','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(233,'rupak','roy','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(234,'paolo','davanzo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(235,'eliana','palazzi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(236,'giacomo','cannizzaro','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(237,'mariusz','gromadzki','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(238,'jan','bolmer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(239,'stefano','covino','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(240,'frederic','daigne','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(241,'valerio','d.elia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(242,'kasper.elm','heintz','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(243,'andrea','melandri','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(244,'jesse','palmerio','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(245,'andrea','rossi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(246,'boris','sbarufatti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(247,'pat','schady','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(248,'giulia','stratta','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(249,'gianpiero','tagliaferri','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(250,'susanna','vergani','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(251,'luca','izzo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(252,'krzysztof','rybicki','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(253,'daniel','kusters','noaccess','edit_users'),(254,'marica','branchesi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(258,'nicola','masetti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(259,'jakob','nordin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(260,'anna','franckowiak','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(262,'mickael','rigault','noaccess','edit_users'),(264,'nora','strotjohann','noaccess','edit_users'),(265,'valery','brinnel','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(266,'jakob','van.santen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(267,'matteo','giomi','noaccess','edit_users'),(270,'paul','groot','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(271,'enzo','brocato','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(272,'zuzanna','kostrzewa','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(273,'luke','shingles','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(274,'maria','patterson','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(275,'tim','naylor','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(276,'carlos','contreras','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(277,'roberta','carini','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(278,'david','homan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(279,'christian','vogl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(280,'zhitong','li','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(281,'annalisa','de.cia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(282,'filomena','bufano','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(283,'marco','berton','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(284,'elena','mason','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(285,'paolo','ochner','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(286,'andy','lawrence','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(287,'charlotte','angus','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(288,'luc','dessart','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(289,'daniel','perley','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(292,'zhihao','chen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(293,'nikola','knezevic','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(294,'owen','mcbrien','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(295,'dave','morris','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(296,'emma','callis','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(297,'phil','wiseman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(298,'roy','williams','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(299,'daniele','malesani','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(300,'lana','salmon','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(301,'antonio','martin.carrillo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(302,'lorraine','hanlon','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(303,'david','murphy','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(304,'david','sand','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(305,'ruoyu','zhu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(306,'achille','fiore','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(307,'kristhell','lopez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(312,'christa','gall','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(313,'wolfgang','kerzendorf','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(314,'shane','moran','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(315,'sadie','jones','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(316,'thomas','wevers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(317,'john','lightfoot','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(318,'enrico','congiu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(319,'adam','rubin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(320,'massimiliano','de.pasquale','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(321,'priscila','pessi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(322,'maayane.tamar','soumag','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(323,'daichi','hiramatsu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(324,'jamie','burke','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(325,'tomas','muller','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(326,'robert','stein','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(327,'noel','castro.segura','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(328,'matthew','grayling','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(329,'philip','short','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(330,'tassilo','schweyer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(331,'matt','nicholl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(332,'jen','hjorth','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(333,'ilya','mandel','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(334,'felipe','olivares.estay','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(335,'jonathan','pineda','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(336,'andrea','reguitti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(337,'jens','hjorth','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(338,'ana','sagues.carracedo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(339,'sasha','kozyreva','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(340,'fabio','ragosta','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(341,'kelly','skillen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(344,'deepak','eappachen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(350,'maria','vincenzi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(351,'craig','pellegrino','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(352,'lisa','kelsey','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(353,'sean','brennan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(354,'barnabas','barna','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(355,'jacob','teffs','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(361,'nada','ihanec','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(362,'ignacio','sanchez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(363,'elizabeth','swann','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(365,'ido','irani','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(366,'teppo','heikkila','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(367,'marco','landoni','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users');
+INSERT INTO `webapp_users` VALUES (1,'yen-chen','pan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(2,'alejandro','clocchiatt','noaccess','edit_users'),(3,'nicolas','jerkstrand','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(4,'anders','nyholm','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(5,'andrea','pastorello','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(6,'andy','howell','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(8,'antonia','morales-garoffolo','noaccess','edit_users'),(9,'ariel','goobar','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(10,'armin','rest','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(11,'Assaf','Sternberg','noaccess','edit_users'),(12,'avet','harutyunyan','noaccess','edit_users'),(13,'avishay','gal-yam','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(14,'brian','schmidt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(15,'charlie','baltay','noaccess','edit_users'),(16,'chris','ashall','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(17,'christophe','balland','noaccess','edit_users'),(18,'claes','fransson','noaccess','edit_users'),(19,'claudia','gutierrez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(20,'Cosimo','Inserra','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(21,'cristina','barbarino','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(22,'cristina','knapic','noaccess','edit_users'),(24,'darryl','wright','noaccess','edit_users'),(25,'david','bersier','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(26,'david','rabinowitz','noaccess','edit_users'),(27,'David','Young','$5$rounds=110000$xUZS2oqgUMEL3eSv$.OL5UMZ7lOpDOcZ5LcMZaX.tg/IxZjZeZ/hcapmwcX/','superadmin'),(28,'elisabeth','gall','noaccess','edit_users'),(29,'ellie','hadjiyska','noaccess','edit_users'),(30,'Emille','Ishida','noaccess','edit_users'),(31,'emir','karamehmetoglu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(32,'emma','riley','noaccess','edit_users'),(33,'emma','walker','noaccess','edit_users'),(34,'enrico','cappellaro','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(35,'eric','hsiao','noaccess','edit_users'),(36,'erkki','kankare','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(37,'fang','yuan','noaccess','edit_users'),(38,'Felipe','Olivares','noaccess','edit_users'),(39,'flora','cellier-holtzem','noaccess','edit_users'),(40,'Francesco','Taddia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(41,'francisco','forster','noaccess','edit_users'),(42,'franciso','forster','noaccess','edit_users'),(43,'Franz','Bauer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(44,'Giacomo','Terreran','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(45,'giorgos','dimitriadis','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(46,'Giorgos','Leloudas','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(47,'giuliano','pignata','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(48,'hanindyo','kuncarayakti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(49,'heather','campbell','noaccess','edit_users'),(50,'Iair','Arcavi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(51,'isobel','hook','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(52,'jayne','doe','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(53,'jean-baptiste','marquette','noaccess','edit_users'),(54,'jesper','sollerman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(55,'joe','anderson','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(56,'joe','lyman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(57,'Joe','Polshaw','noaccess','edit_users'),(58,'joel','johansson','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(59,'john','danziger','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(60,'john','eldridge','noaccess','edit_users'),(61,'jonathan','mackey','noaccess','edit_users'),(62,'jordi','isern','noaccess','edit_users'),(63,'jose','maza','noaccess','edit_users'),(64,'justyn','maund','noaccess','edit_users'),(65,'Katalin','Takats','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(66,'kate','maguire','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(67,'Ken','Smith','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(68,'laura','greggio','noaccess','edit_users'),(69,'laurent','le-guillou','noaccess','edit_users'),(70,'leonardo','tartaglia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(71,'letizia','pumo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(72,'linda','astman','noaccess','edit_users'),(73,'lindsay','magill','noaccess','edit_users'),(74,'lluis','galbany','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(75,'luca','zampieri','noaccess','edit_users'),(76,'lukasz','wyrzykowski','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(77,'marco','limongi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(78,'marco','molinaro','noaccess','edit_users'),(79,'marek','kowalski','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(80,'maria','teresa-botticella','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(81,'mario','hamuy','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(82,'mark','huber','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(83,'Mark','Magee','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(84,'mark','sullivan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(85,'markus','kromer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(86,'massimo','dall\'ora','no access','edit_users'),(87,'massimo','della-valle','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(88,'massimo','turatto','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(89,'mathilde','fleury','noaccess','edit_users'),(90,'matt','mccrum','noaccess','edit_users'),(91,'matthew','nicholl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(92,'mattia','bulla','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(93,'mattias','ergon','noaccess','edit_users'),(94,'max','stritzinger','noaccess','edit_users'),(95,'Michael','Childress','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(96,'michel','dennefeld','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(97,'milena','bufano','noaccess','edit_users'),(98,'morgan','fraser','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(99,'nadejda','blagorodnova','noaccess','edit_users'),(100,'nancy','elias-rosa','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(101,'nando','patat','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(102,'neil','meharg','noaccess','edit_users'),(103,'nicholas','walton','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(104,'nicolas','regnault','noaccess','edit_users'),(105,'norbert','langer','noaccess','edit_users'),(106,'ofer','yaron','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(107,'Paolo','Mazzali','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(108,'peter','lundqvist','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(109,'peter','nugent','noaccess','edit_users'),(110,'phil','james','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(111,'Philipp','Podsiadlowski','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(112,'pierre-francois','leget','noaccess','edit_users'),(113,'pignata','giuliano','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(114,'rahman','amanullah','noaccess','edit_users'),(115,'reynald','pain','noaccess','edit_users'),(116,'ricardo','smareglia','noaccess','edit_users'),(117,'richard','scalzo','noaccess','edit_users'),(118,'robert','firth','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(119,'rubina','kotak','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(120,'sandra','benitez','noaccess','edit_users'),(121,'santiago','gonzalez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(122,'sebastien','bongard','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(123,'seppo','mattila','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(124,'simon','hodgkin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(125,'sina','rostami','noaccess','edit_users'),(126,'stefan','taubenberger','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(127,'stefano','benetti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(128,'Stefano','Valenti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(129,'stephan','hachinger','noaccess','edit_users'),(130,'stephane','blondin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(131,'Stephen','Smartt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(132,'steve','schulze','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(133,'steven','margheim','noaccess','edit_users'),(134,'stuart','sim','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(135,'susanna','spiro','noaccess','edit_users'),(136,'sylvain','baumont','noaccess','edit_users'),(137,'Thomas','De','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(138,'Ting-Wan','Chen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(139,'tuomas','kangas','noaccess','edit_users'),(140,'ulrich','feindt','noaccess','edit_users'),(141,'Vahagn','Harutyunyan','noaccess','edit_users'),(142,'vallery','stanishev','noaccess','edit_users'),(143,'wolfgang','hillebrandt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(145,'griffin','hosseinzadeh','noaccess','edit_users'),(147,'nicolas','chotard','noaccess','edit_users'),(149,'fang','huang','noaccess','edit_users'),(151,'marine','ducrot','noaccess','edit_users'),(153,'matt','smith','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(155,'jussi','harmanen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(157,'christoffer','fremling','noaccess','edit_users'),(159,'john','doe','noaccess','edit_users'),(161,'mikael','normann','noaccess','edit_users'),(163,'katia','migotto','noaccess','edit_users'),(165,'lina','tomasella','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(167,'paula','zelaya','noaccess','edit_users'),(169,'sergio','campana','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(171,'chris','frohmaier','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(173,'natasha','karpenka','noaccess','edit_users'),(175,'regis','cartier','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(177,'szymon','prajs','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(179,'ken','chambers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(181,'steven','williams','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(183,'assaf','horesh','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(185,'heather','flewelling','noaccess','edit_users'),(186,'alessandro','razza','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(187,'ismael','pessa','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(188,'tania','moraga','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(189,'claudia','agliozzo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(190,'patrice','bouchet','noaccess','edit_users'),(191,'simon','prentice','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(192,'thomas','de.jaeger','noaccess','edit_users'),(193,'kate','furnell','noaccess','edit_users'),(194,'john','tonry','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(195,'larry','denneau','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(196,'andrei','sherst','noaccess','edit_users'),(197,'brian','stalder','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(198,'aren','heinze','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(200,'michele','sasdelli','noaccess','edit_users'),(201,'remy.le','breton','noaccess','edit_users'),(202,'ilan','manulis','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(203,'ayan','mitra','noaccess','edit_users'),(204,'aleksandar','cikota','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(205,'tamar','faran','noaccess','edit_users'),(206,'peter','jonker','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(207,'nancy','ellman','noaccess','edit_users'),(208,'curtis','mccully','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(209,'ira','bar','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(211,'anais','moller','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(212,'brad','tucker','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(213,'tom','reynolds','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(214,'ashley','ruiter','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(215,'ivo','seitenzahl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(216,'bonnie','zhang','noaccess','edit_users'),(217,'lawrence','short','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(218,'michael','coughlin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(219,'peter','clark','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(220,'miika','pursiainen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(221,'pilar','ruiz-lapuente','noaccess','edit_users'),(222,'azalee','bostroem','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(223,'lixin','yu','noaccess','edit_users'),(224,'lingzhi','wang','noaccess','edit_users'),(225,'osmar','rodriguez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(226,'david','oneill','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(227,'yongzhi','cai','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(228,'andreas','floers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(229,'zach','cano','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(230,'silvia','piranomonte','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(231,'francesca','onori','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(232,'aleksandra','hamanowicz','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(233,'rupak','roy','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(234,'paolo','davanzo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(235,'eliana','palazzi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(236,'giacomo','cannizzaro','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(237,'mariusz','gromadzki','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(238,'jan','bolmer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(239,'stefano','covino','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(240,'frederic','daigne','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(241,'valerio','d.elia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(242,'kasper.elm','heintz','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(243,'andrea','melandri','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(244,'jesse','palmerio','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(245,'andrea','rossi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(246,'boris','sbarufatti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(247,'pat','schady','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(248,'giulia','stratta','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(249,'gianpiero','tagliaferri','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(250,'susanna','vergani','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(251,'luca','izzo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(252,'krzysztof','rybicki','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(253,'daniel','kusters','noaccess','edit_users'),(254,'marica','branchesi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(258,'nicola','masetti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(259,'jakob','nordin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(260,'anna','franckowiak','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(262,'mickael','rigault','noaccess','edit_users'),(264,'nora','strotjohann','noaccess','edit_users'),(265,'valery','brinnel','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(266,'jakob','van.santen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(267,'matteo','giomi','noaccess','edit_users'),(270,'paul','groot','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(271,'enzo','brocato','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(272,'zuzanna','kostrzewa','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(273,'luke','shingles','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(274,'maria','patterson','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(275,'tim','naylor','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(276,'carlos','contreras','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(277,'roberta','carini','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(278,'david','homan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(279,'christian','vogl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(280,'zhitong','li','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(281,'annalisa','de.cia','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(282,'filomena','bufano','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(283,'marco','berton','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(284,'elena','mason','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(285,'paolo','ochner','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(286,'andy','lawrence','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(287,'charlotte','angus','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(288,'luc','dessart','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(289,'daniel','perley','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(292,'zhihao','chen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(293,'nikola','knezevic','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(294,'owen','mcbrien','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(295,'dave','morris','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(296,'emma','callis','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(297,'phil','wiseman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(298,'roy','williams','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(299,'daniele','malesani','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(300,'lana','salmon','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(301,'antonio','martin.carrillo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(302,'lorraine','hanlon','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(303,'david','murphy','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(304,'david','sand','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(305,'ruoyu','zhu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(306,'achille','fiore','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(307,'kristhell','lopez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(312,'christa','gall','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(313,'wolfgang','kerzendorf','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(314,'shane','moran','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(315,'sadie','jones','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(316,'thomas','wevers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(317,'john','lightfoot','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(318,'enrico','congiu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(319,'adam','rubin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(320,'massimiliano','de.pasquale','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(321,'priscila','pessi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(322,'maayane.tamar','soumag','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(323,'daichi','hiramatsu','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(324,'jamie','burke','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(325,'tomas','muller','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(326,'robert','stein','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(327,'noel','castro.segura','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(328,'matthew','grayling','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(329,'philip','short','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(330,'tassilo','schweyer','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(331,'matt','nicholl','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(332,'jen','hjorth','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(333,'ilya','mandel','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(334,'felipe','olivares.estay','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(335,'jonathan','pineda','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(336,'andrea','reguitti','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(337,'jens','hjorth','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(338,'ana','sagues.carracedo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(339,'sasha','kozyreva','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(340,'fabio','ragosta','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(341,'kelly','skillen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(344,'deepak','eappachen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(350,'maria','vincenzi','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(351,'craig','pellegrino','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(352,'lisa','kelsey','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(353,'sean','brennan','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(354,'barnabas','barna','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(355,'jacob','teffs','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(361,'nada','ihanec','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(362,'ignacio','sanchez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(363,'elizabeth','swann','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(365,'ido','irani','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(366,'teppo','heikkila','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(367,'marco','landoni','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(368,'shubham','srivastav','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(369,'nico','meza','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(370,'laureano','martinez','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(371,'takashi','nagao','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(372,'jose','prieto','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(373,'juanita','antilen','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(374,'yize','dong','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(375,'michael','lundquist','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(376,'jennifer','andrews','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(377,'sam','wyatt','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(378,'rachael','amaro','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(379,'emmanouela','paraskeva','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(380,'kuntal','mistra','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(382,'samantha','goldwasser','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(383,'miguel','perez-torres','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(384,'matthew','temple','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(387,'meg','schwamb','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(388,'rachel','bruch','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(391,'james','gillanders','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(394,'panos','charalampopoulos','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(395,'eleonora','parrag','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(396,'michael','fulton','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(397,'giorgio','valerin','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(398,'pietro','schipani','$5$rounds=535000$HFlOOKhWYrcCGuB9$qPERc0JMQ8Rp4GOECwBxMHR7BLua1jqVRXgR4YJlUV6','view_users'),(399,'kyle','medler','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(400,'cristina','cristina','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(401,'emma','reilly','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(402,'nicolas','meza','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(403,'erez','zimmerman','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(404,'melissa','amenouche','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(406,'maxime','deckers','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(407,'arianna','zanon','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(409,'antonia','morales.garoffolo','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(410,'kuntal','misra','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users'),(411,'anne','inkenhaag','$5$rounds=110000$MAKWStjFVWb2dqhG$oqBc8072dGM.mtWRmEFQ.WnhSZ79hn9yphtE8QflxT1','edit_users');
 /*!40000 ALTER TABLE `webapp_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -15548,8 +17194,8 @@ CREATE TABLE `marshall_fs_column_map` (
   `transientBucket_column` varchar(45) DEFAULT NULL,
   `fs_table_column` varchar(45) NOT NULL,
   PRIMARY KEY (`primaryId`),
-  UNIQUE KEY `unquie_fs_table_name_fs_table_column` (`fs_table_column`,`fs_table_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1019 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `unquie_fs_table_name_fs_table_column` (`fs_table_name`,`fs_table_column`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -15558,7 +17204,7 @@ CREATE TABLE `marshall_fs_column_map` (
 
 LOCK TABLES `marshall_fs_column_map` WRITE;
 /*!40000 ALTER TABLE `marshall_fs_column_map` DISABLE KEYS */;
-INSERT INTO `marshall_fs_column_map` VALUES (18,'fs_asassn_sne','ASAS-SN','observationDate','Date'),(21,'fs_asassn_sne','ASAS-SN','name','ID'),(24,'fs_asassn_sne','ASAS-SN','raDeg','RA'),(28,'fs_asassn_sne','ASAS-SN','magnitude','V_disc'),(29,'fs_asassn_sne','ASAS-SN','decDeg','decl'),(30,'fs_asassn_sne','ASAS-SN','surveyObjectUrl','surveyUrl'),(32,'fs_asassn_transients','ASAS-SN','magnitude','Vmag'),(34,'fs_asassn_transients','ASAS-SN','decDeg','decDeg'),(35,'fs_asassn_transients','ASAS-SN','observationDate','discDate'),(36,'fs_asassn_transients','ASAS-SN','name','name'),(37,'fs_asassn_transients','ASAS-SN','raDeg','raDeg'),(38,'fs_asassn_transients','ASAS-SN','spectralType','specClass'),(40,'fs_asassn_transients','ASAS-SN','surveyObjectUrl','surveyUrl'),(47,'fs_atlas','ATLAS','name','candidateID'),(48,'fs_atlas','ATLAS','raDeg','ra_deg'),(49,'fs_atlas','ATLAS','decDeg','dec_deg'),(50,'fs_atlas','ATLAS','magnitude','mag'),(51,'fs_atlas','ATLAS','magnitudeError','magErr'),(52,'fs_atlas','ATLAS','filter','filter'),(53,'fs_atlas','ATLAS','observationMJD','observationMJD'),(54,'fs_atlas','ATLAS','observationDate','discDate'),(56,'fs_atlas','ATLAS','transientTypePrediction','suggestedType'),(58,'fs_atlas','ATLAS','hostRedshift','hostZ'),(59,'fs_atlas','ATLAS','targetImageUrl','targetImageURL'),(60,'fs_atlas','ATLAS','referenceImageUrl','refImageURL'),(61,'fs_atlas','ATLAS','subtractedImageUrl','diffImageURL'),(62,'fs_atlas','ATLAS','surveyObjectUrl','objectURL'),(79,'fs_atlas_forced_phot','ATLAS','name','atlas_designation'),(80,'fs_atlas_forced_phot','ATLAS','observationMJD','mjd_obs'),(81,'fs_atlas_forced_phot','ATLAS','filter','filter'),(82,'fs_atlas_forced_phot','ATLAS','magnitude','mag'),(87,'fs_atlas_forced_phot','ATLAS','raDeg','raDeg'),(88,'fs_atlas_forced_phot','ATLAS','decDeg','decDeg'),(107,'fs_atlas_forced_phot','ATLAS','magnitude','marshall_mag'),(108,'fs_atlas_forced_phot','ATLAS','limitingMag','marshall_limiting_mag'),(109,'fs_atlas_forced_phot','ATLAS','magnitudeError','marshall_mag_error'),(191,'fs_crts_css','CRTS','decDeg','decDeg'),(192,'fs_crts_css','CRTS','filter','filter'),(193,'fs_crts_css','CRTS','finderImageUrl','finderChartUrl'),(196,'fs_crts_css','CRTS','lightcurveURL','lightcurveUrl'),(197,'fs_crts_css','CRTS','magnitude','mag'),(198,'fs_crts_css','CRTS','name','name'),(199,'fs_crts_css','CRTS','observationDate','observationDate'),(200,'fs_crts_css','CRTS','observationMJD','observationMJD'),(201,'fs_crts_css','CRTS','raDeg','raDeg'),(202,'fs_crts_css','CRTS','surveyObjectUrl','surveyObjectUrl'),(203,'fs_crts_css','CRTS','targetImageUrl','targetImageUrl'),(204,'fs_crts_css','CRTS','transientTypePrediction','transientTypePrediction'),(206,'fs_crts_css','CRTS','magnitudeError','magErr'),(207,'fs_crts_css','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(208,'fs_crts_css','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(222,'fs_crts_mls','CRTS','decDeg','decDeg'),(223,'fs_crts_mls','CRTS','filter','filter'),(224,'fs_crts_mls','CRTS','finderImageUrl','finderChartUrl'),(227,'fs_crts_mls','CRTS','lightcurveURL','lightcurveUrl'),(228,'fs_crts_mls','CRTS','magnitude','mag'),(229,'fs_crts_mls','CRTS','name','name'),(230,'fs_crts_mls','CRTS','observationDate','observationDate'),(231,'fs_crts_mls','CRTS','observationMJD','observationMJD'),(232,'fs_crts_mls','CRTS','raDeg','raDeg'),(233,'fs_crts_mls','CRTS','surveyObjectUrl','surveyObjectUrl'),(234,'fs_crts_mls','CRTS','targetImageUrl','targetImageUrl'),(235,'fs_crts_mls','CRTS','transientTypePrediction','transientTypePrediction'),(237,'fs_crts_mls','CRTS','magnitudeError','magErr'),(238,'fs_crts_mls','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(239,'fs_crts_mls','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(253,'fs_crts_sss','CRTS','decDeg','decDeg'),(254,'fs_crts_sss','CRTS','filter','filter'),(255,'fs_crts_sss','CRTS','finderImageUrl','finderChartUrl'),(258,'fs_crts_sss','CRTS','lightcurveURL','lightcurveUrl'),(259,'fs_crts_sss','CRTS','magnitude','mag'),(260,'fs_crts_sss','CRTS','name','name'),(261,'fs_crts_sss','CRTS','observationDate','observationDate'),(262,'fs_crts_sss','CRTS','observationMJD','observationMJD'),(263,'fs_crts_sss','CRTS','raDeg','raDeg'),(264,'fs_crts_sss','CRTS','surveyObjectUrl','surveyObjectUrl'),(265,'fs_crts_sss','CRTS','targetImageUrl','targetImageUrl'),(266,'fs_crts_sss','CRTS','transientTypePrediction','transientTypePrediction'),(268,'fs_crts_sss','CRTS','magnitudeError','magErr'),(269,'fs_crts_sss','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(270,'fs_crts_sss','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(280,'fs_des','DES','decDeg','decDeg'),(281,'fs_des','DES','filter','filter'),(282,'fs_des','DES','lastNonDetectionDate','lastNonDetectionDate'),(283,'fs_des','DES','lastNonDetectionMJD','lastNonDetectionMJD'),(284,'fs_des','DES','limitingMag','limitingMag'),(285,'fs_des','DES','magnitude','magnitude'),(286,'fs_des','DES','magnitudeError','magnitudeError'),(287,'fs_des','DES','name','name'),(288,'fs_des','DES','observationDate','observationDate'),(289,'fs_des','DES','observationMJD','observationMJD'),(290,'fs_des','DES','raDeg','raDeg'),(293,'fs_des','DES','surveyObjectUrl','surveyUrl'),(294,'fs_des','DES','transientTypePrediction','transientTypePrediction'),(295,'fs_des','DES','finderImageUrl','finderImageUrl'),(296,'fs_des','DES','subtractedImageUrl','diffUrl'),(297,'fs_des','DES','referenceImageUrl','refUrl'),(298,'fs_des','DES','targetImageUrl','tarUrl'),(311,'fs_gaia','Gaia','name','candidateID'),(312,'fs_gaia','Gaia','decDeg','dec_deg'),(313,'fs_gaia','Gaia','observationDate','discDate'),(315,'fs_gaia','Gaia','filter','filter'),(316,'fs_gaia','Gaia','magnitude','mag'),(317,'fs_gaia','Gaia','surveyObjectUrl','objectURL'),(318,'fs_gaia','Gaia','observationMJD','observationMJD'),(319,'fs_gaia','Gaia','raDeg','ra_deg'),(389,'fs_master','MASTER','tripletImageUrl','imageUrl'),(390,'fs_master','MASTER','magnitude','magnitude'),(392,'fs_master','MASTER','name','name'),(394,'fs_master','MASTER','transientTypePrediction','type'),(395,'fs_master','MASTER','observationMJD','discoveryMjd'),(396,'fs_master','MASTER','decDeg','decDeg'),(397,'fs_master','MASTER','raDeg','raDeg'),(398,'fs_master','MASTER','filter','filter'),(399,'fs_master','MASTER','surveyObjectUrl','candidateUrl'),(420,'fs_ogle','OGLE','decDeg','decDeg'),(421,'fs_ogle','OGLE','filter','filter'),(422,'fs_ogle','OGLE','lastNonDetectionDate','lastNonDetectionDate'),(423,'fs_ogle','OGLE','lastNonDetectionMJD','lastNonDetectionMJD'),(424,'fs_ogle','OGLE','lightcurveURL','lightcurveUrl'),(425,'fs_ogle','OGLE','magnitude','mag'),(426,'fs_ogle','OGLE','name','name'),(427,'fs_ogle','OGLE','observationDate','observationDate'),(428,'fs_ogle','OGLE','observationMJD','observationMJD'),(429,'fs_ogle','OGLE','raDeg','raDeg'),(431,'fs_ogle','OGLE','referenceImageUrl','referenceImageUrl'),(433,'fs_ogle','OGLE','subtractedImageUrl','subtractedImageUrl'),(434,'fs_ogle','OGLE','surveyObjectUrl','surveyObjectUrl'),(436,'fs_ogle','OGLE','targetImageUrl','targetImageUrl'),(437,'fs_ogle','OGLE','transientTypePrediction','transientTypePrediction'),(440,'fs_ogle','OGLE','magnitudeError','magErr'),(441,'fs_ogle','OGLE','limitingMag','limitingMag'),(450,'fs_panstarrs','PanSTARRS','name','candidateID'),(451,'fs_panstarrs','PanSTARRS','raDeg','ra_deg'),(452,'fs_panstarrs','PanSTARRS','decDeg','dec_deg'),(453,'fs_panstarrs','PanSTARRS','magnitude','mag'),(454,'fs_panstarrs','PanSTARRS','magnitudeError','magErr'),(455,'fs_panstarrs','PanSTARRS','filter','filter'),(456,'fs_panstarrs','PanSTARRS','observationMJD','observationMJD'),(459,'fs_panstarrs','PanSTARRS','transientTypePrediction','suggestedType'),(461,'fs_panstarrs','PanSTARRS','hostRedshift','hostZ'),(462,'fs_panstarrs','PanSTARRS','targetImageUrl','targetImageURL'),(463,'fs_panstarrs','PanSTARRS','referenceImageUrl','refImageURL'),(464,'fs_panstarrs','PanSTARRS','subtractedImageUrl','diffImageURL'),(465,'fs_panstarrs','PanSTARRS','surveyObjectUrl','objectURL'),(481,'fs_skymapper','SkyMapper','decDeg','DECL'),(482,'fs_skymapper','SkyMapper','raDeg','RA'),(483,'fs_skymapper','SkyMapper','transientTypePrediction','bestType'),(484,'fs_skymapper','SkyMapper','name','candidateID'),(485,'fs_skymapper','SkyMapper','surveyObjectUrl','candidateURL'),(488,'fs_skymapper','SkyMapper','subtractedImageUrl','diffThumbURL'),(492,'fs_skymapper','SkyMapper','filter','filt'),(493,'fs_skymapper','SkyMapper','magnitude','mag'),(494,'fs_skymapper','SkyMapper','magnitudeError','magerr'),(495,'fs_skymapper','SkyMapper','observationMJD','mjd'),(496,'fs_skymapper','SkyMapper','targetImageUrl','newThumbURL'),(498,'fs_skymapper','SkyMapper','lastNonDetectionMJD','noneMJD'),(501,'fs_skymapper','SkyMapper','referenceImageUrl','refThumbURL'),(512,'fs_tns_transients',NULL,'decDeg','decDeg'),(514,'fs_tns_transients',NULL,'observationDate','discDate'),(515,'fs_tns_transients',NULL,'magnitude','discMag'),(516,'fs_tns_transients',NULL,'filter','discMagFilter'),(519,'fs_tns_transients',NULL,'hostRedshift','hostRedshift'),(520,'fs_tns_transients',NULL,'name','objectName'),(521,'fs_tns_transients',NULL,'surveyObjectUrl','objectUrl'),(522,'fs_tns_transients',NULL,'raDeg','raDeg'),(525,'fs_tns_transients',NULL,'spectralType','specType'),(526,'fs_tns_transients',NULL,'transientRedshift','transRedshift'),(527,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDate'),(530,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDateParsed'),(558,'fs_user_added',NULL,'name','candidateID'),(559,'fs_user_added',NULL,'raDeg','ra_deg'),(560,'fs_user_added',NULL,'decDeg','dec_deg'),(561,'fs_user_added',NULL,'magnitude','mag'),(562,'fs_user_added',NULL,'magnitudeError','magErr'),(563,'fs_user_added',NULL,'filter','filter'),(564,'fs_user_added',NULL,'observationMJD','observationMJD'),(565,'fs_user_added',NULL,'observationDate','discDate'),(567,'fs_user_added',NULL,'transientTypePrediction','suggestedType'),(569,'fs_user_added',NULL,'hostRedshift','hostZ'),(570,'fs_user_added',NULL,'targetImageUrl','targetImageURL'),(571,'fs_user_added',NULL,'surveyObjectUrl','objectURL'),(589,'fs_ztf','ZTF','name','objectId'),(590,'fs_ztf','ZTF','raDeg','raDeg'),(591,'fs_ztf','ZTF','decDeg','decDeg'),(592,'fs_ztf','ZTF','observationMJD','mjd'),(594,'fs_ztf','ZTF','magnitude','magpsf'),(595,'fs_ztf','ZTF','magnitudeError','sigmapsf'),(600,'fs_ztf','ZTF','filter','filt'),(601,'fs_ztf','ZTF','surveyObjectUrl','surveyUrl'),(602,'fs_ztf','ZTF','tripletImageUrl','tripletImageUrl'),(604,'fs_ztf','ZTF','limitingMag','limitingMag'),(793,'atel_coordinates',NULL,'raDeg','raDeg'),(794,'atel_coordinates',NULL,'decDeg','decDeg'),(798,'atel_coordinates',NULL,'name','atelName'),(799,'atel_coordinates',NULL,'surveyObjectUrl','atelUrl'),(1017,'fs_tns_transients',NULL,'survey','survey'),(1018,'fs_user_added',NULL,'survey','survey');
+INSERT INTO `marshall_fs_column_map` VALUES (18,'fs_asassn_sne','ASAS-SN','observationDate','Date'),(21,'fs_asassn_sne','ASAS-SN','name','ID'),(24,'fs_asassn_sne','ASAS-SN','raDeg','RA'),(28,'fs_asassn_sne','ASAS-SN','magnitude','V_disc'),(29,'fs_asassn_sne','ASAS-SN','decDeg','decl'),(30,'fs_asassn_sne','ASAS-SN','surveyObjectUrl','surveyUrl'),(32,'fs_asassn_transients','ASAS-SN','magnitude','Vmag'),(34,'fs_asassn_transients','ASAS-SN','decDeg','decDeg'),(35,'fs_asassn_transients','ASAS-SN','observationDate','discDate'),(36,'fs_asassn_transients','ASAS-SN','name','name'),(37,'fs_asassn_transients','ASAS-SN','raDeg','raDeg'),(38,'fs_asassn_transients','ASAS-SN','spectralType','specClass'),(40,'fs_asassn_transients','ASAS-SN','surveyObjectUrl','surveyUrl'),(47,'fs_atlas','ATLAS','name','candidateID'),(48,'fs_atlas','ATLAS','raDeg','ra_deg'),(49,'fs_atlas','ATLAS','decDeg','dec_deg'),(50,'fs_atlas','ATLAS','magnitude','mag'),(51,'fs_atlas','ATLAS','magnitudeError','magErr'),(52,'fs_atlas','ATLAS','filter','filter'),(53,'fs_atlas','ATLAS','observationMJD','observationMJD'),(54,'fs_atlas','ATLAS','observationDate','discDate'),(56,'fs_atlas','ATLAS','transientTypePrediction','suggestedType'),(58,'fs_atlas','ATLAS','hostRedshift','hostZ'),(59,'fs_atlas','ATLAS','targetImageUrl','targetImageURL'),(60,'fs_atlas','ATLAS','referenceImageUrl','refImageURL'),(61,'fs_atlas','ATLAS','subtractedImageUrl','diffImageURL'),(62,'fs_atlas','ATLAS','surveyObjectUrl','objectURL'),(79,'fs_atlas_forced_phot','ATLAS FP','name','atlas_designation'),(80,'fs_atlas_forced_phot','ATLAS FP','observationMJD','mjd_obs'),(81,'fs_atlas_forced_phot','ATLAS FP','filter','filter'),(87,'fs_atlas_forced_phot','ATLAS FP','raDeg','raDeg'),(88,'fs_atlas_forced_phot','ATLAS FP','decDeg','decDeg'),(107,'fs_atlas_forced_phot','ATLAS FP','magnitude','marshall_mag'),(108,'fs_atlas_forced_phot','ATLAS FP','limitingMag','marshall_limiting_mag'),(109,'fs_atlas_forced_phot','ATLAS','magnitudeError','marshall_mag_error'),(191,'fs_crts_css','CRTS','decDeg','decDeg'),(192,'fs_crts_css','CRTS','filter','filter'),(193,'fs_crts_css','CRTS','finderImageUrl','finderChartUrl'),(196,'fs_crts_css','CRTS','lightcurveURL','lightcurveUrl'),(197,'fs_crts_css','CRTS','magnitude','mag'),(198,'fs_crts_css','CRTS','name','name'),(199,'fs_crts_css','CRTS','observationDate','observationDate'),(200,'fs_crts_css','CRTS','observationMJD','observationMJD'),(201,'fs_crts_css','CRTS','raDeg','raDeg'),(202,'fs_crts_css','CRTS','surveyObjectUrl','surveyObjectUrl'),(203,'fs_crts_css','CRTS','targetImageUrl','targetImageUrl'),(204,'fs_crts_css','CRTS','transientTypePrediction','transientTypePrediction'),(206,'fs_crts_css','CRTS','magnitudeError','magErr'),(207,'fs_crts_css','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(208,'fs_crts_css','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(222,'fs_crts_mls','CRTS','decDeg','decDeg'),(223,'fs_crts_mls','CRTS','filter','filter'),(224,'fs_crts_mls','CRTS','finderImageUrl','finderChartUrl'),(227,'fs_crts_mls','CRTS','lightcurveURL','lightcurveUrl'),(228,'fs_crts_mls','CRTS','magnitude','mag'),(229,'fs_crts_mls','CRTS','name','name'),(230,'fs_crts_mls','CRTS','observationDate','observationDate'),(231,'fs_crts_mls','CRTS','observationMJD','observationMJD'),(232,'fs_crts_mls','CRTS','raDeg','raDeg'),(233,'fs_crts_mls','CRTS','surveyObjectUrl','surveyObjectUrl'),(234,'fs_crts_mls','CRTS','targetImageUrl','targetImageUrl'),(235,'fs_crts_mls','CRTS','transientTypePrediction','transientTypePrediction'),(237,'fs_crts_mls','CRTS','magnitudeError','magErr'),(238,'fs_crts_mls','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(239,'fs_crts_mls','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(253,'fs_crts_sss','CRTS','decDeg','decDeg'),(254,'fs_crts_sss','CRTS','filter','filter'),(255,'fs_crts_sss','CRTS','finderImageUrl','finderChartUrl'),(258,'fs_crts_sss','CRTS','lightcurveURL','lightcurveUrl'),(259,'fs_crts_sss','CRTS','magnitude','mag'),(260,'fs_crts_sss','CRTS','name','name'),(261,'fs_crts_sss','CRTS','observationDate','observationDate'),(262,'fs_crts_sss','CRTS','observationMJD','observationMJD'),(263,'fs_crts_sss','CRTS','raDeg','raDeg'),(264,'fs_crts_sss','CRTS','surveyObjectUrl','surveyObjectUrl'),(265,'fs_crts_sss','CRTS','targetImageUrl','targetImageUrl'),(266,'fs_crts_sss','CRTS','transientTypePrediction','transientTypePrediction'),(268,'fs_crts_sss','CRTS','magnitudeError','magErr'),(269,'fs_crts_sss','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(270,'fs_crts_sss','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(280,'fs_des','DES','decDeg','decDeg'),(281,'fs_des','DES','filter','filter'),(282,'fs_des','DES','lastNonDetectionDate','lastNonDetectionDate'),(283,'fs_des','DES','lastNonDetectionMJD','lastNonDetectionMJD'),(284,'fs_des','DES','limitingMag','limitingMag'),(285,'fs_des','DES','magnitude','magnitude'),(286,'fs_des','DES','magnitudeError','magnitudeError'),(287,'fs_des','DES','name','name'),(288,'fs_des','DES','observationDate','observationDate'),(289,'fs_des','DES','observationMJD','observationMJD'),(290,'fs_des','DES','raDeg','raDeg'),(293,'fs_des','DES','surveyObjectUrl','surveyUrl'),(294,'fs_des','DES','transientTypePrediction','transientTypePrediction'),(295,'fs_des','DES','finderImageUrl','finderImageUrl'),(296,'fs_des','DES','subtractedImageUrl','diffUrl'),(297,'fs_des','DES','referenceImageUrl','refUrl'),(298,'fs_des','DES','targetImageUrl','tarUrl'),(311,'fs_gaia','Gaia','name','candidateID'),(312,'fs_gaia','Gaia','decDeg','dec_deg'),(313,'fs_gaia','Gaia','observationDate','discDate'),(315,'fs_gaia','Gaia','filter','filter'),(316,'fs_gaia','Gaia','magnitude','mag'),(317,'fs_gaia','Gaia','surveyObjectUrl','objectURL'),(318,'fs_gaia','Gaia','observationMJD','observationMJD'),(319,'fs_gaia','Gaia','raDeg','ra_deg'),(389,'fs_master','MASTER','tripletImageUrl','imageUrl'),(390,'fs_master','MASTER','magnitude','magnitude'),(392,'fs_master','MASTER','name','name'),(394,'fs_master','MASTER','transientTypePrediction','type'),(395,'fs_master','MASTER','observationMJD','discoveryMjd'),(396,'fs_master','MASTER','decDeg','decDeg'),(397,'fs_master','MASTER','raDeg','raDeg'),(398,'fs_master','MASTER','filter','filter'),(399,'fs_master','MASTER','surveyObjectUrl','candidateUrl'),(420,'fs_ogle','OGLE','decDeg','decDeg'),(421,'fs_ogle','OGLE','filter','filter'),(422,'fs_ogle','OGLE','lastNonDetectionDate','lastNonDetectionDate'),(423,'fs_ogle','OGLE','lastNonDetectionMJD','lastNonDetectionMJD'),(424,'fs_ogle','OGLE','lightcurveURL','lightcurveUrl'),(425,'fs_ogle','OGLE','magnitude','mag'),(426,'fs_ogle','OGLE','name','name'),(427,'fs_ogle','OGLE','observationDate','observationDate'),(428,'fs_ogle','OGLE','observationMJD','observationMJD'),(429,'fs_ogle','OGLE','raDeg','raDeg'),(431,'fs_ogle','OGLE','referenceImageUrl','referenceImageUrl'),(433,'fs_ogle','OGLE','subtractedImageUrl','subtractedImageUrl'),(434,'fs_ogle','OGLE','surveyObjectUrl','surveyObjectUrl'),(436,'fs_ogle','OGLE','targetImageUrl','targetImageUrl'),(437,'fs_ogle','OGLE','transientTypePrediction','transientTypePrediction'),(440,'fs_ogle','OGLE','magnitudeError','magErr'),(441,'fs_ogle','OGLE','limitingMag','limitingMag'),(450,'fs_panstarrs','PanSTARRS','name','candidateID'),(451,'fs_panstarrs','PanSTARRS','raDeg','ra_deg'),(452,'fs_panstarrs','PanSTARRS','decDeg','dec_deg'),(453,'fs_panstarrs','PanSTARRS','magnitude','mag'),(454,'fs_panstarrs','PanSTARRS','magnitudeError','magErr'),(455,'fs_panstarrs','PanSTARRS','filter','filter'),(456,'fs_panstarrs','PanSTARRS','observationMJD','observationMJD'),(457,'fs_panstarrs','PanSTARRS','observationDate','discDate'),(459,'fs_panstarrs','PanSTARRS','transientTypePrediction','suggestedType'),(461,'fs_panstarrs','PanSTARRS','hostRedshift','hostZ'),(462,'fs_panstarrs','PanSTARRS','targetImageUrl','targetImageURL'),(463,'fs_panstarrs','PanSTARRS','referenceImageUrl','refImageURL'),(464,'fs_panstarrs','PanSTARRS','subtractedImageUrl','diffImageURL'),(465,'fs_panstarrs','PanSTARRS','surveyObjectUrl','objectURL'),(481,'fs_skymapper','SkyMapper','decDeg','DECL'),(482,'fs_skymapper','SkyMapper','raDeg','RA'),(483,'fs_skymapper','SkyMapper','transientTypePrediction','bestType'),(484,'fs_skymapper','SkyMapper','name','candidateID'),(485,'fs_skymapper','SkyMapper','surveyObjectUrl','candidateURL'),(488,'fs_skymapper','SkyMapper','subtractedImageUrl','diffThumbURL'),(492,'fs_skymapper','SkyMapper','filter','filt'),(493,'fs_skymapper','SkyMapper','magnitude','mag'),(494,'fs_skymapper','SkyMapper','magnitudeError','magerr'),(495,'fs_skymapper','SkyMapper','observationMJD','mjd'),(496,'fs_skymapper','SkyMapper','targetImageUrl','newThumbURL'),(498,'fs_skymapper','SkyMapper','lastNonDetectionMJD','noneMJD'),(501,'fs_skymapper','SkyMapper','referenceImageUrl','refThumbURL'),(512,'fs_tns_transients',NULL,'decDeg','decDeg'),(514,'fs_tns_transients',NULL,'observationDate','discDate'),(515,'fs_tns_transients',NULL,'magnitude','discMag'),(516,'fs_tns_transients',NULL,'filter','discMagFilter'),(519,'fs_tns_transients',NULL,'hostRedshift','hostRedshift'),(520,'fs_tns_transients',NULL,'name','objectName'),(521,'fs_tns_transients',NULL,'surveyObjectUrl','objectUrl'),(522,'fs_tns_transients',NULL,'raDeg','raDeg'),(525,'fs_tns_transients',NULL,'spectralType','specType'),(526,'fs_tns_transients',NULL,'transientRedshift','transRedshift'),(527,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDate'),(530,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDateParsed'),(558,'fs_user_added',NULL,'name','candidateID'),(559,'fs_user_added',NULL,'raDeg','ra_deg'),(560,'fs_user_added',NULL,'decDeg','dec_deg'),(561,'fs_user_added',NULL,'magnitude','mag'),(562,'fs_user_added',NULL,'magnitudeError','magErr'),(563,'fs_user_added',NULL,'filter','filter'),(564,'fs_user_added',NULL,'observationMJD','observationMJD'),(565,'fs_user_added',NULL,'observationDate','discDate'),(567,'fs_user_added',NULL,'transientTypePrediction','suggestedType'),(569,'fs_user_added',NULL,'hostRedshift','hostZ'),(570,'fs_user_added',NULL,'targetImageUrl','targetImageURL'),(571,'fs_user_added',NULL,'surveyObjectUrl','objectURL'),(589,'fs_ztf','ZTF','name','objectId'),(590,'fs_ztf','ZTF','raDeg','raDeg'),(591,'fs_ztf','ZTF','decDeg','decDeg'),(592,'fs_ztf','ZTF','observationMJD','mjd'),(594,'fs_ztf','ZTF','magnitude','magpsf'),(595,'fs_ztf','ZTF','magnitudeError','sigmapsf'),(600,'fs_ztf','ZTF','filter','filt'),(601,'fs_ztf','ZTF','surveyObjectUrl','surveyUrl'),(602,'fs_ztf','ZTF','tripletImageUrl','tripletImageUrl'),(604,'fs_ztf','ZTF','limitingMag','limitingMag'),(793,'atel_coordinates',NULL,'raDeg','raDeg'),(794,'atel_coordinates',NULL,'decDeg','decDeg'),(798,'atel_coordinates',NULL,'name','atelName'),(799,'atel_coordinates',NULL,'surveyObjectUrl','atelUrl'),(1017,'fs_tns_transients',NULL,'survey','survey'),(1018,'fs_user_added',NULL,'survey','survey'),(1021,'tns_sources','TNS','name','TNSName'),(1022,'tns_sources','TNS','decDeg','decDeg'),(1024,'tns_sources','TNS','observationDate','discDate'),(1025,'tns_sources','TNS','magnitude','discMag'),(1026,'tns_sources','TNS','filter','discMagFilter'),(1029,'tns_sources','TNS','surveyObjectUrl','objectUrl'),(1030,'tns_sources','TNS','raDeg','raDeg'),(1031,'tns_sources','TNS','spectralType','specType'),(1033,'tns_sources','TNS','transientRedshift','transRedshift'),(1035,'tns_sources','TNS','hostRedshift','hostRedshift'),(1040,'tns_spectra',NULL,'observationDate','obsdate'),(1042,'tns_spectra',NULL,'spectralType','specType'),(1044,'tns_spectra',NULL,'transientRedshift','transRedshift'),(1047,'tns_spectra',NULL,'observationMJD','observationMJD'),(1053,'tns_spectra',NULL,'name','TNSName'),(1055,'tns_spectra',NULL,'raDeg','raDeg'),(1056,'tns_spectra',NULL,'decDeg','decDeg'),(1060,'tns_photometry',NULL,'filter','filter'),(1061,'tns_photometry',NULL,'limitingMag','limitingMag'),(1062,'tns_photometry',NULL,'magnitude','mag'),(1063,'tns_photometry',NULL,'magnitudeError','magErr'),(1065,'tns_photometry',NULL,'name','objectName'),(1066,'tns_photometry',NULL,'observationDate','obsdate'),(1069,'tns_photometry',NULL,'survey','survey'),(1072,'tns_photometry',NULL,'observationMJD','observationMJD'),(1088,'tns_spectra',NULL,'survey','survey'),(1089,'tns_photometry',NULL,'raDeg','raDeg'),(1090,'tns_photometry',NULL,'decDeg','decDeg');
 /*!40000 ALTER TABLE `marshall_fs_column_map` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -15571,4 +17217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-01 13:05:57
+-- Dump completed on 2020-04-19 20:01:41

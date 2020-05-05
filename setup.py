@@ -22,9 +22,13 @@ install_requires = [
     'dryxPyramid',
     'pymysql',
     'astrocalc',
+    'psutil',
+    'unicodecsv',
+    'multiprocess',
+    'nose2',
     # 'pytest',
     # 'webtest',
-    'marshallEngine'
+    'marshallEngine',
 ]
 
 # READ THE DOCS SERVERS
