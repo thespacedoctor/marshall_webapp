@@ -8,7 +8,7 @@ perl -p -i.bak -e "s/DEFINER=\`\w.*?\`@\`.*?\`//g" marshall_schema.sql
 perl -p -i.bak -e "s/ALTER DATABASE .*?CHARACTER.*?;//g" marshall_schema.sql
 perl -p -i.bak -e "s/AUTO_INCREMENT=\d*//g"  marshall_schema.sql
 
-cp marshall_schema.sql ~/git_repos/marshall_webapp/marshall_webapp/tests/input
+cp marshall_schema.sql ~/git_repos/_webapps_/marshall_webapp/marshall_webapp/tests/input
 
 echo "want to clear out unit_tests marshall database? [y|n]:"
 
