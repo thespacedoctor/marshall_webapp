@@ -89,7 +89,7 @@ def latest_magnitudes_block(
     count = 0
     rows = []
     magnitudes = ""
-    # for k, v in discoveryDataDictionary.iteritems():
+    # for k, v in discoveryDataDictionary.items():
     #     print k, v
     for dataPoint in lightcurveData:
         if dataPoint["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:

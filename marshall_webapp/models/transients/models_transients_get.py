@@ -311,7 +311,7 @@ class models_transients_get():
                   "sherlock_classifications": "sc"}
 
         thisSchema = self.request.registry.settings["database_schema"]
-        for k, v in tables.iteritems():
+        for k, v in tables.items():
             sqlQuery = """SELECT COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where table_name = "%(k)s" and TABLE_SCHEMA = "%(thisSchema)s" """ % locals(
             )
             rows = self.request.db.execute(sqlQuery).fetchall()
@@ -406,7 +406,7 @@ class models_transients_get():
                 self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
         # ADD THE REST OF THE DEFAULTS TO THE QUERY STRING
-        for k, v in self.defaultQs.iteritems():
+        for k, v in self.defaultQs.items():
             if k not in self.qs and 'q' not in self.qs and not self.elementId:
                 if "awl" in self.qs and k == "mwl":
                     continue
@@ -722,7 +722,7 @@ class models_transients_get():
             tmpRow = {}
             newRow = collections.OrderedDict(sorted(tmpRow.items()))
 
-            for oldName, newName in tableColumnNames.iteritems():
+            for oldName, newName in tableColumnNames.items():
 
                 newRow[newName] = oldRow[oldName]
                 if "decdeg" in oldName.lower():

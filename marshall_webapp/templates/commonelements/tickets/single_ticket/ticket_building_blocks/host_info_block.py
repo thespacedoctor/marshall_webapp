@@ -148,7 +148,7 @@ def host_info_block(
     )
 
     if len(contextMaps) > 0:
-        for k, v in contextMaps.iteritems():
+        for k, v in contextMaps.items():
             stampName = "%(masterName)s_%(k)s_context_image" % locals()
             stampName = stampName.lower()
             contextStamp = v
@@ -164,7 +164,7 @@ def host_info_block(
 
     allImage = ""
     count = 0
-    for k, v in contextMaps.iteritems():
+    for k, v in contextMaps.items():
         count += 1
         reminderImages = len(contextMaps) % 3
         if reminderImages == 0:

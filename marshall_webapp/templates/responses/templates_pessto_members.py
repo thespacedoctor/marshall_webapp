@@ -82,7 +82,7 @@ class templates_pessto_members():
         self.log.debug('starting the ``_get_members_table`` method')
 
         for row in self.pesstoMembers:
-            for k, v in row.iteritems():
+            for k, v in row.items():
                 row[k] = v.title()
 
         total = len(self.pesstoMembers)

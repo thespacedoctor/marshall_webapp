@@ -9,6 +9,7 @@
 :Date Created:
     October 13, 2015
 """
+from __future__ import absolute_import
 import sys
 import os
 import khufu
@@ -86,7 +87,7 @@ class templates_xmatches_views():
                 thisPageName="xmatches"
             )
         else:
-            from templates_transients import templates_transients
+            from .templates_transients import templates_transients
             webpage = templates_transients(
                 log=self.log,
                 request=self.request,
@@ -125,7 +126,7 @@ class templates_xmatches_views():
             row["table_name"] = row["table_name"].replace(
                 "_", " ").replace(" final", "")
 
-            for k, v in dict(row).iteritems():
+            for k, v in dict(row).items():
                 if isinstance(v, float):
                     row[k] = "{:,.0f}".format(v)
 

@@ -132,11 +132,11 @@ def comments_tab(
     )
 
     # convert bytes to unicode
-    if isinstance(comments_block, str):
+    if isinstance(comments_block, ("".__class__, u"".__class__)):
         comments_block = unicode(
             comments_block, encoding="utf-8", errors="replace")
     # convert bytes to unicode
-    if isinstance(overviewWell, str):
+    if isinstance(overviewWell, ("".__class__, u"".__class__)):
         overviewWell = unicode(
             overviewWell, encoding="utf-8", errors="replace")
 
@@ -153,7 +153,7 @@ def comments_tab(
     )
 
     # convert bytes to unicode
-    if isinstance(comments_tab, str):
+    if isinstance(comments_tab, ("".__class__, u"".__class__)):
         comments_tab = unicode(
             comments_tab, encoding="utf-8", errors="replace")
 

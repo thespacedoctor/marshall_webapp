@@ -93,13 +93,13 @@ class models_transients_element_post():
 
         # ADD VARIABLES TO LOCALS()
         for row in rows:
-            for arg, val in row.iteritems():
+            for arg, val in row.items():
                 varname = arg
                 if isinstance(val, ("".__class__, u"".__class__)):
                     exec(varname + """ = '%s' """ % (val,))
                 else:
                     exec(varname + """ = %s """ % (val,))
-        for arg, val in self.request.params.iteritems():
+        for arg, val in self.request.params.items():
             varname = arg
             if isinstance(val, ("".__class__, u"".__class__)):
                 exec(varname + ' = """%s""" ' % (val,))

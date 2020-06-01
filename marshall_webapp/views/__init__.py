@@ -1,14 +1,15 @@
-from views_transients import transients_view
-import views_stats
-import views_calendars
-import views_transients_comments
-import views_actions_refresh_sidebar_list_counts
-import views_transients_lightcurves
-import views_transients_obs
-import views_transients_history
-import views_transients_context
-import views_xmatches
-import views_xmatches_catalogues
-import views_xmatches_views
-import views_xmatches_searches
-import views_pessto_members
+from __future__ import absolute_import
+from .views_transients import transients_view
+from . import views_stats
+from . import views_calendars
+from . import views_transients_comments
+from . import views_actions_refresh_sidebar_list_counts
+from . import views_transients_lightcurves
+from . import views_transients_obs
+from . import views_transients_history
+from . import views_transients_context
+from . import views_xmatches
+from . import views_xmatches_catalogues
+from . import views_xmatches_views
+from . import views_xmatches_searches
+from . import views_pessto_members

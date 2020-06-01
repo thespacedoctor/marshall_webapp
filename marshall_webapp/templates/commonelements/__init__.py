@@ -1,10 +1,11 @@
-import sidebar
-import topnavbar
-import tickets
-import pagination
-import sorting
-import forms
-import view_switcher_buttons
-import pagetemplates
-import stats
-import commonutils
+from __future__ import absolute_import
+from . import sidebar
+from . import topnavbar
+from . import tickets
+from . import pagination
+from . import sorting
+from . import forms
+from . import view_switcher_buttons
+from . import pagetemplates
+from . import stats
+from . import commonutils

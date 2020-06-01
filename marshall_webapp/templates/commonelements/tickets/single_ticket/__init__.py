@@ -258,7 +258,7 @@ def _ticket_tab_template(
         theseBlocks = "%(theseBlocks)s%(block)s" % locals()
 
     # CONVERT BYTES TO UNICODE
-    if isinstance(theseBlocks, str):
+    if isinstance(theseBlocks, ("".__class__, u"".__class__)):
         theseBlocks = unicode(theseBlocks, encoding="utf-8", errors="replace")
 
     if actionsBlock is not False:

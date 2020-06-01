@@ -9,6 +9,8 @@
 :Date Created:
     October 13, 2015
 """
+from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import os
 import khufu
@@ -86,7 +88,7 @@ class templates_xmatches_catalogues():
                 thisPageName="xmatches"
             )
         else:
-            from templates_transients import templates_transients
+            from .templates_transients import templates_transients
             webpage = templates_transients(
                 log=self.log,
                 request=self.request,
@@ -111,14 +113,14 @@ class templates_xmatches_catalogues():
                           "all_count", "top_rank_count"]
 
         for row in self.catalogues:
-            print row
+            print(row)
             matchObject = re.finditer(
                 r'.*_(v\d.*)',
                 row["catalogue_table_name"],
                 flags=0  # re.S
             )
 
-            for k, v in dict(row).iteritems():
+            for k, v in dict(row).items():
                 if isinstance(v, float):
                     row[k] = "{:,.0f}".format(v)
 

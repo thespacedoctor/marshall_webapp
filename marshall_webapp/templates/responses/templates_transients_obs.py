@@ -86,9 +86,9 @@ class templates_transients_obs():
         od = {}  # override dictionary
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
-        for arg, val in transient_ob_data.iteritems():
+        for arg, val in transient_ob_data.items():
             varname = arg
-            if isinstance(val, ("".__class__, u"".__class__)) or isinstance(val, unicode):
+            if isinstance(val, ("".__class__, u"".__class__)) :
                 exec(varname + ' = """%s""" ' % (val,))
             else:
                 exec(varname + " = %s" % (val,))
@@ -273,7 +273,7 @@ class templates_transients_obs():
         obDictionary["b6_DPR.TYPE"] = "OBJECT"
 
         # override default values with user values
-        for k, v in od.iteritems():
+        for k, v in od.items():
             obDictionary[k] = v
 
         block1 = [

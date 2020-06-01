@@ -1,0 +1,14 @@
+from views_transients import transients_view
+import views_stats
+import views_calendars
+import views_transients_comments
+import views_actions_refresh_sidebar_list_counts
+import views_transients_lightcurves
+import views_transients_obs
+import views_transients_history
+import views_transients_context
+import views_xmatches
+import views_xmatches_catalogues
+import views_xmatches_views
+import views_xmatches_searches
+import views_pessto_members

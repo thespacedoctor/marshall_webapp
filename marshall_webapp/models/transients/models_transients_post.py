@@ -95,9 +95,9 @@ class models_transients_post():
         )
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
-        for arg, val in self.request.params.iteritems():
+        for arg, val in self.request.params.items():
             varname = arg
-            if isinstance(val, ("".__class__, u"".__class__)) or isinstance(val, unicode):
+            if isinstance(val, ("".__class__, u"".__class__)) :
                 exec(varname + ' = """%s""" ' % (val,))
             else:
                 exec(varname + " = %s" % (val,))

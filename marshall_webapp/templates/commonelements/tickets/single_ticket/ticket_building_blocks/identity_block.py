@@ -252,7 +252,7 @@ def identity_block(
 
     hasStamp = False
     href = False
-    for k, v in stampFlags.iteritems():
+    for k, v in stampFlags.items():
         if discoveryDataDictionary[k] == 1:
             hasStamp = True
             src = "%s%s/%s" % (transient_cache,
@@ -449,7 +449,7 @@ def identity_block(
         akaTitle = "akas: "
         for row in akaRows:
             row["urlRank"] = 10
-            for k, v in surveyURLRanking.iteritems():
+            for k, v in surveyURLRanking.items():
                 if row["url"] and k in row["url"]:
                     row["urlRank"] = v
         from operator import itemgetter
@@ -553,7 +553,7 @@ def identity_block(
         )
 
         # convert bytes to unicode
-        if isinstance(pi, str):
+        if isinstance(pi, ("".__class__, u"".__class__)):
             pi = unicode(pi, encoding="utf-8", errors="replace")
 
     transientId = cu.little_label(
@@ -658,7 +658,7 @@ def identity_block(
 
     content = u"%(title)s %(masterName)s %(annotations)s %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
     )
-    if isinstance(content, str):
+    if isinstance(content, ("".__class__, u"".__class__)):
         content = unicode(content, encoding="utf-8", errors="replace")
 
     return content

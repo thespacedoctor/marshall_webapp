@@ -56,7 +56,7 @@ def survey_lightcurves_block(
 
     # FOR EACH POSSIBLE SURVEY WITH LIGHTCURVE INFO ...
     for survey in surveyList:
-        thisSurvey = survey.keys()[0]
+        thisSurvey = list(survey.keys())[0]
         thisExt = survey.values()[0]
         lightCurveFlag = "%(thisSurvey)s_lightcurve" % locals()
 

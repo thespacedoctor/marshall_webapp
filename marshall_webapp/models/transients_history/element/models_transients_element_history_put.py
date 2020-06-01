@@ -79,7 +79,7 @@ class models_transients_element_history_put():
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
-        for k, v in self.defaultQs.iteritems():
+        for k, v in self.defaultQs.items():
             if k not in self.qs:
                 self.qs[k] = v
 

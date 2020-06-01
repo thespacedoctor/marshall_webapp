@@ -1,1 +1,2 @@
-from topnavbar import topnavbar
+from __future__ import absolute_import
+from .topnavbar import topnavbar

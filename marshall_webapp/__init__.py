@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from . import cl_utils
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
@@ -8,9 +9,9 @@ from pyramid.authorization import ACLAuthorizationPolicy
 import yaml
 import dryxPyramid
 from dryxPyramid.security import groupfinder
-import views
-import templates
-import models
+from . import views
+from . import templates
+from . import models
 
 from pyramid.security import authenticated_userid
 from pyramid.settings import aslist

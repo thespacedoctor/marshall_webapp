@@ -66,7 +66,7 @@ def development_tab(
     )
 
     # CONVERT BYTES TO UNICODE
-    if isinstance(development_tab, str):
+    if isinstance(development_tab, ("".__class__, u"".__class__)):
         development_tab = unicode(
             development_tab, encoding="utf-8", errors="replace")
 

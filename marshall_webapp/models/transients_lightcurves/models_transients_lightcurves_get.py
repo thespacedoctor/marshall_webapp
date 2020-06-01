@@ -75,7 +75,7 @@ class models_transients_lightcurves_get():
 
         for row in lightCurveTmp:
             odict = collections.OrderedDict(sorted({}.items()))
-            for key in row.keys():
+            for key in list(row.keys()):
                 if row[key] == None:
                     value = "-"
                 else:

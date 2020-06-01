@@ -118,17 +118,17 @@ class test_views_transients(BaseTest):
 
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "csv"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "plain_table"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = None
         respsonse = self.testapp.get('/transients',
@@ -160,17 +160,17 @@ class test_views_transients(BaseTest):
 
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "csv"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "plain_table"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = None
         respsonse = self.testapp.get('/transients',
@@ -188,7 +188,7 @@ class test_views_transients(BaseTest):
 
         respsonse = self.testapp.get('/transients',
                                      params={"search": "TestSource", "format": "plain_table"})
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
 
     def test_views_transients_classification(self):
@@ -205,7 +205,7 @@ class test_views_transients(BaseTest):
         }
         respsonse = self.testapp.post('/transients/1',
                                       params=params)
-        print respsonse
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 302)
 
     def test_views_transients_put_pi(self):
@@ -251,9 +251,9 @@ class test_views_transients(BaseTest):
             )
             this.get()
             assert False
-        except Exception, e:
+        except Exception as e:
             assert True
-            print str(e)
+            print(str(e))
 
         # x-print-testpage-for-pessto-marshall-web-object
 

@@ -1,9 +1,10 @@
-import transients
-import transients_comments
-import actions
-import transients_lightcurves
-import transients_obs
-import transients_history
-import transients_context
-import xmatches
-import xmatches_catalogues
+from __future__ import absolute_import
+from . import transients
+from . import transients_comments
+from . import actions
+from . import transients_lightcurves
+from . import transients_obs
+from . import transients_history
+from . import transients_context
+from . import xmatches
+from . import xmatches_catalogues

@@ -1,4 +1,5 @@
+from __future__ import absolute_import
 
-from models_transients_comments_get import models_transients_comments_get
-from models_transients_comments_count import models_transients_comments_count
-import element
+from .models_transients_comments_get import models_transients_comments_get
+from .models_transients_comments_count import models_transients_comments_count
+from . import element
