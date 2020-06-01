@@ -1,24 +1,21 @@
 """
 *Unit testing tools*
 """
-from fundamentals import utKit
+from dryxPyramid.utKit import utKit
 
 # OVERRIDES
 
 
 class utKit(utKit):
-
     """
-    *Override dryx utKit*
+    *Override dryxPyramid utKit*
     """
     # Variable Data Atrributes
 
     # Override Variable Data Atrributes
-    # Initialisation
     def __init__(
             self,
-            moduleDirectory,
-            dbConn=False
+            moduleDirectory
     ):
         self.moduleDirectory = moduleDirectory
         # x-self-arg-tmpx
@@ -47,25 +44,23 @@ class utKit(utKit):
                 formatter: console_style
                 stream: ext://sys.stdout
         root:
-            level: DEBUG
+            level: WARNING
             handlers: [console]"""
 
         # Override Variable Data Atrributes
-        self.dbConfig = False
-        if dbConn:
-            self.dbConfig = """
-             version: 1
-             db: dryx_unit_testing
-             host: localhost
-             user: unittesting
-             password: utpass
-             """
+        self.dbConfig = """
+         version: 1
+         db: dryx_unit_testing
+         host: localhost
+         user: unittesting
+         password: utpass
+         """
 
         return
 
     def get_project_root(self):
         """
-        *Get the root of the `python` package - useful for getting files in the root directory of a project*
+        *Get the root of the python package - useful for getting files in the root directory of a project*
 
         **Return:**
             - ``rootPath`` -- the root path of a project
@@ -77,7 +72,7 @@ class utKit(utKit):
 
     def refresh_database(self):
         """
-        *Refresh the unit test database*
+        Refresh the unit test database
         """
         from fundamentals.mysql import directory_script_runner
         from fundamentals import tools

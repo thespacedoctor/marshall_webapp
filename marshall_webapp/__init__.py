@@ -1,3 +1,4 @@
+from . import cl_utils
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker

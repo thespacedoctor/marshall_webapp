@@ -1,19 +1,44 @@
+from __future__ import print_function
+from builtins import str
 import os
-import shutil
 import unittest
+import shutil
 import yaml
-from pyramid import testing
-import pymysql as ms
-from fundamentals import tools
 from marshall_webapp.utKit import utKit
+from fundamentals import tools
+from os.path import expanduser
 from dryxPyramid.utKit import BaseTest
+home = expanduser("~")
 
+packageDirectory = utKit("").get_project_root()
+# settingsFile = packageDirectory + "/test_settings.yaml"
+settingsFile = home + "/git_repos/_misc_/settings/marshall/test_settings.yaml"
 
-# SETUP AND TEARDOWN FIXTURE FUNCTIONS FOR THE ENTIRE MODULE
+su = tools(
+    arguments={"settingsFile": settingsFile},
+    docString=__doc__,
+    logLevel="DEBUG",
+    options_first=False,
+    projectName=None,
+    defaultSettingsFile=False
+)
+arguments, settings, log, dbConn = su.setup()
+
+# SETUP PATHS TO COMMON DIRECTORIES FOR TEST DATA
 moduleDirectory = os.path.dirname(__file__)
-stream = file(
-    moduleDirectory + "/../../test_settings.yaml", 'r')
-utKit = utKit(moduleDirectory)
+pathToInputDir = moduleDirectory + "/input/"
+pathToOutputDir = moduleDirectory + "/output/"
+
+try:
+    shutil.rmtree(pathToOutputDir)
+except:
+    pass
+# COPY INPUT TO OUTPUT DIR
+shutil.copytree(pathToInputDir, pathToOutputDir)
+
+# Recursively create missing directories
+if not os.path.exists(pathToOutputDir):
+    os.makedirs(pathToOutputDir)
 
 
 class test_views_actions_refresh_sidebar_list_counts(BaseTest):
@@ -23,8 +48,7 @@ class test_views_actions_refresh_sidebar_list_counts(BaseTest):
         moduleDirectory = os.path.dirname(__file__)
 
         su = tools(
-            arguments={"settingsFile": moduleDirectory +
-                       "/../../test_settings.yaml"},
+            arguments={"settingsFile": settingsFile},
             docString=__doc__,
             logLevel="DEBUG",
             options_first=False,

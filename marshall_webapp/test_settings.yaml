@@ -1,102 +1,20 @@
 version: 1
-database settings:
-    db: unit_tests
-    host: localhost
-    user: utuser
-    password: utpass
-    loginPath: unittesting
-    tunnel: False
+# database settings:
+#     db: unit_tests
+#     host: localhost
+#     user: utuser
+#     password: utpass
+#     loginPath: unittesting
+#     tunnel: False
 
-test user: david.young
-test pass: 31bARC07
-
-apache prefix: ""
-
-eso archive credentials:
-    username: nbd
-    password: 31bAR07
- 
-nttarchiver:
-    path to dropbox folder: "/Users/Dave/git_repos/pessto_marshall_engine/pessto_marshall_engine/tests/input/data/marshall_dropbox"
-    path to archive root folder: "/tmp/marshall_archive"
-    ## past number of days to check for new data (keep at a few days in case new data was added or there is a delay getting data into the eso archive)
-    download window size: 4
-
-downloads:
-    transient cache directory: "/Users/Dave/git_repos/marshall_webapp/marshall_webapp/static/caches/transients/"
-
-stats cache directory: "/Users/Dave/git_repos/marshall_webapp/marshall_webapp/static/caches/stats/"
-
-main css filepath: "/marshall/static/styles/css/main_marshall.css"
-main js filepath: "/marshall/static/js/main-ck.js"
-path to webapp icon: "/marshall/static/images/pessto_icon.png"
-
-asassn settings:
-    discoveries google sheet id: "1A9NOjQTS4nSt_KSb0YUTlQ0utTARjcGT5UWbsADcY1M#gid=0"
-    sn plain text: "http://www.astronomy.ohio-state.edu/~assassin/sn_list.txt"
-    transients html page: "http://www.astronomy.ohio-state.edu/~assassin/transients.html"
-
-## webapp secrets
-secrets:
-    authn policy: "a^h34**92"
-
-tns_cookie: "SESSf11000adb2f9f9d356be78e0a49b286d=kmGMbfeo8GRIBjBPy-vnD5q9c96kvLvzFhlWVZ_D27c; Drupal.tableDrag.showWeight=0; has_js=1"
-tns_cookie: "has_js=1; SESS994899c55c2a176cceabb4a63b3cd01d=8-GLinHTz5ldt-DrAq7nzee2DSJhGwIIJhmqlcbKOJg"
-
-credentials:
-    lsq:
-        username: lsq
-        password: schmidteso
-    ps1-3pi:
-        username: ps13pi
-        password: fgss
-    ps1-md:
-        username: ps1sc
-        password: skysurveys
-    ps1-fgss:
-        username: ps1sc
-        password: skysurveys
-    ps1-gw:
-        username: psnsc
-        password: "!gravity"
-    skymapper:
-        username: pessto
-        password: "!explosions"
-    google_drive:
-        username: d.r.young@qub.ac.uk
-        password: "i8VLH)+d7rm}22o9P;W%&yRa7pmu7P"
-
-panstarrs urls:
-    3pi:
-        summary csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/summary.csv"
-        recurrence csv: "http://star.pst.qub.ac.uk/sne/ps13pi/site_media/images/lightcurves/recurrences.csv"
-    gw:
-        summary csv: http://star.pst.qub.ac.uk/sne/pso3/site_media/images/lightcurves/summary.csv
-        recurrence csv: http://star.pst.qub.ac.uk/sne/pso3/site_media/images/lightcurves/recurrences.csv
-
-atlas urls:
-    summary csv: "https://star.pst.qub.ac.uk/sne/atlas4/pesstosummary/"
-    recurrence csv: "https://star.pst.qub.ac.uk/sne/atlas4/pesstorecurrences/"
-
-gaia urls:
-    summary csv: http://gsaweb.ast.cam.ac.uk/alerts/alerts.csv
-
-lsq urls:
-    summary csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates.csv"
-    recurrence csv: "http://portal.nersc.gov/project/lssn/test/ryan/adb/pessto/candidates_obs.csv"
-
-master sne url: "http://observ.pereplet.ru/sn_e.html"
-master ot url: "http://observ.pereplet.ru/MASTER_OT.html"
-tocp url: "http://www.cbat.eps.harvard.edu/unconf/tocp.html"
-des sne url: "https://portal.nersc.gov/des-sn/transients/"
-
-bright sn list urls:
-    date ordered list: "http://www.rochesterastronomy.org/snimages/sndate.html"
-    main page: "http://www.rochesterastronomy.org/supernova.html"
-
-exports:
-    path to pessto classifications csv export: "/Users/Dave/git_repos/pessto_marshall_engine/pessto_marshall_engine/database/export/tests/output/pessto_classifications_export_01.csv"
-    path to pessto object sumarraies for wiserep sql export: "/tmp/wiserep.sql"
+# # SSH TUNNEL - if a tunnel is required to connect to the database(s) then add setup here
+# # Note only one tunnel is setup - may need to change this to 2 tunnels in the future if 
+# # code, static catalogue database and transient database are all on seperate machines.
+# ssh tunnel:
+#     remote user: username
+#     remote ip: mydomain.co.uk
+#     remote datbase host: mydatabaseName
+#     port: 9002
 
 logging settings:
     formatters:
@@ -119,7 +37,7 @@ logging settings:
             class: logging.handlers.GroupWriteRotatingFileHandler
             level: WARNING
             formatter: file_style
-            filename: ~/.config/marshallEngine/marshallEngine.log
+            filename: ~/.config/marshall_webapp/marshall_webapp.log
             mode: w+
             maxBytes: 102400
             backupCount: 1

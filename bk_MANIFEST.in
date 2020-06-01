@@ -1,9 +1,4 @@
 include README.md
-include *.yaml
-include *.txt
-include *.md
-include *.rst
-recursive-include marshall_webapp *
 global-exclude *.pyo
 global-exclude *.pyc
 include *.txt *.ini *.cfg *.rst *.md

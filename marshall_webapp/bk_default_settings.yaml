@@ -1,21 +1,28 @@
 version: 1
-
 # database settings:
-#     db: unit_tests
+#     db: dryx_unit_testing
 #     host: localhost
-#     user: utuser
+#     user: unittesting
 #     password: utpass
 #     loginPath: unittesting
 #     tunnel: False
 
-# # SSH TUNNEL - if a tunnel is required to connect to the database(s) then add setup here
-# # Note only one tunnel is setup - may need to change this to 2 tunnels in the future if 
-# # code, static catalogue database and transient database are all on seperate machines.
-# ssh tunnel:
-#     remote user: username
-#     remote ip: mydomain.co.uk
-#     remote datbase host: mydatabaseName
-#     port: 9002
+database settings:
+    db: marshall
+    host: localhost
+    user: marshall
+    password: mar5ha11
+    loginPath: marshall_dev
+    tunnel: False
+
+# SSH TUNNEL - if a tunnel is required to connect to the database(s) then add setup here
+# Note only one tunnel is setup - may need to change this to 2 tunnels in the future if 
+# code, static catalogue database and transient database are all on seperate machines.
+ssh tunnel:
+    remote user: username
+    remote ip: mydomain.co.uk
+    remote datbase host: mydatabaseName
+    port: 9002
 
 logging settings:
     formatters:
@@ -38,7 +45,7 @@ logging settings:
             class: logging.handlers.GroupWriteRotatingFileHandler
             level: WARNING
             formatter: file_style
-            filename: ~/.config/marshall_webapp/marshall_webapp.log
+            filename: ~/.config/marshallEngine/marshallEngine.log
             mode: w+
             maxBytes: 102400
             backupCount: 1
