@@ -7,7 +7,7 @@
     David Young
 
 :Date Created:
-    March 26, 2014 
+    March 26, 2014
 """
 import sys
 import os
@@ -57,7 +57,7 @@ def survey_lightcurves_block(
     # FOR EACH POSSIBLE SURVEY WITH LIGHTCURVE INFO ...
     for survey in surveyList:
         thisSurvey = list(survey.keys())[0]
-        thisExt = survey.values()[0]
+        thisExt = list(survey.values())[0]
         lightCurveFlag = "%(thisSurvey)s_lightcurve" % locals()
 
         # IF THE SURVEY LIGHTCURVE EXISTS

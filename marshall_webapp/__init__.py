@@ -49,11 +49,18 @@ def main(global_config, **settings):
     # Add settings from YAML file
     myWebapp = AssetResolver("marshall_webapp")
     theseSettings = config.get_settings()
-    settingsPath = myWebapp.resolve(
-        theseSettings["settingsFile"]).abspath()
-    stream = file(settingsPath, 'r')
+    settingsPath = theseSettings["settingsFile"]
+    if settingsPath[0] == "~":
+        from os.path import expanduser
+        home = expanduser("~")
+        settingsPath = settingsPath.replace("~/", home + "/")
+    if settingsPath[0] != "/":
+        settingsPath = myWebapp.resolve(
+            theseSettings["settingsFile"]).abspath()
+    stream = open(settingsPath, 'r')
     settings = yaml.load(stream)
     config.add_settings(settings)
+    config.add_settings({"yaml settings": settings})
     stream.close()
 
     # add authorisation
@@ -101,9 +108,9 @@ def main(global_config, **settings):
 
     config.add_route('xmatches_elements', '/xmatches/{elementId}')
 
-    config.add_route('pessto_members',
-                     '/pessto_members')
-    config.add_route('pessto_members_elements', '/pessto_members/{elementId}')
+    config.add_route('members',
+                     '/members')
+    config.add_route('members_elements', '/members/{elementId}')
 
     # --- end of routes --- #
     # xpyr-add-route

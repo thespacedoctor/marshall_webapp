@@ -9,12 +9,14 @@
 :Date Created:
     November 14, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_element_obs_get():
+class models_transients_element_obs_get(object):
     """
     The worker class for the models_transients_element_obs_get module
 
@@ -68,7 +70,7 @@ class models_transients_element_obs_get():
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row))) for row in objectDataTmp]
 
         responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
         if transientBucketId:

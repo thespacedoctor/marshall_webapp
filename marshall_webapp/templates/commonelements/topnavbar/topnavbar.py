@@ -67,7 +67,7 @@ def topnavbar(log,
         href=request.route_path('stats'))
     members = khufu.a(
         content='member list',
-        href=request.route_path('pessto_members'))
+        href=request.route_path('members'))
 
     pesstoHome = khufu.a(
         content='pessto.org',

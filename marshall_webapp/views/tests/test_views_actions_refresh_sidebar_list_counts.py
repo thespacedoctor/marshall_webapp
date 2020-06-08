@@ -45,38 +45,11 @@ class test_views_actions_refresh_sidebar_list_counts(BaseTest):
 
     def __init__(self, *args, **kwargs):
         BaseTest.__init__(self, *args, **kwargs)
-        moduleDirectory = os.path.dirname(__file__)
-
-        su = tools(
-            arguments={"settingsFile": settingsFile},
-            docString=__doc__,
-            logLevel="DEBUG",
-            options_first=False,
-            projectName=None,
-            defaultSettingsFile=False
-        )
-        arguments, settings, log, dbConn = su.setup()
-
-        log, dbConn, pathToInputDir, pathToOutputDir = utKit.setupModule()
-        utKit.tearDownModule()
-
-        try:
-            shutil.rmtree(pathToOutputDir)
-        except:
-            pass
-        # COPY INPUT TO OUTPUT DIR
-        shutil.copytree(pathToInputDir, pathToOutputDir)
-
-        # Recursively create missing directories
-        if not os.path.exists(pathToOutputDir):
-            os.makedirs(pathToOutputDir)
-
-        # xt-setup-unit-testing-files-and-folders
 
         self.testIni = moduleDirectory + "/../../../test.ini#marshall_webapp"
         self.testSettings = settings
         self.settings = settings
-        utKit.refresh_database()
+        utKit("").refresh_database()
 
     def test_views_actions_refresh_sidebar_list_counts_put(self):
         params = {}

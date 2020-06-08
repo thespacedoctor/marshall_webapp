@@ -14,6 +14,7 @@ import os
 from datetime import datetime, date, time
 import khufu
 from marshall_webapp.templates.commonelements import commonutils as cu
+import urllib.parse
 
 
 def actions_block(
@@ -239,8 +240,8 @@ def _get_move_to_dropdown(
             extraPadding=False,
             alertLevel='info'  # [ "warning" | "error" | "success" | "info" ]
         )
-        import urllib
-        notification = urllib.quote(notification)
+
+        notification = urllib.parse.quote(notification, safe='')
         discoveryDataDictionary["notification"] = notification
 
         href = request.route_path('transients_element', elementId=discoveryDataDictionary[
@@ -526,8 +527,7 @@ def _get_priority_switcher_dropdown(
             extraPadding=False,
             alertLevel='info'  # [ "warning" | "error" | "success" | "info" ]
         )
-        import urllib
-        notification = urllib.quote(notification)
+        notification = urllib.parse.quote(notification, safe='')
         discoveryDataDictionary["notification"] = notification
 
         href = request.route_path('transients_element', elementId=discoveryDataDictionary[
@@ -635,8 +635,7 @@ def _snooze_button(
         extraPadding=False,
         alertLevel='info'  # [ "warning" | "error" | "success" | "info" ]
     )
-    import urllib
-    notification = urllib.quote(notification)
+    notification = urllib.parse.quote(notification, safe='')
     discoveryDataDictionary["notification"] = notification
 
     href = request.route_path('transients_element', elementId=discoveryDataDictionary[

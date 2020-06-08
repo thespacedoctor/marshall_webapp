@@ -9,6 +9,7 @@
 :Date Created:
     October 12, 2015
 """
+from builtins import object
 import sys
 import os
 from marshall_webapp.models.xmatches import models_xmatches_get
@@ -16,7 +17,7 @@ from pyramid.path import AssetResolver
 import khufu
 
 
-class templates_xmatches():
+class templates_xmatches(object):
     """
     The worker class for the templates_xmatches module
 

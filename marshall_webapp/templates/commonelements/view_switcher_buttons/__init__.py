@@ -9,6 +9,7 @@
 :Date Created:
     March 4, 2014
 """
+from builtins import zip
 import sys
 import re
 import os
@@ -246,7 +247,7 @@ def _link_for_popover(
                 """ % locals()
                 objectDataTmp = request.db.execute(sqlQuery).fetchall()
                 objectData = []
-                objectData[:] = [dict(zip(row.keys(), row))
+                objectData[:] = [dict(list(zip(list(row.keys()), row)))
                                  for row in objectDataTmp]
                 params["filename"] = "search_" + objectData[0]["masterName"]
 

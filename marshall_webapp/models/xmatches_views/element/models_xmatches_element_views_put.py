@@ -9,12 +9,13 @@
 :Date Created:
     October 13, 2015
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_xmatches_element_views_put():
+class models_xmatches_element_views_put(object):
     """
     The worker class for the models_xmatches_element_views_put module
 
@@ -77,7 +78,7 @@ class models_xmatches_element_views_put():
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
-        for k, v in self.defaultQs.items():
+        for k, v in list(self.defaultQs.items()):
             if k not in self.qs:
                 self.qs[k] = v
 

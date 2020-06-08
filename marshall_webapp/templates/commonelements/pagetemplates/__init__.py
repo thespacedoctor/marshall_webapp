@@ -12,6 +12,7 @@
 import sys
 import os
 import khufu
+from marshall_webapp.templates.commonelements import *
 
 
 def defaultpagetemplate(
@@ -42,9 +43,6 @@ def defaultpagetemplate(
         - ``webpage`` -- the webpage to be displayed
     """
     log.debug('starting the ``webpage`` function')
-
-    # imports
-    from marshall_webapp.templates.commonelements import *
 
     # SET DEFAULT VARIABLES
     if not bodyId:

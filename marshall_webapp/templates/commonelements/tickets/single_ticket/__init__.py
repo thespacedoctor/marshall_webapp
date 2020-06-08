@@ -11,10 +11,10 @@
 """
 import sys
 import os
-import ticket_building_blocks
 import datetime
 import khufu
-import tabs
+from . import ticket_building_blocks
+from . import tabs
 
 
 def single_ticket(
@@ -256,10 +256,6 @@ def _ticket_tab_template(
             onDesktop=True
         )
         theseBlocks = "%(theseBlocks)s%(block)s" % locals()
-
-    # CONVERT BYTES TO UNICODE
-    if isinstance(theseBlocks, ("".__class__, u"".__class__)):
-        theseBlocks = unicode(theseBlocks, encoding="utf-8", errors="replace")
 
     if actionsBlock is not False:
         actionsBlock = khufu.grid_column(

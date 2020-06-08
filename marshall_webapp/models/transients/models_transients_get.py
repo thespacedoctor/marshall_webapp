@@ -9,15 +9,19 @@
 :Date Created:
     September 30, 2014
 """
+from future import standard_library
+standard_library.install_aliases()
+from builtins import zip
+from builtins import object
 import sys
 import os
 import collections
 from sqlalchemy.sql import text
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from astrocalc.coords import unit_conversion
 
 
-class models_transients_get():
+class models_transients_get(object):
     """
     *The worker class for the models_transients_get module*
 
@@ -311,7 +315,7 @@ class models_transients_get():
                   "sherlock_classifications": "sc"}
 
         thisSchema = self.request.registry.settings["database_schema"]
-        for k, v in tables.items():
+        for k, v in list(tables.items()):
             sqlQuery = """SELECT COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where table_name = "%(k)s" and TABLE_SCHEMA = "%(thisSchema)s" """ % locals(
             )
             rows = self.request.db.execute(sqlQuery).fetchall()
@@ -344,7 +348,7 @@ class models_transients_get():
             text(sqlQuery)).fetchall()
 
         objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in tmpObjectData]
+        objectData[:] = [dict(list(zip(list(row.keys()), row))) for row in tmpObjectData]
         # for row in objectData:
         #     row = dict(zip(row.keys(), row))
         self.log.debug(
@@ -406,7 +410,7 @@ class models_transients_get():
                 self.qs["sortDesc"] = self.defaultQs["sortDesc"]
 
         # ADD THE REST OF THE DEFAULTS TO THE QUERY STRING
-        for k, v in self.defaultQs.items():
+        for k, v in list(self.defaultQs.items()):
             if k not in self.qs and 'q' not in self.qs and not self.elementId:
                 if "awl" in self.qs and k == "mwl":
                     continue
@@ -476,7 +480,7 @@ class models_transients_get():
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
 
         objectAkas = []
-        objectAkas[:] = [dict(zip(row.keys(), row)) for row in objectAkasTmp]
+        objectAkas[:] = [dict(list(zip(list(row.keys()), row))) for row in objectAkasTmp]
 
         self.log.debug(
             'completed the ``_get_associated_transient_aka`` method')
@@ -501,7 +505,7 @@ class models_transients_get():
         """ % locals()
         lightCurveDataTmp = self.request.db.execute(sqlQuery).fetchall()
         lightCurveData = []
-        lightCurveData[:] = [dict(zip(row.keys(), row))
+        lightCurveData[:] = [dict(list(zip(list(row.keys()), row)))
                              for row in lightCurveDataTmp]
 
         self.log.debug(
@@ -526,7 +530,7 @@ class models_transients_get():
         transientAtelMatchesTmp = self.request.db.execute(sqlQuery).fetchall()
         transientAtelMatches = []
         transientAtelMatches[:] = [
-            dict(zip(row.keys(), row)) for row in transientAtelMatchesTmp]
+            dict(list(zip(list(row.keys()), row))) for row in transientAtelMatchesTmp]
 
         self.log.debug('completed the ``_get_associated_atel_data`` method')
         return transientAtelMatches
@@ -549,7 +553,7 @@ class models_transients_get():
         """ % locals()
         objectCommentsTmp = self.request.db.execute(sqlQuery).fetchall()
         objectComments = []
-        objectComments[:] = [dict(zip(row.keys(), row))
+        objectComments[:] = [dict(list(zip(list(row.keys()), row)))
                              for row in objectCommentsTmp]
 
         self.log.debug('completed the ``_get_associated_comments`` method')
@@ -577,7 +581,7 @@ class models_transients_get():
             """ % locals()
             totalTicketsTmp = self.request.db.execute(sqlQuery).fetchall()
             totalTickets = []
-            totalTickets[:] = [dict(zip(row.keys(), row))
+            totalTickets[:] = [dict(list(zip(list(row.keys()), row)))
                                for row in totalTicketsTmp]
             totalTickets = totalTickets[0]["count(*)"]
         elif self.elementId:
@@ -593,7 +597,7 @@ class models_transients_get():
                 """ % locals()
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
-            ticketCountRows[:] = [dict(zip(row.keys(), row))
+            ticketCountRows[:] = [dict(list(zip(list(row.keys()), row)))
                                   for row in ticketCountRowsTmp]
             totalTickets = 0
             for row in ticketCountRows:
@@ -611,7 +615,7 @@ class models_transients_get():
 
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
-            ticketCountRows[:] = [dict(zip(row.keys(), row))
+            ticketCountRows[:] = [dict(list(zip(list(row.keys()), row)))
                                   for row in ticketCountRowsTmp]
             totalTickets = 0
             for row in ticketCountRows:
@@ -622,7 +626,7 @@ class models_transients_get():
             """ % locals()
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
-            ticketCountRows[:] = [dict(zip(row.keys(), row))
+            ticketCountRows[:] = [dict(list(zip(list(row.keys()), row)))
                                   for row in ticketCountRowsTmp]
             totalTickets = 0
             for row in ticketCountRows:
@@ -635,7 +639,7 @@ class models_transients_get():
             """ % locals()
             ticketCountRowsTmp = self.request.db.execute(sqlQuery).fetchall()
             ticketCountRows = []
-            ticketCountRows[:] = [dict(zip(row.keys(), row))
+            ticketCountRows[:] = [dict(list(zip(list(row.keys()), row)))
                                   for row in ticketCountRowsTmp]
             totalTickets = 0
             for row in ticketCountRows:
@@ -722,7 +726,7 @@ class models_transients_get():
             tmpRow = {}
             newRow = collections.OrderedDict(sorted(tmpRow.items()))
 
-            for oldName, newName in tableColumnNames.items():
+            for oldName, newName in list(tableColumnNames.items()):
 
                 newRow[newName] = oldRow[oldName]
                 if "decdeg" in oldName.lower():
@@ -761,7 +765,7 @@ class models_transients_get():
 
         objectHistoryTmp = self.request.db.execute(sqlQuery).fetchall()
         objectHistory = []
-        objectHistory[:] = [dict(zip(row.keys(), row))
+        objectHistory[:] = [dict(list(zip(list(row.keys()), row)))
                             for row in objectHistoryTmp]
 
         from operator import itemgetter
@@ -795,7 +799,7 @@ class models_transients_get():
 
         crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()
         crossmatches = []
-        crossmatches[:] = [dict(zip(row.keys(), row))
+        crossmatches[:] = [dict(list(zip(list(row.keys()), row)))
                            for row in crossmatchesTmp]
 
         from operator import itemgetter
@@ -805,7 +809,7 @@ class models_transients_get():
 
         for c in crossmatches:
             c["object_link"] = None
-            objectName = urllib.quote(c["catalogue_object_id"])
+            objectName = urllib.parse.quote(c["catalogue_object_id"])
             if "ned" in c["catalogue_table_name"].lower():
                 c[
                     "object_link"] = "https://ned.ipac.caltech.edu/cgi-bin/objsearch?objname=%(objectName)s&extend=no&hconst=73&omegam=0.27&omegav=0.73&corr_z=1&out_csys=Equatorial&out_equinox=J2000.0&obj_sort=RA+or+Longitude&of=pre_text&zv_breaker=30000.0&list_limit=5&img_stamp=YES" % locals()
@@ -821,7 +825,7 @@ class models_transients_get():
                     delimiter=""
                 )
                 c["catalogue_object_id"] = "SDSS J" + ra[0:9] + dec[0:9]
-                objectName = urllib.quote(c["catalogue_object_id"])
+                objectName = urllib.parse.quote(c["catalogue_object_id"])
             elif "milliquas" in c["catalogue_table_name"].lower():
                 c[
                     "object_link"] = "https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3query.pl?bparam_name=%(objectName)s&navtrail=%%3Ca+class%%3D%%27navpast%%27+href%%3D%%27https%%3A%%2F%%2Fheasarc.gsfc.nasa.gov%%2FW3Browse%%2Fall%%2Fmilliquas.html%%27%%3E+Choose+Tables%%3C%%2Fa%%3E+%%3E+%%3Ca+class%%3D%%27navpast%%27+href%%3D%%27%%2Fcgi-bin%%2FW3Browse%%2Fw3table.pl%%3FREAL_REMOTE_HOST%%3D143.117.37.81%%26tablehead%%3Dname%%253Dmilliquas%%26Action%%3DMore%%2BOptions%%26REAL_REMOTE_HOST%%3D143%%252E117%%252E37%%252E81%%26Equinox%%3D2000%%26Action%%3DMore%%2BOptions%%26sortby%%3Dpriority%%26ResultMax%%3D1000%%26maxpriority%%3D99%%26Coordinates%%3DEquatorial%%26tablehead%%3Dname%%253Dmilliquas%%26Action%%3DParameter%%2BSearch%%27%%3EParameter+Search%%3C%%2Fa%%3E&popupFrom=Query+Results&tablehead=name%%3Dheasarc_milliquas%%26description%%3DMillion+Quasars+Catalog+%%28MILLIQUAS%%29%%2C+Version+4.5+%%2810+May+2015%%29%%26url%%3Dhttp%%3A%%2F%%2Fheasarc.gsfc.nasa.gov%%2FW3Browse%%2Fgalaxy-catalog%%2Fmilliquas.html%%26archive%%3DN%%26radius%%3D1%%26mission%%3DGALAXY+CATALOG%%26priority%%3D5%%26tabletype%%3DObject&dummy=Examples+of+query+constraints%%3A&varon=name&bparam_name%%3A%%3Aunit=+&bparam_name%%3A%%3Aformat=char25&varon=ra&bparam_ra=&bparam_ra%%3A%%3Aunit=degree&bparam_ra%%3A%%3Aformat=float8%%3A.5f&varon=dec&bparam_dec=&bparam_dec%%3A%%3Aunit=degree&bparam_dec%%3A%%3Aformat=float8%%3A.5f&varon=bmag&bparam_bmag=&bparam_bmag%%3A%%3Aunit=mag&bparam_bmag%%3A%%3Aformat=float8%%3A4.1f&varon=rmag&bparam_rmag=&bparam_rmag%%3A%%3Aunit=mag&bparam_rmag%%3A%%3Aformat=float8%%3A4.1f&varon=redshift&bparam_redshift=&bparam_redshift%%3A%%3Aunit=+&bparam_redshift%%3A%%3Aformat=float8%%3A6.3f&varon=radio_name&bparam_radio_name=&bparam_radio_name%%3A%%3Aunit=+&bparam_radio_name%%3A%%3Aformat=char22&varon=xray_name&bparam_xray_name=&bparam_xray_name%%3A%%3Aunit=+&bparam_xray_name%%3A%%3Aformat=char22&bparam_lii=&bparam_lii%%3A%%3Aunit=degree&bparam_lii%%3A%%3Aformat=float8%%3A.5f&bparam_bii=&bparam_bii%%3A%%3Aunit=degree&bparam_bii%%3A%%3Aformat=float8%%3A.5f&bparam_broad_type=&bparam_broad_type%%3A%%3Aunit=+&bparam_broad_type%%3A%%3Aformat=char4&bparam_optical_flag=&bparam_optical_flag%%3A%%3Aunit=+&bparam_optical_flag%%3A%%3Aformat=char3&bparam_red_psf_flag=&bparam_red_psf_flag%%3A%%3Aunit=+&bparam_red_psf_flag%%3A%%3Aformat=char1&bparam_blue_psf_flag=&bparam_blue_psf_flag%%3A%%3Aunit=+&bparam_blue_psf_flag%%3A%%3Aformat=char1&bparam_ref_name=&bparam_ref_name%%3A%%3Aunit=+&bparam_ref_name%%3A%%3Aformat=char6&bparam_ref_redshift=&bparam_ref_redshift%%3A%%3Aunit=+&bparam_ref_redshift%%3A%%3Aformat=char6&bparam_qso_prob=&bparam_qso_prob%%3A%%3Aunit=percent&bparam_qso_prob%%3A%%3Aformat=int2%%3A3d&bparam_alt_name_1=&bparam_alt_name_1%%3A%%3Aunit=+&bparam_alt_name_1%%3A%%3Aformat=char22&bparam_alt_name_2=&bparam_alt_name_2%%3A%%3Aunit=+&bparam_alt_name_2%%3A%%3Aformat=char22&Entry=&Coordinates=J2000&Radius=Default&Radius_unit=arcsec&NR=CheckCaches%%2FGRB%%2FSIMBAD%%2FNED&Time=&ResultMax=10&displaymode=Display&Action=Start+Search&table=heasarc_milliquas" % locals()

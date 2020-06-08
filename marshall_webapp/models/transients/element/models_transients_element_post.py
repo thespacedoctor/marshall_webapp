@@ -9,6 +9,8 @@
 :Date Created:
     October 10, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
@@ -18,7 +20,7 @@ from fundamentals import times
 from fundamentals.logs import emptyLogger
 
 
-class models_transients_element_post():
+class models_transients_element_post(object):
     """
     The worker class for the models_transients_element_post module
 
@@ -73,7 +75,6 @@ class models_transients_element_post():
         """
         self.log.debug('starting the ``_add_transient_classification`` method')
 
-        now = times.get_now_sql_datetime()
         transientBucketId = self.transientBucketId
 
         # ASTROCALC CONVERTER
@@ -89,68 +90,65 @@ class models_transients_element_post():
 
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
-        rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
+        rows[:] = [dict(list(zip(list(row.keys()), row))) for row in rowsTmp]
 
-        # ADD VARIABLES TO LOCALS()
+        # ADD VARIABLES TO a
+        params = dict(self.request.params.items())
+        params["now"] = times.get_now_sql_datetime()
+        params["transientBucketId"] = self.transientBucketId
         for row in rows:
-            for arg, val in row.items():
-                varname = arg
-                if isinstance(val, ("".__class__, u"".__class__)):
-                    exec(varname + """ = '%s' """ % (val,))
-                else:
-                    exec(varname + """ = %s """ % (val,))
-        for arg, val in self.request.params.items():
-            varname = arg
-            if isinstance(val, ("".__class__, u"".__class__)):
-                exec(varname + ' = """%s""" ' % (val,))
-            else:
-                exec(varname + " = %s" % (val,))
+            params["raDeg"] = row["raDeg"]
+            params["decDeg"] = row["decDeg"]
+            params["name"] = row["name"]
+            params["classifiedFlag"] = row["classifiedFlag"]
 
         # CONVERT DATE TO MJD
-        obsMjd = converter.ut_datetime_to_mjd(
-            utDatetime="%(clsObsdate)sT00:00:00.0" % locals())
+        params["obsMjd"] = converter.ut_datetime_to_mjd(
+            utDatetime="%(clsObsdate)sT00:00:00.0" % params)
 
         # ADD SOME DEFAULT VALUES / NULL VALUES
-        if "clsPeculiar" in locals():
-            clsSnClassification = "%(clsSnClassification)s-p" % locals()
-        if clsType == "supernova":
-            clsType = clsSnClassification
-        if "clsRedshift" not in locals() or len(clsRedshift) == 0:
-            clsRedshift = "null"
-        if "clsClassificationWRTMax" not in locals():
-            clsClassificationWRTMax = "unknown"
-        if "clsClassificationPhase" not in locals() or len(clsClassificationPhase) == 0:
-            clsClassificationPhase = "null"
+        if "clsPeculiar" in params:
+            params[
+                "clsSnClassification"] = "%(clsSnClassification)s-p" % params
+        if params["clsType"] == "supernova":
+            params["clsType"] = params["clsSnClassification"]
+        if "clsRedshift" not in params or len(params["clsRedshift"]) == 0:
+            params["clsRedshift"] = "null"
+        if "clsClassificationWRTMax" not in params:
+            params["clsClassificationWRTMax"] = "unknown"
+        if "clsClassificationPhase" not in params or len(clsClassificationPhase) == 0:
+            params["clsClassificationPhase"] = "null"
 
-        username = self.request.authenticated_userid
+        params["username"] = self.request.authenticated_userid
 
         # INSERT THE NEW CLASSIFICATION ROW INTO THE TRANSIENTBUCKET
-        duplicate = False
+
         try:
+            duplicate = False
             sqlQuery = """
-                INSERT INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
-            """ % locals()
+                    INSERT INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
+                """ % params
 
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
-
         except:
             duplicate = True
 
         if duplicate == True:
             sqlQuery = """
                 select primaryKeyId from transientBucket where decDeg= %(decDeg)s and name="%(name)s" and observationMjd=%(obsMjd)s and survey="%(clsSource)s" and replacedByRowId = 0;
-            """  % locals()
+            """  % params
 
             objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
             objectData = []
-            objectData[:] = [dict(zip(row.keys(), row))
+            objectData[:] = [dict(list(zip(list(row.keys()), row)))
                              for row in objectDataTmp]
             primaryKeyId = objectData[0]["primaryKeyId"]
+            params["primaryKeyId"] = primaryKeyId
 
             sqlQuery = """
                 INSERT IGNORE INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer, replacedByRowId) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s", %(primaryKeyId)s);
-            """ % locals()
+            """ % params
             self.log.debug('sqlQuery: %(sqlQuery)s' % locals())
             self.request.db.execute(sqlQuery)
             self.request.db.commit()
@@ -175,7 +173,7 @@ class models_transients_element_post():
         else:
             awl = "archived without alert"
 
-        if classifiedFlag == 1:
+        if params["classifiedFlag"] == 1:
             sqlQuery = """
                 update pesstoObjects set snoozed = 0, alertWorkflowLocation = "%(awl)s" where transientBucketId = %(transientBucketId)s
             """ % locals()
@@ -188,7 +186,7 @@ class models_transients_element_post():
 
         updater = update_transient_summaries(
             log=emptyLogger(),
-            settings=self.request.registry.settings,
+            settings=self.request.registry.settings["yaml settings"],
             dbConn=self.request.registry.settings["dbConn"],
             transientBucketId=transientBucketId
         ).update()

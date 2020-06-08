@@ -10,6 +10,8 @@
     October 13, 2015
 """
 from __future__ import absolute_import
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
@@ -18,7 +20,7 @@ from marshall_webapp.models.xmatches_views import models_xmatches_views_get
 from marshall_webapp.models.xmatches_views.element import models_xmatches_element_views_get
 
 
-class templates_xmatches_views():
+class templates_xmatches_views(object):
     """
     The worker class for the templates_xmatches_views module
 
@@ -49,7 +51,7 @@ class templates_xmatches_views():
         """get the templates_xmatches_views object
 
         **Return:**
-            - ``webpage`` -- the webpage        
+            - ``webpage`` -- the webpage
         """
         self.log.debug('starting the ``get`` method')
 
@@ -102,7 +104,7 @@ class templates_xmatches_views():
         """create table
 
         **Return:**
-            - ``table``        
+            - ``table``
         """
         self.log.debug('starting the ``create_table`` method')
 
@@ -126,7 +128,7 @@ class templates_xmatches_views():
             row["table_name"] = row["table_name"].replace(
                 "_", " ").replace(" final", "")
 
-            for k, v in dict(row).items():
+            for k, v in list(dict(row).items()):
                 if isinstance(v, float):
                     row[k] = "{:,.0f}".format(v)
 
@@ -153,7 +155,7 @@ class templates_xmatches_views():
 
         import khufu.tables.sortable_table as sortable_table
         # build a sortable table
-        table = sortable_table.sortable_table(
+        table = sortable_table(
             currentPageUrl=self.request.path_qs,
             columnsToDisplay=columnsNamesDB,
             tableRowsDictionary=self.catalogues,

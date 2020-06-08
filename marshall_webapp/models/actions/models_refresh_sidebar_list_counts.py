@@ -9,12 +9,13 @@
 :Date Created:
     October 13, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_refresh_sidebar_list_counts():
+class models_refresh_sidebar_list_counts(object):
     """
     The worker class for the models_refresh_sidebar_list_counts module
 

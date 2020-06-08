@@ -9,13 +9,14 @@
 :Date Created:
     October 6, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
 
-class templates_calendars():
+class templates_calendars(object):
     """
     The worker class for the templates_calendars module
 

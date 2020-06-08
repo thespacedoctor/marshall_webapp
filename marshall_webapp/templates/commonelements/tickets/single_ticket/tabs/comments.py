@@ -131,15 +131,6 @@ def comments_tab(
         htmlClass="overviewWell"
     )
 
-    # convert bytes to unicode
-    if isinstance(comments_block, ("".__class__, u"".__class__)):
-        comments_block = unicode(
-            comments_block, encoding="utf-8", errors="replace")
-    # convert bytes to unicode
-    if isinstance(overviewWell, ("".__class__, u"".__class__)):
-        overviewWell = unicode(
-            overviewWell, encoding="utf-8", errors="replace")
-
     comments_block = u"""%(newCommentForm)s %(overviewWell)s %(comments_block)s""" % locals(
     )
 
@@ -151,11 +142,6 @@ def comments_tab(
         tabFooter=False,
         htmlId="commentstab"
     )
-
-    # convert bytes to unicode
-    if isinstance(comments_tab, ("".__class__, u"".__class__)):
-        comments_tab = unicode(
-            comments_tab, encoding="utf-8", errors="replace")
 
     log.debug('completed the ``comments_tab`` function')
     return commentCount, "%(comments_tab)s" % locals()

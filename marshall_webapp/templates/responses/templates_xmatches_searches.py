@@ -10,6 +10,8 @@
     October 13, 2015
 """
 from __future__ import absolute_import
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
@@ -18,7 +20,7 @@ from marshall_webapp.models.xmatches_searches import models_xmatches_searches_ge
 from marshall_webapp.models.xmatches_searches.element import models_xmatches_element_searches_get
 
 
-class templates_xmatches_searches():
+class templates_xmatches_searches(object):
     """
     The worker class for the templates_xmatches_searches module
 
@@ -126,7 +128,7 @@ class templates_xmatches_searches():
             row["table_name"] = row["table_name"].replace(
                 "_", " ").replace(" final", "")
 
-            for k, v in dict(row).items():
+            for k, v in list(dict(row).items()):
                 if isinstance(v, float):
                     row[k] = "{:,.0f}".format(v)
 
@@ -153,7 +155,7 @@ class templates_xmatches_searches():
 
         import khufu.tables.sortable_table as sortable_table
         # build a sortable table
-        table = sortable_table.sortable_table(
+        table = sortable_table(
             currentPageUrl=self.request.path_qs,
             columnsToDisplay=columnsNamesDB,
             tableRowsDictionary=self.catalogues,

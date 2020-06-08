@@ -9,15 +9,21 @@
 :Date Created:
     October 9, 2014
 """
+from __future__ import division
+from future import standard_library
+standard_library.install_aliases()
+from builtins import zip
+from builtins import object
+from past.utils import old_div
 import sys
 import os
 import khufu
 import collections
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import re
 
 
-class models_transients_context_get():
+class models_transients_context_get(object):
     """
     The worker class for the models_transients_context_get module
 
@@ -110,7 +116,7 @@ class models_transients_context_get():
                 aladinFOV = c["original_search_radius_arcsec"] * 6.0
 
             c["object_link"] = None
-            objectName = urllib.quote(c["catalogue_object_id"])
+            objectName = urllib.parse.quote(c["catalogue_object_id"])
 
             if "ned" in c["catalogue_table_name"].lower():
                 c[
@@ -255,7 +261,7 @@ class models_transients_context_get():
         }
 
         aladinParameters = {}
-        aladinFOV = aladinFOV / 3600.
+        aladinFOV = old_div(aladinFOV, 3600.)
         aladinParameters["FOV"] = float("""%(aladinFOV)0.3f""" % locals())
         aladinParameters["search_perimeter_width"] = 0.9
 
@@ -293,7 +299,7 @@ class models_transients_context_get():
         """ % locals()
         extraMetadataTmp = self.request.db.execute(sqlQuery).fetchall()
         extraMetadata = []
-        extraMetadata[:] = [dict(zip(row.keys(), row))
+        extraMetadata[:] = [dict(list(zip(list(row.keys()), row)))
                             for row in extraMetadataTmp]
 
         self.log.debug('completed the ``get_metadata`` method')

@@ -9,6 +9,7 @@
 :Date Created:
     October 9, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
@@ -16,7 +17,7 @@ from marshall_webapp.models.transients_context import models_transients_context_
 from marshall_webapp.models.transients_context.element import models_transients_element_context_get
 
 
-class templates_transients_context():
+class templates_transients_context(object):
     """
     The worker class for the templates_transients_context module
 

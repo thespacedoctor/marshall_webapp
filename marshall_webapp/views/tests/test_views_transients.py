@@ -45,31 +45,6 @@ class test_views_transients(BaseTest):
 
     def __init__(self, *args, **kwargs):
         BaseTest.__init__(self, *args, **kwargs)
-        moduleDirectory = os.path.dirname(__file__)
-        su = tools(
-            arguments={"settingsFile": settingsFile},
-            docString=__doc__,
-            logLevel="WARNING",
-            options_first=False,
-            projectName="marshall_webapp",
-            defaultSettingsFile=False
-        )
-        arguments, settings, log, dbConn = su.setup()
-
-        log, dbConn, pathToInputDir, pathToOutputDir = utKit.setupModule()
-        utKit.tearDownModule()
-
-        import shutil
-        try:
-            shutil.rmtree(pathToOutputDir)
-        except:
-            pass
-        # COPY INPUT TO OUTPUT DIR
-        shutil.copytree(pathToInputDir, pathToOutputDir)
-
-        # Recursively create missing directories
-        if not os.path.exists(pathToOutputDir):
-            os.makedirs(pathToOutputDir)
 
         # xt-setup-unit-testing-files-and-folders
 
@@ -77,10 +52,11 @@ class test_views_transients(BaseTest):
 
         self.testSettings = settings
         self.settings = settings
-        utKit.refresh_database()
+
+        utKit("").refresh_database()
 
     def test_01_views_transients_post(self):
-        utKit.refresh_database()
+        utKit("").refresh_database()
         params = {
             "objectName": "TestSource",
             "objectImageStamp": "http://thespacedoctor.co.uk/images/thespacedoctor_icon_white_circle.png",
@@ -118,17 +94,17 @@ class test_views_transients(BaseTest):
 
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "csv"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "plain_table"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = None
         respsonse = self.testapp.get('/transients',
@@ -160,17 +136,17 @@ class test_views_transients(BaseTest):
 
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "csv"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "plain_table"
         respsonse = self.testapp.get('/transients',
                                      params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = None
         respsonse = self.testapp.get('/transients',
@@ -188,7 +164,7 @@ class test_views_transients(BaseTest):
 
         respsonse = self.testapp.get('/transients',
                                      params={"search": "TestSource", "format": "plain_table"})
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
 
     def test_views_transients_classification(self):
@@ -205,7 +181,7 @@ class test_views_transients(BaseTest):
         }
         respsonse = self.testapp.post('/transients/1',
                                       params=params)
-        print(respsonse)
+        # print(respsonse)
         self.assertEqual(respsonse.status_code, 302)
 
     def test_views_transients_put_pi(self):

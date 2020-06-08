@@ -9,13 +9,15 @@
 :Date Created:
     October 6, 2014
 """
+from builtins import range
+from builtins import object
 import sys
 import os
 import khufu
 from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
 
-class templates_stats():
+class templates_stats(object):
     """
     The worker class for the templates_stats module
 

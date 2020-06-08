@@ -9,6 +9,9 @@
 :Date Created:
     January 9, 2014
 """
+from __future__ import division
+from builtins import range
+from past.utils import old_div
 import sys
 import os
 import re
@@ -55,23 +58,23 @@ def ticket_table_pagination(
     previousPageStart = float(previousPageStart)
     # CALULATE OTHER VARIABLES
     totalButtons = int(math.ceil(totalTickets * 1. / limit))
-    thisButtonIndex = int(math.ceil(previousPageStart / limit)) + 1
+    thisButtonIndex = int(math.ceil(old_div(previousPageStart, limit))) + 1
     previousPageStart = int(
-        math.floor((previousPageStart - 1.) / limit)) * limit
+        math.floor(old_div((previousPageStart - 1.), limit))) * limit
     # CALULATE THE GENERAL RANGE OF THE BUTTONS TO DISPLAY
-    displayRangeStart = thisButtonIndex - 1 - int(numberOfButtonsToDisplay / 2)
-    displayRangeEnd = thisButtonIndex + int(numberOfButtonsToDisplay / 2)
+    displayRangeStart = thisButtonIndex - 1 - int(old_div(numberOfButtonsToDisplay, 2))
+    displayRangeEnd = thisButtonIndex + int(old_div(numberOfButtonsToDisplay, 2))
 
     numberOfButtonsBeforeThis = thisButtonIndex - 1
     numberOfButtonsAfterThis = totalButtons - thisButtonIndex
-    if numberOfButtonsBeforeThis < numberOfButtonsToDisplay / 2:
+    if numberOfButtonsBeforeThis < old_div(numberOfButtonsToDisplay, 2):
         displayRangeStart = 0
         displayRangeEnd = numberOfButtonsToDisplay
-    if numberOfButtonsAfterThis <= numberOfButtonsToDisplay / 2:
+    if numberOfButtonsAfterThis <= old_div(numberOfButtonsToDisplay, 2):
         displayRangeEnd = totalButtons
-        if numberOfButtonsBeforeThis > numberOfButtonsToDisplay / 2:
+        if numberOfButtonsBeforeThis > old_div(numberOfButtonsToDisplay, 2):
             displayRangeStart = totalButtons - numberOfButtonsToDisplay + \
-                int(numberOfButtonsAfterThis / 2 - 0.5)
+                int(old_div(numberOfButtonsAfterThis, 2) - 0.5)
 
     if displayRangeStart < 0:
         displayRangeStart = 0

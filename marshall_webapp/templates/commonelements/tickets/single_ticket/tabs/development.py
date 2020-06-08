@@ -65,11 +65,6 @@ def development_tab(
         htmlId="developmenttab"
     )
 
-    # CONVERT BYTES TO UNICODE
-    if isinstance(development_tab, ("".__class__, u"".__class__)):
-        development_tab = unicode(
-            development_tab, encoding="utf-8", errors="replace")
-
     log.debug('completed the ``development_tab`` function')
     return development_tab
 
@@ -91,7 +86,7 @@ def transient_d3_lightcurve(
     href = request.route_path('transients_element_lightcurves', elementId=discoveryDataDictionary[
                               "transientBucketId"], _query={'format': 'd3'})
 
-    svg = khufu.svg.svg(
+    svg = khufu.svg(
         htmlClass="example01",
         dataUrl=href,
         dataFormat="json",

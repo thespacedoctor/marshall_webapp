@@ -11,6 +11,8 @@
 """
 from __future__ import print_function
 from __future__ import absolute_import
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
@@ -19,7 +21,7 @@ from marshall_webapp.models.xmatches_catalogues import models_xmatches_catalogue
 from marshall_webapp.models.xmatches_catalogues.element import models_xmatches_element_catalogues_get
 
 
-class templates_xmatches_catalogues():
+class templates_xmatches_catalogues(object):
     """
     The worker class for the templates_xmatches_catalogues module
 
@@ -120,7 +122,7 @@ class templates_xmatches_catalogues():
                 flags=0  # re.S
             )
 
-            for k, v in dict(row).items():
+            for k, v in list(dict(row).items()):
                 if isinstance(v, float):
                     row[k] = "{:,.0f}".format(v)
 
@@ -147,7 +149,7 @@ class templates_xmatches_catalogues():
 
         import khufu.tables.sortable_table as sortable_table
         # build a sortable table
-        table = sortable_table.sortable_table(
+        table = sortable_table(
             currentPageUrl=self.request.path_qs,
             columnsToDisplay=columnsNamesDB,
             tableRowsDictionary=self.catalogues,

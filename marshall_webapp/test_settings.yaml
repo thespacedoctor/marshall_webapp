@@ -8,13 +8,17 @@ version: 1
 #     tunnel: False
 
 # # SSH TUNNEL - if a tunnel is required to connect to the database(s) then add setup here
-# # Note only one tunnel is setup - may need to change this to 2 tunnels in the future if 
+# # Note only one tunnel is setup - may need to change this to 2 tunnels in the future if
 # # code, static catalogue database and transient database are all on seperate machines.
 # ssh tunnel:
 #     remote user: username
 #     remote ip: mydomain.co.uk
 #     remote datbase host: mydatabaseName
 #     port: 9002
+
+## webapp secrets
+secrets:
+    authn policy: "a^h34**92"
 
 logging settings:
     formatters:

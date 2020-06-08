@@ -9,13 +9,14 @@
 :Date Created:
     September 18, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 from fundamentals import times
 
 
-class models_transients_element_context_post():
+class models_transients_element_context_post(object):
     """
     The worker class for the models_transients_element_context_post module
 
@@ -76,7 +77,7 @@ class models_transients_element_context_post():
 
         logEntry = "contextual classifier transient-host mismatch reported by %(author)s" % locals(
         )
-        sqlQuery = u"""INSERT INTO transients_history_logs (
+        sqlQuery = u"""insert ignore into transients_history_logs (
             transientBucketId,
             dateCreated,
             log

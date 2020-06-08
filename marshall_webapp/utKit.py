@@ -54,12 +54,12 @@ class utKit(utKit):
         self.dbConfig = False
         if dbConn:
             self.dbConfig = """
-             version: 1
-             db: dryx_unit_testing
-             host: localhost
-             user: unittesting
-             password: utpass
-             """
+            version: 1
+            db: unit_tests
+            host: localhost
+            user: utuser
+            password: utpass
+            """
 
         return
 

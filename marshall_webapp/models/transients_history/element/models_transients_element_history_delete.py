@@ -9,12 +9,13 @@
 :Date Created:
     November 27, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_element_history_delete():
+class models_transients_element_history_delete(object):
     """
     The worker class for the models_transients_element_history_delete module
 
@@ -79,7 +80,7 @@ class models_transients_element_history_delete():
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
-        for k, v in self.defaultQs.items():
+        for k, v in list(self.defaultQs.items()):
             if k not in self.qs:
                 self.qs[k] = v
 

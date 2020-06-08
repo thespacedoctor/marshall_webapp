@@ -9,6 +9,7 @@
 :Date Created:
     March 7, 2014
 """
+from builtins import str
 import sys
 import os
 from datetime import datetime, date, time

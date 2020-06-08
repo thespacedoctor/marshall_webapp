@@ -9,6 +9,8 @@
 :Date Created:
     October 10, 2014
 """
+from builtins import str
+from builtins import object
 import sys
 import os
 import khufu
@@ -16,7 +18,7 @@ from datetime import datetime
 from marshallEngine.feeders.useradded import data, images
 
 
-class models_transients_post():
+class models_transients_post(object):
     """
     The worker class for the models_transients_post module
 
@@ -94,47 +96,50 @@ class models_transients_post():
             log=self.log
         )
 
-        # UNPACK DICTIONARY VALUES TO LOCAL()
-        for arg, val in self.request.params.items():
+        # UNPACK DICTIONARY VALUES TO PARAMS
+        params = {}
+        for arg, val in list(self.request.params.items()):
             varname = arg
-            if isinstance(val, ("".__class__, u"".__class__)) :
-                exec(varname + ' = """%s""" ' % (val,))
+            if isinstance(val, ("".__class__, u"".__class__)):
+                exec(varname + ' = """%s""" ' % (val,), globals(), params)
             else:
-                exec(varname + " = %s" % (val,))
+                exec(varname + " = %s" % (val,), globals(), params)
             self.log.debug('%s = %s' % (varname, val,))
 
         # CONVERT RA AND DEC IF REQUIRED
 
-        objectRa = converter.ra_sexegesimal_to_decimal(
-            ra=objectRa
+        params["objectRa"] = converter.ra_sexegesimal_to_decimal(
+            ra=params["objectRa"]
         )
-        objectDec = converter.dec_sexegesimal_to_decimal(
-            dec=objectDec
+        params["objectDec"] = converter.dec_sexegesimal_to_decimal(
+            dec=params["objectDec"]
         )
 
         # GET DATES AND MJD
-        if isinstance(objectDate, ("".__class__, u"".__class__)) and "-" in objectDate:
-            mjd = timeConverter.ut_datetime_to_mjd(utDatetime=objectDate)
-        elif isinstance(objectDate, float) or isinstance(objectDate, ("".__class__, u"".__class__)):
-            mjd = float(objectDate)
-            objectDate = timeConverter.mjd_to_ut_datetime(
-                mjd=mjd,
+        if isinstance(params["objectDate"], ("".__class__, u"".__class__)) and "-" in params["objectDate"]:
+            params["mjd"] = timeConverter.ut_datetime_to_mjd(
+                utDatetime=params["objectDate"])
+        elif isinstance(params["objectDate"], float) or isinstance(params["objectDate"], ("".__class__, u"".__class__)):
+            params["mjd"] = float(params["objectDate"])
+            params["objectDate"] = timeConverter.mjd_to_ut_datetime(
+                mjd=params["mjd"],
                 sqlDate=True
             )
 
-        ticketAuthor = self.request.authenticated_userid
+        params["ticketAuthor"] = self.request.authenticated_userid
 
         # add some default null values
-        if "objectRedshift" not in locals() or len(str(objectRedshift)) == 0:
-            objectRedshift = "null"
-        if "objectUrl" not in locals():
-            objectUrl = "null"
+        if "objectRedshift" not in params or len(str(params["objectRedshift"])) == 0:
+            params["objectRedshift"] = "null"
+        if "objectUrl" not in params:
+            params["objectUrl"] = "null"
         else:
-            objectUrl = """ '%(objectUrl)s' """ % locals()
-        if "objectImageStamp" not in locals():
-            objectImageStamp = "null"
+            params["objectUrl"] = """ '%(objectUrl)s' """ % params
+        if "objectImageStamp" not in params:
+            params["objectImageStamp"] = "null"
         else:
-            objectImageStamp = """ '%(objectImageStamp)s' """ % locals()
+            params[
+                "objectImageStamp"] = """ '%(objectImageStamp)s' """ % params
 
         # now add the new transient to the `fs_user_added` table
         sqlQuery = u"""
@@ -155,20 +160,7 @@ class models_transients_post():
                     ingested,
                     summaryRow,
                     dateCreated,
-                    dateLastModified) VALUES ('%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s',%s,'%s',0,1,NOW(),NOW())""" % (
-            objectName,
-            objectImageStamp,
-            objectUrl,
-            objectSurvey,
-            objectRa,
-            objectDec,
-            objectMagnitude,
-            objectMagnitude,
-            mjd,
-            objectDate,
-            u"SN",
-            objectRedshift,
-            ticketAuthor)
+                    dateLastModified) VALUES ('%(objectName)s',%(objectImageStamp)s,%(objectUrl)s,'%(objectSurvey)s','%(objectRa)s','%(objectDec)s','%(objectMagnitude)s','%(objectMagnitude)s','%(mjd)s','%(objectDate)s','SN',%(objectRedshift)s,'%(ticketAuthor)s',0,1,NOW(),NOW())""" % params
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
         self.request.db.commit()
@@ -179,18 +171,18 @@ class models_transients_post():
         # IMPORT THE DATA AND IMAGES
         ingester = data(
             log=self.log,
-            settings=self.request.registry.settings,
+            settings=self.request.registry.settings["yaml settings"],
             dbConn=dbConn
         ).ingest(withinLastDays=3000)
         cacher = images(
             log=self.log,
-            settings=self.request.registry.settings,
+            settings=self.request.registry.settings["yaml settings"],
             dbConn=dbConn
         ).cache(limit=3000)
 
         # Create the redirect URL based on the name of the new object added
         self.redirectUrl = self.request.route_path(
-            'transients_search', _query={'q': objectName})
+            'transients_search', _query={'q': params["objectName"]})
 
         self.log.debug('completed the ``_add_new_transient`` method')
         return None

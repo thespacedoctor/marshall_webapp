@@ -91,6 +91,7 @@ def ssdr_stats_table(
     sqlQuery = """
         select sum(numberOfFiles) as numberOfFiles, sum(dataVolumeBytes) as dataVolumeBytes from stats_%(thisTable)s_overview
     """ % locals()
+    print(sqlQuery)
     rowsTmp = request.db.execute(sqlQuery).fetchall()
     rows = []
     rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]

@@ -85,11 +85,6 @@ def dryx_tab(
         htmlId="dryxtab"
     )
 
-    # CONVERT BYTES TO UNICODE
-    if isinstance(dryx_tab, ("".__class__, u"".__class__)):
-        dryx_tab = unicode(
-            dryx_tab, encoding="utf-8", errors="replace")
-
     log.debug('completed the ``dryx_tab`` function')
     return dryx_tab
 

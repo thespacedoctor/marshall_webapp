@@ -9,12 +9,13 @@
 :Date Created:
     September 23, 2015  
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_element_context_delete():
+class models_transients_element_context_delete(object):
     """
     The worker class for the models_transients_element_context_delete module
 

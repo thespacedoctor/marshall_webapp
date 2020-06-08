@@ -9,11 +9,13 @@
 :Date Created:
     October 3, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 
 
-class models_transients_count():
+class models_transients_count(object):
     """
     The worker class for the models_transients_count module
 
@@ -90,7 +92,7 @@ class models_transients_count():
 
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []
-        rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
+        rows[:] = [dict(list(zip(list(row.keys()), row))) for row in rowsTmp]
 
         count = 0
         for row in rows:

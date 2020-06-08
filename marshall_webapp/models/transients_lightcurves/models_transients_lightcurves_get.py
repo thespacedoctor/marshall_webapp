@@ -9,13 +9,15 @@
 :Date Created:
     November 5, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
 import collections
 
 
-class models_transients_lightcurves_get():
+class models_transients_lightcurves_get(object):
     """
     The worker class for the models_transients_lightcurves_get module
 
@@ -111,7 +113,7 @@ class models_transients_lightcurves_get():
         """ % locals()
         extraMetadataTmp = self.request.db.execute(sqlQuery).fetchall()
         extraMetadata = []
-        extraMetadata[:] = [dict(zip(row.keys(), row))
+        extraMetadata[:] = [dict(list(zip(list(row.keys()), row)))
                             for row in extraMetadataTmp]
 
         self.log.debug('completed the ``get_metadata`` method')

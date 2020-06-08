@@ -9,12 +9,13 @@
 :Date Created:
     November 27, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_element_history_get():
+class models_transients_element_history_get(object):
     """
     The worker class for the models_transients_element_history_get module
 
@@ -79,7 +80,7 @@ class models_transients_element_history_get():
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
-        for k, v in self.defaultQs.items():
+        for k, v in list(self.defaultQs.items()):
             if k not in self.qs:
                 self.qs[k] = v
 

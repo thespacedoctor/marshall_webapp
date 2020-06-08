@@ -9,13 +9,14 @@
 :Date Created:
     November 5, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 from marshall_webapp.models.transients_lightcurves import models_transients_lightcurves_get
 
 
-class templates_transients_lightcurves():
+class templates_transients_lightcurves(object):
     """
     The worker class for the templates_transients_lightcurves module
 

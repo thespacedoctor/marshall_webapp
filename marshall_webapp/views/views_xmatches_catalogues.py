@@ -1,3 +1,5 @@
+from builtins import str
+from builtins import object
 import logging
 import pyramid.httpexceptions as exc
 from pyramid.response import Response
@@ -133,4 +135,4 @@ class xmatches_element_catalogues_view(object):
             elementId=self.request.matchdict["elementId"]
         )
 
-        return Response(unicode(xmatches_catalogues.get()))
+        return Response(str(xmatches_catalogues.get()))

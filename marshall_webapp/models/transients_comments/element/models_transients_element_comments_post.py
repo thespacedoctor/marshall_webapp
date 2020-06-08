@@ -9,13 +9,14 @@
 :Date Created:
     September 18, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 from fundamentals import times
 
 
-class models_transients_element_comments_post():
+class models_transients_element_comments_post(object):
     """
     The worker class for the models_transients_element_comments_post module
 

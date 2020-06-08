@@ -9,6 +9,10 @@
 :Date Created:
     October 3, 2014
 """
+from __future__ import division
+from builtins import zip
+from builtins import object
+from past.utils import old_div
 import sys
 import os
 import re
@@ -17,7 +21,7 @@ from pyramid.path import AssetResolver
 import khufu
 
 
-class templates_transients():
+class templates_transients(object):
     """
     The worker class for the templates_transients module
 
@@ -64,7 +68,7 @@ class templates_transients():
             """ % locals()
             objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
             objectData = []
-            objectData[:] = [dict(zip(row.keys(), row))
+            objectData[:] = [dict(list(zip(list(row.keys()), row)))
                              for row in objectDataTmp]
             table_name = objectData[0]["table_name"]
             table_name = table_name.replace(
@@ -435,7 +439,7 @@ class templates_transients():
             numerator = 30.
             if "mwl" not in self.qs or self.qs["mwl"] == "inbox":
                 numerator = 40.
-            test = int(numerator / len(obj["masterName"]))
+            test = int(old_div(numerator, len(obj["masterName"])))
             if test < 3:
                 size = test
 
@@ -495,7 +499,7 @@ class templates_transients():
 
         # CREATE THE SORTABLE TABLES OF OBJECTS
         if int(self.totalTicketCount) > 0:
-            table = khufu.tables.sortable_table.sortable_table(
+            table = khufu.tables.sortable_table(
                 currentPageUrl=self.request.path_qs,
                 columnsToDisplay=tableColumns,
                 tableRowsDictionary=self.transientData,

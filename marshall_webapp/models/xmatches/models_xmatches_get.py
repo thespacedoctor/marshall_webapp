@@ -9,15 +9,18 @@
 :Date Created:
     October 9, 2014
 """
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import sys
 import os
 import khufu
 import collections
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import re
 
 
-class models_xmatches_get():
+class models_xmatches_get(object):
     """
     The worker class for the models_xmatches_get module
 

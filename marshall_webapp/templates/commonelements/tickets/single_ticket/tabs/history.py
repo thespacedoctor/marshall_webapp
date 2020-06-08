@@ -118,10 +118,6 @@ def history_tab(
         htmlId="historytab"
     )
 
-    # convert bytes to unicode
-    if isinstance(history_tab, ("".__class__, u"".__class__)):
-        history_tab = unicode(history_tab, encoding="utf-8", errors="replace")
-
     log.debug('completed the ``history_tab`` function')
     return history_tab
 

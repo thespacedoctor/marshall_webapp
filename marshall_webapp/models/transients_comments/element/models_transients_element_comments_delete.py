@@ -9,12 +9,13 @@
 :Date Created:
     September 18, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_element_comments_delete():
+class models_transients_element_comments_delete(object):
     """
     The worker class for the models_transients_element_comments_delete module
 

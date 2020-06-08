@@ -9,13 +9,15 @@
 :Date Created:
     October 7, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
 from datetime import datetime, date, time
 
 
-class models_transients_element_put():
+class models_transients_element_put(object):
     """
     The worker class for the models_transients_element_put module
 
@@ -82,7 +84,8 @@ class models_transients_element_put():
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in objectDataTmp]
 
         oldMwl = objectData[0]["marshallWorkflowLocation"]
         oldAwl = objectData[0]["alertWorkflowLocation"]
@@ -114,7 +117,7 @@ class models_transients_element_put():
             for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
                 logEntry = logEntry.replace(o, n)
 
-            sqlQuery = u"""INSERT INTO transients_history_logs (
+            sqlQuery = u"""insert ignore into transients_history_logs (
                 transientBucketId,
                 dateCreated,
                 log
@@ -161,7 +164,7 @@ class models_transients_element_put():
             )
             for o, n in zip(["pending observation", "following", "pending classification"], ["classification targets", "followup targets", "queued for classification"]):
                 logEntry = logEntry.replace(o, n)
-            sqlQuery = u"""INSERT INTO transients_history_logs (
+            sqlQuery = u"""insert ignore into transients_history_logs (
                 transientBucketId,
                 dateCreated,
                 log
@@ -191,17 +194,18 @@ class models_transients_element_put():
         now = now.strftime("%Y-%m-%d %H:%M:%S")
 
         sqlQuery = """
-            select pi_name, pi_email from pesstoObjects where transientBucketId = %(transientBucketId)s   
+            select pi_name, pi_email from pesstoObjects where transientBucketId = %(transientBucketId)s
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in objectDataTmp]
         oldPiName = objectData[0]["pi_name"]
         oldPiEmail = objectData[0]["pi_email"]
 
         # CHANGE THE PI IN THE DATABASE
         sqlQuery = """
-            update pesstoObjects set pi_name = "%(piName)s", pi_email = "%(piEmail)s" where transientBucketId = %(transientBucketId)s   
+            update pesstoObjects set pi_name = "%(piName)s", pi_email = "%(piEmail)s" where transientBucketId = %(transientBucketId)s
         """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
@@ -217,7 +221,7 @@ class models_transients_element_put():
             logEntry = "%(piName)s (%(piEmail)s) assigned as PI of this object by by %(username)s" % locals(
             )
 
-        sqlQuery = u"""INSERT INTO transients_history_logs (
+        sqlQuery = u"""insert ignore into transients_history_logs (
             transientBucketId,
             dateCreated,
             log
@@ -249,17 +253,18 @@ class models_transients_element_put():
 
         # GET OLD DATA
         sqlQuery = """
-            select observationPriority, marshallWorkflowLocation from pesstoObjects where transientBucketId = %(transientBucketId)s   
+            select observationPriority, marshallWorkflowLocation from pesstoObjects where transientBucketId = %(transientBucketId)s
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in objectDataTmp]
         oldobservationPriority = objectData[0]["observationPriority"]
         mwl = objectData[0]["marshallWorkflowLocation"]
 
         # CHANGE THE OBSERVATIONPRIORITY IN THE DATABASE
         sqlQuery = """
-            update pesstoObjects set observationPriority = "%(observationPriority)s" where transientBucketId = %(transientBucketId)s   
+            update pesstoObjects set observationPriority = "%(observationPriority)s" where transientBucketId = %(transientBucketId)s
         """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
@@ -298,7 +303,7 @@ class models_transients_element_put():
             logEntry = "classification priority changed from %(oldobservationPriority)s to %(observationPriority)s by %(username)s" % locals(
             )
 
-        sqlQuery = u"""INSERT INTO transients_history_logs (
+        sqlQuery = u"""insert ignore into transients_history_logs (
             transientBucketId,
             dateCreated,
             log

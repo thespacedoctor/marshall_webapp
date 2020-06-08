@@ -9,12 +9,13 @@
 :Date Created:
     October 10, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_put():
+class models_transients_put(object):
     """
     The worker class for the models_transients_put module
 

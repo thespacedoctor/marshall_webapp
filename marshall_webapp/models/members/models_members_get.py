@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-*The model get for the `models_pessto_members_get.py` resource*
+*The model get for the `models_members_get.py` resource*
 
 :Author:
     David Young
@@ -9,6 +9,8 @@
 :Date Created:
     October 9, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
@@ -16,9 +18,9 @@ import collections
 import re
 
 
-class models_pessto_members_get():
+class models_members_get(object):
     """
-    The worker class for the models_pessto_members_get module
+    The worker class for the models_members_get module
 
     **Key Arguments:**
         - ``log`` -- logger
@@ -46,7 +48,7 @@ class models_pessto_members_get():
         }
 
         log.debug(
-            "instansiating a new 'models_pessto_members_get' object")
+            "instansiating a new 'models_members_get' object")
 
         return None
 
@@ -55,7 +57,7 @@ class models_pessto_members_get():
         return None
 
     def get(self):
-        """execute the get method on the models_pessto_members_get object
+        """execute the get method on the models_members_get object
 
         **Return:**
             - ``responseContent`` -- the reponse to send to the browser
@@ -81,7 +83,8 @@ class models_pessto_members_get():
 
         membersTmp = self.request.db.execute(sqlQuery).fetchall()
         members = []
-        members[:] = [dict(zip(row.keys(), row)) for row in membersTmp]
+        members[:] = [dict(list(zip(list(row.keys()), row)))
+                      for row in membersTmp]
 
         self.log.debug('completed the ``get`` method')
         return members

@@ -1,3 +1,4 @@
+from builtins import object
 import logging
 import pyramid.httpexceptions as exc
 from pyramid.httpexceptions import HTTPFound

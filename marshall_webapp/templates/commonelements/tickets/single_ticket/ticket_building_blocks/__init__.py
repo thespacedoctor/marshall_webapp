@@ -1,12 +1,12 @@
-import survey_lightcurves_block
-import latest_magnitudes_block
-import master_lightcurve_block
-import actions_block
-import comments_block
-import ticket_footer_bar
-import ticket_header_bar
-import lightcurve_block
-import host_info_block
-import classification_block
-import object_info_block
-import identity_block
+from . import survey_lightcurves_block
+from . import latest_magnitudes_block
+from . import master_lightcurve_block
+from . import actions_block
+from . import comments_block
+from . import ticket_footer_bar
+from . import ticket_header_bar
+from . import lightcurve_block
+from . import host_info_block
+from . import classification_block
+from . import object_info_block
+from . import identity_block

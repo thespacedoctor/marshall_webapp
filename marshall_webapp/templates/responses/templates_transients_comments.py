@@ -9,6 +9,7 @@
 :Date Created:
     October 9, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
@@ -16,7 +17,7 @@ from marshall_webapp.models.transients_comments import models_transients_comment
 from marshall_webapp.models.transients_comments.element import models_transients_element_comments_get
 
 
-class templates_transients_comments():
+class templates_transients_comments(object):
     """
     The worker class for the templates_transients_comments module
 

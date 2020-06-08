@@ -11,4 +11,4 @@ from .templates_xmatches import templates_xmatches
 from .templates_xmatches_catalogues import templates_xmatches_catalogues
 from .templates_xmatches_views import templates_xmatches_views
 from .templates_xmatches_searches import templates_xmatches_searches
-from .templates_pessto_members import templates_pessto_members
+from .templates_members import templates_members

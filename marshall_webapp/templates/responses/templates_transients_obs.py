@@ -9,13 +9,15 @@
 :Date Created:
     November 14, 2014
 """
+from builtins import str
+from builtins import object
 import sys
 import os
 import khufu
 from marshall_webapp.models.transients_obs import models_transients_obs_get
 
 
-class templates_transients_obs():
+class templates_transients_obs(object):
     """
     The worker class for the templates_transients_obs module
 
@@ -78,7 +80,7 @@ class templates_transients_obs():
             - ``transient_ob_data``
 
         **Return:**
-            - ``downloadFilename`` 
+            - ``downloadFilename``
             - ``obText``
         """
         self.log.debug('starting the ``_generate_ob_text`` method')
@@ -86,9 +88,9 @@ class templates_transients_obs():
         od = {}  # override dictionary
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
-        for arg, val in transient_ob_data.items():
+        for arg, val in list(transient_ob_data.items()):
             varname = arg
-            if isinstance(val, ("".__class__, u"".__class__)) :
+            if isinstance(val, ("".__class__, u"".__class__)):
                 exec(varname + ' = """%s""" ' % (val,))
             else:
                 exec(varname + " = %s" % (val,))
@@ -273,7 +275,7 @@ class templates_transients_obs():
         obDictionary["b6_DPR.TYPE"] = "OBJECT"
 
         # override default values with user values
-        for k, v in od.items():
+        for k, v in list(od.items()):
             obDictionary[k] = v
 
         block1 = [

@@ -9,12 +9,13 @@
 :Date Created:
     October 9, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 
 
-class models_transients_comments_get():
+class models_transients_comments_get(object):
     """
     The worker class for the models_transients_comments_get module
 

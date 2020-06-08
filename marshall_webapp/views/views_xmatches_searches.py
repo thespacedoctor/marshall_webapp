@@ -1,3 +1,5 @@
+from builtins import str
+from builtins import object
 import logging
 import pyramid.httpexceptions as exc
 from pyramid.response import Response

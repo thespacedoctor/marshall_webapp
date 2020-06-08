@@ -9,13 +9,15 @@
 :Date Created:
     November 14, 2014
 """
+from builtins import zip
+from builtins import object
 import sys
 import os
 import khufu
 from astrocalc.coords import unit_conversion
 
 
-class models_transients_obs_get():
+class models_transients_obs_get(object):
     """
     The worker class for the models_transients_obs_get module
 
@@ -85,7 +87,7 @@ class models_transients_obs_get():
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 
-        for k, v in self.defaultQs.items():
+        for k, v in list(self.defaultQs.items()):
             if k not in self.qs:
                 self.qs[k] = v
 
@@ -106,7 +108,7 @@ class models_transients_obs_get():
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(zip(row.keys(), row)) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row))) for row in objectDataTmp]
         objectData = objectData[0]
 
         # ASTROCALC UNIT CONVERTER OBJECT

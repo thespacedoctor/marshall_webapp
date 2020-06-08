@@ -28,7 +28,8 @@ install_requires = [
     'unicodecsv',
     'multiprocess',
     'nose2',
-    'marshallEngine'
+    'marshallEngine',
+    'webtest'
 ]
 
 # READ THE DOCS SERVERS

@@ -9,13 +9,14 @@
 :Date Created:
     November 27, 2014
 """
+from builtins import object
 import sys
 import os
 import khufu
 from marshall_webapp.models.transients_history.element import models_transients_element_history_get
 
 
-class templates_transients_history():
+class templates_transients_history(object):
     """
     The worker class for the templates_transients_history module
 
