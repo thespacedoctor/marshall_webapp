@@ -154,12 +154,6 @@ class test_views_transients(BaseTest):
         # print respsonse
         self.assertEqual(respsonse.status_code, 200)
 
-    def test_views_transients_element(self):
-
-        respsonse = self.testapp.get('/transients/1',
-                                     params={})
-        self.assertEqual(respsonse.status_code, 200)
-
     def test_views_transients_search(self):
 
         respsonse = self.testapp.get('/transients',
@@ -167,7 +161,97 @@ class test_views_transients(BaseTest):
         # print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
 
-    def test_views_transients_classification(self):
+    def test_views_transients_function_exception(self):
+
+        from marshall_webapp.views import views_transients
+        try:
+            this = transients_view(
+                log=log,
+                settings=settings,
+                fakeKey="break the code"
+            )
+            this.get()
+            assert False
+        except Exception as e:
+            assert True
+            print(str(e))
+
+
+class test_views_transients_elements(BaseTest):
+
+    def __init__(self, *args, **kwargs):
+        BaseTest.__init__(self, *args, **kwargs)
+
+        # xt-setup-unit-testing-files-and-folders
+
+        self.testIni = moduleDirectory + "/../../../test.ini#marshall_webapp"
+
+        self.testSettings = settings
+        self.settings = settings
+
+        utKit("").refresh_database()
+
+    def test_views_transients_element_get(self):
+        # PARAM DICTIONARY = URL TOKENS
+        params = {}
+        respsonse = self.testapp.get('/transients/1',
+                                     params=params)
+        self.assertEqual(respsonse.status_code, 200)
+
+    def test_views_transients_element_post(self):
+        # PARAM DICTIONARY = URL TOKENS
+        params = {}
+        respsonse = self.testapp.post('/transients/1',
+                                      params=params)
+        self.assertEqual(respsonse.status_code, 200)
+
+    def test_views_transients_element_delete(self):
+        # PARAM DICTIONARY = URL TOKENS
+        params = {}
+        respsonse = self.testapp.delete('/transients/1',
+                                        params=params, status=405)
+        self.assertEqual(respsonse.status_code, 405)
+
+    def test_views_transients_element_put(self):
+        # PARAM DICTIONARY = URL TOKENS
+        params = {}
+        respsonse = self.testapp.put('/transients/1',
+                                     params=params)
+        self.assertEqual(respsonse.status_code, 200)
+
+    def test_02_views_transients_element_put_move(self):
+
+        params = {
+            "method": "put",
+            "mwl": "inbox",
+        }
+        respsonse = self.testapp.put('/transients/1',
+                                     params=params)
+        self.assertEqual(respsonse.status_code, 200)
+
+    def test_views_transients_element_put_priority(self):
+
+        params = {
+            "observationPriority": "3",
+            "method": "put",
+        }
+        respsonse = self.testapp.put('/transients/1',
+                                     params=params)
+        self.assertEqual(respsonse.status_code, 200)
+
+    def test_views_transients_element_put_pi(self):
+
+        params = {
+            "method": "put",
+            "piName": "boblin",
+            "piEmail": "d.r.young@qub.ac.uk",
+            "redirectURL": "/marshall/transients/1",
+        }
+        respsonse = self.testapp.put('/transients/1',
+                                     params=params)
+        self.assertEqual(respsonse.status_code, 302)
+
+    def test_views_transients_element_post_classification(self):
 
         params = {
             "clsSource": "atel",
@@ -183,53 +267,6 @@ class test_views_transients(BaseTest):
                                       params=params)
         # print(respsonse)
         self.assertEqual(respsonse.status_code, 302)
-
-    def test_views_transients_put_pi(self):
-
-        params = {
-            "method": "put",
-            "piName": "boblin",
-            "piEmail": "d.r.young@qub.ac.uk",
-            "redirectURL": "/marshall/transients/1",
-        }
-        respsonse = self.testapp.put('/transients/1',
-                                     params=params)
-        self.assertEqual(respsonse.status_code, 302)
-
-    def test_02_views_transients_put_move(self):
-
-        params = {
-            "method": "put",
-            "mwl": "inbox",
-        }
-        respsonse = self.testapp.put('/transients/1',
-                                     params=params)
-        self.assertEqual(respsonse.status_code, 200)
-
-    def test_views_transients_put_priority(self):
-
-        params = {
-            "observationPriority": "3",
-            "method": "put",
-        }
-        respsonse = self.testapp.put('/transients/1',
-                                     params=params)
-        self.assertEqual(respsonse.status_code, 200)
-
-    def test_views_transients_function_exception(self):
-
-        from marshall_webapp.views import transients_view
-        try:
-            this = transients_view(
-                log=log,
-                settings=settings,
-                fakeKey="break the code"
-            )
-            this.get()
-            assert False
-        except Exception as e:
-            assert True
-            print(str(e))
 
         # x-print-testpage-for-pessto-marshall-web-object
 

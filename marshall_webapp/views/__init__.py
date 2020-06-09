@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from .views_transients import transients_view
+from . import views_transients
 from . import views_stats
 from . import views_calendars
 from . import views_transients_comments

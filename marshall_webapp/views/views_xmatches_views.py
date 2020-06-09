@@ -7,33 +7,19 @@ from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
 from marshall_webapp.templates.responses import templates_xmatches_views
 from marshall_webapp.models.xmatches_views.element import models_xmatches_element_views_get, models_xmatches_element_views_delete, models_xmatches_element_views_put, models_xmatches_element_views_post
+from dryxPyramid.views.views_base import base_view, base_element_view
+from venusian import lift
 
 # RESOURCE CONTEXT
 
 
-@view_defaults(route_name='xmatches_views', permission="view_users")
-class xmatches_views_view(object):
+@view_defaults(route_name='xmatches_views',  permission="view_users")
+@lift()
+class views_xmatches_views(base_view):
 
     def __init__(self, request):
-        self.request = request
-        self.log = logging.getLogger(__name__)
-        self.log.debug(
-            "instantiating a new 'xmatches_views'' view")
-
-    @view_config(request_method='DELETE', permission="edit_users")
-    @view_config(request_param="method=delete", permission="edit_users")
-    def delete(self):
-        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'xmatches_views' resource")
-
-    @view_config(request_method='PUT', permission="edit_users")
-    @view_config(request_param="method=put", permission="edit_users")
-    def put(self):
-        return exc.exception_response(405, body_template="The PUT method is not allowed on the 'xmatches_views' resource")
-
-    @view_config(request_method='POST', permission="edit_users")
-    @view_config(request_param="method=post", permission="edit_users")
-    def post(self):
-        return exc.exception_response(405, body_template="The POST method is not allowed on the 'xmatches_views' resource")
+        super().__init__(request)
+        self.resourceName = "xmatches_views"
 
     @view_config(request_method='GET', permission="view_users")
     @view_config(request_param="method=get", permission="view_users")

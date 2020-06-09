@@ -8,17 +8,19 @@ from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from marshall_webapp.templates.responses import templates_transients_history
 from marshall_webapp.models.transients_history.element import models_transients_element_history_delete, models_transients_element_history_put, models_transients_element_history_post
+from dryxPyramid.views.views_base import base_view, base_element_view
+from venusian import lift
 
 # RESOURCE ELEMENT
 
 
-@view_defaults(route_name='transients_element_history', permission="view_users")
-class transients_history_element_view(object):
+@view_defaults(route_name='transients_history',  permission="view_users")
+@lift()
+class views_transients_history(base_view):
 
     def __init__(self, request):
-        self.request = request
-        self.log = logging.getLogger(__name__)
-        self.log.debug("instantiating a new 'transients_history'' view")
+        super().__init__(request)
+        self.resourceName = "transients_history"
 
     @view_config(request_method='DELETE', permission="superuser")
     @view_config(request_param="method=delete", permission="superuser")

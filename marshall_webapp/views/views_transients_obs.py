@@ -7,32 +7,19 @@ from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from marshall_webapp.templates.responses import templates_transients_obs
 from marshall_webapp.models.transients_obs.element import models_transients_element_obs_get
+from dryxPyramid.views.views_base import base_view, base_element_view
+from venusian import lift
 
 # RESOURCE ELEMENT
 
 
-@view_defaults(route_name='transients_element_obs', permission="view_users")
-class transients_element_obs_view(object):
+@view_defaults(route_name='transients_element_obs',  permission="view_users")
+@lift()
+class views_transients_obs(base_view):
 
     def __init__(self, request):
-        self.request = request
-        self.log = logging.getLogger(__name__)
-        self.log.debug("instantiating a new 'transients_obs'' view")
-
-    @view_config(request_method='DELETE', permission="edit_users")
-    @view_config(request_param="method=delete", permission="edit_users")
-    def delete(self):
-        return exc.exception_response(405, body_template="The DELETE method is not allowed on 'transients_obs' elements")
-
-    @view_config(request_method='PUT', permission="edit_users")
-    @view_config(request_param="method=put", permission="edit_users")
-    def put(self):
-        return exc.exception_response(405, body_template="The PUT method is not allowed on 'transients_obs' elements")
-
-    @view_config(request_method='POST', permission="edit_users")
-    @view_config(request_param="method=post", permission="edit_users")
-    def post(self):
-        return exc.exception_response(405, body_template="The POST method is not allowed on 'transients_obs' elements")
+        super().__init__(request)
+        self.resourceName = "transients_element_obs"
 
     @view_config(request_method='GET', permission="view_users")
     @view_config(request_param="method=get", permission="view_users")

@@ -71,64 +71,63 @@ def main(global_config, **settings):
     config.set_authentication_policy(authn_policy)
     config.set_authorization_policy(authz_policy)
 
-    # add the specific routes -- add_route(name, pattern)
-    config.add_route('transients_comments', '/transients/comments')
-    config.add_route(
-        'transients_element_comments', '/transients/{elementId}/comments')
-    config.add_route('transients_context', '/transients/context')
-    config.add_route(
-        'transients_element_context', '/transients/{elementId}/context')
-    config.add_route(
-        'transients_lightcurves', '/transients/lightcurves')
-    config.add_route(
-        'transients_element_lightcurves', '/transients/{elementId}/lightcurves')
-    config.add_route('transients_element_obs', '/transients/{elementId}/obs')
-    config.add_route('transients', '/transients')
-    config.add_route(
-        'transients_search', '/transients/search')
-    config.add_route('transients_element', '/transients/{elementId}')
-    config.add_route('stats', '/stats')
-    config.add_route('stats_element', '/stats/{elementId}')
-    config.add_route('calendars', '/calendars')
-    config.add_route(
-        'refresh_sidebar_list_counts', '/actions/refresh_sidebar_list_counts')
+    # SUPER-CLASS RESOURCES
+    config.add_route('base_view', '/base')
+    config.add_route('base_element_view', '/base/{elementId}')
 
-    config.add_route(
-        'transients_element_history', '/transients/{elementId}/history')
-    config.add_route('xmatches', '/xmatches')
-    config.add_route('xmatches_catalogues', '/xmatches/catalogues')
-    config.add_route('xmatches_element_catalogues',
-                     '/xmatches/catalogues/{elementId}')
-    config.add_route('xmatches_searches', '/xmatches/searches')
-    config.add_route('xmatches_element_searches',
-                     '/xmatches/searches/{elementId}')
-    config.add_route('xmatches_views', '/xmatches/views')
-    config.add_route('xmatches_element_views',
-                     '/xmatches/views/{elementId}')
-
-    config.add_route('xmatches_elements', '/xmatches/{elementId}')
-
-    config.add_route('members',
-                     '/members')
-    config.add_route('members_elements', '/members/{elementId}')
-
-    # --- end of routes --- #
-    # xpyr-add-route
-
-    # add some default Routes from dryxPyramid
+    # TOP-LEVEL SERVICES
+    config.add_route('index', '/')
     config.add_route('download', '/download')
     config.add_route('login', '/login')
     config.add_route('logout', '/logout')
 
-    # xpyr-add-route
-    config.add_route('index', '/')
-    config.scan()
-    config.scan("dryxPyramid")
+    # ACTIONS
+    config.add_route(
+        'refresh_sidebar_list_counts', '/actions/refresh_sidebar_list_counts')
 
-    # static views
+    # TOP-LEVEL RESOURCES
+    config.add_route('calendars', '/calendars')
+    config.add_route('members', '/members')
+    config.add_route('transients', '/transients')
+    config.add_route('transients_element', '/transients/{elementId}')
+    config.add_route('xmatches', '/xmatches')
+    config.add_route('stats', '/stats')
+    config.add_route('stats_element', '/stats/{elementId}')
+
+    # RESOURCE ELEMENT RESOURCES
+    config.add_route(
+        'transients_element_comments', '/transients/{elementId}/comments')
+    config.add_route(
+        'transients_element_context', '/transients/{elementId}/context')
+    config.add_route(
+        'transients_element_lightcurves', '/transients/{elementId}/lightcurves')
+    config.add_route('transients_element_obs', '/transients/{elementId}/obs')
+    config.add_route('transients_history', '/transients/{elementId}/history')
+    config.add_route('xmatches_element_catalogues',
+                     '/xmatches/catalogues/{elementId}')
+    config.add_route('xmatches_element_searches',
+                     '/xmatches/searches/{elementId}')
+    config.add_route('xmatches_element_views',
+                     '/xmatches/views/{elementId}')
+
+    # SUBRESOURCES
+    config.add_route('transients_comments', '/transients/comments')
+    config.add_route('transients_context', '/transients/context')
+    config.add_route(
+        'transients_search', '/transients/search')
+    config.add_route('xmatches_catalogues', '/xmatches/catalogues')
+    config.add_route('xmatches_searches', '/xmatches/searches')
+    config.add_route('xmatches_views', '/xmatches/views')
+    # xpyr-add-route
+
+    # STATIC VIEWS/RESOURCES
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_static_view(
         '.codekit-cache', '.codekit-cache', cache_max_age=3600)
+
+    # SCAN FOR CONFIGURATION DECORATION
+    config.scan()
+    config.scan("dryxPyramid")
 
     # add database connection as a setting (incase we want to use pymysql over
     # sqlachemy)
