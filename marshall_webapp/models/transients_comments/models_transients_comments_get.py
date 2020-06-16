@@ -13,9 +13,10 @@ from builtins import object
 import sys
 import os
 import khufu
+from dryxPyramid.models.models_base import base_model
 
 
-class models_transients_comments_get(object):
+class models_transients_comments_get(base_model):
     """
     The worker class for the models_transients_comments_get module
 
@@ -25,23 +26,12 @@ class models_transients_comments_get(object):
         - ``elementId`` -- the specific element id requests (or False)
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        # xt-self-arg-tmpx
-
-        log.debug("instansiating a new 'models_transients_comments_get' object")
-
-        return None
-
-    def close(self):
-        del self
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "transients_comments"
+        self._set_default_parameters()
+        log.debug(
+            "instansiating a new 'models_transients_comments_get' object")
         return None
 
     def get(self):
@@ -53,15 +43,23 @@ class models_transients_comments_get(object):
         self.log.debug('starting the ``get`` method')
         elementId = self.elementId
 
-        responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
         if elementId:
-            responseContent = "%(responseContent)sThe element selected was </code>%(elementId)s</code>" % locals(
-            )
+            whereClause = " and pesstoObjectsID = %(elementId)s" % locals()
         else:
-            responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
-            )
+            whereClause = ""
+
+        sqlQuery = """
+            select * from pesstoObjectsComments where 1=1 %(whereClause)s order by dateCreated desc limit 10
+        """ % locals()
+
+        objectCommentsTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectComments = []
+        objectComments[:] = [dict(list(zip(list(row.keys()), row)))
+                             for row in objectCommentsTmp]
+
+        print(objectComments)
 
         self.log.debug('completed the ``get`` method')
-        return responseContent
+        return objectComments
 
     # xt-class-method

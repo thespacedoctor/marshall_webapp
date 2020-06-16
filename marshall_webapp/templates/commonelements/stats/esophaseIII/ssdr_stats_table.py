@@ -12,6 +12,7 @@
 import sys
 import os
 import khufu
+from marshall_webapp.models.stats import models_stats_get
 
 
 def ssdr_stats_table(
@@ -32,12 +33,16 @@ def ssdr_stats_table(
 
     # get the table data
     thisTable = releaseVersion.lower()
-    sqlQuery = """
-        select * from stats_%(thisTable)s_overview
-    """ % locals()
-    rowsTmp = request.db.execute(sqlQuery).fetchall()
-    rows = []
-    rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
+
+    stats = models_stats_get(
+        log=log,
+        request=request,
+        elementId=releaseVersion
+    )
+    result = stats.get()
+
+    fileTypes = result["fileTypes"]
+    fileTotals = result["fileTotals"]
 
     headerList = ["File Type", "Number of Files", "Data Volume"]
 
@@ -53,7 +58,7 @@ def ssdr_stats_table(
     )
 
     tableBody = ""
-    for row in rows:
+    for row in fileTypes:
         tableRow = ""
         fileType = row["filetype"].replace("_", " ").replace(
             "efosc", "EFOSC").replace("sofi", "SOFI")
@@ -88,16 +93,8 @@ def ssdr_stats_table(
         tableRow = ""
         tableBody = "%(tableBody)s%(tr)s" % locals()
 
-    sqlQuery = """
-        select sum(numberOfFiles) as numberOfFiles, sum(dataVolumeBytes) as dataVolumeBytes from stats_%(thisTable)s_overview
-    """ % locals()
-    print(sqlQuery)
-    rowsTmp = request.db.execute(sqlQuery).fetchall()
-    rows = []
-    rows[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
-
-    numberOfFiles = rows[0]["numberOfFiles"]
-    dataVolume = float(rows[0]["dataVolumeBytes"]) / (1024. ** 3)
+    numberOfFiles = fileTotals[0]["numberOfFiles"]
+    dataVolume = float(fileTotals[0]["dataVolumeBytes"]) / (1024. ** 3)
     if dataVolume < 1.:
         dataVolume = float(row["dataVolumeBytes"]) / (1024. ** 2)
         dataVolume = "%(dataVolume)0.2f MB" % locals()

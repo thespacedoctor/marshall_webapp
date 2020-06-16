@@ -6,7 +6,7 @@ from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
 from marshall_webapp.templates.responses import templates_xmatches
 from marshall_webapp.models.xmatches.element import models_xmatches_element_delete, models_xmatches_element_put, models_xmatches_element_post
-from dryxPyramid.views.views_base import base_view, base_element_view
+from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
 

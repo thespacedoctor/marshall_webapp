@@ -89,8 +89,8 @@ class templates_xmatches_searches(object):
                 thisPageName="xmatches"
             )
         else:
-            from .templates_transients import templates_transients
-            webpage = templates_transients(
+            from .templates_resources_transients import templates_resources_transients
+            webpage = templates_resources_transients(
                 log=self.log,
                 request=self.request,
                 tcsCatalogueId=self.elementId

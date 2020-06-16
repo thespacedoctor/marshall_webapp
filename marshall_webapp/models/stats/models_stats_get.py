@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 9, 2014
 """
 ################# GLOBAL IMPORTS ####################
 from future import standard_library
@@ -21,9 +18,10 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import re
+from dryxPyramid.models.models_base import base_model
 
 
-class models_stats_get(object):
+class models_stats_get(base_model):
 
     """
     *The worker class for the models_stats_get module*
@@ -50,24 +48,14 @@ class models_stats_get(object):
         - create a blog post about what ``models_stats_get`` does
     ```
     """
-    # Initialisation
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        self.search = search
-        self.qs = dict(request.params)  # the query string
-        # the query string defaults
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "stats"
         self.defaultQs = {
             "format": "json",
         }
+        self._set_default_parameters()
 
         log.debug(
             "instansiating a new 'models_stats_get' object")
@@ -76,11 +64,6 @@ class models_stats_get(object):
 
         return None
 
-    def close(self):
-        del self
-        return None
-
-    # Method Attributes
     def get(self):
         """
         *execute the get method on the models_stats_get object*
@@ -90,28 +73,34 @@ class models_stats_get(object):
         """
         self.log.debug('starting the ``get`` method')
 
-        responseContent = self.elementId
+        elementId = self.elementId
+        # STATS OVERVIEW
+        sqlQuery = """
+            select * from stats_%(elementId)s_overview
+        """ % locals()
+        rowsTmp = self.request.db.execute(sqlQuery).fetchall()
+
+        fileTypes = []
+        fileTypes[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
+
+        for row in fileTypes:
+            try:
+                del row['primaryId']
+            except:
+                pass
+
+        sqlQuery = """
+            select sum(numberOfFiles) as numberOfFiles, sum(dataVolumeBytes) as dataVolumeBytes from stats_%(elementId)s_overview
+        """ % locals()
+
+        rowsTmp = self.request.db.execute(sqlQuery).fetchall()
+        fileTotals = []
+        fileTotals[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
+
+        if self.qs["format"] in ("csv", "plain_table"):
+            return fileTypes
 
         self.log.debug('completed the ``get`` method')
-        return responseContent
-
-    def _set_default_parameters(
-            self):
-        """
-        *set default parameters*
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
-        """
-        self.log.debug('starting the ``_set_default_parameters`` method')
-
-        if "format" not in self.qs:
-            self.qs["format"] = self.defaultQs["format"]
-
-        self.log.debug('completed the ``_set_default_parameters`` method')
-        return None
+        return {"fileTypes": fileTypes, "fileTotals": fileTotals}
 
     # xt-class-method

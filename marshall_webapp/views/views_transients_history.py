@@ -8,7 +8,7 @@ from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from marshall_webapp.templates.responses import templates_transients_history
 from marshall_webapp.models.transients_history.element import models_transients_element_history_delete, models_transients_element_history_put, models_transients_element_history_post
-from dryxPyramid.views.views_base import base_view, base_element_view
+from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
 # RESOURCE ELEMENT

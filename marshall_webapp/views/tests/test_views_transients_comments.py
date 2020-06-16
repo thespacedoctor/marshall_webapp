@@ -75,8 +75,8 @@ class test_views_transients_comments(BaseTest):
         params = {}
 
         respsonse = self.testapp.post(
-            "/transients/comments", params=params, status=405)
-        self.assertEqual(respsonse.status_code, 405)
+            "/transients/comments", params=params, status=404)
+        self.assertEqual(respsonse.status_code, 404)
 
     def test_views_transients_comments_get(self):
         # PARAM DICTIONARY = URL TOKENS
@@ -107,17 +107,17 @@ class test_views_transients_comments(BaseTest):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
         respsonse = self.testapp.delete('/transients/comments',
-                                        params=params, status=405)
+                                        params=params, status=404)
         print(respsonse)
-        self.assertEqual(respsonse.status_code, 405)
+        self.assertEqual(respsonse.status_code, 404)
 
     def test_views_transients_comments_put(self):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
         respsonse = self.testapp.put('/transients/comments',
-                                     params=params, status=405)
+                                     params=params, status=404)
         print(respsonse)
-        self.assertEqual(respsonse.status_code, 405)
+        self.assertEqual(respsonse.status_code, 404)
 
 
 class test_views_transients_comments_elements(BaseTest):
@@ -152,8 +152,8 @@ class test_views_transients_comments_elements(BaseTest):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
         respsonse = self.testapp.delete('/transients/1',
-                                        params=params, status=405)
-        self.assertEqual(respsonse.status_code, 405)
+                                        params=params, status=404)
+        self.assertEqual(respsonse.status_code, 404)
 
     def test_views_transients_comments_element_put(self):
         # PARAM DICTIONARY = URL TOKENS

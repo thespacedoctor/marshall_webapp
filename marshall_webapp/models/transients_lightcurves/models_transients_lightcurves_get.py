@@ -15,9 +15,10 @@ import sys
 import os
 import khufu
 import collections
+from dryxPyramid.models.models_base import base_model
 
 
-class models_transients_lightcurves_get(object):
+class models_transients_lightcurves_get(base_model):
     """
     The worker class for the models_transients_lightcurves_get module
 
@@ -25,32 +26,15 @@ class models_transients_lightcurves_get(object):
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-        - ``search`` -- is this a search request (boolean)
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        self.search = search
-        self.qs = dict(request.params)  # the query string
-        # the query string defaults
-        self.defaultQs = {
-            "format": "json",
-        }
-        # xt-self-arg-tmpx
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "transients_lightcurves"
+        self._set_default_parameters()
 
         log.debug(
             "instansiating a new 'models_transients_lightcurves_get' object")
-
-        self._set_default_parameters()
-
         return None
 
     def close(self):

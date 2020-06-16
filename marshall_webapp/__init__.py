@@ -12,6 +12,7 @@ from dryxPyramid.security import groupfinder
 from . import views
 from . import templates
 from . import models
+from . import services
 
 from pyramid.security import authenticated_userid
 from pyramid.settings import aslist
@@ -72,52 +73,56 @@ def main(global_config, **settings):
     config.set_authorization_policy(authz_policy)
 
     # SUPER-CLASS RESOURCES
-    config.add_route('base_view', '/base')
-    config.add_route('base_element_view', '/base/{elementId}')
+    config.add_route('base_view', '/base')  # --
+    config.add_route('base_element_view', '/base/{elementId}')  # --
 
     # TOP-LEVEL SERVICES
-    config.add_route('index', '/')
-    config.add_route('download', '/download')
-    config.add_route('login', '/login')
-    config.add_route('logout', '/logout')
+    config.add_route('index', '/')  # --
+    config.add_route('download', '/download')  # --
+    config.add_route('login', '/login')  # --
+    config.add_route('logout', '/logout')  # --
 
     # ACTIONS
     config.add_route(
-        'refresh_sidebar_list_counts', '/actions/refresh_sidebar_list_counts')
+        'refresh_sidebar_list_counts', '/actions/refresh_sidebar_list_counts')  # --
+
+    # RESOURCE ELEMENT RESOURCES
+    config.add_route('transients_comments', '/transients/comments')  # --
 
     # TOP-LEVEL RESOURCES
     config.add_route('calendars', '/calendars')
     config.add_route('members', '/members')
-    config.add_route('transients', '/transients')
-    config.add_route('transients_element', '/transients/{elementId}')
-    config.add_route('xmatches', '/xmatches')
-    config.add_route('stats', '/stats')
-    config.add_route('stats_element', '/stats/{elementId}')
+    config.add_route('transients', '/transients')  # --
+    config.add_route('transients_element', '/transients/{elementId}')  # --
+    config.add_route('xmatches', '/xmatches')  # --
+    config.add_route('stats', '/stats')  # --
+    config.add_route('stats_element', '/stats/{elementId}')  # --
 
-    # RESOURCE ELEMENT RESOURCES
     config.add_route(
-        'transients_element_comments', '/transients/{elementId}/comments')
+        'transients_element_comments', '/transients/{elementId}/comments')  # --
     config.add_route(
-        'transients_element_context', '/transients/{elementId}/context')
+        'transients_element_context', '/transients/{elementId}/context')  # --
     config.add_route(
-        'transients_element_lightcurves', '/transients/{elementId}/lightcurves')
-    config.add_route('transients_element_obs', '/transients/{elementId}/obs')
-    config.add_route('transients_history', '/transients/{elementId}/history')
+        'transients_element_lightcurves', '/transients/{elementId}/lightcurves')  # --
+    config.add_route('transients_element_obs',
+                     '/transients/{elementId}/obs')  # --
+    config.add_route('transients_history',
+                     '/transients/{elementId}/history')  # --
     config.add_route('xmatches_element_catalogues',
-                     '/xmatches/catalogues/{elementId}')
+                     '/xmatches/catalogues/{elementId}')  # --
     config.add_route('xmatches_element_searches',
-                     '/xmatches/searches/{elementId}')
+                     '/xmatches/searches/{elementId}')  # --
     config.add_route('xmatches_element_views',
-                     '/xmatches/views/{elementId}')
+                     '/xmatches/views/{elementId}')  # --
 
     # SUBRESOURCES
-    config.add_route('transients_comments', '/transients/comments')
-    config.add_route('transients_context', '/transients/context')
+
+    config.add_route('transients_context', '/transients/context')  # --
     config.add_route(
-        'transients_search', '/transients/search')
-    config.add_route('xmatches_catalogues', '/xmatches/catalogues')
-    config.add_route('xmatches_searches', '/xmatches/searches')
-    config.add_route('xmatches_views', '/xmatches/views')
+        'transients_search', '/transients/search')  # --
+    config.add_route('xmatches_catalogues', '/xmatches/catalogues')  # --
+    config.add_route('xmatches_searches', '/xmatches/searches')  # --
+    config.add_route('xmatches_views', '/xmatches/views')  # --
     # xpyr-add-route
 
     # STATIC VIEWS/RESOURCES

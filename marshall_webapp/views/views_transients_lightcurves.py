@@ -6,7 +6,7 @@ from pyramid.response import Response
 from pyramid.view import view_config, view_defaults
 from marshall_webapp.templates.responses import templates_transients_lightcurves
 from marshall_webapp.models.transients_lightcurves import models_transients_lightcurves_post, models_transients_lightcurves_put
-from dryxPyramid.views.views_base import base_view, base_element_view
+from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
 # RESOURCE CONTEXT
@@ -24,17 +24,17 @@ class transients_elements_lightcurve_view(object):
     @view_config(request_method='DELETE', permission="edit_users")
     @view_config(request_param="method=delete", permission="edit_users")
     def delete(self):
-        return exc.exception_response(405, body_template="The DELETE method is not allowed on the 'transients_element_lightcurves' resource")
+        return exc.exception_response(404, body_template="The DELETE method is not enabled on the 'transients_element_lightcurves' resource")
 
     @view_config(request_method='PUT', permission="edit_users")
     @view_config(request_param="method=put", permission="edit_users")
     def put(self):
-        return exc.exception_response(405, body_template="The PUT method is not allowed on the 'transients_element_lightcurves' resource")
+        return exc.exception_response(404, body_template="The PUT method is not enabled on the 'transients_element_lightcurves' resource")
 
     @view_config(request_method='POST', permission="edit_users")
     @view_config(request_param="method=post", permission="edit_users")
     def post(self):
-        return exc.exception_response(405, body_template="The POST method is not allowed on the 'transients_element_lightcurves' resource")
+        return exc.exception_response(404, body_template="The POST method is not enabled on the 'transients_element_lightcurves' resource")
 
     @view_config(request_method='GET', renderer="json", permission="view_users")
     @view_config(request_param="method=get", renderer="json", permission="view_users")

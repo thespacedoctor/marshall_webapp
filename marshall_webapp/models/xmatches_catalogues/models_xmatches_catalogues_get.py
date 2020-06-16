@@ -17,11 +17,14 @@ import sys
 import os
 import khufu
 import collections
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 import re
+from dryxPyramid.models.models_base import base_model
 
 
-class models_xmatches_catalogues_get(object):
+class models_xmatches_catalogues_get(base_model):
     """
     The worker class for the models_xmatches_catalogues_get module
 
@@ -31,29 +34,18 @@ class models_xmatches_catalogues_get(object):
         - ``elementId`` -- the specific element id requests (or False)
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        self.search = search
-        self.qs = dict(request.params)  # the query string
-        # the query string defaults
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "xmatches_catalogues"
+
         self.defaultQs = {
             "sortBy": "catalogue_table_id",
             "sortDesc": True
         }
+        self._set_default_parameters()
 
         log.debug(
             "instansiating a new 'models_xmatches_catalogues_get' object")
-
-        self._set_default_parameters()
-
         return None
 
     def get(self):
@@ -99,24 +91,12 @@ class models_xmatches_catalogues_get(object):
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(list(zip(list(row.keys()), row))) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in objectDataTmp]
 
         responseContent = objectData
 
         self.log.debug('completed the ``get`` method')
         return responseContent
-
-    def _set_default_parameters(
-            self):
-        """ set default parameters
-        """
-        self.log.debug('starting the ``_set_default_parameters`` method')
-
-        for k, v in list(self.defaultQs.items()):
-            if k not in self.qs:
-                self.qs[k] = v
-
-        self.log.debug('completed the ``_set_default_parameters`` method')
-        return None
 
     # xt-class-method

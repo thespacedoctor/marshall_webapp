@@ -15,9 +15,10 @@ import sys
 import os
 import khufu
 from astrocalc.coords import unit_conversion
+from dryxPyramid.models.models_base import base_model
 
 
-class models_transients_obs_get(object):
+class models_transients_obs_get(base_model):
     """
     The worker class for the models_transients_obs_get module
 
@@ -25,22 +26,11 @@ class models_transients_obs_get(object):
         - ``log`` -- logger
         - ``request`` -- the pyramid request
         - ``elementId`` -- the specific element id requests (or False)
-        - ``search`` -- is this a search query?
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        self.search = search
-        self.qs = dict(request.params)  # the query string
-        # the query string defaults
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "transients_obs"
         self.defaultQs = {
             "objectClass": "SN",
             "instrument": "efosc",
@@ -48,16 +38,11 @@ class models_transients_obs_get(object):
             "grism": 13,
             "badSeeing": False
         }
-        self.log.debug(
-            "instansiating a new 'models_transients_obs_get' object")
-
         self._set_default_parameters()
         self._get_transient_info()
 
-        return None
-
-    def close(self):
-        del self
+        log.debug(
+            "instansiating a new 'models_transients_obs_get' object")
         return None
 
     def get(self):
@@ -74,26 +59,6 @@ class models_transients_obs_get(object):
         self.log.debug('completed the ``get`` method')
         return transient_ob_data
 
-    def _set_default_parameters(
-            self):
-        """ set default parameters
-
-        **Key Arguments:**
-            - 
-
-        **Return:**
-            - None
-
-        """
-        self.log.debug('starting the ``_set_default_parameters`` method')
-
-        for k, v in list(self.defaultQs.items()):
-            if k not in self.qs:
-                self.qs[k] = v
-
-        self.log.debug('completed the ``_set_default_parameters`` method')
-        return None
-
     def _get_transient_info(
             self):
         """ get transient info
@@ -108,7 +73,8 @@ class models_transients_obs_get(object):
         """ % locals()
         objectDataTmp = self.request.db.execute(sqlQuery).fetchall()
         objectData = []
-        objectData[:] = [dict(list(zip(list(row.keys()), row))) for row in objectDataTmp]
+        objectData[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in objectDataTmp]
         objectData = objectData[0]
 
         # ASTROCALC UNIT CONVERTER OBJECT

@@ -1,8 +1,3 @@
 from __future__ import absolute_import
-# from models_transients_element_push import models_transients_element_push
 from .models_transients_element_put import models_transients_element_put
-# from models_transients_element_get import models_transients_element_get
-# from models_transients_element_delete import models_transients_element_delete
-
-from . import models_
 from .models_transients_element_post import models_transients_element_post

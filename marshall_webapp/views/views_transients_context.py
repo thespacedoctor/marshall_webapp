@@ -6,7 +6,7 @@ from pyramid.view import view_config, view_defaults
 from pyramid.httpexceptions import HTTPFound
 from marshall_webapp.templates.responses import templates_transients_context
 from marshall_webapp.models.transients_context.element import models_transients_element_context_delete, models_transients_element_context_put, models_transients_element_context_post
-from dryxPyramid.views.views_base import base_view, base_element_view
+from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
 # RESOURCE CONTEXT

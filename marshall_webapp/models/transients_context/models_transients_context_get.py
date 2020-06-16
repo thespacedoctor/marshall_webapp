@@ -19,11 +19,14 @@ import sys
 import os
 import khufu
 import collections
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 import re
+from dryxPyramid.models.models_base import base_model
 
 
-class models_transients_context_get(object):
+class models_transients_context_get(base_model):
     """
     The worker class for the models_transients_context_get module
 
@@ -33,29 +36,13 @@ class models_transients_context_get(object):
         - ``elementId`` -- the specific element id requests (or False)
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        self.search = search
-        self.qs = dict(request.params)  # the query string
-        # the query string defaults
-        self.defaultQs = {
-            "format": "json",
-        }
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "transients_context"
+        self._set_default_parameters()
 
-        log.debug("instansiating a new 'models_transients_context_get' object")
-
-        return None
-
-    def close(self):
-        del self
+        log.debug(
+            "instansiating a new 'models_transients_context_get' object")
         return None
 
     def get(self):
@@ -273,18 +260,6 @@ class models_transients_context_get(object):
 
         self.log.debug('completed the ``get`` method')
         return json
-
-    def _set_default_parameters(
-            self):
-        """ set default parameters
-        """
-        self.log.debug('starting the ``_set_default_parameters`` method')
-
-        if "format" not in self.qs:
-            self.qs["format"] = self.defaultQs["format"]
-
-        self.log.debug('completed the ``_set_default_parameters`` method')
-        return None
 
     def get_metadata(
             self):

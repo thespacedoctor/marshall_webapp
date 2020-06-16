@@ -42,10 +42,6 @@ class templates_transients_comments(object):
 
         return None
 
-    def close(self):
-        del self
-        return None
-
     def get(self):
         """get the templates_transients_comments object
 

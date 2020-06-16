@@ -16,9 +16,10 @@ import os
 import khufu
 import collections
 import re
+from dryxPyramid.models.models_base import base_model
 
 
-class models_members_get(object):
+class models_members_get(base_model):
     """
     The worker class for the models_members_get module
 
@@ -28,32 +29,18 @@ class models_members_get(object):
         - ``elementId`` -- the specific element id requests (or False)
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False
-    ):
-        self.log = log
-        self.request = request
-        self.elementId = elementId
-        self.search = search
-        self.qs = dict(request.params)  # the query string
-        # the query string defaults
+    def __init__(self, log, request, elementId=False, search=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "members"
         self.defaultQs = {
             "format": "json",
             "sortBy": "secondname",
             "sortDesc": False
         }
+        self._set_default_parameters()
 
         log.debug(
             "instansiating a new 'models_members_get' object")
-
-        return None
-
-    def close(self):
-        del self
         return None
 
     def get(self):
@@ -88,20 +75,5 @@ class models_members_get(object):
 
         self.log.debug('completed the ``get`` method')
         return members
-
-    def _set_default_parameters(
-            self):
-        """ set default parameters
-
-        **Return:**
-            - None
-        """
-        self.log.debug('starting the ``_set_default_parameters`` method')
-
-        if "format" not in self.qs:
-            self.qs["format"] = self.defaultQs["format"]
-
-        self.log.debug('completed the ``_set_default_parameters`` method')
-        return None
 
     # xt-class-method

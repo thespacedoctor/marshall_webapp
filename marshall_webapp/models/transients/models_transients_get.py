@@ -17,34 +17,26 @@ import sys
 import os
 import collections
 from sqlalchemy.sql import text
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 from astrocalc.coords import unit_conversion
+from dryxPyramid.models.models_base import base_model
 
 
-class models_transients_get(object):
+class models_transients_get(base_model):
     """
-    *The worker class for the models_transients_get module*
+    The worker class for the models_transients_get module
 
     **Key Arguments:**
         - ``log`` -- logger
-        - ``request`` -- the pyramid/WebObs request object
-        - ``elementId`` -- elementId (transientBucketId)
-        - ``search`` -- is this a search query?
-        - ``tcsCatalogueId`` -- the catalouge ID from sherlock crossmatch
+        - ``request`` -- the pyramid request
+        - ``elementId`` -- the specific element id requests (or False)
     """
 
-    def __init__(
-        self,
-        log,
-        request,
-        elementId=False,
-        search=False,
-        tcsCatalogueId=False
-    ):
-        self.log = log
-        self.log.debug("instansiating a new 'models_transients_get' object")
-        self.request = request
-        self.qs = dict(request.params)  # the query string
+    def __init__(self, log, request, elementId=False, search=False, tcsCatalogueId=False):
+        super().__init__(log, request, elementId, search)
+        self.resourceName = "transients"
         self.defaultQs = {  # the query string defaults
             "mwl": "inbox",
             "format": "html_tickets",
@@ -60,19 +52,14 @@ class models_transients_get(object):
             "filterValue2": False,
             "filterOp2": "="
         }
-        self.search = search
-        self.elementId = elementId
+        self._set_default_parameters()
         self.tcsCatalogueId = tcsCatalogueId
-
-        # xt-self-arg-tmpx
 
         self._set_default_parameters()
         self.transientData, self.matchedTransientBucketIds, self.totalTicketCount = self._get_transient_data_from_database()
 
-        return None
-
-    def close(self):
-        del self
+        log.debug(
+            "instansiating a new 'models_transients_get' object")
         return None
 
     def get(self):
@@ -284,7 +271,7 @@ class models_transients_get(object):
                 """ % locals()
         else:
             sqlQuery = """
-                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s and replacedByRowId =0  %(tep)s %(tec)s 
+                select t.transientBucketId from transientBucket t, pesstoObjects p %(tcsCm)s %(queryWhere)s and replacedByRowId =0  %(tep)s %(tec)s
             """ % locals()
 
         # Add the limits and pagination to query
@@ -348,7 +335,8 @@ class models_transients_get(object):
             text(sqlQuery)).fetchall()
 
         objectData = []
-        objectData[:] = [dict(list(zip(list(row.keys()), row))) for row in tmpObjectData]
+        objectData[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in tmpObjectData]
         # for row in objectData:
         #     row = dict(zip(row.keys(), row))
         self.log.debug(
@@ -480,7 +468,8 @@ class models_transients_get(object):
         self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
 
         objectAkas = []
-        objectAkas[:] = [dict(list(zip(list(row.keys()), row))) for row in objectAkasTmp]
+        objectAkas[:] = [dict(list(zip(list(row.keys()), row)))
+                         for row in objectAkasTmp]
 
         self.log.debug(
             'completed the ``_get_associated_transient_aka`` method')

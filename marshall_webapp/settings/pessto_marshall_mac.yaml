@@ -10,7 +10,7 @@ apache prefix: ""
 eso archive credentials:
     username: nbd
     password: 31bAR07
- 
+
 nttarchiver:
     path to dropbox folder: "/Users/Dave/git_repos/pessto_marshall_engine/pessto_marshall_engine/tests/input/data/marshall_dropbox"
     path to archive root folder: "/tmp/marshall_archive"
@@ -18,9 +18,9 @@ nttarchiver:
     download window size: 4
 
 downloads:
-    transient cache directory: "/Users/Dave/git_repos/marshall_webapp/marshall_webapp/static/caches/transients/"
+    transient cache directory: "/Users/Dave/git_repos/_webapps_/marshall_webapp/marshall_webapp/static/caches/transients/"
 
-stats cache directory: "/Users/Dave/git_repos/marshall_webapp/marshall_webapp/static/caches/stats/"
+stats cache directory: "/Users/Dave/git_repos/_webapps_/marshall_webapp/marshall_webapp/static/caches/stats/"
 
 main css filepath: "/marshall/static/styles/css/main_marshall.css"
 main js filepath: "/marshall/static/js/main-ck.js"
