@@ -7,3 +7,4 @@ from . import transients_history
 from . import transients_context
 from . import xmatches
 from . import xmatches_catalogues
+from . import transients_akas
