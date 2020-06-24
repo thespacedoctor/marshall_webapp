@@ -36,6 +36,7 @@ class models_transients_get(base_model):
 
     def __init__(self, log, request, elementId=False, search=False, tcsCatalogueId=False):
         super().__init__(log, request, elementId, search)
+
         self.resourceName = "transients"
         self.defaultQs = {  # the query string defaults
             "mwl": "inbox",
@@ -52,7 +53,7 @@ class models_transients_get(base_model):
             "filterValue2": False,
             "filterOp2": "="
         }
-        self._set_default_parameters()
+        super()._set_default_parameters()
         self.tcsCatalogueId = tcsCatalogueId
 
         self._set_default_parameters()
@@ -457,23 +458,17 @@ class models_transients_get(base_model):
             - ``objectAkas`` -- the akas for the objects found
         """
         self.log.debug('starting the ``_get_associated_transient_aka`` method')
-
-        matchedTransientBucketIds = self.matchedTransientBucketIds
-
-        sqlQuery = """
-            select * from marshall_transient_akas where transientBucketId in (%(matchedTransientBucketIds)s)
-        """ % locals()
-        objectAkasTmp = self.request.db.execute(sqlQuery).fetchall()
-
-        self.log.debug("""objectAkasTmp: `%(objectAkasTmp)s`""" % locals())
-
-        objectAkas = []
-        objectAkas[:] = [dict(list(zip(list(row.keys()), row)))
-                         for row in objectAkasTmp]
+        from marshall_webapp.models.transients_akas import models_transients_akas_get
+        transients_akas = models_transients_akas_get(
+            log=self.log,
+            request=self.request,
+            elementId=self.matchedTransientBucketIds
+        )
+        akas = transients_akas.get()
 
         self.log.debug(
             'completed the ``_get_associated_transient_aka`` method')
-        return objectAkas
+        return akas
 
     def _get_associated_lightcurve_data(
             self):

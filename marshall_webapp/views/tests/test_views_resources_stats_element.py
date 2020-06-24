@@ -81,7 +81,6 @@ class test_views_resources_stats_elements(BaseTest):
                                      params=params)
         print(respsonse)
 
-        print("SHIT")
         self.assertEqual(respsonse.status_code, 200)
         params["format"] = "csv"
         respsonse = self.testapp.get('/stats/ssdr1',

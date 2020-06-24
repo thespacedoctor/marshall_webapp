@@ -89,6 +89,8 @@ def main(global_config, **settings):
     # RESOURCE ELEMENT RESOURCES
     config.add_route('transients_comments', '/transients/comments')  # --
     config.add_route('transients_akas', '/transients/akas')  # --
+    config.add_route(
+        'transients_element_akas', '/transients/{elementId}/akas')
 
     # TOP-LEVEL RESOURCES
     config.add_route('calendars', '/calendars')

@@ -12,7 +12,8 @@ home = expanduser("~")
 
 packageDirectory = utKit("").get_project_root()
 # settingsFile = packageDirectory + "/test_settings.yaml"
-settingsFile = home + "/git_repos/_misc_/settings/marshall/test_settings.yaml"
+settingsFile = home + \
+    "/git_repos/_misc_/settings/marshall/test_settings.yaml"
 
 su = tools(
     arguments={"settingsFile": settingsFile},
@@ -40,10 +41,6 @@ shutil.copytree(pathToInputDir, pathToOutputDir)
 if not os.path.exists(pathToOutputDir):
     os.makedirs(pathToOutputDir)
 
-# Recursively create missing directories
-if not os.path.exists("/tmp/marshall_webapp/static/caches/stats/phaseIII"):
-    os.makedirs("/tmp/marshall_webapp/static/caches/stats/phaseIII")
-
 # COMMON STATUS CODES
 # 200 OK
 # 301 Moved Permanently
@@ -62,60 +59,71 @@ if not os.path.exists("/tmp/marshall_webapp/static/caches/stats/phaseIII"):
 # 502 Bad Gateway
 
 
-class test_views_resources_stats(BaseTest):
+class test_views_transients_elements_akas(BaseTest):
 
     def __init__(self, *args, **kwargs):
         BaseTest.__init__(self, *args, **kwargs)
 
+        # xt-setup-unit-testing-files-and-folders
+
         self.testIni = moduleDirectory + "/../../../test.ini#marshall_webapp"
+
         self.testSettings = settings
         self.settings = settings
 
         utKit("").refresh_database()
 
-    def test_01_views_resources_stats_post(self):
-        utKit("").refresh_database()
+    def test_views_transients_element_akas_get(self):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
 
-        respsonse = self.testapp.post(
-            "/stats", params=params, status=404)
+        params["format"] = "html"
+        respsonse = self.testapp.get('/transients/1/akas',
+                                     params=params, status=404)
+        print(respsonse)
         self.assertEqual(respsonse.status_code, 404)
-
-    def test_views_resources_stats_get(self):
-        # PARAM DICTIONARY = URL TOKENS
-        params = {}
 
         params["format"] = "json"
-        respsonse = self.testapp.get('/stats',
-                                     params=params, status=404)
-        self.assertEqual(respsonse.status_code, 404)
+        respsonse = self.testapp.get('/transients/1/akas',
+                                     params=params, status=200)
+        print(respsonse)
+        self.assertEqual(respsonse.status_code, 200)
         params["format"] = "csv"
-        respsonse = self.testapp.get('/stats',
-                                     params=params, status=404)
-        self.assertEqual(respsonse.status_code, 404)
+        respsonse = self.testapp.get('/transients/1/akas',
+                                     params=params, status=200)
+        print(respsonse)
+        self.assertEqual(respsonse.status_code, 200)
         params["format"] = "plain_table"
-        respsonse = self.testapp.get('/stats',
-                                     params=params, status=404)
-        self.assertEqual(respsonse.status_code, 404)
+        respsonse = self.testapp.get('/transients/1/akas',
+                                     params=params, status=200)
+        print(respsonse)
+        self.assertEqual(respsonse.status_code, 200)
         params["format"] = None
-        respsonse = self.testapp.get('/stats',
-                                     params=params)
+        respsonse = self.testapp.get('/transients/1/akas',
+                                     params=params, status=200)
         print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
 
-    def test_views_resources_stats_delete(self):
+    def test_views_transients_element_akas_post(self):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
-        respsonse = self.testapp.delete('/stats',
+        respsonse = self.testapp.post('/transients/1/akas',
+                                      params=params, status=404)
+        print(respsonse)
+        self.assertEqual(respsonse.status_code, 404)
+
+    def test_views_transients_element_akas_delete(self):
+        # PARAM DICTIONARY = URL TOKENS
+        params = {}
+        respsonse = self.testapp.delete('/transients/1/akas',
                                         params=params, status=404)
         print(respsonse)
         self.assertEqual(respsonse.status_code, 404)
 
-    def test_views_resources_stats_put(self):
+    def test_views_transients_element_akas_put(self):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
-        respsonse = self.testapp.put('/stats',
+        respsonse = self.testapp.put('/transients/1/akas',
                                      params=params, status=404)
         print(respsonse)
         self.assertEqual(respsonse.status_code, 404)

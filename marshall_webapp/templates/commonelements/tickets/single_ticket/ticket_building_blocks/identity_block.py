@@ -157,7 +157,6 @@ def identity_block(
     # AKA NAMES
     akaRows = []
     for item in objectAkas:
-
         surveyObjectUrl = item["url"]
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"]:
             if surveyObjectUrl and "@" not in surveyObjectUrl:

@@ -104,11 +104,6 @@ class test_views_transients_akas(BaseTest):
                                      params=params, status=200)
         print(respsonse)
         self.assertEqual(respsonse.status_code, 200)
-        params["format"] = None
-        respsonse = self.testapp.get('/transients/akas',
-                                     params=params, status=200)
-        print(respsonse)
-        self.assertEqual(respsonse.status_code, 200)
 
     def test_views_transients_akas_delete(self):
         # PARAM DICTIONARY = URL TOKENS

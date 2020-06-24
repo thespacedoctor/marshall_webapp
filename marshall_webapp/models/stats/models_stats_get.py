@@ -52,9 +52,6 @@ class models_stats_get(base_model):
     def __init__(self, log, request, elementId=False, search=False):
         super().__init__(log, request, elementId, search)
         self.resourceName = "stats"
-        self.defaultQs = {
-            "format": "json",
-        }
         self._set_default_parameters()
 
         log.debug(
@@ -97,7 +94,9 @@ class models_stats_get(base_model):
         fileTotals = []
         fileTotals[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
 
+        print(f'self.qs["format"]: {self.qs["format"]}')
         if self.qs["format"] in ("csv", "plain_table"):
+            print("SHIT")
             return fileTypes
 
         self.log.debug('completed the ``get`` method')

@@ -19,9 +19,9 @@ class views_resources_stats(base_view):
         self.resourceName = "stats"
 
     # HTML WEBPAGES
-    @view_config(request_method='GET', request_param="format=html", permission="view_users")
-    @view_config(request_param=["method=get", "format=html"], permission="view_users")
-    def get_html(self):
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param=["method=get"], permission="view_users")
+    def get(self):
         stats = templates_resource_stats(
             log=self.log,
             request=self.request

@@ -14,6 +14,7 @@ import os
 import khufu
 from marshall_webapp.models.transients import models_transients_count
 from marshall_webapp.templates.commonelements import forms
+import copy
 
 
 def marshall_sidebar(
@@ -35,38 +36,51 @@ def marshall_sidebar(
     ## VARIABLES ##
     leftColumnContent = ""
 
+    # MAKE SURE PARAMETERS PERSIST IF REQUEST COMING FROM A TRANSIENT RESOURCE
+    if request.referer and "transients" not in request.referer.split(
+            request.host)[1].split("?")[0]:
+        params = {}
+    else:
+        params = dict(request.params)
+
     header = _marshall_sidebar_header(
         log=log,
-        request=request
+        request=request,
+        params=params
     )
 
     targetSelectionQueue = _get_target_selection_queue(
         log,
         request=request,
-        thisPageName=thisPageName
+        thisPageName=thisPageName,
+        params=params
     )
 
     observationQueues = _get_observation_queues(
         log,
         request=request,
-        thisPageName=thisPageName
+        thisPageName=thisPageName,
+        params=params
     )
 
     classificationQueues = _get_classification_queues(
         log,
         request=request,
-        thisPageName=thisPageName
+        thisPageName=thisPageName,
+        params=params
     )
 
     referenceLists = _get_reference_lists(
         log,
         request=request,
-        thisPageName=thisPageName
+        thisPageName=thisPageName,
+        params=params
     )
 
     developmentLinks = _get_development_links(
         log,
-        thisPageName=thisPageName
+        thisPageName=thisPageName,
+        params=params
     )
 
     marshall_sidebar = """
@@ -89,12 +103,14 @@ def marshall_sidebar(
 
 def _marshall_sidebar_header(
         log,
-        request):
+        request,
+        params):
     """Generate the left navigation bar header content
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``request`` -- the pyramid request
+        - ``params`` -- params required for links
 
     **Return:**
         - ``content`` -- the left nav bar header content
@@ -182,12 +198,14 @@ def _marshall_sidebar_header(
 
 def _get_development_links(
         log,
-        thisPageName):
+        thisPageName,
+        params):
     """get development links
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``thisPageName`` -- the name of the current page
+        - ``params`` -- params required for links
 
     **Return:**
         - ``developmentLinks`` -- the development queue - a list of links
@@ -268,12 +286,14 @@ def _get_development_links(
 def _get_observation_queues(
         log,
         request,
-        thisPageName):
+        thisPageName,
+        params):
     """get observation queues
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``thisPageName`` -- the name of the current page
+        - ``params`` -- params required for links
 
     **Return:**
         - ``observationQueues`` -- the observation queue - a list of links
@@ -301,7 +321,7 @@ def _get_observation_queues(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'pending observation'
     theseParams = _remove_parameters(
         log=log,
@@ -346,7 +366,7 @@ def _get_observation_queues(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'following'
     theseParams = _remove_parameters(
         log=log,
@@ -389,7 +409,7 @@ def _get_observation_queues(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'allObsQueue'
     theseParams = _remove_parameters(
         log=log,
@@ -467,12 +487,14 @@ def _get_observation_queues(
 def _get_classification_queues(
         log,
         request,
-        thisPageName):
+        thisPageName,
+        params):
     """get classification queues
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``thisPageName`` -- the name of the current page
+        - ``params`` -- params required for links
 
     **Return:**
         - ``classificationQueues`` -- the classification queue - a list of links
@@ -502,7 +524,7 @@ def _get_classification_queues(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'pending classification'
     theseParams = _remove_parameters(
         log=log,
@@ -546,7 +568,7 @@ def _get_classification_queues(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["awl"] = 'queued for atel'
     theseParams = _remove_parameters(
         log=log,
@@ -625,12 +647,14 @@ def _get_classification_queues(
 def _get_reference_lists(
         log,
         request,
-        thisPageName):
+        thisPageName,
+        params):
     """get reference lists
 
     **Key Arguments:**
         - ``log`` -- logger
         - ``thisPageName`` -- the name of the current page
+        - ``params`` -- params required for links
 
     **Return:**
         - ``referenceLists`` -- the reference queue - a list of links
@@ -660,7 +684,7 @@ def _get_reference_lists(
         cFlag='"NOT NULL"'
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'all'
     theseParams["cf"] = 1
     theseParams = _remove_parameters(
@@ -702,7 +726,7 @@ def _get_reference_lists(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'followup complete'
     theseParams = _remove_parameters(
         log=log,
@@ -745,7 +769,7 @@ def _get_reference_lists(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'archive'
     theseParams = _remove_parameters(
         log=log,
@@ -786,7 +810,7 @@ def _get_reference_lists(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'all'
     theseParams = _remove_parameters(
         log=log,
@@ -863,11 +887,13 @@ def _get_reference_lists(
 def _get_target_selection_queue(
         log,
         request,
-        thisPageName):
+        thisPageName,
+        params):
     """get tagert selection queue
 
     **Key Arguments:**
         - ``log`` -- logger
+        - ``params`` -- params required for links
 
     **Return:**
         - ``targetSelectionQueue`` -- the target selection queue - a list of links
@@ -901,7 +927,7 @@ def _get_target_selection_queue(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
 
     theseParams["mwl"] = 'inbox'
     theseParams = _remove_parameters(
@@ -947,7 +973,7 @@ def _get_target_selection_queue(
         snoozed=1
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["snoozed"] = 1
     theseParams["mwl"] = "all"
     theseParams = _remove_parameters(
@@ -992,7 +1018,7 @@ def _get_target_selection_queue(
         cFlag=None
     ).get()
 
-    theseParams = dict(request.params)
+    theseParams = copy.deepcopy(params)
     theseParams["mwl"] = 'review for followup'
     theseParams = _remove_parameters(
         log=log,

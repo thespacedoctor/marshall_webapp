@@ -33,7 +33,6 @@ class models_members_get(base_model):
         super().__init__(log, request, elementId, search)
         self.resourceName = "members"
         self.defaultQs = {
-            "format": "json",
             "sortBy": "secondname",
             "sortDesc": False
         }

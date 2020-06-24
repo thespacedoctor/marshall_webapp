@@ -30,14 +30,15 @@ class views_resources_members(base_view):
         return Response(responseContent)
 
     # API RENDERINGS
-    @view_config(request_method='GET', renderer="json", permission="view_users")
-    @view_config(request_param=["method=get"], renderer="json", permission="view_users")
+    @view_config(request_method='GET', permission="view_users")
+    @view_config(request_param=["method=get"], permission="view_users")
     def get(self):
-        members = models_members_get(
+        members = templates_resource_members(
             log=self.log,
             request=self.request
         )
-        return members.get()
+        responseContent = members.get()
+        return Response(responseContent)
 
     @view_config(request_method='GET', request_param="format=json", renderer="json", permission="view_users")
     @view_config(request_param=["method=get", "format=json"], renderer="json", permission="view_users")
