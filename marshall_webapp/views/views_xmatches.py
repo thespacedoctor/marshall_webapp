@@ -9,7 +9,6 @@ from marshall_webapp.models.xmatches.element import models_xmatches_element_dele
 from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
-
 @view_defaults(route_name='xmatches',  permission="view_users")
 @lift()
 class views_xmatches(base_view):

@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    December 11, 2017
 """
 import sys
 import os
@@ -22,17 +19,19 @@ def ticket_table_filter_dropdown(
     filterValue=False,
     filterOp=False
 ):
-    """ticket_table_filter_dropdown
+    """ticket table filter dropdown
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the request
-        - ``filterBy`` -- what parameter to filter by
-        - ``filterValue`` -- the value to filter the parameter with
-        - ``filterOp`` -- the filter operator
+    **Key Arguments**
 
-    **Return:**
-        - ``filterDropdown`` -- the filter dropdown for the transient listing pages
+    - ``log`` -- the logger
+    - ``request`` -- the request
+    - ``filterBy`` -- what parameter to filter by
+    - ``filterValue`` -- the value to filter the parameter with
+    - ``filterOp`` -- the filter operator
+
+    **Return**
+
+    - ``filterDropdown`` -- the filter dropdown for the transient listing pages
     """
     buttonfilterBy = ""
 

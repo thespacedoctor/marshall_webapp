@@ -11,7 +11,6 @@ from venusian import lift
 
 # RESOURCE CONTEXT
 
-
 @view_defaults(route_name='transients_element_lightcurves', permission="view_users")
 class transients_elements_lightcurve_view(object):
 

@@ -13,7 +13,6 @@ from marshall_webapp.models.stats import models_stats_get
 from dryxPyramid.views.views_base_element import base_element_view
 from venusian import lift
 
-
 @view_defaults(route_name='stats_element', permission="view_users")
 @lift()
 class views_resources_stats_element(base_element_view):

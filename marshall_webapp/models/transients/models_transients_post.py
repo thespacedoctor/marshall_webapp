@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 10, 2014
 """
 from builtins import str
 from builtins import object
@@ -17,15 +14,16 @@ import khufu
 from datetime import datetime
 from marshallEngine.feeders.useradded import data, images
 
-
 class models_transients_post(object):
     """
     The worker class for the models_transients_post module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(
@@ -52,9 +50,11 @@ class models_transients_post(object):
     def post(self):
         """execute the post method on the models_transients_post object
 
-        **Return:**
-            - ``response`` -- the reponse to send to the browser
-            - ``redirectUrl`` -- the URL to redirect to once the transient has been added
+        **Return**
+
+        - ``response`` -- the reponse to send to the browser
+        - ``redirectUrl`` -- the URL to redirect to once the transient has been added
+        
         """
         self.log.debug('starting the ``post`` method')
 

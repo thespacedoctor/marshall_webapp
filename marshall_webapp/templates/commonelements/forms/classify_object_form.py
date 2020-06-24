@@ -5,15 +5,11 @@
 
 :Author:
     David Young
-
-:Date Created:
-    December 11, 2013
 """
 import sys
 import os
 from datetime import datetime, date, time
 import khufu
-
 
 def classify_object_form(
     log,
@@ -22,13 +18,17 @@ def classify_object_form(
 ):
     """classify object form
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
 
-    **Return:**
-        - ``classifyObjectForm`` -- the modal form used to classify transients
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
+
+    **Return**
+
+    - ``classifyObjectForm`` -- the modal form used to classify transients
+    
     """
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")

@@ -2,11 +2,11 @@
 
 ```bash 
     
-    Documentation for marshall_webapp can be found here: http://marshall_webapp.readthedocs.org/en/stable
+    Documentation for marshall_webapp can be found here: http://marshall_webapp.readthedocs.org
     
     Usage:
         marshall_webapp init
-        marshall_webapp [-s <pathToSettingsFile>]  
+        marshall_webapp [-s <pathToSettingsFile>]
     
     Options:
         init                                   setup the marshall_webapp settings file for the first time

@@ -41,7 +41,6 @@ shutil.copytree(pathToInputDir, pathToOutputDir)
 if not os.path.exists(pathToOutputDir):
     os.makedirs(pathToOutputDir)
 
-
 class test_views_services_calendars(BaseTest):
 
     def __init__(self, *args, **kwargs):

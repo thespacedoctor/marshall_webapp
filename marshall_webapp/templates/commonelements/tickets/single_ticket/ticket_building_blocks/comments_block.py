@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
@@ -15,7 +12,6 @@ import re
 import datetime
 import khufu
 from fundamentals import times
-
 
 def comments_block(
         log,
@@ -25,14 +21,18 @@ def comments_block(
 ):
     """comments_block
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-        - ``objectComments`` -- the comments for the object
+    **Key Arguments**
 
-    **Return:**
-        - ``commentBlock`` -- the comments block for the transient ticket in the transient listings pages
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    - ``objectComments`` -- the comments for the object
+    
+
+    **Return**
+
+    - ``commentBlock`` -- the comments block for the transient ticket in the transient listings pages
+    
     """
     commentBlock = ""
     count = 0

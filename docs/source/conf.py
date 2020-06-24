@@ -21,15 +21,13 @@ class Mock(MagicMock):
     def __getattr__(cls, name):
         return Mock()
 MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.colors',
-                'matplotlib.pyplot', 'matplotlib.cm', 'matplotlib.path', 'matplotlib.patches', 'matplotlib.projections', 'matplotlib.projections.geo', 'healpy', 'astropy', 'astropy.io', 'pylibmc', 'HMpTy', 'HMpTy.mysql', 'ligo', 'ligo.gracedb', 'ligo.gracedb.rest', 'pandas']
+                'matplotlib.pyplot', 'matplotlib.cm', 'matplotlib.path', 'matplotlib.patches', 'matplotlib.projections', 'matplotlib.projections.geo', 'healpy', 'astropy', 'astropy.io', 'pylibmc', 'HMpTy', 'HMpTy.mysql', 'ligo', 'ligo.gracedb', 'ligo.gracedb.rest', 'pandas', "astropy.coordinates"]
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
 
 # WHERE DOES THIS conf.py FILE LIVE?
 moduleDirectory = os.path.dirname(os.path.realpath(__file__))
 # GET PACKAGE __version__ INTO locals()
 exec(open(moduleDirectory + "/../../marshall_webapp/__version__.py").read())
-
 
 autosummary_generate = True
 autodoc_member_order = 'bysource'
@@ -77,7 +75,6 @@ rst_epilog = u"""
 .. |tsd| replace:: thespacedoctor
 """ % locals()
 link_resolver_url = "https://github.com/thespacedoctor/marshall_webapp/tree/master"
-
 
 # General information about the project.
 now = datetime.now()
@@ -220,6 +217,7 @@ def generateAutosummaryIndex():
                 #     allModules.append(sp + "." + name)
 
     for spm in allSubpackages + allModules:
+        print(spm)
         for name, obj in inspect.getmembers(__import__(spm, fromlist=[''])):
             if inspect.isclass(obj):
                 thisClass = spm + "." + name

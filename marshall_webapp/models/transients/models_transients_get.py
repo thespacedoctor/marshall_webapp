@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    September 30, 2014
 """
 from future import standard_library
 standard_library.install_aliases()
@@ -26,12 +23,14 @@ from dryxPyramid.models.models_base import base_model
 
 class models_transients_get(base_model):
     """
-    The worker class for the models_transients_get module
+    The worker class for the `models_transients_get` module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+
     """
 
     def __init__(self, log, request, elementId=False, search=False, tcsCatalogueId=False):
@@ -67,8 +66,10 @@ class models_transients_get(base_model):
         """
         *get the transientData object*
 
-        **Return:**
-            - ``transientData``
+        **Return**
+
+        - ``transientData``
+
         """
         self.log.debug('starting the ``get`` method')
 
@@ -95,8 +96,12 @@ class models_transients_get(base_model):
         """
         *get the sqlquery based on the request object parameters*
 
-        **Return:**
-            - ``objectData``, ``matchedTransientBucketIds``, ``totalTicketCount`` --
+        **Return**
+
+        - ``objectData``
+        - ``matchedTransientBucketIds``
+        - ``totalTicketCount``
+
         """
         self.log.debug('starting the ``get_data_from_database`` method')
 
@@ -454,8 +459,10 @@ class models_transients_get(base_model):
         """
         *get associated aka names for the trasnsients*
 
-        **Return:**
-            - ``objectAkas`` -- the akas for the objects found
+        **Return**
+
+        - ``objectAkas`` -- the akas for the objects found
+
         """
         self.log.debug('starting the ``_get_associated_transient_aka`` method')
         from marshall_webapp.models.transients_akas import models_transients_akas_get
@@ -475,8 +482,9 @@ class models_transients_get(base_model):
         """
         *get associated lightcurve data for the matched transients*
 
-        **Return:**
-            - ``lightCurveData`` -- the found objects' lightcurve data
+        **Return**
+
+        - ``lightCurveData`` -- the found objects' lightcurve data
 
         """
         self.log.debug(
@@ -501,8 +509,10 @@ class models_transients_get(base_model):
         """
         *get associated atel data for the matched transients*
 
-        **Return:**
-            - ``transientAtelMatches`` -- the matched atels fot the transients
+        **Return**
+
+        - ``transientAtelMatches`` -- the matched atels fot the transients
+
         """
         self.log.debug('starting the ``_get_associated_atel_data`` method')
 
@@ -524,8 +534,9 @@ class models_transients_get(base_model):
         """
         *get associated comments for the transients*
 
-        **Return:**
-            - ``objectComments`` -- object comments
+        **Return**
+
+        - ``objectComments`` -- object comments
 
         """
         self.log.debug('starting the ``_get_associated_comments`` method')
@@ -549,11 +560,15 @@ class models_transients_get(base_model):
         """
         *get total ticket count for list*
 
-        **Key Arguments:**
-            - ``queryWhere`` -- the where segment of the ticket list sqlQuery string
+        **Key Arguments**
 
-        **Return:**
-            - ``totalTickets`` -- total number of object in list
+        - ``queryWhere`` -- the where segment of the ticket list sqlQuery string
+
+
+        **Return**
+
+        - ``totalTickets`` -- total number of object in list
+
         """
         self.log.debug(
             'completed the ````_get_total_ticket_count_for_list`` method')
@@ -638,8 +653,10 @@ class models_transients_get(base_model):
         """
         *clean data for plain text outputs*
 
-        **Return:**
-            - None
+        **Return**
+
+        - None
+
         """
         self.log.debug(
             'completed the ````_clean_data_for_plain_text_outputs`` method')

@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    September 18, 2014
 """
 from builtins import object
 import sys
@@ -19,10 +16,12 @@ class models_transients_element_comments_put(object):
     """
     The worker class for the models_transients_element_comments_put module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+
     """
 
     def __init__(
@@ -48,8 +47,10 @@ class models_transients_element_comments_put(object):
     def put(self):
         """execute the put method on the models_transients_element_comments_put object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+
         """
         self.log.debug('starting the ``put`` method')
 

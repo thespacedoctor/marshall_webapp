@@ -5,16 +5,12 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
 import re
 import datetime
 import khufu
-
 
 def dryx_tab(
         log,
@@ -25,16 +21,20 @@ def dryx_tab(
         objectHistories):
     """dryx tab
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectAkas`` -- object akas
-        - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    **Key Arguments**
 
-    **Return:**
-        - ``dryx_tab`` -- for each transient ticket in the transient listings pages
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
+    - ``objectAkas`` -- object akas
+    - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    
+
+    **Return**
+
+    - ``dryx_tab`` -- for each transient ticket in the transient listings pages
+    
     """
     from time import strftime
     from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs

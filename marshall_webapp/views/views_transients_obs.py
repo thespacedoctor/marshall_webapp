@@ -12,7 +12,6 @@ from venusian import lift
 
 # RESOURCE ELEMENT
 
-
 @view_defaults(route_name='transients_element_obs',  permission="view_users")
 @lift()
 class views_transients_obs(base_view):

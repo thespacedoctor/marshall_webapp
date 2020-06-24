@@ -5,24 +5,22 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 9, 2014
 """
 from builtins import object
 import sys
 import os
 import khufu
 
-
 class models_transients_context_count(object):
     """
     The worker class for the models_transients_context_count module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(
@@ -48,8 +46,10 @@ class models_transients_context_count(object):
     def count(self):
         """execute the count method on the models_transients_context_count object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``count`` method')
 

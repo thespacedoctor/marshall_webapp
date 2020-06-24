@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
@@ -16,7 +13,6 @@ import re
 import khufu
 from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
 from marshall_webapp.templates.commonelements import commonutils as cu
-
 
 def context_tab(
         log,
@@ -28,17 +24,21 @@ def context_tab(
         transientCrossmatches):
     """context tab
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectAkas`` -- object akas
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
+    **Key Arguments**
 
-    **Return:**
-        - ``context_tab`` -- the lightcurve/context tab for a single ticket on the transient listings page
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
+    - ``objectAkas`` -- object akas
+    - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
+    
+
+    **Return**
+
+    - ``context_tab`` -- the lightcurve/context tab for a single ticket on the transient listings page
+    
     """
     from marshall_webapp.templates.commonelements.tickets import single_ticket
 
@@ -101,19 +101,22 @@ def context_tab(
     log.debug('completed the ``context_tab`` function')
     return "%(context_tab)s" % locals()
 
-
 def context_footer_bar(
         log,
         request):
     """get ticket footer bar
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``discoveryData`` -- the discoveryData for the object
-        - ``lightcurveData`` -- the lightcurve data for the object
+    **Key Arguments**
 
-    **Return:**
-        - ``context_footer_bar`` -- the ticket footer bar for the pesssto object
+    - ``log`` -- logger
+    - ``discoveryData`` -- the discoveryData for the object
+    - ``lightcurveData`` -- the lightcurve data for the object
+    
+
+    **Return**
+
+    - ``context_footer_bar`` -- the ticket footer bar for the pesssto object
+    
     """
     lsqExists = False
     log.debug('starting the ``context_footer_bar`` function')
@@ -135,20 +138,23 @@ def context_footer_bar(
 
     return context_footer_bar
 
-
 def _host_info_block(
         log,
         request,
         discoveryDataDictionary):
     """get ticket host info block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    **Key Arguments**
 
-    **Return:**
-        - ``host_info_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    
+
+    **Return**
+
+    - ``host_info_block`` -- the ticket identity block for the pesssto object
+    
     """
     log.debug('starting the ``host_info_block`` function')
 
@@ -261,7 +267,6 @@ def _host_info_block(
 
     return "%(title)s %(imageModal)s %(sdssLinkRow)s" % locals()
 
-
 def _crossmatch_info_block(
         log,
         request,
@@ -269,13 +274,17 @@ def _crossmatch_info_block(
         transientCrossmatches):
     """get ticket host info block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    **Key Arguments**
 
-    **Return:**
-        - ``_crossmatch_info_block`` -- the crossmatch info from sherlock for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    
+
+    **Return**
+
+    - ``_crossmatch_info_block`` -- the crossmatch info from sherlock for the pesssto object
+    
     """
     log.debug('starting the ``_crossmatch_info_block`` function')
 
@@ -567,7 +576,6 @@ def _crossmatch_info_block(
 
     return "%(table)s" % locals()
 
-
 def _aladin_block(
         log,
         request,
@@ -575,13 +583,17 @@ def _aladin_block(
         transientCrossmatches):
     """get aladin lite instance for transient
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    **Key Arguments**
 
-    **Return:**
-        - ``_aladin_block`` -- the crossmatch info from sherlock for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    
+
+    **Return**
+
+    - ``_aladin_block`` -- the crossmatch info from sherlock for the pesssto object
+    
     """
     log.debug('starting the ``_aladin_block`` function')
 
@@ -648,7 +660,6 @@ def _aladin_block(
 
     return "%(masterClassification)s %(aladin)s" % locals()
 
-
 def _sherlock_development_form(
         log,
         request,
@@ -656,10 +667,12 @@ def _sherlock_development_form(
         transientCrossmatches):
     """*a form for adding comments and confirming/reporting incorrect matches from sherlock trasient classifier*
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.):
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.):
+    
     """
 
     transientBucketId = discoveryDataDictionary["transientBucketId"]

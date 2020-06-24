@@ -5,15 +5,11 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 6, 2014
 """
 import sys
 import os
 import khufu
 from marshall_webapp.models.stats import models_stats_get
-
 
 def ssdr_stats_table(
         log,
@@ -21,13 +17,17 @@ def ssdr_stats_table(
         releaseVersion):
     """ssdr stats table
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``releaseVersion`` -- which release
+    **Key Arguments**
 
-    **Return:**
-        - ``table`` -- the ssdr FITS file stats table
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``releaseVersion`` -- which release
+    
+
+    **Return**
+
+    - ``table`` -- the ssdr FITS file stats table
+    
     """
     log.debug('starting the ``ssdr_stats_table`` function')
 

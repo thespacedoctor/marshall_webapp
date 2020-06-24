@@ -1,0 +1,53 @@
+templates *(module)*
+====================================
+
+
+
+.. automodule:: marshall_webapp.templates
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
+    :member-order: groupwise
+    
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Sub-modules
+
+    .. autosummary::
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+            ~commonelements (nice)
+       
+    
+    
+        
+            ~responses (nice)
+       
+    
+    
+    
+    

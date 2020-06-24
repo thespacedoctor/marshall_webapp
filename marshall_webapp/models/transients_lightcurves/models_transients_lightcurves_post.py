@@ -5,24 +5,22 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 5, 2014
 """
 from builtins import object
 import sys
 import os
 import khufu
 
-
 class models_transients_lightcurves_post(object):
     """
     The worker class for the models_transients_lightcurves_post module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(
@@ -50,8 +48,10 @@ class models_transients_lightcurves_post(object):
     def post(self):
         """execute the post method on the models_transients_lightcurves_post object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``post`` method')
 

@@ -12,7 +12,6 @@ from venusian import lift
 
 # RESOURCE CONTEXT
 
-
 @view_defaults(route_name='xmatches_searches',  permission="view_users")
 @lift()
 class views_xmatches_searches(base_view):
@@ -33,7 +32,6 @@ class views_xmatches_searches(base_view):
         return Response(responseContent)
 
 # RESOURCE ELEMENT
-
 
 @view_defaults(route_name='xmatches_element_searches', permission="view_users")
 class xmatches_element_searches_view(object):

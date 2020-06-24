@@ -5,15 +5,7 @@
 
 :Author:
     David Young
-
-:Date Created:
-    March 4, 2014
 """
-from builtins import zip
-import sys
-import re
-import os
-import khufu
 
 
 def view_switcher_buttons(
@@ -25,15 +17,20 @@ def view_switcher_buttons(
 ):
     """view_switcher_buttons
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``params`` -- the request params (defaults added if not populated)
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the transientBucketId
+    **Key Arguments**
 
-    **Return:**
-        - ``viewSwitcherButton`` + ``downloadsButton``
+    - ``log`` -- logger
+    - ``params`` -- the request params (defaults added if not populated)
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the transientBucketId
+
+
+    **Return**
+
+    - ``viewSwitcherButton`` + ``downloadsButton``
+
     """
+    import khufu
     theseLinks = ""
 
     # The various view options
@@ -132,14 +129,19 @@ def ntt_view_button(
 ):
     """ntt_view_button
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``params`` -- the request params (defaults added if not populated)
-        - ``request`` -- the pyramid request
+    **Key Arguments**
 
-    **Return:**
-        - ``viewSwitcherButton`` -- the view switching button
+    - ``log`` -- logger
+    - ``params`` -- the request params (defaults added if not populated)
+    - ``request`` -- the pyramid request
+
+
+    **Return**
+
+    - ``viewSwitcherButton`` -- the view switching button
+
     """
+    import khufu
     theseLinks = ""
     match = False
 
@@ -206,16 +208,21 @@ def _link_for_popover(
         tcsTableName=False):
     """ link for popover
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- pyramid request object
-        - ``format`` -- format of view to return
-        - ``linkText`` - text for link if different than format
-        - ``elementId`` -- the transientBucketId
+    **Key Arguments**
 
-    **Return:**
-        - ``thisLink`` -- the link for the popover
+    - ``log`` -- logger
+    - ``request`` -- pyramid request object
+    - ``format`` -- format of view to return
+    - ``linkText`` - text for link if different than format
+    - ``elementId`` -- the transientBucketId
+
+
+    **Return**
+
+    - ``thisLink`` -- the link for the popover
+
     """
+    import khufu
     log.debug('starting the ``_link_for_popover`` function')
 
     params["format"] = format

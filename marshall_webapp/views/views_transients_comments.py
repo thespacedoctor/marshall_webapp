@@ -12,7 +12,6 @@ from venusian import lift
 
 # RESOURCE CONTEXT
 
-
 @view_defaults(route_name='transients_comments',  permission="view_users")
 @lift()
 class views_transients_comments(base_view):
@@ -58,7 +57,6 @@ class views_transients_comments(base_view):
         return transients_comments.get()
 
 # RESOURCE ELEMENT
-
 
 @view_defaults(route_name='transients_element_comments', permission="view_users")
 class transients_element_comments_view(object):

@@ -5,15 +5,11 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 22, 2014
 """
 import sys
 import os
 import re
 import khufu
-
 
 def ticket_table_sorting_dropdown(
     log,
@@ -23,14 +19,18 @@ def ticket_table_sorting_dropdown(
 ):
     """ticket_table_sorting_dropdown
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the request
-        - ``sortBy`` -- the incoming sortBy
-        - ``sortDesc`` -- incoming sort direction
+    **Key Arguments**
 
-    **Return:**
-        - ``sortDropdown`` -- the sort dropdown for the transient listing pages
+    - ``log`` -- the logger
+    - ``request`` -- the request
+    - ``sortBy`` -- the incoming sortBy
+    - ``sortDesc`` -- incoming sort direction
+    
+
+    **Return**
+
+    - ``sortDropdown`` -- the sort dropdown for the transient listing pages
+    
     """
     routename = request.matched_route.name
     if "elementId" in request.matchdict:

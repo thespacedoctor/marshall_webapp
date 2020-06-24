@@ -6,7 +6,8 @@
 :Author:
     David Young
 """
-################# GLOBAL IMPORTS ####################
+from builtins import str
+from builtins import zip
 from future import standard_library
 standard_library.install_aliases()
 from builtins import object
@@ -22,22 +23,21 @@ from dryxPyramid.models.models_base import base_model
 
 
 class models_transients_akas_get(base_model):
-
     """
     *The worker class for the models_transients_akas_get module*
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
 
-    **Usage:**
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+
+
+    **Usage**
 
     ```python
     usage code
     ```
-
-    ---
 
     ```eval_rst
     .. todo::
@@ -65,8 +65,10 @@ class models_transients_akas_get(base_model):
         """
         *execute the get method on the models_transients_akas_get object*
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+
         """
         self.log.debug('starting the ``get`` method')
 
@@ -123,13 +125,15 @@ class models_transients_akas_get(base_model):
             resourceKeys):
         """*given a flat list of dictionaries, converts and returns the content in a nested structure better suited for json rendering*
 
-        **Key Arguments:**
-            - ``listOfDict`` -- the list of dictionaries (generally returned from a database query)
-            - ``primaryKey`` -- the primary key in the result sets by which to group json results by
-            - ``resourceName`` -- the name of the subresource belong to be collected together
-            - ``resourceKeys`` -- the name of the keys to be grouped together under the subresource
+        **Key Arguments**
 
-        **Usage:**
+        - ``listOfDict`` -- the list of dictionaries (generally returned from a database query)
+        - ``primaryKey`` -- the primary key in the result sets by which to group json results by
+        - ``resourceName`` -- the name of the subresource belong to be collected together
+        - ``resourceKeys`` -- the name of the keys to be grouped together under the subresource
+
+
+        **Usage**
 
         Here's an example usage of this method:
 
@@ -157,7 +161,7 @@ class models_transients_akas_get(base_model):
 
         # GET THE ROOT LEVEL KEYS
         uniqueKeys = [primaryKey]
-        for k in listOfDict[0].keys():
+        for k in list(listOfDict[0].keys()):
             if k not in resourceKeys:
                 uniqueKeys.append(k)
 
@@ -177,7 +181,7 @@ class models_transients_akas_get(base_model):
 
             # APPEND THE RESOURCES
             subresource = {}
-            for k, v in row.items():
+            for k, v in list(row.items()):
                 if k in resourceKeys:
                     subresource[k] = v
             if len(subresource):
@@ -185,7 +189,7 @@ class models_transients_akas_get(base_model):
 
         # SORT THE NESTED STRUCTURE
         sortList = [primaryKey] + sorted(uniqueKeys) + [resourceName]
-        for name, aDict in responseBuilder.items():
+        for name, aDict in list(responseBuilder.items()):
             for k in sortList:
                 orderResults[k] = aDict[k]
             responseBuilder[name] = orderResults

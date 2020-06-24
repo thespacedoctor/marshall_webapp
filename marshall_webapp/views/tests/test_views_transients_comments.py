@@ -57,7 +57,6 @@ if not os.path.exists(pathToOutputDir):
 # 504 Gateway Timeout
 # 502 Bad Gateway
 
-
 class test_views_transients_comments(BaseTest):
 
     def __init__(self, *args, **kwargs):
@@ -118,7 +117,6 @@ class test_views_transients_comments(BaseTest):
                                      params=params, status=404)
         print(respsonse)
         self.assertEqual(respsonse.status_code, 404)
-
 
 class test_views_transients_comments_elements(BaseTest):
 

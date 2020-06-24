@@ -5,15 +5,11 @@
 
 :Author:
     David Young
-
-:Date Created:
-    February 20, 2014
 """
 import sys
 import os
 import re
 import khufu
-
 
 def number_of_objects_dropdown(
     log,
@@ -23,14 +19,18 @@ def number_of_objects_dropdown(
 ):
     """number_of_objects_dropdown
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the request
-        - ``limit`` -- current limit of objects per page
-        - ``tableView`` -- the current tableView
+    **Key Arguments**
 
-    **Return:**
-        - ``objectsPerPageDropdown``
+    - ``log`` -- the logger
+    - ``request`` -- the request
+    - ``limit`` -- current limit of objects per page
+    - ``tableView`` -- the current tableView
+    
+
+    **Return**
+
+    - ``objectsPerPageDropdown``
+    
     """
     routename = request.matched_route.name
     if "elementId" in request.matchdict:

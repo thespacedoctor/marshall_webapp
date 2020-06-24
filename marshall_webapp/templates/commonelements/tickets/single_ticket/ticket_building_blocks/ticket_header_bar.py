@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
 import sys
 import os
@@ -16,7 +13,6 @@ import datetime
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 from fundamentals import times
-
 
 def ticket_header_bar(
         log,
@@ -28,17 +24,21 @@ def ticket_header_bar(
         objectHistories):
     """get ticket header bar
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-        - ``objectComments`` -- the comments for the object
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``lightcurveData`` -- the transient lightcurve data
-        - ``objectHistories`` -- the object histories
+    **Key Arguments**
 
-    **Return:**
-        - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    - ``objectComments`` -- the comments for the object
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    - ``lightcurveData`` -- the transient lightcurve data
+    - ``objectHistories`` -- the object histories
+    
+
+    **Return**
+
+    - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
+    
     """
     log.debug('starting the ``ticket_header_bar`` function')
 
@@ -188,20 +188,23 @@ def ticket_header_bar(
 
     return topbar
 
-
 def _get_atel_warning(
         log,
         atelData,
         transientBucketId):
     """ get atel warning for ticket
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``transientBucketId`` -the unquie id for the transient in the marshall database
+    **Key Arguments**
 
-    **Return:**
-        - ``warning`` or None -- the atel warning
+    - ``log`` -- logger
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    - ``transientBucketId`` -the unquie id for the transient in the marshall database
+    
+
+    **Return**
+
+    - ``warning`` or None -- the atel warning
+    
     """
     log.debug('starting the ``_get_atel_warning`` function')
     ## VARIABLES ##
@@ -244,20 +247,23 @@ def _get_atel_warning(
     log.debug('completed the ``_get_atel_warning`` function')
     return None
 
-
 def _get_magnitude_warning(
         log,
         currentMag,
         transientBucketId):
     """ get atel warning for ticket
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``currentMag`` -- the current magnitude estimate of the object
-        - ``transientBucketId`` -the unquie id for the transient in the marshall database
+    **Key Arguments**
 
-    **Return:**
-        - ``warning`` or None -- the atel warning
+    - ``log`` -- logger
+    - ``currentMag`` -- the current magnitude estimate of the object
+    - ``transientBucketId`` -the unquie id for the transient in the marshall database
+    
+
+    **Return**
+
+    - ``warning`` or None -- the atel warning
+    
     """
     log.debug('starting the ``_get_magnitude_warning`` function')
 
@@ -281,20 +287,23 @@ def _get_magnitude_warning(
     log.debug('completed the ``_get_magnitude_warning`` function')
     return None
 
-
 def _get_no_lsq_recalibrated_data_alert(
         log,
         lightcurveData,
         discoveryDataDictionary):
     """ get no lsq recalibrated data alert
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-        - ``lightcurveData`` -- the transient lightcurve data
+    **Key Arguments**
 
-    **Return:**
-        - ``alert`` -- alert for when LSQ object has no recalibrated data yet
+    - ``log`` -- logger
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    - ``lightcurveData`` -- the transient lightcurve data
+    
+
+    **Return**
+
+    - ``alert`` -- alert for when LSQ object has no recalibrated data yet
+    
     """
     log.debug('starting the ``_get_no_lsq_recalibrated_data_alert`` function')
 
@@ -316,20 +325,23 @@ def _get_no_lsq_recalibrated_data_alert(
     log.debug('completed the ``_get_no_lsq_recalibrated_data_alert`` function')
     return alert
 
-
 def _resurrected_object_warning(
         log,
         objectHistories,
         transientBucketId):
     """ get no lsq recalibrated data alert
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``transientBucketId`` -- the transientBucketId
-        - ``objectHistories`` -- the transient lightcurve data
+    **Key Arguments**
 
-    **Return:**
-        - ``alert`` -- alert for when LSQ object has no recalibrated data yet
+    - ``log`` -- logger
+    - ``transientBucketId`` -- the transientBucketId
+    - ``objectHistories`` -- the transient lightcurve data
+    
+
+    **Return**
+
+    - ``alert`` -- alert for when LSQ object has no recalibrated data yet
+    
     """
     log.debug('starting the ``_resurrected_object_warning`` function')
 

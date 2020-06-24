@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
 import sys
 import os
@@ -17,20 +14,23 @@ from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 from fundamentals import times
 
-
 def object_info_block(
         log,
         request,
         discoveryDataDictionary):
     """get ticket object info block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    **Key Arguments**
 
-    **Return:**
-        - ``object_info_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    
+
+    **Return**
+
+    - ``object_info_block`` -- the ticket identity block for the pesssto object
+    
     """
     log.debug('starting the ``object_info_block`` function')
 

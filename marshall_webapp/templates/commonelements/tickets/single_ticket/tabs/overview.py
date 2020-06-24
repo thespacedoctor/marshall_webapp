@@ -5,13 +5,9 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
-
 
 def overview_tab(
         log,
@@ -26,19 +22,23 @@ def overview_tab(
         headerAndFooter=True):
     """overview tab
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectComments`` -- the comments for the object
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``objectHistories`` -- the object histories
-        - ``transientCrossmatches`` -- info from the tranisent crossmatcher
-        - ``headerAndFooter`` -- do you want to display the header and footer?
+    **Key Arguments**
 
-    **Return:**
-        - ``overview_tab`` -- the transient overview info tab for the single ticket displayed on the transient listing pages
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
+    - ``objectComments`` -- the comments for the object
+    - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    - ``objectHistories`` -- the object histories
+    - ``transientCrossmatches`` -- info from the tranisent crossmatcher
+    - ``headerAndFooter`` -- do you want to display the header and footer?
+    
+
+    **Return**
+
+    - ``overview_tab`` -- the transient overview info tab for the single ticket displayed on the transient listing pages
+    
     """
     import datetime
     import khufu

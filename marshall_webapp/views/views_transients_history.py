@@ -13,7 +13,6 @@ from venusian import lift
 
 # RESOURCE ELEMENT
 
-
 @view_defaults(route_name='transients_history',  permission="view_users")
 @lift()
 class views_transients_history(base_view):

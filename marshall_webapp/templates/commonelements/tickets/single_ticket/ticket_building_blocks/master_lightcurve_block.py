@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    March 26, 2014 
 """
 import sys
 import os
@@ -15,7 +12,6 @@ import re
 import datetime as datetime
 import khufu
 from marshall_webapp.templates.commonelements import commonutils as cu
-
 
 def master_lightcurve_block(
         log,
@@ -26,16 +22,20 @@ def master_lightcurve_block(
         displayTitle=True):
     """get ticket lightcurve block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
-        - ``objectAkas`` -- the transient object akas
-        - ``displayTitle`` -- display the title for this block?
+    **Key Arguments**
 
-    **Return:**
-        - ``master_lightcurve_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+    - ``objectAkas`` -- the transient object akas
+    - ``displayTitle`` -- display the title for this block?
+    
+
+    **Return**
+
+    - ``master_lightcurve_block`` -- the ticket identity block for the pesssto object
+    
     """
     log.debug('starting the ``master_lightcurve_block`` function')
 

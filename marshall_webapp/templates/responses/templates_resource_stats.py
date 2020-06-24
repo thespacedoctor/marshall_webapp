@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 6, 2014
 """
 from builtins import range
 from builtins import object
@@ -16,15 +13,16 @@ import os
 import khufu
 from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
-
 class templates_resource_stats(object):
     """
     The worker class for the templates_resource_stats module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- request
-        - ``elementId`` -- elementId
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- request
+    - ``elementId`` -- elementId
+    
     """
 
     def __init__(
@@ -44,8 +42,10 @@ class templates_resource_stats(object):
     def get(self):
         """get the templates_resource_stats object
 
-        **Return:**
-            - ``webpage`` -- the webpage HTML
+        **Return**
+
+        - ``webpage`` -- the webpage HTML
+        
         """
         self.log.debug('starting the ``get`` method')
 
@@ -175,7 +175,6 @@ class templates_resource_stats(object):
 
             if i == 9:
                 htmlContent += """
-
     """
 
             if i == 10:
@@ -190,17 +189,14 @@ class templates_resource_stats(object):
 
             if i == 12:
                 htmlContent += """
-
     """
 
             if i == 13:
                 htmlContent += """
-
     """
 
             if i == 14:
                 htmlContent += """
-
     """
 
             if i == 24:

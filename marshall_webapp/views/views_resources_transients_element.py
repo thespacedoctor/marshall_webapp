@@ -9,7 +9,6 @@ from marshall_webapp.models.transients.element import models_transients_element_
 from dryxPyramid.views.views_base_element import base_element_view
 from venusian import lift
 
-
 @view_defaults(route_name='transients_element', permission="view_users")
 @lift()
 class views_resources_transients_element(base_element_view):

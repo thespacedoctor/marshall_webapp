@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 9, 2014
 """
 from builtins import object
 import sys
@@ -16,15 +13,16 @@ import khufu
 from marshall_webapp.models.transients_context import models_transients_context_get
 from marshall_webapp.models.transients_context.element import models_transients_element_context_get
 
-
 class templates_transients_context(object):
     """
     The worker class for the templates_transients_context module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the element id of the resource requested (or false)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the element id of the resource requested (or false)
+    
     """
 
     def __init__(
@@ -46,8 +44,10 @@ class templates_transients_context(object):
     def get(self):
         """get the templates_transients_context object
 
-        **Return:**
-            - ``responseContent`` -- the response
+        **Return**
+
+        - ``responseContent`` -- the response
+        
         """
         self.log.debug('starting the ``get`` method')
 

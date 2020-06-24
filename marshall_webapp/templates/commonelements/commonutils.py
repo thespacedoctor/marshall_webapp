@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 21, 2013
 """
 import sys
 import os
@@ -21,13 +18,17 @@ def block_title(
 ):
     """block title
 
-    **Key Arguments:**
-        - ``title`` -- the title for the block
-        - ``log`` -- the logger
-        - ``align`` -- False | left | right | center
+    **Key Arguments**
 
-    **Return:**
-        - ``title`` -- the title for the ticket block
+    - ``title`` -- the title for the block
+    - ``log`` -- the logger
+    - ``align`` -- False | left | right | center
+
+
+    **Return**
+
+    - ``title`` -- the title for the ticket block
+
     """
     log.debug('starting the ``block_title`` function')
 
@@ -60,12 +61,16 @@ def little_label(
 ):
     """little labels for the pessto marshall tickets
 
-    **Key Arguments:**
-        - ``text`` -- the label text
-        - ``lineBreak`` -- add a line break
+    **Key Arguments**
 
-    **Return:**
-        - ``text`` -- little label 
+    - ``text`` -- the label text
+    - ``lineBreak`` -- add a line break
+
+
+    **Return**
+
+    - ``text`` -- little label 
+
     """
     if lineBreak is not False:
         lineBreak = "<br>&nbsp&nbsp&nbsp"
@@ -80,6 +85,3 @@ def little_label(
     )
 
     return text
-
-if __name__ == '__main__':
-    main()

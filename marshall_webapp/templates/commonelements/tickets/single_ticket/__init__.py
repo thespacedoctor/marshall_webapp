@@ -5,14 +5,8 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
-import sys
-import os
-import datetime
-import khufu
+
 from . import ticket_building_blocks
 from . import tabs
 
@@ -29,22 +23,28 @@ def single_ticket(
         transientCrossmatches):
     """A single ticket for a transient object tin the pessto marshall
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectComments`` -- the comments for the object
-        - ``objectAkas`` -- the akas with surveyUrls
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
-        - ``objectHistories`` -- history log for object
-        - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
+    **Key Arguments**
 
-    **Return:**
-        - ``ticket`` -- a single transient's info in one HTML ticket
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
+    - ``objectComments`` -- the comments for the object
+    - ``objectAkas`` -- the akas with surveyUrls
+    - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    - ``objectHistories`` -- history log for object
+    - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
+
+
+    **Return**
+
+    - ``ticket`` -- a single transient's info in one HTML ticket
+
     """
 
     log.debug('starting the ``inbox_ticket`` function')
+
+    import khufu
 
     tabDictionary = {}
 
@@ -163,14 +163,20 @@ def _single_ticket_template(
 ):
     """single_ticket
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``transientBucketId`` -- the transientBucketId of the object to be displayed
-        - ``tabDictionary`` -- a dictionary of { "title": tabcontent, }
+    **Key Arguments**
 
-    **Return:**
-        - ``single_ticket`` -- build the single ticket
+    - ``log`` -- the logger
+    - ``transientBucketId`` -- the transientBucketId of the object to be displayed
+    - ``tabDictionary`` -- a dictionary of { "title": tabcontent, }
+
+
+    **Return**
+
+    - ``single_ticket`` -- build the single ticket
+
     """
+
+    import khufu
     if commentCount is not False:
         contentCount = {"comments": commentCount}
     else:
@@ -207,17 +213,22 @@ def _ticket_tab_template(
 ):
     """ticket tab - build a tab on a ticket from a few sub-block of object data
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``tabHeader`` -- header bar for the tab
-        - ``blockList`` -- the list of asset 'blocks' to be included in this ticket tab
-        - ``tabFooter`` -- footer bar for the tab
-        - ``actionsBlock`` -- to consume skinny column at right side
+    **Key Arguments**
 
-    **Return:**
-        - ``ticket_tab`` -- template for each ticket tab
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``tabHeader`` -- header bar for the tab
+    - ``blockList`` -- the list of asset 'blocks' to be included in this ticket tab
+    - ``tabFooter`` -- footer bar for the tab
+    - ``actionsBlock`` -- to consume skinny column at right side
+
+
+    **Return**
+
+    - ``ticket_tab`` -- template for each ticket tab
+
     """
+    import khufu
     theseBlocks = ""
 
     # REMOVE EMPTY BLOCKS

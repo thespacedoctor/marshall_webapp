@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 14, 2014
 """
 from builtins import str
 from builtins import object
@@ -16,15 +13,16 @@ import os
 import khufu
 from marshall_webapp.models.transients_obs import models_transients_obs_get
 
-
 class templates_transients_obs(object):
     """
     The worker class for the templates_transients_obs module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element requested (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element requested (or False)
+    
     """
 
     def __init__(
@@ -45,9 +43,11 @@ class templates_transients_obs(object):
     def get(self):
         """get the templates_transients_obs object
 
-        **Return:**
-            - ``filename``
-            - ``obText``
+        **Return**
+
+        - ``filename``
+        - ``obText``
+        
         """
         self.log.debug('starting the ``get`` method')
 
@@ -72,12 +72,16 @@ class templates_transients_obs(object):
             transient_ob_data):
         """ generate ob text
 
-        **Key Arguments:**
-            - ``transient_ob_data``
+        **Key Arguments**
 
-        **Return:**
-            - ``downloadFilename``
-            - ``obText``
+        - ``transient_ob_data``
+        
+
+        **Return**
+
+        - ``downloadFilename``
+        - ``obText``
+        
         """
         self.log.debug('starting the ``_generate_ob_text`` method')
 

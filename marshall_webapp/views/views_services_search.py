@@ -13,7 +13,6 @@ from venusian import lift
 # NOTE THIS VIEW IS A PROXY FOR THE TRANSIENT ROUTE - NO NEED FOR A
 # SEPARATE UNIT TEST
 
-
 @view_defaults(route_name='transients_search', permission="view_users")
 @lift()
 class views_services_search(object):

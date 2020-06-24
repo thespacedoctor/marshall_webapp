@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    March 7, 2014
 """
 from builtins import str
 import sys
@@ -16,7 +13,6 @@ from datetime import datetime, date, time
 from fundamentals import times
 import khufu
 from marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
-
 
 def generate_ob_form(
     log,
@@ -27,15 +23,19 @@ def generate_ob_form(
 ):
     """generate object form
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-        - ``lightcurveData`` -- lightcurve data
-        - ``objectAkas`` -- akas for this object
+    **Key Arguments**
 
-    **Return:**
-        - ``modalForm``, ``thisButton`` -- the modal form and the button used to trigger the modal
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    - ``lightcurveData`` -- lightcurve data
+    - ``objectAkas`` -- akas for this object
+    
+
+    **Return**
+
+    - ``modalForm``, ``thisButton`` -- the modal form and the button used to trigger the modal
+    
     """
     # Header Text
     lsqExists = False
@@ -258,7 +258,6 @@ def generate_ob_form(
     )
 
     return modalForm, thisButton
-
 
 if __name__ == '__main__':
     main()

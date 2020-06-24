@@ -61,7 +61,6 @@ if not os.path.exists("/tmp/marshall_webapp/static/caches/stats/phaseIII"):
 # 504 Gateway Timeout
 # 502 Bad Gateway
 
-
 class test_views_resources_stats(BaseTest):
 
     def __init__(self, *args, **kwargs):

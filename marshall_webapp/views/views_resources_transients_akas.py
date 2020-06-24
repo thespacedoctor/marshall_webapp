@@ -8,7 +8,6 @@ from marshall_webapp.models.transients_akas import models_transients_akas_get
 from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
-
 @view_defaults(route_name='transients_akas',  permission="view_users")
 @lift()
 class views_resources_transients_akas(base_view):

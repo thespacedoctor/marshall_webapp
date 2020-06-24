@@ -5,25 +5,23 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 27, 2014
 """
 from builtins import object
 import sys
 import os
 import khufu
 
-
 class models_transients_element_history_put(object):
     """
     The worker class for the models_transients_element_history_put module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
-        - ``search`` -- is this a search request (boolean)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    - ``search`` -- is this a search request (boolean)
+    
     """
 
     def __init__(
@@ -56,8 +54,10 @@ class models_transients_element_history_put(object):
     def put(self):
         """execute the put method on the models_transients_element_history_put object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``put`` method')
 

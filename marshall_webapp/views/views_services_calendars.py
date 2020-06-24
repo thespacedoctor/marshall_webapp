@@ -8,7 +8,6 @@ from marshall_webapp.templates.responses import templates_services_calendars
 from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
-
 @view_defaults(route_name='calendars',  permission="view_users")
 @lift()
 class views_services_calendars(base_view):

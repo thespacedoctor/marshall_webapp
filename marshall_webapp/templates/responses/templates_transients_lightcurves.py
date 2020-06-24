@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 5, 2014
 """
 from builtins import object
 import sys
@@ -15,16 +12,17 @@ import os
 import khufu
 from marshall_webapp.models.transients_lightcurves import models_transients_lightcurves_get
 
-
 class templates_transients_lightcurves(object):
     """
     The worker class for the templates_transients_lightcurves module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element requested (or False)
-        - ``format`` -- format
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element requested (or False)
+    - ``format`` -- format
+    
     """
 
     def __init__(
@@ -48,9 +46,10 @@ class templates_transients_lightcurves(object):
     def get(self):
         """get the templates_transients_lightcurves object
 
-        **Return:**
-            - ``responseContent`` -- the response
+        **Return**
 
+        - ``responseContent`` -- the response
+        
         """
         self.log.debug('starting the ``get`` method')
 

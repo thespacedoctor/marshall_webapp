@@ -5,14 +5,10 @@
 
 :Author:
     David Young
-
-:Date Created:
-    February 21, 2014
 """
 import sys
 import os
 import khufu
-
 
 def change_pi_form(
     log,
@@ -21,13 +17,17 @@ def change_pi_form(
 ):
     """change_pi_form
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
 
-    **Return:**
-        - ``changePiForm`` -- the change PI modal form
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
+
+    **Return**
+
+    - ``changePiForm`` -- the change PI modal form
+    
     """
     postToScriptUrl = request.route_path(
         'transients_element', elementId=discoveryDataDictionary["transientBucketId"], _query={'method': 'put'})

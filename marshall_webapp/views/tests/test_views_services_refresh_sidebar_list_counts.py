@@ -40,7 +40,6 @@ shutil.copytree(pathToInputDir, pathToOutputDir)
 if not os.path.exists(pathToOutputDir):
     os.makedirs(pathToOutputDir)
 
-
 class test_views_services_refresh_sidebar_list_counts(BaseTest):
 
     def __init__(self, *args, **kwargs):

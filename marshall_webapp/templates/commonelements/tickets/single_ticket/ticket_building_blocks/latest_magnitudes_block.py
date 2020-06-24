@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    March 26, 2014 
 """
 import sys
 import os
@@ -17,7 +14,6 @@ import khufu
 from marshall_webapp.templates.commonelements import commonutils as cu
 from fundamentals import times
 
-
 def latest_magnitudes_block(
         log,
         request,
@@ -26,15 +22,19 @@ def latest_magnitudes_block(
         displayTitle=True):
     """get ticket lightcurve block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
-        - ``displayTitle`` -- display the title for this block?
+    **Key Arguments**
 
-    **Return:**
-        - ``latest_magnitudes_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+    - ``displayTitle`` -- display the title for this block?
+    
+
+    **Return**
+
+    - ``latest_magnitudes_block`` -- the ticket identity block for the pesssto object
+    
     """
     log.debug('starting the ``latest_magnitudes_block`` function')
 

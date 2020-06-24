@@ -5,11 +5,7 @@
 
 :Author:
     David Young
-
-:Date Created:
-    June  8, 2020
 """
-################# GLOBAL IMPORTS ####################
 from builtins import object
 import sys
 import os
@@ -20,13 +16,17 @@ class models_transients_comments_element_put(object):
     """
     *The worker class for the models_transients_comments_element_put module*
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
-        - ``search`` -- is this a search request (boolean)
+    **Key Arguments**
 
-    **Usage:**
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    - ``search`` -- is this a search request (boolean)
+
+
+    **Usage**
+
+
 
     ```eval_rst
     .. todo::
@@ -74,8 +74,10 @@ class models_transients_comments_element_put(object):
         """
         *execute the put method on the models_transients_comments_element_put object*
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+
         """
         self.log.debug('starting the ``put`` method')
 
@@ -97,11 +99,12 @@ class models_transients_comments_element_put(object):
         """
         *set default parameters*
 
-        **Key Arguments:**
-            - 
+        **Key Arguments**
 
-        **Return:**
-            - None
+        **Return**
+
+        - None
+
         """
         self.log.debug('starting the ``_set_default_parameters`` method')
 

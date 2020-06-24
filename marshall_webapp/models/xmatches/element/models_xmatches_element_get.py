@@ -5,25 +5,23 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 12, 2015
 """
 from builtins import object
 import sys
 import os
 import khufu
 
-
 class models_xmatches_element_get(object):
     """
     The worker class for the models_xmatches_element_get module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
-        - ``search`` -- is this a search request (boolean)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    - ``search`` -- is this a search request (boolean)
+    
     """
 
     def __init__(
@@ -54,8 +52,10 @@ class models_xmatches_element_get(object):
     def get(self):
         """execute the get method on the models_xmatches_element_get object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``get`` method')
 

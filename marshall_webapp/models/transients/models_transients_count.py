@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 3, 2014
 """
 from builtins import zip
 from builtins import object
@@ -17,15 +14,17 @@ import os
 
 class models_transients_count(object):
     """
-    The worker class for the models_transients_count module
+    The worker class for the `models_transients_count` module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``mwfFlag`` -- marshall workflow location
-        - ``awfFlag`` -- alert workflow location
-        - ``cFlag`` -- classification flag
-        - ``snoozes`` -- snoozed flag
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``mwfFlag`` -- marshall workflow location
+    - ``awfFlag`` -- alert workflow location
+    - ``cFlag`` -- classification flag
+    - ``snoozes`` -- snoozed flag
+
     """
 
     def __init__(
@@ -55,9 +54,9 @@ class models_transients_count(object):
     def get(self):
         """get the models_transients_count object
 
-        **Return:**
-            - ``models_transients_count``
+        **Return**
 
+        - ``models_transients_count``
         """
         self.log.debug('starting the ``get`` method')
 
@@ -66,8 +65,8 @@ class models_transients_count(object):
         cFlag = self.cFlag
         snoozed = self.snoozed
 
-        # build the query to count the transients within a given marshall
-        # sidebar list
+        # BUILD THE QUERY TO COUNT THE TRANSIENTS WITHIN A GIVEN MARSHALL
+        # SIDEBAR LIST
         sqlQuery = """select count from meta_workflow_lists_counts where 1=1 """
 
         # AMEND WHERE CLAUSE TO INCLUDE WORKFLOW LOCATION FLAGS #

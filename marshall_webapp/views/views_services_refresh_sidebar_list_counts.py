@@ -10,7 +10,6 @@ from venusian import lift
 
 # RESOURCE CONTEXT
 
-
 @view_defaults(route_name='refresh_sidebar_list_counts',  permission="view_users")
 @lift()
 class views_services_refresh_sidebar_list_counts(base_view):

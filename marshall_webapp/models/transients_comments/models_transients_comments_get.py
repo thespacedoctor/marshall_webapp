@@ -5,25 +5,25 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 9, 2014
 """
+from __future__ import print_function
+from builtins import zip
 from builtins import object
 import sys
 import os
 import khufu
 from dryxPyramid.models.models_base import base_model
 
-
 class models_transients_comments_get(base_model):
     """
     The worker class for the models_transients_comments_get module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(self, log, request, elementId=False, search=False):
@@ -37,8 +37,10 @@ class models_transients_comments_get(base_model):
     def get(self):
         """execute the get method on the models_transients_comments_get object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``get`` method')
         elementId = self.elementId

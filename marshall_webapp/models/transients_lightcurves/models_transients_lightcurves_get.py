@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 5, 2014
 """
 from builtins import zip
 from builtins import object
@@ -17,15 +14,16 @@ import khufu
 import collections
 from dryxPyramid.models.models_base import base_model
 
-
 class models_transients_lightcurves_get(base_model):
     """
     The worker class for the models_transients_lightcurves_get module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(self, log, request, elementId=False, search=False):
@@ -44,8 +42,10 @@ class models_transients_lightcurves_get(base_model):
     def get(self):
         """execute the get method on the models_transients_lightcurves_get object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``get`` method')
 

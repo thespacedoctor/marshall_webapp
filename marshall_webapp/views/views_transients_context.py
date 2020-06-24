@@ -11,7 +11,6 @@ from venusian import lift
 
 # RESOURCE CONTEXT
 
-
 @view_defaults(route_name='transients_context',  permission="view_users")
 @lift()
 class views_transients_context(base_view):
@@ -31,7 +30,6 @@ class views_transients_context(base_view):
         return Response(responseContent)
 
 # RESOURCE ELEMENT
-
 
 @view_defaults(route_name='transients_element_context', permission="view_users")
 class transients_element_context_view(object):

@@ -5,14 +5,10 @@
 
 :Author:
     David Young
-
-:Date Created:
-    April 29, 2014
 """
 import sys
 import os
 import khufu
-
 
 def xmatches_sidebar(
         log,
@@ -21,13 +17,17 @@ def xmatches_sidebar(
 ):
     """Get the left navigation bar for the pessto marshall
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``thisPageName`` -- the name of the page currently displayed
+    **Key Arguments**
 
-    **Return:**
-        - ``leftNavBar`` -- the left navigation bar for the pessto marshall
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``thisPageName`` -- the name of the page currently displayed
+    
+
+    **Return**
+
+    - ``leftNavBar`` -- the left navigation bar for the pessto marshall
+    
     """
     import khufu
 
@@ -54,18 +54,21 @@ def xmatches_sidebar(
     log.debug('completed the ``xmatches_sidebar`` function')
     return xmatches_sidebar
 
-
 def _xmatches_sidebar_header(
         log,
         request):
     """Generate the left navigation bar header content
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
+    **Key Arguments**
 
-    **Return:**
-        - ``content`` -- the left nav bar header content
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    
+
+    **Return**
+
+    - ``content`` -- the left nav bar header content
+    
     """
     import khufu
 
@@ -122,19 +125,22 @@ def _xmatches_sidebar_header(
     # return "%(pesstoIcon)s %(createNewButton)s" % locals()
     return "%(pesstoIcon)s" % locals()
 
-
 def _get_xmatches_links(
         log,
         request,
         thisPageName):
     """get development links
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``thisPageName`` -- the name of the current page
+    **Key Arguments**
 
-    **Return:**
-        - ``developmentLinks`` -- the development queue - a list of links
+    - ``log`` -- logger
+    - ``thisPageName`` -- the name of the current page
+    
+
+    **Return**
+
+    - ``developmentLinks`` -- the development queue - a list of links
+    
     """
     import os
     import khufu

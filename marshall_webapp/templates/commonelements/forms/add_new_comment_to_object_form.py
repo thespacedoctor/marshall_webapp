@@ -5,14 +5,10 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
 import khufu
-
 
 def add_new_comment_to_object_form(
         log,
@@ -21,13 +17,17 @@ def add_new_comment_to_object_form(
 ):
     """add_new_comment_to_object_form
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``transientBucketId`` -- the transientBucketId of the object
+    **Key Arguments**
 
-    **Return:**
-        - ``newCommentForm`` -- the new comment form
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``transientBucketId`` -- the transientBucketId of the object
+    
+
+    **Return**
+
+    - ``newCommentForm`` -- the new comment form
+    
     """
     commentInput = khufu.textarea(
         rows=1,

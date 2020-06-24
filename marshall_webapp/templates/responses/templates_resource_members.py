@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 21, 2016
 """
 from builtins import object
 import sys
@@ -16,16 +13,17 @@ from marshall_webapp.models.members import models_members_get
 from pyramid.path import AssetResolver
 import khufu
 
-
 class templates_resource_members(object):
     """
     The worker class for the templates_resource_members module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid/WebObs request object
-        - ``elementId`` -- the specific element requested (or False)
-        - ``search`` -- is this a search? (boolean)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid/WebObs request object
+    - ``elementId`` -- the specific element requested (or False)
+    - ``search`` -- is this a search? (boolean)
+    
     """
 
     def __init__(
@@ -54,8 +52,10 @@ class templates_resource_members(object):
     def get(self):
         """get the templates_resource_members object
 
-        **Return:**
-            - ``webpage`` -- the webapge HTML
+        **Return**
+
+        - ``webpage`` -- the webapge HTML
+        
         """
         self.log.debug('starting the ``get`` method')
 

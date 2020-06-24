@@ -9,7 +9,6 @@ from marshall_webapp.models.stats import models_stats_get
 from dryxPyramid.views.views_base import base_view
 from venusian import lift
 
-
 @view_defaults(route_name='stats',  permission="view_users")
 @lift()
 class views_resources_stats(base_view):

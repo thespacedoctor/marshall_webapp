@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 9, 2014
 """
 from __future__ import division
 from future import standard_library
@@ -25,15 +22,16 @@ import urllib.error
 import re
 from dryxPyramid.models.models_base import base_model
 
-
 class models_transients_context_get(base_model):
     """
     The worker class for the models_transients_context_get module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(self, log, request, elementId=False, search=False):
@@ -48,8 +46,10 @@ class models_transients_context_get(base_model):
     def get(self):
         """execute the get method on the models_transients_context_get object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``get`` method')
 

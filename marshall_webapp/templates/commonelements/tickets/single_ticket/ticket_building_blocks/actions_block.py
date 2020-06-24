@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 10, 2014
 """
 import sys
 import os
@@ -15,7 +12,6 @@ from datetime import datetime, date, time
 import khufu
 from marshall_webapp.templates.commonelements import commonutils as cu
 import urllib.parse
-
 
 def actions_block(
         log,
@@ -25,14 +21,18 @@ def actions_block(
         objectAkas):
     """get ticket action block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``lightcurveData`` -- the lightdata for the object
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    **Key Arguments**
 
-    **Return:**
-        - ``action_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``lightcurveData`` -- the lightdata for the object
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    
+
+    **Return**
+
+    - ``action_block`` -- the ticket identity block for the pesssto object
+    
     """
     from marshall_webapp.templates.commonelements import forms
     title = cu.block_title(
@@ -113,7 +113,6 @@ def actions_block(
 
     return "%(title)s %(buttonGroup)s %(classifyForm)s" % locals()
 
-
 def _get_classify_button(
         log,
         request,
@@ -121,13 +120,17 @@ def _get_classify_button(
 ):
     """ get classify button for the ticket topbar
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request object
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
 
-    **Return:**
-        - ``button`` -- the classification button with hidden modal form
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request object
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
+
+    **Return**
+
+    - ``button`` -- the classification button with hidden modal form
+    
     """
     from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
@@ -146,7 +149,6 @@ def _get_classify_button(
     log.debug('completed the ``_get_classify_button`` function')
     return button, thisForm
 
-
 def _get_move_to_dropdown(
         log,
         request,
@@ -154,13 +156,17 @@ def _get_move_to_dropdown(
 ):
     """ get move to dropdown for the ticket
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
 
-    **Return:**
-        - ``thisDropdown`` -- the move to other list dropdown
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
+
+    **Return**
+
+    - ``thisDropdown`` -- the move to other list dropdown
+    
     """
     import datetime
 
@@ -294,7 +300,6 @@ def _get_move_to_dropdown(
     log.debug('completed the ``_get_move_to_dropdown`` function')
     return thisDropdown
 
-
 def _get_alert_dropdown(
         log,
         request,
@@ -302,13 +307,17 @@ def _get_alert_dropdown(
 ):
     """ get alert dropdown for the ticket
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
 
-    **Return:**
-        - ``thisDropdown`` -- the move to other alert list dropdown
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
+
+    **Return**
+
+    - ``thisDropdown`` -- the move to other alert list dropdown
+    
     """
     import datetime
 
@@ -377,7 +386,6 @@ def _get_alert_dropdown(
     log.debug('completed the ``_get_alert_dropdown`` function')
     return thisDropdown
 
-
 def _get_change_pi_button(
         log,
         request,
@@ -385,13 +393,17 @@ def _get_change_pi_button(
 ):
     """ get change pi for the ticket action block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
 
-    **Return:**
-        - ``button`` -- the change PI button and hidden modal form
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
+
+    **Return**
+
+    - ``button`` -- the change PI button and hidden modal form
+    
     """
     from marshall_webapp.templates.commonelements import forms
 
@@ -412,7 +424,6 @@ def _get_change_pi_button(
     log.debug('completed the ``_get_change_pi_button`` function')
     return button
 
-
 def _generate_ob_button(
         log,
         request,
@@ -422,15 +433,19 @@ def _generate_ob_button(
 ):
     """ get generate OB button for the ticket action block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-        - ``lightcurveData`` -- lightcurve data for the object
-        - ``objectAkas`` -- the akas of the object
+    **Key Arguments**
 
-    **Return:**
-        - ``button`` - the generate OB button with hidden modal form
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    - ``lightcurveData`` -- lightcurve data for the object
+    - ``objectAkas`` -- the akas of the object
+    
+
+    **Return**
+
+    - ``button`` - the generate OB button with hidden modal form
+    
     """
     from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
@@ -456,17 +471,18 @@ def _generate_ob_button(
     log.debug('completed the ``_get_classify_button`` function')
     return button
 
-
 def _get_priority_switcher_dropdown(
         request,
         discoveryDataDictionary,
         log):
     """ get priority switcher dropdown
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
     """
     log.debug('starting the ``_get_priority_switcher_dropdown`` function')
     import datetime
@@ -581,17 +597,18 @@ def _get_priority_switcher_dropdown(
     log.debug('completed the ``_get_priority_switcher_dropdown`` function')
     return thisDropdown
 
-
 def _snooze_button(
         request,
         discoveryDataDictionary,
         log):
     """ snooze button
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    
     """
     log.debug('starting the ``_snooze_button`` function')
 
@@ -671,6 +688,5 @@ def _snooze_button(
 
     log.debug('completed the ``_snooze_button`` function')
     return button
-
 
 # xt-def-with-logger

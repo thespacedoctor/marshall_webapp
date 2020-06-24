@@ -6,7 +6,6 @@
 :Author:
     David Young
 """
-################# GLOBAL IMPORTS ####################
 from future import standard_library
 standard_library.install_aliases()
 from builtins import object
@@ -22,22 +21,20 @@ from dryxPyramid.models.models_base import base_model
 
 
 class models_stats_get(base_model):
-
     """
     *The worker class for the models_stats_get module*
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
 
-    **Usage:**
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+
+    **Usage**
 
     ```python
     usage code 
     ```
-
-    ---
 
     ```eval_rst
     .. todo::
@@ -65,8 +62,10 @@ class models_stats_get(base_model):
         """
         *execute the get method on the models_stats_get object*
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+
         """
         self.log.debug('starting the ``get`` method')
 

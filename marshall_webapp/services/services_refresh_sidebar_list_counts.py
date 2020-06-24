@@ -5,24 +5,22 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 13, 2014
 """
 from builtins import object
 import sys
 import os
 import khufu
 
-
 class services_refresh_sidebar_list_counts(object):
     """
     The worker class for the services_refresh_sidebar_list_counts module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
+    
     """
 
     def __init__(
@@ -47,8 +45,10 @@ class services_refresh_sidebar_list_counts(object):
     def put(self):
         """execute the put method on the services_refresh_sidebar_list_counts object
 
-        **Return:**
-            - ``responseContent`` -- the reponse to send to the browser
+        **Return**
+
+        - ``responseContent`` -- the reponse to send to the browser
+        
         """
         self.log.debug('starting the ``put`` method')
 

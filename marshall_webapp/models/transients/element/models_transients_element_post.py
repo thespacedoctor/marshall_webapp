@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 10, 2014
 """
 from builtins import zip
 from builtins import object
@@ -24,10 +21,11 @@ class models_transients_element_post(object):
     """
     The worker class for the models_transients_element_post module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the specific element id requests (or False)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the specific element id requests (or False)
     """
 
     def __init__(
@@ -53,8 +51,9 @@ class models_transients_element_post(object):
     def post(self):
         """execute the post method on the models_transients_element_post object
 
-        **Return:**
-            - ``response`` -- the reponse to send to the browser
+        **Return**
+
+        - ``response`` -- the reponse to send to the browser
         """
         self.log.debug('starting the ``post`` method')
 
@@ -93,7 +92,7 @@ class models_transients_element_post(object):
         rows[:] = [dict(list(zip(list(row.keys()), row))) for row in rowsTmp]
 
         # ADD VARIABLES TO a
-        params = dict(self.request.params.items())
+        params = dict(list(self.request.params.items()))
         params["now"] = times.get_now_sql_datetime()
         params["transientBucketId"] = self.transientBucketId
         for row in rows:

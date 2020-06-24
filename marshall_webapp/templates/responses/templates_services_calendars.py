@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 6, 2014
 """
 from builtins import object
 import sys
@@ -15,14 +12,15 @@ import os
 import khufu
 from marshall_webapp.templates.commonelements.pagetemplates import defaultpagetemplate
 
-
 class templates_services_calendars(object):
     """
     The worker class for the templates_services_calendars module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    
     """
 
     def __init__(
@@ -40,8 +38,10 @@ class templates_services_calendars(object):
     def get(self):
         """get the templates_services_calendars object
 
-        **Return:**
-            - ``webpage`` -- the webpage for the calendar
+        **Return**
+
+        - ``webpage`` -- the webpage for the calendar
+        
         """
         self.log.debug('starting the ``get`` method')
 

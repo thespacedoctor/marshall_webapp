@@ -5,14 +5,10 @@
 
 :Author:
     David Young
-
-:Date Created:
-    December 11, 2013
 """
 import sys
 import os
 import khufu
-
 
 def create_new_ticket_form(
     log,
@@ -20,12 +16,16 @@ def create_new_ticket_form(
 ):
     """create_new_ticket_form
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
+    **Key Arguments**
 
-    **Return:**
-        - ``createNewTicketForm``
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    
+
+    **Return**
+
+    - ``createNewTicketForm``
+    
     """
     postToScriptUrl = request.route_path(
         'transients', _query={'method': 'post'})

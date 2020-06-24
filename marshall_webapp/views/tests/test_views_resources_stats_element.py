@@ -57,7 +57,6 @@ if not os.path.exists(pathToOutputDir):
 # 504 Gateway Timeout
 # 502 Bad Gateway
 
-
 class test_views_resources_stats_elements(BaseTest):
 
     def __init__(self, *args, **kwargs):

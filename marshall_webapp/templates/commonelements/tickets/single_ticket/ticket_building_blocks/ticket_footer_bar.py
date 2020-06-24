@@ -5,16 +5,12 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
 import sys
 import os
 import re
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
-
 
 def ticket_footer_bar(
         log,
@@ -23,14 +19,18 @@ def ticket_footer_bar(
         atelData):
     """get ticket footer bar
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryData`` -- the discoveryData for the object
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    **Key Arguments**
 
-    **Return:**
-        - ``ticket_footer_bar`` -- the ticket footer bar for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryData`` -- the discoveryData for the object
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    
+
+    **Return**
+
+    - ``ticket_footer_bar`` -- the ticket footer bar for the pesssto object
+    
     """
     log.debug('starting the ``ticket_footer_bar`` function')
 
@@ -131,20 +131,23 @@ def ticket_footer_bar(
 
     return ticket_footer_bar
 
-
 def _get_atel_list(
         log,
         transientBucketId,
         atelData):
     """ get atels for object
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``transientBucketId`` -- the transientBucketId
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    **Key Arguments**
 
-    **Return:**
-        - ``atelLinks`` -- the names of the atels linked to original pages
+    - ``log`` -- logger
+    - ``transientBucketId`` -- the transientBucketId
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    
+
+    **Return**
+
+    - ``atelLinks`` -- the names of the atels linked to original pages
+    
     """
     log.debug('starting the ``_get_atels`` function')
 

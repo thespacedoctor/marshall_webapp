@@ -5,14 +5,7 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
-import sys
-import os
-import khufu
-from marshall_webapp.templates.commonelements import *
 
 
 def defaultpagetemplate(
@@ -28,21 +21,30 @@ def defaultpagetemplate(
 ):
     """Generate the webpage to be displayed
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``bodyId`` -- the bodyId of the page
-        - ``pageTitle`` -- the title for the page (shows in browser tab)
-        - ``topNavBar`` -- topNavBar
-        - ``sideBar`` -- sideBar
-        - ``mainContent`` -- mainContent
-        - ``relativePathFromDocRoot`` -- the path to the assets folder relative to the document root
-        - ``thisPageName`` -- the name of the page currently displayed
-        - ``params`` -- dictionary of parameters passed to via the url of webpage
+    **Key Arguments**
 
-    **Return:**
-        - ``webpage`` -- the webpage to be displayed
+    - ``log`` -- logger
+    - ``bodyId`` -- the bodyId of the page
+    - ``pageTitle`` -- the title for the page (shows in browser tab)
+    - ``topNavBar`` -- topNavBar
+    - ``sideBar`` -- sideBar
+    - ``mainContent`` -- mainContent
+    - ``relativePathFromDocRoot`` -- the path to the assets folder relative to the document root
+    - ``thisPageName`` -- the name of the page currently displayed
+    - ``params`` -- dictionary of parameters passed to via the url of webpage
+
+
+    **Return**
+
+    - ``webpage`` -- the webpage to be displayed
+
     """
     log.debug('starting the ``webpage`` function')
+
+    import sys
+    import os
+    import khufu
+    from marshall_webapp.templates.commonelements import sidebar, topnavbar
 
     # SET DEFAULT VARIABLES
     if not bodyId:

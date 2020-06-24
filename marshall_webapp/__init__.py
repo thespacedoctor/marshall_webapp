@@ -6,14 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from pyramid.path import AssetResolver
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
-import yaml
-import dryxPyramid
-from dryxPyramid.security import groupfinder
-from . import views
-from . import templates
-from . import models
-from . import services
-
 from pyramid.security import authenticated_userid
 from pyramid.settings import aslist
 
@@ -37,7 +29,9 @@ def db(request):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-
+    import dryxPyramid
+    from dryxPyramid.security import groupfinder
+    import yaml
     # the main configurator
     config = Configurator(
         settings=settings, root_factory='dryxPyramid.models.models_login_post.RootFactory')
@@ -48,6 +42,7 @@ def main(global_config, **settings):
     config.add_request_method(db, reify=True)
 
     # Add settings from YAML file
+
     myWebapp = AssetResolver("marshall_webapp")
     theseSettings = config.get_settings()
     settingsPath = theseSettings["settingsFile"]

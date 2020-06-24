@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
 import sys
 import os
@@ -18,7 +15,6 @@ import khufu
 import collections
 from marshall_webapp.templates.commonelements import commonutils as cu
 
-
 def host_info_block(
         log,
         request,
@@ -26,14 +22,18 @@ def host_info_block(
         transientCrossmatches):
     """get ticket host info block
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-        - ``transientCrossmatches`` -- info from the transient crossmatcher
+    **Key Arguments**
 
-    **Return:**
-        - ``host_info_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    - ``transientCrossmatches`` -- info from the transient crossmatcher
+    
+
+    **Return**
+
+    - ``host_info_block`` -- the ticket identity block for the pesssto object
+    
     """
     log.debug('starting the ``host_info_block`` function')
 

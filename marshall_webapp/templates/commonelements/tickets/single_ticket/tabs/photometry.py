@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
@@ -15,7 +12,6 @@ import datetime
 import re
 import khufu
 from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
-
 
 def photometry_tab(
         log,
@@ -26,16 +22,20 @@ def photometry_tab(
         lightcurveData):
     """photometry tab
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectAkas`` -- object akas
-        - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    **Key Arguments**
 
-    **Return:**
-        - ``photometry_tab`` -- the lightcurve/photometry tab for a single ticket on the transient listings page
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
+    - ``objectAkas`` -- object akas
+    - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    
+
+    **Return**
+
+    - ``photometry_tab`` -- the lightcurve/photometry tab for a single ticket on the transient listings page
+    
     """
     from marshall_webapp.templates.commonelements.tickets import single_ticket
 
@@ -121,7 +121,6 @@ def photometry_tab(
     log.debug('completed the ``photometry_tab`` function')
     return "%(photometry_tab)s" % locals()
 
-
 def photometry_footer_bar(
         log,
         request,
@@ -130,13 +129,17 @@ def photometry_footer_bar(
         lightcurveData):
     """get ticket footer bar
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``discoveryData`` -- the discoveryData for the object
-        - ``lightcurveData`` -- the lightcurve data for the object
+    **Key Arguments**
 
-    **Return:**
-        - ``photometry_footer_bar`` -- the ticket footer bar for the pesssto object
+    - ``log`` -- logger
+    - ``discoveryData`` -- the discoveryData for the object
+    - ``lightcurveData`` -- the lightcurve data for the object
+    
+
+    **Return**
+
+    - ``photometry_footer_bar`` -- the ticket footer bar for the pesssto object
+    
     """
     lsqExists = False
     log.debug('starting the ``photometry_footer_bar`` function')

@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 7, 2014
 """
 from builtins import zip
 from builtins import object
@@ -21,9 +18,10 @@ class models_transients_element_put(object):
     """
     The worker class for the models_transients_element_put module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
     """
 
     def __init__(
@@ -48,8 +46,9 @@ class models_transients_element_put(object):
     def put(self):
         """get the models_transients_element_put object
 
-        **Return:**
-            - ``response``
+        **Return**
+
+        - ``response``
         """
         self.log.debug('starting the ``get`` method')
 

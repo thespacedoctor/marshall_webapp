@@ -5,25 +5,25 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
 import sys
 import os
 import khufu
-
 
 def topnavbar(log,
               request):
     """
     Get a top navigation bar for the pessto marshall.
 
-    **Key Arguments:**
-        - ``log`` -- logger
+    **Key Arguments**
 
-    **Return:**
-        - ``topNavBar`` -- the top navigation bar for the pessto marshall
+    - ``log`` -- logger
+    
+
+    **Return**
+
+    - ``topNavBar`` -- the top navigation bar for the pessto marshall
+    
     """
     log.debug('starting the ``topNavigationBar`` function')
 

@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    October 13, 2015
 """
 from __future__ import print_function
 from __future__ import absolute_import
@@ -20,15 +17,16 @@ import re
 from marshall_webapp.models.xmatches_catalogues import models_xmatches_catalogues_get
 from marshall_webapp.models.xmatches_catalogues.element import models_xmatches_element_catalogues_get
 
-
 class templates_xmatches_catalogues(object):
     """
     The worker class for the templates_xmatches_catalogues module
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``elementId`` -- the element id of the resource requested (or false)
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``elementId`` -- the element id of the resource requested (or false)
+    
     """
 
     def __init__(
@@ -51,8 +49,10 @@ class templates_xmatches_catalogues(object):
     def get(self):
         """get the templates_xmatches_catalogues object
 
-        **Return:**
-            - ``webpage`` -- the webpage
+        **Return**
+
+        - ``webpage`` -- the webpage
+        
         """
         self.log.debug('starting the ``get`` method')
 
@@ -104,8 +104,10 @@ class templates_xmatches_catalogues(object):
             self):
         """create table
 
-        **Return:**
-            - ``table``
+        **Return**
+
+        - ``table``
+        
         """
         self.log.debug('starting the ``create_table`` method')
 

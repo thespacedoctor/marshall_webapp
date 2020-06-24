@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    November 20, 2013
 """
 
 import re
@@ -20,7 +17,6 @@ import khufu
 
 from marshall_webapp.templates.commonelements import commonutils as cu
 
-
 def identity_block(
         log,
         request,
@@ -29,14 +25,18 @@ def identity_block(
     """
     *get ticket identity block*
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-        - ``objectAkas`` -- the object akas
+    **Key Arguments**
 
-    **Return:**
-        - ``identity_block`` -- the ticket identity block for the pesssto object
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
+    - ``objectAkas`` -- the object akas
+    
+
+    **Return**
+
+    - ``identity_block`` -- the ticket identity block for the pesssto object
+    
     """
     log.debug('starting the ``identity_block`` function')
 

@@ -1,0 +1,65 @@
+single_ticket *(module)*
+=========================================================================
+
+
+
+.. automodule:: marshall_webapp.templates.commonelements.tickets.single_ticket
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :inherited-members:
+    :member-order: groupwise
+    
+    
+    
+    
+
+    
+    
+    .. rubric:: Functions
+
+    .. autosummary::
+    
+      ~single_ticket
+    
+    
+
+    
+    
+    
+
+    
+    
+    .. rubric:: Sub-modules
+
+    .. autosummary::
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+            ~single_ticket (nice)
+       
+    
+    
+        
+            ~tabs (nice)
+       
+    
+    
+        
+            ~ticket_building_blocks (nice)
+       
+    
+    
+    
+    

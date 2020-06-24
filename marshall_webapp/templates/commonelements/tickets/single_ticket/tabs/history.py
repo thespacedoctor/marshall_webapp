@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 7, 2014
 """
 import sys
 import os
@@ -15,7 +12,6 @@ import re
 import datetime
 from fundamentals import times
 import khufu
-
 
 def history_tab(
         log,
@@ -26,18 +22,21 @@ def history_tab(
         objectHistories):
     """history tab
 
-    **Key Arguments:**
-        - ``log`` -- logger
-        - ``request`` -- the pyramid request
-        - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
-        - ``objectAkas`` -- object akas
-        - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
-        - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    **Key Arguments**
 
-    **Return:**
-        - ``history_tab`` -- for each transient ticket in the transient listings pages
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request
+    - ``discoveryDataDictionary`` -- the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)
+    - ``objectAkas`` -- object akas
+    - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
+    - ``atelData`` -- the atel matches for the objects displayed on the webpage
+    
+
+    **Return**
+
+    - ``history_tab`` -- for each transient ticket in the transient listings pages
+    
     """
-    ################ > IMPORTS ################
     from time import strftime
     from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
     from marshall_webapp.templates.commonelements.tickets import single_ticket
@@ -121,15 +120,16 @@ def history_tab(
     log.debug('completed the ``history_tab`` function')
     return history_tab
 
-
 def _generate_log_string_for_ticket(
         log,
         logDate,
         logString):
     """ generate log string for ticket
 
-    **Key Arguments:**
-        - ``log`` -- logger
+    **Key Arguments**
+
+    - ``log`` -- logger
+    
     """
     log.debug('starting the ``_generate_log_string_for_ticket`` function')
 
@@ -190,6 +190,5 @@ def _generate_log_string_for_ticket(
 
     log.debug('completed the ``_generate_log_string_for_ticket`` function')
     return grid_row
-
 
 # xt-def-with-logger

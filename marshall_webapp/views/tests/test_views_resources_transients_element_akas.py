@@ -58,7 +58,6 @@ if not os.path.exists(pathToOutputDir):
 # 504 Gateway Timeout
 # 502 Bad Gateway
 
-
 class test_views_transients_elements_akas(BaseTest):
 
     def __init__(self, *args, **kwargs):

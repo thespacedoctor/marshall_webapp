@@ -5,9 +5,6 @@
 
 :Author:
     David Young
-
-:Date Created:
-    January 9, 2014
 """
 from __future__ import division
 from builtins import range
@@ -17,7 +14,6 @@ import os
 import re
 import math
 import khufu
-
 
 def ticket_table_pagination(
         log,
@@ -29,16 +25,20 @@ def ticket_table_pagination(
 ):
     """ticket_table_pagination
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``totalTickets`` -- the total number of tickets to be listed in pagination
-        - ``request`` -- the request
-        - ``limit`` -- the limit of tickets to display on the page
-        - ``previousPageStart`` -- the index of the previous page's first ticket
-        - ``numberOfButtonsToDisplay`` -- the total number of pagination buttons to display on any one page (must be odd number)
+    **Key Arguments**
 
-    **Return:**
-        - ``pagination`` -- the pagination to be displayed
+    - ``log`` -- the logger
+    - ``totalTickets`` -- the total number of tickets to be listed in pagination
+    - ``request`` -- the request
+    - ``limit`` -- the limit of tickets to display on the page
+    - ``previousPageStart`` -- the index of the previous page's first ticket
+    - ``numberOfButtonsToDisplay`` -- the total number of pagination buttons to display on any one page (must be odd number)
+    
+
+    **Return**
+
+    - ``pagination`` -- the pagination to be displayed
+    
     """
     routename = request.matched_route.name
     if "elementId" in request.matchdict:

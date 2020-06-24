@@ -5,15 +5,11 @@
 
 :Author:
     David Young
-
-:Date Created:
-    April 29, 2014
 """
 import sys
 import os
 import re
 import khufu
-
 
 def plot_wells(
         log,
@@ -22,12 +18,16 @@ def plot_wells(
 ):
     """The sofi/efosc imaging/spectra plot well for the stats page of the marshall
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
+    **Key Arguments**
 
-    **Return:**
-        - ``plotWells`` -- the sofi/efosc imaging/spectra plot well
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    
+
+    **Return**
+
+    - ``plotWells`` -- the sofi/efosc imaging/spectra plot well
+    
     """
 
     plotWells = ""
@@ -48,7 +48,6 @@ def plot_wells(
 
     return plotWells
 
-
 def _generate_plot_well(
         log,
         request,
@@ -57,15 +56,19 @@ def _generate_plot_well(
         releaseVersion):
     """ generate plot well
 
-    **Key Arguments:**
-        - ``log`` -- the logger
-        - ``request`` -- the pyramid request
-        - ``instrument``
-        - ``dataType``
-        - ``releaseVersion`` - the release versions to seperate
+    **Key Arguments**
 
-    **Return:**
-        - ``plotWell`` -- the well of plots
+    - ``log`` -- the logger
+    - ``request`` -- the pyramid request
+    - ``instrument``
+    - ``dataType``
+    - ``releaseVersion`` - the release versions to seperate
+    
+
+    **Return**
+
+    - ``plotWell`` -- the well of plots
+    
     """
     log.debug('starting the ``_generate_plot_well`` function')
 
