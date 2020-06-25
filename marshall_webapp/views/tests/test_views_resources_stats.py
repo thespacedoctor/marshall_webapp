@@ -14,52 +14,55 @@ packageDirectory = utKit("").get_project_root()
 # settingsFile = packageDirectory + "/test_settings.yaml"
 settingsFile = home + "/git_repos/_misc_/settings/marshall/test_settings.yaml"
 
-su = tools(
-    arguments={"settingsFile": settingsFile},
-    docString=__doc__,
-    logLevel="DEBUG",
-    options_first=False,
-    projectName=None,
-    defaultSettingsFile=False
-)
-arguments, settings, log, dbConn = su.setup()
+exists = os.path.exists(settingsFile)
+if exists:
+    su = tools(
+        arguments={"settingsFile": settingsFile},
+        docString=__doc__,
+        logLevel="DEBUG",
+        options_first=False,
+        projectName=None,
+        defaultSettingsFile=False
+    )
+    arguments, settings, log, dbConn = su.setup()
 
-# SETUP PATHS TO COMMON DIRECTORIES FOR TEST DATA
-moduleDirectory = os.path.dirname(__file__)
-pathToInputDir = moduleDirectory + "/input/"
-pathToOutputDir = moduleDirectory + "/output/"
+    # SETUP PATHS TO COMMON DIRECTORIES FOR TEST DATA
+    moduleDirectory = os.path.dirname(__file__)
+    pathToInputDir = moduleDirectory + "/input/"
+    pathToOutputDir = moduleDirectory + "/output/"
 
-try:
-    shutil.rmtree(pathToOutputDir)
-except:
-    pass
-# COPY INPUT TO OUTPUT DIR
-shutil.copytree(pathToInputDir, pathToOutputDir)
+    try:
+        shutil.rmtree(pathToOutputDir)
+    except:
+        pass
+    # COPY INPUT TO OUTPUT DIR
+    shutil.copytree(pathToInputDir, pathToOutputDir)
 
-# Recursively create missing directories
-if not os.path.exists(pathToOutputDir):
-    os.makedirs(pathToOutputDir)
+    # Recursively create missing directories
+    if not os.path.exists(pathToOutputDir):
+        os.makedirs(pathToOutputDir)
 
-# Recursively create missing directories
-if not os.path.exists("/tmp/marshall_webapp/static/caches/stats/phaseIII"):
-    os.makedirs("/tmp/marshall_webapp/static/caches/stats/phaseIII")
+    # Recursively create missing directories
+    if not os.path.exists("/tmp/marshall_webapp/static/caches/stats/phaseIII"):
+        os.makedirs("/tmp/marshall_webapp/static/caches/stats/phaseIII")
 
-# COMMON STATUS CODES
-# 200 OK
-# 301 Moved Permanently
-# 302 Found - possibly rediected
-# 304 Not Modified
-# 400 Bad Request
-# 403 Forbidden
-# 409 Conflict
-# 401 Unauthorized
-# 404 Not Found
-# 405 Method Not Allowed
-# 408 Request Timeout
-# 429 Too Many Requests
-# 500 Internal Server Error
-# 504 Gateway Timeout
-# 502 Bad Gateway
+    # COMMON STATUS CODES
+    # 200 OK
+    # 301 Moved Permanently
+    # 302 Found - possibly rediected
+    # 304 Not Modified
+    # 400 Bad Request
+    # 403 Forbidden
+    # 409 Conflict
+    # 401 Unauthorized
+    # 404 Not Found
+    # 405 Method Not Allowed
+    # 408 Request Timeout
+    # 429 Too Many Requests
+    # 500 Internal Server Error
+    # 504 Gateway Timeout
+    # 502 Bad Gateway
+
 
 class test_views_resources_stats(BaseTest):
 
