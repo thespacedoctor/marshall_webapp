@@ -108,6 +108,8 @@ class models_transients_get(base_model):
         tcsCatalogueId = self.tcsCatalogueId
         sqlWhereList = []
 
+        print(self.request.url)
+
         # SEARCH
         if self.search and "q" in self.request.params:
             searchString = self.request.params["q"]
