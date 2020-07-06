@@ -55,8 +55,6 @@ class test_views_resources_transients_element(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_views_reosurces_transients_element_get(self):
         # PARAM DICTIONARY = URL TOKENS
         params = {}

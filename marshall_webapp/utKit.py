@@ -2,8 +2,9 @@
 *Unit testing tools*
 """
 from fundamentals import utKit
-
+import time
 # OVERRIDES
+
 
 class utKit(utKit):
     """
@@ -68,7 +69,7 @@ class utKit(utKit):
         **Return**
 
         - ``rootPath`` -- the root path of a project
-        
+
         """
         import os
         rootPath = os.path.dirname(__file__)
@@ -92,6 +93,7 @@ class utKit(utKit):
             defaultSettingsFile=False
         )
         arguments, settings, log, dbConn = su.setup()
+
         directory_script_runner(
             log=log,
             pathToScriptDirectory=packageDirectory + "/tests/input",
