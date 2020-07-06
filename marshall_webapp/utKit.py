@@ -94,7 +94,7 @@ class utKit(utKit):
         )
         arguments, settings, log, dbConn = su.setup()
 
-        time.sleep(1)
+        time.sleep(20)
         directory_script_runner(
             log=log,
             pathToScriptDirectory=packageDirectory + "/tests/input",
