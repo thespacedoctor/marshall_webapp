@@ -75,6 +75,7 @@
    marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.survey_lightcurves_block
    marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_footer_bar
    marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar
+   marshall_webapp.utKit
    marshall_webapp.views.views_resources_members
    marshall_webapp.views.views_resources_stats
    marshall_webapp.views.views_resources_stats_element

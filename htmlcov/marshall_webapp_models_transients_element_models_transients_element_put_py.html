@@ -267,10 +267,10 @@
     <p id="t214" class="pln"><span class="n"><a href="#t214">214</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t215" class="pln"><span class="n"><a href="#t215">215</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t216" class="run"><span class="n"><a href="#t216">216</a></span><span class="t">        <span class="key">if</span> <span class="nam">oldPiName</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t217" class="run"><span class="n"><a href="#t217">217</a></span><span class="t">            <span class="nam">logEntry</span> <span class="op">=</span> <span class="str">"PI changed from %(oldPiName)s (%(oldPiEmail)s) to %(piName)s (%(piEmail)s) by %(username)s"</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t217" class="mis show_mis"><span class="n"><a href="#t217">217</a></span><span class="t">            <span class="nam">logEntry</span> <span class="op">=</span> <span class="str">"PI changed from %(oldPiName)s (%(oldPiEmail)s) to %(piName)s (%(piEmail)s) by %(username)s"</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t218" class="pln"><span class="n"><a href="#t218">218</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t219" class="pln"><span class="n"><a href="#t219">219</a></span><span class="t">        <span class="key">else</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t220" class="mis show_mis"><span class="n"><a href="#t220">220</a></span><span class="t">            <span class="nam">logEntry</span> <span class="op">=</span> <span class="str">"%(piName)s (%(piEmail)s) assigned as PI of this object by by %(username)s"</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t220" class="run"><span class="n"><a href="#t220">220</a></span><span class="t">            <span class="nam">logEntry</span> <span class="op">=</span> <span class="str">"%(piName)s (%(piEmail)s) assigned as PI of this object by by %(username)s"</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t221" class="pln"><span class="n"><a href="#t221">221</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t222" class="pln"><span class="n"><a href="#t222">222</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t223" class="run"><span class="n"><a href="#t223">223</a></span><span class="t">        <span class="nam">sqlQuery</span> <span class="op">=</span> <span class="str">u"""insert ignore into transients_history_logs (</span>&nbsp;</span><span class="r"></span></p>
@@ -378,7 +378,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.0</a>,
-            created at 2020-06-25 07:29
+            created at 2020-07-06 10:49
         </p>
     </div>
 </div>
