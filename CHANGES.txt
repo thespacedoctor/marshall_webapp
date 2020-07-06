@@ -1,9 +1,0 @@
-v2.6.6
-======
-
-* added astronote to the list of classification sources
-* fixed mod_wsgi log can't be pickled issue by adding empty logger
-* fixed issues with classification action in tickets that resulted in interal server errors
-* "atel queue" labels changed to "astronote queue"
-* default page title from "PESSTO Marshall" -> "ePESSTO+ Marshall"
-* a page resulting from a user search will show the search query string as the page title i.e. as the browser tab label
