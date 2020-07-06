@@ -69,10 +69,7 @@ class test_views_resources_members(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_views_resources_members_post(self):
-        utKit("").refresh_database()
         # PARAM DICTIONARY = URL TOKENS
         params = {}
 

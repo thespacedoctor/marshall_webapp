@@ -73,8 +73,6 @@ class test_views_transients_elements_akas(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_views_transients_element_akas_get(self):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
