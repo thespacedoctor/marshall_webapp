@@ -53,8 +53,6 @@ class test_views_services_calendars(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_views_services_calendars_get(self):
         params = {}
 
@@ -81,7 +79,6 @@ class test_views_services_calendars(BaseTest):
         self.assertEqual(respsonse.status_code, 404)
 
     def test_views_services_calendars_post(self):
-        utKit("").refresh_database()
         params = {}
         # STATUS = 302 ... REDIRECT AFTER POST
         respsonse = self.testapp.post(

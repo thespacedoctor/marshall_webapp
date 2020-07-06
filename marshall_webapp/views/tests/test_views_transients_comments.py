@@ -70,10 +70,7 @@ class test_views_transients_comments(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_01_views_transients_comments_post(self):
-        utKit("").refresh_database()
         # PARAM DICTIONARY = URL TOKENS
         params = {}
 
@@ -134,8 +131,6 @@ class test_views_transients_comments_elements(BaseTest):
 
         self.testSettings = settings
         self.settings = settings
-
-        utKit("").refresh_database()
 
     def test_views_transients_comments_element_get(self):
         # PARAM DICTIONARY = URL TOKENS

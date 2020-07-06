@@ -55,10 +55,7 @@ class test_views_resources_transients(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_01_views_resources_transients_post(self):
-        utKit("").refresh_database()
         params = {
             "objectName": "TestSource",
             "objectImageStamp": "http://thespacedoctor.co.uk/images/thespacedoctor_icon_white_circle.png",

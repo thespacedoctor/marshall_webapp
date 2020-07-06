@@ -73,10 +73,7 @@ class test_views_resources_stats(BaseTest):
         self.testSettings = settings
         self.settings = settings
 
-        utKit("").refresh_database()
-
     def test_01_views_resources_stats_post(self):
-        utKit("").refresh_database()
         # PARAM DICTIONARY = URL TOKENS
         params = {}
 

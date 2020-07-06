@@ -51,7 +51,6 @@ class test_views_services_index(BaseTest):
         self.testIni = moduleDirectory + "/../../../test.ini#marshall_webapp"
         self.testSettings = settings
         self.settings = settings
-        utKit("").refresh_database()
 
     def test_views_services_index_get(self):
         params = {}
