@@ -14,6 +14,7 @@ from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 from fundamentals import times
 
+
 def ticket_header_bar(
         log,
         request,
@@ -33,12 +34,12 @@ def ticket_header_bar(
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
     - ``lightcurveData`` -- the transient lightcurve data
     - ``objectHistories`` -- the object histories
-    
+
 
     **Return**
 
     - ``ticket_header_bar`` -- the ticket identity bar for the pesssto object
-    
+
     """
     log.debug('starting the ``ticket_header_bar`` function')
 
@@ -52,7 +53,7 @@ def ticket_header_bar(
         if len(lightcurveData) and (now - dataPoint["observationDate"] < datetime.timedelta(days=7)):
             currentMagEstimate = dataPoint["magnitude"]
     magWarning = None
-    if currentMagEstimate > 21.0:
+    if currentMagEstimate and currentMagEstimate > 21.0:
         magWarning = _get_magnitude_warning(
             log,
             currentMag=currentMagEstimate,
@@ -188,6 +189,7 @@ def ticket_header_bar(
 
     return topbar
 
+
 def _get_atel_warning(
         log,
         atelData,
@@ -199,12 +201,12 @@ def _get_atel_warning(
     - ``log`` -- logger
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
     - ``transientBucketId`` -the unquie id for the transient in the marshall database
-    
+
 
     **Return**
 
     - ``warning`` or None -- the atel warning
-    
+
     """
     log.debug('starting the ``_get_atel_warning`` function')
     ## VARIABLES ##
@@ -247,6 +249,7 @@ def _get_atel_warning(
     log.debug('completed the ``_get_atel_warning`` function')
     return None
 
+
 def _get_magnitude_warning(
         log,
         currentMag,
@@ -258,12 +261,12 @@ def _get_magnitude_warning(
     - ``log`` -- logger
     - ``currentMag`` -- the current magnitude estimate of the object
     - ``transientBucketId`` -the unquie id for the transient in the marshall database
-    
+
 
     **Return**
 
     - ``warning`` or None -- the atel warning
-    
+
     """
     log.debug('starting the ``_get_magnitude_warning`` function')
 
@@ -287,6 +290,7 @@ def _get_magnitude_warning(
     log.debug('completed the ``_get_magnitude_warning`` function')
     return None
 
+
 def _get_no_lsq_recalibrated_data_alert(
         log,
         lightcurveData,
@@ -298,12 +302,12 @@ def _get_no_lsq_recalibrated_data_alert(
     - ``log`` -- logger
     - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
     - ``lightcurveData`` -- the transient lightcurve data
-    
+
 
     **Return**
 
     - ``alert`` -- alert for when LSQ object has no recalibrated data yet
-    
+
     """
     log.debug('starting the ``_get_no_lsq_recalibrated_data_alert`` function')
 
@@ -325,6 +329,7 @@ def _get_no_lsq_recalibrated_data_alert(
     log.debug('completed the ``_get_no_lsq_recalibrated_data_alert`` function')
     return alert
 
+
 def _resurrected_object_warning(
         log,
         objectHistories,
@@ -336,12 +341,12 @@ def _resurrected_object_warning(
     - ``log`` -- logger
     - ``transientBucketId`` -- the transientBucketId
     - ``objectHistories`` -- the transient lightcurve data
-    
+
 
     **Return**
 
     - ``alert`` -- alert for when LSQ object has no recalibrated data yet
-    
+
     """
     log.debug('starting the ``_resurrected_object_warning`` function')
 
