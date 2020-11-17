@@ -145,11 +145,15 @@ def main(global_config, **settings):
         user = settings["database settings"]["user"]
         passwd = settings["database settings"]["password"]
         dbName = settings["database settings"]["db"]
+        port = False
+        if "port" in settings["database settings"]:
+            port = settings["database settings"]["port"]
         dbConn = ms.connect(
             host=host,
             user=user,
             passwd=passwd,
             db=dbName,
+            port=port,
             use_unicode=True,
             charset='utf8',
             local_infile=1,
