@@ -1,4 +1,4 @@
-views_resources_transients *(class)*
+﻿views_resources_transients *(class)*
 =====================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_resources_transients

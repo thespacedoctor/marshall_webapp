@@ -1,4 +1,4 @@
-topnavbar (*function*)
+﻿topnavbar (*function*)
 =========================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.topnavbar

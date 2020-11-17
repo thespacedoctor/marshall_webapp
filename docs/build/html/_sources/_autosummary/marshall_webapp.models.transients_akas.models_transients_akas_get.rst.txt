@@ -1,4 +1,4 @@
-models_transients_akas_get *(class)*
+﻿models_transients_akas_get *(class)*
 ===========================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_akas

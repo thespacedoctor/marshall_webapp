@@ -1,40 +1,31 @@
- *(module)*
+﻿transients_history *(module)*
 ====================================================
 
 
 
 .. automodule:: marshall_webapp.models.transients_history
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
+
+        
+
+
 
     
-    
-    .. rubric:: Sub-modules
 
-    .. autosummary::
+
     
-    
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

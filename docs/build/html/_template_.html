@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Syntax for Docs - REMOVE FROM LIVE DOCS &mdash; marshall_webapp v3.0.1 documentation</title>
+  <title>Syntax for Docs - REMOVE FROM LIVE DOCS &mdash; marshall_webapp v3.0.2 documentation</title>
   
 
   
@@ -112,7 +112,7 @@
             
             
               <div class="version">
-                v3.0.1
+                v3.0.2
               </div>
             
           
@@ -141,23 +141,44 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="initialisation.html">Initialisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="todolist.html">Todo List</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changes_link.html">Release Notes</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Syntax for Docs - REMOVE FROM LIVE DOCS</a><ul>
+<li><a class="reference internal" href="#autostructify">AutoStructify</a></li>
+<li><a class="reference internal" href="#embed-restructuredtext">Embed reStructuredText</a></li>
+<li><a class="reference internal" href="#code-url-resolver">Code URL Resolver</a></li>
+<li><a class="reference internal" href="#code-and-syntax-highlighting">Code and Syntax Highlighting</a></li>
+<li><a class="reference internal" href="#mermaid">Mermaid</a></li>
+<li><a class="reference internal" href="#flowchart">Flowchart</a></li>
+<li><a class="reference internal" href="#tables">Tables</a></li>
+<li><a class="reference internal" href="#definitions">Definitions</a></li>
+<li><a class="reference internal" href="#transclusion">Transclusion</a></li>
+<li><a class="reference internal" href="#linking-to-an-adjacent-file">Linking to an Adjacent File</a></li>
+<li><a class="reference internal" href="#math">Math</a></li>
+<li><a class="reference internal" href="#super-sub-scripts">Super/Sub Scripts</a></li>
+<li><a class="reference internal" href="#citations">Citations</a></li>
+<li><a class="reference internal" href="#criticmarkup">CriticMarkup</a></li>
+<li><a class="reference internal" href="#paragraphs">Paragraphs</a></li>
+<li><a class="reference internal" href="#cross-references">Cross References</a><ul>
+<li><a class="reference internal" href="#intro">Intro</a></li>
+<li><a class="reference internal" href="#conclusion--fin-">Conclusion [fin]</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="autosummary.html">Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="autosummary.html#classes">Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="autosummary.html#functions">Functions</a></li>
+</li>
+<li><a class="reference internal" href="#task-lists">Task Lists</a></li>
+<li><a class="reference internal" href="#footnote">Footnote</a></li>
+<li><a class="reference internal" href="#headers">Headers</a></li>
+<li><a class="reference internal" href="#emphasis">Emphasis</a></li>
+<li><a class="reference internal" href="#lists">Lists</a></li>
+<li><a class="reference internal" href="#links">Links</a></li>
+<li><a class="reference internal" href="#images">Images</a></li>
+<li><a class="reference internal" href="#blockquotes">Blockquotes</a></li>
+<li><a class="reference internal" href="#inline-html">Inline <abbr title = 'Hyper Text Markup Language'>HTML</abbr></a></li>
+<li><a class="reference internal" href="#abbreviations">Abbreviations</a></li>
+<li><a class="reference internal" href="#horizontal-rule">Horizontal Rule</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="genindex.html">A-Z Index</a></li>
+</li>
 </ul>
-
+</div>
             
           
         </div>
@@ -226,37 +247,37 @@
 <p>This is a template document giving an overview of the syntax that can be used throughout these docs.</p>
 <p><strong>Table of Contents</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="#autostructify.html">AutoStructify</a></p></li>
-<li><p><a class="reference external" href="#embed-restructuredtext.html">Embed reStructuredText</a></p></li>
-<li><p><a class="reference external" href="#code-url-resolver.html">Code URL Resolver</a></p></li>
-<li><p><a class="reference external" href="#code-and-syntax-highlighting.html">Code and Syntax Highlighting</a></p></li>
-<li><p><a class="reference external" href="#mermaid.html">Mermaid</a></p></li>
-<li><p><a class="reference external" href="#flowchart.html">Flowchart</a></p></li>
-<li><p><a class="reference external" href="#tables.html">Tables</a></p></li>
-<li><p><a class="reference external" href="#definitions.html">Definitions</a></p></li>
-<li><p><a class="reference external" href="#transclusion.html">Transclusion</a></p></li>
-<li><p><a class="reference external" href="#linking-to-an-adjacent-file.html">Linking to an Adjacent File</a></p></li>
-<li><p><a class="reference external" href="#math.html">Math</a></p></li>
-<li><p><a class="reference external" href="#supersub-scripts.html">Super/Sub Scripts</a></p></li>
-<li><p><a class="reference external" href="#citations.html">Citations</a></p></li>
-<li><p><a class="reference external" href="#criticmarkup.html">CriticMarkup</a></p></li>
-<li><p><a class="reference external" href="#paragraphs.html">Paragraphs</a></p></li>
-<li><p><a class="reference external" href="#cross-references.html">Cross References</a><ul>
-<li><p><a class="reference external" href="#intro.html">Intro</a></p></li>
-<li><p><a class="reference external" href="#conclusion-fin.html">Conclusion [fin]</a></p></li>
+<li><p><a class="reference external" href="#autostructify">AutoStructify</a></p></li>
+<li><p><a class="reference external" href="#embed-restructuredtext">Embed reStructuredText</a></p></li>
+<li><p><a class="reference external" href="#code-url-resolver">Code URL Resolver</a></p></li>
+<li><p><a class="reference external" href="#code-and-syntax-highlighting">Code and Syntax Highlighting</a></p></li>
+<li><p><a class="reference external" href="#mermaid">Mermaid</a></p></li>
+<li><p><a class="reference external" href="#flowchart">Flowchart</a></p></li>
+<li><p><a class="reference external" href="#tables">Tables</a></p></li>
+<li><p><a class="reference external" href="#definitions">Definitions</a></p></li>
+<li><p><a class="reference external" href="#transclusion">Transclusion</a></p></li>
+<li><p><a class="reference external" href="#linking-to-an-adjacent-file">Linking to an Adjacent File</a></p></li>
+<li><p><a class="reference external" href="#math">Math</a></p></li>
+<li><p><a class="reference external" href="#supersub-scripts">Super/Sub Scripts</a></p></li>
+<li><p><a class="reference external" href="#citations">Citations</a></p></li>
+<li><p><a class="reference external" href="#criticmarkup">CriticMarkup</a></p></li>
+<li><p><a class="reference external" href="#paragraphs">Paragraphs</a></p></li>
+<li><p><a class="reference external" href="#cross-references">Cross References</a><ul>
+<li><p><a class="reference external" href="#intro">Intro</a></p></li>
+<li><p><a class="reference external" href="#conclusion-fin">Conclusion [fin]</a></p></li>
 </ul>
 </p></li>
-<li><p><a class="reference external" href="#task-lists.html">Task Lists</a></p></li>
-<li><p><a class="reference external" href="#footnote.html">Footnote</a></p></li>
-<li><p><a class="reference external" href="#headers.html">Headers</a></p></li>
-<li><p><a class="reference external" href="#emphasis.html">Emphasis</a></p></li>
-<li><p><a class="reference external" href="#lists.html">Lists</a></p></li>
-<li><p><a class="reference external" href="#links.html">Links</a></p></li>
-<li><p><a class="reference external" href="#images.html">Images</a></p></li>
-<li><p><a class="reference external" href="#blockquotes.html">Blockquotes</a></p></li>
-<li><p><a class="reference external" href="#inline-html.html">Inline HTML</a></p></li>
-<li><p><a class="reference external" href="#abbreviations.html">Abbreviations</a></p></li>
-<li><p><a class="reference external" href="#horizontal-rule.html">Horizontal Rule</a></p></li>
+<li><p><a class="reference external" href="#task-lists">Task Lists</a></p></li>
+<li><p><a class="reference external" href="#footnote">Footnote</a></p></li>
+<li><p><a class="reference external" href="#headers">Headers</a></p></li>
+<li><p><a class="reference external" href="#emphasis">Emphasis</a></p></li>
+<li><p><a class="reference external" href="#lists">Lists</a></p></li>
+<li><p><a class="reference external" href="#links">Links</a></p></li>
+<li><p><a class="reference external" href="#images">Images</a></p></li>
+<li><p><a class="reference external" href="#blockquotes">Blockquotes</a></p></li>
+<li><p><a class="reference external" href="#inline-html">Inline HTML</a></p></li>
+<li><p><a class="reference external" href="#abbreviations">Abbreviations</a></p></li>
+<li><p><a class="reference external" href="#horizontal-rule">Horizontal Rule</a></p></li>
 </ul>
 <div class="section" id="autostructify">
 <h2>AutoStructify<a class="headerlink" href="#autostructify" title="Permalink to this headline">  ∞</a></h2>
@@ -265,11 +286,10 @@
 </div>
 <div class="section" id="embed-restructuredtext">
 <h2>Embed reStructuredText<a class="headerlink" href="#embed-restructuredtext" title="Permalink to this headline">  ∞</a></h2>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<ul class="simple">
-<li><p>nice!</p></li>
-</ul>
+<div class="highlight-language-eval_rst notranslate"><div class="highlight"><pre><span></span>.. todo::
+
+    - nice!
+</pre></div>
 </div>
 </div>
 <div class="section" id="code-url-resolver">
@@ -279,13 +299,13 @@
 <div class="section" id="code-and-syntax-highlighting">
 <h2>Code and Syntax Highlighting<a class="headerlink" href="#code-and-syntax-highlighting" title="Permalink to this headline">  ∞</a></h2>
 <p>Inline <code class="docutils literal notranslate"><span class="pre">code</span></code> has <code class="docutils literal notranslate"><span class="pre">back-ticks</span> <span class="pre">around</span></code> it.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;JavaScript syntax highlighting&quot;</span><span class="p">;</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+<div class="highlight-language-javascript notranslate"><div class="highlight"><pre><span></span>var s = &quot;JavaScript syntax highlighting&quot;;
+alert(s);
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Python syntax highlighting&quot;</span>
-<span class="nb">print</span> <span class="n">s</span>
-<span class="n">myString</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;&quot;&quot;</span>
+<div class="highlight-language-python notranslate"><div class="highlight"><pre><span></span>s = &quot;Python syntax highlighting&quot;
+print s
+myString = &quot;&quot;&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;&quot;&quot;
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="n">language</span> <span class="n">indicated</span><span class="p">,</span> <span class="n">so</span> <span class="n">no</span> <span class="n">syntax</span> <span class="n">highlighting</span><span class="o">.</span> 
@@ -295,7 +315,7 @@
 </div>
 <div class="section" id="mermaid">
 <h2>Mermaid<a class="headerlink" href="#mermaid" title="Permalink to this headline">  ∞</a></h2>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>gantt
+<div class="highlight-language-mermaid notranslate"><div class="highlight"><pre><span></span>gantt
         dateFormat  YYYY-MM-DD
         title Adding GANTT diagram functionality to mermaid
         section A section
@@ -315,7 +335,7 @@
 </div>
 <div class="section" id="flowchart">
 <h2>Flowchart<a class="headerlink" href="#flowchart" title="Permalink to this headline">  ∞</a></h2>
-<div class="highlight-flow notranslate"><div class="highlight"><pre><span></span>s=&gt;start: start
+<div class="highlight-language-flow notranslate"><div class="highlight"><pre><span></span>s=&gt;start: start
 e=&gt;end: end
 o=&gt;operation: operation
 sr=&gt;subroutine: subroutine
@@ -366,17 +386,20 @@ p(path2, top)-&gt;o
 <div class="section" id="transclusion">
 <h2>Transclusion<a class="headerlink" href="#transclusion" title="Permalink to this headline">  ∞</a></h2>
 <p>If MMD transclusion is working you will see usage instructions here:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>    Documentation <span class="k">for</span> marshall_webapp can be found here: http://marshall_webapp.readthedocs.org
+<div class="highlight-language-bash notranslate"><div class="highlight"><pre><span></span>
+    Documentation for marshall_webapp can be found here: http://marshall_webapp.readthedocs.org
 
     Usage:
         marshall_webapp init
-        marshall_webapp <span class="o">[</span>-s &lt;pathToSettingsFile&gt;<span class="o">]</span>
+        marshall_webapp [-s &lt;pathToSettingsFile&gt;]
 
     Options:
-        init                                   setup the marshall_webapp settings file <span class="k">for</span> the first <span class="nb">time</span>
-        -h, --help                             show this <span class="nb">help</span> message
+        init                                   setup the marshall_webapp settings file for the first time
+        -h, --help                             show this help message
         -v, --version                          show version
         -s, --settings &lt;pathToSettingsFile&gt;    the settings file
+
+
 </pre></div>
 </div>
 <p>If iA transclusion is working you will see a unicorn here:</p>
@@ -401,8 +424,8 @@ p(path2, top)-&gt;o
 </div>
 <div class="section" id="citations">
 <h2>Citations<a class="headerlink" href="#citations" title="Permalink to this headline">  ∞</a></h2>
-<p>Cite a source.[p. 42]<sup id="fnref:cite20200121"><a class="reference external" href="#fn:cite20200121.html">1</a></sup></p>
-<p>Black (2015)<sup id="fnref:citeBlack:2015tz"><a class="reference external" href="#fn:citeBlack:2015tz.html">2</a></sup></p>
+<p>Cite a source.[p. 42]<sup id="fnref:cite20200121"><a class="reference external" href="#fn:cite20200121">1</a></sup></p>
+<p>Black (2015)<sup id="fnref:citeBlack:2015tz"><a class="reference external" href="#fn:citeBlack:2015tz">2</a></sup></p>
 </div>
 <div class="section" id="criticmarkup">
 <h2>CriticMarkup<a class="headerlink" href="#criticmarkup" title="Permalink to this headline">  ∞</a></h2>
@@ -428,7 +451,7 @@ p(path2, top)-&gt;o
 <h3>Conclusion [fin]<a class="headerlink" href="#conclusion--fin-" title="Permalink to this headline">  ∞</a></h3>
 <p>Link to [Intro].</p>
 <p>Link to the [end][fin].</p>
-<p>Link to <a class="reference external" href="#task-lists.html">Task Lists</a></p>
+<p>Link to <a class="reference external" href="#task-lists">Task Lists</a></p>
 </div>
 </div>
 <div class="section" id="task-lists">
@@ -440,7 +463,7 @@ p(path2, top)-&gt;o
 </div>
 <div class="section" id="footnote">
 <h2>Footnote<a class="headerlink" href="#footnote" title="Permalink to this headline">  ∞</a></h2>
-<p>Here’s a sentence with a footnote<sup id="fnref:1"><a class="reference external" href="#fn:1.html">3</a></sup> in the middle of it!</p>
+<p>Here’s a sentence with a footnote<sup id="fnref:1"><a class="reference external" href="#fn:1">3</a></sup> in the middle of it!</p>
 </div>
 <div class="section" id="headers">
 <h2>Headers<a class="headerlink" href="#headers" title="Permalink to this headline">  ∞</a></h2>
@@ -490,7 +513,7 @@ Strikethrough uses two tildes. <del>Scratch this.</del>     </p>
 <p><a class="reference external" href="https://www.google.com">I’m an inline-style link</a></p>
 <p><a class="reference external" href="https://www.google.com">I’m an inline-style link with title</a></p>
 <p><a class="reference external" href="https://www.mozilla.org">I’m a reference-style link</a></p>
-<p><a class="reference external" href="../blob/master/LICENSE.html">I’m a relative reference to a repository file</a></p>
+<p><a class="reference external" href="../blob/master/LICENSE">I’m a relative reference to a repository file</a></p>
 <p><a class="reference external" href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
 <p>Or leave it empty and use the <a class="reference external" href="http://www.reddit.com">link text itself</a>.</p>
 <p>URLs and URLs in angle brackets will automatically get turned into links. 
@@ -537,9 +560,9 @@ This line is part of the same quote.</p>
 <p>Hyphens</p>
 <hr class="docutils" />
 <ol class="simple">
-<li id="fn:cite20200121"><p>John Doe. <em>A Totally Fake Book</em>. Vanity Press, 2006. <a class="reference external" href="#fnref:cite20200121.html">↩</a></p></li>
-<li id="fn:citeBlack:2015tz"><p>A Bryden Black 2015, <em>The Lion, the Dove, &amp; the Lamb</em>, Wipf and Stock Publishers <a class="reference external" href="#fnref:citeBlack:2015tz.html">↩</a></p></li>
-<li id="fn:1"><p>This is the footnote. <a class="reference external" href="#fnref:1.html">↩</a></p></li>
+<li id="fn:cite20200121"><p>John Doe. <em>A Totally Fake Book</em>. Vanity Press, 2006. <a class="reference external" href="#fnref:cite20200121">↩</a></p></li>
+<li id="fn:citeBlack:2015tz"><p>A Bryden Black 2015, <em>The Lion, the Dove, &amp; the Lamb</em>, Wipf and Stock Publishers <a class="reference external" href="#fnref:citeBlack:2015tz">↩</a></p></li>
+<li id="fn:1"><p>This is the footnote. <a class="reference external" href="#fnref:1">↩</a></p></li>
 </ol>
 </div>
 </div>

@@ -1,50 +1,47 @@
- *(module)*
+﻿classify_object_form *(module)*
 ==============================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.forms.classify_object_form
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+    .. rubric:: Classes
+
+    .. autosummary::
+
+        
+          ~date
+          ~datetime
+          ~time
+        
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~classify_object_form
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~classify_object_form (nice)
-       
-    
-    
+          ~classify_object_form
+        
+        
+
+
     
     

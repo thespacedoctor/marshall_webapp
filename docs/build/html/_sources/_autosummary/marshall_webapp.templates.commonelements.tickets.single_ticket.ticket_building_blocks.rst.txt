@@ -1,40 +1,31 @@
- *(module)*
+﻿ticket_building_blocks *(module)*
 ================================================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
+
+        
+
+
 
     
-    
-    .. rubric:: Sub-modules
 
-    .. autosummary::
+
     
-    
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

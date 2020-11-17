@@ -1,40 +1,39 @@
- *(module)*
+﻿esophaseIII *(module)*
 =====================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.stats.esophaseIII
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
+
+        
+
+
 
     
+
+
     
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+        
+          ~plot_wells
+          ~ssdr_stats_table
+        
+        
+
+
     
     

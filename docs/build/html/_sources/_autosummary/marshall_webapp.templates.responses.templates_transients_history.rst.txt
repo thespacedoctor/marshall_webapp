@@ -1,4 +1,4 @@
-templates_transients_history *(class)*
+﻿templates_transients_history *(class)*
 ==========================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

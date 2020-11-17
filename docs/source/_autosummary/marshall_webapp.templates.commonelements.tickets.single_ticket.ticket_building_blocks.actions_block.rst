@@ -1,57 +1,47 @@
- *(module)*
+﻿actions_block *(module)*
 ==============================================================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.actions_block
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+    .. rubric:: Classes
+
+    .. autosummary::
+
+        
+          ~date
+          ~datetime
+          ~time
+        
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~actions_block
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~actions_block (nice)
-       
-    
-    
+          ~actions_block
+        
+        
+
+
     
     

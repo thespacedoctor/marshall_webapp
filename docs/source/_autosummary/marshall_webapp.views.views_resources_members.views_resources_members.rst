@@ -1,4 +1,4 @@
-views_resources_members *(class)*
+﻿views_resources_members *(class)*
 ===============================================================================
 
 .. currentmodule:: marshall_webapp.views.views_resources_members

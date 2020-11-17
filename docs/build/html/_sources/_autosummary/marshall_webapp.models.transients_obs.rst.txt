@@ -1,40 +1,38 @@
- *(module)*
+﻿transients_obs *(module)*
 ================================================
 
 
 
 .. automodule:: marshall_webapp.models.transients_obs
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Classes
 
     .. autosummary::
+
+        
+          ~models_transients_obs_get
+        
+
+        
+
+
+
     
+
+
     
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

@@ -1,4 +1,4 @@
-views_xmatches_searches *(class)*
+﻿views_xmatches_searches *(class)*
 ===============================================================================
 
 .. currentmodule:: marshall_webapp.views.views_xmatches_searches

@@ -1,40 +1,41 @@
- *(module)*
+﻿element *(module)*
 =============================================================
 
 
 
 .. automodule:: marshall_webapp.models.xmatches_catalogues.element
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Classes
 
     .. autosummary::
+
+        
+          ~models_xmatches_element_catalogues_delete
+          ~models_xmatches_element_catalogues_get
+          ~models_xmatches_element_catalogues_post
+          ~models_xmatches_element_catalogues_put
+        
+
+        
+
+
+
     
+
+
     
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

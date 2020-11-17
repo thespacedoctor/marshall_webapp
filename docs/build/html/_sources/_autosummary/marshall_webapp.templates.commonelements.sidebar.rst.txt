@@ -1,40 +1,40 @@
- *(module)*
+﻿sidebar *(module)*
 ===========================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.sidebar
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
+
+        
+
+
 
     
+
+
     
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+        
+          ~marshall_sidebar
+          ~stats_sidebar
+          ~xmatches_sidebar
+        
+        
+
+
     
     

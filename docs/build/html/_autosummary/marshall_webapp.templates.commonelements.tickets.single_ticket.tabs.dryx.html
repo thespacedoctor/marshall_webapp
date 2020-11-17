@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; marshall_webapp v3.0.1 documentation</title>
+  <title>dryx (module) &mdash; marshall_webapp v3.0.2 documentation</title>
   
 
   
@@ -47,8 +47,6 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.history.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.development.html" />
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
           messageStyle: "none",
@@ -114,7 +112,7 @@
             
             
               <div class="version">
-                v3.0.1
+                v3.0.2
               </div>
             
           
@@ -143,23 +141,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../initialisation.html">Initialisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../todolist.html">Todo List</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changes_link.html">Release Notes</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">dryx <em>(module)</em></a></li>
 </ul>
-<p class="caption"><span class="caption-text">API reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../autosummary.html">Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../autosummary.html#classes">Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../autosummary.html#functions">Functions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">A-Z Index</a></li>
-</ul>
-
+</div>
             
           
         </div>
@@ -204,9 +190,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../autosummary.html">Modules</a> &raquo;</li>
-        
-      <li>&lt;no title&gt;</li>
+      <li>dryx <em>(module)</em></li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -225,11 +209,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <blockquote>
-<div><p><em>(module)</em></p>
-</div></blockquote>
-<hr class="docutils" />
-<span class="target" id="module-marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx"></span><p><em>The dryx tab for the PESSTO Object tickets</em></p>
+  <div class="section" id="module-marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx">
+<span id="dryx-module"></span><h1>dryx <em>(module)</em><a class="headerlink" href="#module-marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx" title="Permalink to this headline">  ∞</a></h1>
+<p><em>The dryx tab for the PESSTO Object tickets</em></p>
 <dl class="field-list simple">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>David Young</p>
@@ -247,52 +229,13 @@
 </tr>
 </tbody>
 </table>
-<p class="rubric">Sub-modules</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx.dryx_tab.html#marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx.dryx_tab" title="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx.dryx_tab"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dryx_tab</span></code></a>(log, request, …)</p></td>
-<td><p>dryx tab</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py function">
-<dt id="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx.dryx_tab">
-<code class="sig-name descname">dryx_tab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">discoveryDataDictionary</span></em>, <em class="sig-param"><span class="n">objectAkas</span></em>, <em class="sig-param"><span class="n">atelData</span></em>, <em class="sig-param"><span class="n">objectHistories</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/tabs/dryx/dryx_tab.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx.dryx_tab" title="Permalink to this definition">  ∞</a></dt>
-<dd><p>dryx tab</p>
-<p><strong>Key Arguments</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">log</span></code> – logger</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">request</span></code> – the pyramid request</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">discoveryDataDictionary</span></code> – the unique discoveryData dictionary of the object in the pessto marshall database (from view_object_contextual_data)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">objectAkas</span></code> – object akas</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">objectHistories</span></code> – the lightcurve data for the objects displayed on the webpage</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">atelData</span></code> – the atel matches for the objects displayed on the webpage</p></li>
-</ul>
-<p><strong>Return</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">dryx_tab</span></code> – for each transient ticket in the transient listings pages</p></li>
-</ul>
-</dd></dl>
-
+</div>
 
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.history.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.development.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

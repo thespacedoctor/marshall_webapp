@@ -1,50 +1,38 @@
- *(module)*
+﻿dryx *(module)*
 ===================================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~dryx_tab
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~dryx_tab (nice)
-       
-    
-    
+          ~dryx_tab
+        
+        
+
+
     
     

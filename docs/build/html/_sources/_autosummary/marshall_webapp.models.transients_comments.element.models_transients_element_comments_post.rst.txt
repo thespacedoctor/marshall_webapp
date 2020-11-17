@@ -1,4 +1,4 @@
-models_transients_element_comments_post *(class)*
+﻿models_transients_element_comments_post *(class)*
 ====================================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_comments.element

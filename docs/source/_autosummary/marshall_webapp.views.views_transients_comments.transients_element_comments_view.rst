@@ -1,4 +1,4 @@
-transients_element_comments_view *(class)*
+﻿transients_element_comments_view *(class)*
 ==========================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_transients_comments

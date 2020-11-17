@@ -1,4 +1,4 @@
-views_services_calendars *(class)*
+﻿views_services_calendars *(class)*
 =================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_services_calendars

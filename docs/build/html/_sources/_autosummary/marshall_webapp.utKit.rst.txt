@@ -1,51 +1,38 @@
- *(module)*
+﻿utKit *(module)*
 ================================
 
 
 
 .. automodule:: marshall_webapp.utKit
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~utKit
-    
-    
+
+        
+          ~utKit
+        
+
+        
+
+
 
     
-    
-    
 
-    
-    
-    
 
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
     
         
-            ~utKit (nice)
-       
-    
-    
+
+
     
     

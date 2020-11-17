@@ -1,50 +1,52 @@
- *(module)*
+﻿views_resources_stats_element *(module)*
 ==============================================================
 
 
 
 .. automodule:: marshall_webapp.views.views_resources_stats_element
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~views_resources_stats_element
-    
-    
+
+        
+          ~Response
+          ~base_element_view
+          ~lift
+          ~models_stats_get
+          ~object
+          ~templates_resource_stats
+          ~view_config
+          ~views_resources_stats_element
+        
+
+        
+
+
 
     
-    
-    
+
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
+
         
-            ~views_resources_stats_element (nice)
-       
-    
-    
+          ~view_defaults
+        
+        
+
+
     
     

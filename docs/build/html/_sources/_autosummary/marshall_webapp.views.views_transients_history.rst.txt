@@ -1,50 +1,54 @@
- *(module)*
+﻿views_transients_history *(module)*
 =========================================================
 
 
 
 .. automodule:: marshall_webapp.views.views_transients_history
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~views_transients_history
-    
-    
+
+        
+          ~Response
+          ~base_view
+          ~lift
+          ~models_transients_element_history_delete
+          ~models_transients_element_history_post
+          ~models_transients_element_history_put
+          ~object
+          ~templates_transients_history
+          ~view_config
+          ~views_transients_history
+        
+
+        
+
+
 
     
-    
-    
+
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
+
         
-            ~views_transients_history (nice)
-       
-    
-    
+          ~view_defaults
+        
+        
+
+
     
     

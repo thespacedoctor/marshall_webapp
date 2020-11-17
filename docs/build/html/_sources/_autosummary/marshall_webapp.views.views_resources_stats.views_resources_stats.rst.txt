@@ -1,4 +1,4 @@
-views_resources_stats *(class)*
+﻿views_resources_stats *(class)*
 ===========================================================================
 
 .. currentmodule:: marshall_webapp.views.views_resources_stats

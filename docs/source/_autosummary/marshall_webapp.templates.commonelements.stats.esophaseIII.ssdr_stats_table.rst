@@ -1,4 +1,4 @@
-ssdr_stats_table (*function*)
+﻿ssdr_stats_table (*function*)
 ========================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.stats.esophaseIII

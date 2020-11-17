@@ -1,4 +1,4 @@
-views_services_refresh_sidebar_list_counts *(class)*
+﻿views_services_refresh_sidebar_list_counts *(class)*
 =====================================================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_services_refresh_sidebar_list_counts

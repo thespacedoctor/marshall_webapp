@@ -1,50 +1,53 @@
- *(module)*
+﻿views_transients_obs *(module)*
 =====================================================
 
 
 
 .. automodule:: marshall_webapp.views.views_transients_obs
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~views_transients_obs
-    
-    
+
+        
+          ~Response
+          ~base_view
+          ~lift
+          ~models_transients_element_obs_get
+          ~object
+          ~str
+          ~templates_transients_obs
+          ~view_config
+          ~views_transients_obs
+        
+
+        
+
+
 
     
-    
-    
+
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
+
         
-            ~views_transients_obs (nice)
-       
-    
-    
+          ~view_defaults
+        
+        
+
+
     
     

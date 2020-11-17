@@ -1,50 +1,49 @@
- *(module)*
+﻿generate_ob_form *(module)*
 ==========================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.forms.generate_ob_form
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+    .. rubric:: Classes
+
+    .. autosummary::
+
+        
+          ~date
+          ~datetime
+          ~str
+          ~time
+        
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~generate_ob_form
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~generate_ob_form (nice)
-       
-    
-    
+          ~generate_ob_form
+          ~lcb
+        
+        
+
+
     
     

@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; marshall_webapp v3.0.1 documentation</title>
+  <title>utKit (module) &mdash; marshall_webapp v3.0.2 documentation</title>
   
 
   
@@ -47,8 +47,6 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="marshall_webapp.views.views_resources_members.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.html" />
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
           messageStyle: "none",
@@ -114,7 +112,7 @@
             
             
               <div class="version">
-                v3.0.1
+                v3.0.2
               </div>
             
           
@@ -143,23 +141,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../initialisation.html">Initialisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../todolist.html">Todo List</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../changes_link.html">Release Notes</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">utKit <em>(module)</em></a></li>
 </ul>
-<p class="caption"><span class="caption-text">API reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../autosummary.html">Modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../autosummary.html#classes">Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../autosummary.html#functions">Functions</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">A-Z Index</a></li>
-</ul>
-
+</div>
             
           
         </div>
@@ -204,9 +190,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../autosummary.html">Modules</a> &raquo;</li>
-        
-      <li>&lt;no title&gt;</li>
+      <li>utKit <em>(module)</em></li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -225,11 +209,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <blockquote>
-<div><p><em>(module)</em></p>
-</div></blockquote>
-<hr class="docutils" />
-<span class="target" id="module-marshall_webapp.utKit"></span><p><em>Unit testing tools</em></p>
+  <div class="section" id="module-marshall_webapp.utKit">
+<span id="utkit-module"></span><h1>utKit <em>(module)</em><a class="headerlink" href="#module-marshall_webapp.utKit" title="Permalink to this headline">  ∞</a></h1>
+<p><em>Unit testing tools</em></p>
 <p class="rubric">Classes</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -242,84 +224,13 @@
 </tr>
 </tbody>
 </table>
-<p class="rubric">Sub-modules</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="marshall_webapp.utKit.utKit.html#marshall_webapp.utKit.utKit" title="marshall_webapp.utKit.utKit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utKit</span></code></a>(moduleDirectory[, dbConn])</p></td>
-<td><p><em>Override dryx utKit</em></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py class">
-<dt id="marshall_webapp.utKit.utKit">
-<em class="property">class </em><code class="sig-name descname">utKit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">moduleDirectory</span></em>, <em class="sig-param"><span class="n">dbConn</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit" title="Permalink to this definition">  ∞</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">fundamentals.utKit.utKit</span></code></p>
-<p><em>Override dryx utKit</em></p>
-<dl class="py method">
-<dt id="marshall_webapp.utKit.utKit.get_project_root">
-<code class="sig-name descname">get_project_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.get_project_root.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.get_project_root" title="Permalink to this definition">  ∞</a></dt>
-<dd><p><em>Get the root of the ``python`` package - useful for getting files in the root directory of a project</em></p>
-<p><strong>Return</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">rootPath</span></code> – the root path of a project</p></li>
-</ul>
-</dd></dl>
-
-<dl class="py method">
-<dt id="marshall_webapp.utKit.utKit.refresh_database">
-<code class="sig-name descname">refresh_database</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.refresh_database.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.refresh_database" title="Permalink to this definition">  ∞</a></dt>
-<dd><p><em>Refresh the unit test database</em></p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="marshall_webapp.utKit.utKit.setupModule">
-<code class="sig-name descname">setupModule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.setupModule.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.setupModule" title="Permalink to this definition">  ∞</a></dt>
-<dd><p><em>The setupModule method</em></p>
-<p><strong>Return</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">log</span></code> – a logger</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dbConn</span></code> – a database connection to a test database (details from yaml settings file)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pathToInputDir</span></code> – path to modules own test input directory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pathToOutputDir</span></code> – path to modules own test output directory</p></li>
-</ul>
-</dd></dl>
-
-<dl class="py method">
-<dt id="marshall_webapp.utKit.utKit.tearDownModule">
-<code class="sig-name descname">tearDownModule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.tearDownModule.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.tearDownModule" title="Permalink to this definition">  ∞</a></dt>
-<dd><p><em>The tearDownModule method</em></p>
-<p><strong>Key Arguments</strong></p>
-<ul class="simple">
-<li></li>
-</ul>
-<p>=</p>
-<p><strong>Return</strong></p>
-<ul class="simple">
-<li><p>None</p></li>
-</ul>
-</dd></dl>
-
-</dd></dl>
-
+</div>
 
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="marshall_webapp.views.views_resources_members.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

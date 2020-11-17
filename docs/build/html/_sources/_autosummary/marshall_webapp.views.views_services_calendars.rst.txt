@@ -1,50 +1,52 @@
- *(module)*
+﻿views_services_calendars *(module)*
 =========================================================
 
 
 
 .. automodule:: marshall_webapp.views.views_services_calendars
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~views_services_calendars
-    
-    
+
+        
+          ~Response
+          ~base_view
+          ~lift
+          ~object
+          ~str
+          ~templates_services_calendars
+          ~view_config
+          ~views_services_calendars
+        
+
+        
+
+
 
     
-    
-    
+
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
+
         
-            ~views_services_calendars (nice)
-       
-    
-    
+          ~view_defaults
+        
+        
+
+
     
     

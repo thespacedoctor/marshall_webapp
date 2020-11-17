@@ -1,4 +1,4 @@
-templates_transients_comments *(class)*
+﻿templates_transients_comments *(class)*
 ===========================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

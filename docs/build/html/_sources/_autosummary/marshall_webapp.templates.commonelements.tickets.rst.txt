@@ -1,40 +1,31 @@
- *(module)*
+﻿tickets *(module)*
 ===========================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.tickets
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
+
+        
+
+
 
     
-    
-    .. rubric:: Sub-modules
 
-    .. autosummary::
+
     
-    
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

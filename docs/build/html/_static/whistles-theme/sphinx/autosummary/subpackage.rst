@@ -1,4 +1,4 @@
-{{ objname }} *(aasdasd)*
+{{ objname }} *(module)*
 {{ underline }}===============
 
 .. automodule:: {{ fullname }}

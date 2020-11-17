@@ -1,4 +1,4 @@
-view_switcher_buttons (*function*)
+﻿view_switcher_buttons (*function*)
 =================================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.view_switcher_buttons

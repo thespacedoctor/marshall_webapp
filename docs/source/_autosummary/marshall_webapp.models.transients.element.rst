@@ -1,40 +1,39 @@
- *(module)*
+﻿element *(module)*
 ====================================================
 
 
 
 .. automodule:: marshall_webapp.models.transients.element
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Classes
 
     .. autosummary::
+
+        
+          ~models_transients_element_post
+          ~models_transients_element_put
+        
+
+        
+
+
+
     
+
+
     
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

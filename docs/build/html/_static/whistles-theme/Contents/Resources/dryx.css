@@ -47,6 +47,13 @@
     margin-bottom: 0px!important;
 }
 
+.rst-content img {
+    max-width: 1024px;  !important;
+}
+
+.rst-content a code, .rst-content a tt {
+    color: #af1e1c !important;
+}
 
 
 #rtd-search-form {

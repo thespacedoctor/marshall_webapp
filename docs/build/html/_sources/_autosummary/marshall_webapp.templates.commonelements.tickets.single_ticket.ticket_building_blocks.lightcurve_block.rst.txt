@@ -1,50 +1,38 @@
- *(module)*
+﻿lightcurve_block *(module)*
 =================================================================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~lightcurve_block
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~lightcurve_block (nice)
-       
-    
-    
+          ~lightcurve_block
+        
+        
+
+
     
     

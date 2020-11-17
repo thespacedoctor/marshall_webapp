@@ -1,4 +1,4 @@
-views_transients_obs *(class)*
+﻿views_transients_obs *(class)*
 =========================================================================
 
 .. currentmodule:: marshall_webapp.views.views_transients_obs

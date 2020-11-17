@@ -1,50 +1,51 @@
- *(module)*
+﻿views_resources_transients_element_akas *(module)*
 ========================================================================
 
 
 
 .. automodule:: marshall_webapp.views.views_resources_transients_element_akas
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~transients_element_view
-    
-    
+
+        
+          ~Response
+          ~base_element_view
+          ~lift
+          ~models_transients_akas_get
+          ~object
+          ~transients_element_view
+          ~view_config
+        
+
+        
+
+
 
     
-    
-    
+
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
+
         
-            ~transients_element_view (nice)
-       
-    
-    
+          ~view_defaults
+        
+        
+
+
     
     

@@ -1,4 +1,4 @@
-generate_ob_form (*function*)
+﻿generate_ob_form (*function*)
 =============================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.forms.generate_ob_form

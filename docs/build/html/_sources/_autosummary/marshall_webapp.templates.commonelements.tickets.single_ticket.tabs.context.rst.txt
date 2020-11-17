@@ -1,60 +1,39 @@
- *(module)*
+﻿context *(module)*
 ======================================================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.context
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~context_footer_bar
-      ~context_tab
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~context_footer_bar (nice)
-       
-    
-    
+          ~context_footer_bar
+          ~context_tab
         
-            ~context_tab (nice)
-       
-    
-    
+        
+
+
     
     

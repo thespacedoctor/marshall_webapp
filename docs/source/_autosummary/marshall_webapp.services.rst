@@ -1,40 +1,38 @@
- *(module)*
+﻿services *(module)*
 ===================================
 
 
 
 .. automodule:: marshall_webapp.services
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Classes
 
     .. autosummary::
+
+        
+          ~services_refresh_sidebar_list_counts
+        
+
+        
+
+
+
     
+
+
     
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

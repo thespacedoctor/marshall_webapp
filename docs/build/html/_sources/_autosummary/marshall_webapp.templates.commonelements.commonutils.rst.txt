@@ -1,56 +1,39 @@
- *(module)*
+﻿commonutils *(module)*
 ===============================================================
 
 
 
 .. automodule:: marshall_webapp.templates.commonelements.commonutils
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
+
+
+    
+
+    
+
+        
+
+
+
+    
+
+
     
     .. rubric:: Functions
 
     .. autosummary::
-    
-      ~block_title
-      ~little_label
-    
-    
 
-    
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
-
-    .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
         
-            ~block_title (nice)
-       
-    
-    
+          ~block_title
+          ~little_label
         
-            ~little_label (nice)
-       
-    
-    
+        
+
+
     
     

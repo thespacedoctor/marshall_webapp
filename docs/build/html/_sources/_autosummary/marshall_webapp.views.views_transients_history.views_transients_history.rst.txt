@@ -1,4 +1,4 @@
-views_transients_history *(class)*
+﻿views_transients_history *(class)*
 =================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_transients_history

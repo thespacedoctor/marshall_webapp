@@ -1,56 +1,55 @@
- *(module)*
+﻿views_transients_context *(module)*
 =========================================================
 
 
 
 .. automodule:: marshall_webapp.views.views_transients_context
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
+
+
     
     
+
+    
+
+
+    
+
     
     .. rubric:: Classes
 
     .. autosummary::
-    
-      ~transients_element_context_view
-      ~views_transients_context
-    
-    
+
+        
+          ~Response
+          ~base_view
+          ~lift
+          ~models_transients_element_context_delete
+          ~models_transients_element_context_post
+          ~models_transients_element_context_put
+          ~object
+          ~templates_transients_context
+          ~transients_element_context_view
+          ~view_config
+          ~views_transients_context
+        
+
+        
+
+
 
     
-    
-    
+
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Functions
 
     .. autosummary::
-    
-    
-    
-    
-    
-    
-    
-    
+
         
-            ~transients_element_context_view (nice)
-       
-    
-    
+          ~view_defaults
         
-            ~views_transients_context (nice)
-       
-    
-    
+        
+
+
     
     

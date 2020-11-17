@@ -1,4 +1,4 @@
-views_resources_transients_akas *(class)*
+﻿views_resources_transients_akas *(class)*
 ===============================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_resources_transients_akas

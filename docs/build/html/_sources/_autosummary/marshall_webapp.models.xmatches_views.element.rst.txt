@@ -1,40 +1,41 @@
- *(module)*
+﻿element *(module)*
 ========================================================
 
 
 
 .. automodule:: marshall_webapp.models.xmatches_views.element
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :inherited-members:
-    :member-order: groupwise
-    
-    
+
+
     
     
 
     
-    
+
+
     
 
     
-    
-    
-
-    
-    
-    .. rubric:: Sub-modules
+    .. rubric:: Classes
 
     .. autosummary::
+
+        
+          ~models_xmatches_element_views_delete
+          ~models_xmatches_element_views_get
+          ~models_xmatches_element_views_post
+          ~models_xmatches_element_views_put
+        
+
+        
+
+
+
     
+
+
     
-    
-    
-    
-    
-    
-    
-    
+        
+
+
     
     

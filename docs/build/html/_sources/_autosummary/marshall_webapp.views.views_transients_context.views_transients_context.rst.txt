@@ -1,4 +1,4 @@
-views_transients_context *(class)*
+﻿views_transients_context *(class)*
 =================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_transients_context
