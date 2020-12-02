@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Syntax for Docs - REMOVE FROM LIVE DOCS &mdash; marshall_webapp v3.0.2 documentation</title>
+  <title>Syntax for Docs - REMOVE FROM LIVE DOCS &mdash; marshall_webapp v3.0.3 documentation</title>
   
 
   
@@ -112,7 +112,7 @@
             
             
               <div class="version">
-                v3.0.2
+                v3.0.3
               </div>
             
           
@@ -141,44 +141,23 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Syntax for Docs - REMOVE FROM LIVE DOCS</a><ul>
-<li><a class="reference internal" href="#autostructify">AutoStructify</a></li>
-<li><a class="reference internal" href="#embed-restructuredtext">Embed reStructuredText</a></li>
-<li><a class="reference internal" href="#code-url-resolver">Code URL Resolver</a></li>
-<li><a class="reference internal" href="#code-and-syntax-highlighting">Code and Syntax Highlighting</a></li>
-<li><a class="reference internal" href="#mermaid">Mermaid</a></li>
-<li><a class="reference internal" href="#flowchart">Flowchart</a></li>
-<li><a class="reference internal" href="#tables">Tables</a></li>
-<li><a class="reference internal" href="#definitions">Definitions</a></li>
-<li><a class="reference internal" href="#transclusion">Transclusion</a></li>
-<li><a class="reference internal" href="#linking-to-an-adjacent-file">Linking to an Adjacent File</a></li>
-<li><a class="reference internal" href="#math">Math</a></li>
-<li><a class="reference internal" href="#super-sub-scripts">Super/Sub Scripts</a></li>
-<li><a class="reference internal" href="#citations">Citations</a></li>
-<li><a class="reference internal" href="#criticmarkup">CriticMarkup</a></li>
-<li><a class="reference internal" href="#paragraphs">Paragraphs</a></li>
-<li><a class="reference internal" href="#cross-references">Cross References</a><ul>
-<li><a class="reference internal" href="#intro">Intro</a></li>
-<li><a class="reference internal" href="#conclusion--fin-">Conclusion [fin]</a></li>
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="initialisation.html">Initialisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todolist.html">Todo List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes_link.html">Release Notes</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#task-lists">Task Lists</a></li>
-<li><a class="reference internal" href="#footnote">Footnote</a></li>
-<li><a class="reference internal" href="#headers">Headers</a></li>
-<li><a class="reference internal" href="#emphasis">Emphasis</a></li>
-<li><a class="reference internal" href="#lists">Lists</a></li>
-<li><a class="reference internal" href="#links">Links</a></li>
-<li><a class="reference internal" href="#images">Images</a></li>
-<li><a class="reference internal" href="#blockquotes">Blockquotes</a></li>
-<li><a class="reference internal" href="#inline-html">Inline <abbr title = 'Hyper Text Markup Language'>HTML</abbr></a></li>
-<li><a class="reference internal" href="#abbreviations">Abbreviations</a></li>
-<li><a class="reference internal" href="#horizontal-rule">Horizontal Rule</a></li>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autosummary.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autosummary.html#classes">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autosummary.html#functions">Functions</a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">A-Z Index</a></li>
 </ul>
-</div>
+
             
           
         </div>
@@ -286,10 +265,11 @@
 </div>
 <div class="section" id="embed-restructuredtext">
 <h2>Embed reStructuredText<a class="headerlink" href="#embed-restructuredtext" title="Permalink to this headline">  ∞</a></h2>
-<div class="highlight-language-eval_rst notranslate"><div class="highlight"><pre><span></span>.. todo::
-
-    - nice!
-</pre></div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<ul class="simple">
+<li><p>nice!</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="code-url-resolver">
@@ -299,23 +279,23 @@
 <div class="section" id="code-and-syntax-highlighting">
 <h2>Code and Syntax Highlighting<a class="headerlink" href="#code-and-syntax-highlighting" title="Permalink to this headline">  ∞</a></h2>
 <p>Inline <code class="docutils literal notranslate"><span class="pre">code</span></code> has <code class="docutils literal notranslate"><span class="pre">back-ticks</span> <span class="pre">around</span></code> it.</p>
-<div class="highlight-language-javascript notranslate"><div class="highlight"><pre><span></span>var s = &quot;JavaScript syntax highlighting&quot;;
-alert(s);
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&quot;JavaScript syntax highlighting&quot;</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
 </pre></div>
 </div>
-<div class="highlight-language-python notranslate"><div class="highlight"><pre><span></span>s = &quot;Python syntax highlighting&quot;
-print s
-myString = &quot;&quot;&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;&quot;&quot;
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Python syntax highlighting&quot;</span>
+<span class="nb">print</span> <span class="n">s</span>
+<span class="n">myString</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">No</span> <span class="n">language</span> <span class="n">indicated</span><span class="p">,</span> <span class="n">so</span> <span class="n">no</span> <span class="n">syntax</span> <span class="n">highlighting</span><span class="o">.</span> 
-<span class="n">But</span> <span class="n">let</span><span class="s1">&#39;s throw in a &lt;b&gt;tag&lt;/b&gt;.</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>No language indicated, so no syntax highlighting. 
+But let&#39;s throw in a &lt;b&gt;tag&lt;/b&gt;.
 </pre></div>
 </div>
 </div>
 <div class="section" id="mermaid">
 <h2>Mermaid<a class="headerlink" href="#mermaid" title="Permalink to this headline">  ∞</a></h2>
-<div class="highlight-language-mermaid notranslate"><div class="highlight"><pre><span></span>gantt
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>gantt
         dateFormat  YYYY-MM-DD
         title Adding GANTT diagram functionality to mermaid
         section A section
@@ -335,7 +315,7 @@ myString = &quot;&quot;&quot;Lorem ipsum dolor sit amet, consectetur adipisicing
 </div>
 <div class="section" id="flowchart">
 <h2>Flowchart<a class="headerlink" href="#flowchart" title="Permalink to this headline">  ∞</a></h2>
-<div class="highlight-language-flow notranslate"><div class="highlight"><pre><span></span>s=&gt;start: start
+<div class="highlight-flow notranslate"><div class="highlight"><pre><span></span>s=&gt;start: start
 e=&gt;end: end
 o=&gt;operation: operation
 sr=&gt;subroutine: subroutine
@@ -386,20 +366,17 @@ p(path2, top)-&gt;o
 <div class="section" id="transclusion">
 <h2>Transclusion<a class="headerlink" href="#transclusion" title="Permalink to this headline">  ∞</a></h2>
 <p>If MMD transclusion is working you will see usage instructions here:</p>
-<div class="highlight-language-bash notranslate"><div class="highlight"><pre><span></span>
-    Documentation for marshall_webapp can be found here: http://marshall_webapp.readthedocs.org
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>    Documentation <span class="k">for</span> marshall_webapp can be found here: http://marshall_webapp.readthedocs.org
 
     Usage:
         marshall_webapp init
-        marshall_webapp [-s &lt;pathToSettingsFile&gt;]
+        marshall_webapp <span class="o">[</span>-s &lt;pathToSettingsFile&gt;<span class="o">]</span>
 
     Options:
-        init                                   setup the marshall_webapp settings file for the first time
-        -h, --help                             show this help message
+        init                                   setup the marshall_webapp settings file <span class="k">for</span> the first <span class="nb">time</span>
+        -h, --help                             show this <span class="nb">help</span> message
         -v, --version                          show version
         -s, --settings &lt;pathToSettingsFile&gt;    the settings file
-
-
 </pre></div>
 </div>
 <p>If iA transclusion is working you will see a unicorn here:</p>
@@ -467,12 +444,12 @@ p(path2, top)-&gt;o
 </div>
 <div class="section" id="headers">
 <h2>Headers<a class="headerlink" href="#headers" title="Permalink to this headline">  ∞</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># H1</span>
-<span class="c1">## H2</span>
-<span class="c1">### H3</span>
-<span class="c1">#### H4</span>
-<span class="c1">##### H5</span>
-<span class="c1">###### H6</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
 </pre></div>
 </div>
 </div>

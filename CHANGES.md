@@ -1,8 +1,11 @@
 
 ## Release Notes
 
-**v3.0.2 - November 17, 2020**
+**v3.0.3 - December 2, 2020**
 
+* **FIXED** search function
+
+**v3.0.2 - November 17, 2020**
 
 * **Enhancement** added config files for cluster
 * **Enhancement** added ability to connect to a non-standard database port issue

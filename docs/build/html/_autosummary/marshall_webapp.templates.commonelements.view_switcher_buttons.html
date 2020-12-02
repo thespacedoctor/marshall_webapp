@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>view_switcher_buttons (module) &mdash; marshall_webapp v3.0.2 documentation</title>
+  <title>view_switcher_buttons (module) &mdash; marshall_webapp v3.0.3 documentation</title>
   
 
   
@@ -47,6 +47,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="responses (module)" href="marshall_webapp.templates.responses.html" />
+    <link rel="prev" title="topnavbar (module)" href="marshall_webapp.templates.commonelements.topnavbar.html" />
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
           messageStyle: "none",
@@ -112,7 +114,7 @@
             
             
               <div class="version">
-                v3.0.2
+                v3.0.3
               </div>
             
           
@@ -141,11 +143,115 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">view_switcher_buttons <em>(module)</em></a></li>
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../initialisation.html">Initialisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todolist.html">Todo List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes_link.html">Release Notes</a></li>
 </ul>
-</div>
+<p class="caption"><span class="caption-text">API reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../autosummary.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.html">models <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.members.html">members <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.stats.html">stats <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients.html">transients <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_akas.html">transients_akas <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_comments.html">transients_comments <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_comments.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_context.html">transients_context <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_context.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_history.html">transients_history <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_history.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_lightcurves.html">transients_lightcurves <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_obs.html">transients_obs <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.transients_obs.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches.html">xmatches <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches_catalogues.html">xmatches_catalogues <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches_catalogues.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches_searches.html">xmatches_searches <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches_searches.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches_views.html">xmatches_views <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.models.xmatches_views.element.html">element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.services.html">services <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.html">templates <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.html">commonelements <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.filtering.html">filtering <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.forms.html">forms <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.pagetemplates.html">pagetemplates <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.pagination.html">pagination <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.sidebar.html">sidebar <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.sorting.html">sorting <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.stats.html">stats <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.stats.esophaseIII.html">esophaseIII <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.html">tickets <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.html">single_ticket <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.html">tabs <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.html">ticket_building_blocks <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.topnavbar.html">topnavbar <em>(module)</em></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">view_switcher_buttons <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.responses.html">responses <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.html">views <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.commonutils.html">commonutils <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.filtering.ticket_table_filter_dropdown.html">ticket_table_filter_dropdown <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.forms.add_new_comment_to_object_form.html">add_new_comment_to_object_form <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.forms.change_pi_form.html">change_pi_form <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.forms.classify_object_form.html">classify_object_form <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.forms.create_new_ticket_form.html">create_new_ticket_form <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.forms.generate_ob_form.html">generate_ob_form <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.pagination.ticket_table_pagination.html">ticket_table_pagination <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.sorting.number_of_objects_dropdown.html">number_of_objects_dropdown <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.sorting.ticket_table_sorting_dropdown.html">ticket_table_sorting_dropdown <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.comments.html">comments <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.context.html">context <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.development.html">development <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.dryx.html">dryx <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.history.html">history <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.overview.html">overview <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.photometry.html">photometry <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.actions_block.html">actions_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.classification_block.html">classification_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.comments_block.html">comments_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.host_info_block.html">host_info_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.identity_block.html">identity_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.latest_magnitudes_block.html">latest_magnitudes_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block.html">lightcurve_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.master_lightcurve_block.html">master_lightcurve_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.object_info_block.html">object_info_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.survey_lightcurves_block.html">survey_lightcurves_block <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_footer_bar.html">ticket_footer_bar <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.html">ticket_header_bar <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.utKit.html">utKit <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_members.html">views_resources_members <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_stats.html">views_resources_stats <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_stats_element.html">views_resources_stats_element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_transients.html">views_resources_transients <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_transients_akas.html">views_resources_transients_akas <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_transients_element.html">views_resources_transients_element <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_resources_transients_element_akas.html">views_resources_transients_element_akas <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_services_calendars.html">views_services_calendars <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_services_refresh_sidebar_list_counts.html">views_services_refresh_sidebar_list_counts <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_transients_comments.html">views_transients_comments <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_transients_context.html">views_transients_context <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_transients_history.html">views_transients_history <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_transients_lightcurves.html">views_transients_lightcurves <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_transients_obs.html">views_transients_obs <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_xmatches.html">views_xmatches <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_xmatches_catalogues.html">views_xmatches_catalogues <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_xmatches_searches.html">views_xmatches_searches <em>(module)</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="marshall_webapp.views.views_xmatches_views.html">views_xmatches_views <em>(module)</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../autosummary.html#classes">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autosummary.html#functions">Functions</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">A-Z Index</a></li>
+</ul>
+
             
           
         </div>
@@ -189,6 +295,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../autosummary.html">Modules</a> &raquo;</li>
         
       <li>view_switcher_buttons <em>(module)</em></li>
     
@@ -239,6 +347,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="marshall_webapp.templates.responses.html" class="btn btn-neutral float-right" title="responses (module)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="marshall_webapp.templates.commonelements.topnavbar.html" class="btn btn-neutral float-left" title="topnavbar (module)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
