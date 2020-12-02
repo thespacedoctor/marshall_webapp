@@ -1,3 +1,4 @@
+pymysql
 pymdown-extensions
 MarkdownSubscript
 mock
@@ -10,5 +11,4 @@ git+https://github.com/readthedocs/readthedocs-sphinx-search@master
 docopt
 psutil
 unicodecsv
-pymysql
 multiprocess
