@@ -14,6 +14,7 @@ from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 from fundamentals import times
 
+
 def lightcurve_block(
         log,
         request,
@@ -33,12 +34,12 @@ def lightcurve_block(
     - ``objectAkas`` -- the transient object akas
     - ``displayTitle`` -- display the title for this block?
     - ``offset`` -- the offset for the block
-    
+
 
     **Return**
 
     - ``lightcurve_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``lightcurve_block`` function')
 
@@ -74,6 +75,7 @@ def lightcurve_block(
     if lightcurveSwitchAttempt == True:
         filePath = request.registry.settings["downloads"][
             "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+
         lsqExists = os.path.exists(filePath)
 
     if lsqExists:

@@ -52,7 +52,6 @@ class models_transients_get(base_model):
             "filterValue2": False,
             "filterOp2": "="
         }
-        super()._set_default_parameters()
         self.tcsCatalogueId = tcsCatalogueId
 
         self._set_default_parameters()
@@ -107,8 +106,6 @@ class models_transients_get(base_model):
 
         tcsCatalogueId = self.tcsCatalogueId
         sqlWhereList = []
-
-        print(self.request.url)
 
         # SEARCH
         if self.search and "q" in self.request.params:
