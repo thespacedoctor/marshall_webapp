@@ -12,6 +12,7 @@ import os
 import khufu
 from fundamentals import times
 
+
 class models_transients_element_comments_post(object):
     """
     The worker class for the models_transients_element_comments_post module
@@ -21,7 +22,7 @@ class models_transients_element_comments_post(object):
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``elementId`` -- the specific element id requests (or False)
-    
+
     """
 
     def __init__(
@@ -50,7 +51,7 @@ class models_transients_element_comments_post(object):
         **Return**
 
         - ``responseContent`` -- the reponse to send to the browser
-        
+
         """
         self.log.debug('starting the ``put`` method')
 
@@ -61,7 +62,7 @@ class models_transients_element_comments_post(object):
         author = self.request.authenticated_userid
         comment = self.request.params["comment"]
 
-        comment = comment.encode('unicode_escape').replace(
+        comment = comment.replace(
             "'", "\\'").replace('"', '\\"')
 
         # add the comment to the database
