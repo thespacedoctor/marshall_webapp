@@ -1,5 +1,4 @@
-import os
 from pyramid.paster import get_app, setup_logging
-ini_path = os.path.join(os.path.dirname(__file__), 'production_cluster.ini')
+ini_path = '/home/dev/git_repos/_webapps_/marshall_webapp/development_cluster.ini'
 setup_logging(ini_path)
 application = get_app(ini_path, 'main')

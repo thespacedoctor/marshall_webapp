@@ -93,9 +93,7 @@ class models_stats_get(base_model):
         fileTotals = []
         fileTotals[:] = [dict(zip(row.keys(), row)) for row in rowsTmp]
 
-        print(f'self.qs["format"]: {self.qs["format"]}')
         if self.qs["format"] in ("csv", "plain_table"):
-            print("SHIT")
             return fileTypes
 
         self.log.debug('completed the ``get`` method')

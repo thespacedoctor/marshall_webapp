@@ -2,8 +2,8 @@ version: 1
 database settings:
     db: marshall
     host: localhost
-    user: pessto
-    password: p355t0
+    user: marshall
+    password: mar5ha11
 
 apache prefix: ""
 
