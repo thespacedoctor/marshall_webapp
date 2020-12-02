@@ -1,6 +1,10 @@
 
 ## Release Notes
 
+**v3.0.4 - December 2, 2020**
+
+* **FIXED** comment function (legacy unicode fix)
+
 **v3.0.3 - December 2, 2020**
 
 * **FIXED** search function
