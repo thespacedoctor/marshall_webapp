@@ -21,8 +21,8 @@
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            42 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">40 run</button>
+            40 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">38 run</button>
             <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">2 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
@@ -146,21 +146,19 @@
     <p id="t93" class="run"><span class="n"><a href="#t93">93</a></span><span class="t">        <span class="nam">fileTotals</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t94" class="run"><span class="n"><a href="#t94">94</a></span><span class="t">        <span class="nam">fileTotals</span><span class="op">[</span><span class="op">:</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="nam">dict</span><span class="op">(</span><span class="nam">zip</span><span class="op">(</span><span class="nam">row</span><span class="op">.</span><span class="nam">keys</span><span class="op">(</span><span class="op">)</span><span class="op">,</span> <span class="nam">row</span><span class="op">)</span><span class="op">)</span> <span class="key">for</span> <span class="nam">row</span> <span class="key">in</span> <span class="nam">rowsTmp</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t95" class="pln"><span class="n"><a href="#t95">95</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t96" class="run"><span class="n"><a href="#t96">96</a></span><span class="t">        <span class="nam">print</span><span class="op">(</span><span class="str">f'self.qs["format"]: {self.qs["format"]}'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t97" class="run"><span class="n"><a href="#t97">97</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">qs</span><span class="op">[</span><span class="str">"format"</span><span class="op">]</span> <span class="key">in</span> <span class="op">(</span><span class="str">"csv"</span><span class="op">,</span> <span class="str">"plain_table"</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t98" class="run"><span class="n"><a href="#t98">98</a></span><span class="t">            <span class="nam">print</span><span class="op">(</span><span class="str">"SHIT"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t99" class="run"><span class="n"><a href="#t99">99</a></span><span class="t">            <span class="key">return</span> <span class="nam">fileTypes</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t100" class="pln"><span class="n"><a href="#t100">100</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t101" class="run"><span class="n"><a href="#t101">101</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">log</span><span class="op">.</span><span class="nam">debug</span><span class="op">(</span><span class="str">'completed the ``get`` method'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t102" class="run"><span class="n"><a href="#t102">102</a></span><span class="t">        <span class="key">return</span> <span class="op">{</span><span class="str">"fileTypes"</span><span class="op">:</span> <span class="nam">fileTypes</span><span class="op">,</span> <span class="str">"fileTotals"</span><span class="op">:</span> <span class="nam">fileTotals</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t103" class="pln"><span class="n"><a href="#t103">103</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t104" class="pln"><span class="n"><a href="#t104">104</a></span><span class="t">    <span class="com"># xt-class-method</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t96" class="run"><span class="n"><a href="#t96">96</a></span><span class="t">        <span class="key">if</span> <span class="nam">self</span><span class="op">.</span><span class="nam">qs</span><span class="op">[</span><span class="str">"format"</span><span class="op">]</span> <span class="key">in</span> <span class="op">(</span><span class="str">"csv"</span><span class="op">,</span> <span class="str">"plain_table"</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t97" class="run"><span class="n"><a href="#t97">97</a></span><span class="t">            <span class="key">return</span> <span class="nam">fileTypes</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t98" class="pln"><span class="n"><a href="#t98">98</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t99" class="run"><span class="n"><a href="#t99">99</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">log</span><span class="op">.</span><span class="nam">debug</span><span class="op">(</span><span class="str">'completed the ``get`` method'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t100" class="run"><span class="n"><a href="#t100">100</a></span><span class="t">        <span class="key">return</span> <span class="op">{</span><span class="str">"fileTypes"</span><span class="op">:</span> <span class="nam">fileTypes</span><span class="op">,</span> <span class="str">"fileTotals"</span><span class="op">:</span> <span class="nam">fileTotals</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t101" class="pln"><span class="n"><a href="#t101">101</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t102" class="pln"><span class="n"><a href="#t102">102</a></span><span class="t">    <span class="com"># xt-class-method</span>&nbsp;</span><span class="r"></span></p>
 </div>
 <div id="footer">
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3</a>,
-            created at 2020-11-17 17:51 +0000
+            created at 2020-12-03 18:04 +0000
         </p>
     </div>
 </div>

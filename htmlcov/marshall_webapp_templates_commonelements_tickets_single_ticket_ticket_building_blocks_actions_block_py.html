@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/actions_block.py: 57%</title>
+    <title>Coverage for marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/actions_block.py: 63%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.hotkeys.js"></script>
@@ -17,13 +17,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/actions_block.py</b> :
-            <span class="pc_cov">57%</span>
+            <span class="pc_cov">63%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             206 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">118 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">88 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">130 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">76 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -119,7 +119,7 @@
     <p id="t66" class="pln"><span class="n"><a href="#t66">66</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t67" class="run"><span class="n"><a href="#t67">67</a></span><span class="t">    <span class="nam">changePiButton</span> <span class="op">=</span> <span class="str">""</span>&nbsp;</span><span class="r"></span></p>
     <p id="t68" class="run"><span class="n"><a href="#t68">68</a></span><span class="t">    <span class="key">if</span> <span class="nam">discoveryDataDictionary</span><span class="op">[</span><span class="str">"classifiedFlag"</span><span class="op">]</span> <span class="op">==</span> <span class="num">1</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t69" class="mis show_mis"><span class="n"><a href="#t69">69</a></span><span class="t">        <span class="nam">changePiButton</span> <span class="op">=</span> <span class="nam">_get_change_pi_button</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t69" class="run"><span class="n"><a href="#t69">69</a></span><span class="t">        <span class="nam">changePiButton</span> <span class="op">=</span> <span class="nam">_get_change_pi_button</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t70" class="pln"><span class="n"><a href="#t70">70</a></span><span class="t">            <span class="nam">log</span><span class="op">=</span><span class="nam">log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t71" class="pln"><span class="n"><a href="#t71">71</a></span><span class="t">            <span class="nam">request</span><span class="op">=</span><span class="nam">request</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t72" class="pln"><span class="n"><a href="#t72">72</a></span><span class="t">            <span class="nam">discoveryDataDictionary</span><span class="op">=</span><span class="nam">discoveryDataDictionary</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -232,8 +232,8 @@
     <p id="t179" class="run"><span class="n"><a href="#t179">179</a></span><span class="t">    <span class="nam">snoozed</span> <span class="op">=</span> <span class="nam">discoveryDataDictionary</span><span class="op">[</span><span class="str">"snoozed"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t180" class="run"><span class="n"><a href="#t180">180</a></span><span class="t">    <span class="key">if</span> <span class="nam">thisMwl</span> <span class="op">==</span> <span class="str">"inbox"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t181" class="run"><span class="n"><a href="#t181">181</a></span><span class="t">        <span class="nam">linkTitleList</span> <span class="op">=</span> <span class="op">[</span><span class="str">"classification targets"</span><span class="op">,</span> <span class="str">"archive"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t182" class="mis show_mis"><span class="n"><a href="#t182">182</a></span><span class="t">    <span class="key">elif</span> <span class="nam">thisMwl</span> <span class="op">==</span> <span class="str">"review for followup"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t183" class="mis show_mis"><span class="n"><a href="#t183">183</a></span><span class="t">        <span class="nam">linkTitleList</span> <span class="op">=</span> <span class="op">[</span><span class="str">"followup targets"</span><span class="op">,</span> <span class="str">"archive"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t182" class="run"><span class="n"><a href="#t182">182</a></span><span class="t">    <span class="key">elif</span> <span class="nam">thisMwl</span> <span class="op">==</span> <span class="str">"review for followup"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t183" class="run"><span class="n"><a href="#t183">183</a></span><span class="t">        <span class="nam">linkTitleList</span> <span class="op">=</span> <span class="op">[</span><span class="str">"followup targets"</span><span class="op">,</span> <span class="str">"archive"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t184" class="mis show_mis"><span class="n"><a href="#t184">184</a></span><span class="t">    <span class="key">elif</span> <span class="nam">thisMwl</span> <span class="op">==</span> <span class="str">"pending observation"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t185" class="mis show_mis"><span class="n"><a href="#t185">185</a></span><span class="t">        <span class="nam">linkTitleList</span> <span class="op">=</span> <span class="op">[</span><span class="str">"inbox"</span><span class="op">,</span> <span class="str">"observed"</span><span class="op">,</span> <span class="str">"archive"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t186" class="mis show_mis"><span class="n"><a href="#t186">186</a></span><span class="t">    <span class="key">elif</span> <span class="nam">thisMwl</span> <span class="op">==</span> <span class="str">"following"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -258,7 +258,7 @@
     <p id="t205" class="run"><span class="n"><a href="#t205">205</a></span><span class="t">        <span class="key">if</span> <span class="nam">title</span> <span class="op">==</span> <span class="str">"classification targets"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t206" class="run"><span class="n"><a href="#t206">206</a></span><span class="t">            <span class="nam">mwl</span> <span class="op">=</span> <span class="str">"pending observation"</span>&nbsp;</span><span class="r"></span></p>
     <p id="t207" class="run"><span class="n"><a href="#t207">207</a></span><span class="t">        <span class="key">elif</span> <span class="nam">title</span> <span class="op">==</span> <span class="str">"followup targets"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t208" class="mis show_mis"><span class="n"><a href="#t208">208</a></span><span class="t">            <span class="nam">mwl</span> <span class="op">=</span> <span class="str">"following"</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t208" class="run"><span class="n"><a href="#t208">208</a></span><span class="t">            <span class="nam">mwl</span> <span class="op">=</span> <span class="str">"following"</span>&nbsp;</span><span class="r"></span></p>
     <p id="t209" class="run"><span class="n"><a href="#t209">209</a></span><span class="t">        <span class="key">elif</span> <span class="nam">title</span> <span class="op">==</span> <span class="str">"observed"</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t210" class="mis show_mis"><span class="n"><a href="#t210">210</a></span><span class="t">            <span class="nam">mwl</span> <span class="op">=</span> <span class="str">"pending classification"</span>&nbsp;</span><span class="r"></span></p>
     <p id="t211" class="pln"><span class="n"><a href="#t211">211</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -458,24 +458,24 @@
     <p id="t405" class="pln"><span class="n"><a href="#t405">405</a></span><span class="t"><span class="str">    - ``button`` -- the change PI button and hidden modal form</span>&nbsp;</span><span class="r"></span></p>
     <p id="t406" class="pln"><span class="n"><a href="#t406">406</a></span><span class="t"><span class="str">    </span>&nbsp;</span><span class="r"></span></p>
     <p id="t407" class="pln"><span class="n"><a href="#t407">407</a></span><span class="t"><span class="str">    """</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t408" class="mis show_mis"><span class="n"><a href="#t408">408</a></span><span class="t">    <span class="key">from</span> <span class="nam">marshall_webapp</span><span class="op">.</span><span class="nam">templates</span><span class="op">.</span><span class="nam">commonelements</span> <span class="key">import</span> <span class="nam">forms</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t408" class="run"><span class="n"><a href="#t408">408</a></span><span class="t">    <span class="key">from</span> <span class="nam">marshall_webapp</span><span class="op">.</span><span class="nam">templates</span><span class="op">.</span><span class="nam">commonelements</span> <span class="key">import</span> <span class="nam">forms</span>&nbsp;</span><span class="r"></span></p>
     <p id="t409" class="pln"><span class="n"><a href="#t409">409</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t410" class="mis show_mis"><span class="n"><a href="#t410">410</a></span><span class="t">    <span class="nam">now</span> <span class="op">=</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t411" class="mis show_mis"><span class="n"><a href="#t411">411</a></span><span class="t">    <span class="nam">now</span> <span class="op">=</span> <span class="nam">now</span><span class="op">.</span><span class="nam">strftime</span><span class="op">(</span><span class="str">"%Y-%m-%d"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t410" class="run"><span class="n"><a href="#t410">410</a></span><span class="t">    <span class="nam">now</span> <span class="op">=</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t411" class="run"><span class="n"><a href="#t411">411</a></span><span class="t">    <span class="nam">now</span> <span class="op">=</span> <span class="nam">now</span><span class="op">.</span><span class="nam">strftime</span><span class="op">(</span><span class="str">"%Y-%m-%d"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t412" class="pln"><span class="n"><a href="#t412">412</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t413" class="mis show_mis"><span class="n"><a href="#t413">413</a></span><span class="t">    <span class="nam">log</span><span class="op">.</span><span class="nam">debug</span><span class="op">(</span><span class="str">'starting the ``_get_change_pi_button`` function'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t413" class="run"><span class="n"><a href="#t413">413</a></span><span class="t">    <span class="nam">log</span><span class="op">.</span><span class="nam">debug</span><span class="op">(</span><span class="str">'starting the ``_get_change_pi_button`` function'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t414" class="pln"><span class="n"><a href="#t414">414</a></span><span class="t">    <span class="com"># TEST THE ARGUMENTS</span>&nbsp;</span><span class="r"></span></p>
     <p id="t415" class="pln"><span class="n"><a href="#t415">415</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t416" class="pln"><span class="n"><a href="#t416">416</a></span><span class="t">    <span class="com">## VARIABLES ##</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t417" class="mis show_mis"><span class="n"><a href="#t417">417</a></span><span class="t">    <span class="nam">changePiForm</span><span class="op">,</span> <span class="nam">button</span> <span class="op">=</span> <span class="nam">forms</span><span class="op">.</span><span class="nam">change_pi_form</span><span class="op">.</span><span class="nam">change_pi_form</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t417" class="run"><span class="n"><a href="#t417">417</a></span><span class="t">    <span class="nam">changePiForm</span><span class="op">,</span> <span class="nam">button</span> <span class="op">=</span> <span class="nam">forms</span><span class="op">.</span><span class="nam">change_pi_form</span><span class="op">.</span><span class="nam">change_pi_form</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t418" class="pln"><span class="n"><a href="#t418">418</a></span><span class="t">        <span class="nam">log</span><span class="op">=</span><span class="nam">log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t419" class="pln"><span class="n"><a href="#t419">419</a></span><span class="t">        <span class="nam">request</span><span class="op">=</span><span class="nam">request</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t420" class="pln"><span class="n"><a href="#t420">420</a></span><span class="t">        <span class="nam">discoveryDataDictionary</span><span class="op">=</span><span class="nam">discoveryDataDictionary</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t421" class="pln"><span class="n"><a href="#t421">421</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t422" class="mis show_mis"><span class="n"><a href="#t422">422</a></span><span class="t">    <span class="nam">button</span> <span class="op">=</span> <span class="str">"%(button)s %(changePiForm)s"</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t422" class="run"><span class="n"><a href="#t422">422</a></span><span class="t">    <span class="nam">button</span> <span class="op">=</span> <span class="str">"%(button)s %(changePiForm)s"</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t423" class="pln"><span class="n"><a href="#t423">423</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t424" class="mis show_mis"><span class="n"><a href="#t424">424</a></span><span class="t">    <span class="nam">log</span><span class="op">.</span><span class="nam">debug</span><span class="op">(</span><span class="str">'completed the ``_get_change_pi_button`` function'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t425" class="mis show_mis"><span class="n"><a href="#t425">425</a></span><span class="t">    <span class="key">return</span> <span class="nam">button</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t424" class="run"><span class="n"><a href="#t424">424</a></span><span class="t">    <span class="nam">log</span><span class="op">.</span><span class="nam">debug</span><span class="op">(</span><span class="str">'completed the ``_get_change_pi_button`` function'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t425" class="run"><span class="n"><a href="#t425">425</a></span><span class="t">    <span class="key">return</span> <span class="nam">button</span>&nbsp;</span><span class="r"></span></p>
     <p id="t426" class="pln"><span class="n"><a href="#t426">426</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t427" class="run"><span class="n"><a href="#t427">427</a></span><span class="t"><span class="key">def</span> <span class="nam">_generate_ob_button</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t428" class="pln"><span class="n"><a href="#t428">428</a></span><span class="t">        <span class="nam">log</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -748,7 +748,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3</a>,
-            created at 2020-11-17 17:51 +0000
+            created at 2020-12-03 18:04 +0000
         </p>
     </div>
 </div>
