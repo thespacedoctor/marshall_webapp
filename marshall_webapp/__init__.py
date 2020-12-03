@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from pyramid.path import AssetResolver
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
-from pyramid.security import authenticated_userid
 from pyramid.settings import aslist
 
 
