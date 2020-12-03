@@ -1,6 +1,10 @@
 
 ## Release Notes
 
+**v3.0.5 - December 3, 2020**
+
+* **FIXED** date formats, broken aka links, broken stats pages and broken table view
+
 **v3.0.4 - December 2, 2020**
 
 * **FIXED** comment function (legacy unicode fix)
