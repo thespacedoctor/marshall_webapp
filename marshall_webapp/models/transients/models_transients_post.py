@@ -14,6 +14,7 @@ import khufu
 from datetime import datetime
 from marshallEngine.feeders.useradded import data, images
 
+
 class models_transients_post(object):
     """
     The worker class for the models_transients_post module
@@ -23,7 +24,7 @@ class models_transients_post(object):
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``elementId`` -- the specific element id requests (or False)
-    
+
     """
 
     def __init__(
@@ -54,7 +55,7 @@ class models_transients_post(object):
 
         - ``response`` -- the reponse to send to the browser
         - ``redirectUrl`` -- the URL to redirect to once the transient has been added
-        
+
         """
         self.log.debug('starting the ``post`` method')
 
@@ -173,7 +174,7 @@ class models_transients_post(object):
             log=self.log,
             settings=self.request.registry.settings["yaml settings"],
             dbConn=dbConn
-        ).ingest(withinLastDays=3000)
+        ).ingest(withinLastDays=False)
         cacher = images(
             log=self.log,
             settings=self.request.registry.settings["yaml settings"],

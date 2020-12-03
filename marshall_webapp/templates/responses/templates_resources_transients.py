@@ -17,6 +17,7 @@ from marshall_webapp.models.transients import models_transients_get
 from pyramid.path import AssetResolver
 import khufu
 
+
 class templates_resources_transients(object):
     """
     The worker class for the templates_resources_transients module
@@ -28,7 +29,7 @@ class templates_resources_transients(object):
     - ``elementId`` -- the specific element requested (or False)
     - ``search`` -- is this a search? (boolean)
     - ``tcsCatalogueId`` -- tcs catalogue Id (for catalogue match views)
-    
+
     """
 
     def __init__(
@@ -85,7 +86,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``webpage`` -- the webapge HTML
-        
+
         """
         self.log.debug('starting the ``get`` method')
 
@@ -128,7 +129,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``ticketList`` -- a list of HTML tickets to display in the webapp
-        
+
         """
         from marshall_webapp.templates.commonelements.tickets.single_ticket import single_ticket
         from astrocalc.coords import unit_conversion
@@ -190,7 +191,7 @@ class templates_resources_transients(object):
 
         - ``sort`` -- the sort dropdown for the transient listings toolbar
         - ``filtering`` -- the filter dropdown for the trasnsient listings toolbar
-        
+
         """
         self.log.debug('starting the ``_get_sort_dropdown`` method')
 
@@ -228,7 +229,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``notification`` -- notifcation to append to the top of the transient listing page
-        
+
         """
         self.log.debug('starting the ``_get_notification`` method')
 
@@ -253,7 +254,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``pagination`` -- pagination options for the toolbar of the transient listing pages
-        
+
         """
         self.log.debug('starting the ``_get_pagination`` method')
 
@@ -277,7 +278,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
-        
+
         """
         self.log.debug('starting the ``_get_view_switcher_buttons`` method')
 
@@ -306,7 +307,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
-        
+
         """
         self.log.debug('starting the ``_get_ntt_view_button`` method')
 
@@ -334,7 +335,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``objectsPerPageDropdown`` -- options to display certain numbers of transients on a single webpage (for top toolbar of transient listing page)
-        
+
         """
         self.log.debug('starting the ``_get_object_limit_dropdown`` method')
 
@@ -357,7 +358,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``object_table`` -- the table view content for the transient listing pages
-        
+
         """
         self.log.debug('starting the ``_get_object_table`` method')
 
@@ -581,8 +582,6 @@ class templates_resources_transients(object):
             bottomTicketTableFunctionBar = '<p style="text-align: center; font-size: 20em; color: #e5e0cc; margin-top: 20%;"><i class="icon-inbox" style="color: #e5e0cc;"></i><br><br><br><br><br><br><br><br>zero</p>'
         dynamicNotification = """<span id="dynamicNotification"></span>"""
 
-        table = table.decode("utf-8")
-
         content = """%(dynamicNotification)s %(notification)s %(ticketTableFunctionBar)s %(pageviewInfo)s %(table)s %(bottomTicketTableFunctionBar)s""" % locals(
         )
 
@@ -626,7 +625,7 @@ class templates_resources_transients(object):
         **Return**
 
         - ``ticket_table`` -- the ticket to display as the main content of the page
-        
+
         """
         self.log.debug('starting the ``_get_object_tickets`` method')
 

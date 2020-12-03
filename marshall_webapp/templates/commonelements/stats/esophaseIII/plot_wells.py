@@ -11,6 +11,7 @@ import os
 import re
 import khufu
 
+
 def plot_wells(
         log,
         request,
@@ -22,12 +23,12 @@ def plot_wells(
 
     - ``log`` -- the logger
     - ``request`` -- the pyramid request
-    
+
 
     **Return**
 
     - ``plotWells`` -- the sofi/efosc imaging/spectra plot well
-    
+
     """
 
     plotWells = ""
@@ -48,6 +49,7 @@ def plot_wells(
 
     return plotWells
 
+
 def _generate_plot_well(
         log,
         request,
@@ -63,12 +65,12 @@ def _generate_plot_well(
     - ``instrument``
     - ``dataType``
     - ``releaseVersion`` - the release versions to seperate
-    
+
 
     **Return**
 
     - ``plotWell`` -- the well of plots
-    
+
     """
     log.debug('starting the ``_generate_plot_well`` function')
 
@@ -95,7 +97,9 @@ def _generate_plot_well(
 
     # FIND EACH SOFI/EFOSC IMAGING/SPECTRA PNG IN THE PHASEIII STATS CACHE AND APPEND IT TO
     # THE IMAGING WELL
-    basePath = esoPhaseIII
+    from os.path import expanduser
+    home = expanduser("~")
+    basePath = esoPhaseIII.replace("~", home)
     count = 0
     for d in os.listdir(basePath):
         filepath = os.path.join(basePath, d)
@@ -152,13 +156,14 @@ def _generate_plot_well(
                 yKey = matchObject.group(3)
 
             import urllib
-            sqlQuery = urllib.quote("""select currentFilename, %(xKey)s ,%(yKey)s from %(instrument)s_%(dataType)s where data_rel = "%(releaseVersion)s" and currentFilename not like "%%weight%%" order by %(yKey)s;""" % locals(
+            sqlQuery = urllib.parse.quote("""select currentFilename, %(xKey)s ,%(yKey)s from %(instrument)s_%(dataType)s where data_rel = "%(releaseVersion)s" and currentFilename not like "%%weight%%" order by %(yKey)s;""" % locals(
             ))
-            csvType = urllib.quote("human")  # human or machine
-            csvTitle = urllib.quote("ESO Phase III %(instrument)s %(dataType)s for %(releaseVersion)s" % locals(
+            csvType = urllib.parse.quote("human")  # human or machine
+            csvTitle = urllib.parse.quote("ESO Phase III %(instrument)s %(dataType)s for %(releaseVersion)s" % locals(
             ))
-            csvFilename = urllib.quote("%(xKey)s_vs_%(yKey)s.csv" % locals())
-            returnFormat = urllib.quote("webpageView")
+            csvFilename = urllib.parse.quote(
+                "%(xKey)s_vs_%(yKey)s.csv" % locals())
+            returnFormat = urllib.parse.quote("webpageView")
 
             popover = khufu.popover(
                 tooltip=True,
@@ -190,7 +195,7 @@ def _generate_plot_well(
                 format='default'  # [ default | toolbar | vertical ]
             )
 
-            returnFormat = urllib.quote("webpageDownload")
+            returnFormat = urllib.parse.quote("webpageDownload")
             popover = khufu.popover(
                 tooltip=True,
                 placement="bottom",  # [ top | bottom | left | right ]

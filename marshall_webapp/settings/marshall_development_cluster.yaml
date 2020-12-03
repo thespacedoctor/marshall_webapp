@@ -2,7 +2,7 @@ version: 1
 
 # DATABASE CONNECT SETTINGS
 database settings:
-    db: marshall
+    db: marshall-dev
     host: 10.131.21.162
     user: marshall
     password: mar5ha11

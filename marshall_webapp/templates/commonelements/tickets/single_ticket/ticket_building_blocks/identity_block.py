@@ -17,6 +17,7 @@ import khufu
 
 from marshall_webapp.templates.commonelements import commonutils as cu
 
+
 def identity_block(
         log,
         request,
@@ -31,12 +32,12 @@ def identity_block(
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
     - ``objectAkas`` -- the object akas
-    
+
 
     **Return**
 
     - ``identity_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``identity_block`` function')
 
@@ -430,12 +431,13 @@ def identity_block(
         else:
             popover = False
 
-        aka = khufu.a(
-            content=aka,
-            href=row["url"],
-            openInNewTab=True,
-            popover=popover
-        )
+        if row["url"]:
+            aka = khufu.a(
+                content=aka,
+                href=row["url"],
+                openInNewTab=True,
+                popover=popover
+            )
 
         aka = khufu.coloredText(
             text=aka,
