@@ -9,13 +9,10 @@ sphinx:
 # BUILD FORMATS
 formats: all
 
-requirements_file: docs/requirements.txt
 
 python:
   version: 3.7
   install:
-    - method: setuptools
-      path: .
     - requirements: docs/requirements.txt
 
 submodules:
