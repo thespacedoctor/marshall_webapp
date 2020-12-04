@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for marshall_webapp/templates/commonelements/view_switcher_buttons/__init__.py: 80%</title>
+    <title>Coverage for marshall_webapp/templates/commonelements/view_switcher_buttons/__init__.py: 89%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.hotkeys.js"></script>
@@ -17,13 +17,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>marshall_webapp/templates/commonelements/view_switcher_buttons/__init__.py</b> :
-            <span class="pc_cov">80%</span>
+            <span class="pc_cov">89%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             106 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">85 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">21 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">94 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">12 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -295,21 +295,21 @@
     <p id="t242" class="run"><span class="n"><a href="#t242">242</a></span><span class="t">            <span class="key">elif</span> <span class="str">"mwl"</span> <span class="key">in</span> <span class="nam">params</span> <span class="key">and</span> <span class="nam">params</span><span class="op">[</span><span class="str">"mwl"</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t243" class="run"><span class="n"><a href="#t243">243</a></span><span class="t">                <span class="nam">params</span><span class="op">[</span><span class="str">"filename"</span><span class="op">]</span> <span class="op">+=</span> <span class="nam">params</span><span class="op">[</span><span class="str">"mwl"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t244" class="pln"><span class="n"><a href="#t244">244</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t245" class="mis show_mis"><span class="n"><a href="#t245">245</a></span><span class="t">            <span class="key">elif</span> <span class="str">"q"</span> <span class="key">in</span> <span class="nam">params</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t245" class="run"><span class="n"><a href="#t245">245</a></span><span class="t">            <span class="key">elif</span> <span class="str">"q"</span> <span class="key">in</span> <span class="nam">params</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t246" class="mis show_mis"><span class="n"><a href="#t246">246</a></span><span class="t">                <span class="nam">params</span><span class="op">[</span><span class="str">"filename"</span><span class="op">]</span> <span class="op">+=</span> <span class="str">"search_"</span> <span class="op">+</span> <span class="nam">params</span><span class="op">[</span><span class="str">"q"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t247" class="mis show_mis"><span class="n"><a href="#t247">247</a></span><span class="t">            <span class="key">elif</span> <span class="str">"snoozed"</span> <span class="key">in</span> <span class="nam">params</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t247" class="run"><span class="n"><a href="#t247">247</a></span><span class="t">            <span class="key">elif</span> <span class="str">"snoozed"</span> <span class="key">in</span> <span class="nam">params</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t248" class="mis show_mis"><span class="n"><a href="#t248">248</a></span><span class="t">                <span class="nam">params</span><span class="op">[</span><span class="str">"filename"</span><span class="op">]</span> <span class="op">+=</span> <span class="str">"snoozed"</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t249" class="mis show_mis"><span class="n"><a href="#t249">249</a></span><span class="t">            <span class="key">elif</span> <span class="str">"filterBy1"</span> <span class="key">in</span> <span class="nam">params</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t249" class="run"><span class="n"><a href="#t249">249</a></span><span class="t">            <span class="key">elif</span> <span class="str">"filterBy1"</span> <span class="key">in</span> <span class="nam">params</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t250" class="mis show_mis"><span class="n"><a href="#t250">250</a></span><span class="t">                <span class="nam">params</span><span class="op">[</span><span class="str">"filename"</span><span class="op">]</span> <span class="op">+=</span> <span class="str">"filtered"</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t251" class="mis show_mis"><span class="n"><a href="#t251">251</a></span><span class="t">            <span class="key">elif</span> <span class="nam">elementId</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t252" class="mis show_mis"><span class="n"><a href="#t252">252</a></span><span class="t">                <span class="nam">sqlQuery</span> <span class="op">=</span> <span class="str">u"""</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t251" class="run"><span class="n"><a href="#t251">251</a></span><span class="t">            <span class="key">elif</span> <span class="nam">elementId</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t252" class="run"><span class="n"><a href="#t252">252</a></span><span class="t">                <span class="nam">sqlQuery</span> <span class="op">=</span> <span class="str">u"""</span>&nbsp;</span><span class="r"></span></p>
     <p id="t253" class="pln"><span class="n"><a href="#t253">253</a></span><span class="t"><span class="str">                    select masterName from transientBucketSummaries where transientBucketId = %(elementId)s </span>&nbsp;</span><span class="r"></span></p>
     <p id="t254" class="pln"><span class="n"><a href="#t254">254</a></span><span class="t"><span class="str">                """</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t255" class="mis show_mis"><span class="n"><a href="#t255">255</a></span><span class="t">                <span class="nam">objectDataTmp</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">sqlQuery</span><span class="op">)</span><span class="op">.</span><span class="nam">fetchall</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t256" class="mis show_mis"><span class="n"><a href="#t256">256</a></span><span class="t">                <span class="nam">objectData</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t257" class="mis show_mis"><span class="n"><a href="#t257">257</a></span><span class="t">                <span class="nam">objectData</span><span class="op">[</span><span class="op">:</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="nam">dict</span><span class="op">(</span><span class="nam">list</span><span class="op">(</span><span class="nam">zip</span><span class="op">(</span><span class="nam">list</span><span class="op">(</span><span class="nam">row</span><span class="op">.</span><span class="nam">keys</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">,</span> <span class="nam">row</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t255" class="run"><span class="n"><a href="#t255">255</a></span><span class="t">                <span class="nam">objectDataTmp</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">sqlQuery</span><span class="op">)</span><span class="op">.</span><span class="nam">fetchall</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t256" class="run"><span class="n"><a href="#t256">256</a></span><span class="t">                <span class="nam">objectData</span> <span class="op">=</span> <span class="op">[</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t257" class="run"><span class="n"><a href="#t257">257</a></span><span class="t">                <span class="nam">objectData</span><span class="op">[</span><span class="op">:</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="nam">dict</span><span class="op">(</span><span class="nam">list</span><span class="op">(</span><span class="nam">zip</span><span class="op">(</span><span class="nam">list</span><span class="op">(</span><span class="nam">row</span><span class="op">.</span><span class="nam">keys</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">,</span> <span class="nam">row</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t258" class="pln"><span class="n"><a href="#t258">258</a></span><span class="t">                                 <span class="key">for</span> <span class="nam">row</span> <span class="key">in</span> <span class="nam">objectDataTmp</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t259" class="mis show_mis"><span class="n"><a href="#t259">259</a></span><span class="t">                <span class="nam">params</span><span class="op">[</span><span class="str">"filename"</span><span class="op">]</span> <span class="op">=</span> <span class="str">"search_"</span> <span class="op">+</span> <span class="nam">objectData</span><span class="op">[</span><span class="num">0</span><span class="op">]</span><span class="op">[</span><span class="str">"masterName"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t259" class="run"><span class="n"><a href="#t259">259</a></span><span class="t">                <span class="nam">params</span><span class="op">[</span><span class="str">"filename"</span><span class="op">]</span> <span class="op">=</span> <span class="str">"search_"</span> <span class="op">+</span> <span class="nam">objectData</span><span class="op">[</span><span class="num">0</span><span class="op">]</span><span class="op">[</span><span class="str">"masterName"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t260" class="pln"><span class="n"><a href="#t260">260</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t261" class="run"><span class="n"><a href="#t261">261</a></span><span class="t">            <span class="nam">oldnames</span> <span class="op">=</span> <span class="op">[</span><span class="str">"pending obs"</span><span class="op">,</span> <span class="str">"following"</span><span class="op">,</span> <span class="str">"allObsQueue"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t262" class="run"><span class="n"><a href="#t262">262</a></span><span class="t">            <span class="nam">newnames</span> <span class="op">=</span> <span class="op">[</span><span class="str">"classification targets"</span><span class="op">,</span> <span class="str">"followup targets"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -360,7 +360,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3</a>,
-            created at 2020-11-17 17:51 +0000
+            created at 2020-12-03 18:04 +0000
         </p>
     </div>
 </div>
