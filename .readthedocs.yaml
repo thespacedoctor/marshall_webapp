@@ -9,6 +9,7 @@ sphinx:
 # BUILD FORMATS
 formats: all
 
+requirements_file: docs/requirements.txt
 
 python:
   version: 3.7
