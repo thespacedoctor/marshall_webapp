@@ -249,10 +249,8 @@ class models_transients_get(base_model):
                      select s.transientBucketId from transientBucketSummaries s, pesstoObjects p %(tcsCm)s %(queryWhere)s %(sep)s %(sec)s  order by s.best_redshift %(sortDirection)s
                 """ % locals()
             elif self.qs["sortBy"] == "latestComment":
-                newWhere = queryWhere.replace("t.t", "t")
-
                 sqlQuery = """
-                    select * from (select t.transientBucketId from pesstoObjects p, transientBucketSummaries t %(tcsCm)s %(newWhere)s %(tec)s %(tep)s) as a LEFT OUTER JOIN (SELECT pesstoObjectsId, MAX(dateCreated) AS latestCommentDate FROM pesstoObjectsComments GROUP BY pesstoObjectsId) as b ON a.transientBucketId = b.pesstoObjectsId ORDER BY latestCommentDate %(sortDirection)s
+                    select * from (select t.transientBucketId from pesstoObjects p, transientBucketSummaries t %(tcsCm)s %(queryWhere)s %(tec)s %(tep)s) as a LEFT OUTER JOIN (SELECT pesstoObjectsId, MAX(dateCreated) AS latestCommentDate FROM pesstoObjectsComments GROUP BY pesstoObjectsId) as b ON a.transientBucketId = b.pesstoObjectsId ORDER BY latestCommentDate %(sortDirection)s
                 """ % locals()
 
             elif self.qs["sortBy"] == "pi_name":
@@ -325,12 +323,6 @@ class models_transients_get(base_model):
 
         self.log.debug(
             """selectColumns: {selectColumns}""".format(**dict(globals(), **locals())))
-
-        sqlQuery = """
-            insert into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucketSummaries ON DUPLICATE KEY UPDATE  transient_object_id = transientBucketId;
-        """ % locals()
-        tmpObjectData = self.request.db.execute(
-            text(sqlQuery))
 
         # grab the remaining data assocatied with the transientBucketIds
         sqlQuery = """
