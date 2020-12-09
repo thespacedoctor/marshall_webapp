@@ -11,7 +11,6 @@ def readme():
 
 install_requires = [
     'pyyaml',
-    'marshall_webapp',
     'fundamentals',
     'pyramid',
     'pyramid_chameleon',
@@ -36,7 +35,7 @@ install_requires = [
 exists = os.path.exists("/home/docs/")
 if exists:
     c_exclude_list = ['healpy', 'astropy',
-                      'numpy', 'sherlock', 'wcsaxes', 'HMpTy', 'ligo-gracedb', 'mod_wsgi', 'marshallEngine']
+                      'numpy', 'sherlock', 'wcsaxes', 'HMpTy', 'ligo-gracedb', 'mod_wsgi', 'marshallEngine', 'dryxPyramid', 'paste', 'waitress']
     for e in c_exclude_list:
         try:
             install_requires.remove(e)
