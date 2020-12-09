@@ -9,5 +9,5 @@ sphinxcontrib-mermaid
 git+https://github.com/readthedocs/readthedocs-sphinx-search@master
 docopt
 unicodecsv
-psutil
+psutil>5.7
 
