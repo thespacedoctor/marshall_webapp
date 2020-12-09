@@ -1,6 +1,8 @@
 
 ## Release Notes
 
+settings files clean up and consolidation
+
 **v3.0.6 - December 4, 2020**
 
 * **REFACTOR** moved a sherlock book-keeping query from front-end code to database procedure. Should decrease page load times.
