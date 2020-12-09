@@ -92,7 +92,7 @@ def _generate_plot_well(
     dataType = dataType.lower()
 
     # SETUP THE PHASEIII STATS CACHE DIRECTORY
-    statsCache = request.registry.settings["stats cache directory"]
+    statsCache = request.registry.settings["cache-directory"] + "/stats/"
     esoPhaseIII = """%(statsCache)s/phaseIII""" % locals()
 
     # FIND EACH SOFI/EFOSC IMAGING/SPECTRA PNG IN THE PHASEIII STATS CACHE AND APPEND IT TO
@@ -112,8 +112,7 @@ def _generate_plot_well(
                 "_", " ")
             title = fulltitle.replace(
                 "%(releaseVersion)s %(instrument)s %(dataType)s " % locals(), "").lower()
-            filepath = request.static_path(
-                'marshall_webapp:static/caches/stats/phaseIII/%(d)s' % locals())
+            filepath = 'caches/stats/phaseIII/%(d)s' % locals()
             link = khufu.a(
                 content='view in new tab',
                 href=filepath,

@@ -13,6 +13,7 @@ import datetime as datetime
 import khufu
 from marshall_webapp.templates.commonelements import commonutils as cu
 
+
 def master_lightcurve_block(
         log,
         request,
@@ -30,12 +31,12 @@ def master_lightcurve_block(
     - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
     - ``objectAkas`` -- the transient object akas
     - ``displayTitle`` -- display the title for this block?
-    
+
 
     **Return**
 
     - ``master_lightcurve_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``master_lightcurve_block`` function')
 
@@ -51,10 +52,9 @@ def master_lightcurve_block(
     name = discoveryDataDictionary["masterName"]
 
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
-                discoveryDataDictionary["transientBucketId"],))
-        dlightCurveImage = 'static/caches/transients/%s/master_lightcurve.png' % (
+        lightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],)
+        dlightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
     else:
         lightCurveImage = ''
@@ -68,17 +68,16 @@ def master_lightcurve_block(
             lightcurveSwitchAttempt = False
 
     if lightcurveSwitchAttempt == True:
-        filePath = request.registry.settings["downloads"][
-            "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+        filePath = request.registry.settings[
+            "cache-directory"] + "/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
         lsqExists = os.path.exists(filePath)
 
     if lsqExists:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-            ))
-        dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        ))
+        lightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        )
+        dlightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        )
 
     if len(lightCurveImage):
         href = request.route_path(

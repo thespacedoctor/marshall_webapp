@@ -15,6 +15,7 @@ import khufu
 import collections
 from marshall_webapp.templates.commonelements import commonutils as cu
 
+
 def host_info_block(
         log,
         request,
@@ -28,12 +29,12 @@ def host_info_block(
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
     - ``transientCrossmatches`` -- info from the transient crossmatcher
-    
+
 
     **Return**
 
     - ``host_info_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``host_info_block`` function')
 
@@ -75,20 +76,20 @@ def host_info_block(
         )
 
     if discoveryDataDictionary["ps1_map"] == 1:
-        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%s/ps1_map_color.jpeg" % (
-            discoveryDataDictionary["transientBucketId"],))
+        downloadContextStamp = "caches/transients/%s/ps1_map_color.jpeg" % (
+            discoveryDataDictionary["transientBucketId"],)
         contextStamp = downloadContextStamp
         contextMaps["PS1"] = contextStamp
         stampName = "%(masterName)s_ps1_context_image" % locals()
     if discoveryDataDictionary["sdss_coverage"] == 1:
-        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
-            discoveryDataDictionary["transientBucketId"],))
+        downloadContextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
+            discoveryDataDictionary["transientBucketId"],)
         contextStamp = downloadContextStamp
         contextMaps["SDSS DR12"] = contextStamp
         stampName = "%(masterName)s_sdss_context_image" % locals()
     if discoveryDataDictionary["ogle_color_context_stamp"] == 1:
-        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
-        ))
+        downloadContextStamp = "caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
+        )
         contextStamp = downloadContextStamp
         contextMaps["OGLE"] = contextStamp
         ogleStamp = "OGLE context stamp"

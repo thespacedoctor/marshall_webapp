@@ -14,6 +14,7 @@ import khufu
 from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
 from marshall_webapp.templates.commonelements import commonutils as cu
 
+
 def context_tab(
         log,
         request,
@@ -33,12 +34,12 @@ def context_tab(
     - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
     - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
-    
+
 
     **Return**
 
     - ``context_tab`` -- the lightcurve/context tab for a single ticket on the transient listings page
-    
+
     """
     from marshall_webapp.templates.commonelements.tickets import single_ticket
 
@@ -101,6 +102,7 @@ def context_tab(
     log.debug('completed the ``context_tab`` function')
     return "%(context_tab)s" % locals()
 
+
 def context_footer_bar(
         log,
         request):
@@ -111,12 +113,12 @@ def context_footer_bar(
     - ``log`` -- logger
     - ``discoveryData`` -- the discoveryData for the object
     - ``lightcurveData`` -- the lightcurve data for the object
-    
+
 
     **Return**
 
     - ``context_footer_bar`` -- the ticket footer bar for the pesssto object
-    
+
     """
     lsqExists = False
     log.debug('starting the ``context_footer_bar`` function')
@@ -138,6 +140,7 @@ def context_footer_bar(
 
     return context_footer_bar
 
+
 def _host_info_block(
         log,
         request,
@@ -149,12 +152,12 @@ def _host_info_block(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-    
+
 
     **Return**
 
     - ``host_info_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``host_info_block`` function')
 
@@ -177,18 +180,16 @@ def _host_info_block(
         )
         exactLocationUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
         )
-        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
-            discoveryDataDictionary["transientBucketId"],))
-        contextStamp = request.static_path(
-            "marshall_webapp:static/caches/transients/%s/sdss_stamp.jpeg" % (
-                discoveryDataDictionary["transientBucketId"],))
+        downloadContextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
+            discoveryDataDictionary["transientBucketId"],)
+        contextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
+            discoveryDataDictionary["transientBucketId"],)
         stampName = "%(masterName)s_sdss_context_image" % locals()
     elif discoveryDataDictionary["ogle_color_context_stamp"] == 1:
-        downloadContextStamp = request.static_path("marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
-        ))
-        contextStamp = request.static_path(
-            "marshall_webapp:static/caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
-            ))
+        downloadContextStamp = "caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
+        )
+        contextStamp = "caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
+        )
         ogleStamp = "OGLE context stamp"
         stampName = "%(masterName)s_ogle_context_image" % locals()
     elif discoveryDataDictionary["sdss_coverage"] == 0:
@@ -267,6 +268,7 @@ def _host_info_block(
 
     return "%(title)s %(imageModal)s %(sdssLinkRow)s" % locals()
 
+
 def _crossmatch_info_block(
         log,
         request,
@@ -279,12 +281,12 @@ def _crossmatch_info_block(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-    
+
 
     **Return**
 
     - ``_crossmatch_info_block`` -- the crossmatch info from sherlock for the pesssto object
-    
+
     """
     log.debug('starting the ``_crossmatch_info_block`` function')
 
@@ -576,6 +578,7 @@ def _crossmatch_info_block(
 
     return "%(table)s" % locals()
 
+
 def _aladin_block(
         log,
         request,
@@ -588,12 +591,12 @@ def _aladin_block(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-    
+
 
     **Return**
 
     - ``_aladin_block`` -- the crossmatch info from sherlock for the pesssto object
-    
+
     """
     log.debug('starting the ``_aladin_block`` function')
 
@@ -660,6 +663,7 @@ def _aladin_block(
 
     return "%(masterClassification)s %(aladin)s" % locals()
 
+
 def _sherlock_development_form(
         log,
         request,
@@ -672,7 +676,7 @@ def _sherlock_development_form(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.):
-    
+
     """
 
     transientBucketId = discoveryDataDictionary["transientBucketId"]

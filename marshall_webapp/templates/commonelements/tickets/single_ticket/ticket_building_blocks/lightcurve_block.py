@@ -59,10 +59,9 @@ def lightcurve_block(
     dlightCurveImage = ""
 
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
-                discoveryDataDictionary["transientBucketId"],))
-        dlightCurveImage = 'static/caches/transients/%s/master_lightcurve.png' % (
+        lightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],)
+        dlightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
 
     # Override for LSQ lightcurves
@@ -73,25 +72,23 @@ def lightcurve_block(
             lightcurveSwitchAttempt = False
 
     if lightcurveSwitchAttempt == True:
-        filePath = request.registry.settings["downloads"][
-            "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+        filePath = request.registry.settings[
+            "cache-directory"] + "/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
 
         lsqExists = os.path.exists(filePath)
 
     if lsqExists:
 
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-            ))
-        dlightCurveImage = request.static_path('marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        ))
+        lightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        )
+        dlightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        )
 
     # Override for ATLAS lightcurves
     if discoveryDataDictionary["atlas_fp_lightcurve"]:
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%s/atlas_fp_lightcurve.png' % (
-                discoveryDataDictionary["transientBucketId"],))
-        dlightCurveImage = 'static/caches/transients/%s/atlas_fp_lightcurve.png' % (
+        lightCurveImage = 'caches/transients/%s/atlas_fp_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],)
+        dlightCurveImage = 'caches/transients/%s/atlas_fp_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
 
     if len(lightCurveImage):

@@ -13,6 +13,7 @@ import re
 import khufu
 from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks
 
+
 def photometry_tab(
         log,
         request,
@@ -30,12 +31,12 @@ def photometry_tab(
     - ``objectAkas`` -- object akas
     - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
-    
+
 
     **Return**
 
     - ``photometry_tab`` -- the lightcurve/photometry tab for a single ticket on the transient listings page
-    
+
     """
     from marshall_webapp.templates.commonelements.tickets import single_ticket
 
@@ -121,6 +122,7 @@ def photometry_tab(
     log.debug('completed the ``photometry_tab`` function')
     return "%(photometry_tab)s" % locals()
 
+
 def photometry_footer_bar(
         log,
         request,
@@ -134,12 +136,12 @@ def photometry_footer_bar(
     - ``log`` -- logger
     - ``discoveryData`` -- the discoveryData for the object
     - ``lightcurveData`` -- the lightcurve data for the object
-    
+
 
     **Return**
 
     - ``photometry_footer_bar`` -- the ticket footer bar for the pesssto object
-    
+
     """
     lsqExists = False
     log.debug('starting the ``photometry_footer_bar`` function')
@@ -175,8 +177,8 @@ def photometry_footer_bar(
             lightcurveSwitchAttempt = False
 
     if lightcurveSwitchAttempt == True:
-        filePath = request.registry.settings["downloads"][
-            "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+        filePath = request.registry.settings[
+            "cache-directory"] + "/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
         if "lsq" in name.lower() and "lsq" in discoveryDataDictionary["survey"]:
             lsqname = name
         else:
@@ -201,8 +203,8 @@ def photometry_footer_bar(
         )
         linkList = """%(linkList)s%(link)s""" % locals()
 
-        thisImage = request.static_path("marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals(
-        ))
+        thisImage = "caches/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals(
+        )
         filename = "%(name)s_lsq_lightcurve" % locals()
         href = request.route_path(
             'download', _query={'url': thisImage, "webapp": "marshall_webapp", "filename": filename})

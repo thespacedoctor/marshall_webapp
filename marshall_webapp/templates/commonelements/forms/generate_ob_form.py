@@ -14,6 +14,7 @@ from fundamentals import times
 import khufu
 from marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block import lightcurve_block as lcb
 
+
 def generate_ob_form(
     log,
     request,
@@ -30,12 +31,12 @@ def generate_ob_form(
     - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
     - ``lightcurveData`` -- lightcurve data
     - ``objectAkas`` -- akas for this object
-    
+
 
     **Return**
 
     - ``modalForm``, ``thisButton`` -- the modal form and the button used to trigger the modal
-    
+
     """
     # Header Text
     lsqExists = False
@@ -48,9 +49,8 @@ def generate_ob_form(
     # Get Lightcurve Image URL
     lightCurveImage = ""
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%s/master_lightcurve.png' % (
-                discoveryDataDictionary["transientBucketId"],))
+        lightCurveImage = '/cache/transients/%s/master_lightcurve.png' % (
+            discoveryDataDictionary["transientBucketId"],)
     # Override for LSQ lightcurves
     lightcurveSwitchAttempt = True
     transientBucketId = discoveryDataDictionary["transientBucketId"]
@@ -58,15 +58,14 @@ def generate_ob_form(
         if row["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and row["survey"] and "lsq-disc" in row["survey"].lower():
             lightcurveSwitchAttempt = False
     if lightcurveSwitchAttempt == True:
-        filePath = request.registry.settings["downloads"][
-            "transient cache directory"] + "/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
+        filePath = request.registry.settings[
+            "cache-directory"] + "/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
         lsqExists = os.path.exists(filePath)
 
     if lsqExists:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = request.static_path(
-            'marshall_webapp:static/caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-            ))
+        lightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
+        )
     if not len(lightCurveImage):
         lightCurveImage = khufu.image(
             # [ industrial | gray | social ]
