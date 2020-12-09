@@ -42,3 +42,4 @@ config.codekit
 /.cache/v/cache/lastfailed
 marshall_schema.sql.bak
 /logs/marshall.log*
+marshall_webapp/.fuse*

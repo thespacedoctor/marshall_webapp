@@ -5201,7 +5201,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 20:44:27
+-- Dump completed on 2020-12-09 20:58:04
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5275,6 +5275,84 @@ INSERT INTO `webapp_users` VALUES (1,'yen-chen','pan','$5$rounds=110000$MAKWStjF
 UNLOCK TABLES;
 
 --
+-- Table structure for table `stats_ssdr1_overview`
+--
+
+DROP TABLE IF EXISTS `stats_ssdr1_overview`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stats_ssdr1_overview` (
+  `primaryId` int(11) NOT NULL AUTO_INCREMENT,
+  `filetype` varchar(200) DEFAULT NULL,
+  `numberOfFiles` int(11) DEFAULT NULL,
+  `dataVolumeBytes` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`primaryId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stats_ssdr1_overview`
+--
+
+LOCK TABLES `stats_ssdr1_overview` WRITE;
+/*!40000 ALTER TABLE `stats_ssdr1_overview` DISABLE KEYS */;
+INSERT INTO `stats_ssdr1_overview` VALUES (1,'sofi_science_images',234,1946643840),(2,'sofi_image_weights',234,1946612160),(3,'sofi_2d_spectral_images',95,312212160),(4,'sofi_1d_binary_spectra',95,4377600),(5,'efosc_acq_images',977,4020863040),(6,'efosc_science_images',1996,7731239040),(7,'efosc_2d_spectral_images',813,2793409920),(27,'efosc_1d_binary_spectra',813,37463040);
+/*!40000 ALTER TABLE `stats_ssdr1_overview` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stats_ssdr2_overview`
+--
+
+DROP TABLE IF EXISTS `stats_ssdr2_overview`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stats_ssdr2_overview` (
+  `primaryId` int(11) NOT NULL AUTO_INCREMENT,
+  `filetype` varchar(200) DEFAULT NULL,
+  `numberOfFiles` int(11) DEFAULT NULL,
+  `dataVolumeBytes` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`primaryId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stats_ssdr2_overview`
+--
+
+LOCK TABLES `stats_ssdr2_overview` WRITE;
+/*!40000 ALTER TABLE `stats_ssdr2_overview` DISABLE KEYS */;
+INSERT INTO `stats_ssdr2_overview` VALUES (1,'sofi_science_images',158,1265532480),(2,'sofi_image_weights',158,1265480640),(3,'sofi_2d_spectral_images',22,72869760),(4,'sofi_1d_binary_spectra',22,1013760),(5,'efosc_acq_images',1431,5889309120),(6,'efosc_science_images',3504,11551662720),(7,'efosc_2d_spectral_images',798,2735251200),(8,'efosc_1d_binary_spectra',798,36757440);
+/*!40000 ALTER TABLE `stats_ssdr2_overview` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stats_ssdr3_overview`
+--
+
+DROP TABLE IF EXISTS `stats_ssdr3_overview`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stats_ssdr3_overview` (
+  `primaryId` int(11) NOT NULL AUTO_INCREMENT,
+  `filetype` varchar(200) DEFAULT NULL,
+  `numberOfFiles` int(11) DEFAULT NULL,
+  `dataVolumeBytes` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`primaryId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stats_ssdr3_overview`
+--
+
+LOCK TABLES `stats_ssdr3_overview` WRITE;
+/*!40000 ALTER TABLE `stats_ssdr3_overview` DISABLE KEYS */;
+INSERT INTO `stats_ssdr3_overview` VALUES (1,'sofi_science_images',383,2931883200),(2,'sofi_image_weights',383,2931730560),(3,'sofi_2d_spectral_images',108,355032000),(4,'sofi_1d_binary_spectra',108,4976640),(5,'efosc_acq_images',0,0),(6,'efosc_science_images',7279,25519296960),(7,'efosc_2d_spectral_images',1240,4259767680),(8,'efosc_1d_binary_spectra',1240,57139200);
+/*!40000 ALTER TABLE `stats_ssdr3_overview` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `marshall_fs_column_map`
 --
 
@@ -5311,4 +5389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 20:44:27
+-- Dump completed on 2020-12-09 20:58:04
