@@ -10,4 +10,3 @@ git+https://github.com/readthedocs/readthedocs-sphinx-search@master
 docopt
 unicodecsv
 psutil>5.7
-
