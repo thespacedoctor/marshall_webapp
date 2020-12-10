@@ -115,7 +115,7 @@ class models_transients_element_post(object):
             params["clsRedshift"] = "null"
         if "clsClassificationWRTMax" not in params:
             params["clsClassificationWRTMax"] = "unknown"
-        if "clsClassificationPhase" not in params or len(clsClassificationPhase) == 0:
+        if "clsClassificationPhase" not in params or len(params["clsClassificationPhase"]) == 0:
             params["clsClassificationPhase"] = "null"
 
         params["username"] = self.request.authenticated_userid
