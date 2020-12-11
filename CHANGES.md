@@ -1,7 +1,10 @@
 
 ## Release Notes
 
-settings files clean up and consolidation
+**v3.0.7 - December 4, 2020**
+
+* **REFACTOR** settings files clean up and consolidation
+* **FIXED** classification bug squashed
 
 **v3.0.6 - December 4, 2020**
 
