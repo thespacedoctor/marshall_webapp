@@ -3302,11 +3302,17 @@ CREATE  PROCEDURE `sync_marshall_feeder_survey_transientBucketId`(ARG_fs_table v
 BEGIN
 	set @fs_table = convert(ARG_fs_table using utf8mb4) collate utf8mb4_general_ci;
     
-	-- NAME OF OBJECT IN FEEDER SURVEY TABLE
+	
 	set @object = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "name" and fs_table_name = @fs_table);  
-    -- SURVEY NAME
+    
     set @survey = (select fs_survey_name from marshall_fs_column_map where fs_table_name = @fs_table limit 1);  
-    -- NOW SYNC THE TRANSIENTBUCKETIDS > FS_TABLE
+    set @magCol = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "magnitude" and fs_table_name = @fs_table);
+    if @magCol is not null then 
+		set @magCol = concat('and ',@magCol,' is not null');
+	else
+		set @magCol = "";
+	end if;
+    
     set @myquery = concat('UPDATE ',@fs_table,' a
 INNER JOIN 
 transientBucket b
@@ -3316,66 +3322,29 @@ where a.transientBucketId IS NULL;');
 	PREPARE stmt FROM @myquery;
 	EXECUTE stmt;
     
-    -- SYNC ALL NEW MATCHED FEEDER SURVEY ROWS TO TRANSIENTBUCKET
+    
     if @survey is not null then 
 		set @tbcolumns = (select CONCAT_WS(',',GROUP_CONCAT(transientBucket_column  order  by primaryId),'survey') from marshall_fs_column_map where fs_table_name = @fs_table);
 		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = ARG_fs_table);
-		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,',"',@survey,'" from ',@fs_table,' where ingested = 0 and transientBucketId is not null;' );
+		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,',"',@survey,'" from ',@fs_table,' where ingested = 0 and transientBucketId is not null ',@magCol,';' );
 	else
 		set @tbcolumns = (select GROUP_CONCAT(transientBucket_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table);
 		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table);
-		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,' from ',@fs_table,' where ingested = 0 and transientBucketId is not null;' );
+		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,' from ',@fs_table,' where ingested = 0 and transientBucketId is not null ',@magCol,';' );
 	end if;
     PREPARE stmt FROM @myquery;
     EXECUTE stmt;
     
-    -- SET INGEST = 1 FOR ALL ROWS SYNCED TO TRANSIENTBUCKET
-    set @myquery = concat('update ',ARG_fs_table,' set ingested = 1 where transientBucketId is not null and ingested = 0');
+    
+    set @myquery = concat('update ',ARG_fs_table,' set ingested = 1 where transientBucketId is not null and ingested = 0 ',@magCol,';');
 	PREPARE stmt FROM @myquery;
     EXECUTE stmt;
     
-    -- MAKE SURE SHERLOCK HAS A ROW FOR ALL NEW SOURCES
+    
     set @myquery = 'insert into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucketSummaries ON DUPLICATE KEY UPDATE  transient_object_id = transientBucketId;';
     PREPARE stmt FROM @myquery;
     EXECUTE stmt;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sync_marshall_feeder_survey_transientBucketId_test` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `sync_marshall_feeder_survey_transientBucketId_test`(ARG_fs_table varchar(45))
-BEGIN
-	set @fs_table = convert(ARG_fs_table using utf8mb4) collate utf8mb4_general_ci;
     
-	-- NAME OF OBJECT IN FEEDER SURVEY TABLE
-	set @object = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "name" and fs_table_name = @fs_table);  
-    -- SURVEY NAME
-    set @survey = (select fs_survey_name from marshall_fs_column_map where fs_table_name = @fs_table limit 1);  
-    -- NOW SYNC THE TRANSIENTBUCKETIDS > FS_TABLE
-    set @myquery = concat('UPDATE ',@fs_table,' a
-INNER JOIN 
-(
-    select distinct name, transientBucketId from transientBucket order by name desc
-)AS b
-ON a.',@object,' = b.name
-set a.transientBucketId = b.transientBucketId
-where a.transientBucketId IS NULL;');
-	PREPARE stmt FROM @myquery;
-    
-    select @myquery;
-    
-	
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -3552,7 +3521,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `update_single_transientbucket_summary`(
 	IN thisID BIGINT(20)
@@ -3963,7 +3932,8 @@ UPDATE transientBucketSummaries s,
             a.classificationPhase AS classificationPhase,
             a.reducer AS classificationAddedBy,
             a.dateCreated AS classificationAddedDate,
-            a.transientRedshift AS best_redshift
+            a.transientRedshift AS best_redshift,
+            a.survey AS classificationSurvey
     FROM
         transientBucket a
     JOIN (SELECT 
@@ -4007,6 +3977,7 @@ SET
     s.classificationPhase = t.classificationPhase,
     s.classificationAddedBy = t.classificationAddedBy,
     s.classificationAddedDate = t.classificationAddedDate,
+    s.classificationSurvey = t.classificationSurvey,
     s.best_redshift = t.best_redshift
 WHERE
     s.transientBucketId = t.transientBucketId
@@ -4092,11 +4063,11 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `update_tns_tables`()
 BEGIN
-update tns_spectra set ingested  = 1 where survey like "%PESSTO%";
+-- update tns_spectra set ingested  = 1 where survey like "%PESSTO%";
 update tns_spectra set TNSName = concat("AT",TNSId) where specType not like "%SN%" and TNSName is null;
 update tns_spectra set TNSName = concat("SN",TNSId) where specType  like "%SN%" and TNSName is null;
 update tns_spectra p, tns_sources s set p.raDeg = s.raDeg, p.decDeg = s.decDeg where p.TNSId=s.TNSId and s.raDeg is not null;
@@ -5201,7 +5172,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 20:58:04
+-- Dump completed on 2020-12-11 16:13:51
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5242,7 +5213,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
 
 LOCK TABLES `meta_workflow_lists_counts` WRITE;
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` DISABLE KEYS */;
-INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',113884),(2,'following',59),(3,'followup complete',548),(4,'review for followup',47),(5,'pending observation',31),(6,'inbox',196),(7,'external alert released',7496),(8,'pending classification',8),(9,'pessto classification released',1066),(10,'archived without alert',18392),(11,'queued for atel',0),(17,'classified',13912),(19,'all',114773),(20,'snoozed',27444);
+INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',114027),(2,'following',49),(3,'followup complete',559),(4,'review for followup',63),(5,'pending observation',23),(6,'inbox',340),(7,'external alert released',7496),(8,'pending classification',0),(9,'pessto classification released',1066),(10,'archived without alert',18407),(11,'queued for atel',0),(17,'classified',13940),(19,'all',115061),(20,'snoozed',27492);
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5389,4 +5360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 20:58:04
+-- Dump completed on 2020-12-11 16:13:51
