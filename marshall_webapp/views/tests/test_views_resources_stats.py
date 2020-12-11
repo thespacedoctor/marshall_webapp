@@ -85,6 +85,10 @@ class test_views_resources_stats(BaseTest):
         # PARAM DICTIONARY = URL TOKENS
         params = {}
 
+        # Recursively create missing directories
+        if not os.path.exists("/tmp/marshall_webapp/static/caches/stats/phaseIII"):
+            os.makedirs("/tmp/marshall_webapp/static/caches/stats/phaseIII")
+
         params["format"] = "json"
         respsonse = self.testapp.get('/stats',
                                      params=params, status=404)
