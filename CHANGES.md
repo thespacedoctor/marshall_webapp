@@ -1,6 +1,11 @@
 
 ## Release Notes
 
+**v3.0.8 - December 15, 2020**
+
+* **REFACTOR** added ability to set classification priority when moving ticket to classification list
+* **FIXED** fixing cache links so images appear and downloads work correctly
+
 **v3.0.7 - December 4, 2020**
 
 * **REFACTOR** settings files clean up and consolidation
