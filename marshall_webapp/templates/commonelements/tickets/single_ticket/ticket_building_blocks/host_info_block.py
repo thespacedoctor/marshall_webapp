@@ -239,7 +239,7 @@ def host_info_block(
         centerContent=True
     )
     imageModal = khufu.image(
-        src=contextStamp,  # [ industrial | gray | social ]
+        src=request.static_url(f'marshall_webapp:{contextStamp}'),
         href="#hookId%(randNum)s" % locals(),
         display="rounded",  # [ rounded | circle | polaroid | False ]
         pull=False,  # [ "left" | "right" | "center" | False ]
