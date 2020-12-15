@@ -21,9 +21,9 @@
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            63 statements &nbsp;
+            64 statements &nbsp;
             <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">33 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">30 missing</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">31 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -145,7 +145,7 @@
     <p id="t92" class="run"><span class="n"><a href="#t92">92</a></span><span class="t">    <span class="nam">dataType</span> <span class="op">=</span> <span class="nam">dataType</span><span class="op">.</span><span class="nam">lower</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t93" class="pln"><span class="n"><a href="#t93">93</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t94" class="pln"><span class="n"><a href="#t94">94</a></span><span class="t">    <span class="com"># SETUP THE PHASEIII STATS CACHE DIRECTORY</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t95" class="run"><span class="n"><a href="#t95">95</a></span><span class="t">    <span class="nam">statsCache</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">registry</span><span class="op">.</span><span class="nam">settings</span><span class="op">[</span><span class="str">"stats cache directory"</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t95" class="run"><span class="n"><a href="#t95">95</a></span><span class="t">    <span class="nam">statsCache</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">registry</span><span class="op">.</span><span class="nam">settings</span><span class="op">[</span><span class="str">"cache-directory"</span><span class="op">]</span> <span class="op">+</span> <span class="str">"/stats/"</span>&nbsp;</span><span class="r"></span></p>
     <p id="t96" class="run"><span class="n"><a href="#t96">96</a></span><span class="t">    <span class="nam">esoPhaseIII</span> <span class="op">=</span> <span class="str">"""%(statsCache)s/phaseIII"""</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t97" class="pln"><span class="n"><a href="#t97">97</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t98" class="pln"><span class="n"><a href="#t98">98</a></span><span class="t">    <span class="com"># FIND EACH SOFI/EFOSC IMAGING/SPECTRA PNG IN THE PHASEIII STATS CACHE AND APPEND IT TO</span>&nbsp;</span><span class="r"></span></p>
@@ -165,8 +165,8 @@
     <p id="t112" class="pln"><span class="n"><a href="#t112">112</a></span><span class="t">                <span class="str">"_"</span><span class="op">,</span> <span class="str">" "</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t113" class="mis show_mis"><span class="n"><a href="#t113">113</a></span><span class="t">            <span class="nam">title</span> <span class="op">=</span> <span class="nam">fulltitle</span><span class="op">.</span><span class="nam">replace</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t114" class="pln"><span class="n"><a href="#t114">114</a></span><span class="t">                <span class="str">"%(releaseVersion)s %(instrument)s %(dataType)s "</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span><span class="op">,</span> <span class="str">""</span><span class="op">)</span><span class="op">.</span><span class="nam">lower</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t115" class="mis show_mis"><span class="n"><a href="#t115">115</a></span><span class="t">            <span class="nam">filepath</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">static_path</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t116" class="pln"><span class="n"><a href="#t116">116</a></span><span class="t">                <span class="str">'marshall_webapp:static/caches/stats/phaseIII/%(d)s'</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t115" class="mis show_mis"><span class="n"><a href="#t115">115</a></span><span class="t">            <span class="nam">filepath</span> <span class="op">=</span> <span class="str">'caches/stats/phaseIII/%(d)s'</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t116" class="mis show_mis"><span class="n"><a href="#t116">116</a></span><span class="t">            <span class="nam">filepath</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">static_url</span><span class="op">(</span><span class="str">f'marshall_webapp:{filepath}'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t117" class="mis show_mis"><span class="n"><a href="#t117">117</a></span><span class="t">            <span class="nam">link</span> <span class="op">=</span> <span class="nam">khufu</span><span class="op">.</span><span class="nam">a</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t118" class="pln"><span class="n"><a href="#t118">118</a></span><span class="t">                <span class="nam">content</span><span class="op">=</span><span class="str">'view in new tab'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t119" class="pln"><span class="n"><a href="#t119">119</a></span><span class="t">                <span class="nam">href</span><span class="op">=</span><span class="nam">filepath</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -297,7 +297,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3</a>,
-            created at 2020-12-04 15:02 +0000
+            created at 2020-12-15 23:05 +0000
         </p>
     </div>
 </div>
