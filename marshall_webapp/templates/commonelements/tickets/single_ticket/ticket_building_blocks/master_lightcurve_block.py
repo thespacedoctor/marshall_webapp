@@ -52,10 +52,10 @@ def master_lightcurve_block(
     name = discoveryDataDictionary["masterName"]
 
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
-            discoveryDataDictionary["transientBucketId"],)
         dlightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
+        lightCurveImage = request.static_url(f'marshall_webapp:{dlightCurveImage}')
+
     else:
         lightCurveImage = ''
         dlightCurveImage = ''
@@ -74,10 +74,9 @@ def master_lightcurve_block(
 
     if lsqExists:
         transientBucketId = discoveryDataDictionary["transientBucketId"]
-        lightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        )
         dlightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
         )
+        lightCurveImage = request.static_url(f'marshall_webapp:{dlightCurveImage}')
 
     if len(lightCurveImage):
         href = request.route_path(
