@@ -59,10 +59,9 @@ def lightcurve_block(
     dlightCurveImage = ""
 
     if discoveryDataDictionary["master_pessto_lightcurve"]:
-        lightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
-            discoveryDataDictionary["transientBucketId"],)
         dlightCurveImage = 'caches/transients/%s/master_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
+        lightCurveImage = request.static_url(f'marshall_webapp:{dlightCurveImage}')
 
     # Override for LSQ lightcurves
     lightcurveSwitchAttempt = True
@@ -74,22 +73,19 @@ def lightcurve_block(
     if lightcurveSwitchAttempt == True:
         filePath = request.registry.settings[
             "cache-directory"] + "/transients/%(transientBucketId)s/lsq_lightcurve.gif" % locals()
-
         lsqExists = os.path.exists(filePath)
 
     if lsqExists:
-
-        lightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
-        )
         dlightCurveImage = 'caches/transients/%(transientBucketId)s/lsq_lightcurve.gif' % locals(
         )
+        lightCurveImage = request.static_url(f'marshall_webapp:{dlightCurveImage}')
 
     # Override for ATLAS lightcurves
     if discoveryDataDictionary["atlas_fp_lightcurve"]:
         lightCurveImage = 'caches/transients/%s/atlas_fp_lightcurve.png' % (
             discoveryDataDictionary["transientBucketId"],)
-        dlightCurveImage = 'caches/transients/%s/atlas_fp_lightcurve.png' % (
-            discoveryDataDictionary["transientBucketId"],)
+        lightCurveImage = request.static_url(f'marshall_webapp:{lightCurveImage}')
+        dlightCurveImage = lightCurveImage
 
     if len(lightCurveImage):
         href = request.route_path(

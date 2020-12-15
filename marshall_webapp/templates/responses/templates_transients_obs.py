@@ -13,6 +13,7 @@ import os
 import khufu
 from marshall_webapp.models.transients_obs import models_transients_obs_get
 
+
 class templates_transients_obs(object):
     """
     The worker class for the templates_transients_obs module
@@ -22,7 +23,7 @@ class templates_transients_obs(object):
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``elementId`` -- the specific element requested (or False)
-    
+
     """
 
     def __init__(
@@ -47,7 +48,7 @@ class templates_transients_obs(object):
 
         - ``filename``
         - ``obText``
-        
+
         """
         self.log.debug('starting the ``get`` method')
 
@@ -75,26 +76,37 @@ class templates_transients_obs(object):
         **Key Arguments**
 
         - ``transient_ob_data``
-        
+
 
         **Return**
 
         - ``downloadFilename``
         - ``obText``
-        
+
         """
         self.log.debug('starting the ``_generate_ob_text`` method')
 
         od = {}  # override dictionary
 
         # UNPACK DICTIONARY VALUES TO LOCAL()
+        a = {}
         for arg, val in list(transient_ob_data.items()):
-            varname = arg
-            if isinstance(val, ("".__class__, u"".__class__)):
-                exec(varname + ' = """%s""" ' % (val,))
+            if arg[0] == "-":
+                varname = arg.replace("-", "") + "Flag"
             else:
-                exec(varname + " = %s" % (val,))
+                varname = arg.replace("<", "").replace(">", "")
+            a[varname] = val
             self.log.debug('%s = %s' % (varname, val,))
+
+        instrument = a["instrument"]
+        spectrumOrImage = a["spectrumOrImage"]
+        currentMag = a["currentMag"]
+        ra = a["ra"]
+        dec = a["dec"]
+        objectName = a["objectName"]
+        objectClass = a["objectClass"]
+        grism = a["grism"]
+        badSeeing = a["badSeeing"]
 
         # instrument
         if "efos" in instrument:

@@ -182,14 +182,12 @@ def _host_info_block(
         )
         downloadContextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
-        contextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
-            discoveryDataDictionary["transientBucketId"],)
+        contextStamp = request.static_url(f'marshall_webapp:{downloadContextStamp}')
         stampName = "%(masterName)s_sdss_context_image" % locals()
     elif discoveryDataDictionary["ogle_color_context_stamp"] == 1:
         downloadContextStamp = "caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
         )
-        contextStamp = "caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
-        )
+        contextStamp = request.static_url(f'marshall_webapp:{downloadContextStamp}')
         ogleStamp = "OGLE context stamp"
         stampName = "%(masterName)s_ogle_context_image" % locals()
     elif discoveryDataDictionary["sdss_coverage"] == 0:

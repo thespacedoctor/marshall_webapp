@@ -78,19 +78,19 @@ def host_info_block(
     if discoveryDataDictionary["ps1_map"] == 1:
         downloadContextStamp = "caches/transients/%s/ps1_map_color.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
-        contextStamp = downloadContextStamp
+        contextStamp = request.static_url(f'marshall_webapp:{downloadContextStamp}')
         contextMaps["PS1"] = contextStamp
         stampName = "%(masterName)s_ps1_context_image" % locals()
     if discoveryDataDictionary["sdss_coverage"] == 1:
         downloadContextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
-        contextStamp = downloadContextStamp
+        contextStamp = request.static_url(f'marshall_webapp:{downloadContextStamp}')
         contextMaps["SDSS DR12"] = contextStamp
         stampName = "%(masterName)s_sdss_context_image" % locals()
     if discoveryDataDictionary["ogle_color_context_stamp"] == 1:
         downloadContextStamp = "caches/transients/%(transientBucketId)s/ogle_color_context_stamp.png" % locals(
         )
-        contextStamp = downloadContextStamp
+        contextStamp = request.static_url(f'marshall_webapp:{downloadContextStamp}')
         contextMaps["OGLE"] = contextStamp
         ogleStamp = "OGLE context stamp"
         ogleStamp = khufu.coloredText(
@@ -239,7 +239,7 @@ def host_info_block(
         centerContent=True
     )
     imageModal = khufu.image(
-        src=request.static_url(f'marshall_webapp:{contextStamp}'),
+        src=contextStamp,
         href="#hookId%(randNum)s" % locals(),
         display="rounded",  # [ rounded | circle | polaroid | False ]
         pull=False,  # [ "left" | "right" | "center" | False ]

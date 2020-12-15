@@ -7,6 +7,7 @@ from pyramid.path import AssetResolver
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.settings import aslist
+from os.path import expanduser
 
 
 def db(request):
@@ -79,11 +80,14 @@ def main(global_config, **settings):
 
     # STATIC VIEWS/RESOURCES
     config.add_static_view('static', 'static', cache_max_age=3600)
-    # config.add_static_view(
-    #     name='caches', path=settings["cache-directory"], cache_max_age=3600)
     config.add_static_view(
         '.codekit-cache', '.codekit-cache', cache_max_age=3600)
 
+    home = expanduser("~")
+    settings[
+        "cache-directory"] = settings["cache-directory"].replace("~", home)
+    print(settings[
+        "cache-directory"])
     config.add_static_view(
         'caches', 'marshall_webapp:caches', cache_max_age=3600)
     config.override_asset(to_override='marshall_webapp:caches/',

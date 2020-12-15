@@ -227,7 +227,7 @@ def identity_block(
     )
 
     # IMAGE STAMP
-    transient_cache = "caches/transients/"
+    transient_cache = request.static_url(f'marshall_webapp:caches/transients/')
     download_prefix = "/marshall/caches/transients/"
 
     sourceImages = []

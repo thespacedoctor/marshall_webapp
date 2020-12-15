@@ -113,6 +113,7 @@ def _generate_plot_well(
             title = fulltitle.replace(
                 "%(releaseVersion)s %(instrument)s %(dataType)s " % locals(), "").lower()
             filepath = 'caches/stats/phaseIII/%(d)s' % locals()
+            filepath = request.static_url(f'marshall_webapp:{filepath}')
             link = khufu.a(
                 content='view in new tab',
                 href=filepath,

@@ -13,6 +13,7 @@ import datetime as datetime
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 
+
 def survey_lightcurves_block(
         log,
         request,
@@ -27,12 +28,12 @@ def survey_lightcurves_block(
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
     - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
     - ``displayTitle`` -- display the title for this block?
-    
+
 
     **Return**
 
     - ``survey_lightcurves_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``survey_lightcurves_block`` function')
 
@@ -65,8 +66,8 @@ def survey_lightcurves_block(
             tinyDict = {}
             tinyDict["url"] = ""
             tinyDict["survey"] = thisSurvey
-            tinyDict[
-                "lc"] = '/marshall/static/caches/transients/%(transientBucketId)s/%(thisSurvey)s_lightcurve.%(thisExt)s' % locals()
+            tinyDict["lc"] = request.static_url(f'marshall_webapp:caches/transients/{transientBucketId}/{thisSurvey}_lightcurve.{thisExt}')
+
             tinyDict[
                 "filename"] = "%(thisSurvey)s_lightcurve.%(thisExt)s" % locals()
 
