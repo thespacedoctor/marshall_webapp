@@ -22,6 +22,7 @@ import urllib.error
 import re
 from dryxPyramid.models.models_base import base_model
 
+
 class models_transients_context_get(base_model):
     """
     The worker class for the models_transients_context_get module
@@ -31,7 +32,7 @@ class models_transients_context_get(base_model):
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``elementId`` -- the specific element id requests (or False)
-    
+
     """
 
     def __init__(self, log, request, elementId=False, search=False):
@@ -49,7 +50,7 @@ class models_transients_context_get(base_model):
         **Return**
 
         - ``responseContent`` -- the reponse to send to the browser
-        
+
         """
         self.log.debug('starting the ``get`` method')
 
@@ -57,7 +58,7 @@ class models_transients_context_get(base_model):
 
         # GRAB THE LIGHTCURVE DATA FOR THE OBJECT
         sqlQuery = """
-            select * from sherlock_crossmatches where transient_object_id in (select transientBucketId from transientBucket where replacedByRowId = 0 and transientBucketId = %(transientBucketId)s);
+            select * from sherlock_crossmatches where transient_object_id in (select transientBucketId from transientBucket where replacedByRowId = 0 and transientBucketId = %(transientBucketId)s) and rank is not null;
         """ % locals()
 
         context = self.request.db.execute(sqlQuery).fetchall()

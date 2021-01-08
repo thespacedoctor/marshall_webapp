@@ -786,7 +786,7 @@ class models_transients_get(base_model):
         matchedTransientBucketIds = self.matchedTransientBucketIds
 
         sqlQuery = """
-            select *, t.raDeg, t.decDeg from sherlock_crossmatches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.transientBucketId = t.transient_object_id  and b.masterIDFlag = 1  and t.catalogue_table_id=h.id order by rank
+            select *, t.raDeg, t.decDeg from sherlock_crossmatches t, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.transientBucketId = t.transient_object_id  and b.masterIDFlag = 1 and rank is not null order by rank
         """ % locals()
 
         crossmatchesTmp = self.request.db.execute(sqlQuery).fetchall()

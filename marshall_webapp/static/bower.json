@@ -1,0 +1,24 @@
+{
+  "name": "new-codekit-project",
+  "authors": [
+    "Your name here"
+  ],
+  "description": "CodeKit created this starter Bower.json file. You should customize it appropriately.",
+  "main": "",
+  "license": "UNLICENSED",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "jquery": "~2.1.1"
+  },
+  "dependencies": {
+    "jquery.affix": "0.2.0"
+  }
+}
