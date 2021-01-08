@@ -13,6 +13,7 @@ from marshall_webapp.models.transients import models_transients_count
 from marshall_webapp.templates.commonelements import forms
 import copy
 
+
 def marshall_sidebar(
         log,
         request,
@@ -25,20 +26,19 @@ def marshall_sidebar(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``thisPageName`` -- the name of the page currently displayed
-    
+
 
     **Return**
 
     - ``leftNavBar`` -- the left navigation bar for the pessto marshall
-    
+
     """
     log.debug('starting the ``marshall_sidebar`` function')
     ## VARIABLES ##
     leftColumnContent = ""
 
     # MAKE SURE PARAMETERS PERSIST IF REQUEST COMING FROM A TRANSIENT RESOURCE
-    if request.referer and "transients" not in request.referer.split(
-            request.host)[1].split("?")[0]:
+    if request.referer and "transients" not in request.referer:
         params = {}
     else:
         params = dict(request.params)
@@ -100,6 +100,7 @@ def marshall_sidebar(
     log.debug('completed the ``marshall_sidebar`` function')
     return marshall_sidebar
 
+
 def _marshall_sidebar_header(
         log,
         request,
@@ -111,12 +112,12 @@ def _marshall_sidebar_header(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``params`` -- params required for links
-    
+
 
     **Return**
 
     - ``content`` -- the left nav bar header content
-    
+
     """
 
     log.debug('starting the ``_marshall_sidebar_header`` function')
@@ -198,6 +199,7 @@ def _marshall_sidebar_header(
     log.debug('completed the ``_marshall_sidebar_header`` function')
     return "%(pesstoIcon)s %(createNewButton)s" % locals()
 
+
 def _get_development_links(
         log,
         thisPageName,
@@ -209,12 +211,12 @@ def _get_development_links(
     - ``log`` -- logger
     - ``thisPageName`` -- the name of the current page
     - ``params`` -- params required for links
-    
+
 
     **Return**
 
     - ``developmentLinks`` -- the development queue - a list of links
-    
+
     """
     log.debug('starting the ``_get_development_links`` function')
     ## VARIABLES ##
@@ -288,6 +290,7 @@ def _get_development_links(
     log.debug('completed the ``_get_development_links`` function')
     return developmentLinks
 
+
 def _get_observation_queues(
         log,
         request,
@@ -300,12 +303,12 @@ def _get_observation_queues(
     - ``log`` -- logger
     - ``thisPageName`` -- the name of the current page
     - ``params`` -- params required for links
-    
+
 
     **Return**
 
     - ``observationQueues`` -- the observation queue - a list of links
-    
+
     """
     log.debug('starting the ``_get_observation_queues`` function')
     ## VARIABLES ##
@@ -492,6 +495,7 @@ def _get_observation_queues(
     log.debug('completed the ``_get_observation_queues`` function')
     return observationQueues
 
+
 def _get_classification_queues(
         log,
         request,
@@ -504,12 +508,12 @@ def _get_classification_queues(
     - ``log`` -- logger
     - ``thisPageName`` -- the name of the current page
     - ``params`` -- params required for links
-    
+
 
     **Return**
 
     - ``classificationQueues`` -- the classification queue - a list of links
-    
+
     """
     import khufu
 
@@ -655,6 +659,7 @@ def _get_classification_queues(
     log.debug('completed the ``_get_classification_queues`` function')
     return classificationQueues
 
+
 def _get_reference_lists(
         log,
         request,
@@ -667,12 +672,12 @@ def _get_reference_lists(
     - ``log`` -- logger
     - ``thisPageName`` -- the name of the current page
     - ``params`` -- params required for links
-    
+
 
     **Return**
 
     - ``referenceLists`` -- the reference queue - a list of links
-    
+
     """
     import khufu
 
@@ -898,6 +903,7 @@ def _get_reference_lists(
     log.debug('completed the ``_get_reference_lists`` function')
     return referenceLists
 
+
 def _get_target_selection_queue(
         log,
         request,
@@ -909,12 +915,12 @@ def _get_target_selection_queue(
 
     - ``log`` -- logger
     - ``params`` -- params required for links
-    
+
 
     **Return**
 
     - ``targetSelectionQueue`` -- the target selection queue - a list of links
-    
+
     """
     import khufu
 
@@ -1114,6 +1120,7 @@ def _get_target_selection_queue(
     log.debug('completed the ``get_tagert_selection_queue`` function')
     return targetSelectionQueue
 
+
 def _remove_parameters(
         log,
         params,
@@ -1126,12 +1133,12 @@ def _remove_parameters(
     - ``log`` -- logger
     - ``params`` -- the parameters of the request
     - ``paramsToRemove`` -- the parameters to remove from the incoming request
-    
+
 
     **Return**
 
     - ``params`` -- the clean parameters
-    
+
     """
     log.debug('starting the ``_remove_parameter`` function')
 

@@ -651,7 +651,9 @@ def _aladin_block(
 
     masterName = discoveryDataDictionary["masterName"]
     sherlockClassification = discoveryDataDictionary["sherlockClassification"]
-    if discoveryDataDictionary["sdss_coverage"] == 1:
+    if discoveryDataDictionary["ps1_map"] == 1:
+        survey = "P/PanSTARRS/DR1/color/z/zg/g"
+    elif discoveryDataDictionary["sdss_coverage"] == 1:
         survey = "P/SDSS9/color"
     else:
         survey = "P/DSS2/color"
