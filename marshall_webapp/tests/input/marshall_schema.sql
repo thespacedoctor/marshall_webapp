@@ -5203,7 +5203,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 10:31:05
+-- Dump completed on 2021-01-11 11:58:59
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5244,7 +5244,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
 
 LOCK TABLES `meta_workflow_lists_counts` WRITE;
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` DISABLE KEYS */;
-INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',117563),(2,'following',44),(3,'followup complete',605),(4,'review for followup',117),(5,'pending observation',25),(6,'inbox',340),(7,'external alert released',7496),(8,'pending classification',8),(9,'pessto classification released',1067),(10,'archived without alert',18678),(11,'queued for atel',0),(17,'classified',14268),(19,'all',118702),(20,'snoozed',29537);
+INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',117573),(2,'following',44),(3,'followup complete',605),(4,'review for followup',117),(5,'pending observation',25),(6,'inbox',341),(7,'external alert released',7496),(8,'pending classification',8),(9,'pessto classification released',1067),(10,'archived without alert',18678),(11,'queued for atel',0),(17,'classified',14268),(19,'all',118713),(20,'snoozed',29537);
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5391,4 +5391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 10:31:05
+-- Dump completed on 2021-01-11 11:58:59
