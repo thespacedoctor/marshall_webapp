@@ -4765,7 +4765,7 @@ WHERE
     observationMjd IS NULL
         AND observationDate IS NOT NULL limit 50000;
         
-DELETE FROM `marshall`.`transientbucket` WHERE observationMjd is null and dateCreated < DATE_SUB(curdate(), INTERVAL 3 hour);
+DELETE FROM `transientbucket` WHERE observationMjd is null and dateCreated < DATE_SUB(curdate(), INTERVAL 3 hour);
 
 END ;;
 DELIMITER ;
@@ -5203,7 +5203,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 11:58:59
+-- Dump completed on 2021-01-11 12:13:50
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5391,4 +5391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 11:58:59
+-- Dump completed on 2021-01-11 12:13:50
