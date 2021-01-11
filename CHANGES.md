@@ -1,6 +1,11 @@
 
 ## Marshall Webapp Release Notes
 
+**v3.0.9 - January 11, 2021**
+
+* **FEATURE** documentation for the marshall webapp is on [readthedocs](https://marshall-webapp.readthedocs.io/en/master/). This is mainly for developer reference so far.
+* **FIXED** the context visualisation is now displaying correctly to show all sherlock crossmatches (see context tab on transient tickets)
+
 **v3.0.8 - December 15, 2020**
 
 * **REFACTOR** added ability to set classification priority when moving ticket to classification list
