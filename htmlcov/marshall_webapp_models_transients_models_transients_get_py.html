@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
     <title>Coverage for marshall_webapp/models/transients/models_transients_get.py: 65%</title>
+    <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.hotkeys.js"></script>
@@ -839,7 +840,7 @@
     <p id="t786" class="run"><span class="n"><a href="#t786">786</a></span><span class="t">        <span class="nam">matchedTransientBucketIds</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">matchedTransientBucketIds</span>&nbsp;</span><span class="r"></span></p>
     <p id="t787" class="pln"><span class="n"><a href="#t787">787</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t788" class="run"><span class="n"><a href="#t788">788</a></span><span class="t">        <span class="nam">sqlQuery</span> <span class="op">=</span> <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t789" class="pln"><span class="n"><a href="#t789">789</a></span><span class="t"><span class="str">            select *, t.raDeg, t.decDeg from sherlock_crossmatches t, tcs_helper_catalogue_tables_info h, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.transientBucketId = t.transient_object_id  and b.masterIDFlag = 1  and t.catalogue_table_id=h.id order by rank</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t789" class="pln"><span class="n"><a href="#t789">789</a></span><span class="t"><span class="str">            select *, t.raDeg, t.decDeg from sherlock_crossmatches t, transientBucket b where b.replacedByRowId = 0 and b.transientBucketId in (%(matchedTransientBucketIds)s) and b.transientBucketId = t.transient_object_id  and b.masterIDFlag = 1 and rank is not null order by rank</span>&nbsp;</span><span class="r"></span></p>
     <p id="t790" class="pln"><span class="n"><a href="#t790">790</a></span><span class="t"><span class="str">        """</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t791" class="pln"><span class="n"><a href="#t791">791</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t792" class="run"><span class="n"><a href="#t792">792</a></span><span class="t">        <span class="nam">crossmatchesTmp</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">request</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">sqlQuery</span><span class="op">)</span><span class="op">.</span><span class="nam">fetchall</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -899,8 +900,8 @@
 <div id="footer">
     <div class="content">
         <p>
-            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3</a>,
-            created at 2020-12-15 23:05 +0000
+            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3.1</a>,
+            created at 2021-01-11 12:22 +0000
         </p>
     </div>
 </div>
