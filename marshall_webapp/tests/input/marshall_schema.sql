@@ -64,6 +64,7 @@ CREATE TABLE `atel_coordinates` (
   `updated` tinyint(1) DEFAULT 0,
   `dateLastModified` datetime DEFAULT current_timestamp(),
   `dateCreated` datetime DEFAULT current_timestamp(),
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `atelnumber_ra_dec` (`atelNumber`,`raDeg`,`decDeg`),
   KEY `ra_deg` (`raDeg`,`decDeg`),
@@ -73,7 +74,9 @@ CREATE TABLE `atel_coordinates` (
   KEY `idx_htm13ID` (`htm13ID`),
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
-  KEY `i_htm16ID` (`htm16ID`)
+  KEY `i_htm16ID` (`htm16ID`),
+  KEY `idx_transientBucketId` (`transientBucketId`),
+  KEY `idx_ingested` (`ingested`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -5203,7 +5206,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-12 15:04:49
+-- Dump completed on 2021-01-12 15:13:45
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5391,4 +5394,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-12 15:04:49
+-- Dump completed on 2021-01-12 15:13:45
