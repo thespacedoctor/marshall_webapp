@@ -1,4 +1,4 @@
-﻿views_xmatches_searches *(module)*
+views_xmatches_searches *(module)*
 ========================================================
 
 

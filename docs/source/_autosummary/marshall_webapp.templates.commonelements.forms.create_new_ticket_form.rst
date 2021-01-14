@@ -1,4 +1,4 @@
-﻿create_new_ticket_form *(module)*
+create_new_ticket_form *(module)*
 ================================================================================
 
 

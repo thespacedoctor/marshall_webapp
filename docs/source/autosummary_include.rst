@@ -164,28 +164,12 @@
    marshall_webapp.templates.responses.templates_xmatches_catalogues
    marshall_webapp.templates.responses.templates_xmatches_searches
    marshall_webapp.templates.responses.templates_xmatches_views
-   marshall_webapp.views.views_resources_members.views_resources_members
-   marshall_webapp.views.views_resources_stats.views_resources_stats
-   marshall_webapp.views.views_resources_stats_element.views_resources_stats_element
-   marshall_webapp.views.views_resources_transients.views_resources_transients
-   marshall_webapp.views.views_resources_transients_akas.views_resources_transients_akas
-   marshall_webapp.views.views_resources_transients_element.views_resources_transients_element
    marshall_webapp.views.views_resources_transients_element_akas.transients_element_view
-   marshall_webapp.views.views_services_calendars.views_services_calendars
-   marshall_webapp.views.views_services_refresh_sidebar_list_counts.views_services_refresh_sidebar_list_counts
    marshall_webapp.views.views_transients_comments.transients_element_comments_view
-   marshall_webapp.views.views_transients_comments.views_transients_comments
    marshall_webapp.views.views_transients_context.transients_element_context_view
-   marshall_webapp.views.views_transients_context.views_transients_context
-   marshall_webapp.views.views_transients_history.views_transients_history
    marshall_webapp.views.views_transients_lightcurves.transients_elements_lightcurve_view
-   marshall_webapp.views.views_transients_obs.views_transients_obs
-   marshall_webapp.views.views_xmatches.views_xmatches
-   marshall_webapp.views.views_xmatches_catalogues.views_xmatches_catalogues
    marshall_webapp.views.views_xmatches_catalogues.xmatches_element_catalogues_view
-   marshall_webapp.views.views_xmatches_searches.views_xmatches_searches
    marshall_webapp.views.views_xmatches_searches.xmatches_element_searches_view
-   marshall_webapp.views.views_xmatches_views.views_xmatches_views
    marshall_webapp.views.views_xmatches_views.xmatches_element_views_view 
 
 **Functions**
@@ -197,22 +181,12 @@
    marshall_webapp.db
    marshall_webapp.templates.commonelements.commonutils.block_title
    marshall_webapp.templates.commonelements.commonutils.little_label
-   marshall_webapp.templates.commonelements.filtering.ticket_table_filter_dropdown.ticket_table_filter_dropdown
-   marshall_webapp.templates.commonelements.forms.add_new_comment_to_object_form.add_new_comment_to_object_form
-   marshall_webapp.templates.commonelements.forms.change_pi_form.change_pi_form
-   marshall_webapp.templates.commonelements.forms.classify_object_form.classify_object_form
-   marshall_webapp.templates.commonelements.forms.create_new_ticket_form.create_new_ticket_form
-   marshall_webapp.templates.commonelements.forms.generate_ob_form.generate_ob_form
    marshall_webapp.templates.commonelements.pagetemplates.defaultpagetemplate
-   marshall_webapp.templates.commonelements.pagination.ticket_table_pagination.ticket_table_pagination
    marshall_webapp.templates.commonelements.sidebar.marshall_sidebar
    marshall_webapp.templates.commonelements.sidebar.stats_sidebar
    marshall_webapp.templates.commonelements.sidebar.xmatches_sidebar
-   marshall_webapp.templates.commonelements.sorting.number_of_objects_dropdown.number_of_objects_dropdown
-   marshall_webapp.templates.commonelements.sorting.ticket_table_sorting_dropdown.ticket_table_sorting_dropdown
    marshall_webapp.templates.commonelements.stats.esophaseIII.plot_wells
    marshall_webapp.templates.commonelements.stats.esophaseIII.ssdr_stats_table
-   marshall_webapp.templates.commonelements.tickets.single_ticket.single_ticket
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.comments.comments_tab
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.context.context_footer_bar
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.context.context_tab
@@ -223,18 +197,4 @@
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.overview.overview_tab
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.photometry.photometry_footer_bar
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.photometry.photometry_tab
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.actions_block.actions_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.classification_block.classification_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.comments_block.comments_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.host_info_block.host_info_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.identity_block.identity_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.latest_magnitudes_block.latest_magnitudes_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.lightcurve_block.lightcurve_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.master_lightcurve_block.master_lightcurve_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.object_info_block.object_info_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.survey_lightcurves_block.survey_lightcurves_block
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_footer_bar.ticket_footer_bar
-   marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.ticket_header_bar
-   marshall_webapp.templates.commonelements.topnavbar.topnavbar
-   marshall_webapp.templates.commonelements.view_switcher_buttons.ntt_view_button
-   marshall_webapp.templates.commonelements.view_switcher_buttons.view_switcher_buttons 
+   marshall_webapp.templates.commonelements.view_switcher_buttons.ntt_view_button 

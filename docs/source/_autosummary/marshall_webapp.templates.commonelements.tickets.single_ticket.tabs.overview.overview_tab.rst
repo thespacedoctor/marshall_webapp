@@ -1,4 +1,4 @@
-﻿overview_tab (*function*)
+overview_tab (*function*)
 ======================================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.overview

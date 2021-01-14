@@ -1,4 +1,4 @@
-﻿models_xmatches_element_catalogues_delete *(class)*
+models_xmatches_element_catalogues_delete *(class)*
 ======================================================================================================
 
 .. currentmodule:: marshall_webapp.models.xmatches_catalogues.element

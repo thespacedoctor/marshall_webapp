@@ -1,4 +1,4 @@
-﻿templates_resource_members *(class)*
+templates_resource_members *(class)*
 ========================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

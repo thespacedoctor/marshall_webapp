@@ -1,4 +1,4 @@
-﻿context_footer_bar (*function*)
+context_footer_bar (*function*)
 ===========================================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.context

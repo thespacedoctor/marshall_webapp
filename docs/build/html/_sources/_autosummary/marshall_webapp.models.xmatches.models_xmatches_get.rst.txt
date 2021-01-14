@@ -1,4 +1,4 @@
-﻿models_xmatches_get *(class)*
+models_xmatches_get *(class)*
 =============================================================
 
 .. currentmodule:: marshall_webapp.models.xmatches

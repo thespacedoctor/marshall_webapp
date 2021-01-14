@@ -1,4 +1,4 @@
-﻿transients_akas *(module)*
+transients_akas *(module)*
 =================================================
 
 

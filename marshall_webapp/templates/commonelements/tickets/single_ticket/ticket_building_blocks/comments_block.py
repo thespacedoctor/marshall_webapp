@@ -13,6 +13,7 @@ import datetime
 import khufu
 from fundamentals import times
 
+
 def comments_block(
         log,
         request,
@@ -27,12 +28,12 @@ def comments_block(
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
     - ``objectComments`` -- the comments for the object
-    
+
 
     **Return**
 
     - ``commentBlock`` -- the comments block for the transient ticket in the transient listings pages
-    
+
     """
     commentBlock = ""
     count = 0
@@ -42,7 +43,8 @@ def comments_block(
             continue
         count += 1
         # AUTHOR
-        author = row["commentAuthor"].replace(".", " ").title()
+        author = row["commentAuthor"].replace(".", " ").replace(
+            "_", " ").title().replace("Atel", "ATel")
 
         author = khufu.coloredText(
             text="""%(author)s: """ % locals(),
@@ -53,9 +55,10 @@ def comments_block(
 
         # COMMENT
         comment = row["comment"].replace("<", "&lt;").replace("&lt;a", "<a").replace(
-            "&gt;ATEL", ">ATEL").replace("&lt;/a&gt;", "</a>").replace("&quot;", '"').replace("&gt;", ">").replace('href=http',  'href="http')
+            "&gt;ATEL", ">ATEL").replace("&lt;/a&gt;", "</a>").replace("&lt;/a", "</a").replace("&quot;", '"').replace("&gt;", ">").replace('href=http',  'href="http')
         regex = re.compile(r'(href\=\"http[\w\d\.~/:?=]*?)\>', re.S)
         comment = regex.sub('\g<1>">', comment)
+
         # print comment
         comment = khufu.coloredText(
             text=comment,

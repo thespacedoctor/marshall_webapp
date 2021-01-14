@@ -1,4 +1,4 @@
-﻿ticket_table_pagination *(module)*
+ticket_table_pagination *(module)*
 ======================================================================================
 
 

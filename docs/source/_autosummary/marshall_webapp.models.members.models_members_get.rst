@@ -1,4 +1,4 @@
-﻿models_members_get *(class)*
+models_members_get *(class)*
 ===========================================================
 
 .. currentmodule:: marshall_webapp.models.members

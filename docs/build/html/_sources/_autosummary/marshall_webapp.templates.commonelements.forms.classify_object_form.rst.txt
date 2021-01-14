@@ -1,4 +1,4 @@
-﻿classify_object_form *(module)*
+classify_object_form *(module)*
 ==============================================================================
 
 

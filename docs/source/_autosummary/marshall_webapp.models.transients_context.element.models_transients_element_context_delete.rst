@@ -1,4 +1,4 @@
-﻿models_transients_element_context_delete *(class)*
+models_transients_element_context_delete *(class)*
 ====================================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_context.element

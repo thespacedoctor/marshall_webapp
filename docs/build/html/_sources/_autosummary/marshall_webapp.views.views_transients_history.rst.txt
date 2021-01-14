@@ -1,4 +1,4 @@
-﻿views_transients_history *(module)*
+views_transients_history *(module)*
 =========================================================
 
 

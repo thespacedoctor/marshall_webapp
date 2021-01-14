@@ -1,4 +1,4 @@
-﻿models_transients_lightcurves_count *(class)*
+models_transients_lightcurves_count *(class)*
 ===========================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_lightcurves

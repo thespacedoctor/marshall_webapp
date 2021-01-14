@@ -1,4 +1,4 @@
-﻿models_transients_element_put *(class)*
+models_transients_element_put *(class)*
 =================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients.element

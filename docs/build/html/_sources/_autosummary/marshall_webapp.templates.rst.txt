@@ -1,4 +1,4 @@
-﻿templates *(module)*
+templates *(module)*
 ====================================
 
 

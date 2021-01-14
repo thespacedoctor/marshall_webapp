@@ -34,12 +34,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script src="../_static/whistles-theme/Contents/Resources/main.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/whistles-theme/Contents/Resources/main.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -228,9 +229,9 @@
 <dd class="field-odd"><p>David Young</p>
 </dd>
 </dl>
-<dl class="py class">
+<dl class="class">
 <dt id="marshall_webapp.models.stats.models_stats_get.models_stats_get">
-<em class="property">class </em><code class="sig-name descname">models_stats_get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">elementId</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">search</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/models/stats/models_stats_get/models_stats_get.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.models.stats.models_stats_get.models_stats_get" title="Permalink to this definition">  ∞</a></dt>
+<em class="property">class </em><code class="sig-name descname">models_stats_get</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">request</em>, <em class="sig-param">elementId=False</em>, <em class="sig-param">search=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/models/stats/models_stats_get/models_stats_get.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.models.stats.models_stats_get.models_stats_get" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dryxPyramid.models.models_base.base_model</span></code></p>
 <p><em>The worker class for the models_stats_get module</em></p>
 <p><strong>Key Arguments</strong></p>
@@ -240,19 +241,19 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">elementId</span></code> – the specific element id requests (or False)</p></li>
 </ul>
 <p><strong>Usage</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>usage code
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span> <span class="n">code</span>
 
 
 
-.. todo::
+<span class="o">..</span> <span class="n">todo</span><span class="p">::</span>
 
-    - add usage info
-    - create a sublime snippet for usage
-    - add a tutorial about ``models_stats_get`` to documentation
-    - create a blog post about what ``models_stats_get`` does
+    <span class="o">-</span> <span class="n">add</span> <span class="n">usage</span> <span class="n">info</span>
+    <span class="o">-</span> <span class="n">create</span> <span class="n">a</span> <span class="n">sublime</span> <span class="n">snippet</span> <span class="k">for</span> <span class="n">usage</span>
+    <span class="o">-</span> <span class="n">add</span> <span class="n">a</span> <span class="n">tutorial</span> <span class="n">about</span> <span class="sb">``</span><span class="n">models_stats_get</span><span class="sb">``</span> <span class="n">to</span> <span class="n">documentation</span>
+    <span class="o">-</span> <span class="n">create</span> <span class="n">a</span> <span class="n">blog</span> <span class="n">post</span> <span class="n">about</span> <span class="n">what</span> <span class="sb">``</span><span class="n">models_stats_get</span><span class="sb">``</span> <span class="n">does</span>
 </pre></div>
 </div>
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.models.stats.models_stats_get.models_stats_get.get">
 <code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/models/stats/models_stats_get.py#get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.models.stats.models_stats_get.models_stats_get.get" title="Permalink to this definition">  ∞</a></dt>
 <dd><p><em>execute the get method on the models_stats_get object</em></p>
@@ -262,7 +263,7 @@
 </ul>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.models.stats.models_stats_get.models_stats_get._set_default_parameters">
 <code class="sig-name descname">_set_default_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/models/stats/models_stats_get.py#_set_default_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.models.stats.models_stats_get.models_stats_get._set_default_parameters" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>set default parameters</p>
@@ -272,7 +273,7 @@
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.models.stats.models_stats_get.models_stats_get.close">
 <code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/models/stats/models_stats_get.py#close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.models.stats.models_stats_get.models_stats_get.close" title="Permalink to this definition">  ∞</a></dt>
 <dd></dd></dl>

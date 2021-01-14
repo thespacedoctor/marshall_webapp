@@ -1,4 +1,4 @@
-﻿views_services_calendars *(module)*
+views_services_calendars *(module)*
 =========================================================
 
 

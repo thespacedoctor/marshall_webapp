@@ -1,4 +1,4 @@
-﻿models_xmatches_element_catalogues_get *(class)*
+models_xmatches_element_catalogues_get *(class)*
 ===================================================================================================
 
 .. currentmodule:: marshall_webapp.models.xmatches_catalogues.element

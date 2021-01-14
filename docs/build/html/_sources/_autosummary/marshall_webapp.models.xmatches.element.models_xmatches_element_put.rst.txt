@@ -1,4 +1,4 @@
-﻿models_xmatches_element_put *(class)*
+models_xmatches_element_put *(class)*
 =============================================================================
 
 .. currentmodule:: marshall_webapp.models.xmatches.element
