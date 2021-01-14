@@ -1397,8 +1397,8 @@ CREATE TABLE `pesstoobjectscomments` (
   `pesstoObjectsCommentsId` int(11) NOT NULL AUTO_INCREMENT,
   `pesstoObjectsId` int(11) NOT NULL,
   `commentAuthor` varchar(50) NOT NULL,
-  `dateCreated` datetime NOT NULL,
-  `dateLastModified` datetime NOT NULL,
+  `dateCreated` datetime NOT NULL DEFAULT current_timestamp(),
+  `dateLastModified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `removed` tinyint(4) NOT NULL DEFAULT 0,
   `localAttachmentUrl` varchar(300) DEFAULT NULL,
   `comment` longtext NOT NULL,
@@ -3098,6 +3098,46 @@ BEGIN
 
     END IF;
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `insert_atel_titles_to_comments` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `insert_atel_titles_to_comments`()
+BEGIN
+	INSERT IGNORE INTO pesstoObjectsComments (pesstoObjectsId,dateCreated,commentAuthor,comment) SELECT 
+	t.transientBucketId,c.datePublished,a.atelName,concat("<a href='",a.atelUrl,"'>ATEL#",c.atelNumber,"</a>: ", c.title)
+FROM
+    atel_coordinates a,
+    transientbucketsummaries t,
+    atel_fullcontent c
+WHERE
+	a.atelNumber = c.atelNumber and 
+    t.transientBucketId = a.transientBucketId
+        AND a.titleToComment = 0;
+       
+INSERT IGNORE INTO pesstoObjectsComments (pesstoObjectsId,dateCreated,commentAuthor,comment) 
+SELECT 
+    t.transientBucketId,c.datePublished,a.atelName,concat("<a href='",a.atelUrl,"'>ATEL#",c.atelNumber,"</a>: ", c.title)
+FROM
+    atel_names a,
+    transientbucketsummaries t,
+    atel_fullcontent c
+WHERE
+	a.atelNumber = c.atelNumber and 
+    t.transientBucketId = a.transientBucketId
+        AND a.titleToComment = 0;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -5217,7 +5257,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-12 16:44:25
+-- Dump completed on 2021-01-14 13:08:53
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5258,7 +5298,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
 
 LOCK TABLES `meta_workflow_lists_counts` WRITE;
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` DISABLE KEYS */;
-INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',117695),(2,'following',48),(3,'followup complete',603),(4,'review for followup',75),(5,'pending observation',26),(6,'inbox',352),(7,'external alert released',7496),(8,'pending classification',8),(9,'pessto classification released',1067),(10,'archived without alert',18678),(11,'queued for atel',0),(17,'classified',14273),(19,'all',118807),(20,'snoozed',29557);
+INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',117783),(2,'following',49),(3,'followup complete',603),(4,'review for followup',81),(5,'pending observation',29),(6,'inbox',382),(7,'external alert released',7496),(8,'pending classification',11),(9,'pessto classification released',1067),(10,'archived without alert',18679),(11,'queued for atel',0),(17,'classified',14287),(19,'all',118938),(20,'snoozed',29641);
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5405,4 +5445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-12 16:44:25
+-- Dump completed on 2021-01-14 13:08:53
