@@ -1,4 +1,4 @@
-﻿templates_services_calendars *(class)*
+templates_services_calendars *(class)*
 ==========================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

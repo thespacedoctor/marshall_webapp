@@ -1,4 +1,4 @@
-﻿views_resources_transients_akas *(module)*
+views_resources_transients_akas *(module)*
 ================================================================
 
 

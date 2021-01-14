@@ -1,4 +1,4 @@
-﻿views_resources_transients *(module)*
+views_resources_transients *(module)*
 ===========================================================
 
 

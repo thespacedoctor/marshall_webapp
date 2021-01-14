@@ -64,6 +64,7 @@ CREATE TABLE `atel_coordinates` (
   `updated` tinyint(1) DEFAULT 0,
   `dateLastModified` datetime DEFAULT current_timestamp(),
   `dateCreated` datetime DEFAULT current_timestamp(),
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `atelnumber_ra_dec` (`atelNumber`,`raDeg`,`decDeg`),
   KEY `ra_deg` (`raDeg`,`decDeg`),
@@ -73,7 +74,9 @@ CREATE TABLE `atel_coordinates` (
   KEY `idx_htm13ID` (`htm13ID`),
   KEY `i_htm10ID` (`htm10ID`),
   KEY `i_htm13ID` (`htm13ID`),
-  KEY `i_htm16ID` (`htm16ID`)
+  KEY `i_htm16ID` (`htm16ID`),
+  KEY `idx_transientBucketId` (`transientBucketId`),
+  KEY `idx_ingested` (`ingested`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,10 +129,13 @@ CREATE TABLE `atel_names` (
   `survey` varchar(45) NOT NULL,
   `titleToComment` tinyint(4) NOT NULL DEFAULT 0,
   `summaryRow` tinyint(4) DEFAULT NULL,
+  `transientBucketId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`primaryId`),
   UNIQUE KEY `atelnumber_name` (`atelNumber`,`name`),
   KEY `atelNumber` (`atelNumber`),
-  KEY `name` (`name`)
+  KEY `name` (`name`),
+  KEY `idx_transientBucketId` (`transientBucketId`),
+  KEY `idx_ingested` (`ingested`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1391,8 +1397,8 @@ CREATE TABLE `pesstoobjectscomments` (
   `pesstoObjectsCommentsId` int(11) NOT NULL AUTO_INCREMENT,
   `pesstoObjectsId` int(11) NOT NULL,
   `commentAuthor` varchar(50) NOT NULL,
-  `dateCreated` datetime NOT NULL,
-  `dateLastModified` datetime NOT NULL,
+  `dateCreated` datetime NOT NULL DEFAULT current_timestamp(),
+  `dateLastModified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `removed` tinyint(4) NOT NULL DEFAULT 0,
   `localAttachmentUrl` varchar(300) DEFAULT NULL,
   `comment` longtext NOT NULL,
@@ -3098,6 +3104,46 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `insert_atel_titles_to_comments` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `insert_atel_titles_to_comments`()
+BEGIN
+	INSERT IGNORE INTO pesstoObjectsComments (pesstoObjectsId,dateCreated,commentAuthor,comment) SELECT 
+	t.transientBucketId,c.datePublished,a.atelName,concat("<a href='",a.atelUrl,"'>ATEL#",c.atelNumber,"</a>: ", c.title)
+FROM
+    atel_coordinates a,
+    transientbucketsummaries t,
+    atel_fullcontent c
+WHERE
+	a.atelNumber = c.atelNumber and 
+    t.transientBucketId = a.transientBucketId
+        AND a.titleToComment = 0;
+       
+INSERT IGNORE INTO pesstoObjectsComments (pesstoObjectsId,dateCreated,commentAuthor,comment) 
+SELECT 
+    t.transientBucketId,c.datePublished,a.atelName,concat("<a href='",a.atelUrl,"'>ATEL#",c.atelNumber,"</a>: ", c.title)
+FROM
+    atel_names a,
+    transientbucketsummaries t,
+    atel_fullcontent c
+WHERE
+	a.atelNumber = c.atelNumber and 
+    t.transientBucketId = a.transientBucketId
+        AND a.titleToComment = 0;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `insert_new_marshall_objects` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3306,14 +3352,8 @@ BEGIN
     
 	
 	set @object = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "name" and fs_table_name = @fs_table);  
-    
+    set @object2 = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "name_alt" and fs_table_name = @fs_table); 
     set @survey = (select fs_survey_name from marshall_fs_column_map where fs_table_name = @fs_table limit 1);  
-    set @magCol = (select fs_table_column from marshall_fs_column_map where transientBucket_column = "magnitude" and fs_table_name = @fs_table);
-    if @magCol is not null then 
-		set @magCol = concat('and ',@magCol,' is not null');
-	else
-		set @magCol = "";
-	end if;
     
     set @myquery = concat('UPDATE ',@fs_table,' a
 INNER JOIN 
@@ -3324,23 +3364,37 @@ where a.transientBucketId IS NULL;');
 	PREPARE stmt FROM @myquery;
 	EXECUTE stmt;
     
+    if @object2 is not null then 
+		set @myquery = concat('UPDATE ',@fs_table,' a
+	INNER JOIN 
+	transientBucket b
+	ON a.',@object2,' = b.name
+	set a.transientBucketId = b.transientBucketId
+	where a.transientBucketId IS NULL;');
+		PREPARE stmt FROM @myquery;
+		EXECUTE stmt;
+	end if;
     
+
     if @survey is not null then 
-		set @tbcolumns = (select CONCAT_WS(',',GROUP_CONCAT(transientBucket_column  order  by primaryId),'survey') from marshall_fs_column_map where fs_table_name = @fs_table);
-		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = ARG_fs_table);
-		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,',"',@survey,'" from ',@fs_table,' where ingested = 0 and transientBucketId is not null ',@magCol,';' );
+		set @tbcolumns = (select CONCAT_WS(',',GROUP_CONCAT(transientBucket_column  order  by primaryId),'survey') from marshall_fs_column_map where fs_table_name = @fs_table and transientBucket_column != "name_alt");
+		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = ARG_fs_table and transientBucket_column != "name_alt");
+		set @myquery = concat('insert  into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,',"',@survey,'" from ',@fs_table,' where ingested = 0 and transientBucketId is not null;' );
 	else
-		set @tbcolumns = (select GROUP_CONCAT(transientBucket_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table);
-		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table);
-		set @myquery = concat('insert ignore into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,' from ',@fs_table,' where ingested = 0 and transientBucketId is not null ',@magCol,';' );
+		set @tbcolumns = (select GROUP_CONCAT(transientBucket_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table and transientBucket_column != "name_alt");
+		set @fscolumns = (select GROUP_CONCAT(fs_table_column  order  by primaryId) from marshall_fs_column_map where fs_table_name = @fs_table and transientBucket_column != "name_alt");
+		set @myquery = concat('insert  into transientBucket (transientBucketId,',@tbcolumns,') select transientBucketId,',@fscolumns,' from ',@fs_table,' where ingested = 0 and transientBucketId is not null;' );
 	end if;
     PREPARE stmt FROM @myquery;
+
     EXECUTE stmt;
     
     
-    set @myquery = concat('update ',ARG_fs_table,' set ingested = 1 where transientBucketId is not null and ingested = 0 ',@magCol,';');
+    set @myquery = concat('update ',ARG_fs_table,' set ingested = 1 where transientBucketId is not null and ingested = 0');
 	PREPARE stmt FROM @myquery;
     EXECUTE stmt;
+    
+
     
     
     set @myquery = 'insert into sherlock_classifications (transient_object_id) select distinct transientBucketId from transientBucketSummaries ON DUPLICATE KEY UPDATE  transient_object_id = transientBucketId;';
@@ -5203,7 +5257,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 15:08:15
+-- Dump completed on 2021-01-14 13:09:38
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5244,7 +5298,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
 
 LOCK TABLES `meta_workflow_lists_counts` WRITE;
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` DISABLE KEYS */;
-INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',117582),(2,'following',43),(3,'followup complete',606),(4,'review for followup',117),(5,'pending observation',25),(6,'inbox',345),(7,'external alert released',7496),(8,'pending classification',8),(9,'pessto classification released',1067),(10,'archived without alert',18678),(11,'queued for atel',0),(17,'classified',14268),(19,'all',118726),(20,'snoozed',29537);
+INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',117783),(2,'following',49),(3,'followup complete',603),(4,'review for followup',81),(5,'pending observation',29),(6,'inbox',382),(7,'external alert released',7496),(8,'pending classification',11),(9,'pessto classification released',1067),(10,'archived without alert',18679),(11,'queued for atel',0),(17,'classified',14287),(19,'all',118938),(20,'snoozed',29641);
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5378,7 +5432,7 @@ CREATE TABLE `marshall_fs_column_map` (
 
 LOCK TABLES `marshall_fs_column_map` WRITE;
 /*!40000 ALTER TABLE `marshall_fs_column_map` DISABLE KEYS */;
-INSERT INTO `marshall_fs_column_map` VALUES (18,'fs_asassn_sne','ASAS-SN','observationDate','Date'),(21,'fs_asassn_sne','ASAS-SN','name','ID'),(24,'fs_asassn_sne','ASAS-SN','raDeg','RA'),(28,'fs_asassn_sne','ASAS-SN','magnitude','V_disc'),(29,'fs_asassn_sne','ASAS-SN','decDeg','decl'),(30,'fs_asassn_sne','ASAS-SN','surveyObjectUrl','surveyUrl'),(32,'fs_asassn_transients','ASAS-SN','magnitude','Vmag'),(34,'fs_asassn_transients','ASAS-SN','decDeg','decDeg'),(35,'fs_asassn_transients','ASAS-SN','observationDate','discDate'),(36,'fs_asassn_transients','ASAS-SN','name','name'),(37,'fs_asassn_transients','ASAS-SN','raDeg','raDeg'),(38,'fs_asassn_transients','ASAS-SN','spectralType','specClass'),(40,'fs_asassn_transients','ASAS-SN','surveyObjectUrl','surveyUrl'),(47,'fs_atlas','ATLAS','name','candidateID'),(48,'fs_atlas','ATLAS','raDeg','ra_deg'),(49,'fs_atlas','ATLAS','decDeg','dec_deg'),(50,'fs_atlas','ATLAS','magnitude','mag'),(51,'fs_atlas','ATLAS','magnitudeError','magErr'),(52,'fs_atlas','ATLAS','filter','filter'),(53,'fs_atlas','ATLAS','observationMJD','observationMJD'),(54,'fs_atlas','ATLAS','observationDate','discDate'),(56,'fs_atlas','ATLAS','transientTypePrediction','suggestedType'),(58,'fs_atlas','ATLAS','hostRedshift','hostZ'),(59,'fs_atlas','ATLAS','targetImageUrl','targetImageURL'),(60,'fs_atlas','ATLAS','referenceImageUrl','refImageURL'),(61,'fs_atlas','ATLAS','subtractedImageUrl','diffImageURL'),(62,'fs_atlas','ATLAS','surveyObjectUrl','objectURL'),(79,'fs_atlas_forced_phot','ATLAS FP','name','atlas_designation'),(80,'fs_atlas_forced_phot','ATLAS FP','observationMJD','mjd_obs'),(81,'fs_atlas_forced_phot','ATLAS FP','filter','filter'),(87,'fs_atlas_forced_phot','ATLAS FP','raDeg','raDeg'),(88,'fs_atlas_forced_phot','ATLAS FP','decDeg','decDeg'),(107,'fs_atlas_forced_phot','ATLAS FP','magnitude','marshall_mag'),(108,'fs_atlas_forced_phot','ATLAS FP','limitingMag','marshall_limiting_mag'),(109,'fs_atlas_forced_phot','ATLAS','magnitudeError','marshall_mag_error'),(191,'fs_crts_css','CRTS','decDeg','decDeg'),(192,'fs_crts_css','CRTS','filter','filter'),(193,'fs_crts_css','CRTS','finderImageUrl','finderChartUrl'),(196,'fs_crts_css','CRTS','lightcurveURL','lightcurveUrl'),(197,'fs_crts_css','CRTS','magnitude','mag'),(198,'fs_crts_css','CRTS','name','name'),(199,'fs_crts_css','CRTS','observationDate','observationDate'),(200,'fs_crts_css','CRTS','observationMJD','observationMJD'),(201,'fs_crts_css','CRTS','raDeg','raDeg'),(202,'fs_crts_css','CRTS','surveyObjectUrl','surveyObjectUrl'),(203,'fs_crts_css','CRTS','targetImageUrl','targetImageUrl'),(204,'fs_crts_css','CRTS','transientTypePrediction','transientTypePrediction'),(206,'fs_crts_css','CRTS','magnitudeError','magErr'),(207,'fs_crts_css','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(208,'fs_crts_css','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(222,'fs_crts_mls','CRTS','decDeg','decDeg'),(223,'fs_crts_mls','CRTS','filter','filter'),(224,'fs_crts_mls','CRTS','finderImageUrl','finderChartUrl'),(227,'fs_crts_mls','CRTS','lightcurveURL','lightcurveUrl'),(228,'fs_crts_mls','CRTS','magnitude','mag'),(229,'fs_crts_mls','CRTS','name','name'),(230,'fs_crts_mls','CRTS','observationDate','observationDate'),(231,'fs_crts_mls','CRTS','observationMJD','observationMJD'),(232,'fs_crts_mls','CRTS','raDeg','raDeg'),(233,'fs_crts_mls','CRTS','surveyObjectUrl','surveyObjectUrl'),(234,'fs_crts_mls','CRTS','targetImageUrl','targetImageUrl'),(235,'fs_crts_mls','CRTS','transientTypePrediction','transientTypePrediction'),(237,'fs_crts_mls','CRTS','magnitudeError','magErr'),(238,'fs_crts_mls','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(239,'fs_crts_mls','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(253,'fs_crts_sss','CRTS','decDeg','decDeg'),(254,'fs_crts_sss','CRTS','filter','filter'),(255,'fs_crts_sss','CRTS','finderImageUrl','finderChartUrl'),(258,'fs_crts_sss','CRTS','lightcurveURL','lightcurveUrl'),(259,'fs_crts_sss','CRTS','magnitude','mag'),(260,'fs_crts_sss','CRTS','name','name'),(261,'fs_crts_sss','CRTS','observationDate','observationDate'),(262,'fs_crts_sss','CRTS','observationMJD','observationMJD'),(263,'fs_crts_sss','CRTS','raDeg','raDeg'),(264,'fs_crts_sss','CRTS','surveyObjectUrl','surveyObjectUrl'),(265,'fs_crts_sss','CRTS','targetImageUrl','targetImageUrl'),(266,'fs_crts_sss','CRTS','transientTypePrediction','transientTypePrediction'),(268,'fs_crts_sss','CRTS','magnitudeError','magErr'),(269,'fs_crts_sss','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(270,'fs_crts_sss','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(280,'fs_des','DES','decDeg','decDeg'),(281,'fs_des','DES','filter','filter'),(282,'fs_des','DES','lastNonDetectionDate','lastNonDetectionDate'),(283,'fs_des','DES','lastNonDetectionMJD','lastNonDetectionMJD'),(284,'fs_des','DES','limitingMag','limitingMag'),(285,'fs_des','DES','magnitude','magnitude'),(286,'fs_des','DES','magnitudeError','magnitudeError'),(287,'fs_des','DES','name','name'),(288,'fs_des','DES','observationDate','observationDate'),(289,'fs_des','DES','observationMJD','observationMJD'),(290,'fs_des','DES','raDeg','raDeg'),(293,'fs_des','DES','surveyObjectUrl','surveyUrl'),(294,'fs_des','DES','transientTypePrediction','transientTypePrediction'),(295,'fs_des','DES','finderImageUrl','finderImageUrl'),(296,'fs_des','DES','subtractedImageUrl','diffUrl'),(297,'fs_des','DES','referenceImageUrl','refUrl'),(298,'fs_des','DES','targetImageUrl','tarUrl'),(311,'fs_gaia','Gaia','name','candidateID'),(312,'fs_gaia','Gaia','decDeg','dec_deg'),(313,'fs_gaia','Gaia','observationDate','discDate'),(315,'fs_gaia','Gaia','filter','filter'),(316,'fs_gaia','Gaia','magnitude','mag'),(317,'fs_gaia','Gaia','surveyObjectUrl','objectURL'),(318,'fs_gaia','Gaia','observationMJD','observationMJD'),(319,'fs_gaia','Gaia','raDeg','ra_deg'),(389,'fs_master','MASTER','tripletImageUrl','imageUrl'),(390,'fs_master','MASTER','magnitude','magnitude'),(392,'fs_master','MASTER','name','name'),(394,'fs_master','MASTER','transientTypePrediction','type'),(395,'fs_master','MASTER','observationMJD','discoveryMjd'),(396,'fs_master','MASTER','decDeg','decDeg'),(397,'fs_master','MASTER','raDeg','raDeg'),(398,'fs_master','MASTER','filter','filter'),(399,'fs_master','MASTER','surveyObjectUrl','candidateUrl'),(420,'fs_ogle','OGLE','decDeg','decDeg'),(421,'fs_ogle','OGLE','filter','filter'),(422,'fs_ogle','OGLE','lastNonDetectionDate','lastNonDetectionDate'),(423,'fs_ogle','OGLE','lastNonDetectionMJD','lastNonDetectionMJD'),(424,'fs_ogle','OGLE','lightcurveURL','lightcurveUrl'),(425,'fs_ogle','OGLE','magnitude','mag'),(426,'fs_ogle','OGLE','name','name'),(427,'fs_ogle','OGLE','observationDate','observationDate'),(428,'fs_ogle','OGLE','observationMJD','observationMJD'),(429,'fs_ogle','OGLE','raDeg','raDeg'),(431,'fs_ogle','OGLE','referenceImageUrl','referenceImageUrl'),(433,'fs_ogle','OGLE','subtractedImageUrl','subtractedImageUrl'),(434,'fs_ogle','OGLE','surveyObjectUrl','surveyObjectUrl'),(436,'fs_ogle','OGLE','targetImageUrl','targetImageUrl'),(437,'fs_ogle','OGLE','transientTypePrediction','transientTypePrediction'),(440,'fs_ogle','OGLE','magnitudeError','magErr'),(441,'fs_ogle','OGLE','limitingMag','limitingMag'),(450,'fs_panstarrs','PanSTARRS','name','candidateID'),(451,'fs_panstarrs','PanSTARRS','raDeg','ra_deg'),(452,'fs_panstarrs','PanSTARRS','decDeg','dec_deg'),(453,'fs_panstarrs','PanSTARRS','magnitude','mag'),(454,'fs_panstarrs','PanSTARRS','magnitudeError','magErr'),(455,'fs_panstarrs','PanSTARRS','filter','filter'),(456,'fs_panstarrs','PanSTARRS','observationMJD','observationMJD'),(457,'fs_panstarrs','PanSTARRS','observationDate','discDate'),(459,'fs_panstarrs','PanSTARRS','transientTypePrediction','suggestedType'),(461,'fs_panstarrs','PanSTARRS','hostRedshift','hostZ'),(462,'fs_panstarrs','PanSTARRS','targetImageUrl','targetImageURL'),(463,'fs_panstarrs','PanSTARRS','referenceImageUrl','refImageURL'),(464,'fs_panstarrs','PanSTARRS','subtractedImageUrl','diffImageURL'),(465,'fs_panstarrs','PanSTARRS','surveyObjectUrl','objectURL'),(481,'fs_skymapper','SkyMapper','decDeg','DECL'),(482,'fs_skymapper','SkyMapper','raDeg','RA'),(483,'fs_skymapper','SkyMapper','transientTypePrediction','bestType'),(484,'fs_skymapper','SkyMapper','name','candidateID'),(485,'fs_skymapper','SkyMapper','surveyObjectUrl','candidateURL'),(488,'fs_skymapper','SkyMapper','subtractedImageUrl','diffThumbURL'),(492,'fs_skymapper','SkyMapper','filter','filt'),(493,'fs_skymapper','SkyMapper','magnitude','mag'),(494,'fs_skymapper','SkyMapper','magnitudeError','magerr'),(495,'fs_skymapper','SkyMapper','observationMJD','mjd'),(496,'fs_skymapper','SkyMapper','targetImageUrl','newThumbURL'),(498,'fs_skymapper','SkyMapper','lastNonDetectionMJD','noneMJD'),(501,'fs_skymapper','SkyMapper','referenceImageUrl','refThumbURL'),(512,'fs_tns_transients',NULL,'decDeg','decDeg'),(514,'fs_tns_transients',NULL,'observationDate','discDate'),(515,'fs_tns_transients',NULL,'magnitude','discMag'),(516,'fs_tns_transients',NULL,'filter','discMagFilter'),(519,'fs_tns_transients',NULL,'hostRedshift','hostRedshift'),(520,'fs_tns_transients',NULL,'name','objectName'),(521,'fs_tns_transients',NULL,'surveyObjectUrl','objectUrl'),(522,'fs_tns_transients',NULL,'raDeg','raDeg'),(525,'fs_tns_transients',NULL,'spectralType','specType'),(526,'fs_tns_transients',NULL,'transientRedshift','transRedshift'),(527,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDate'),(530,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDateParsed'),(558,'fs_user_added',NULL,'name','candidateID'),(559,'fs_user_added',NULL,'raDeg','ra_deg'),(560,'fs_user_added',NULL,'decDeg','dec_deg'),(561,'fs_user_added',NULL,'magnitude','mag'),(562,'fs_user_added',NULL,'magnitudeError','magErr'),(563,'fs_user_added',NULL,'filter','filter'),(564,'fs_user_added',NULL,'observationMJD','observationMJD'),(565,'fs_user_added',NULL,'observationDate','discDate'),(567,'fs_user_added',NULL,'transientTypePrediction','suggestedType'),(569,'fs_user_added',NULL,'hostRedshift','hostZ'),(570,'fs_user_added',NULL,'targetImageUrl','targetImageURL'),(571,'fs_user_added',NULL,'surveyObjectUrl','objectURL'),(589,'fs_ztf','ZTF','name','objectId'),(590,'fs_ztf','ZTF','raDeg','raDeg'),(591,'fs_ztf','ZTF','decDeg','decDeg'),(592,'fs_ztf','ZTF','observationMJD','mjd'),(594,'fs_ztf','ZTF','magnitude','magpsf'),(595,'fs_ztf','ZTF','magnitudeError','sigmapsf'),(600,'fs_ztf','ZTF','filter','filt'),(601,'fs_ztf','ZTF','surveyObjectUrl','surveyUrl'),(602,'fs_ztf','ZTF','tripletImageUrl','tripletImageUrl'),(604,'fs_ztf','ZTF','limitingMag','limitingMag'),(793,'atel_coordinates',NULL,'raDeg','raDeg'),(794,'atel_coordinates',NULL,'decDeg','decDeg'),(798,'atel_coordinates',NULL,'name','atelName'),(799,'atel_coordinates',NULL,'surveyObjectUrl','atelUrl'),(1017,'fs_tns_transients',NULL,'survey','survey'),(1018,'fs_user_added',NULL,'survey','survey'),(1021,'tns_sources','TNS','name','TNSName'),(1022,'tns_sources','TNS','decDeg','decDeg'),(1024,'tns_sources','TNS','observationDate','discDate'),(1025,'tns_sources','TNS','magnitude','discMag'),(1026,'tns_sources','TNS','filter','discMagFilter'),(1029,'tns_sources','TNS','surveyObjectUrl','objectUrl'),(1030,'tns_sources','TNS','raDeg','raDeg'),(1031,'tns_sources','TNS','spectralType','specType'),(1033,'tns_sources','TNS','transientRedshift','transRedshift'),(1035,'tns_sources','TNS','hostRedshift','hostRedshift'),(1040,'tns_spectra',NULL,'observationDate','obsdate'),(1042,'tns_spectra',NULL,'spectralType','specType'),(1044,'tns_spectra',NULL,'transientRedshift','transRedshift'),(1047,'tns_spectra',NULL,'observationMJD','observationMJD'),(1053,'tns_spectra',NULL,'name','TNSName'),(1055,'tns_spectra',NULL,'raDeg','raDeg'),(1056,'tns_spectra',NULL,'decDeg','decDeg'),(1060,'tns_photometry',NULL,'filter','filter'),(1061,'tns_photometry',NULL,'limitingMag','limitingMag'),(1062,'tns_photometry',NULL,'magnitude','mag'),(1063,'tns_photometry',NULL,'magnitudeError','magErr'),(1065,'tns_photometry',NULL,'name','objectName'),(1066,'tns_photometry',NULL,'observationDate','obsdate'),(1069,'tns_photometry',NULL,'survey','survey'),(1072,'tns_photometry',NULL,'observationMJD','observationMJD'),(1088,'tns_spectra',NULL,'survey','survey'),(1089,'tns_photometry',NULL,'raDeg','raDeg'),(1090,'tns_photometry',NULL,'decDeg','decDeg');
+INSERT INTO `marshall_fs_column_map` VALUES (18,'fs_asassn_sne','ASAS-SN','observationDate','Date'),(21,'fs_asassn_sne','ASAS-SN','name','ID'),(24,'fs_asassn_sne','ASAS-SN','raDeg','RA'),(28,'fs_asassn_sne','ASAS-SN','magnitude','V_disc'),(29,'fs_asassn_sne','ASAS-SN','decDeg','decl'),(30,'fs_asassn_sne','ASAS-SN','surveyObjectUrl','surveyUrl'),(32,'fs_asassn_transients','ASAS-SN','magnitude','Vmag'),(34,'fs_asassn_transients','ASAS-SN','decDeg','decDeg'),(35,'fs_asassn_transients','ASAS-SN','observationDate','discDate'),(36,'fs_asassn_transients','ASAS-SN','name','name'),(37,'fs_asassn_transients','ASAS-SN','raDeg','raDeg'),(38,'fs_asassn_transients','ASAS-SN','spectralType','specClass'),(40,'fs_asassn_transients','ASAS-SN','surveyObjectUrl','surveyUrl'),(47,'fs_atlas','ATLAS','name','candidateID'),(48,'fs_atlas','ATLAS','raDeg','ra_deg'),(49,'fs_atlas','ATLAS','decDeg','dec_deg'),(50,'fs_atlas','ATLAS','magnitude','mag'),(51,'fs_atlas','ATLAS','magnitudeError','magErr'),(52,'fs_atlas','ATLAS','filter','filter'),(53,'fs_atlas','ATLAS','observationMJD','observationMJD'),(54,'fs_atlas','ATLAS','observationDate','discDate'),(56,'fs_atlas','ATLAS','transientTypePrediction','suggestedType'),(58,'fs_atlas','ATLAS','hostRedshift','hostZ'),(59,'fs_atlas','ATLAS','targetImageUrl','targetImageURL'),(60,'fs_atlas','ATLAS','referenceImageUrl','refImageURL'),(61,'fs_atlas','ATLAS','subtractedImageUrl','diffImageURL'),(62,'fs_atlas','ATLAS','surveyObjectUrl','objectURL'),(79,'fs_atlas_forced_phot','ATLAS FP','name','atlas_designation'),(80,'fs_atlas_forced_phot','ATLAS FP','observationMJD','mjd_obs'),(81,'fs_atlas_forced_phot','ATLAS FP','filter','filter'),(87,'fs_atlas_forced_phot','ATLAS FP','raDeg','raDeg'),(88,'fs_atlas_forced_phot','ATLAS FP','decDeg','decDeg'),(107,'fs_atlas_forced_phot','ATLAS FP','magnitude','marshall_mag'),(108,'fs_atlas_forced_phot','ATLAS FP','limitingMag','marshall_limiting_mag'),(109,'fs_atlas_forced_phot','ATLAS','magnitudeError','marshall_mag_error'),(191,'fs_crts_css','CRTS','decDeg','decDeg'),(192,'fs_crts_css','CRTS','filter','filter'),(193,'fs_crts_css','CRTS','finderImageUrl','finderChartUrl'),(196,'fs_crts_css','CRTS','lightcurveURL','lightcurveUrl'),(197,'fs_crts_css','CRTS','magnitude','mag'),(198,'fs_crts_css','CRTS','name','name'),(199,'fs_crts_css','CRTS','observationDate','observationDate'),(200,'fs_crts_css','CRTS','observationMJD','observationMJD'),(201,'fs_crts_css','CRTS','raDeg','raDeg'),(202,'fs_crts_css','CRTS','surveyObjectUrl','surveyObjectUrl'),(203,'fs_crts_css','CRTS','targetImageUrl','targetImageUrl'),(204,'fs_crts_css','CRTS','transientTypePrediction','transientTypePrediction'),(206,'fs_crts_css','CRTS','magnitudeError','magErr'),(207,'fs_crts_css','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(208,'fs_crts_css','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(222,'fs_crts_mls','CRTS','decDeg','decDeg'),(223,'fs_crts_mls','CRTS','filter','filter'),(224,'fs_crts_mls','CRTS','finderImageUrl','finderChartUrl'),(227,'fs_crts_mls','CRTS','lightcurveURL','lightcurveUrl'),(228,'fs_crts_mls','CRTS','magnitude','mag'),(229,'fs_crts_mls','CRTS','name','name'),(230,'fs_crts_mls','CRTS','observationDate','observationDate'),(231,'fs_crts_mls','CRTS','observationMJD','observationMJD'),(232,'fs_crts_mls','CRTS','raDeg','raDeg'),(233,'fs_crts_mls','CRTS','surveyObjectUrl','surveyObjectUrl'),(234,'fs_crts_mls','CRTS','targetImageUrl','targetImageUrl'),(235,'fs_crts_mls','CRTS','transientTypePrediction','transientTypePrediction'),(237,'fs_crts_mls','CRTS','magnitudeError','magErr'),(238,'fs_crts_mls','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(239,'fs_crts_mls','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(253,'fs_crts_sss','CRTS','decDeg','decDeg'),(254,'fs_crts_sss','CRTS','filter','filter'),(255,'fs_crts_sss','CRTS','finderImageUrl','finderChartUrl'),(258,'fs_crts_sss','CRTS','lightcurveURL','lightcurveUrl'),(259,'fs_crts_sss','CRTS','magnitude','mag'),(260,'fs_crts_sss','CRTS','name','name'),(261,'fs_crts_sss','CRTS','observationDate','observationDate'),(262,'fs_crts_sss','CRTS','observationMJD','observationMJD'),(263,'fs_crts_sss','CRTS','raDeg','raDeg'),(264,'fs_crts_sss','CRTS','surveyObjectUrl','surveyObjectUrl'),(265,'fs_crts_sss','CRTS','targetImageUrl','targetImageUrl'),(266,'fs_crts_sss','CRTS','transientTypePrediction','transientTypePrediction'),(268,'fs_crts_sss','CRTS','magnitudeError','magErr'),(269,'fs_crts_sss','CRTS','lastNonDetectionDate','lastNonDetectionDate'),(270,'fs_crts_sss','CRTS','lastNonDetectionMJD','lastNonDetectionMJD'),(280,'fs_des','DES','decDeg','decDeg'),(281,'fs_des','DES','filter','filter'),(282,'fs_des','DES','lastNonDetectionDate','lastNonDetectionDate'),(283,'fs_des','DES','lastNonDetectionMJD','lastNonDetectionMJD'),(284,'fs_des','DES','limitingMag','limitingMag'),(285,'fs_des','DES','magnitude','magnitude'),(286,'fs_des','DES','magnitudeError','magnitudeError'),(287,'fs_des','DES','name','name'),(288,'fs_des','DES','observationDate','observationDate'),(289,'fs_des','DES','observationMJD','observationMJD'),(290,'fs_des','DES','raDeg','raDeg'),(293,'fs_des','DES','surveyObjectUrl','surveyUrl'),(294,'fs_des','DES','transientTypePrediction','transientTypePrediction'),(295,'fs_des','DES','finderImageUrl','finderImageUrl'),(296,'fs_des','DES','subtractedImageUrl','diffUrl'),(297,'fs_des','DES','referenceImageUrl','refUrl'),(298,'fs_des','DES','targetImageUrl','tarUrl'),(311,'fs_gaia','Gaia','name','candidateID'),(312,'fs_gaia','Gaia','decDeg','dec_deg'),(313,'fs_gaia','Gaia','observationDate','discDate'),(315,'fs_gaia','Gaia','filter','filter'),(316,'fs_gaia','Gaia','magnitude','mag'),(317,'fs_gaia','Gaia','surveyObjectUrl','objectURL'),(318,'fs_gaia','Gaia','observationMJD','observationMJD'),(319,'fs_gaia','Gaia','raDeg','ra_deg'),(389,'fs_master','MASTER','tripletImageUrl','imageUrl'),(390,'fs_master','MASTER','magnitude','magnitude'),(392,'fs_master','MASTER','name','name'),(394,'fs_master','MASTER','transientTypePrediction','type'),(395,'fs_master','MASTER','observationMJD','discoveryMjd'),(396,'fs_master','MASTER','decDeg','decDeg'),(397,'fs_master','MASTER','raDeg','raDeg'),(398,'fs_master','MASTER','filter','filter'),(399,'fs_master','MASTER','surveyObjectUrl','candidateUrl'),(420,'fs_ogle','OGLE','decDeg','decDeg'),(421,'fs_ogle','OGLE','filter','filter'),(422,'fs_ogle','OGLE','lastNonDetectionDate','lastNonDetectionDate'),(423,'fs_ogle','OGLE','lastNonDetectionMJD','lastNonDetectionMJD'),(424,'fs_ogle','OGLE','lightcurveURL','lightcurveUrl'),(425,'fs_ogle','OGLE','magnitude','mag'),(426,'fs_ogle','OGLE','name','name'),(427,'fs_ogle','OGLE','observationDate','observationDate'),(428,'fs_ogle','OGLE','observationMJD','observationMJD'),(429,'fs_ogle','OGLE','raDeg','raDeg'),(431,'fs_ogle','OGLE','referenceImageUrl','referenceImageUrl'),(433,'fs_ogle','OGLE','subtractedImageUrl','subtractedImageUrl'),(434,'fs_ogle','OGLE','surveyObjectUrl','surveyObjectUrl'),(436,'fs_ogle','OGLE','targetImageUrl','targetImageUrl'),(437,'fs_ogle','OGLE','transientTypePrediction','transientTypePrediction'),(440,'fs_ogle','OGLE','magnitudeError','magErr'),(441,'fs_ogle','OGLE','limitingMag','limitingMag'),(450,'fs_panstarrs','PanSTARRS','name','candidateID'),(451,'fs_panstarrs','PanSTARRS','raDeg','ra_deg'),(452,'fs_panstarrs','PanSTARRS','decDeg','dec_deg'),(453,'fs_panstarrs','PanSTARRS','magnitude','mag'),(454,'fs_panstarrs','PanSTARRS','magnitudeError','magErr'),(455,'fs_panstarrs','PanSTARRS','filter','filter'),(456,'fs_panstarrs','PanSTARRS','observationMJD','observationMJD'),(457,'fs_panstarrs','PanSTARRS','observationDate','discDate'),(459,'fs_panstarrs','PanSTARRS','transientTypePrediction','suggestedType'),(461,'fs_panstarrs','PanSTARRS','hostRedshift','hostZ'),(462,'fs_panstarrs','PanSTARRS','targetImageUrl','targetImageURL'),(463,'fs_panstarrs','PanSTARRS','referenceImageUrl','refImageURL'),(464,'fs_panstarrs','PanSTARRS','subtractedImageUrl','diffImageURL'),(465,'fs_panstarrs','PanSTARRS','surveyObjectUrl','objectURL'),(481,'fs_skymapper','SkyMapper','decDeg','DECL'),(482,'fs_skymapper','SkyMapper','raDeg','RA'),(483,'fs_skymapper','SkyMapper','transientTypePrediction','bestType'),(484,'fs_skymapper','SkyMapper','name','candidateID'),(485,'fs_skymapper','SkyMapper','surveyObjectUrl','candidateURL'),(488,'fs_skymapper','SkyMapper','subtractedImageUrl','diffThumbURL'),(492,'fs_skymapper','SkyMapper','filter','filt'),(493,'fs_skymapper','SkyMapper','magnitude','mag'),(494,'fs_skymapper','SkyMapper','magnitudeError','magerr'),(495,'fs_skymapper','SkyMapper','observationMJD','mjd'),(496,'fs_skymapper','SkyMapper','targetImageUrl','newThumbURL'),(498,'fs_skymapper','SkyMapper','lastNonDetectionMJD','noneMJD'),(501,'fs_skymapper','SkyMapper','referenceImageUrl','refThumbURL'),(512,'fs_tns_transients',NULL,'decDeg','decDeg'),(514,'fs_tns_transients',NULL,'observationDate','discDate'),(515,'fs_tns_transients',NULL,'magnitude','discMag'),(516,'fs_tns_transients',NULL,'filter','discMagFilter'),(519,'fs_tns_transients',NULL,'hostRedshift','hostRedshift'),(520,'fs_tns_transients',NULL,'name','objectName'),(521,'fs_tns_transients',NULL,'surveyObjectUrl','objectUrl'),(522,'fs_tns_transients',NULL,'raDeg','raDeg'),(525,'fs_tns_transients',NULL,'spectralType','specType'),(526,'fs_tns_transients',NULL,'transientRedshift','transRedshift'),(527,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDate'),(530,'fs_tns_transients',NULL,'lastNonDetectionDate','lastNonDetectionDateParsed'),(558,'fs_user_added',NULL,'name','candidateID'),(559,'fs_user_added',NULL,'raDeg','ra_deg'),(560,'fs_user_added',NULL,'decDeg','dec_deg'),(561,'fs_user_added',NULL,'magnitude','mag'),(562,'fs_user_added',NULL,'magnitudeError','magErr'),(563,'fs_user_added',NULL,'filter','filter'),(564,'fs_user_added',NULL,'observationMJD','observationMJD'),(565,'fs_user_added',NULL,'observationDate','discDate'),(567,'fs_user_added',NULL,'transientTypePrediction','suggestedType'),(569,'fs_user_added',NULL,'hostRedshift','hostZ'),(570,'fs_user_added',NULL,'targetImageUrl','targetImageURL'),(571,'fs_user_added',NULL,'surveyObjectUrl','objectURL'),(589,'fs_ztf','ZTF','name','objectId'),(590,'fs_ztf','ZTF','raDeg','raDeg'),(591,'fs_ztf','ZTF','decDeg','decDeg'),(592,'fs_ztf','ZTF','observationMJD','mjd'),(594,'fs_ztf','ZTF','magnitude','magpsf'),(595,'fs_ztf','ZTF','magnitudeError','sigmapsf'),(600,'fs_ztf','ZTF','filter','filt'),(601,'fs_ztf','ZTF','surveyObjectUrl','surveyUrl'),(602,'fs_ztf','ZTF','tripletImageUrl','tripletImageUrl'),(604,'fs_ztf','ZTF','limitingMag','limitingMag'),(1017,'fs_tns_transients',NULL,'survey','survey'),(1018,'fs_user_added',NULL,'survey','survey'),(1021,'tns_sources','TNS','name','TNSName'),(1022,'tns_sources','TNS','decDeg','decDeg'),(1024,'tns_sources','TNS','observationDate','discDate'),(1025,'tns_sources','TNS','magnitude','discMag'),(1026,'tns_sources','TNS','filter','discMagFilter'),(1029,'tns_sources','TNS','surveyObjectUrl','objectUrl'),(1030,'tns_sources','TNS','raDeg','raDeg'),(1031,'tns_sources','TNS','spectralType','specType'),(1033,'tns_sources','TNS','transientRedshift','transRedshift'),(1035,'tns_sources','TNS','hostRedshift','hostRedshift'),(1040,'tns_spectra',NULL,'observationDate','obsdate'),(1042,'tns_spectra',NULL,'spectralType','specType'),(1044,'tns_spectra',NULL,'transientRedshift','transRedshift'),(1047,'tns_spectra',NULL,'observationMJD','observationMJD'),(1053,'tns_spectra',NULL,'name','TNSName'),(1055,'tns_spectra',NULL,'raDeg','raDeg'),(1056,'tns_spectra',NULL,'decDeg','decDeg'),(1060,'tns_photometry',NULL,'filter','filter'),(1061,'tns_photometry',NULL,'limitingMag','limitingMag'),(1062,'tns_photometry',NULL,'magnitude','mag'),(1063,'tns_photometry',NULL,'magnitudeError','magErr'),(1065,'tns_photometry',NULL,'name','objectName'),(1066,'tns_photometry',NULL,'observationDate','obsdate'),(1069,'tns_photometry',NULL,'survey','survey'),(1072,'tns_photometry',NULL,'observationMJD','observationMJD'),(1088,'tns_spectra',NULL,'survey','survey'),(1089,'tns_photometry',NULL,'raDeg','raDeg'),(1090,'tns_photometry',NULL,'decDeg','decDeg'),(1103,'atel_coordinates','ATel','raDeg','raDeg'),(1106,'atel_coordinates','ATel','decDeg','decDeg'),(1109,'atel_coordinates','ATel','name','atelName'),(1112,'atel_coordinates','ATel','surveyObjectUrl','atelUrl'),(1115,'atel_names','ATel','name','name'),(1118,'atel_names','ATel','name_alt','atelName'),(1121,'atel_names','ATel','surveyObjectUrl','atelUrl');
 /*!40000 ALTER TABLE `marshall_fs_column_map` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -5391,4 +5445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11 15:08:15
+-- Dump completed on 2021-01-14 13:09:38

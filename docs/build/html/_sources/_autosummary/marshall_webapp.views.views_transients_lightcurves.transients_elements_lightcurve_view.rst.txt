@@ -1,4 +1,4 @@
-﻿transients_elements_lightcurve_view *(class)*
+transients_elements_lightcurve_view *(class)*
 ================================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_transients_lightcurves

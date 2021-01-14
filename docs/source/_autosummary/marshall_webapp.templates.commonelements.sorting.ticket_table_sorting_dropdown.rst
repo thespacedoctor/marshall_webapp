@@ -1,4 +1,4 @@
-﻿ticket_table_sorting_dropdown *(module)*
+ticket_table_sorting_dropdown *(module)*
 =========================================================================================
 
 

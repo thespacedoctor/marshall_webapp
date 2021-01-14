@@ -1,4 +1,4 @@
-﻿views_resources_stats *(module)*
+views_resources_stats *(module)*
 ======================================================
 
 

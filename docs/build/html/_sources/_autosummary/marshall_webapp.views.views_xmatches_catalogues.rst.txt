@@ -1,4 +1,4 @@
-﻿views_xmatches_catalogues *(module)*
+views_xmatches_catalogues *(module)*
 ==========================================================
 
 

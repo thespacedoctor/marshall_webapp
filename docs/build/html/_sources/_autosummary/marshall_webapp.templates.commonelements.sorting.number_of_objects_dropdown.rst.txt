@@ -1,4 +1,4 @@
-﻿number_of_objects_dropdown *(module)*
+number_of_objects_dropdown *(module)*
 ======================================================================================
 
 

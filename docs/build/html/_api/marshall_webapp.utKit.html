@@ -34,12 +34,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script src="../_static/whistles-theme/Contents/Resources/main.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/whistles-theme/Contents/Resources/main.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -223,12 +224,12 @@
   <div class="section" id="module-marshall_webapp.utKit">
 <span id="marshall-webapp-utkit-module"></span><h1>marshall_webapp.utKit module<a class="headerlink" href="#module-marshall_webapp.utKit" title="Permalink to this headline">  ∞</a></h1>
 <p><em>Unit testing tools</em></p>
-<dl class="py class">
+<dl class="class">
 <dt id="marshall_webapp.utKit.utKit">
-<em class="property">class </em><code class="sig-name descname">utKit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">moduleDirectory</span></em>, <em class="sig-param"><span class="n">dbConn</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit" title="Permalink to this definition">  ∞</a></dt>
+<em class="property">class </em><code class="sig-name descname">utKit</code><span class="sig-paren">(</span><em class="sig-param">moduleDirectory</em>, <em class="sig-param">dbConn=False</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit/utKit.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">fundamentals.utKit.utKit</span></code></p>
 <p><em>Override dryx utKit</em></p>
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.utKit.utKit.get_project_root">
 <code class="sig-name descname">get_project_root</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit.py#get_project_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.get_project_root" title="Permalink to this definition">  ∞</a></dt>
 <dd><p><em>Get the root of the ``python`` package - useful for getting files in the root directory of a project</em></p>
@@ -238,7 +239,7 @@
 </ul>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.utKit.utKit.setupModule">
 <code class="sig-name descname">setupModule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit.py#setupModule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.setupModule" title="Permalink to this definition">  ∞</a></dt>
 <dd><p><em>The setupModule method</em></p>
@@ -251,13 +252,22 @@
 </ul>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.utKit.utKit.tearDownModule">
 <code class="sig-name descname">tearDownModule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit.py#tearDownModule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.tearDownModule" title="Permalink to this definition">  ∞</a></dt>
 <dd><p><em>The tearDownModule method</em></p>
+<p><strong>Key Arguments</strong></p>
+<ul class="simple">
+<li></li>
+</ul>
+<p>=</p>
+<p><strong>Return</strong></p>
+<ul class="simple">
+<li><p>None</p></li>
+</ul>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="marshall_webapp.utKit.utKit.refresh_database">
 <code class="sig-name descname">refresh_database</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/utKit.py#refresh_database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.utKit.utKit.refresh_database" title="Permalink to this definition">  ∞</a></dt>
 <dd><p><em>Refresh the unit test database</em></p>

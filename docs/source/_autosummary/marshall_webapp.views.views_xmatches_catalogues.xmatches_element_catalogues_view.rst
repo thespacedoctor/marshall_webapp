@@ -1,4 +1,4 @@
-﻿xmatches_element_catalogues_view *(class)*
+xmatches_element_catalogues_view *(class)*
 ==========================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_xmatches_catalogues

@@ -1,4 +1,4 @@
-﻿plot_wells (*function*)
+plot_wells (*function*)
 ==================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.stats.esophaseIII

@@ -1,4 +1,4 @@
-﻿templates_resource_stats *(class)*
+templates_resource_stats *(class)*
 ======================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

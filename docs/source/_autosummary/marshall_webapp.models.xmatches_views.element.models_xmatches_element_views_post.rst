@@ -1,4 +1,4 @@
-﻿models_xmatches_element_views_post *(class)*
+models_xmatches_element_views_post *(class)*
 ==========================================================================================
 
 .. currentmodule:: marshall_webapp.models.xmatches_views.element

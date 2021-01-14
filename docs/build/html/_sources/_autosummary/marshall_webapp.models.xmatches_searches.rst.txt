@@ -1,4 +1,4 @@
-﻿xmatches_searches *(module)*
+xmatches_searches *(module)*
 ===================================================
 
 

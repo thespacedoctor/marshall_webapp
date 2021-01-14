@@ -1,4 +1,4 @@
-﻿templates_xmatches_searches *(class)*
+templates_xmatches_searches *(class)*
 =========================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

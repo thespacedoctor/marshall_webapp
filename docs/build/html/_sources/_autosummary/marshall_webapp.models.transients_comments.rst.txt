@@ -1,4 +1,4 @@
-﻿transients_comments *(module)*
+transients_comments *(module)*
 =====================================================
 
 

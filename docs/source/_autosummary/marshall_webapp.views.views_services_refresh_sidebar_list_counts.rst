@@ -1,4 +1,4 @@
-﻿views_services_refresh_sidebar_list_counts *(module)*
+views_services_refresh_sidebar_list_counts *(module)*
 ===========================================================================
 
 

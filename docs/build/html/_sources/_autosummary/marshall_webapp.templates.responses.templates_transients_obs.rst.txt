@@ -1,4 +1,4 @@
-﻿templates_transients_obs *(class)*
+templates_transients_obs *(class)*
 ======================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

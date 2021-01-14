@@ -34,12 +34,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script src="../_static/whistles-theme/Contents/Resources/main.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="../_static/whistles-theme/Contents/Resources/main.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -228,9 +229,9 @@
 <dd class="field-odd"><p>David Young</p>
 </dd>
 </dl>
-<dl class="py function">
+<dl class="function">
 <dt id="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.ticket_header_bar">
-<code class="sig-name descname">ticket_header_bar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">request</span></em>, <em class="sig-param"><span class="n">discoveryDataDictionary</span></em>, <em class="sig-param"><span class="n">objectComments</span></em>, <em class="sig-param"><span class="n">atelData</span></em>, <em class="sig-param"><span class="n">lightcurveData</span></em>, <em class="sig-param"><span class="n">objectHistories</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/ticket_header_bar.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.ticket_header_bar" title="Permalink to this definition">  ∞</a></dt>
+<code class="sig-name descname">ticket_header_bar</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">request</em>, <em class="sig-param">discoveryDataDictionary</em>, <em class="sig-param">objectComments</em>, <em class="sig-param">atelData</em>, <em class="sig-param">lightcurveData</em>, <em class="sig-param">objectHistories</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/ticket_header_bar.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar.ticket_header_bar" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>get ticket header bar</p>
 <p><strong>Key Arguments</strong></p>
 <ul class="simple">
@@ -248,9 +249,9 @@
 </ul>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_atel_warning">
-<code class="sig-name descname">_get_atel_warning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">atelData</span></em>, <em class="sig-param"><span class="n">transientBucketId</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_get_atel_warning.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_atel_warning" title="Permalink to this definition">  ∞</a></dt>
+<code class="sig-name descname">_get_atel_warning</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">atelData</em>, <em class="sig-param">transientBucketId</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_get_atel_warning.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_atel_warning" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>get atel warning for ticket</p>
 <p><strong>Key Arguments</strong></p>
 <ul class="simple">
@@ -264,9 +265,9 @@
 </ul>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_magnitude_warning">
-<code class="sig-name descname">_get_magnitude_warning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">currentMag</span></em>, <em class="sig-param"><span class="n">transientBucketId</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_get_magnitude_warning.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_magnitude_warning" title="Permalink to this definition">  ∞</a></dt>
+<code class="sig-name descname">_get_magnitude_warning</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">currentMag</em>, <em class="sig-param">transientBucketId</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_get_magnitude_warning.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_magnitude_warning" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>get atel warning for ticket</p>
 <p><strong>Key Arguments</strong></p>
 <ul class="simple">
@@ -280,9 +281,9 @@
 </ul>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_no_lsq_recalibrated_data_alert">
-<code class="sig-name descname">_get_no_lsq_recalibrated_data_alert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">lightcurveData</span></em>, <em class="sig-param"><span class="n">discoveryDataDictionary</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_get_no_lsq_recalibrated_data_alert.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_no_lsq_recalibrated_data_alert" title="Permalink to this definition">  ∞</a></dt>
+<code class="sig-name descname">_get_no_lsq_recalibrated_data_alert</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">lightcurveData</em>, <em class="sig-param">discoveryDataDictionary</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_get_no_lsq_recalibrated_data_alert.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._get_no_lsq_recalibrated_data_alert" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>get no lsq recalibrated data alert</p>
 <p><strong>Key Arguments</strong></p>
 <ul class="simple">
@@ -296,9 +297,9 @@
 </ul>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._resurrected_object_warning">
-<code class="sig-name descname">_resurrected_object_warning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">objectHistories</span></em>, <em class="sig-param"><span class="n">transientBucketId</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_resurrected_object_warning.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._resurrected_object_warning" title="Permalink to this definition">  ∞</a></dt>
+<code class="sig-name descname">_resurrected_object_warning</code><span class="sig-paren">(</span><em class="sig-param">log</em>, <em class="sig-param">objectHistories</em>, <em class="sig-param">transientBucketId</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/thespacedoctor/marshall_webapp/tree/master/marshall_webapp/templates/commonelements/tickets/single_ticket/ticket_building_blocks/ticket_header_bar/_resurrected_object_warning.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#marshall_webapp.templates.commonelements.tickets.single_ticket.ticket_building_blocks.ticket_header_bar._resurrected_object_warning" title="Permalink to this definition">  ∞</a></dt>
 <dd><p>get no lsq recalibrated data alert</p>
 <p><strong>Key Arguments</strong></p>
 <ul class="simple">

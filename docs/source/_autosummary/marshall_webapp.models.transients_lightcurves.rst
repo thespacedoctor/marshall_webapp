@@ -1,4 +1,4 @@
-﻿transients_lightcurves *(module)*
+transients_lightcurves *(module)*
 ========================================================
 
 

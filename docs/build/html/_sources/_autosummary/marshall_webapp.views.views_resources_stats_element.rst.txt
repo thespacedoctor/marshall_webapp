@@ -1,4 +1,4 @@
-﻿views_resources_stats_element *(module)*
+views_resources_stats_element *(module)*
 ==============================================================
 
 
