@@ -1,3 +1,6 @@
+DROP TRIGGER IF EXISTS astronotes_transients_BEFORE_INSERT;
+DROP TRIGGER IF EXISTS sherlock_classifications_BEFORE_INSERT;
+DROP TRIGGER IF EXISTS sherlock_classifications_AFTER_INSERT;
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5406,7 +5409,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-29 10:38:59
+-- Dump completed on 2021-01-29 12:42:16
 -- MySQL dump 10.17  Distrib 10.3.25-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 10.131.21.162    Database: marshall
@@ -5447,7 +5450,7 @@ CREATE TABLE `meta_workflow_lists_counts` (
 
 LOCK TABLES `meta_workflow_lists_counts` WRITE;
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` DISABLE KEYS */;
-INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',118300),(2,'following',46),(3,'followup complete',622),(4,'review for followup',110),(5,'pending observation',31),(6,'inbox',533),(7,'external alert released',7496),(8,'pending classification',7),(9,'pessto classification released',1067),(10,'archived without alert',18685),(11,'queued for atel',0),(17,'classified',14366),(19,'all',119649),(20,'snoozed',30050);
+INSERT INTO `meta_workflow_lists_counts` VALUES (1,'archive',118328),(2,'following',46),(3,'followup complete',622),(4,'review for followup',110),(5,'pending observation',32),(6,'inbox',534),(7,'external alert released',7496),(8,'pending classification',7),(9,'pessto classification released',1067),(10,'archived without alert',18685),(11,'queued for atel',0),(17,'classified',14366),(19,'all',119679),(20,'snoozed',30074);
 /*!40000 ALTER TABLE `meta_workflow_lists_counts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -5594,4 +5597,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-29 10:38:59
+-- Dump completed on 2021-01-29 12:42:16
