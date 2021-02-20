@@ -1,4 +1,4 @@
-admin_only_debugtoolbar (*function*)
+﻿admin_only_debugtoolbar (*function*)
 ====================================================
 
 .. currentmodule:: marshall_webapp

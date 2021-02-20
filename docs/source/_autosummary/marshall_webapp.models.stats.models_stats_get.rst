@@ -1,4 +1,4 @@
-models_stats_get *(class)*
+﻿models_stats_get *(class)*
 =======================================================
 
 .. currentmodule:: marshall_webapp.models.stats

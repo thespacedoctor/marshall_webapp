@@ -1,4 +1,4 @@
-view_switcher_buttons *(module)*
+﻿view_switcher_buttons *(module)*
 =========================================================================
 
 

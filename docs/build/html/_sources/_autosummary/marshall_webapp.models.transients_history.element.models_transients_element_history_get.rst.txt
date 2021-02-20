@@ -1,4 +1,4 @@
-models_transients_element_history_get *(class)*
+﻿models_transients_element_history_get *(class)*
 =================================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_history.element

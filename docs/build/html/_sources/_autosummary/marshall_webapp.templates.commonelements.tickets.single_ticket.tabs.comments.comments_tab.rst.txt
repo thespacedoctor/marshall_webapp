@@ -1,4 +1,4 @@
-comments_tab (*function*)
+﻿comments_tab (*function*)
 ======================================================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.comments

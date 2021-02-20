@@ -1,4 +1,4 @@
-templates_resources_transients *(class)*
+﻿templates_resources_transients *(class)*
 ============================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

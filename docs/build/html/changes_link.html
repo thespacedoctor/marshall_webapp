@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Marshall Webapp Release Notes &mdash; marshall_webapp v3.0.9 documentation</title>
+  <title>Marshall Webapp Release Notes &mdash; marshall_webapp v3.0.10 documentation</title>
   
 
   
@@ -34,13 +34,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="_static/whistles-theme/Contents/Resources/main.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/whistles-theme/Contents/Resources/main.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -114,7 +113,7 @@
             
             
               <div class="version">
-                v3.0.9
+                v3.0.10
               </div>
             
           
@@ -225,6 +224,10 @@
             
   <div class="section" id="marshall-webapp-release-notes">
 <h1>Marshall Webapp Release Notes<a class="headerlink" href="#marshall-webapp-release-notes" title="Permalink to this headline">  ∞</a></h1>
+<p><strong>v3.1.0 - January 11, 2021</strong></p>
+<ul class="simple">
+<li><p><strong>FIXED</strong> database connector, needed to create new tickets and add classifications, pings MySQL server and reconnects if connection is broken <em>before</em> executing actions. This hopefully fixes the long-standing issues with these 2 features.</p></li>
+</ul>
 <p><strong>v3.0.9 - January 11, 2021</strong></p>
 <ul class="simple">
 <li><p><strong>FEATURE</strong> documentation for the marshall webapp is on <a class="reference external" href="https://marshall-webapp.readthedocs.io/en/master/">readthedocs</a>. This is mainly for developer reference so far.</p></li>

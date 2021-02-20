@@ -1,4 +1,4 @@
-services_refresh_sidebar_list_counts *(class)*
+﻿services_refresh_sidebar_list_counts *(class)*
 =======================================================================
 
 .. currentmodule:: marshall_webapp.services
