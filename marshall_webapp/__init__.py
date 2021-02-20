@@ -168,9 +168,9 @@ def main(global_config, **settings):
             charset='utf8',
             local_infile=1,
             client_flag=ms.constants.CLIENT.MULTI_STATEMENTS,
-            connect_timeout=3600
+            connect_timeout=3600,
+            autocommit=True
         )
-        dbConn.autocommit(True)
         config.add_settings({"dbConn": dbConn})
 
     # add some deafult renderers

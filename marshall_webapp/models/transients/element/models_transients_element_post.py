@@ -122,7 +122,7 @@ class models_transients_element_post(object):
 
         # INSERT THE NEW CLASSIFICATION ROW INTO THE TRANSIENTBUCKET
         sqlQuery = """
-                INSERT IGNORE INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, dateCreated, dateLastModified, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(now)s", "%(now)s", "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s");
+                INSERT IGNORE INTO transientBucket (raDeg, decDeg, name, transientBucketId, observationDate, observationMjd, survey, spectralType, transientRedshift, classificationWRTMax, classificationPhase, reducer) VALUES(%(raDeg)s, %(decDeg)s, "%(name)s", %(transientBucketId)s, "%(clsObsdate)s", %(obsMjd)s, "%(clsSource)s", "%(clsType)s", %(clsRedshift)s, "%(clsClassificationWRTMax)s", %(clsClassificationPhase)s, "%(username)s") ON DUPLICATE KEY UPDATE raDeg = values(raDeg), decDeg = values(decDeg), name = values(name), transientBucketId = values(transientBucketId), observationDate = values(observationDate), observationMjd = values(observationMjd), survey = values(survey), spectralType = values(spectralType), transientRedshift = values(transientRedshift), classificationWRTMax = values(classificationWRTMax), classificationPhase = values(classificationPhase), reducer=values(reducer);
             """ % params
 
         self.request.db.execute(sqlQuery)
@@ -144,6 +144,11 @@ class models_transients_element_post(object):
             """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
+
+        # TEST CONNECTION IS OPEN - IF NOT THEN REOPEN
+        dbConn = self.request.registry.settings["dbConn"]
+        if not dbConn.cursor().connection:
+            dbConn.cursor().conn()
 
         updater = update_transient_summaries(
             log=emptyLogger(),
