@@ -1,4 +1,4 @@
-templates_transients_lightcurves *(class)*
+﻿templates_transients_lightcurves *(class)*
 ==============================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

@@ -1,4 +1,4 @@
-db (*function*)
+﻿db (*function*)
 ===============================
 
 .. currentmodule:: marshall_webapp

@@ -1,4 +1,4 @@
-models_transients_lightcurves_put *(class)*
+﻿models_transients_lightcurves_put *(class)*
 =========================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_lightcurves

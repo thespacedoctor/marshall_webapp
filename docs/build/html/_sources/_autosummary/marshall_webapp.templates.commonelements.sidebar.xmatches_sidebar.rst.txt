@@ -1,4 +1,4 @@
-xmatches_sidebar (*function*)
+﻿xmatches_sidebar (*function*)
 ==============================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.sidebar

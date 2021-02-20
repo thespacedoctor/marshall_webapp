@@ -1,4 +1,4 @@
-models_transients_element_history_delete *(class)*
+﻿models_transients_element_history_delete *(class)*
 ====================================================================================================
 
 .. currentmodule:: marshall_webapp.models.transients_history.element

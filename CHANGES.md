@@ -1,6 +1,10 @@
 
 ## Marshall Webapp Release Notes
 
+**v3.1.0 - January 11, 2021**
+
+* **FIXED** database connector, needed to create new tickets and add classifications, pings MySQL server and reconnects if connection is broken *before* executing actions. This hopefully fixes the long-standing issues with these 2 features.
+
 **v3.0.9 - January 11, 2021**
 
 * **FEATURE** documentation for the marshall webapp is on [readthedocs](https://marshall-webapp.readthedocs.io/en/master/). This is mainly for developer reference so far.

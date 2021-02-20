@@ -1,4 +1,4 @@
-templates_xmatches_catalogues *(class)*
+﻿templates_xmatches_catalogues *(class)*
 ===========================================================================
 
 .. currentmodule:: marshall_webapp.templates.responses

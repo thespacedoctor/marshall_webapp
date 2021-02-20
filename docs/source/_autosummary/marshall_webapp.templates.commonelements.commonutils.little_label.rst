@@ -1,4 +1,4 @@
-little_label (*function*)
+﻿little_label (*function*)
 ==============================================================================
 
 .. currentmodule:: marshall_webapp.templates.commonelements.commonutils

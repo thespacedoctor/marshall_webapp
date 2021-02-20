@@ -1,4 +1,4 @@
-transients_element_view *(class)*
+﻿transients_element_view *(class)*
 ===============================================================================================
 
 .. currentmodule:: marshall_webapp.views.views_resources_transients_element_akas

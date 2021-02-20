@@ -168,6 +168,8 @@ class models_transients_post(object):
 
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
+        # RECONNECT TO DB IF CONNECTION WAS LOST
+        dbConn.ping(reconnect=True)
 
         # IMPORT THE DATA AND IMAGES
         ingester = data(
