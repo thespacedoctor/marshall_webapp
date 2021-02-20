@@ -147,13 +147,13 @@ class models_transients_element_post(object):
 
         # TEST CONNECTION IS OPEN - IF NOT THEN REOPEN
         dbConn = self.request.registry.settings["dbConn"]
-        if not dbConn.cursor().connection:
-            dbConn.cursor().conn()
+        dbConn.close()
+        dbConn.ping(reconnect=True)
 
         updater = update_transient_summaries(
             log=emptyLogger(),
             settings=self.request.registry.settings["yaml settings"],
-            dbConn=self.request.registry.settings["dbConn"],
+            dbConn=dbConn,
             transientBucketId=transientBucketId
         ).update()
 
