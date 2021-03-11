@@ -11,6 +11,7 @@ import os
 from datetime import datetime, date, time
 import khufu
 
+
 def classify_object_form(
     log,
     request,
@@ -23,12 +24,12 @@ def classify_object_form(
     - ``log`` -- the logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-    
+
 
     **Return**
 
     - ``classifyObjectForm`` -- the modal form used to classify transients
-    
+
     """
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
@@ -92,7 +93,7 @@ def classify_object_form(
     )
 
     optionList = ["supernova", "agn", "variable star",
-                  "galaxy", "cv", "LBV", "imposter",  "TDE", "GRB", "kilonova", "unknown"]
+                  "galaxy", "cv", "LBV", "imposter",  "TDE", "GRB", "kilonova", "light echo", "unknown"]
     disabled = False
     if discoveryDataDictionary["recentClassification"]:
         defaultOption = "supernova"
