@@ -13,6 +13,7 @@ import datetime
 from fundamentals import times
 import khufu
 
+
 def history_tab(
         log,
         request,
@@ -30,12 +31,12 @@ def history_tab(
     - ``objectAkas`` -- object akas
     - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
-    
+
 
     **Return**
 
     - ``history_tab`` -- for each transient ticket in the transient listings pages
-    
+
     """
     from time import strftime
     from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
@@ -104,7 +105,7 @@ def history_tab(
                 logDate=hLog["dateCreated"],
                 logString=hLog["log"])
 
-    regex = re.compile(r'by (\w*)\.(\w*)')
+    regex = re.compile(r'by (\w*)\.\s+(\w*)')
     content = regex.sub(lambda match: "by " + match.group(1)[0].upper(
     ) + match.group(1)[1:] + " " + match.group(2)[0].upper() + match.group(2)[1:], content)
 
@@ -120,6 +121,7 @@ def history_tab(
     log.debug('completed the ``history_tab`` function')
     return history_tab
 
+
 def _generate_log_string_for_ticket(
         log,
         logDate,
@@ -129,7 +131,7 @@ def _generate_log_string_for_ticket(
     **Key Arguments**
 
     - ``log`` -- logger
-    
+
     """
     log.debug('starting the ``_generate_log_string_for_ticket`` function')
 

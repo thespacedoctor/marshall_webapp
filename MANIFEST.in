@@ -9,3 +9,8 @@ global-exclude *.pyc
 include *.txt *.ini *.cfg *.rst *.md
 # recursive-include marshall_webapp *
 # recursive-include marshall_webapp *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml
+recursive-exclude tests *
+recursive-exclude */tests *
+recursive-exclude */*/tests *
+recursive-exclude */*/*/tests *
+recursive-exclude tests
