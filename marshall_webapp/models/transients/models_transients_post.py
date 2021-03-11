@@ -172,7 +172,7 @@ class models_transients_post(object):
         # RECONNECT TO DB IF CONNECTION WAS LOST
         dbConn.ping(reconnect=True)
 
-        self.log.error('starting data import')
+        self.log.debug('starting data import')
 
         # IMPORT THE DATA AND IMAGES
         ingester = data(
@@ -181,7 +181,7 @@ class models_transients_post(object):
             dbConn=dbConn
         ).ingest(withinLastDays=False)
 
-        self.log.error('starting cache')
+        self.log.debug('starting cache')
         cacher = images(
             log=self.log,
             settings=self.request.registry.settings["yaml settings"],
