@@ -19,6 +19,7 @@ import urllib.parse
 import urllib.error
 from astrocalc.coords import unit_conversion
 from dryxPyramid.models.models_base import base_model
+import re
 
 
 class models_transients_get(base_model):
@@ -106,22 +107,20 @@ class models_transients_get(base_model):
 
         tcsCatalogueId = self.tcsCatalogueId
         sqlWhereList = []
-
+        regex1 = re.compile(r'[^A-Za-z0-9]')
+        regex2 = re.compile(r'^(AT|SN)')
         # SEARCH
         if self.search and "q" in self.request.params:
             searchString = self.request.params["q"]
-
-            searchString = searchString.lower().replace(" ", "%").replace(
-                "-", "%").replace("_", "%").replace(":", "%").replace("+", "%")
+            searchString = regex1.sub('', searchString)
+            searchString = regex2.sub('^(AT|SN)', searchString)
             self.log.debug("""searchString: `%(searchString)s`""" % locals())
-            # SEARCH MASTER & AKA NAMES
-            sqlQuery = """
-                (select DISTINCT  transientBucketId from transientBucket where MATCH (name) AGAINST ('%(searchString)s* AT%(searchString)s* SN%(searchString)s* AT20%(searchString)s* SN20%(searchString)s*' IN BOOLEAN MODE))
-                    union
-                (select DISTINCT  transientBucketId from pesstoObjects where MATCH (pi_name) AGAINST ('+%(searchString)s*' IN BOOLEAN MODE))
-            """ % locals()
-            self.log.debug(
-                """sqlQUery for searchString: `%(sqlQuery)s`""" % locals())
+
+            sqlQuery = f"""
+                select  DISTINCT  transientBucketId from marshall_transient_akas where  REGEXP_REPLACE(name,"[^A-Za-z0-9]","") REGEXP '{searchString}' 
+                union
+                select DISTINCT  transientBucketId from pesstoObjects where  REGEXP_REPLACE(pi_name,"[^A-Za-z0-9]","") REGEXP '{searchString}' 
+            """
             rows = self.request.db.execute(
                 text(sqlQuery)).fetchall()
 
@@ -133,6 +132,7 @@ class models_transients_get(base_model):
 
             thisWhere = """t.transientBucketId in (%(searchList)s -99)""" % locals(
             )
+
             sqlWhereList.append(thisWhere)
             thisPageName = searchString
             self.log.debug("""searchList: `%(searchList)s`""" % locals())

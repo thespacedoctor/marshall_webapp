@@ -108,7 +108,6 @@ class models_transients_post(object):
             self.log.debug('%s = %s' % (varname, val,))
 
         # CONVERT RA AND DEC IF REQUIRED
-
         params["objectRa"] = converter.ra_sexegesimal_to_decimal(
             ra=params["objectRa"]
         )
@@ -166,10 +165,14 @@ class models_transients_post(object):
         self.request.db.commit()
         self.request.db.commit()
 
+        self.log.error('object added to fs_user_added')
+
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
         # RECONNECT TO DB IF CONNECTION WAS LOST
         dbConn.ping(reconnect=True)
+
+        self.log.error('starting data import')
 
         # IMPORT THE DATA AND IMAGES
         ingester = data(
@@ -177,6 +180,8 @@ class models_transients_post(object):
             settings=self.request.registry.settings["yaml settings"],
             dbConn=dbConn
         ).ingest(withinLastDays=False)
+
+        self.log.error('starting cache')
         cacher = images(
             log=self.log,
             settings=self.request.registry.settings["yaml settings"],
