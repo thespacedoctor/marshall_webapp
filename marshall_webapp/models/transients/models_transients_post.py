@@ -165,14 +165,10 @@ class models_transients_post(object):
         self.request.db.commit()
         self.request.db.commit()
 
-        self.log.error('object added to fs_user_added')
-
         # import the new objects in fs_user_added to transientBucket
         dbConn = self.request.registry.settings["dbConn"]
         # RECONNECT TO DB IF CONNECTION WAS LOST
         dbConn.ping(reconnect=True)
-
-        self.log.error('starting data import')
 
         # IMPORT THE DATA AND IMAGES
         ingester = data(
