@@ -114,90 +114,48 @@ def identity_block(
     if surveyObjectUrl and "ps1gw" in surveyObjectUrl:
         annotations.append("within sky map of gravitational wave source")
 
-    # if surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-    #     user = request.registry.settings["credentials"]["ps1-3pi"]["username"]
-    #     pwd = request.registry.settings["credentials"]["ps1-3pi"]["password"]
-    #     surveyObjectUrl = surveyObjectUrl.replace(
-    #         "star.", "%(user)s:%(pwd)s@star." % locals())
-
-    # if surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-    #     user = request.registry.settings["credentials"]["ps1-fgss"]["username"]
-    #     pwd = request.registry.settings["credentials"]["ps1-fgss"]["password"]
-    #     surveyObjectUrl = surveyObjectUrl.replace(
-    #         "star.", "%(user)s:%(pwd)s@star." % locals())
-
-    # if surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-    #     user = request.registry.settings["credentials"]["ps1-gw"]["username"]
-    #     pwd = request.registry.settings["credentials"]["ps1-gw"]["password"]
-    #     surveyObjectUrl = surveyObjectUrl.replace(
-    #         "star.", "%(user)s:%(pwd)s@star." % locals())
-
-    # MASTER NAME
-    masterName = discoveryDataDictionary["masterName"]
-    name = masterName
-    if discoveryDataDictionary["survey"]:
-        survey = discoveryDataDictionary["survey"].upper()
-    else:
-        survey = ""
-
-    if surveyObjectUrl:
-        if "skymapper" in surveyObjectUrl or "ps1gw" in surveyObjectUrl or "ps1fgss" in surveyObjectUrl or "ps13pi" in surveyObjectUrl:
-            popover = pesstoCredentialsPopover
-        else:
-            popover = False
-
-        masterNameLink = khufu.a(
-            content=discoveryDataDictionary["masterName"],
-            href=surveyObjectUrl,
-            openInNewTab=True,
-            popover=popover
-        )
-    else:
-        masterNameLink = discoveryDataDictionary["masterName"]
-
     # AKA NAMES
+    masterName = False
     akaRows = []
     for item in objectAkas:
         surveyObjectUrl = item["url"]
-        if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and item["name"] != discoveryDataDictionary["masterName"]:
-            if surveyObjectUrl and "@" not in surveyObjectUrl:
-                if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
-                    user = request.registry.settings[
-                        "credentials"]["lsq"]["username"]
-                    pwd = request.registry.settings[
-                        "credentials"]["lsq"]["password"]
-                    surveyObjectUrl = surveyObjectUrl.replace(
-                        "portal.", "%(user)s:%(pwd)s@portal." % locals())
+        if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
+            if not masterName:
+                # MASTER NAME
+                masterAka = item
+                masterName = masterAka["name"]
+                name = masterName
 
-                # elif surveyObjectUrl and ("ps13pi" in surveyObjectUrl):
-                #     user = request.registry.settings[
-                #         "credentials"]["ps1-3pi"]["username"]
-                #     pwd = request.registry.settings[
-                #         "credentials"]["ps1-3pi"]["password"]
-                #     surveyObjectUrl = surveyObjectUrl.replace(
-                #         "star.", "%(user)s:%(pwd)s@star." % locals())
+                if masterAka["url"]:
+                    if "skymapper" in masterAka["url"] or "ps1gw" in masterAka["url"] or "ps1fgss" in masterAka["url"] or "ps13pi" in masterAka["url"]:
+                        popover = pesstoCredentialsPopover
+                    else:
+                        popover = False
 
-                # elif surveyObjectUrl and ("ps1fgss" in surveyObjectUrl):
-                #     user = request.registry.settings[
-                #         "credentials"]["ps1-fgss"]["username"]
-                #     pwd = request.registry.settings[
-                #         "credentials"]["ps1-fgss"]["password"]
-                #     surveyObjectUrl = surveyObjectUrl.replace(
-                #         "star.", "%(user)s:%(pwd)s@star." % locals())
+                    masterNameLink = khufu.a(
+                        content=masterName,
+                        href=masterAka["url"],
+                        openInNewTab=True,
+                        popover=popover
+                    )
+                else:
+                    masterNameLink = masterName
+            else:
+                if surveyObjectUrl and "@" not in surveyObjectUrl:
+                    if surveyObjectUrl and "portal.nersc.gov/" in surveyObjectUrl:
+                        user = request.registry.settings[
+                            "credentials"]["lsq"]["username"]
+                        pwd = request.registry.settings[
+                            "credentials"]["lsq"]["password"]
+                        surveyObjectUrl = surveyObjectUrl.replace(
+                            "portal.", "%(user)s:%(pwd)s@portal." % locals())
 
-                # elif surveyObjectUrl and ("ps1gw" in surveyObjectUrl):
-                #     user = request.registry.settings[
-                #         "credentials"]["ps1-gw"]["username"]
-                #     pwd = request.registry.settings[
-                #         "credentials"]["ps1-gw"]["password"]
-                #     surveyObjectUrl = surveyObjectUrl.replace(
-                #         "star.", "%(user)s:%(pwd)s@star." % locals())
-            if surveyObjectUrl and "ps1gw" in surveyObjectUrl and "within sky map of gravitational wave source" not in annotations:
-                annotations.append(
-                    "within sky map of gravitational wave source")
+                if surveyObjectUrl and "ps1gw" in surveyObjectUrl and "within sky map of gravitational wave source" not in annotations:
+                    annotations.append(
+                        "within sky map of gravitational wave source")
 
-            item["url"] = surveyObjectUrl
-            akaRows.append(item)
+                item["url"] = surveyObjectUrl
+                akaRows.append(item)
 
     numerator = 70.
     if discoveryDataDictionary["classifiedFlag"]:
@@ -407,11 +365,6 @@ def identity_block(
     )
     objectStamp = objectStamp + modal
 
-    surveyURLRanking = {
-        "rochester": 0,
-        "wis-tns": 1
-    }
-
     akaList = ""
     if len(akaRows) == 0:
         akaTitle = ""
@@ -447,14 +400,6 @@ def identity_block(
         akaList = aka
     else:
         akaTitle = "akas: "
-        for row in akaRows:
-            row["urlRank"] = 10
-            for k, v in surveyURLRanking.items():
-                if row["url"] and k in row["url"]:
-                    row["urlRank"] = v
-        from operator import itemgetter
-        akaRows = list(akaRows)
-        akaRows = sorted(akaRows, key=itemgetter('urlRank'), reverse=True)
 
         for row in akaRows:
             log.debug('aka: %s' % (row,))
