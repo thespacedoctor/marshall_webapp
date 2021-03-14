@@ -1,6 +1,7 @@
 
 ## Marshall Webapp Release Notes
 
+* **ENHANCEMENT**: added light echo to classification options
 * **FIXED**: issue where transient history logs were not getting parsed correctly resulting in ticket not loading in marshall interface
 * **REFECTOR** search function more forgiving, but also more accurate and MUCH faster
 * **REFECTOR** added new sources via the "create new ticket button" now more efficient
