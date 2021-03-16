@@ -68,6 +68,7 @@ class models_transients_akas_get(base_model):
         **Return**
 
         - ``responseContent`` -- the reponse to send to the browser
+
         """
         self.log.debug('starting the ``get`` method')
 
