@@ -1,12 +1,12 @@
 
 ## Marshall Webapp Release Notes
 
-* **FIXED**: issue where transient history logs were not getting parsed correctly resulting in ticket not loading in marshall interface
+**v3.1.0 - March 14, 2021**
+
 * **REFECTOR** search function more forgiving, but also more accurate and MUCH faster
-* **REFECTOR** added new sources via the "create new ticket button" now more efficient
-
-**v3.1.0 - January 11, 2021**
-
+* **REFECTOR** adding new sources via the "create new ticket button" now faster
+* **ENHANCEMENT** AT/SN names now set as the 'master' or headline name in each transient ticket. All other names and links added to *aka* section.
+* **FIXED**: issue where transient history logs were not getting parsed correctly resulting in ticket not loading in marshall interface
 * **FIXED** database connector, needed to create new tickets and add classifications, pings MySQL server and reconnects if connection is broken *before* executing actions. This hopefully fixes the long-standing issues with these 2 features.
 
 **v3.0.9 - January 11, 2021**

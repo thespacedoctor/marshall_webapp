@@ -5134,7 +5134,7 @@ WHERE
     and a.url is not null
         AND t.transientbucketId = a.transientbucketId
         AND a.name = t.name
-        and a.name like "ATLAS%" limit 100000;
+        and a.name like "ATLAS%" ;
 
 -- CREATE URLS FOR AKAs TABLE
 update marshall_transient_akas set url = concat("https://lasair.roe.ac.uk/object/",name) where name like "ZTF%" and url is null;

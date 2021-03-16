@@ -95,7 +95,7 @@ class models_transients_akas_get(base_model):
 
         if len(theseIds):
             sqlQuery = """
-                select transientBucketId, name, url from marshall_transient_akas %(sqlWhere)s order by transientBucketId, master desc
+                select transientBucketId, name, url from marshall_transient_akas %(sqlWhere)s and hidden = 0 order by transientBucketId, master desc
             """ % locals()
             rows = self.request.db.execute(sqlQuery).fetchall()
         else:
@@ -181,7 +181,7 @@ class models_transients_akas_get(base_model):
 
             # APPEND THE RESOURCES
             subresource = {}
-            for k, v in list(row.items()):
+            for k, v in dict(row).items():
                 if k in resourceKeys:
                     subresource[k] = v
             if len(subresource):
