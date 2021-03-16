@@ -95,7 +95,7 @@ class models_transients_akas_get(base_model):
 
         if len(theseIds):
             sqlQuery = """
-                select transientBucketId, name, url from marshall_transient_akas %(sqlWhere)s where hidden = 0 order by transientBucketId, master desc
+                select transientBucketId, name, url from marshall_transient_akas %(sqlWhere)s and hidden = 0 order by transientBucketId, master desc
             """ % locals()
             rows = self.request.db.execute(sqlQuery).fetchall()
         else:
