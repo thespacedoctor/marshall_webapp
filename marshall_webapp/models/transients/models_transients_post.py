@@ -177,7 +177,6 @@ class models_transients_post(object):
             dbConn=dbConn
         ).ingest(withinLastDays=False)
 
-        self.log.error('starting cache')
         cacher = images(
             log=self.log,
             settings=self.request.registry.settings["yaml settings"],
