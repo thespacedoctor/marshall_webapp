@@ -101,11 +101,6 @@ class models_transients_akas_get(base_model):
         else:
             rows = []
 
-        print(rows)
-        for r in rows:
-            print(r.keys())
-            print("----------")
-
         if not self.qs["format"] or self.qs["format"].lower() != "json":
             objectAkas = []
             objectAkas[:] = [dict(list(zip(list(row.keys()), row)))
