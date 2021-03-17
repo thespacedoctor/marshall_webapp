@@ -1,7 +1,7 @@
 
 ## Marshall Webapp Release Notes
 
-**v3.1.0 - March 14, 2021**
+**v3.1.0 - March 17, 2021**
 
 * **REFECTOR** search function more forgiving, but also more accurate and MUCH faster
 * **REFECTOR** adding new sources via the "create new ticket button" now faster
