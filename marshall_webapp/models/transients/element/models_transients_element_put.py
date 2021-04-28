@@ -142,7 +142,7 @@ class models_transients_element_put(object):
                 now = datetime.now()
                 now = now.strftime("%Y-%m-%d %H:%M:%S")
                 sqlQuery = """
-                    update pesstoObjects set lastTimeReviewed = "%(now)s" where transientBucketId = %(transientBucketId)s
+                    update pesstoObjects set lastReviewedMagDate = "%(now)s" where transientBucketId = %(transientBucketId)s
                 """ % locals()
                 self.request.db.execute(sqlQuery)
                 self.request.db.commit()

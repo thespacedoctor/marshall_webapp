@@ -12,6 +12,7 @@ import re
 import datetime
 import khufu
 
+
 def dryx_tab(
         log,
         request,
@@ -29,12 +30,12 @@ def dryx_tab(
     - ``objectAkas`` -- object akas
     - ``objectHistories`` -- the lightcurve data for the objects displayed on the webpage
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
-    
+
 
     **Return**
 
     - ``dryx_tab`` -- for each transient ticket in the transient listings pages
-    
+
     """
     from time import strftime
     from marshall_webapp.templates.commonelements.tickets.single_ticket import ticket_building_blocks, tabs
@@ -51,7 +52,7 @@ def dryx_tab(
         return None
 
     lastReviewedMag = discoveryDataDictionary["lastReviewedMag"]
-    lastReviewDate = discoveryDataDictionary["lastTimeReviewed"]
+    lastReviewDate = discoveryDataDictionary["lastReviewedMagDate"]
     currentMagnitudeDate = discoveryDataDictionary["currentMagnitudeDate"]
     currentMagnitudeEstimate = discoveryDataDictionary[
         "currentMagnitudeEstimate"]
