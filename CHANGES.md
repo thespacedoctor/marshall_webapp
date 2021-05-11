@@ -1,6 +1,8 @@
 
 ## Marshall Webapp Release Notes
 
+best name is selected in both table view and plain-text outputs
+
 **v3.1.1 - May 7, 2021**
 
 * **ENHANCEMENT**: SSL certificate now installed on the pessto.org domain. All traffic is now encrypted and secure. All `http` requests should also be redirected to `https`.
