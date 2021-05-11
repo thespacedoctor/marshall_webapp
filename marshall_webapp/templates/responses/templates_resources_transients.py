@@ -418,6 +418,11 @@ class templates_resources_transients(object):
 
         for obj in self.transientData:
 
+            for item in self.transientAkas:
+                if item["transientBucketId"] == obj["transientBucketId"]:
+                    obj["masterName"] = item["name"]
+                    break
+
             # CONVERT PRIORITIES TO WORDS
             if "marshallWorkflowLocation" in obj:
                 if obj["marshallWorkflowLocation"] == "following":

@@ -701,6 +701,12 @@ class models_transients_get(base_model):
 
         # convert priorities to words
         for obj in self.transientData:
+
+            for item in self.transientAkas:
+                if item["transientBucketId"] == obj["transientBucketId"]:
+                    obj["masterName"] = item["name"]
+                    break
+
             if "marshallWorkflowLocation" in obj:
                 if obj["marshallWorkflowLocation"] == "following":
                     for n, w, c in zip([1, 2, 3, 4], ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"], ["green", "yellow", "red", "blue"]):
