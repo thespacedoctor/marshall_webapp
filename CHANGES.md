@@ -1,7 +1,12 @@
 
 ## Marshall Webapp Release Notes
 
-**v3.1.0 - March 14, 2021**
+**v3.1.1 - May 7, 2021**
+
+* **ENHANCEMENT**: SSL certificate now installed on the pessto.org domain. All traffic is now encrypted and secure. All `http` requests should also be redirected to `https`.
+* **FIXED**: classification summary info on each ticket is now the latest and most relevant. At times an older redshift report was being presented.
+
+**v3.1.0 - March 17, 2021**
 
 * **REFECTOR** search function more forgiving, but also more accurate and MUCH faster
 * **REFECTOR** adding new sources via the "create new ticket button" now faster
