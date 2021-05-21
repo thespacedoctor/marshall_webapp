@@ -76,7 +76,7 @@ class test_views_resources_transients(BaseTest):
         writequery(
             log=log,
             sqlQuery=sqlQuery,
-            dbConn=self.dbConn,
+            dbConn=dbConn,
         )
 
         params = {
@@ -125,7 +125,7 @@ class test_views_resources_transients(BaseTest):
         writequery(
             log=log,
             sqlQuery=sqlQuery,
-            dbConn=self.dbConn,
+            dbConn=dbConn,
         )
 
         params = {
