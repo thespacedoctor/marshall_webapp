@@ -9,7 +9,7 @@ from fundamentals import tools
 from os.path import expanduser
 from dryxPyramid.utKit import BaseTest
 home = expanduser("~")
-
+from fundamentals.mysql import writequery
 packageDirectory = utKit("").get_project_root()
 # settingsFile = packageDirectory + "/test_settings.yaml"
 settingsFile = home + "/git_repos/_misc_/settings/marshall/test_settings.yaml"
@@ -71,6 +71,14 @@ class test_views_resources_transients(BaseTest):
         self.assertEqual(respsonse.status_code, 302)
 
     def test_views_resources_transients_gets(self):
+
+        sqlQuery = f"""CALL `update_transient_akas`(3)"""
+        writequery(
+            log=log,
+            sqlQuery=sqlQuery,
+            dbConn=self.dbConn,
+        )
+
         params = {
             "format": "json",
             "sortBy": "currentMagnitudeDate",
@@ -112,6 +120,14 @@ class test_views_resources_transients(BaseTest):
         self.assertEqual(respsonse.status_code, 200)
 
     def test_views_resources_transients_downloads(self):
+
+        sqlQuery = f"""CALL `update_transient_akas`(3)"""
+        writequery(
+            log=log,
+            sqlQuery=sqlQuery,
+            dbConn=self.dbConn,
+        )
+
         params = {
             "format": "json",
             "sortBy": "currentMagnitudeDate",

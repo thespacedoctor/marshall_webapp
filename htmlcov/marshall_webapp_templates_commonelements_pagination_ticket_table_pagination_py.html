@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for marshall_webapp/templates/commonelements/pagination/ticket_table_pagination.py: 95%</title>
+    <title>Coverage for marshall_webapp/templates/commonelements/pagination/ticket_table_pagination.py: 78%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>marshall_webapp/templates/commonelements/pagination/ticket_table_pagination.py</b> :
-            <span class="pc_cov">95%</span>
+            <span class="pc_cov">78%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             74 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">70 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">4 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">58 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">16 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -144,7 +144,7 @@
     <p id="t90" class="pln"><span class="n"><a href="#t90">90</a></span><span class="t">        <span class="nam">routename</span><span class="op">,</span> <span class="nam">elementId</span><span class="op">=</span><span class="nam">elementId</span><span class="op">,</span> <span class="nam">_query</span><span class="op">=</span><span class="nam">theseParams</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t91" class="run"><span class="n"><a href="#t91">91</a></span><span class="t">    <span class="nam">disabled</span> <span class="op">=</span> <span class="key">False</span>&nbsp;</span><span class="r"></span></p>
     <p id="t92" class="run"><span class="n"><a href="#t92">92</a></span><span class="t">    <span class="key">if</span> <span class="nam">thisButtonIndex</span> <span class="op">==</span> <span class="nam">totalButtons</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t93" class="run"><span class="n"><a href="#t93">93</a></span><span class="t">        <span class="nam">disabled</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t93" class="mis show_mis"><span class="n"><a href="#t93">93</a></span><span class="t">        <span class="nam">disabled</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
     <p id="t94" class="run"><span class="n"><a href="#t94">94</a></span><span class="t">    <span class="nam">nextButton</span> <span class="op">=</span> <span class="nam">khufu</span><span class="op">.</span><span class="nam">a</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t95" class="pln"><span class="n"><a href="#t95">95</a></span><span class="t">        <span class="nam">content</span><span class="op">=</span><span class="str">"&amp;raquo;"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t96" class="pln"><span class="n"><a href="#t96">96</a></span><span class="t">        <span class="nam">href</span><span class="op">=</span><span class="nam">nextButtonUrl</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -175,26 +175,26 @@
     <p id="t121" class="pln"><span class="n"><a href="#t121">121</a></span><span class="t">    <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t122" class="pln"><span class="n"><a href="#t122">122</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t123" class="run"><span class="n"><a href="#t123">123</a></span><span class="t">    <span class="key">for</span> <span class="nam">i</span> <span class="key">in</span> <span class="nam">range</span><span class="op">(</span><span class="nam">displayRangeStart</span><span class="op">,</span> <span class="nam">displayRangeEnd</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t124" class="run"><span class="n"><a href="#t124">124</a></span><span class="t">        <span class="nam">buttonNumber</span> <span class="op">=</span> <span class="nam">i</span> <span class="op">+</span> <span class="num">1</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t125" class="run"><span class="n"><a href="#t125">125</a></span><span class="t">        <span class="nam">disabled</span> <span class="op">=</span> <span class="key">False</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t126" class="run"><span class="n"><a href="#t126">126</a></span><span class="t">        <span class="key">if</span> <span class="nam">buttonNumber</span> <span class="op">==</span> <span class="nam">thisButtonIndex</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t127" class="run"><span class="n"><a href="#t127">127</a></span><span class="t">            <span class="nam">disabled</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t128" class="run"><span class="n"><a href="#t128">128</a></span><span class="t">        <span class="nam">pageStart</span> <span class="op">=</span> <span class="nam">i</span> <span class="op">*</span> <span class="nam">limit</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t129" class="run"><span class="n"><a href="#t129">129</a></span><span class="t">        <span class="nam">theseParams</span><span class="op">[</span><span class="str">"limit"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">limit</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t130" class="run"><span class="n"><a href="#t130">130</a></span><span class="t">        <span class="nam">theseParams</span><span class="op">[</span><span class="str">"pageStart"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">pageStart</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t131" class="run"><span class="n"><a href="#t131">131</a></span><span class="t">        <span class="nam">buttonUrl</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">route_path</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t124" class="mis show_mis"><span class="n"><a href="#t124">124</a></span><span class="t">        <span class="nam">buttonNumber</span> <span class="op">=</span> <span class="nam">i</span> <span class="op">+</span> <span class="num">1</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t125" class="mis show_mis"><span class="n"><a href="#t125">125</a></span><span class="t">        <span class="nam">disabled</span> <span class="op">=</span> <span class="key">False</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t126" class="mis show_mis"><span class="n"><a href="#t126">126</a></span><span class="t">        <span class="key">if</span> <span class="nam">buttonNumber</span> <span class="op">==</span> <span class="nam">thisButtonIndex</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t127" class="mis show_mis"><span class="n"><a href="#t127">127</a></span><span class="t">            <span class="nam">disabled</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t128" class="mis show_mis"><span class="n"><a href="#t128">128</a></span><span class="t">        <span class="nam">pageStart</span> <span class="op">=</span> <span class="nam">i</span> <span class="op">*</span> <span class="nam">limit</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t129" class="mis show_mis"><span class="n"><a href="#t129">129</a></span><span class="t">        <span class="nam">theseParams</span><span class="op">[</span><span class="str">"limit"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">limit</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t130" class="mis show_mis"><span class="n"><a href="#t130">130</a></span><span class="t">        <span class="nam">theseParams</span><span class="op">[</span><span class="str">"pageStart"</span><span class="op">]</span> <span class="op">=</span> <span class="nam">pageStart</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t131" class="mis show_mis"><span class="n"><a href="#t131">131</a></span><span class="t">        <span class="nam">buttonUrl</span> <span class="op">=</span> <span class="nam">request</span><span class="op">.</span><span class="nam">route_path</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t132" class="pln"><span class="n"><a href="#t132">132</a></span><span class="t">            <span class="nam">routename</span><span class="op">,</span> <span class="nam">elementId</span><span class="op">=</span><span class="nam">elementId</span><span class="op">,</span> <span class="nam">_query</span><span class="op">=</span><span class="nam">theseParams</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t133" class="run"><span class="n"><a href="#t133">133</a></span><span class="t">        <span class="nam">link</span> <span class="op">=</span> <span class="nam">khufu</span><span class="op">.</span><span class="nam">a</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t133" class="mis show_mis"><span class="n"><a href="#t133">133</a></span><span class="t">        <span class="nam">link</span> <span class="op">=</span> <span class="nam">khufu</span><span class="op">.</span><span class="nam">a</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t134" class="pln"><span class="n"><a href="#t134">134</a></span><span class="t">            <span class="nam">content</span><span class="op">=</span><span class="nam">buttonNumber</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t135" class="pln"><span class="n"><a href="#t135">135</a></span><span class="t">            <span class="nam">href</span><span class="op">=</span><span class="nam">buttonUrl</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t136" class="pln"><span class="n"><a href="#t136">136</a></span><span class="t">            <span class="nam">tableIndex</span><span class="op">=</span><span class="op">-</span><span class="num">1</span>&nbsp;</span><span class="r"></span></p>
     <p id="t137" class="pln"><span class="n"><a href="#t137">137</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t138" class="run"><span class="n"><a href="#t138">138</a></span><span class="t">        <span class="nam">linkListItem</span> <span class="op">=</span> <span class="nam">khufu</span><span class="op">.</span><span class="nam">li</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t138" class="mis show_mis"><span class="n"><a href="#t138">138</a></span><span class="t">        <span class="nam">linkListItem</span> <span class="op">=</span> <span class="nam">khufu</span><span class="op">.</span><span class="nam">li</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p id="t139" class="pln"><span class="n"><a href="#t139">139</a></span><span class="t">            <span class="nam">content</span><span class="op">=</span><span class="nam">link</span><span class="op">,</span>  <span class="com"># if a subMenu for dropdown this should be &lt;ul></span>&nbsp;</span><span class="r"></span></p>
     <p id="t140" class="pln"><span class="n"><a href="#t140">140</a></span><span class="t">            <span class="nam">span</span><span class="op">=</span><span class="key">False</span><span class="op">,</span>  <span class="com"># [ False | 1-12 ]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t141" class="pln"><span class="n"><a href="#t141">141</a></span><span class="t">            <span class="nam">disabled</span><span class="op">=</span><span class="nam">disabled</span>&nbsp;</span><span class="r"></span></p>
     <p id="t142" class="pln"><span class="n"><a href="#t142">142</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t143" class="run"><span class="n"><a href="#t143">143</a></span><span class="t">        <span class="nam">allButtons</span> <span class="op">=</span> <span class="str">"""%(allButtons)s%(linkListItem)s"""</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t143" class="mis show_mis"><span class="n"><a href="#t143">143</a></span><span class="t">        <span class="nam">allButtons</span> <span class="op">=</span> <span class="str">"""%(allButtons)s%(linkListItem)s"""</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t144" class="pln"><span class="n"><a href="#t144">144</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t145" class="run"><span class="n"><a href="#t145">145</a></span><span class="t">    <span class="nam">allButtons</span> <span class="op">=</span> <span class="str">"""%(prevButton)s%(allButtons)s%(nextButton)s"""</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t146" class="pln"><span class="n"><a href="#t146">146</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
@@ -210,7 +210,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-03-16 16:32 +0000
+            created at 2021-05-21 14:32 +0100
         </p>
     </div>
 </div>
