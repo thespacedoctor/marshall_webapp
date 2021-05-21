@@ -703,7 +703,7 @@ class models_transients_get(base_model):
         for obj in self.transientData:
 
             for item in self.transientAkas:
-                if item["transientBucketId"] == obj["transientBucketId"]:
+                if item["transientBucketId"] == obj["transientBucketId"] and "name" in item:
                     obj["masterName"] = item["name"]
                     break
 
