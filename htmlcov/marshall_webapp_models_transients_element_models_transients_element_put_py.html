@@ -196,7 +196,7 @@
     <p id="t142" class="mis show_mis"><span class="n"><a href="#t142">142</a></span><span class="t">                <span class="nam">now</span> <span class="op">=</span> <span class="nam">datetime</span><span class="op">.</span><span class="nam">now</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t143" class="mis show_mis"><span class="n"><a href="#t143">143</a></span><span class="t">                <span class="nam">now</span> <span class="op">=</span> <span class="nam">now</span><span class="op">.</span><span class="nam">strftime</span><span class="op">(</span><span class="str">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t144" class="mis show_mis"><span class="n"><a href="#t144">144</a></span><span class="t">                <span class="nam">sqlQuery</span> <span class="op">=</span> <span class="str">"""</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t145" class="pln"><span class="n"><a href="#t145">145</a></span><span class="t"><span class="str">                    update pesstoObjects set lastTimeReviewed = "%(now)s" where transientBucketId = %(transientBucketId)s</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t145" class="pln"><span class="n"><a href="#t145">145</a></span><span class="t"><span class="str">                    update pesstoObjects set lastReviewedMagDate = "%(now)s" where transientBucketId = %(transientBucketId)s</span>&nbsp;</span><span class="r"></span></p>
     <p id="t146" class="pln"><span class="n"><a href="#t146">146</a></span><span class="t"><span class="str">                """</span> <span class="op">%</span> <span class="nam">locals</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t147" class="mis show_mis"><span class="n"><a href="#t147">147</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">request</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="nam">sqlQuery</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t148" class="mis show_mis"><span class="n"><a href="#t148">148</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">request</span><span class="op">.</span><span class="nam">db</span><span class="op">.</span><span class="nam">commit</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -379,7 +379,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2021-03-15 21:21 +0000
+            created at 2021-05-21 14:32 +0100
         </p>
     </div>
 </div>
