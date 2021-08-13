@@ -678,6 +678,7 @@ class models_transients_get(base_model):
         tableColumnNames["dateAdded"] = "added to marshall"
         tableColumnNames["pi_name"] = "PI"
         tableColumnNames["pi_email"] = "pi email"
+        tableColumnNames["akas"] = "akas"
 
         # a list of names for table and csv views
         tableColumns = [
@@ -703,8 +704,9 @@ class models_transients_get(base_model):
         for obj in self.transientData:
 
             for item in self.transientAkas:
-                if item["transientBucketId"] == obj["transientBucketId"] and "name" in item:
-                    obj["masterName"] = item["name"]
+                if item["transientBucketId"] == obj["transientBucketId"]:
+                    obj["masterName"] = item["akas"][0]['name']
+                    obj["akas"] = item["akas"]
                     break
 
             if "marshallWorkflowLocation" in obj:

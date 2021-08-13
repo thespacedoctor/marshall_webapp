@@ -162,13 +162,12 @@ class models_transients_akas_get(base_model):
         # GET THE ROOT LEVEL KEYS
         uniqueKeys = [primaryKey]
         for k in list(listOfDict[0].keys()):
-            if k not in resourceKeys:
+            if k not in resourceKeys and k not in uniqueKeys:
                 uniqueKeys.append(k)
 
         # BUILD THE NESTED STRUCTURE
         for row in listOfDict:
             pk = str(row[primaryKey])
-
             # HAVE WE SEEN THE PRIMARYKEY YET?
             if pk not in seen:
                 seen.append(pk)
@@ -188,11 +187,11 @@ class models_transients_akas_get(base_model):
                 responseBuilder[pk][resourceName].append(subresource)
 
         # SORT THE NESTED STRUCTURE
-        sortList = [primaryKey] + sorted(uniqueKeys) + [resourceName]
-        for name, aDict in list(responseBuilder.items()):
-            for k in sortList:
-                orderResults[k] = aDict[k]
-            responseBuilder[name] = orderResults
+        # sortList = [primaryKey] + sorted(uniqueKeys) + [resourceName]
+        # for name, aDict in list(responseBuilder.items()):
+        #     for k in sortList:
+        #         orderResults[k] = aDict[k]
+        #     responseBuilder[name] = orderResults
 
         responseContent = list(responseBuilder.values())
 
