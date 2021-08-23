@@ -678,7 +678,8 @@ class models_transients_get(base_model):
         tableColumnNames["dateAdded"] = "added to marshall"
         tableColumnNames["pi_name"] = "PI"
         tableColumnNames["pi_email"] = "pi email"
-        tableColumnNames["akas"] = "akas"
+        if "format" in self.qs and (self.qs["format"].lower() == "json"):
+            tableColumnNames["akas"] = "akas"
 
         # a list of names for table and csv views
         tableColumns = [
