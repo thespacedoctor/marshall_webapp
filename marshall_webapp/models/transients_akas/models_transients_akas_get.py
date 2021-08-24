@@ -101,7 +101,7 @@ class models_transients_akas_get(base_model):
         else:
             rows = []
 
-        if not self.qs["format"]:
+        if not self.qs["format"] or self.qs["format"] == "html_table":
             objectAkas = []
             objectAkas[:] = [dict(list(zip(list(row.keys()), row)))
                              for row in rows]
