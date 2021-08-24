@@ -9,6 +9,16 @@ from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.settings import aslist
 from os.path import expanduser
 
+# ALLOW DEBUG TOOLBAR OVER HTTPS
+from pyramid.url import URLMethodsMixin
+URLMethodsMixin.static_url_org = URLMethodsMixin.static_url  # backup of original
+
+
+def https_static_url(self, *args, **kw):
+    kw['_scheme'] = 'https'  # add parameter forcing https
+    return URLMethodsMixin.static_url_org(self, *args, **kw)  # call backup
+URLMethodsMixin.static_url = https_static_url  # replace original with backup
+
 
 def db(request):
     # database connection

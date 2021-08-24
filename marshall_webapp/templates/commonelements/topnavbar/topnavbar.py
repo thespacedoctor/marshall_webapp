@@ -10,6 +10,7 @@ import sys
 import os
 import khufu
 
+
 def topnavbar(log,
               request):
     """
@@ -18,12 +19,12 @@ def topnavbar(log,
     **Key Arguments**
 
     - ``log`` -- logger
-    
+
 
     **Return**
 
     - ``topNavBar`` -- the top navigation bar for the pessto marshall
-    
+
     """
     log.debug('starting the ``topNavigationBar`` function')
 
@@ -71,7 +72,7 @@ def topnavbar(log,
 
     pesstoHome = khufu.a(
         content='pessto.org',
-        href='http://www.pessto.org',
+        href='https://www.pessto.org',
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
@@ -107,7 +108,7 @@ def topnavbar(log,
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
     externalData = khufu.a(
         content='external data',
-        href='http://www.pessto.org/private/data/external',
+        href='https://www.pessto.org/private/data/external',
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
