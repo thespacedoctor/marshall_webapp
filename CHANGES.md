@@ -2,6 +2,9 @@
 ## Marshall Webapp Release Notes
 
 best name is selected in both table view and plain-text outputs
+json output now reports akas (name and url) for each transient
+fixed csv and plain text downloads
+allow for debug toolbar over https
 
 **v3.1.1 - May 7, 2021**
 
