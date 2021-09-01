@@ -43,6 +43,7 @@ def identity_block(
 
     annotations = []
 
+
     pesstoCredentialsPopover = khufu.popover(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
