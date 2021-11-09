@@ -226,7 +226,7 @@ def identity_block(
             dsourceImages.append(dsrc)
             objectName = ""
             for item in objectAkas:
-                if k.split("_")[0] in item["name"].lower():
+                if "name" in item and k.split("_")[0] in item["name"].lower():
                     objectName = item["name"]
                     objectName = khufu.a(
                         content=objectName,
