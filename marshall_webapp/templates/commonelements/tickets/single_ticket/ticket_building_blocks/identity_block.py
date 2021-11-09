@@ -118,6 +118,8 @@ def identity_block(
     masterName = False
     akaRows = []
     for item in objectAkas:
+        if "name" not in item:
+            continue
         try:
             surveyObjectUrl = item["url"]
         except:
