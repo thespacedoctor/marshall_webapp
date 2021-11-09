@@ -116,6 +116,7 @@ def identity_block(
 
     # AKA NAMES
     masterName = False
+    masterNameLink = ""
     akaRows = []
     for item in objectAkas:
         if "name" not in item:
