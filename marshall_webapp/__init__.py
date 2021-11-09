@@ -64,7 +64,7 @@ def main(global_config, **settings):
         settingsPath = myWebapp.resolve(
             theseSettings["settingsFile"]).abspath()
     stream = open(settingsPath, 'r')
-    settings = yaml.load(stream)
+    settings = yaml.safe_load(stream)
     config.add_settings(settings)
     config.add_settings({"yaml settings": settings})
     stream.close()

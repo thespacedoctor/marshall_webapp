@@ -328,6 +328,34 @@ class templates_resources_transients(object):
         self.log.debug('completed the ``_get_ntt_view_button`` method')
         return ntt_view_button
 
+    def _get_hundred_mpc_filter_button(
+            self):
+        """ get button that filters sources to within 100 mpc
+
+        **Return**
+
+        - ``view_switcher_buttons`` -- the view switcher and download formats buttons with popovers
+
+        """
+        self.log.debug('starting the ``_get_ntt_view_button`` method')
+
+        from marshall_webapp.templates.commonelements.view_switcher_buttons import hundred_mpc_filter_button
+
+        if self.tcsCatalogueId:
+            elementId = self.tcsCatalogueId
+        else:
+            elementId = self.elementId
+
+        hundred_mpc_filter_button = hundred_mpc_filter_button(
+            log=self.log,
+            params=self.qs.copy(),
+            elementId=elementId,
+            request=self.request
+        )
+
+        self.log.debug('completed the ``_get_ntt_view_button`` method')
+        return hundred_mpc_filter_button
+
     def _get_object_limit_dropdown(
             self):
         """ get object limit dropdown for the page
@@ -411,6 +439,7 @@ class templates_resources_transients(object):
         count = self.totalTicketCount
         pagination = self._get_pagination()
         ntt_button = self._get_ntt_view_button()
+        hundred_mpc_filter_button = self._get_hundred_mpc_filter_button()
         viewSwitcherButtons = self._get_view_switcher_buttons()
         objectsPerPageDropdown = self._get_object_limit_dropdown()
         notification = self._get_notification()
@@ -569,7 +598,7 @@ class templates_resources_transients(object):
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[viewSwitcherButtons, ntt_button, smallspace, filtering,
+            contentList=[viewSwitcherButtons, ntt_button, hundred_mpc_filter_button, smallspace, filtering,
                          objectsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,
@@ -640,6 +669,7 @@ class templates_resources_transients(object):
         notification = self._get_notification()
         ticketsPerPageDropdown = self._get_object_limit_dropdown()
         ntt_button = self._get_ntt_view_button()
+        hundred_mpc_filter_button = self._get_hundred_mpc_filter_button()
         view_switcher_buttons = self._get_view_switcher_buttons()
 
         sort, filtering = self._get_sort_dropdown()
@@ -654,7 +684,7 @@ class templates_resources_transients(object):
 
         ticketTableFunctionBar = khufu.navBar(
             brand='',
-            contentList=[view_switcher_buttons, ntt_button, smallspace, sort, filtering, smallspace,
+            contentList=[view_switcher_buttons, ntt_button, hundred_mpc_filter_button, smallspace, sort, filtering, smallspace,
                          ticketsPerPageDropdown, smallspace, space, pagination],
             contentListPull="right",
             dividers=False,

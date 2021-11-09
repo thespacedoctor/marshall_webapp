@@ -197,6 +197,81 @@ def ntt_view_button(
     return viewSwitcherButton
 
 
+def hundred_mpc_filter_button(
+    log,
+    params,
+    elementId,
+    request
+):
+    """The button to filter transients to only those thought to be withon 100Mpc
+
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``params`` -- the request params (defaults added if not populated)
+    - ``request`` -- the pyramid request
+
+    **Return**
+
+    - ``viewSwitcherButton`` -- the view switching button
+
+    """
+    import khufu
+    theseLinks = ""
+    match = False
+
+    if "filterBy2" in params and "filterValue2" in params and "filterOp2" in params:
+
+        if params["filterBy2"] == "distanceMpc" and params["filterValue2"] in ["100", 100] and params["filterOp2"] in ["lt", "<"]:
+
+            htmlClass = "on"
+            content = "remove 100Mpc distance filter"
+            params["filterBy2"] = None
+            params["filterValue2"] = None
+            params["filterOp2"] = None
+            match = True
+
+    if match == False:
+        htmlClass = False
+        content = "filter targets within 100Mpc"
+        params["filterBy2"] = "distanceMpc"
+        params["filterValue2"] = 100
+        params["filterOp2"] = "lt"
+
+    routename = request.matched_route.name
+    if "q" in params:
+        href = request.route_path('transients_search', _query=params)
+    else:
+        href = request.route_path(
+            routename, elementId=elementId, _query=params)
+
+    popover = khufu.popover(
+        tooltip=False,
+        placement="bottom",  # [ top | bottom | left | right ]
+        trigger="hover",  # [ False | click | hover | focus | manual ]
+        title="Target Filter",
+        content=content,
+        delay=20
+    )
+    viewSwitcherButton = khufu.button(
+        buttonText="""<i class="icon-cd"></i>&nbsp100Mpc""" % locals(),
+        # [ default | primary | info | success | warning | danger | inverse | link ]
+        buttonStyle='default',
+        buttonSize='default',  # [ large | default | small | mini ]
+        htmlId=False,
+        htmlClass=htmlClass,
+        href=href,
+        pull=False,  # right, left, center
+        submit=False,
+        block=False,
+        disable=False,
+        dataToggle=False,  # [ modal ]
+        popover=popover
+    )
+
+    return viewSwitcherButton
+
+
 def _link_for_popover(
         log,
         request,
