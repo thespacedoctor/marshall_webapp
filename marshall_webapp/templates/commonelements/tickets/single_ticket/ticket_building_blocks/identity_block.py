@@ -120,7 +120,7 @@ def identity_block(
     for item in objectAkas:
         try:
             surveyObjectUrl = item["url"]
-        else:
+        except:
             surveyObjectUrl = ""
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
             if not masterName:
