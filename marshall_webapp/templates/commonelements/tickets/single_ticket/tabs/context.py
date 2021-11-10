@@ -458,7 +458,7 @@ def _crossmatch_info_block(
                         href=False,
                         popover=popover
                     )
-                    c["z"] = pz + b
+                    c["z"] = f"{pz} {b}"
 
             else:
                 b = khufu.badge(

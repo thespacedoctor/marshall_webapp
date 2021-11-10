@@ -46,6 +46,7 @@ def host_info_block(
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     masterName = discoveryDataDictionary["masterName"]
     sherlockClassification = discoveryDataDictionary["classification"]
+    distanceMpc = discoveryDataDictionary["distanceMpc"]
     sherlockAnnotation = discoveryDataDictionary["annotation"]
 
     if sherlockAnnotation:
@@ -261,9 +262,23 @@ def host_info_block(
             size=4,  # 1-10
         )
 
+        if distanceMpc:
+            littleTitle2 = cu.little_label(
+                text="distance:"
+            )
+
+            distanceMpc = khufu.coloredText(
+                text=f"{distanceMpc:0.1f} Mpc",
+                color="violet",
+                size=4,  # 1-10
+            )
+            distanceMpc = "<br>" + littleTitle2 + distanceMpc
+        else:
+            distanceMpc = ""
+
         sherlockClassification = khufu.grid_row(
             responsive=True,
-            columns="%(littleTitle)s %(sherlockClassification)s %(sherlockAnnotation)s" % locals(
+            columns="%(littleTitle)s %(sherlockClassification)s %(sherlockAnnotation)s %(distanceMpc)s" % locals(
             ),
             htmlId=False,
             htmlClass=False,

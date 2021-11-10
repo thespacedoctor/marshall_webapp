@@ -43,7 +43,6 @@ def identity_block(
 
     annotations = []
 
-
     pesstoCredentialsPopover = khufu.popover(
         tooltip=True,
         placement="bottom",  # [ top | bottom | left | right ]
@@ -117,9 +116,15 @@ def identity_block(
 
     # AKA NAMES
     masterName = False
+    masterNameLink = ""
     akaRows = []
     for item in objectAkas:
-        surveyObjectUrl = item["url"]
+        if "name" not in item:
+            continue
+        try:
+            surveyObjectUrl = item["url"]
+        except:
+            surveyObjectUrl = ""
         if item["transientBucketId"] == discoveryDataDictionary["transientBucketId"]:
             if not masterName:
                 # MASTER NAME
@@ -221,7 +226,7 @@ def identity_block(
             dsourceImages.append(dsrc)
             objectName = ""
             for item in objectAkas:
-                if k.split("_")[0] in item["name"].lower():
+                if "name" in item and k.split("_")[0] in item["name"].lower():
                     objectName = item["name"]
                     objectName = khufu.a(
                         content=objectName,

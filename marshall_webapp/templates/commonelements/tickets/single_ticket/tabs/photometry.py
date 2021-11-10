@@ -183,7 +183,7 @@ def photometry_footer_bar(
             lsqname = name
         else:
             for aka in objectAkas:
-                if aka["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "lsq" in aka["name"].lower():
+                if aka["transientBucketId"] == discoveryDataDictionary["transientBucketId"] and "name" in aka and "lsq" in aka["name"].lower():
                     lsqname = aka["name"]
                     break
         if "lsqname" in locals():
