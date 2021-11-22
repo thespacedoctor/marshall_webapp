@@ -102,7 +102,7 @@ def topnavbar(log,
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
     finderChartsRepo = khufu.a(
         content='finder charts',
-        href='https://sites.google.com/a/pessto.org/wiki/pessto-wiki/home/finder-chart-repo',
+        href='https://sites.google.com/a/pessto.org/wiki/home-page/observing-runs/finder-chart-repo',
         tableIndex=False,
         # table index for the dropdown menus [ False | -1 ]
         triggerStyle=False)  # used as a dropdown or tab trigger? [ False | "dropdown" | "tab" ]
