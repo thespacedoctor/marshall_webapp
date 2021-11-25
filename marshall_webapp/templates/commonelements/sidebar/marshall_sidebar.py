@@ -943,49 +943,25 @@ def _get_target_selection_queue(
         pager=False  # [ False | "previous" | "next" ]
     )
 
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"inbox"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
     theseParams = copy.deepcopy(params)
-
-    theseParams["mwl"] = 'inbox'
     theseParams = _remove_parameters(
         log=log,
         params=theseParams,
         paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
     )
-
     theseParams["filterBy1"] = "decDeg"
     theseParams["filterValue1"] = 30
     theseParams["filterOp1"] = "<"
 
-    inboxLink = khufu.a(
-        content='<i class="icon-inbox"></i>  inbox (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "inbox"
-    )
-
-    inboxLink = khufu.li(
-        content=inboxLink,  # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
+    inboxLink = list_link(
+        log=log,
+        name="inbox",
+        mwl='inbox',
+        snoozed=False,
+        request=request,
+        initialParams=theseParams,
+        currentPageName=thisPageName,
+        icon="icon-inbox"
     )
 
     count = models_transients_count(
@@ -1010,28 +986,15 @@ def _get_target_selection_queue(
     theseParams["filterValue1"] = 30
     theseParams["filterOp1"] = "<"
 
-    snoozedLink = khufu.a(
-        content='<i class="icon-alarm3"></i>  snoozed (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "snoozed"
-    )
-
-    snoozedLink = khufu.li(
-        content=snoozedLink,  # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
+    snoozedLink = list_link(
+        log=log,
+        name="snoozed",
+        mwl=False,
+        snoozed=True,
+        request=request,
+        initialParams=theseParams,
+        currentPageName=thisPageName,
+        icon="icon-alarm3"
     )
 
     count = models_transients_count(
@@ -1151,3 +1114,82 @@ def _remove_parameters(
 
     log.debug('completed the ``_remove_parameters  `` function')
     return params
+
+
+def list_link(
+        log,
+        request,
+        name,
+        mwl="inbox",
+        snoozed=False,
+        initialParams={},
+        currentPageName="",
+        icon=False):
+    """*create a link to a specific view of the data*
+
+    **Key Arguments:**
+
+    - ``log`` -- logger
+    - ``request`` -- the page request
+    - ``name`` -- the name of the list
+    - ``mwl`` -- the marshall workflow location. Default *inbox*. [inbox|archive|pending observation|review for followup|following|followup complete]
+    - ``initialParams`` -- the initial parameters passed from the current browser page. Default *{}*.
+    - ``currentPageName`` -- name of the current page (used to set the active link in sidebar).
+    - ``icon`` -- the name of the icon to add to left of link name. Default *False*.
+
+    **Usage:**
+
+    ```eval_rst
+    .. todo::
+
+            add usage info
+            create a sublime snippet for usage
+    ```
+
+    ```python
+    usage code 
+    ```           
+    """
+    log.debug('starting the ``list_link`` function')
+
+    linkParams = initialParams
+    linkParams["mwl"] = mwl
+
+    count = models_transients_count(
+        log,
+        request=request,
+        mwfFlag=mwl,
+        awfFlag=None,
+        cFlag=None,
+        snoozed=snoozed
+    ).get()
+
+    if icon:
+        name = f"<i class='{icon}'></i>  {name}"
+
+    if count:
+        name = f"{name} ({count})"
+
+    link = khufu.a(
+        content=name,
+        href=request.route_path('transients', _query=linkParams),
+        tableIndex=False,
+        triggerStyle=False
+    )
+
+    navStyle = khufu.is_navStyle_active(
+        log=log,
+        thisPageId=currentPageName,
+        thisPageName=name
+    )
+
+    link = khufu.li(
+        content=link,  # if a subMenu for dropdown this should be <ul>
+        navStyle=navStyle  # [ active | header ]
+    )
+
+    log.debug('completed the ``list_link`` function')
+    return link
+
+# use the tab-trigger below for new function
+# xt-def-function

@@ -71,8 +71,9 @@ class models_transients_count(object):
 
         # AMEND WHERE CLAUSE TO INCLUDE WORKFLOW LOCATION FLAGS #
         extraWhere = ""
-        if(mwfFlag != None):
-            extraWhere = """%(extraWhere)s AND listName= %(mwfFlag)s """ % locals(
+        if mwfFlag:
+            mwfFlag = mwfFlag.replace('"', '')
+            extraWhere = """%(extraWhere)s AND listName= "%(mwfFlag)s" """ % locals(
             )
 
         if(awfFlag != None):
@@ -83,7 +84,7 @@ class models_transients_count(object):
             extraWhere = """%(extraWhere)s  AND listName = "classified" """ % locals(
             )
 
-        if(snoozed != None):
+        if snoozed:
             extraWhere = """%(extraWhere)s  AND listName = "snoozed" """ % locals(
             )
 
