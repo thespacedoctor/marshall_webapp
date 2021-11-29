@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-*marshall_sidebar for the PESSTO Marshall*
+*marshall_sidebar for the Marshall*
 
 :Author:
     David Young
@@ -12,6 +12,7 @@ import khufu
 from marshall_webapp.models.transients import models_transients_count
 from marshall_webapp.templates.commonelements import forms
 import copy
+import yaml
 
 
 def marshall_sidebar(
@@ -27,14 +28,13 @@ def marshall_sidebar(
     - ``request`` -- the pyramid request
     - ``thisPageName`` -- the name of the page currently displayed
 
-
     **Return**
 
     - ``leftNavBar`` -- the left navigation bar for the pessto marshall
 
     """
     log.debug('starting the ``marshall_sidebar`` function')
-    ## VARIABLES ##
+
     leftColumnContent = ""
 
     # MAKE SURE PARAMETERS PERSIST IF REQUEST COMING FROM A TRANSIENT RESOURCE
@@ -49,52 +49,86 @@ def marshall_sidebar(
         params=params
     )
 
-    targetSelectionQueue = _get_target_selection_queue(
-        log,
-        request=request,
-        thisPageName=thisPageName,
-        params=params
-    )
+    theseParams = copy.deepcopy(params)
+    # theseParams["filterBy1"] = "decDeg"
+    # theseParams["filterValue1"] = 30
+    # theseParams["filterOp1"] = "<"
 
-    observationQueues = _get_observation_queues(
-        log,
-        request=request,
-        thisPageName=thisPageName,
-        params=params
-    )
+    sidebarNavigationSettings = request.registry.settings["sidebar"]
+    sidebarBlocks = []
+    for blockTitle, linkSettings in sidebarNavigationSettings.items():
+        title = khufu.li(
+            content=blockTitle,
+            navStyle="header",  # [ active | header ]
+        )
+        blockLinks = []
+        for linkName, ls in linkSettings.items():
+            defaults = {
+                "mwf": None,
+                "awl": None,
+                "classified": None,
+                "snoozed": None,
+                "icon": None
+            }
+            for k, v in defaults.items():
+                if k not in ls:
+                    ls[k] = v
+            nextLink = list_link(
+                log=log,
+                name=linkName,
+                mwl=ls["mwf"],
+                awl=ls["awl"],
+                classified=ls["classified"],
+                snoozed=ls["snoozed"],
+                request=request,
+                initialParams=theseParams,
+                currentPageName=thisPageName,
+                icon=ls["icon"]
+            )
+            blockLinks.append(nextLink)
+        itemList = [title] + blockLinks
+        linkList = khufu.ul(
+            # e.g a list links
+            itemList=itemList,
+            unstyled=False,
+            inline=False,
+            dropDownMenu=False,  # [ false | true ]
+            navStyle="list",  # [ nav | tabs | pills | list ]
+            navPull="right",  # [ false | left | right ]
+            navDirection=False,  # [ 'default' | 'stacked' | 'horizontal' ]
+            breadcrumb=False,  # [ False | True ]
+            pager=False,
+            thumbnails=False,
+            mediaList=False
+        )
+        column = khufu.grid_column(
+            span=12,  # 1-12
+            offset=0,  # 1-12
+            content=linkList,
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+        sidebarListBlock = khufu.grid_row(
+            responsive=True,
+            columns=column,
+            htmlId=False,
+            htmlClass=False,
+            onPhone=True,
+            onTablet=True,
+            onDesktop=True
+        )
+        sidebarBlocks.append(sidebarListBlock)
 
-    classificationQueues = _get_classification_queues(
-        log,
-        request=request,
-        thisPageName=thisPageName,
-        params=params
-    )
-
-    referenceLists = _get_reference_lists(
-        log,
-        request=request,
-        thisPageName=thisPageName,
-        params=params
-    )
-
-    developmentLinks = _get_development_links(
-        log,
-        thisPageName=thisPageName,
-        params=params
-    )
+    sidebarBlocks = ("<br>").join(sidebarBlocks)
 
     marshall_sidebar = """
 %s
-%s <br>
-%s <br>
-%s <br>
 %s <br>""" % (
         header,
-        targetSelectionQueue,
-        observationQueues,
-        classificationQueues,
-        referenceLists,
-        # developmentLinks
+        sidebarBlocks
     )
 
     log.debug('completed the ``marshall_sidebar`` function')
@@ -200,890 +234,6 @@ def _marshall_sidebar_header(
     return "%(pesstoIcon)s %(createNewButton)s" % locals()
 
 
-def _get_development_links(
-        log,
-        thisPageName,
-        params):
-    """get development links
-
-    **Key Arguments**
-
-    - ``log`` -- logger
-    - ``thisPageName`` -- the name of the current page
-    - ``params`` -- params required for links
-
-
-    **Return**
-
-    - ``developmentLinks`` -- the development queue - a list of links
-
-    """
-    log.debug('starting the ``_get_development_links`` function')
-    ## VARIABLES ##
-
-    title = khufu.li(
-        content="development",
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle="header",  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    loggingLink = khufu.a(
-        content='logging',
-        href='/marshall/logs/styled_log.html',
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    loggingLink = khufu.li(
-        content=loggingLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=False,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    linkList = khufu.ul(
-        itemList=[title, loggingLink, ],  # e.g a list links
-        unstyled=False,
-        inline=False,
-        dropDownMenu=False,  # [ false | true ]
-        navStyle="list",  # [ nav | tabs | pills | list ]
-        navPull="right",  # [ false | left | right ]
-        navDirection=False,  # [ 'default' | 'stacked' | 'horizontal' ]
-        breadcrumb=False,  # [ False | True ]
-        pager=False,
-        thumbnails=False,
-        mediaList=False
-    )
-
-    column = khufu.grid_column(
-        span=12,  # 1-12
-        offset=0,  # 1-12
-        content=linkList,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    developmentLinks = khufu.grid_row(
-        responsive=True,
-        columns=column,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    log.debug('completed the ``_get_development_links`` function')
-    return developmentLinks
-
-
-def _get_observation_queues(
-        log,
-        request,
-        thisPageName,
-        params):
-    """get observation queues
-
-    **Key Arguments**
-
-    - ``log`` -- logger
-    - ``thisPageName`` -- the name of the current page
-    - ``params`` -- params required for links
-
-
-    **Return**
-
-    - ``observationQueues`` -- the observation queue - a list of links
-
-    """
-    log.debug('starting the ``_get_observation_queues`` function')
-    ## VARIABLES ##
-
-    title = khufu.li(
-        content="observation queues",
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle="header",  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"pending observation"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'pending observation'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = False
-
-    classificationTargetsLink = khufu.a(
-        content='<i class="icon-target2"></i> classification targets (%s)' % (
-            count,),
-        href=request.route_path(
-            'transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "pending observation"
-    )
-
-    classificationTargetsLink = khufu.li(
-        content=classificationTargetsLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"following"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'following'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = False
-
-    followupTargetsLink = khufu.a(
-        content='<i class="icon-pin"></i> + followup targets (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "following"
-    )
-
-    followupTargetsLink = khufu.li(
-        content=followupTargetsLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"pending observation" OR listName="following"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'allObsQueue'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = False
-
-    allTargetsLink = khufu.a(
-        content='= all targets (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "allObsQueue"
-    )
-
-    allTargetsLink = khufu.li(
-        content=allTargetsLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    linkList = khufu.ul(
-        itemList=[title, classificationTargetsLink,
-                  followupTargetsLink, allTargetsLink, ],  # e.g a list links
-        unstyled=False,
-        inline=False,
-        dropDownMenu=False,  # [ false | true ]
-        navStyle="list",  # [ nav | tabs | pills | list ]
-        navPull="right",  # [ false | left | right ]
-        navDirection=False,  # [ 'default' | 'stacked' | 'horizontal' ]
-        breadcrumb=False,  # [ False | True ]
-        pager=False,
-        thumbnails=False,
-        mediaList=False
-    )
-
-    column = khufu.grid_column(
-        span=12,  # 1-12
-        offset=0,  # 1-12
-        content=linkList,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    observationQueues = khufu.grid_row(
-        responsive=True,
-        columns=column,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    log.debug('completed the ``_get_observation_queues`` function')
-    return observationQueues
-
-
-def _get_classification_queues(
-        log,
-        request,
-        thisPageName,
-        params):
-    """get classification queues
-
-    **Key Arguments**
-
-    - ``log`` -- logger
-    - ``thisPageName`` -- the name of the current page
-    - ``params`` -- params required for links
-
-
-    **Return**
-
-    - ``classificationQueues`` -- the classification queue - a list of links
-
-    """
-    import khufu
-
-    log.debug('starting the ``_get_classification_queues`` function')
-    ## VARIABLES ##
-
-    title = khufu.li(
-        content="classification & astronote queues",
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle="header",  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"pending classification"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'pending classification'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = False
-
-    queuedForClassificationLink = khufu.a(
-        content='queued for classification (%s)' % (count,),
-        href=request.route_path(
-            'transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "pending classification"
-    )
-
-    queuedForClassificationLink = khufu.li(
-        content=queuedForClassificationLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag=None,
-        awfFlag='"queued for atel"',
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["awl"] = 'queued for atel'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "mwl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = False
-
-    queuedForAtelLink = khufu.a(
-        content='queued for astronote (%s)' % (count,),
-        href=request.route_path(
-            'transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "queued for astronote"
-    )
-
-    queuedForAtelLink = khufu.li(
-        content=queuedForAtelLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    linkList = khufu.ul(
-        # e.g a list links
-        itemList=[title, queuedForClassificationLink, queuedForAtelLink, ],
-        unstyled=False,
-        inline=False,
-        dropDownMenu=False,  # [ false | true ]
-        navStyle="list",  # [ nav | tabs | pills | list ]
-        navPull="right",  # [ false | left | right ]
-        navDirection=False,  # [ 'default' | 'stacked' | 'horizontal' ]
-        breadcrumb=False,  # [ False | True ]
-        pager=False,
-        thumbnails=False,
-        mediaList=False
-    )
-
-    column = khufu.grid_column(
-        span=12,  # 1-12
-        offset=0,  # 1-12
-        content=linkList,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    classificationQueues = khufu.grid_row(
-        responsive=True,
-        columns=column,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    log.debug('completed the ``_get_classification_queues`` function')
-    return classificationQueues
-
-
-def _get_reference_lists(
-        log,
-        request,
-        thisPageName,
-        params):
-    """get reference lists
-
-    **Key Arguments**
-
-    - ``log`` -- logger
-    - ``thisPageName`` -- the name of the current page
-    - ``params`` -- params required for links
-
-
-    **Return**
-
-    - ``referenceLists`` -- the reference queue - a list of links
-
-    """
-    import khufu
-
-    log.debug('starting the ``_get_reference_lists`` function')
-    ## VARIABLES ##
-
-    title = khufu.li(
-        content="reference",
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle="header",  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag=None,
-        awfFlag=None,
-        cFlag='"NOT NULL"'
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'all'
-    theseParams["cf"] = 1
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "awl", "pageStart", "q"]
-    )
-
-    classifiedLink = khufu.a(
-        content='classified (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "classified"
-    )
-
-    classifiedLink = khufu.li(
-        content=classifiedLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"followup complete"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'followup complete'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    followupCompleteLink = khufu.a(
-        content='<i class="icon-checkmark-circle"></i> followup complete (%s)' % (
-            count,),
-        href=request.route_path(
-            'transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "followup complete"
-    )
-
-    followupCompleteLink = khufu.li(
-        content=followupCompleteLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"archive"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'archive'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    allArchivedLink = khufu.a(
-        content='<i class="icon-archive5"></i>  all archived (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "archive"
-    )
-
-    allArchivedLink = khufu.li(
-        content=allArchivedLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"all"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'all'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    allLink = khufu.a(
-        content='all  (%s)' % (count,),
-        href=request.route_path('transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "all"
-    )
-
-    allLink = khufu.li(
-        content=allLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    linkList = khufu.ul(
-        # e.g a list links
-        itemList=[title, allLink, classifiedLink,
-                  followupCompleteLink, allArchivedLink],
-        unstyled=False,
-        inline=False,
-        dropDownMenu=False,  # [ false | true ]
-        navStyle="list",  # [ nav | tabs | pills | list ]
-        navPull="right",  # [ false | left | right ]
-        navDirection=False,  # [ 'default' | 'stacked' | 'horizontal' ]
-        breadcrumb=False,  # [ False | True ]
-        pager=False,
-        thumbnails=False,
-        mediaList=False
-    )
-
-    column = khufu.grid_column(
-        span=12,  # 1-12
-        offset=0,  # 1-12
-        content=linkList,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    referenceLists = khufu.grid_row(
-        responsive=True,
-        columns=column,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    log.debug('completed the ``_get_reference_lists`` function')
-    return referenceLists
-
-
-def _get_target_selection_queue(
-        log,
-        request,
-        thisPageName,
-        params):
-    """get tagert selection queue
-
-    **Key Arguments**
-
-    - ``log`` -- logger
-    - ``params`` -- params required for links
-
-
-    **Return**
-
-    - ``targetSelectionQueue`` -- the target selection queue - a list of links
-
-    """
-    import khufu
-
-    log.debug('starting the ``_get_tagert_selection_queue`` function')
-    ## VARIABLES ##
-
-    placeHolder = khufu.image(
-        src='holder.js/300x200/auto/industrial/text:hello world',
-    )
-
-    title = khufu.li(
-        content="target selection queues",
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle="header",  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    theseParams = copy.deepcopy(params)
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-    theseParams["filterBy1"] = "decDeg"
-    theseParams["filterValue1"] = 30
-    theseParams["filterOp1"] = "<"
-
-    inboxLink = list_link(
-        log=log,
-        name="inbox",
-        mwl='inbox',
-        snoozed=False,
-        request=request,
-        initialParams=theseParams,
-        currentPageName=thisPageName,
-        icon="icon-inbox"
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag=None,
-        awfFlag=None,
-        cFlag=None,
-        snoozed=1
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["snoozed"] = 1
-    theseParams["mwl"] = "all"
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["cf", "awl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = "decDeg"
-    theseParams["filterValue1"] = 30
-    theseParams["filterOp1"] = "<"
-
-    snoozedLink = list_link(
-        log=log,
-        name="snoozed",
-        mwl=False,
-        snoozed=True,
-        request=request,
-        initialParams=theseParams,
-        currentPageName=thisPageName,
-        icon="icon-alarm3"
-    )
-
-    count = models_transients_count(
-        log,
-        request=request,
-        mwfFlag='"review for followup"',
-        awfFlag=None,
-        cFlag=None
-    ).get()
-
-    theseParams = copy.deepcopy(params)
-    theseParams["mwl"] = 'review for followup'
-    theseParams = _remove_parameters(
-        log=log,
-        params=theseParams,
-        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q"]
-    )
-
-    theseParams["filterBy1"] = "decDeg"
-    theseParams["filterValue1"] = 30
-    theseParams["filterOp1"] = "<"
-
-    reviewForFollowupLink = khufu.a(
-        content='<i class="icon-eye"></i>  review for followup (%s)' % (
-            count,),
-        href=request.route_path(
-            'transients', _query=theseParams),
-        tableIndex=False,
-        triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log,
-        thisPageName,
-        "review for followup"
-    )
-
-    reviewForFollowupLink = khufu.li(
-        content=reviewForFollowupLink,
-        # if a subMenu for dropdown this should be <ul>
-        span=False,  # [ False | 1-12 ]
-        disabled=False,
-        submenuTitle=False,
-        divider=False,
-        navStyle=navStyle,  # [ active | header ]
-        navDropDown=False,
-        pager=False  # [ False | "previous" | "next" ]
-    )
-
-    linkList = khufu.ul(
-        # e.g a list links
-        itemList=[title, inboxLink, snoozedLink, reviewForFollowupLink, ],
-        unstyled=False,
-        inline=False,
-        dropDownMenu=False,  # [ false | true ]
-        navStyle="list",  # [ nav | tabs | pills | list ]
-        navPull="right",  # [ false | left | right ]
-        navDirection=False,  # [ 'default' | 'stacked' | 'horizontal' ]
-        breadcrumb=False,  # [ False | True ]
-        pager=False,
-        thumbnails=False,
-        mediaList=False
-    )
-
-    column = khufu.grid_column(
-        span=12,  # 1-12
-        offset=0,  # 1-12
-        content=linkList,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    targetSelectionQueue = khufu.grid_row(
-        responsive=True,
-        columns=column,
-        htmlId=False,
-        htmlClass=False,
-        onPhone=True,
-        onTablet=True,
-        onDesktop=True
-    )
-
-    log.debug('completed the ``get_tagert_selection_queue`` function')
-    return targetSelectionQueue
-
-
 def _remove_parameters(
         log,
         params,
@@ -1120,8 +270,10 @@ def list_link(
         log,
         request,
         name,
-        mwl="inbox",
-        snoozed=False,
+        mwl=None,
+        awl=None,
+        classified=None,
+        snoozed=None,
         initialParams={},
         currentPageName="",
         icon=False):
@@ -1133,6 +285,8 @@ def list_link(
     - ``request`` -- the page request
     - ``name`` -- the name of the list
     - ``mwl`` -- the marshall workflow location. Default *inbox*. [inbox|archive|pending observation|review for followup|following|followup complete]
+    - ``awl`` -- the alert workflow location. Default *None*. [archived without alert|external alert released|Pending Classification|pessto classification released]
+    - ``classified`` -- classified or not? Default *None*. [True|False|None]
     - ``initialParams`` -- the initial parameters passed from the current browser page. Default *{}*.
     - ``currentPageName`` -- name of the current page (used to set the active link in sidebar).
     - ``icon`` -- the name of the icon to add to left of link name. Default *False*.
@@ -1153,21 +307,40 @@ def list_link(
     log.debug('starting the ``list_link`` function')
 
     linkParams = initialParams
-    linkParams["mwl"] = mwl
+    linkParams = _remove_parameters(
+        log=log,
+        params=linkParams,
+        paramsToRemove=["snoozed", "cf", "awl", "pageStart", "q", "mwl"]
+    )
+    if mwl:
+        linkParams["mwl"] = mwl
+    if awl:
+        linkParams["awl"] = awl
+    if snoozed:
+        linkParams["snoozed"] = 1
+    if classified:
+        linkParams["cf"] = 1
+
+    # IS LINKED LIST THE CURENT PAGE - IF SO HIGHLIGHT IN SIDEBAR
+    navStyle = khufu.is_navStyle_active(
+        log=log,
+        thisPageId=currentPageName,
+        thisPageName=name
+    )
 
     count = models_transients_count(
         log,
         request=request,
         mwfFlag=mwl,
-        awfFlag=None,
-        cFlag=None,
+        awfFlag=awl,
+        cFlag=classified,
         snoozed=snoozed
     ).get()
 
     if icon:
         name = f"<i class='{icon}'></i>  {name}"
 
-    if count:
+    if count or count == 0:
         name = f"{name} ({count})"
 
     link = khufu.a(
@@ -1175,12 +348,6 @@ def list_link(
         href=request.route_path('transients', _query=linkParams),
         tableIndex=False,
         triggerStyle=False
-    )
-
-    navStyle = khufu.is_navStyle_active(
-        log=log,
-        thisPageId=currentPageName,
-        thisPageName=name
     )
 
     link = khufu.li(
