@@ -49,7 +49,7 @@ def marshall_sidebar(
         params=params
     )
 
-    theseParams = copy.deepcopy(params)
+    # theseParams = copy.deepcopy(params)
     # theseParams["filterBy1"] = "decDeg"
     # theseParams["filterValue1"] = 30
     # theseParams["filterOp1"] = "<"
@@ -81,7 +81,7 @@ def marshall_sidebar(
                 classified=ls["classified"],
                 snoozed=ls["snoozed"],
                 request=request,
-                initialParams=theseParams,
+                initialParams=params,
                 currentPageName=thisPageName,
                 icon=ls["icon"]
             )
