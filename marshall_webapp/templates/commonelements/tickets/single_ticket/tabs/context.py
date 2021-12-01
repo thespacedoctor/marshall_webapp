@@ -458,7 +458,9 @@ def _crossmatch_info_block(
                         href=False,
                         popover=popover
                     )
-                    c["z"] = pz + b
+                    pz = c["z"]
+                    if isinstance(pz, float):
+                        c["z"] = "%(pz)0.3f %(b)s" % locals()
 
             else:
                 b = khufu.badge(
