@@ -6,6 +6,14 @@ json output now reports akas (name and url) for each transient
 fixed csv and plain text downloads
 allow for debug toolbar over https
 https switch added to the setting file. Set to False for plain http (`https: True` is the default)  
+default parameters for the marshall/transients state can be set in the settings file. For example, show all transients below declination of 30:
+
+    ```yaml
+    default_filters:
+        filterBy1: decDeg
+        filterValue1: 30
+        filterOp1: "<" 
+    ```
 
 **v3.1.1 - May 7, 2021**
 

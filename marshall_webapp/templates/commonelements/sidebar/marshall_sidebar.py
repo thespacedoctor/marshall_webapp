@@ -42,6 +42,7 @@ def marshall_sidebar(
     else:
         params = dict(request.params)
 
+    # ICON AND CREATE BUTTON
     header = _marshall_sidebar_header(
         log=log,
         request=request,
@@ -53,6 +54,7 @@ def marshall_sidebar(
     for k, v in defaultFilterParams.items():
         params[k] = v
 
+    # NOW THE REST OF THE SIDEBAR
     sidebarNavigationSettings = request.registry.settings["sidebar"]
     sidebarBlocks = []
     for blockTitle, linkSettings in sidebarNavigationSettings.items():
@@ -138,7 +140,7 @@ def _marshall_sidebar_header(
         log,
         request,
         params):
-    """Generate the left navigation bar header content
+    """generate the left navigation bar header content
 
     **Key Arguments**
 
@@ -146,11 +148,9 @@ def _marshall_sidebar_header(
     - ``request`` -- the pyramid request
     - ``params`` -- params required for links
 
-
     **Return**
 
     - ``content`` -- the left nav bar header content
-
     """
 
     log.debug('starting the ``_marshall_sidebar_header`` function')
@@ -260,15 +260,20 @@ def list_link(
 
     **Usage:**
 
-    ```eval_rst
-    .. todo::
-
-            add usage info
-            create a sublime snippet for usage
-    ```
-
     ```python
-    usage code 
+    nextLink = list_link(
+        log=log,
+        name="my link text",
+        mwl="inbox",
+        awl="pending classification",
+        classified=False,
+        snoozed=False,
+        request=request,
+        initialParams=params,
+        currentPageName="inbox",
+        icon="icon-inbox"
+    )
+    blockLinks.append(nextLink)
     ```           
     """
     log.debug('starting the ``list_link`` function')
