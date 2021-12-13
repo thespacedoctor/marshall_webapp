@@ -15,6 +15,8 @@ default parameters for the marshall/transients state can be set in the settings 
         filterOp1: "<" 
     ```
 
+all links in sidebar now show as "selected" (white background) if the user is looking at that list
+
 **v3.1.1 - May 7, 2021**
 
 * **ENHANCEMENT**: SSL certificate now installed on the pessto.org domain. All traffic is now encrypted and secure. All `http` requests should also be redirected to `https`.

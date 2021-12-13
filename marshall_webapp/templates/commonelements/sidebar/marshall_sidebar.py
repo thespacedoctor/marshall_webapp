@@ -293,6 +293,8 @@ def list_link(
     if classified:
         linkParams["cf"] = 1
 
+    linkParams["listName"] = name
+
     # IS LINKED LIST THE CURENT PAGE - IF SO HIGHLIGHT IN SIDEBAR
     navStyle = khufu.is_navStyle_active(
         log=log,
