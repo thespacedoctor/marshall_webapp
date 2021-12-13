@@ -18,7 +18,6 @@ URLMethodsMixin.static_url_org = URLMethodsMixin.static_url  # backup of origina
 def https_static_url(self, *args, **kw):
     kw['_scheme'] = 'https'  # add parameter forcing https
     return URLMethodsMixin.static_url_org(self, *args, **kw)  # call backup
-URLMethodsMixin.static_url = https_static_url  # replace original with backup
 
 
 def db(request):
@@ -91,6 +90,10 @@ def main(global_config, **settings):
     config.add_settings(settings)
     config.add_settings({"yaml settings": settings})
     stream.close()
+
+    if "https" in config.get_settings() and config.get_settings()["https"]:
+        URLMethodsMixin.static_url = https_static_url
+        print(config.get_settings()["https"])
 
     # add authorisation
     secret = settings["secrets"]["authn policy"]

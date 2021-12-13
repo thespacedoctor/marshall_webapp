@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # encoding: utf-8
 """
-*marshall_sidebar for the Marshall*
+*Navigation sidebar for the Marshall*
 
 :Author:
     David Young
@@ -20,7 +20,7 @@ def marshall_sidebar(
         request,
         thisPageName
 ):
-    """Get the left navigation bar for the pessto marshall
+    """Get the left navigation bar for the marshall
 
     **Key Arguments**
 
@@ -30,8 +30,7 @@ def marshall_sidebar(
 
     **Return**
 
-    - ``leftNavBar`` -- the left navigation bar for the pessto marshall
-
+    - ``leftNavBar`` -- the left navigation bar for the marshall
     """
     log.debug('starting the ``marshall_sidebar`` function')
 
@@ -49,10 +48,10 @@ def marshall_sidebar(
         params=params
     )
 
-    # theseParams = copy.deepcopy(params)
-    # theseParams["filterBy1"] = "decDeg"
-    # theseParams["filterValue1"] = 30
-    # theseParams["filterOp1"] = "<"
+    # SET DEFAULT FILTERS
+    defaultFilterParams = request.registry.settings["default_filters"]
+    for k, v in defaultFilterParams.items():
+        params[k] = v
 
     sidebarNavigationSettings = request.registry.settings["sidebar"]
     sidebarBlocks = []
@@ -234,38 +233,6 @@ def _marshall_sidebar_header(
     return "%(pesstoIcon)s %(createNewButton)s" % locals()
 
 
-def _remove_parameters(
-        log,
-        params,
-        paramsToRemove
-):
-    """Get the left navigation bar for the pessto marshall
-
-    **Key Arguments**
-
-    - ``log`` -- logger
-    - ``params`` -- the parameters of the request
-    - ``paramsToRemove`` -- the parameters to remove from the incoming request
-
-
-    **Return**
-
-    - ``params`` -- the clean parameters
-
-    """
-    log.debug('starting the ``_remove_parameter`` function')
-
-    if isinstance(paramsToRemove, ("".__class__, u"".__class__)):
-        paramsToRemove = [paramsToRemove]
-
-    for key in paramsToRemove:
-        if key in params:
-            del params[key]
-
-    log.debug('completed the ``_remove_parameters  `` function')
-    return params
-
-
 def list_link(
         log,
         request,
@@ -357,6 +324,37 @@ def list_link(
 
     log.debug('completed the ``list_link`` function')
     return link
+
+
+def _remove_parameters(
+        log,
+        params,
+        paramsToRemove
+):
+    """Delete parameters from the incoming request
+
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``params`` -- the parameters of the request
+    - ``paramsToRemove`` -- the parameters to remove from the incoming request
+
+    **Return**
+
+    - ``params`` -- the clean parameters
+
+    """
+    log.debug('starting the ``_remove_parameter`` function')
+
+    if isinstance(paramsToRemove, ("".__class__, u"".__class__)):
+        paramsToRemove = [paramsToRemove]
+
+    for key in paramsToRemove:
+        if key in params:
+            del params[key]
+
+    log.debug('completed the ``_remove_parameters  `` function')
+    return params
 
 # use the tab-trigger below for new function
 # xt-def-function

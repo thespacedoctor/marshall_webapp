@@ -17,6 +17,13 @@ version: 1
 #     remote datbase host: mydatabaseName
 #     port: 9002
 
+default_filters:
+    filterBy1: decDeg
+    filterValue1: 30
+    filterOp1: "<"
+
+https: True
+
 logging settings:
     formatters:
         file_style:

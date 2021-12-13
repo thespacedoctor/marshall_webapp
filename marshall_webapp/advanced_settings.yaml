@@ -5,6 +5,13 @@ version: 1
 # WHERE NEEDED IN THIS PACKAGE
 # xt-collect-packages-advanced-settings
 
+# THESE FILTERS ARE TO BE SET BY DEFAULT WHEN USER STARTS A MARSHALL SESSION
+default_filters:
+    filterBy1: decDeg
+    filterValue1: 30
+    filterOp1: "<"
+
+https: True
 
 sidebar:
     target selection queues:
