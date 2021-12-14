@@ -14,6 +14,7 @@ import os
 import khufu
 from dryxPyramid.models.models_base import base_model
 
+
 class models_transients_comments_get(base_model):
     """
     The worker class for the models_transients_comments_get module
@@ -23,7 +24,7 @@ class models_transients_comments_get(base_model):
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``elementId`` -- the specific element id requests (or False)
-    
+
     """
 
     def __init__(self, log, request, elementId=False, search=False):
@@ -40,7 +41,7 @@ class models_transients_comments_get(base_model):
         **Return**
 
         - ``responseContent`` -- the reponse to send to the browser
-        
+
         """
         self.log.debug('starting the ``get`` method')
         elementId = self.elementId
@@ -58,8 +59,6 @@ class models_transients_comments_get(base_model):
         objectComments = []
         objectComments[:] = [dict(list(zip(list(row.keys()), row)))
                              for row in objectCommentsTmp]
-
-        print(objectComments)
 
         self.log.debug('completed the ``get`` method')
         return objectComments

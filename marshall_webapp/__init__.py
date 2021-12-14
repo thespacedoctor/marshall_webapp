@@ -93,7 +93,6 @@ def main(global_config, **settings):
 
     if "https" in config.get_settings() and config.get_settings()["https"]:
         URLMethodsMixin.static_url = https_static_url
-        print(config.get_settings()["https"])
 
     # add authorisation
     secret = settings["secrets"]["authn policy"]

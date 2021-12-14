@@ -179,6 +179,7 @@
 
    marshall_webapp.admin_only_debugtoolbar
    marshall_webapp.db
+   marshall_webapp.https_static_url
    marshall_webapp.templates.commonelements.commonutils.block_title
    marshall_webapp.templates.commonelements.commonutils.little_label
    marshall_webapp.templates.commonelements.pagetemplates.defaultpagetemplate
@@ -197,4 +198,5 @@
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.overview.overview_tab
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.photometry.photometry_footer_bar
    marshall_webapp.templates.commonelements.tickets.single_ticket.tabs.photometry.photometry_tab
+   marshall_webapp.templates.commonelements.view_switcher_buttons.hundred_mpc_filter_button
    marshall_webapp.templates.commonelements.view_switcher_buttons.ntt_view_button 

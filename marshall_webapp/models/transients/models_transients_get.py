@@ -287,7 +287,6 @@ class models_transients_get(base_model):
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
 
         # grab the transientBucketIds
-        print(sqlQuery)
         rows = self.request.db.execute(sqlQuery).fetchall()
         self.log.debug("""{rows}""".format(**dict(globals(), **locals())))
         # GET ORDERED LIST OF THE TRANSIENTBUCKETIDs
