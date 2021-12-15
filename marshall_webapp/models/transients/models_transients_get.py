@@ -324,13 +324,14 @@ class models_transients_get(base_model):
                         **dict(globals(), **locals()))
 
         selectColumns = selectColumns[:-1]
+        selectColumns += ', o.OB_ID, o.autoob_status'
 
         self.log.debug(
             """selectColumns: {selectColumns}""".format(**dict(globals(), **locals())))
 
         # grab the remaining data assocatied with the transientBucketIds
         sqlQuery = """
-            select %(selectColumns)s from transientBucket t, transientBucketSummaries s, pesstoObjects p, sherlock_classifications sc where t.replacedByRowId = 0 and t.transientBucketId in (%(matchedTransientBucketIds)s) and t.masterIdFlag = 1 and t.transientBucketId = p.transientBucketId and p.transientBucketId=s.transientBucketId and t.transientBucketId = sc.transient_object_id order by FIELD(t.transientBucketId, %(matchedTransientBucketIds)s)
+            select %(selectColumns)s from transientBucket t, transientBucketSummaries s, pesstoObjects p, sherlock_classifications sc, scheduler_obs o where o.transientBucketId = t.transientBucketId and t.replacedByRowId = 0 and t.transientBucketId in (%(matchedTransientBucketIds)s) and t.masterIdFlag = 1 and t.transientBucketId = p.transientBucketId and p.transientBucketId=s.transientBucketId and t.transientBucketId = sc.transient_object_id order by FIELD(t.transientBucketId, %(matchedTransientBucketIds)s)
         """ % locals()
         tmpObjectData = self.request.db.execute(
             text(sqlQuery)).fetchall()

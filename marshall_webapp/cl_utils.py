@@ -40,7 +40,7 @@ def main(arguments=None):
         defaultSettingsFile=True
     )
     arguments, settings, log, dbConn = su.setup()
-
+    ## 
     # tab completion for raw_input
     readline.set_completer_delims(' \t\n;')
     readline.parse_and_bind("tab: complete")

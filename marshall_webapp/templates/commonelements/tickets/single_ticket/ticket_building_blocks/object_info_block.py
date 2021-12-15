@@ -221,4 +221,45 @@ def object_info_block(
             label, daysPast, discoveryDate),
     )
 
-    return "%(title)s %(raDec)s %(galCoord)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
+
+    #schedulerData = khufu.grid_row(
+    #    responsive=True,
+    #    columns="""%s   %s<br>&Hello World""" 
+    #)
+
+
+
+
+
+
+    # MLA modifications
+    label = cu.little_label(
+        text="AutoOB status:"
+    )
+    ob_status = discoveryDataDictionary["autoob_status"]
+    #if discoveryDate:
+    #    daysPast = times.datetime_relative_to_now(discoveryDate)[2:]
+    #    if daysPast[-1] == "d":
+    #        daysPast = "%s days ago" % (daysPast[0:-1],)
+    #    else:
+    #        daysPast = "(+%s)" % (daysPast,)
+    #    discoveryDate = datetime.date.isoformat(discoveryDate)
+    #else:
+    #    discoveryDate = "?"
+    #discoveryDate = khufu.coloredText(
+    #    text="""(%(discoveryDate)s)""" % locals(),
+    #    color="blue",
+    #    size=3,
+    #)
+    #daysPast = khufu.coloredText(
+    #    text=daysPast,
+    #    color="yellow",
+    #    size=4
+    #)
+
+    schedulerData = khufu.grid_row(
+        responsive=True,
+        columns="""%s   %s<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp""" % (label, ob_status)
+    )
+
+    return "%(title)s %(raDec)s %(galCoord)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s %(schedulerData)s" % locals()

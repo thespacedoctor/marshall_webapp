@@ -1,0 +1,3 @@
+from __future__ import absolute_import
+from .models_transients_element_put import models_transients_element_put
+from .models_transients_element_post import models_transients_element_post

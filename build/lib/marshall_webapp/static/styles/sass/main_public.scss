@@ -1,0 +1,11 @@
+// IMPORTS
+@import "screen";
+@import "dryxScss";
+@import "pesstoScss";
+
+@mixin pessto_main_css {
+    @include dryxScss;
+    @include pesstoScss;
+}
+
+@include pessto_main_css;
