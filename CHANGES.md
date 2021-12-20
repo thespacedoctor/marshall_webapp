@@ -1,6 +1,8 @@
 
 ## Marshall Webapp Release Notes
 
+fixed: list text now shown in pending classification tickets identity blocks (previously blank)
+move-to buttons can now be set/altered via the yaml settings file. This gives marshall administrator full customisation of the triage workflow
 best name is selected in both table view and plain-text outputs
 json output now reports akas (name and url) for each transient
 fixed csv and plain text downloads
