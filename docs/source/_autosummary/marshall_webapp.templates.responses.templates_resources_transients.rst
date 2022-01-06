@@ -76,6 +76,10 @@
    ..     
    .. 
    ..     
+   ..          ~templates_resources_transients._get_hundred_mpc_filter_button
+   ..      
+   .. 
+   ..     
    ..          ~templates_resources_transients._get_list_of_transient_tickets
    ..      
    .. 

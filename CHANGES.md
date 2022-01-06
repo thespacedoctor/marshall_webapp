@@ -1,10 +1,23 @@
 
 ## Marshall Webapp Release Notes
 
+fixed: list text now shown in pending classification tickets identity blocks (previously blank)
+move-to buttons can now be set/altered via the yaml settings file. This gives marshall administrator full customisation of the triage workflow
 best name is selected in both table view and plain-text outputs
 json output now reports akas (name and url) for each transient
 fixed csv and plain text downloads
 allow for debug toolbar over https
+https switch added to the setting file. Set to False for plain http (`https: True` is the default)  
+default parameters for the marshall/transients state can be set in the settings file. For example, show all transients below declination of 30:
+
+    ```yaml
+    default_filters:
+        filterBy1: decDeg
+        filterValue1: 30
+        filterOp1: "<" 
+    ```
+
+all links in sidebar now show as "selected" (white background) if the user is looking at that list
 
 **v3.1.1 - May 7, 2021**
 

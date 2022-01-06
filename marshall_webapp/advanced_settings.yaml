@@ -1,0 +1,209 @@
+version: 1
+
+# THESE ADVANCED SETTINGS ARE COLLECTED WHEN USING CL-TOOLS, 
+# BUT IF PACKAGE IS TO BE IMPORTED WITHIN OTHER CODE YOU NEED TO INCLUDE THIS PYTHON SNIPPET
+# WHERE NEEDED IN THIS PACKAGE
+# xt-collect-packages-advanced-settings
+
+# THESE FILTERS ARE TO BE SET BY DEFAULT WHEN USER STARTS A MARSHALL SESSION
+default_filters:
+    filterBy1: decDeg
+    filterValue1: 30
+    filterOp1: "<"
+
+https: True
+
+sidebar:
+    target selection queues:
+        inbox:
+            mwf: inbox
+            awl: False
+            snoozed: False
+            icon: icon-inbox
+        snoozed:
+            mwf: False
+            awl: False
+            snoozed: True
+            icon: icon-alarm3
+        review for followup:
+            mwf: review for followup
+            awl: False
+            snoozed: False
+            icon: icon-eye
+    observation queues:
+        classification targets:
+            mwf: pending observation
+            awl: False
+            snoozed: False
+            icon: icon-target2
+        followup targets:
+            mwf: following
+            awl: False
+            snoozed: False
+            icon: icon-pin
+    classification & astronote queues:
+        queued for classification:
+            mwf: pending classification
+            awl: False
+            snoozed: False
+            icon: False
+        queued for astronote:
+            mwf: False
+            awl: queued for atel
+            snoozed: False
+            icon: False
+    reference:
+        all:
+            mwf: all
+            awl: False
+            snoozed: False
+            icon: False
+        classified:
+            mwf: False
+            awl: False
+            classified: True
+            snoozed: False
+            icon: False
+        followup complete:
+            mwf: followup complete
+            awl: False
+            snoozed: False
+            icon: icon-checkmark-circle
+        archived:
+            mwf: archive
+            awl: False
+            snoozed: False
+            icon: icon-archive5
+
+## SET HERE WHERE OBJECTS CAN BE MOVED TO BASED ON THEIR CURRENT STATE
+## PRIORITY = high,medium,low OR false
+## HIDE FLAGS CAN HIDE A BUTTON BASED ON CLASSFICATION AND/OR SNOOZED STATES
+workflow-buttons:
+    # NAME OF CURRENT MARSHALL WORKFLOW LOCATION
+    inbox:
+        # NAME OF BUTTON: BUTTON PARAMETERS
+        classify - high: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: high
+            icon: icon-target2
+            hide for classified: True
+        classify - medium: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: medium
+            icon: icon-target2
+            hide for classified: True
+        classify - low: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: low
+            icon: icon-target2
+            hide for classified: True
+        archive: 
+            mwf: archive
+            destination-sidebar-title: archived 
+            priority: False
+            icon: icon-archive5
+    archive:
+        inbox: 
+            mwf: inbox
+            destination-sidebar-title: inbox
+            priority: False
+            icon: icon-inbox
+            hide for classified: True
+        archive: 
+            mwf: archive
+            destination-sidebar-title: archived 
+            priority: False
+            icon: icon-archive5
+            hide for non-snoozed: True
+        classify - high: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: high
+            icon: icon-target2
+            hide for classified: True
+        classify - medium: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: medium
+            icon: icon-target2
+            hide for classified: True
+        classify - low: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: low
+            icon: icon-target2
+            hide for classified: True
+        followup targets: 
+            mwf: following
+            destination-sidebar-title: followup targets 
+            priority: False
+            icon: icon-pin
+            hide for unclassified: True
+    review for followup:
+        archive: 
+            mwf: archive
+            destination-sidebar-title: archived 
+            priority: False
+            icon: icon-archive5
+        followup targets: 
+            mwf: following
+            destination-sidebar-title: followup targets 
+            priority: False
+            icon: icon-pin
+    pending observation:
+        inbox: 
+            mwf: inbox
+            destination-sidebar-title: inbox
+            priority: False
+            icon: icon-inbox
+            hide for classified: True
+        observed: 
+            mwf: pending classification
+            destination-sidebar-title: queued for classification
+            priority: False
+            icon: icon-checkmark-circle
+            hide for classified: True
+        archive: 
+            mwf: archive
+            destination-sidebar-title: archived 
+            priority: False
+            icon: icon-archive5
+    pending classification:
+        classify - high: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: high
+            icon: icon-target2
+            hide for classified: True
+        classify - medium: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: medium
+            icon: icon-target2
+            hide for classified: True
+        classify - low: 
+            mwf: pending observation
+            destination-sidebar-title: classification targets 
+            priority: low
+            icon: icon-target2
+            hide for classified: True
+        archive: 
+            mwf: archive
+            destination-sidebar-title: archived 
+            priority: False
+            icon: icon-archive5
+    following:
+        followup complete: 
+            mwf: followup complete
+            destination-sidebar-title: followup complete 
+            priority: False
+            icon: icon-archive5
+    followup complete: 
+        followup targets: 
+            mwf: following
+            destination-sidebar-title: followup targets 
+            priority: False
+            icon: icon-pin
