@@ -71,9 +71,9 @@ def host_info_block(
     contextMaps = collections.OrderedDict(sorted(contextMaps.items()))
 
     if discoveryDataDictionary["sdss_coverage"] == 1:
-        nearestObjectUrl = "http://skyserver.sdss3.org/public/en/tools/explore/obj.aspx?ra=%(ra)s&dec=%(dec)s" % locals(
+        nearestObjectUrl = "http://skyserver.sdss.org/dr17/VisualTools/explore/summary?ra=%(ra)s&dec=%(dec)s" % locals(
         )
-        exactLocationUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
+        exactLocationUrl = """http://skyserver.sdss.org/dr17/VisualTools/navi?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
         )
 
     if discoveryDataDictionary["ps1_map"] == 1:
@@ -106,7 +106,7 @@ def host_info_block(
         contextMaps["PLACEHOLDER"] = contextStamp
         stampName = False
 
-    sdssUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GSP&width=512&height=512&query=G""" % locals(
+    sdssUrl = """http://skyserver.sdss.org/dr17/VisualTools/navi?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GSP&width=512&height=512&query=G""" % locals(
     )
 
     sdssLinkRow = ""
