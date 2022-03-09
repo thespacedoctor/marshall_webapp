@@ -176,9 +176,9 @@ def _host_info_block(
     dec = discoveryDataDictionary["decDeg"]
     transientBucketId = discoveryDataDictionary["transientBucketId"]
     if discoveryDataDictionary["sdss_coverage"] == 1:
-        nearestObjectUrl = "http://skyserver.sdss3.org/public/en/tools/explore/obj.aspx?ra=%(ra)s&dec=%(dec)s" % locals(
+        nearestObjectUrl = "http://skyserver.sdss.org/dr17/VisualTools/navi?ra=%(ra)s&dec=%(dec)s" % locals(
         )
-        exactLocationUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
+        exactLocationUrl = """http://skyserver.sdss.org/dr17/VisualTools/navi?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
         )
         downloadContextStamp = "caches/transients/%s/sdss_stamp.jpeg" % (
             discoveryDataDictionary["transientBucketId"],)
@@ -198,7 +198,7 @@ def _host_info_block(
         contextStamp = 'holder.js/500x500/auto/industrial/text:sdss stamp not ready yet'
         downloadContextStamp = contextStamp
         stampName = False
-    sdssUrl = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GSP&width=512&height=512&query=G""" % locals(
+    sdssUrl = """http://skyserver.sdss.org/dr17/VisualTools/navi?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GSP&width=512&height=512&query=G""" % locals(
     )
 
     sdssLinkRow = ""
@@ -345,7 +345,7 @@ def _crossmatch_info_block(
 
         tableBody = []
 
-        rs = ["rank", "catalogue_table_name", "catalogue_object_id",  "catalogue_object_type", "sherlockClassification",
+        rs = ["rank", "catalogue_table_name", "catalogue_object_id", "catalogue_object_type", "sherlockClassification",
               "separationArcsec", "physical_separation_kpc", "transientAbsMag", "distance", "z", "best_mag"]
         for c in cms:
 

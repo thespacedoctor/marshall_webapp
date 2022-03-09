@@ -12,6 +12,7 @@ import re
 from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 
+
 def ticket_footer_bar(
         log,
         request,
@@ -25,12 +26,12 @@ def ticket_footer_bar(
     - ``request`` -- the pyramid request
     - ``discoveryData`` -- the discoveryData for the object
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
-    
+
 
     **Return**
 
     - ``ticket_footer_bar`` -- the ticket footer bar for the pesssto object
-    
+
     """
     log.debug('starting the ``ticket_footer_bar`` function')
 
@@ -60,7 +61,7 @@ def ticket_footer_bar(
     )
     extinctionLink = """http://ned.ipac.caltech.edu/cgi-bin/nph-calc?in_csys=Equatorial&in_equinox=J2000.0&obs_epoch=2000.0&lon=%(ra)sd&lat=%(dec)sd&pa=0.0&out_csys=Galactic&out_equinox=J2000.0""" % locals(
     )
-    sdssExactLocation = """http://skyserver.sdss3.org/public/en/tools/chart/image.aspx?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
+    sdssExactLocation = """http://skyserver.sdss.org/dr17/VisualTools/navi?ra=%(ra)s&dec=%(dec)s&scale=0.25&opt=GS&width=512&height=512""" % locals(
     )
     vizier = """http://vizier.u-strasbg.fr/viz-bin/VizieR-4?-pos&-c.eq=J2000&-c.rs=30&-c=%(ra)s%(dec)s""" % locals(
     )
@@ -131,6 +132,7 @@ def ticket_footer_bar(
 
     return ticket_footer_bar
 
+
 def _get_atel_list(
         log,
         transientBucketId,
@@ -142,12 +144,12 @@ def _get_atel_list(
     - ``log`` -- logger
     - ``transientBucketId`` -- the transientBucketId
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
-    
+
 
     **Return**
 
     - ``atelLinks`` -- the names of the atels linked to original pages
-    
+
     """
     log.debug('starting the ``_get_atels`` function')
 
