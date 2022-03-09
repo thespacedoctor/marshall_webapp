@@ -18,6 +18,7 @@ default parameters for the marshall/transients state can be set in the settings 
     ```
 
 all links in sidebar now show as "selected" (white background) if the user is looking at that list
+**FIXED**: sdss link now use the new skyserver api
 
 **v3.1.1 - May 7, 2021**
 
