@@ -13,7 +13,6 @@ default_filters:
 
 https: True
 
-
 sidebar:
     target selection queues:
         inbox:
