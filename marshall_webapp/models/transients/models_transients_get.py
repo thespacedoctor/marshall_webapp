@@ -39,7 +39,7 @@ class models_transients_get(base_model):
 
         self.resourceName = "transients"
         self.defaultQs = {  # the query string defaults
-            "mwl": "inbox",
+            "mwl": False,
             "format": "html_tickets",
             "ticketLimit": 10,
             "tableLimit": 100,
@@ -148,7 +148,7 @@ class models_transients_get(base_model):
         if "mwl" in self.qs:
             if self.qs["mwl"] == "allObsQueue":
                 thisWhere = """(marshallWorkflowLocation = "following" or marshallWorkflowLocation = "pending observation") """
-            elif self.qs["mwl"] == "all":
+            elif self.qs["mwl"] in ["all", "False", False]:
                 thisWhere = """1=1"""
             else:
                 thisWhere = """marshallWorkflowLocation = "%(mwl)s" """ % self.qs
@@ -166,6 +166,10 @@ class models_transients_get(base_model):
 
         # SNOOZED?
         if "snoozed" in self.qs:
+            if self.qs["snoozed"] in [True, "True"]:
+                self.qs["snoozed"] = 1
+            elif self.qs["snoozed"] is False:
+                self.qs["snoozed"] = 0
             thisWhere = """snoozed = "%(snoozed)s" """ % self.qs
             sqlWhereList.append(thisWhere)
 
@@ -263,7 +267,7 @@ class models_transients_get(base_model):
             elif self.qs["sortBy"] == "observationPriority":
                 sortBy = self.qs["sortBy"]
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s %(sortDirection)s, case when t.dateAdded is null then 1 else 0 end,  t.dateAdded desc
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s, p.marshallWorkflowLocation %(sortDirection)s, case when t.dateAdded is null then 1 else 0 end,  t.dateAdded desc
                 """ % locals()
 
             else:
@@ -283,7 +287,6 @@ class models_transients_get(base_model):
         sqlQuery = """%(sqlQuery)s limit %(pageStart)s, %(limit)s""" % locals()
 
         # grab the transientBucketIds
-
         rows = self.request.db.execute(sqlQuery).fetchall()
         self.log.debug("""{rows}""".format(**dict(globals(), **locals())))
         # GET ORDERED LIST OF THE TRANSIENTBUCKETIDs

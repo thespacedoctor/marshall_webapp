@@ -640,7 +640,9 @@ class templates_resources_transients(object):
         self.log.debug('starting the ``_get_page_name`` method')
 
         thisPageName = ""
-        if "snoozed" in self.qs:
+        if "listName" in self.qs:
+            thisPageName = self.qs["listName"]
+        elif "snoozed" in self.qs:
             thisPageName = "snoozed"
         elif "cf" in self.qs and (self.qs["cf"] == 1 or self.qs["cf"] == "1"):
             thisPageName = "classified"

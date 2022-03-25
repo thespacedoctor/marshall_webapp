@@ -14,6 +14,7 @@ from marshall_webapp.templates.commonelements import commonutils as cu
 import khufu
 from fundamentals import times
 
+
 def object_info_block(
         log,
         request,
@@ -25,12 +26,12 @@ def object_info_block(
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-    
+
 
     **Return**
 
     - ``object_info_block`` -- the ticket identity block for the pesssto object
-    
+
     """
     log.debug('starting the ``object_info_block`` function')
 

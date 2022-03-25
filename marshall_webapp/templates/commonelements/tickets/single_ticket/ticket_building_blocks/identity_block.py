@@ -82,6 +82,8 @@ def identity_block(
         icon = """<i class="icon-archive"></i> archive"""
     elif q == "pending observation":
         icon = """<i class="icon-target2"></i> classification targets"""
+    elif q == "pending classification":
+        icon = """<i class="icon-target2"></i> queued for classification"""
     elif q == "followup complete":
         icon = """<i class="icon-checkmark-circle"></i> followup complete"""
     elif q == "snoozed":

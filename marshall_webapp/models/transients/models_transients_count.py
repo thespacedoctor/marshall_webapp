@@ -65,29 +65,44 @@ class models_transients_count(object):
         cFlag = self.cFlag
         snoozed = self.snoozed
 
+        if mwfFlag == "allObsQueue":
+            mwfFlag = ["following", "pending observation"]
+
         # BUILD THE QUERY TO COUNT THE TRANSIENTS WITHIN A GIVEN MARSHALL
         # SIDEBAR LIST
         sqlQuery = """select count from meta_workflow_lists_counts where 1=1 """
 
         # AMEND WHERE CLAUSE TO INCLUDE WORKFLOW LOCATION FLAGS #
         extraWhere = ""
-        if(mwfFlag != None):
-            extraWhere = """%(extraWhere)s AND listName= %(mwfFlag)s """ % locals(
+        if isinstance(mwfFlag, list):
+            mwfFlag = ('","').join(mwfFlag)
+            extraWhere = """%(extraWhere)s AND listName in ("%(mwfFlag)s") """ % locals(
+            )
+        elif mwfFlag:
+            mwfFlag = mwfFlag.replace('"', '')
+            extraWhere = """%(extraWhere)s AND listName in ("%(mwfFlag)s") """ % locals(
             )
 
-        if(awfFlag != None):
-            extraWhere = """%(extraWhere)s AND listName= %(awfFlag)s """ % locals(
+        if isinstance(awfFlag, list):
+            awfFlag = ('","').join(awfFlag)
+            extraWhere = """%(extraWhere)s AND listName in ("%(awfFlag)s") """ % locals(
+            )
+        elif awfFlag:
+            awfFlag = awfFlag.replace('"', '')
+            extraWhere = """%(extraWhere)s AND listName in ("%(awfFlag)s") """ % locals(
             )
 
         if(cFlag != None):
             extraWhere = """%(extraWhere)s  AND listName = "classified" """ % locals(
             )
 
-        if(snoozed != None):
+        if snoozed:
             extraWhere = """%(extraWhere)s  AND listName = "snoozed" """ % locals(
             )
 
         sqlQuery = """%(sqlQuery)s %(extraWhere)s;""" % locals()
+
+        # print(sqlQuery)
 
         rowsTmp = self.request.db.execute(sqlQuery).fetchall()
         rows = []

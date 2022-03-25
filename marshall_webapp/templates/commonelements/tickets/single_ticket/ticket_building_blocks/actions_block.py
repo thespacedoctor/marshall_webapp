@@ -20,20 +20,15 @@ def actions_block(
         discoveryDataDictionary,
         lightcurveData,
         objectAkas):
-    """get ticket action block
+    """return a ticket action block
 
     **Key Arguments**
 
     - ``log`` -- logger
     - ``request`` -- the pyramid request
-    - ``lightcurveData`` -- the lightdata for the object
     - ``discoveryDataDictionary`` -- a dictionary of the discovery data for this transient.
-
-
-    **Return**
-
-    - ``action_block`` -- the ticket identity block for the pesssto object
-
+    - ``lightcurveData`` -- the lightdata for the object
+    - ``objectAkas`` -- the transients names from various surveys
     """
     from marshall_webapp.templates.commonelements import forms
     title = cu.block_title(
@@ -120,26 +115,19 @@ def _get_classify_button(
         request,
         discoveryDataDictionary,
 ):
-    """ get classify button for the ticket topbar
+    """return a classification button with hidden modal form
 
     **Key Arguments**
 
     - ``log`` -- logger
     - ``request`` -- the pyramid request object
     - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-
-
-    **Return**
-
-    - ``button`` -- the classification button with hidden modal form
-
     """
+    log.debug('starting the ``_get_classify_button`` function')
+
     from marshall_webapp.templates.commonelements import forms
     now = datetime.now()
     now = now.strftime("%Y-%m-%d")
-
-    log.debug('starting the ``_get_classify_button`` function')
-    # TEST THE ARGUMENTS
 
     ## VARIABLES ##
     button, thisForm = forms.classify_object_form.classify_object_form(
@@ -157,18 +145,13 @@ def _get_move_to_dropdown(
         request,
         discoveryDataDictionary,
 ):
-    """ get move to dropdown for the ticket
+    """return the 'move to' dropdown for the ticket (from defined workflow in yaml settings)
 
     **Key Arguments**
 
     - ``log`` -- logger
     - ``request`` -- the pyramid request
     - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
-
-
-    **Return**
-
-    - ``thisDropdown`` -- the move to other list dropdown
 
     """
     import datetime
@@ -177,131 +160,119 @@ def _get_move_to_dropdown(
 
     dropdownTitle = """<i class="icon-list-ul"></i>"""
     icon = """<i class="icon-circle-arrow-up"></i>"""
-
-    thisMwl = discoveryDataDictionary["marshallWorkflowLocation"].lower()
-    cf = discoveryDataDictionary["classifiedFlag"]
-    snoozed = discoveryDataDictionary["snoozed"]
-    if thisMwl == "inbox":
-        linkTitleList = ["classify - high",
-                         "classify - medium", "classify - low", "archive"]
-    elif thisMwl == "review for followup":
-        linkTitleList = ["followup targets", "archive"]
-    elif thisMwl == "pending observation":
-        linkTitleList = ["inbox", "observed", "archive"]
-    elif thisMwl == "following":
-        linkTitleList = ["followup complete"]
-    elif thisMwl == "followup complete":
-        linkTitleList = ["followup targets"]
-    elif thisMwl == "archive" and cf == 1:
-        linkTitleList = ["followup targets", "review for followup"]
-    elif thisMwl == "archive" and snoozed == 1:
-        linkTitleList = ["inbox", "classify - high",
-                         "classify - medium", "classify - low", "archive"]
-    elif thisMwl == "archive":
-        linkTitleList = ["inbox"]
-    elif thisMwl == "pending classification":
-        dropdownTitle = "fail"
-        linkTitleList = ["classify - high",
-                         "classify - medium", "classify - low", "archive"]
+    prefix = request.registry.settings["apache prefix"]
+    discoveryDataDictionary["prefix"] = prefix
 
     # SET OBSERVATIONAL PRIORITY NUMBERS
     priorityList = ["high", "medium", "low"]
     priorityColor = ["green", "yellow", "red"]
     priorityNumberList = [1, 2, 3]
-    priority = discoveryDataDictionary["observationPriority"]
 
+    # GET CURRENT STATE OF TICKET
+    currentMwl = discoveryDataDictionary["marshallWorkflowLocation"].lower()
+    currentCf = discoveryDataDictionary["classifiedFlag"]
+    currentSnoozed = discoveryDataDictionary["snoozed"]
+    currentPriority = discoveryDataDictionary["observationPriority"]
+    name = discoveryDataDictionary["masterName"]
+
+    linkTitleList = []
     linkList = []
-    for title in linkTitleList:
-        newListLinkTitle = title
-        # DETERMINE THE LIST TO SEND THE TICKET TO
-        mwl = title
-        if "classify -" in title:
-            mwl = "pending observation"
-            newListLinkTitle = "classification targets"
-        elif title == "followup targets":
-            mwl = "following"
-        elif title == "observed":
-            mwl = "pending classification"
-        discoveryDataDictionary["mwl"] = mwl
+    if currentMwl in request.registry.settings[
+            "workflow-buttons"]:
 
-        # DETERMINE OBSERVATIONAL PRIORITY
-        num = False
-        for l, n, c in zip(priorityList, priorityNumberList, priorityColor):
-            if f"- {l}" in title:
-                # add text color
-                text = khufu.coloredText(
-                    text='<i class="icon-target2"></i>',
-                    color=c,
-                    size=False,  # 1-10
-                    pull=False,  # "left" | "right",
-                    addBackgroundColor=False
-                )
+        for title, buttonSetting in request.registry.settings["workflow-buttons"][currentMwl].items():
 
-                title =  f"""{text} {title}"""
-                num = n
+            if currentCf and "hide for classified" in buttonSetting and buttonSetting["hide for classified"]:
+                continue
+            elif not currentCf and "hide for unclassified" in buttonSetting and buttonSetting["hide for unclassified"]:
+                continue
+            elif currentSnoozed and "hide for snoozed" in buttonSetting and buttonSetting["hide for snoozed"]:
+                continue
+            elif not currentSnoozed and "hide for non-snoozed" in buttonSetting and buttonSetting["hide for non-snoozed"]:
+                continue
 
-        prefix = request.registry.settings["apache prefix"]
-        discoveryDataDictionary["prefix"] = prefix
+            linkTitleList.append(title)
+            # SET NEW LOCATION
+            discoveryDataDictionary["mwl"] = buttonSetting["mwf"]
+            # SET BUTTON TITLE (WITH ICON AND PRIORITY COLOUR)
+            num = False
+            if buttonSetting["priority"] and buttonSetting["icon"]:
+                # DETERMINE OBSERVATIONAL PRIORITY
+                for l, n, c in zip(priorityList, priorityNumberList, priorityColor):
+                    if l == buttonSetting["priority"].lower():
+                        # add text color
+                        text = khufu.coloredText(
+                            text=f'<i class="{buttonSetting["icon"]} style="vertical-align: -.2em;""></i>',
+                            color=c,
+                            size=False,  # 1-10
+                            pull=False,  # "left" | "right",
+                            addBackgroundColor=False
+                        )
+                        title =  f"""{text} &nbsp{title}"""
+                        num = n
+            elif buttonSetting["icon"]:
+                title =  f"""<i class="{buttonSetting["icon"]}"  style="vertical-align: -.2em;"></i> &nbsp{title}"""
 
-        name = discoveryDataDictionary["masterName"]
-        href = request.route_path(
-            'transients_element', elementId=discoveryDataDictionary["transientBucketId"])
-        name = khufu.a(
-            content=name,
-            href=href
-        )
-        href = request.route_path('transients', _query={
-                                  'mwl': mwl})
-        newListLink = khufu.a(
-            content=newListLinkTitle,
-            href=href
-        )
+            # CREATE THE LINK
+            href = request.route_path(
+                'transients_element', elementId=discoveryDataDictionary["transientBucketId"])
+            name = khufu.a(
+                content=name,
+                href=href
+            )
 
-        # GENERATE THE UNDO LINK
-        href = request.route_path('transients_element', elementId=discoveryDataDictionary[
-                                  "transientBucketId"], _query={'mwl': discoveryDataDictionary["marshallWorkflowLocation"], "method": "put"})
-        undoLink = khufu.a(
-            content='undo.',
-            href=href,
-            htmlClass="ticketMoveToLinkUndo",
-            htmlId="ticket%(transientBucketId)s" % discoveryDataDictionary,
-            postInBackground=True,
-        )
+            href = request.route_path('transients', _query={
+                                      'mwl': buttonSetting["mwf"]})
+            newListLink = khufu.a(
+                content=buttonSetting["destination-sidebar-title"],
+                href=href
+            )
+            # CREATE THE UNDO LINK FOR NOTIFICATION
+            href = request.route_path('transients_element', elementId=discoveryDataDictionary[
+                "transientBucketId"], _query={'mwl': discoveryDataDictionary["marshallWorkflowLocation"], "method": "put"})
+            undoLink = khufu.a(
+                content='undo.',
+                href=href,
+                htmlClass="ticketMoveToLinkUndo",
+                htmlId="ticket%(transientBucketId)s" % discoveryDataDictionary,
+                postInBackground=True,
+            )
 
-        notification = "%(name)s was moved to the %(newListLink)s list. %(undoLink)s" % locals(
-        )
-        notification = khufu.alert(
-            alertText=notification,
-            alertHeading='',
-            extraPadding=False,
-            alertLevel='info'  # [ "warning" | "error" | "success" | "info" ]
-        )
+            notification = "%(name)s was moved to the %(newListLink)s list. %(undoLink)s" % locals(
+            )
+            notification = khufu.alert(
+                alertText=notification,
+                alertHeading='',
+                extraPadding=False,
+                # [ "warning" | "error" | "success" | "info" ]
+                alertLevel='info'
+            )
 
-        notification = urllib.parse.quote(notification, safe='')
-        discoveryDataDictionary["notification"] = notification
+            notification = urllib.parse.quote(notification, safe='')
+            discoveryDataDictionary["notification"] = notification
 
-        href = request.route_path('transients_element', elementId=discoveryDataDictionary[
-                                  "transientBucketId"], _query={'mwl': mwl, 'observationPriority': num, "method": "put"})
-        link = khufu.a(
-            content=title,
-            href=href,
-            tableIndex=-1,
-            triggerStyle=False,  # [ False | "dropdown" | "tab" ]
-            htmlClass="ticketMoveToLink",
-            notification=notification,
-            postInBackground=True,
-        )
-        linkListItem = khufu.li(
-            content=link,  # if a subMenu for dropdown this should be <ul>
-            span=False,  # [ False | 1-12 ]
-            disabled=False,
-            submenuTitle=False,
-            divider=False,
-            navStyle=False,  # [ active | header ]
-            navDropDown=False,
-            pager=False  # [ False | "previous" | "next" ]
-        )
-        linkList.append(linkListItem)
+            href = request.route_path('transients_element', elementId=discoveryDataDictionary[
+                                      "transientBucketId"], _query={'mwl': buttonSetting["mwf"], 'observationPriority': num, "method": "put"})
+            link = khufu.a(
+                content=title,
+                href=href,
+                tableIndex=-1,
+                triggerStyle=False,  # [ False | "dropdown" | "tab" ]
+                htmlClass="ticketMoveToLink",
+                notification=notification,
+                postInBackground=True,
+            )
+            linkListItem = khufu.li(
+                content=link,  # if a subMenu for dropdown this should be <ul>
+                span=False,  # [ False | 1-12 ]
+                disabled=False,
+                submenuTitle=False,
+                divider=False,
+                navStyle=False,  # [ active | header ]
+                navDropDown=False,
+                pager=False  # [ False | "previous" | "next" ]
+            )
+            linkList.append(linkListItem)
 
     popover = khufu.popover(
         tooltip=True,

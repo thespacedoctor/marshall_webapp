@@ -8,7 +8,8 @@ from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.settings import aslist
 from os.path import expanduser
-
+import inspect
+import os
 # ALLOW DEBUG TOOLBAR OVER HTTPS
 from pyramid.url import URLMethodsMixin
 URLMethodsMixin.static_url_org = URLMethodsMixin.static_url  # backup of original
@@ -17,7 +18,6 @@ URLMethodsMixin.static_url_org = URLMethodsMixin.static_url  # backup of origina
 def https_static_url(self, *args, **kw):
     kw['_scheme'] = 'https'  # add parameter forcing https
     return URLMethodsMixin.static_url_org(self, *args, **kw)  # call backup
-URLMethodsMixin.static_url = https_static_url  # replace original with backup
 
 
 def db(request):
@@ -51,10 +51,32 @@ def main(global_config, **settings):
     config.registry.dbmaker = sessionmaker(bind=engine)
     config.add_request_method(db, reify=True)
 
-    # Add settings from YAML file
-
+    # ADD SETTINGS FROM YAML FILE
     myWebapp = AssetResolver("marshall_webapp")
     theseSettings = config.get_settings()
+
+    import yaml
+    # COLLECT ADVANCED SETTINGS IF AVAILABLE
+    parentDirectory = os.path.dirname(__file__)
+    advs = parentDirectory + "/advanced_settings.yaml"
+    level = 0
+    exists = False
+    count = 1
+    while not exists and len(advs) and count < 10:
+        count += 1
+        level -= 1
+        exists = os.path.exists(advs)
+        if not exists:
+            advs = "/".join(parentDirectory.split("/")
+                            [:level]) + "/advanced_settings.yaml"
+            print(advs)
+    if not exists:
+        advs = {}
+    else:
+        with open(advs, 'r') as stream:
+            advs = yaml.safe_load(stream)
+    config.add_settings(advs)
+
     settingsPath = theseSettings["settingsFile"]
     if settingsPath[0] == "~":
         from os.path import expanduser
@@ -68,6 +90,9 @@ def main(global_config, **settings):
     config.add_settings(settings)
     config.add_settings({"yaml settings": settings})
     stream.close()
+
+    if "https" in config.get_settings() and config.get_settings()["https"]:
+        URLMethodsMixin.static_url = https_static_url
 
     # add authorisation
     secret = settings["secrets"]["authn policy"]
