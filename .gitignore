@@ -44,4 +44,5 @@ marshall_schema.sql.bak
 /logs/marshall.log*
 marshall_webapp/.fuse*
 /marshall_webapp/.codekit-cache
+build
 /docs/build
