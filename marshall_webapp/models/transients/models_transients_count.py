@@ -65,6 +65,9 @@ class models_transients_count(object):
         cFlag = self.cFlag
         snoozed = self.snoozed
 
+        if mwfFlag == "allObsQueue":
+            mwfFlag = ["following", "pending observation"]
+
         # BUILD THE QUERY TO COUNT THE TRANSIENTS WITHIN A GIVEN MARSHALL
         # SIDEBAR LIST
         sqlQuery = """select count from meta_workflow_lists_counts where 1=1 """

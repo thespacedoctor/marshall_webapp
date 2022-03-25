@@ -41,6 +41,11 @@ sidebar:
             awl: False
             snoozed: False
             icon: icon-pin
+        = all:
+            mwf: allObsQueue
+            awl: False
+            snoozed: False
+            icon: False
     classification & astronote queues:
         queued for classification:
             mwf: pending classification

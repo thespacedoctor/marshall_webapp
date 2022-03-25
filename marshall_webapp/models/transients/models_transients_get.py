@@ -267,7 +267,7 @@ class models_transients_get(base_model):
             elif self.qs["sortBy"] == "observationPriority":
                 sortBy = self.qs["sortBy"]
                 sqlQuery = """
-                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s %(sortDirection)s, case when t.dateAdded is null then 1 else 0 end,  t.dateAdded desc
+                    select t.transientBucketId from transientBucketSummaries t, pesstoObjects p %(tcsCm)s %(queryWhere)s %(tep)s %(tec)s  order by p.%(sortBy)s, p.marshallWorkflowLocation %(sortDirection)s, case when t.dateAdded is null then 1 else 0 end,  t.dateAdded desc
                 """ % locals()
 
             else:
