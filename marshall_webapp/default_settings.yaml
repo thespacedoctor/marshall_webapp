@@ -19,7 +19,7 @@ version: 1
 
 default_filters:
     filterBy1: decDeg
-    filterValue1: 30
+    filterValue1: 35
     filterOp1: "<"
 
 https: True
