@@ -147,10 +147,10 @@ def ntt_view_button(
 
     if "filterBy1" in params and "filterValue1" in params and "filterOp1" in params:
 
-        if params["filterBy1"] == "decDeg" and params["filterValue1"] in ["30", 30] and params["filterOp1"] in ["lt", "<"]:
+        if params["filterBy1"] == "decDeg" and params["filterValue1"] in ["35", 35] and params["filterOp1"] in ["lt", "<"]:
 
             htmlClass = "on"
-            content = "show targets > +30&deg;"
+            content = "show targets > +35&deg;"
             params["filterBy1"] = None
             params["filterValue1"] = None
             params["filterOp1"] = None
@@ -158,9 +158,9 @@ def ntt_view_button(
 
     if match == False:
         htmlClass = False
-        content = "hide targets > +30&deg;"
+        content = "hide targets > +35&deg;"
         params["filterBy1"] = "decDeg"
-        params["filterValue1"] = 30
+        params["filterValue1"] = 35
         params["filterOp1"] = "lt"
 
     routename = request.matched_route.name

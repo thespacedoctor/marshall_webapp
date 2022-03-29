@@ -9,6 +9,7 @@ def readme():
     with open(moduleDirectory + '/README.md') as f:
         return f.read()
 
+
 install_requires = [
     'pyyaml',
     'fundamentals',

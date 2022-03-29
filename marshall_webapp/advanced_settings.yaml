@@ -8,7 +8,7 @@ version: 1
 # THESE FILTERS ARE TO BE SET BY DEFAULT WHEN USER STARTS A MARSHALL SESSION
 default_filters:
     filterBy1: decDeg
-    filterValue1: 30
+    filterValue1: 35
     filterOp1: "<"
 
 https: True
