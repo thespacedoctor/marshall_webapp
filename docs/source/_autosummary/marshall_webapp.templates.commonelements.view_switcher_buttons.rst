@@ -29,6 +29,7 @@
     .. autosummary::
 
         
+          ~hundred_mpc_filter_button
           ~ntt_view_button
           ~view_switcher_buttons
         
