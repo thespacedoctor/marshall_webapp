@@ -145,6 +145,8 @@ def main(global_config, **settings):
     config.add_route('transients_comments', '/transients/comments')  # --
     config.add_route('transients_akas', '/transients/akas')  # --
     config.add_route('transients_context', '/transients/context')  # --
+    config.add_route('transients_followup_obs',
+                     '/transients/followup_obs')
     config.add_route(
         'transients_search', '/transients/search')  # --
     config.add_route('xmatches_catalogues', '/xmatches/catalogues')  # --
@@ -168,6 +170,8 @@ def main(global_config, **settings):
                      '/transients/{elementId}/history')  # --
     config.add_route(
         'transients_element_akas', '/transients/{elementId}/akas')
+    config.add_route(
+        'transients_element_followup_obs', '/transients/{elementId}/followup_obs')
 
     # TOP-LEVEL SUBRESOURCES-ELEMENTS
     config.add_route('xmatches_element_catalogues',

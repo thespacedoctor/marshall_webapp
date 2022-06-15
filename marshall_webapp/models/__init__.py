@@ -8,3 +8,4 @@ from . import transients_context
 from . import xmatches
 from . import xmatches_catalogues
 from . import transients_akas
+from . import transients_followup_obs

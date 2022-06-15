@@ -17,3 +17,4 @@ from . import views_xmatches_views
 from . import views_xmatches_searches
 from . import views_resources_transients_akas
 from . import views_resources_transients_element_akas
+from . import views_transients_followup_obs
