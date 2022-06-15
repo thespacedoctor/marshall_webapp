@@ -15,6 +15,7 @@ from sqlalchemy.orm import sessionmaker
 from fundamentals import tools
 from marshall_webapp.utKit import utKit
 from dryxPyramid.utKit import BaseTest
+from os.path import expanduser
 home = expanduser("~")
 
 packageDirectory = utKit("").get_project_root()
