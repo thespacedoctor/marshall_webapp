@@ -14,6 +14,7 @@ from builtins import object
 import sys
 import os
 import khufu
+from fundamentals import times
 
 
 class models_transients_element_followup_obs_post(object):
@@ -78,18 +79,30 @@ class models_transients_element_followup_obs_post(object):
             - ``responseContent`` -- the reponse to send to the browser
         """
         self.log.debug('starting the ``post`` method')
+        #Transient Bucked ID
+        transientBucketId = self.elementId
 
-        elementId = self.elementId
+        # variables
+        #now = times.get_now_sql_datetime()
+        author = self.request.authenticated_userid
+        #comment = self.request.params["comment"]
 
-        responseContent = "Response from <code>" + __name__ + "</code><BR><BR>"
-        if elementId:
-            responseContent = "%(responseContent)sThe element selected was </code>%(elementId)s</code>" % locals(
-            )
-        else:
-            responseContent = "%(responseContent)sResource Context selected (no element)" % locals(
-            )
+        #comment = comment.replace(
+        #    "'", "\\'").replace('"', '\\"')
+
+        # add the comment to the database
+        ob_id = 2
+        sqlQuery = """
+            INSERT INTO followup_obs (transientBucketId,author,OB_ID) VALUES(%(transientBucketId)s,"%(author)s","%(ob_id)s");
+        """ % locals()
+        self.log.debug("""add followupob sqlquery: `%(sqlQuery)s`""" % locals())
+        self.request.db.execute(sqlQuery)
+        self.request.db.commit()
+
+        responseContent = "%(author)s added a follow-ob for %(ob_id)s to transient %(transientBucketId)s in the marshall<BR><BR>" % locals()
 
         self.log.debug('completed the ``post`` method')
+        #in self.qs you have the parameters.
         return responseContent
 
     def _set_default_parameters(
