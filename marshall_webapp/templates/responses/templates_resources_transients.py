@@ -58,7 +58,7 @@ class templates_resources_transients(object):
             search=self.search,
             tcsCatalogueId=tcsCatalogueId
         )
-        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transientHistories, self.transientCrossmatches = transientModal.get(
+        self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transientHistories, self.transientCrossmatches, self.classificationOB = transientModal.get(
         )
 
         if tcsCatalogueId:
@@ -175,7 +175,8 @@ class templates_resources_transients(object):
                 lightcurveData=self.transientLightcurveData,
                 atelData=self.transientAtelMatches,
                 objectHistories=self.transientHistories,
-                transientCrossmatches=self.transientCrossmatches
+                transientCrossmatches=self.transientCrossmatches,
+                classificationOB = self.classificationOB
             )
             ticketList.append(thisTicket)
 

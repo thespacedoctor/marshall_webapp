@@ -19,6 +19,7 @@ def overview_tab(
         lightcurveData,
         objectHistories,
         transientCrossmatches,
+        classificationOB,
         headerAndFooter=True):
     """overview tab
 
@@ -60,6 +61,7 @@ def overview_tab(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
+        classificationOB=classificationOB
     )
 
     host_info_block = ticket_building_blocks.host_info_block.host_info_block(

@@ -20,7 +20,8 @@ def single_ticket(
         lightcurveData,
         atelData,
         objectHistories,
-        transientCrossmatches):
+        transientCrossmatches,
+        classificationOB):
     """A single ticket for a transient object tin the pessto marshall
 
     **Key Arguments**
@@ -77,9 +78,31 @@ def single_ticket(
         atelData=atelData,
         lightcurveData=lightcurveData,
         objectHistories=objectHistories,
-        transientCrossmatches=transientCrossmatches
+        transientCrossmatches=transientCrossmatches,
+        classificationOB=classificationOB
     )
+
+    
+
     tabDictionary["overview"] = overviewTab
+
+
+
+
+
+    followupObTab = tabs.followup_ob.followup_ob(log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+        objectComments=objectComments,
+        objectAkas=objectAkas,
+        atelData=atelData,
+        lightcurveData=lightcurveData,
+        transientCrossmatches=transientCrossmatches)
+    tabDictionary["followupObTab"] = followupObTab
+
+
+
+
 
     commentCount, commentsTab = tabs.comments.comments_tab(
         log=log,
@@ -89,7 +112,8 @@ def single_ticket(
         objectAkas=objectAkas,
         atelData=atelData,
         lightcurveData=lightcurveData,
-        transientCrossmatches=transientCrossmatches
+        transientCrossmatches=transientCrossmatches,
+        classificationOB=classificationOB
     )
     tabDictionary["comments"] = commentsTab
 

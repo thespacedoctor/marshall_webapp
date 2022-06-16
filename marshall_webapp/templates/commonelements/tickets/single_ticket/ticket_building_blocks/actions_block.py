@@ -56,6 +56,12 @@ def actions_block(
         discoveryDataDictionary=discoveryDataDictionary,
     )
 
+    followupButton, followupForm = _get_followup_ob_button(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary,
+    )
+
     if not classifyButton:
         classifyButton = ""
         classifyForm = ""
@@ -102,12 +108,13 @@ def actions_block(
             classifyButton,
             changePiButton,
             generateOBButton,
+            followupButton,
             snoozeButton
         ],
         format='vertical'  # [ default | toolbar | vertical ]
     )
 
-    return "%(title)s %(buttonGroup)s %(classifyForm)s" % locals()
+    return "%(title)s %(buttonGroup)s %(classifyForm)s %(followupForm)s" % locals()
 
 
 def _get_classify_button(
@@ -138,6 +145,46 @@ def _get_classify_button(
 
     log.debug('completed the ``_get_classify_button`` function')
     return button, thisForm
+
+
+
+
+
+
+def _get_followup_ob_button(
+        log,
+        request,
+        discoveryDataDictionary,
+):
+    """return a classification button with hidden modal form
+
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``request`` -- the pyramid request object
+    - ``discoveryDataDictionary`` -- dictionary of the transient's discovery data
+    """
+    log.debug('starting the ``_get_classify_button`` function')
+
+    from marshall_webapp.templates.commonelements import forms
+    now = datetime.now()
+    now = now.strftime("%Y-%m-%d")
+
+    ## VARIABLES ##
+    button, thisForm = forms.followup_ob_form.followup_ob_form(
+        log=log,
+        request=request,
+        discoveryDataDictionary=discoveryDataDictionary
+    )
+
+    log.debug('completed the ``_get_classify_button`` function')
+    return button, thisForm
+
+
+
+
+
+
 
 
 def _get_move_to_dropdown(

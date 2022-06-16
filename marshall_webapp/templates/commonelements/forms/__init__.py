@@ -4,3 +4,4 @@ from . import add_new_comment_to_object_form
 from . import create_new_ticket_form
 from . import classify_object_form
 from . import generate_ob_form
+from . import followup_ob_form

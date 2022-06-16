@@ -19,7 +19,8 @@ def comments_tab(
         objectAkas,
         atelData,
         lightcurveData,
-        transientCrossmatches):
+        transientCrossmatches,
+        classificationOB):
     """comments tab
 
     **Key Arguments**
@@ -72,6 +73,7 @@ def comments_tab(
         log=log,
         request=request,
         discoveryDataDictionary=discoveryDataDictionary,
+        classificationOB=classificationOB
     )
 
     host_info_block = ticket_building_blocks.host_info_block.host_info_block(

@@ -89,7 +89,36 @@ class models_transients_get(base_model):
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history, self.transient_crossmatches
+        ### classificationOB (AutoOB) info (list of json)
+        self.classificationOB = self._get_classification_obs_from_database()
+
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history, self.transient_crossmatches, self.classificationOB
+
+    def _get_classification_obs_from_database(self):
+
+        """
+        *get associated comments for the transients*
+
+        **Return**
+
+        - ``objectComments`` -- object comments
+
+        """
+        self.log.debug('starting the ``_get_associated_comments`` method')
+
+        matchedTransientBucketIds = self.matchedTransientBucketIds
+
+        sqlQuery = """
+            select * from scheduler_obs where transientBucketId in (%(matchedTransientBucketIds)s) 
+        """ % locals()
+        objectCommentsTmp = self.request.db.execute(sqlQuery).fetchall()
+        objectComments = []
+        objectComments[:] = [dict(list(zip(list(row.keys()), row)))
+                             for row in objectCommentsTmp]
+
+        self.log.debug('completed the ``_get_associated_comments`` method')
+        return objectComments
+
 
     def _get_transient_data_from_database(
             self):

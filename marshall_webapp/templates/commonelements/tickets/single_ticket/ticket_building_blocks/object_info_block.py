@@ -18,7 +18,8 @@ from fundamentals import times
 def object_info_block(
         log,
         request,
-        discoveryDataDictionary):
+        discoveryDataDictionary,
+        classificationOB):
     """get ticket object info block
 
     **Key Arguments**
@@ -222,4 +223,13 @@ def object_info_block(
             label, daysPast, discoveryDate),
     )
 
-    return "%(title)s %(raDec)s %(galCoord)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s" % locals()
+
+    autoOB = khufu.coloredText(
+        text=str(classificationOB),
+        color="gray",
+        size=4
+    )
+
+
+
+    return "%(title)s %(raDec)s %(galCoord)s %(absMag)s %(nonDect)s %(discoveryDate)s %(dateAdded)s %(autoOB)s" % locals()
