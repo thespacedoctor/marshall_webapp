@@ -12,7 +12,8 @@ from venusian import lift
 
 # RESOURCE CONTEXT
 
-@view_defaults(route_name='transients_comments',  permission="view_users")
+
+@view_defaults(route_name='transients_comments', permission="view_users")
 @lift()
 class views_transients_comments(base_view):
 
@@ -21,7 +22,7 @@ class views_transients_comments(base_view):
         self.resourceName = "transients_comments"
 
     @view_config(request_method='GET', renderer="json", permission="view_users")
-    @view_config(request_param="method=get", renderer="json",  permission="view_users")
+    @view_config(request_param="method=get", renderer="json", permission="view_users")
     def get(self):
         transients_comments = models_transients_comments_get(
             log=self.log,
@@ -58,6 +59,7 @@ class views_transients_comments(base_view):
 
 # RESOURCE ELEMENT
 
+
 @view_defaults(route_name='transients_element_comments', permission="view_users")
 class transients_element_comments_view(object):
 
@@ -88,8 +90,8 @@ class transients_element_comments_view(object):
         responseContent = transients_comments.put()
         return Response(responseContent)
 
-    @view_config(request_method='POST', permission="edit_users")
-    @view_config(request_param="method=post", permission="edit_users")
+    @view_config(request_method='POST', permission="view_users")
+    @view_config(request_param="method=post", permission="view_users")
     def post(self):
         transients_comments = models_transients_element_comments_post(
             log=self.log,
