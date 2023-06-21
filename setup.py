@@ -18,7 +18,7 @@ install_requires = [
     'pyramid_debugtoolbar',
     'waitress',
     'paste',
-    'sqlalchemy',
+    'sqlalchemy==1.4.48',
     'mod_wsgi',
     'khufu',
     'dryxPyramid',
