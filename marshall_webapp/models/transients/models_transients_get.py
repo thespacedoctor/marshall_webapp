@@ -119,9 +119,13 @@ class models_transients_get(base_model):
 
             sqlQuery = f"""
                 select  DISTINCT  transientBucketId from marshall_transient_akas where  REGEXP_REPLACE(name,"[^A-Za-z0-9]","") REGEXP '{searchString}' 
-                union
-                select DISTINCT  transientBucketId from pesstoObjects where  REGEXP_REPLACE(pi_name,"[^A-Za-z0-9]","") REGEXP '{searchString}' 
+                        union
+                select DISTINCT  transientBucketId from pesstoObjects where  REGEXP_REPLACE(pi_name,"[^A-Za-z0-9]","") REGEXP '{searchString}'
+                        union
+                select DISTINCT  transientBucketId from lvk_skytag where  REGEXP_REPLACE(superevent_id,"[^A-Za-z0-9]","") REGEXP '{searchString}' 
             """
+
+            print(sqlQuery)
             rows = self.request.db.execute(
                 text(sqlQuery)).fetchall()
 
