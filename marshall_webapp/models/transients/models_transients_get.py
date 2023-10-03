@@ -125,7 +125,6 @@ class models_transients_get(base_model):
                 select DISTINCT  transientBucketId from lvk_skytag s, lvk_alerts a, lvk_events e where s.mapId=a.primaryId and e.superevent_id=a.superevent_id and a.alert_time =e.alert_time and  REGEXP_REPLACE(s.superevent_id,"[^A-Za-z0-9]","") REGEXP  '{searchString}' 
             """
 
-            print(sqlQuery)
             rows = self.request.db.execute(
                 text(sqlQuery)).fetchall()
 

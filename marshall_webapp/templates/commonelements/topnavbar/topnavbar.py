@@ -145,7 +145,7 @@ def topnavbar(log,
     searchbox = khufu.searchbox(
         size='large',
         htmlId="q",
-        placeHolder="search by object or pi",
+        placeHolder="search by object, gravity event or pi",
         navBar=True,
         pull='right',
         actionScript=href
