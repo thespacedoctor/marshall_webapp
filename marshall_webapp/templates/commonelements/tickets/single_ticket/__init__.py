@@ -20,7 +20,8 @@ def single_ticket(
         lightcurveData,
         atelData,
         objectHistories,
-        transientCrossmatches):
+        transientCrossmatches,
+        skyTags):
     """A single ticket for a transient object tin the pessto marshall
 
     **Key Arguments**
@@ -34,6 +35,7 @@ def single_ticket(
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
     - ``objectHistories`` -- history log for object
     - ``transientCrossmatches`` -- catalogue crossmatches (from sherlock)
+    - ``skyTags`` -- associations with multimessenger events
 
 
     **Return**
@@ -77,7 +79,8 @@ def single_ticket(
         atelData=atelData,
         lightcurveData=lightcurveData,
         objectHistories=objectHistories,
-        transientCrossmatches=transientCrossmatches
+        transientCrossmatches=transientCrossmatches,
+        skyTags=skyTags
     )
     tabDictionary["overview"] = overviewTab
 

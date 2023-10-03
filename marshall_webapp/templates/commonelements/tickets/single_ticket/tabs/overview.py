@@ -9,6 +9,7 @@
 import sys
 import os
 
+
 def overview_tab(
         log,
         request,
@@ -19,6 +20,7 @@ def overview_tab(
         lightcurveData,
         objectHistories,
         transientCrossmatches,
+        skyTags,
         headerAndFooter=True):
     """overview tab
 
@@ -31,14 +33,15 @@ def overview_tab(
     - ``lightcurveData`` -- the lightcurve data for the objects displayed on the webpage
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
     - ``objectHistories`` -- the object histories
-    - ``transientCrossmatches`` -- info from the tranisent crossmatcher
+    - ``transientCrossmatches`` -- info from the transient crossmatcher
+    - ``skyTags`` -- associations with multimessenger events
     - ``headerAndFooter`` -- do you want to display the header and footer?
-    
+
 
     **Return**
 
     - ``overview_tab`` -- the transient overview info tab for the single ticket displayed on the transient listing pages
-    
+
     """
     import datetime
     import khufu
@@ -102,7 +105,8 @@ def overview_tab(
             objectComments=objectComments,
             atelData=atelData,
             lightcurveData=lightcurveData,
-            objectHistories=objectHistories)
+            objectHistories=objectHistories,
+            skyTags=skyTags)
         overview_tab_footer = ticket_building_blocks.ticket_footer_bar.ticket_footer_bar(
             log=log,
             request=request,

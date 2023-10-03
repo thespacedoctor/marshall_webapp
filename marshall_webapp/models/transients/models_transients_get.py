@@ -79,6 +79,7 @@ class models_transients_get(base_model):
         self.transients_comments = self._get_associated_comments()
         self.transient_history = self._get_associated_transient_history()
         self.transient_crossmatches = self._get_associated_transient_crossmatches()
+        self.skyTags = self._get_associated_multimessenger_associations()
 
         self.log.debug('completed the ``get`` method')
 
@@ -89,7 +90,7 @@ class models_transients_get(base_model):
         qs = self.qs
         self.log.debug("""self.qs: `%(qs)s`""" % locals())
 
-        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history, self.transient_crossmatches
+        return self.qs, self.transientData, self.transientAkas, self.transientLightcurveData, self.transientAtelMatches, self.transients_comments, self.totalTicketCount, self.transient_history, self.transient_crossmatches, self.skyTags
 
     def _get_transient_data_from_database(
             self):
@@ -522,6 +523,31 @@ class models_transients_get(base_model):
 
         self.log.debug('completed the ``_get_associated_atel_data`` method')
         return transientAtelMatches
+
+    def _get_associated_multimessenger_associations(
+            self):
+        """
+        *get associated multimessenger association (skyTags)*
+
+        **Return**
+
+        - ``skyTags`` -- the associated multimessenger events and match metadata
+
+        """
+        self.log.debug('starting the ``_get_associated_multimessenger_associations`` method')
+
+        matchedTransientBucketIds = self.matchedTransientBucketIds
+
+        sqlQuery = """
+            SELECT * FROM lvk_skytag s, lvk_alerts a, lvk_events e where s.mapId=a.primaryId and e.superevent_id=a.superevent_id and a.alert_time =e.alert_time and transientBucketId in  (%(matchedTransientBucketIds)s)
+        """ % locals()
+        skyTagsTmp = self.request.db.execute(sqlQuery).fetchall()
+        skyTags = []
+        skyTags[:] = [
+            dict(list(zip(list(row.keys()), row))) for row in skyTagsTmp]
+
+        self.log.debug('completed the ``_get_associated_multimessenger_associations`` method')
+        return skyTags
 
     def _get_associated_comments(
             self):

@@ -22,7 +22,8 @@ def ticket_header_bar(
         objectComments,
         atelData,
         lightcurveData,
-        objectHistories):
+        objectHistories,
+        skyTags):
     """get ticket header bar
 
     **Key Arguments**
@@ -34,7 +35,7 @@ def ticket_header_bar(
     - ``atelData`` -- the atel matches for the objects displayed on the webpage
     - ``lightcurveData`` -- the transient lightcurve data
     - ``objectHistories`` -- the object histories
-
+    - ``skyTags`` -- associations with multimessenger events
 
     **Return**
 
@@ -86,6 +87,14 @@ def ticket_header_bar(
         transientBucketId=discoveryDataDictionary["transientBucketId"]
     )
 
+    # Multimessenger Alert
+    mmAlert = _multimessenger_alert(
+        log,
+        skyTags=skyTags,
+        masterName=discoveryDataDictionary["masterName"],
+        transientBucketId=discoveryDataDictionary["transientBucketId"]
+    )
+
     theseObjectComments = []
     theseObjectComments[:] = [t for t in objectComments if t[
         "pesstoObjectsId"] == discoveryDataDictionary["transientBucketId"]]
@@ -93,7 +102,7 @@ def ticket_header_bar(
     latestComment = ""
     if len(theseObjectComments):
         latestComment = theseObjectComments[0]["comment"].replace("<", "&lt;").replace("&lt;a", "<a").replace(
-            "&gt;ATEL", ">ATEL").replace("&lt;/a&gt;", "</a>").replace("&lt;/a", "</a").replace("&quot;", '"').replace("&gt;", ">").replace('href=http',  'href="http')
+            "&gt;ATEL", ">ATEL").replace("&lt;/a&gt;", "</a>").replace("&lt;/a", "</a").replace("&quot;", '"').replace("&gt;", ">").replace('href=http', 'href="http')
         regex = re.compile(r'(href\=\"http[\w\d\.~/:?=]*?)\>', re.S)
         latestComment = regex.sub('\g<1>">', latestComment)
         # convert bytes to unicode
@@ -167,7 +176,7 @@ def ticket_header_bar(
     topbar = khufu.grid_column(
         span=12,  # 1-12
         offset=0,  # 1-12
-        content="""%(ressurectedWarning)s %(magWarning)s %(atelWarning)s %(lsqFPAlert)s %(comment)s """ % locals(
+        content="""%(ressurectedWarning)s %(mmAlert)s %(magWarning)s %(atelWarning)s %(lsqFPAlert)s %(comment)s """ % locals(
         ),
         pull=False,  # ["right", "left", "center"]
         htmlId=False,
@@ -370,4 +379,58 @@ def _resurrected_object_warning(
         notification = ""
 
     log.debug('completed the ``_resurrected_object_warning`` function')
+    return notification
+
+
+def _multimessenger_alert(
+        log,
+        skyTags,
+        masterName,
+        transientBucketId):
+    """alert the user if the transient is found to be coincident (spatially and temporally) with a multimessenger event
+
+    **Key Arguments**
+
+    - ``log`` -- logger
+    - ``skyTags`` -- associations with multimessenger events
+    - ``masterName`` -- the master name of the transient.
+    - ``transientBucketId`` -- the transientBucketId
+
+    **Return**
+
+    - ``alert`` -- alert giving details of the MM coincidence
+
+    """
+    log.debug('starting the ``_multimessenger_alert`` function')
+
+    notification = ""
+
+    for row in skyTags:
+        if row["transientBucketId"] == transientBucketId:
+
+            if row["group"].lower() == "burst":
+                bestClass = "burst"
+            else:
+                bestClass = "CBC"
+                perc = 0
+                for k in ["class_bbh", "class_bns", "class_nsbh", "class_terrestrial"]:
+                    if row[k] > perc:
+                        bestClass = k.replace("class_", "")
+                        if len(bestClass) < 5:
+                            bestClass = bestClass.upper()
+                        perc = row[k]
+            link = khufu.a(
+                content=row["superevent_id"],
+                href=f"https://gracedb.ligo.org/superevents/{row['superevent_id']}",
+            )
+
+            notification += khufu.alert(
+                alertText=f'Located in the region of sky covering the top <b>{row["contour"]:0.0f}%</b> most concentrated chance of containing the <b>{bestClass}</b> gravity event <b>{link}</b>. {masterName} was discovered <b>{row["daysSinceEvent"]:0.1f} days</b> after the event. In this line-of-sight, {row["superevent_id"]} most likely resides at {row["distMpc"]} (±{row["sigmaMpc"]}) Mpc.',
+                alertHeading='Multimessenger:',
+                extraPadding=False,
+                # [ "warning" | "error" | "success" | "info" ]
+                alertLevel='info'
+            )
+
+    log.debug('completed the ``_multimessenger_alert`` function')
     return notification
