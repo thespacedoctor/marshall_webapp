@@ -424,9 +424,9 @@ def _multimessenger_alert(
             )
 
             if row["daysSinceEvent"] > 0:
-                daysSince = f"{row["daysSinceEvent"]:0.1f} days after"
+                daysSince = f"{row['daysSinceEvent']:0.1f} days after"
             else:
-                daysSince = f"{math.abs(row["daysSinceEvent"]):0.1f} days before"
+                daysSince = f"{math.abs(row['daysSinceEvent']):0.1f} days before"
 
             notification += khufu.alert(
                 alertText=f'Located in the region of sky covering the top <b>{row["contour"]:0.0f}%</b> most concentrated chance of containing the <b>{bestClass}</b> gravity event <b>{link}</b>. {masterName} was discovered <b>{daysSince}</b> the event. In this line-of-sight, {row["superevent_id"]} most likely resides at {row["distMpc"]} (±{row["sigmaMpc"]}) Mpc.',
