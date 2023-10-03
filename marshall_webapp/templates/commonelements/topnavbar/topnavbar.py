@@ -143,7 +143,7 @@ def topnavbar(log,
 
     href = request.route_path('transients_search')
     searchbox = khufu.searchbox(
-        size='large',
+        size='xlarge',
         htmlId="q",
         placeHolder="search by object, gravity event or pi",
         navBar=True,
