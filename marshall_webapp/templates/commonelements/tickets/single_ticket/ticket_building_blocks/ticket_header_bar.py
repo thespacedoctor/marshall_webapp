@@ -429,7 +429,7 @@ def _multimessenger_alert(
                 daysSince = f"{math.abs(row['daysSinceEvent']):0.1f} days before"
 
             notification += khufu.alert(
-                alertText=f'Located within the inner <b>{row["contour"]:0.0f}%</b> probability contour of the {row["alert_type"]} skymap of <b>{bestClass}</b> gravity event <b>{link}</b>. {masterName} was discovered <b>{daysSince}</b> the event. In this line-of-sight, {row["superevent_id"]} most likely resides at {row["distMpc"]} (±{row["sigmaMpc"]}) Mpc.',
+                alertText=f'Located within the inner <b>{row["contour"]:0.0f}%</b> probability contour of the skymap of <b>{bestClass}</b> gravity event <b>{link}</b> ({row["alert_type"]} map). {masterName} was discovered <b>{daysSince}</b> the event. In this line-of-sight, {row["superevent_id"]} most likely resides at {row["distMpc"]} (±{row["sigmaMpc"]}) Mpc.',
                 alertHeading='Multimessenger:',
                 extraPadding=False,
                 # [ "warning" | "error" | "success" | "info" ]
