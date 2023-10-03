@@ -122,7 +122,7 @@ class models_transients_get(base_model):
                         union
                 select DISTINCT  transientBucketId from pesstoObjects where  REGEXP_REPLACE(pi_name,"[^A-Za-z0-9]","") REGEXP '{searchString}'
                         union
-                select DISTINCT  transientBucketId from lvk_skytag where  REGEXP_REPLACE(superevent_id,"[^A-Za-z0-9]","") REGEXP '{searchString}' 
+                select DISTINCT  transientBucketId from lvk_skytag s, lvk_alerts a, lvk_events e where s.mapId=a.primaryId and e.superevent_id=a.superevent_id and a.alert_time =e.alert_time and  REGEXP_REPLACE(s.superevent_id,"[^A-Za-z0-9]","") REGEXP  '{searchString}' 
             """
 
             print(sqlQuery)
