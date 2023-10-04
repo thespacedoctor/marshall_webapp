@@ -405,6 +405,8 @@ def _multimessenger_alert(
 
     notification = ""
 
+    import math
+
     for row in skyTags:
         if row["transientBucketId"] == transientBucketId:
             if row["group"].lower() == "burst":
