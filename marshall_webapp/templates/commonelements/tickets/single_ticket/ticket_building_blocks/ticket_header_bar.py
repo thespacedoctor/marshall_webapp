@@ -405,8 +405,6 @@ def _multimessenger_alert(
 
     notification = ""
 
-    import math
-
     for row in skyTags:
         if row["transientBucketId"] == transientBucketId:
             if row["group"].lower() == "burst":
@@ -428,7 +426,7 @@ def _multimessenger_alert(
             if row["daysSinceEvent"] > 0:
                 daysSince = f"{row['daysSinceEvent']:0.1f} days after"
             else:
-                daysSince = f"{math.abs(row['daysSinceEvent']):0.1f} days before"
+                daysSince = f"{abs(row['daysSinceEvent']):0.1f} days before"
 
             notification += khufu.alert(
                 alertText=f'Located within the inner <b>{row["contour"]:0.0f}%</b> probability contour of the skymap of <b>{bestClass}</b> gravity event <b>{link}</b> ({row["alert_type"]} map). {masterName} was discovered <b>{daysSince}</b> the event. In this line-of-sight, {row["superevent_id"]} most likely resides at {row["distMpc"]} (±{row["sigmaMpc"]}) Mpc.',
