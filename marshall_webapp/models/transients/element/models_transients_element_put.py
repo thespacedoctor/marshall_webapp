@@ -261,9 +261,12 @@ class models_transients_element_put(object):
         oldobservationPriority = objectData[0]["observationPriority"]
         mwl = objectData[0]["marshallWorkflowLocation"]
 
+        if observationPriority == False or observationPriority == "False":
+            observationPriority = "null"
+
         # CHANGE THE OBSERVATIONPRIORITY IN THE DATABASE
         sqlQuery = """
-            update pesstoObjects set observationPriority = "%(observationPriority)s" where transientBucketId = %(transientBucketId)s
+            update pesstoObjects set observationPriority = %(observationPriority)s where transientBucketId = %(transientBucketId)s
         """ % locals()
         self.request.db.execute(sqlQuery)
         self.request.db.commit()
