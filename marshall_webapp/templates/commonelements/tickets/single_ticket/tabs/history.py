@@ -93,9 +93,9 @@ def history_tab(
         }
         theseHistories.append(newEntry)
 
-    # from operator import itemgetter
-    # theseHistories = sorted(
-    #     theseHistories, key=itemgetter('dateCreated'), reverse=False)
+    from operator import itemgetter
+    theseHistories = sorted(
+        theseHistories, key=itemgetter('dateCreated'), reverse=False)
 
     for hLog in theseHistories:
 
