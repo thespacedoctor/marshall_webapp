@@ -151,14 +151,14 @@ class templates_resources_transients(object):
                     delimiter=":"
                 )
             else:
-                discoveryDataDictionary["raSex"] = None
+                discoveryDataDictionary["raSex"] = "None"
             if discoveryDataDictionary["decDeg"]:
                 discoveryDataDictionary["decSex"] = converter.dec_decimal_to_sexegesimal(
                     dec=discoveryDataDictionary["decDeg"],
                     delimiter=":"
                 )
             else:
-                discoveryDataDictionary["decSex"] = None
+                discoveryDataDictionary["decSex"] = "None"
             transientBucketId = discoveryDataDictionary["transientBucketId"]
             observationPriority = discoveryDataDictionary[
                 "observationPriority"]
