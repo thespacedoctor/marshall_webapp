@@ -264,7 +264,7 @@ class models_transients_element_put(object):
         if observationPriority == False or observationPriority == "False":
             observationPriority = "null"
 
-        # CHANGE THE OBSERVATIONPRIORITY IN THE DATABASE
+        # CHANGE THE OBSERVATION PRIORITY IN THE DATABASE
         sqlQuery = """
             update pesstoObjects set observationPriority = %(observationPriority)s where transientBucketId = %(transientBucketId)s
         """ % locals()
