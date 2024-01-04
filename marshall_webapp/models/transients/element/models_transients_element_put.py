@@ -276,6 +276,11 @@ class models_transients_element_put(object):
             "changed the observational priority of transient #%(transientBucketId)s to '%(observationPriority)s'" % locals(
             )
 
+        if observationPriority == "null":
+            self.log.debug(
+                'completed the ``_set_observational_priority_for_object`` method')
+            return None
+
         observationPriority = int(observationPriority)
         oldobservationPriority = int(oldobservationPriority)
 
