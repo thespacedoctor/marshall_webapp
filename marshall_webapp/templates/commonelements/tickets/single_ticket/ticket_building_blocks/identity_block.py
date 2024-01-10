@@ -521,6 +521,7 @@ def identity_block(
             text="priority: ",
             lineBreak=False
         )
+        thisObservationalPriority = "NONE"
         if discoveryDataDictionary["marshallWorkflowLocation"] == "following":
             pList = ["CRITICAL", "IMPORTANT", "USEFUL", "NONE"]
             for n, w, c in zip([1, 2, 3, 4], pList, ["green", "yellow", "red", "blue"]):
