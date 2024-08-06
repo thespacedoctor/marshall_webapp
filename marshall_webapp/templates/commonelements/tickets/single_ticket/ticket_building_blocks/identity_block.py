@@ -515,6 +515,16 @@ def identity_block(
         size=3,
     )
 
+    schedulerOBId = cu.little_label(
+        text="scheduler ob id: ",
+        lineBreak=False
+    )
+    thisSchedulerOBId = khufu.coloredText(
+        text=discoveryDataDictionary["OB_ID"],
+        color="magenta",
+        size=3,
+    )
+
     observationalPriority = ""
     if discoveryDataDictionary["marshallWorkflowLocation"] in ["following", "pending observation"]:
         observationalPriority = cu.little_label(
@@ -566,6 +576,17 @@ def identity_block(
         onDesktop=True
     )
 
+    schedulerOBId = khufu.grid_row(
+        responsive=True,
+        columns="%(schedulerOBId)s %(thisSchedulerOBId)s" % locals(
+        ),
+        htmlId=False,
+        htmlClass=False,
+        onPhone=True,
+        onTablet=True,
+        onDesktop=True
+    )
+
     listLocation = cu.little_label(
         text="list: ",
         lineBreak=False
@@ -607,7 +628,7 @@ def identity_block(
     else:
         annotations = ""
 
-    content = u"%(title)s %(masterName)s %(annotations)s %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s " % locals(
+    content = u"%(title)s %(masterName)s %(annotations)s %(objectStamp)s %(observationalPriority)s %(pi)s %(akaList)s %(listLocation)s %(transientId)s %(schedulerOBId)s" % locals(
     )
 
     return content
