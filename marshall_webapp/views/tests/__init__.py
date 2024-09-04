@@ -26,4 +26,4 @@ if exists:
     )
     arguments, settings, log, dbConn = su.setup()
 
-    utKit("").refresh_database()
+    # utKit("").refresh_database()
