@@ -506,7 +506,7 @@ def identity_block(
         )
 
     transientId = cu.little_label(
-        text="pessto id: ",
+        text="transient id: ",
         lineBreak=False
     )
     thisTransientBucketId = khufu.coloredText(
@@ -515,15 +515,46 @@ def identity_block(
         size=3,
     )
 
-    schedulerOBId = cu.little_label(
-        text="scheduler ob id: ",
-        lineBreak=False
-    )
-    thisSchedulerOBId = khufu.coloredText(
-        text=discoveryDataDictionary["OB_ID"],
-        color="magenta",
-        size=3,
-    )
+    if discoveryDataDictionary["OB_ID"]:
+
+        obStatus = discoveryDataDictionary["ESO_OB_Status"]
+
+        lookup = {
+            "P": "P2: staged",
+            "+": "P2: accepted",
+            "x": "Executed",
+            "A": "Aborted",
+            "Not Available": "Requested"
+        }
+
+        if obStatus in lookup:
+            obStatus = lookup[obStatus]
+
+        schedulerOBId = cu.little_label(
+            text="ESO OB ID: ",
+            lineBreak=False
+        )
+        thisSchedulerOBId = khufu.coloredText(
+            text=f'{discoveryDataDictionary["OB_ID"]}',
+            color="green",
+            size=3,
+        )
+        thisSchedulerOBIdStatus = khufu.coloredText(
+            text=f' ({obStatus})',
+            color="blue",
+            size=3,
+        )
+        thisSchedulerOBId += thisSchedulerOBIdStatus
+    else:
+        schedulerOBId = cu.little_label(
+            text="ESO OB: ",
+            lineBreak=False
+        )
+        thisSchedulerOBId = khufu.coloredText(
+            text=f'not requested',
+            color="green",
+            size=3,
+        )
 
     observationalPriority = ""
     if discoveryDataDictionary["marshallWorkflowLocation"] in ["following", "pending observation"]:
